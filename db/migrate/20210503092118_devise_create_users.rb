@@ -30,7 +30,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       # Custom attributes
       t.string :first_name
       t.string :surname
-      t.string :role
+      t.integer :role
       t.boolean :receive_best_deals, default: false
 
       ## Lockable
