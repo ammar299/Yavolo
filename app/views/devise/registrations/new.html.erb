@@ -9,8 +9,8 @@
   </div>
     
   <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name, autofocus: true, autocomplete: "last_name" %>
+    <%= f.label :surname %><br />
+    <%= f.text_field :surname, autofocus: true, autocomplete: "surname" %>
   </div>
   
   <div class="field">
@@ -29,6 +29,16 @@
   <div class="field">
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.check_box :terms_and_conditions %>
+    <%= f.label :terms_and_conditions %>
+  </div>
+
+  <div class="field">
+    <%= f.check_box :receive_best_deals %>
+    <%= f.label :receive_best_deals %>
   </div>
 
   <div class="actions">
