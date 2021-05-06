@@ -2,7 +2,7 @@
 
 class DeviseCreateUsers < ActiveRecord::Migration[6.1]
   def change
-    create_table :users, id: :uuid do |t|
+    create_table :users do |t|
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
@@ -29,8 +29,9 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
 
       # Custom attributes
       t.string :first_name
-      t.string :last_name
+      t.string :surname
       t.string :role
+      t.boolean :receive_best_deals, default: false
 
       ## Lockable
       # t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
