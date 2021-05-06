@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(version: 2021_05_06_080639) do
     t.string "unconfirmed_email"
     t.string "first_name"
     t.string "surname"
-    t.string "role"
+    t.integer "role"
     t.boolean "receive_best_deals", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
