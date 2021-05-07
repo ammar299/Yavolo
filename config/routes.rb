@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  root to: 'home#index'
   
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
@@ -12,4 +11,15 @@ Rails.application.routes.draw do
     get 'password/edit', to: 'users#edit_password', as: :edit_password
     patch 'password/update', to: 'users#update_password', as: :update_password
   end
+
+  authenticate :user, ->(u) { u.buyer? } do
+    get '/home', to: 'buyer_dashboard#index', as: :buyer_dashboard
+  end
+
+  authenticate :user, ->(u) { u.seller? } do
+    get '/dashboard', to: 'seller_dashboard#index', as: :seller_dashboard
+  end
+
+  root to: 'home#index'
+  get '*path', to: 'home#index', via: :all
 end

@@ -8,10 +8,20 @@ class User < ApplicationRecord
   validates :terms_and_conditions, acceptance: true
   validates :email, confirmation: true
   validates :email_confirmation, presence: true
+  validates :role, presence: true
 
-  # validates :best_deals_email
   has_one_attached :avatar
   
+  enum role: [:buyer, :seller]
+
+  # after_initialize :set_default_role, if: :new_record?
+
+  # def set_default_role
+  #   unless self.role.present?
+  #     self.role ||= :buyer
+  #   end
+  # end
+
   def update_password_with_password(params, *options)
     current_password = params.delete(:current_password)
     result = if valid_password?(current_password)
