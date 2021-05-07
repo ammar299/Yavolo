@@ -8,7 +8,7 @@ class User < ApplicationRecord
   validates :terms_and_conditions, acceptance: true
   validates :email, confirmation: true
   validates :email_confirmation, presence: true
-  validates :role, presence: true
+  # validates :role, presence: true
 
   has_one_attached :avatar
   
@@ -39,8 +39,9 @@ class User < ApplicationRecord
   def self.create_from_provider_data(provider_data)
     where(provider: provider_data.data, uid: provider_data.uid).first_or_create do |user|
       user.email = provider_data.info.email
+      user.email_confirmation = provider_data.info.email
       user.first_name = provider_data.info.name.split.first
-      user.last_name = provider_data.info.name.split.second
+      user.surname = provider_data.info.name.split.second
       user.provider = provider_data.provider
       user.password = Devise.friendly_token[0,20]
     end
