@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
   validates :terms_and_conditions, acceptance: true
   validates :email, confirmation: true
-  validates :email_confirmation, presence: true
+  validates :email_confirmation, presence: true, on: :create
   # validates :role, presence: true
 
   has_one_attached :avatar

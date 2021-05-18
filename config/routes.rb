@@ -21,5 +21,9 @@ Rails.application.routes.draw do
   end
 
   root to: 'home#index'
-  get '*path', to: 'home#index', via: :all
+  # get '*path', to: 'home#index', via: :all
+
+  get '*path', to: redirect('/'), constraints: lambda { |req|
+    req.path.exclude? 'rails/active_storage'
+  }
 end
