@@ -1,0 +1,21 @@
+@import './fonts.scss';
+@import './style.css';
+
+body{
+	background-color: #fdf8f3;
+	margin: 0px;
+	font-family: 'buenos_airesregular';
+}
+ul{
+	padding: 0;
+	margin: 0;
+}
+ul li{
+	list-style: none;
+}
+img{
+	max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'buenos_airessemibold';
+}

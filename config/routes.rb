@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   end
 
   root to: 'home#index'
+  get '/demo/signup', to: 'home#signup'
   # get '*path', to: 'home#index', via: :all
 
   get '*path', to: redirect('/'), constraints: lambda { |req|
