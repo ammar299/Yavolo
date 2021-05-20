@@ -1,4 +1,3 @@
-
     <div class="main-page">
         <header>
             <div class="container">
@@ -36,7 +35,7 @@
                                 <div class="d-flex justify-content-between flex-wrap mb-0">
                                     <div class="form-check mb-0">
                                         <label class="check-container">Stay signed in
-                                            <input type="checkbox" >
+                                             <input name="user[remember_me]" type="hidden" value="0"><input type="checkbox" value="1" name="user[remember_me]" id="user_remember_me">
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
@@ -61,6 +60,8 @@
                                     ipsum dolor sit amet, consectetur adipiscing elit. Utrum igitur tibi litteram videor
                                     an totas paginas commovere? Vulgo enim dicitur: Iucundi acti labores</p>
                             <% end %>
+
+
                         </div>
                     </div>
                 </div>
