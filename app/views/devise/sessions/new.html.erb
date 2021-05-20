@@ -24,7 +24,8 @@
                     <div class="col col-12 col-lg-6 col-md-8 mx-auto">
                         <div class="sign-in">
                             <h3 class="text-center mb-4" style="color: #640529;font-size: 48px;">Sign In</h3>
-                            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>                                <div class="form-group general-mrgn">
+                            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>     
+                                <div class="form-group general-mrgn">
                                     <label for="exampleInputEmail1">Email Address *</label>
                                     <%= f.email_field :email, autofocus: true, class: "form-control" ,id: "exampleInputEmail1",placeholder: "Email Address" %>
                                 </div>
