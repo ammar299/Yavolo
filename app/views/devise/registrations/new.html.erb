@@ -76,11 +76,12 @@
                             </div>
                             <%= f.submit "Register", class: "btn btn-primary btn-lg btn-block mb-4" %>
                         <% end %>
-                        <%if params[:role] == "1" %>
-                          <p class="text-center" style="color: #640529; font-size: 16px;">Are you a seller? Register your interest with Yavolo
-                          <a href="<%= new_user_registration_path(role: 0) %>" style="text-decoration: none;color: #640529;"><b><u>here!</u> </a></b>  </p>
-                        <%elsif params[:role] == "0" %>
+                        <%if params[:role] == "1" || params[:role].nil? %>
                           <p class="text-center" style="color: #640529; font-size: 16px;">Are you a buyer? Register your interest with Yavolo
+                          <a href="<%= new_user_registration_path(role: 0) %>" style="text-decoration: none;color: #640529;"><b><u>here!</u> </a></b>  </p>
+                        <% end %>
+                        <%if params[:role] == "0" || params[:role].nil? %>
+                          <p class="text-center" style="color: #640529; font-size: 16px;">Are you a seller? Register your interest with Yavolo
                           <a href="<%= new_user_registration_path(role: 1) %>" style="text-decoration: none;color: #640529;"><b><u>here!</u> </a></b>  </p>
                         <%end%>
                     </div>

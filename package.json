@@ -10,8 +10,10 @@
     "@rails/webpacker": "5.3.0",
     "@types/popper.js": "^1.11.0",
     "bootstrap": "4.3.1",
+    "cropperjs": "^1.5.11",
     "jquery": "^3.6.0",
     "popper.js": "^1.16.1",
+    "stimulus": "^2.0.0",
     "turbolinks": "^5.2.0",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12"

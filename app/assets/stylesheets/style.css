@@ -1,4 +1,3 @@
-
 @font-face {
     font-family: 'buenos_airesblack';
     src: url('buenosaires-black-webfont.woff2') format('woff2'),
@@ -296,6 +295,7 @@ h1, h2, h3, h4, h5, h6 {
 
 
 /*Dashboard*/
+
 .dashboard-page {
 	display: flex;
 	min-height: 100vh;
@@ -353,7 +353,8 @@ h1, h2, h3, h4, h5, h6 {
 	background: #731D3D 0% 0% no-repeat padding-box;
 }
 .add-listing-text {
-	padding: 40px 0;
+	padding: 30px 0;
+	color: #640529;
 }
 .seller-manual-product .form-group input {
 	position: relative;
@@ -361,18 +362,39 @@ h1, h2, h3, h4, h5, h6 {
 	color: #C09AA8;
 	border-radius: 20px;
 	border: none;
+	padding-right: 50px;
 }
 .seller-manual-product .form-group span {
 	position: absolute;
-	right: 25px;
-	top: 10px;
+	right: 20px;
+	top: 9px;
 	color: #C09AA8;
 }
 .seller-manual-product .seller-product-table .seler-table-header {
-	background-color: #640529;
+	
 	color: #FEFCF9;
 	font-size: 14px;
 	font-weight: normal !important;
+}
+.seller-manual-product .seller-product-table .seler-table-header tr th {
+	background-color: #640529;
+	border-bottom: 4px solid #FDF8F3;
+}
+.seller-manual-product .seller-product-table tr {
+	background-color: transparent !important;
+}
+.seller-manual-product .seller-product-table tr td {
+	border: 0;
+	border-bottom: 4px solid #FDF8F3;
+	background-color: #fff;
+}
+.seller-manual-product .seller-product-table tr td:first-child,
+.seller-manual-product .seller-product-table .seler-table-header tr th:first-child {
+	border-radius: 8px 0 0 8px;
+}
+.seller-manual-product .seller-product-table tr td:last-child,
+.seller-manual-product .seller-product-table .seler-table-header tr th:last-child {
+	border-radius: 0 8px 8px 0;
 }
 .seller-manual-product .seller-product-table .seler-table-header tr {
 	width: 100%;
@@ -384,15 +406,13 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: normal;
 	vertical-align: revert;
 }
+.seller-manual-product .seller-product-table table td {
+	padding: 5px;
+}
 .seller-manual-product .seller-product-table tbody tr {
 	background-color: #FFFFFF;
 	color: #640529;
 	font-size: 12px;
-}
-.seller-manual-product .seller-product-table tbody tr .link-middle {
-	vertical-align: middle;
-	display: flex;
-
 }
 .seller-manual-product .seller-product-table tbody tr td a {
 	text-decoration: none;
@@ -400,28 +420,39 @@ h1, h2, h3, h4, h5, h6 {
 	font-size: 14px;
 	background-color: #FFD8DD;
 	border-radius: 15px;
-	padding: 7px 5px;
+	padding: 8px 8px 6px 8px;
+	display: inline-flex;
+	justify-content: center;
+	text-align: center;
+	line-height: 16px;
 	align-items: center;
-	vertical-align: middle;
-	
+}
+.imglist {
+	height: 45px;
+	width: 45px;
+	display: inline-flex;
+	background-color: #eee;
 }
 .seller-manual-product .create-product {
 	text-align: center;
 	position: relative;
+	padding: 40px 0;
 }
 .seller-manual-product .prodct-brdr::after {
 	content: "";
-	
-	content: "";
     display: block;
-    width: 50%;
     height: 1px;
     background: #D5D5D5;
-    left: 25%;
-    bottom: 0;
+    left: 10%;
+    right: 10%;
+    bottom: 0px;
     position: absolute;
-	margin-bottom: 38px;
-	
+}
+.border-right-1 {
+	border-right: 1px solid #D5D5D5;
+}
+.border-right-1 .form-group {
+	position: relative;
 }
 .seller-manual-product .create-product h5 {
 	color: #640529;;
@@ -438,18 +469,17 @@ h1, h2, h3, h4, h5, h6 {
 	
 }
 .seller-manual-product .create-product .btn {
-	width: 232px;
+	min-width: 232px;
 	color: #FDF8F3;
 	font-size: 14px;
-	text-align: center;
 	text-decoration: none;
 	background-color: #640529;
-	width: 232px;
 	height: 40px;
 	border-radius: 40px;
+	display: inline-flex;
+	justify-content: center;
 	align-items: center;
-	margin-top: 24px;
-	margin-bottom: 80px;
+	margin-top: 10px;
 
 }
 .seller-footer {
@@ -470,14 +500,20 @@ h1, h2, h3, h4, h5, h6 {
 	text-decoration: none;
 	color: #640529;
 }
+.mx70 {
+	max-width: 170px !important;
+}
 
 
 
 
 
 
-
-
+/*@media (max-width: 1920px) and (min-width: 1024px)  {
+	html {
+		zoom: 0.9;
+	}
+}*/
 
 @media only screen and (max-width: 1024px)  {
 	.dashboard-page .leftside {
@@ -511,19 +547,191 @@ h1, h2, h3, h4, h5, h6 {
 /*Dashboard*/
 
 
+/*/ ================Seller Success Hub ==============/*/
+.seller-success-hub .seller-center-heading h3 {
+    margin-top: 45px;
+    color: #640529;
+    font-size: 38px;    
+}
+.seller-success-hub .seller-center-heading p {
+    color: #640529;
+    font-size: 16px;
+    max-width: 480px;
+    margin: auto;
+    margin-bottom: 60px !important; 
+}
+
+.seller-order-board p {
+	color: #640529;
+	font-size: 16px;
+	text-align: center;
+	padding-top: 0;
+	margin-bottom: 0 !important;
+	min-height: 48px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.seller-order-board .detail {
+    align-items: center;
+    text-align: center;
+    color: #640529;
+    font-size: 44px;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    width: 100%;
+    height: 129px;
+    padding: 37px 0;
+    margin: 6px 0;
+}
+.seller-news .news-title {
+    text-align: center;
+    font-size: 24px;
+    color: #640529;
+    padding-bottom: 20px;
+    margin-bottom: 0;
+}
+.seller-news .seller-news-inner {
+    background-color: #FFFFFF;
+    border-radius: 24px;
+    padding: 20px 20px 0px 20px;
+    margin-bottom: 40px;
+    flex: 1;
+}
+.seller-news .seller-news-inner .brdr-btm {
+    border-bottom: 1px solid #E5E5E5;
+}
+.seller-news .seller-news-inner .seller-news-detail p {
+    font-size: 16px;
+    color: #640529;
+}
+.seller-news .seller-news-inner .seller-news-detail .news-date {
+    font-size: 12px !important;
+    color: #640529;
+    letter-spacing: 0.6px;
+}
+.seller-news .seller-news-inner .seller-news-detail .read-more {
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+.seller-news .seller-news-inner .seller-news-detail .read-more a {
+    color: #FF3E55;
+    text-align: center;
+    text-decoration: none;
+    opacity: 1;
+    border-radius: 15px;
+    background: #FFD8DD;
+    margin-bottom: 20px !important;
+    padding: 8px 20px 6px 20px;
+    width: 119px;
+}
+.seller-news .seller-news-inner ul li {
+    font-size: 16px;
+    color: #640529;
+    line-height: 3;
+    font-weight: 400;
+}
+.seller-news .seller-news-inner ul li .red {
+    color: #FF3E55;
+}
 
 
+@media (min-width: 768px) {
+	.seller-order-board .col-md-3 {
+	    flex: 0 0 33.33%;
+	    max-width: 33.33%;
+	}
+}
+@media (min-width: 1025px) {
+	.seller-order-board .col-md-3 {
+	    flex: 0 0 20%;
+	    max-width: 20%;
+	}
+}
+/* ================Seller Success Hub ==============*/
 
 
+/* ==============Orders & Delivery ========*/
 
+.oreder-delivery .order-table tbody tr .link-middle .link-bg {
+	background: #FF3E55;
+	color: #FFFFFF;
+}
+.oreder-delivery .order-table thead tr .order-checkmark {
+	background-color: transparent;
+    border: 2px solid #ffffff;
+	padding-left: 0;
+	top: -15px;
+	position: absolute;
+}
+.oreder-delivery .order-table thead tr th {
+	text-align: center;
+	
+}
+.oreder-delivery .order-table thead tr .check-container .order-checkmark:after {
+	left: 8px;
+	top: 4px;
+	width: 5px;
+	height: 10px;
+	border: solid #FFFFFF;
+	border-width: 0 3px 3px 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+  }
+.oreder-delivery .order-table tbody tr .mark-pd {
+	padding-left: 11px;
+}
+.oreder-delivery .order-delivery-list .active {
+	background: #F9EDE1
+}
+.oreder-delivery .order-delivery-list li {
+	color: #640529;
+	font-size: 18px;
+	line-height: 3rem;
+	padding: 0 20px;
+	border-radius:8px ;
+	cursor: pointer;
+}
+.oreder-delivery .order-delivery-list li:hover {
+	background: #F9EDE1
+	
+}
+.oreder-delivery .seller-manual-product form .input-form{
+	position: relative;
+}
+.oreder-delivery .seller-manual-product .form-group span {
+	position: absolute;
+	right: 1px;
+    top: 11px;
+}
+.oreder-delivery .seller-manual-product form .btn-refresh {
+	background-color: #640529;
+	color: #FDF8F3;
+	padding: 6px 15px;
+	border-radius: 20px;
+	font-size: 14px;
+}
+.oreder-delivery .seller-manual-product .order-delivery-form form input ,.form-control {
+	font-size: 14px;
+	border-radius:20px ;
+	color:#C09AA8 ;
+	border: none;
+	margin: 0 10px;
+}
+.oreder-delivery .seller-manual-product .order-delivery-form form select {
+	font-size: 14px;
+	border-radius:20px ;
+	background-color: transparent;
+	color:#640529 ;
+	border: none;
+	margin: 0 10px;
+	box-shadow: none;
+}
 
-
-
-
-
-
-
-
+.oreder-delivery .seller-manual-product .order-delivery-form form > div {
+	margin: 0 10px;
+}
 
 
 
