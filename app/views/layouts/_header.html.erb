@@ -1,0 +1,19 @@
+<header>
+    <div class="container">
+        <div class="signin-header d-flex justify-content-between align-items-center">
+            <div class="signin-logo d-flex align-items-center my-4">
+            <div class="logo-inner">
+                <%= image_tag "Yavolo_Logo_WarmRed.png", style: "cursor: pointer;text-decoration: none;" %>
+                <p class="my-2" style="color: #640529; font-size: 20px;">A good deal better</p>
+            </div>
+            <div class="back-yavolo">
+                <a href="<%= root_path %>"><i class="fas fa-angle-left"></i> Back to Yavolo</a>
+            </div>
+        </div>
+            <div class="right">
+                <a href="<%= new_seller_registration_path %>" class="account-link">Don’t have an account yet?</a>
+                <a href="<%= new_buyer_registration_path %>" class="register-now-bt">Register Now</a>
+            </div>
+        </div>
+    </div>
+</header>

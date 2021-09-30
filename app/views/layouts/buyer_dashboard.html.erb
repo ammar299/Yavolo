@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Buyer</title>
+    <title>Seller</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,16 +11,185 @@
   </head>
 
   <body>
-    
-    <%= render 'shared/header' %>
-    
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
 
-    <div class="container">
-      <%= yield %>
+    <div class="dashboard-page">
+    <div class="leftside">
+      <div class="sideheader">
+        <a href="<% root_path %>" class="logo"><%= image_tag "Yavolo_Logo_WarmRed.png" , style: 'width:168px' %></a>
+        <p class="mt-3 mb-0">A good deal better</p>
+      </div>
+      <div class="sidebody">
+        <ul>
+          <li class="active"><a href="#">Success Hub</a></li>
+          <li><a href="#">Listings</a></li>
+          <li><a href="#">Messages</a></li>
+          <li><a href="#">Orders & Delivery</a></li>
+          <li><a href="#">Finances</a></li>
+          <li><a href="#">Success Meter</a></li>
+          <li><a href="#">Help & Resource Centre</a></li>
+          <li><a href="#">Account & Settings</a></li>
+        </ul>
+        <ul>
+          <li><a href="<%= destroy_buyer_session_path %>" data-method="delete" >Logout</a></li>
+          <li><a href="#">Switch Accounts</a></li>
+        </ul>
+      </div>
     </div>
-   
-    
+    <div class="rightside">
+      <div class="main-page pt-5">
+            <div class="seller-success-hub">
+                <div class="seller-center-heading text-center">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h3 class="">Buyer Success Hub</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <section class="seller-order-board">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p class="title">Your Open Orders</p>
+                                <div class="detail">
+                                    100
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <p class="title">Last 30 Days Revenue</p>
+                                <div class="detail">
+                                    £50,000
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <p class="title">New Messages</p>
+                                <div class="detail">
+                                    4
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <p class="title">% Yavolo Enabled Listings</p>
+                                <div class="detail">
+                                    85%
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <p class="title">Estimated Payment</p>
+                                <div class="detail">
+                                    £40,000
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="mt-5 mb-5" >
+                    </div>
+                </section>
+                <section class="seller-news">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-4 d-flex flex-column">
+                                <p class="news-title">Seller News</p>
+                                <div class="seller-news-inner">  
+                                    <div class="seller-news-detail brdr-btm mb-4">
+                                        <p class="news-date mb-0">09.02.21</p>
+                                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+                                        <p class="read-more"><a href="">Read more</a></p>
+                                    </div> 
+                                    <div class="seller-news-detail brdr-btm mb-4">
+                                        <p class="news-date mb-0">09.02.21</p>
+                                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+                                        <p class="read-more"><a href="">Read more</a></p>
+                                    </div> 
+                                    <div class="seller-news-detail">
+                                        <p class="news-date mb-0">09.02.21</p>
+                                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+                                        <p class="read-more pb-4"><a href="">Read more</a></p>
+                                    </div> 
+                                </div>
+                            </div>
+                            <div class="col-md-4 d-flex flex-column">
+                                <p class="news-title">To Do List</p>
+                                <div class="seller-news-inner">  
+                                    <ul>
+                                        <li class="d-flex justify-content-between brdr-btm">
+                                            <span>Orders to dispatch today</span>
+                                            <span>17</span>
+                                        </li>
+                                        <li class="d-flex justify-content-between brdr-btm">
+                                            <span>Review Yavolo requests</span>
+                                            <span>12</span>
+                                        </li>
+                                        <li class="d-flex justify-content-between brdr-btm">
+                                            <span>Review low stock items</span>
+                                            <span>8</span>
+                                        </li>
+                                        <li class="d-flex justify-content-between">
+                                            <span>Reply to new messages</span>
+                                            <span>14</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-4 d-flex flex-column">
+                                <p class="news-title">Success Meter</p>
+                                <div class="seller-news-inner">
+                                    <span>
+                                        <img src="" alt="">
+                                    </span>
+                                    <ul>
+                                        <li class="d-flex justify-content-between brdr-btm">
+                                            <span>Perfect timed dispatch</span>
+                                            <span>100%</span>
+                                        </li>
+                                        <li class="d-flex justify-content-between brdr-btm">
+                                            <span>Courier delivered on time</span>
+                                            <span>50%</span>
+                                        </li>
+                                        <li class="d-flex justify-content-between">
+                                            <span>Successful orders</span>
+                                            <span class="red">10%</span>
+                                        </li>
+                                    </ul>   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <footer class="seller-footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="seller-footer-inner d-flex justify-content-between">
+                            <div class="d-flex justify-content-between">
+                                <ul class="d-flex justify-content-between">
+                                    <li style="border-right: 1px solid #640529;"><span></span>United Kingdom</li>
+                                    <li style="border-right: 1px solid #640529;">English (UK)    </li>
+                                    <li>£ (GBP)</li>
+                                </ul>
+                            </div>
+                            <div class="footer-policy">
+                                <ul class="d-flex justify-content-between">
+                                    <li>Terms of Use</li>
+                                    <li>Privacy</li>
+                                    <li>Cookies</li>
+                                    <li>Resource Centre</li>
+                                </ul>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <ul >
+                                    <li>© Yavolo 2021</li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+            </div>
+        </footer>
+      </div>
+    </div>
   </body>
 </html>

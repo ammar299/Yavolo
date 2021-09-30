@@ -12,13 +12,25 @@
   </head>
 
   <body>
-    <% if current_user.present? %>
-    <%= render 'shared/header' %>
-    <% end %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <div class="main-page">
+      <%= render 'layouts/header' %>
+      
+      <% if current_user.present? %>
+      <%= render 'shared/header' %>
+      <% end %>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
 
-    <%= yield %>
+      <div class="main-content">
+
+        <%= yield %>
+
+      </div>
+  
+  
+      <%= render 'layouts/footer' %>
+
+    </div>
     
   </body>
 </html>

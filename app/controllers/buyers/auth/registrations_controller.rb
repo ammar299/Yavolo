@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Sellers::RegistrationsController < Devise::RegistrationsController
+class Buyers::Auth::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 

@@ -1,11 +1,6 @@
 Rails.application.routes.draw do
-  
-  # namespace :sellers do
-  #   devise_for :sellers
-  # end
-  # devise_for :sellers
-  devise_for :sellers, controllers: { registrations: 'sellers/registrations', sessions: 'sellers/sessions' }
-  devise_for :buyers, controllers: { registrations: 'buyers/registrations', sessions: 'buyers/sessions' }
+  devise_for :sellers, controllers: { registrations: 'sellers/auth/registrations', sessions: 'sellers/auth/sessions' }
+  devise_for :buyers, controllers: { registrations: 'buyers/auth/registrations', sessions: 'buyers/auth/sessions' }
 
   devise_scope :seller do
     authenticated :seller do
@@ -30,14 +25,6 @@ Rails.application.routes.draw do
     get 'password/edit', to: 'users#edit_password', as: :edit_password
     patch 'password/update', to: 'users#update_password', as: :update_password
   end
-
-  # authenticate :user, ->(u) { u.buyer? } do
-  #   get '/home', to: 'buyer_dashboard#index', as: :buyers_dashboard
-  # end
-
-  # authenticate :user, ->(u) { u.seller? } do
-  #   get '/dashboard', to: 'seller_dashboard#index', as: :sellers_dashboard
-  # end
 
   root to: 'home#index'
   get '/demo/signin', to: 'home#signin'
