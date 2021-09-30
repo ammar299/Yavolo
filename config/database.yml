@@ -15,15 +15,19 @@
 # gem 'pg'
 #
 default: &default
-  adapter: postgresql
-  encoding: unicode
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
+  adapter: postgresql
+  encoding: unicode
+  database: <%= ENV.fetch("DB_NAME") %>
+  username: <%= ENV.fetch("DB_USERNAME") %>
+  password: <%= ENV.fetch("DB_PASSWORD") { 5 } %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
 
 development:
   <<: *default
-  database: yavolo_dev
+  database: <%= ENV.fetch("DB_NAME") %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -57,7 +61,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: yavolo_test
+  database: <%= ENV.fetch("DB_NAME_TEST") %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -81,6 +85,4 @@ test:
 #
 production:
   <<: *default
-  database: yavolo_production
-  username: yavolo
-  password: <%= ENV['YAVOLO_DATABASE_PASSWORD'] %>
+  database: <%= ENV.fetch("DB_NAME") %>
