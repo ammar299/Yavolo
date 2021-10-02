@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :sellers, controllers: { registrations: 'sellers/auth/registrations', sessions: 'sellers/auth/sessions' }
+  devise_for :sellers, controllers: { registrations: 'sellers/auth/registrations', sessions: 'sellers/auth/sessions', omniauth_callbacks: 'sellers/auth/omniauth' }
   devise_for :buyers, controllers: { registrations: 'buyers/auth/registrations', sessions: 'buyers/auth/sessions' }
 
   devise_scope :seller do
@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  devise_for :users, controllers: { registrations: 'registrations', omniauth_callbacks: 'users/omniauth' }
+  # devise_for :users, controllers: { registrations: 'registrations', omniauth_callbacks: 'users/omniauth' }
 
   resource :user, only: :update
   get :profile, to: 'users#show'
