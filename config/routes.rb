@@ -4,13 +4,13 @@ Rails.application.routes.draw do
 
   devise_scope :seller do
     authenticated :seller do
-      root 'seller_dashboard#index', as: :seller_dashboard
+      root 'sellers/dashboard/seller_dashboard#index', as: :seller_dashboard
     end
   end
 
   devise_scope :buyer do
     authenticated :buyer do
-      root 'buyer_dashboard#index', as: :buyer_dashboard
+      root 'buyers/dashboard/buyer_dashboard#index', as: :buyer_dashboard
     end
   end
 
