@@ -37,36 +37,6 @@
         </div>
         <%= f.submit "Sign in", class: "btn btn-primary btn-lg btn-block
         general-mrgn" %>
-
-        <div class="mid text-center">
-          <p>OR</p>
-        </div>
-        <h4
-          class="text-center"
-          style="color: #640529; font-size: 16px; font-weight: 600"
-        >
-          Continue with
-        </h4>
-        <div class="social-icons general-mrgn">
-          <a
-            href="<%= user_google_oauth2_omniauth_authorize_path %>"
-            data-method="post"
-            ><span><%= image_tag "google (2).png" %></span> &nbsp; Google</a
-          >
-          <a
-            href="<%= user_facebook_omniauth_authorize_path %>"
-            data-method="post"
-            ><span><%= image_tag "facebook (4).png" %></span>&nbsp;Facebook</a
-          >
-          <a href="" data-method="post"
-            ><span><%= image_tag "apple (1).png" %></span>&nbsp; Apple</a
-          >
-        </div>
-        <p class="text-center" style="color: #640529; font-size: 14px">
-          Terms of use: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Utrum igitur tibi litteram videor an totas paginas commovere? Vulgo
-          enim dicitur: Iucundi acti labores
-        </p>
         <% end %>
       </div>
     </div>
