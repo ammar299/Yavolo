@@ -13,22 +13,16 @@ Rails.application.routes.draw do
   devise_scope :seller do
     authenticated :seller do
       namespace :sellers do
-        # namespace :dashboard do
-        # end
         root 'dashboard/seller_dashboard#index', as: :seller_authenticated_root
       end
-      # root 'sellers/dashboard/seller_dashboard#index', as: :seller_authenticated_root
     end
   end
 
   devise_scope :buyer do
     authenticated :buyer do
       namespace :buyers do
-        # namespace :dashboard do
-        # end
         root 'dashboard/buyer_dashboard#index', as: :buyer_authenticated_root
       end
-      # root 'buyers/dashboard/buyer_dashboard#index', as: :buyer_authenticated_root
     end
   end
 
@@ -41,13 +35,8 @@ Rails.application.routes.draw do
   end
 
   root to: 'home#index'
-  get '/demo/signin', to: 'home#signin'
-  get '/demo/signup', to: 'home#signup'
-  # get '*path', to: 'home#index', via: :all
 
 
-  get '/sellers/dashboard/seller_dashboard', to: 'sellers/dashboard/seller_dashboard#index', as: :sellers_dashboard
-  get '/buyers/dashboard/buyer_dashboard', to: 'buyers/dashboard/buyer_dashboard#index', as: :buyers_dashboard
 
   get '*path', to: redirect('/'), constraints: lambda { |req|
     req.path.exclude? 'rails/active_storage'
