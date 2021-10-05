@@ -22,14 +22,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :user, only: :update
-  get :profile, to: 'users#show'
-  scope :profile do
-    get :edit, to: 'users#edit', as: :profile_edit
-    get 'password/edit', to: 'users#edit_password', as: :edit_password
-    patch 'password/update', to: 'users#update_password', as: :update_password
-  end
-
   root to: 'home#index'
   get '/demo/signin', to: 'home#signin'
   get '/demo/signup', to: 'home#signup'
