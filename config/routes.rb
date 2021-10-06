@@ -5,7 +5,10 @@ Rails.application.routes.draw do
 
   devise_scope :admin do
     authenticated :admin do
-      root 'admin/dashboard#index', as: :admins_dashboard
+      namespace :admin do
+        root 'admin/dashboard#index', as: :admins_dashboard
+        resources :delivery_options, except: %i[show]
+      end
     end
   end
 
