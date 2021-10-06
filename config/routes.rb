@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :filter_group
+
   resource :user, only: :update
   get :profile, to: 'users#show'
   scope :profile do
