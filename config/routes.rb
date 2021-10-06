@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :admins, controllers: { sessions: 'admin/sessions' }
+  devise_for :admins, controllers: { sessions: 'admin/sessions', passwords: 'admin/passwords' }
   devise_for :sellers, controllers: { registrations: 'sellers/auth/registrations', sessions: 'sellers/auth/sessions', omniauth_callbacks: 'sellers/auth/omniauth' }
   devise_for :buyers, controllers: { registrations: 'buyers/auth/registrations', sessions: 'buyers/auth/sessions' }
 
@@ -32,14 +32,6 @@ Rails.application.routes.draw do
         root 'dashboard/buyer_dashboard#index', as: :buyer_authenticated_root
       end
     end
-  end
-
-  resource :user, only: :update
-  get :profile, to: 'users#show'
-  scope :profile do
-    get :edit, to: 'users#edit', as: :profile_edit
-    get 'password/edit', to: 'users#edit_password', as: :edit_password
-    patch 'password/update', to: 'users#update_password', as: :update_password
   end
 
   root to: 'home#index'

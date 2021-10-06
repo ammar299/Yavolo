@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_06_092300) do
+ActiveRecord::Schema.define(version: 2021_10_06_123918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(version: 2021_10_06_092300) do
   end
 
   create_table "delivery_option_ships", force: :cascade do |t|
-    t.decimal "price", precision: 8, scale: 2
+    t.float "price"
     t.bigint "delivery_option_id"
     t.bigint "ship_id"
     t.datetime "created_at", precision: 6, null: false
@@ -146,6 +146,28 @@ ActiveRecord::Schema.define(version: 2021_10_06_092300) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["product_id"], name: "index_ebay_details_on_product_id"
+  end
+
+  create_table "filter_categories", force: :cascade do |t|
+    t.string "category_name"
+    t.integer "filter_group_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "filter_groups", force: :cascade do |t|
+    t.string "name"
+    t.integer "type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "filter_in_categories", force: :cascade do |t|
+    t.string "filter_name"
+    t.integer "sort_order"
+    t.integer "filter_group_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "google_shoppings", force: :cascade do |t|

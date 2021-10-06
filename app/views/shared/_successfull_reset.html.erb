@@ -1,0 +1,26 @@
+<div class="main-page">
+  <div class="main-content admin-login-content">
+    <div class="container">
+      <div class="row">
+        <div class="col col-12 col-lg-6 col-md-8 mx-auto">
+          <div class="sign-in admin-login">
+            <div class="signin-header d-flex justify-content-center w-100">
+              <div class="signin-logo">
+                <div class="logo-inner">
+                  <%= link_to image_tag('Yavolo_Logo_WarmRed.png'), root_path %>
+                  <p class="my-2 super-admin-text">Super admin</p>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <p>Your reset email on its way</p>
+            </div>
+            <div class="actions">
+              <%= link_to "Back to login",new_admin_session_path, class: "btn btn-primary btn-lg btn-block general-mrgn" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
