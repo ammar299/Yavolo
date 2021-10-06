@@ -13,11 +13,11 @@ $(document).on('turbolinks:load', function(){
     }
   });
 
-  $( '.select-all-container #select-all' ).change(function() {
+  $('.select-all-container #select-all').change(function() {
     if ($('#select-all').is(':checked')) {
-      $('.select-checkbox-container input[type=checkbox]').prop('checked',true)
+      $('.select-checkbox-container input[type=checkbox]').prop('checked', true)
     } else {
-      $('.select-checkbox-container input:checkbox').prop('checked',false)
+      $('.select-checkbox-container input:checkbox').prop('checked', false)
     }
   });
 });
