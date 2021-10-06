@@ -35,6 +35,9 @@
 yarn-debug.log*
 .yarn-integrity
 .DS_Store
-.env
 /config/database.yml
 *.*/
+# Ignore .DStore
+**/.DS_Store
+#Ignore environment variables
+.env
