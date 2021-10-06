@@ -1,11 +1,11 @@
 $(document).on('turbolinks:load', function(){
   $('#delete-delivery-options').click(function(){
-    selected_deliery_option = []
+    selected_delivery_options = []
     $('.select-checkbox-container input[type=checkbox]:checked').each(function() {
-      selected_deliery_option.push($(this).val())
+      selected_delivery_options.push($(this).val())
     });
-    if (selected_deliery_option.length > 0) {
-      url = '/admin/delivery_options/delete_delivery_options?ids=' + selected_deliery_option
+    if (selected_delivery_options.length > 0) {
+      url = '/admin/delivery_options/delete_delivery_options?ids=' + selected_delivery_options
       $.ajax({
         url: url,
         type: 'DELETE'
