@@ -6,8 +6,13 @@ Rails.application.routes.draw do
   devise_scope :admin do
     authenticated :admin do
       namespace :admin do
-        root 'admin/dashboard#index', as: :admins_dashboard
+        root 'dashboard#index', as: :dashboard
         resources :delivery_options, except: %i[show]
+        resources :products do
+          collection do
+            get 'duplicate'
+          end
+        end
       end
     end
   end

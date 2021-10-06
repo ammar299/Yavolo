@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_05_062259) do
+ActiveRecord::Schema.define(version: 2021_10_06_123918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -136,6 +136,98 @@ ActiveRecord::Schema.define(version: 2021_10_05_062259) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "ebay_details", force: :cascade do |t|
+    t.decimal "lifetime_sales", precision: 10, scale: 2
+    t.decimal "thirty_day_sales", precision: 10, scale: 2
+    t.decimal "price", precision: 8, scale: 2
+    t.decimal "thirty_day_revenue", precision: 10, scale: 2
+    t.string "mpn_number"
+    t.bigint "product_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_ebay_details_on_product_id"
+  end
+
+  create_table "filter_categories", force: :cascade do |t|
+    t.string "category_name"
+    t.integer "filter_group_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "filter_groups", force: :cascade do |t|
+    t.string "name"
+    t.integer "type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "filter_in_categories", force: :cascade do |t|
+    t.string "filter_name"
+    t.integer "sort_order"
+    t.integer "filter_group_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "google_shoppings", force: :cascade do |t|
+    t.string "title"
+    t.decimal "price", precision: 8, scale: 2
+    t.string "category"
+    t.string "campaign_category"
+    t.text "description"
+    t.bigint "product_id"
+    t.boolean "exclude_from_google_feed", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_google_shoppings_on_product_id"
+  end
+
+  create_table "pictures", force: :cascade do |t|
+    t.string "name"
+    t.bigint "imageable_id"
+    t.string "imageable_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["imageable_type", "imageable_id"], name: "index_pictures_on_imageable_type_and_imageable_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "title"
+    t.string "handle"
+    t.text "description"
+    t.text "keywords"
+    t.string "sku"
+    t.string "ean"
+    t.string "yan"
+    t.string "brand"
+    t.integer "condition"
+    t.integer "status"
+    t.integer "stock"
+    t.decimal "price", precision: 8, scale: 2
+    t.decimal "discount", precision: 8, scale: 2
+    t.integer "discount_unit"
+    t.boolean "yavolo_enabled", default: false
+    t.string "width"
+    t.string "depth"
+    t.string "height"
+    t.string "colour"
+    t.string "material"
+    t.datetime "published_at"
+    t.bigint "owner_id"
+    t.string "owner_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["brand"], name: "index_products_on_brand"
+    t.index ["ean"], name: "index_products_on_ean", unique: true
+    t.index ["owner_type", "owner_id"], name: "index_products_on_owner_type_and_owner_id"
+    t.index ["price"], name: "index_products_on_price"
+    t.index ["sku"], name: "index_products_on_sku", unique: true
+    t.index ["status"], name: "index_products_on_status"
+    t.index ["title"], name: "index_products_on_title"
+    t.index ["yan"], name: "index_products_on_yan", unique: true
+  end
+
   create_table "sellers", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -163,6 +255,17 @@ ActiveRecord::Schema.define(version: 2021_10_05_062259) do
     t.string "uid"
     t.index ["email"], name: "index_sellers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_sellers_on_reset_password_token", unique: true
+  end
+
+  create_table "seo_contents", force: :cascade do |t|
+    t.string "title"
+    t.text "url"
+    t.text "description"
+    t.text "keywords"
+    t.bigint "product_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_seo_contents_on_product_id"
   end
 
   create_table "sessions", force: :cascade do |t|
