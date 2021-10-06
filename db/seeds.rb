@@ -6,4 +6,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 #Admin create 
-Admin.create!(email: "admin@yavolo.com", password: "password")
+Admin.create(email: 'admin@yavolo.com', password: 'password', password_confirmation: 'password')
+
+Ship.find_or_create_by(name: 'UK Mainland')
+Ship.find_or_create_by(name: 'Highlands')
+Ship.find_or_create_by(name: 'Islands')
+Ship.find_or_create_by(name: 'Ireland')
+Ship.find_or_create_by(name: 'Northen Ireland')

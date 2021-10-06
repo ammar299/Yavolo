@@ -1,0 +1,21 @@
+<%= simple_form_for @delivery_option, url: url, method: method do |f| %>
+  <%= f.label :name, 'Delivery Option Name' %>
+  <%= f.text_field :name %>
+  <div class="row mt-4">
+    <div class="col-6">
+    <%= f.label :processing_time, 'Processing time*' %>
+    <%= f.select :processing_time, select_processing_time, required: true %>
+    </div>
+    <div class="col-6">
+    <%= f.label :delivery_time, 'Delivery time*' %>
+    <%= f.select :delivery_time, select_delivery_time, required: true %>
+    </div>
+  </div>
+
+  <%= collection_check_boxes(:delivery_option, 'ship_ids', Ship.all, :id, :name) do |b| %>
+    <%= b.check_box checked: (b.value == 1) %>
+    <%= b.label %>
+    <%= text_field_tag 'ship_price[]', b.value == 1? 40.00 : 0.00, readonly: (b.value == 1) %>
+  <% end %>
+  <%= f.submit %>
+<% end %>
