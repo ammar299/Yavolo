@@ -66,3 +66,4 @@ gem "omniauth-rails_csrf_protection"
 
 gem 'activerecord-session_store'
 gem 'dotenv-rails'
+gem 'simple_form', '~> 5.1.0'
