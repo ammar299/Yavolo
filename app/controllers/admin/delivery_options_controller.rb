@@ -23,6 +23,8 @@ class Admin::DeliveryOptionsController < ApplicationController
       if @delivery_option.update(delivery_option_params)
         delivery_option_ships(@delivery_option)
         redirect_to admin_delivery_options_path
+      else
+        render :edit
       end
     end
 
