@@ -10,8 +10,8 @@ class Admin::PasswordsController < Devise::PasswordsController
     self.resource = resource_class.send_reset_password_instructions(resource_params)
     yield resource if block_given?
     if successfully_sent?(resource)
-      request = "?reset_password=true"
-      respond_with({}, location: new_admin_password_path(request))
+      # request = "?reset_password=true"
+      respond_with({}, location: new_admin_password_path(reset_password: true))
     else
       respond_with(resource)
     end
