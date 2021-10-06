@@ -1,4 +1,4 @@
-class Admin::DeliveryOptionsController < ApplicationController
+class Admin::DeliveryOptionsController < Admin::BaseController
   before_action :set_delivery_option, only: %i[edit update destroy]
 
   def new
