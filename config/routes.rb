@@ -7,7 +7,12 @@ Rails.application.routes.draw do
     authenticated :admin do
       namespace :admin do
         root 'dashboard#index', as: :dashboard
-        resources :delivery_options, except: %i[show]
+        resources :delivery_options, except: %i[show] do
+          collection do
+            delete :delete_delivery_options
+          end
+        end
+
         resources :products do
           collection do
             get 'duplicate'

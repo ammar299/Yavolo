@@ -1,6 +1,10 @@
 class Admin::DeliveryOptionsController < Admin::BaseController
   before_action :set_delivery_option, only: %i[edit update destroy]
 
+  def index
+    @delivery_options = DeliveryOption.all
+  end
+
   def new
     @delivery_option = DeliveryOption.new
   end
@@ -19,6 +23,8 @@ class Admin::DeliveryOptionsController < Admin::BaseController
       if @delivery_option.update(delivery_option_params)
         delivery_option_ships(@delivery_option)
         redirect_to admin_delivery_options_path
+      else
+        render :edit
       end
     end
 
@@ -34,6 +40,11 @@ class Admin::DeliveryOptionsController < Admin::BaseController
 
     def destroy
       @delivery_option.destroy
+      redirect_to admin_delivery_options_path
+    end
+
+    def delete_delivery_options
+      DeliveryOption.where(id: params['ids'].split(',')).destroy_all
       redirect_to admin_delivery_options_path
     end
 
