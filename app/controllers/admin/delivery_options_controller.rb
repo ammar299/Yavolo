@@ -32,7 +32,7 @@ class Admin::DeliveryOptionsController < ApplicationController
       selected_ships = {}
       selected_ships = unselected_ships.slice(*params['delivery_option']['ship_ids'].reject(&:blank?))
       selected_ships.each do |ship_id, price|
-        DeliveryOptionShip.create(price: price, ship_id: ship_id, delivery_option_id: @delivery_option.id)
+        DeliveryOptionShip.create(price: price, ship_id: ship_id, delivery_option_id: delivery_option.id)
       end
     end
 
