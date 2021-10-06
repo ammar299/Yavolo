@@ -1,0 +1,61 @@
+<% if  params[:format] == "?reset_password=true" %>
+    <div class="main-page">
+    <div class="main-content admin-login-content">
+      <div class="container">
+        <div class="row">
+          <div class="col col-12 col-lg-6 col-md-8 mx-auto">
+            <div class="sign-in admin-login">
+              <div class="signin-header d-flex justify-content-center w-100">
+                <div class="signin-logo">
+                  <div class="logo-inner">
+                    <%= link_to image_tag('Yavolo_Logo_WarmRed.png'), root_path %>
+                    <p class="my-2 super-admin-text">Super admin</p>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <p>Your reset email on its way</p>
+              </div>
+              <div class="actions">
+                <%= link_to "Back to login",new_admin_session_path, class: "btn btn-primary btn-lg btn-block general-mrgn" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="main-page">
+    <div class="main-content admin-login-content">
+      <div class="container">
+        <div class="row">
+          <div class="col col-12 col-lg-6 col-md-8 mx-auto">
+            <div class="sign-in admin-login">
+              <div class="signin-header d-flex justify-content-center w-100">
+                <div class="signin-logo">
+                  <div class="logo-inner">
+                    <%= link_to image_tag('Yavolo_Logo_WarmRed.png'), root_path %>
+                    <p class="my-2 super-admin-text">Super admin</p>
+                  </div>
+                </div>
+              </div>
+              <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+              <%= link_to "Back to login",new_admin_session_path, class: "account-link" %>
+              <p> Enter your email address you will receive an email with a link to reset your password</p>
+              <div class="field">
+                <%= f.label :email %><br />
+                <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+              </div>
+              <div class="actions">
+                <%= f.submit "Reset password", class: "btn btn-primary btn-lg btn-block
+              general-mrgn" %>
+              </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
