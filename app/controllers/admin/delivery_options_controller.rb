@@ -9,9 +9,7 @@ class Admin::DeliveryOptionsController < ApplicationController
     @delivery_option = DeliveryOption.new(delivery_option_params)
     if @delivery_option.save
       delivery_option_ships(@delivery_option)
-
       redirect_to admin_delivery_options_path
-
     else
       render :new
     end
@@ -20,14 +18,12 @@ class Admin::DeliveryOptionsController < ApplicationController
     def update
       if @delivery_option.update(delivery_option_params)
         delivery_option_ships(@delivery_option)
-
         redirect_to admin_delivery_options_path
       end
     end
 
     def delivery_option_ships(delivery_option)
       delivery_option.ships.destroy_all if delivery_option.ships.exists?
-
       unselected_ships = Hash[Ship.pluck(:id).map(&:to_s).zip params['ship_price']]
       selected_ships = {}
       selected_ships = unselected_ships.slice(*params['delivery_option']['ship_ids'].reject(&:blank?))
@@ -38,7 +34,6 @@ class Admin::DeliveryOptionsController < ApplicationController
 
     def destroy
       @delivery_option.destroy
-
       redirect_to admin_delivery_options_path
     end
 
