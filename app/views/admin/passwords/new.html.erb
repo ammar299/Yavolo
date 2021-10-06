@@ -1,0 +1,5 @@
+<% if  params[:reset_password] == "true" %>
+  <%= render "shared/successfull_reset" %>
+<% else %>
+ <%= render "shared/reset_password" %>
+<% end %>
