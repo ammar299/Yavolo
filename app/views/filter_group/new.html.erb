@@ -1,0 +1,17 @@
+<%= simple_form_for @filter_group do |form| %>
+  <%= form.text_field :name %>
+  <%= form.text_field :type %>
+
+  <%= form.fields_for :filter_category do |filter_category| %>
+    <%= filter_category.text_field :category_name %>
+    <%= filter_category.number_field :filter_group_id %>
+  <% end %>
+
+  <%= form.fields_for :filter_in_category do |filter_form| %>
+    <%= filter_form.text_field :filter_name %>
+    <%= filter_form.number_field :sort_order %>
+    <%= filter_form.number_field :filter_group_id %>
+  <% end %>
+
+  <%= form.submit %>
+<% end %>
