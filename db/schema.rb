@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_04_085840) do
+ActiveRecord::Schema.define(version: 2021_10_06_114531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -58,6 +58,22 @@ ActiveRecord::Schema.define(version: 2021_10_04_085840) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "addresses", force: :cascade do |t|
+    t.string "address_line_1"
+    t.string "address_line_2"
+    t.string "city"
+    t.string "county"
+    t.string "state"
+    t.string "country"
+    t.string "postal_code"
+    t.string "phone_number"
+    t.integer "address_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "seller_id"
+    t.index ["seller_id"], name: "index_addresses_on_seller_id"
+  end
+
   create_table "admin_users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -91,6 +107,18 @@ ActiveRecord::Schema.define(version: 2021_10_04_085840) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "business_representatives", force: :cascade do |t|
+    t.string "email"
+    t.string "job_title"
+    t.date "date_of_birth"
+    t.string "contact_number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "seller_id"
+    t.index ["email"], name: "index_business_representatives_on_email", unique: true
+    t.index ["seller_id"], name: "index_business_representatives_on_seller_id"
+  end
+
   create_table "buyers", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -118,6 +146,23 @@ ActiveRecord::Schema.define(version: 2021_10_04_085840) do
     t.index ["reset_password_token"], name: "index_buyers_on_reset_password_token", unique: true
   end
 
+  create_table "company_details", force: :cascade do |t|
+    t.string "name"
+    t.string "vat_number"
+    t.string "country"
+    t.string "legal_business_name"
+    t.string "companies_house_registration_number"
+    t.string "business_industry"
+    t.string "business_phone"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "seller_id"
+    t.string "website_url", default: ""
+    t.string "amazon_url", default: ""
+    t.string "ebay_url", default: ""
+    t.index ["seller_id"], name: "index_company_details_on_seller_id"
+  end
+
   create_table "sellers", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -143,6 +188,11 @@ ActiveRecord::Schema.define(version: 2021_10_04_085840) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "provider"
     t.string "uid"
+    t.integer "account_status", default: 0
+    t.integer "listing_status", default: 0
+    t.string "contact_email", default: "", null: false
+    t.string "contact_name", default: "", null: false
+    t.integer "subscription_type", default: 0
     t.index ["email"], name: "index_sellers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_sellers_on_reset_password_token", unique: true
   end

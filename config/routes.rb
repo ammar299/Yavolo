@@ -6,7 +6,14 @@ Rails.application.routes.draw do
   devise_scope :admin do
     authenticated :admin do
       root 'admin/dashboard#index', as: :admins_dashboard
+      # resources :sellers
     end
+    # get 'sellers', to: 'admin/sellers#index', as: :all_sellers
+    # resources :sellers
+  end
+
+  namespace :admin do
+    resources :sellers
   end
 
 

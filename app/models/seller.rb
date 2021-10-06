@@ -3,6 +3,27 @@ class Seller < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :timeoutable, :trackable, :omniauthable, omniauth_providers: [:google_oauth2 , :facebook]
+  validates :email, confirmation: true
+  validates_format_of :contact_number,
+  :with => /\A(?:\+?\d{1,3}\s*-?)?\(?(?:\d{3})?\)?[- ]?\d{3}[- ]?\d{4}\z/,
+  :message => "- Phone numbers must be in xxx-xxx-xxxx format."
+  has_one :business_representative
+  has_one :address
+  has_one :company_detail
+  enum account_status: {
+    pending: 0,
+    approved: 1,
+    rejected: 2,
+  }
+  enum listing_status: {
+    active: 0,
+    in_active: 1,
+  }
+  enum subscription_type: {
+    monthly: 0,
+    yearly: 1,
+    lifetime: 2,
+  }
 
 
          def self.create_from_provider_data(provider_data)
