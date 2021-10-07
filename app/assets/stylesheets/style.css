@@ -596,3 +596,8 @@ text-decoration: none;
 
 
 /*=========Admin-login============ */
+
+/*=========Admin Categories======= */
+.btn-text-color{
+	color: white !important;
+}
