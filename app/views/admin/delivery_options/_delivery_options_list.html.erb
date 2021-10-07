@@ -25,6 +25,9 @@
     <th>
       Delivery Time
     </th>
+    <th>
+      Action
+    </th>
   </tr>
 
   <% delivery_options.each do |delivery_option| %>
@@ -37,6 +40,10 @@
       <td><%= delivery_option.name %></td>
       <td><%= delivery_option.processing_time.split('_').map(&:capitalize).join(' ') %></td>
       <td><%= delivery_option.delivery_time.split('_').map(&:capitalize).join(' ') %></td>
+      <td>
+        <%= link_to 'Edit', edit_admin_delivery_option_path(delivery_option), class: 'btn btn-secondary' %>
+        <%= link_to 'Delete', admin_delivery_option_path(delivery_option), method: 'delete', class: 'btn btn-secondary ml-3' %>
+      </td>
     </tr>
   <% end %>
 </table>
