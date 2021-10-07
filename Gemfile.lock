@@ -68,6 +68,8 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    ancestry (4.1.0)
+      activerecord (>= 5.2.6)
     bcrypt (3.1.16)
     bindex (0.8.1)
     bootsnap (1.7.5)
@@ -305,6 +307,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-session_store
+  ancestry
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
