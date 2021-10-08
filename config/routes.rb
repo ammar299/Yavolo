@@ -12,12 +12,12 @@ Rails.application.routes.draw do
             delete :delete_delivery_options
           end
         end
-
         resources :products do
           collection do
             get 'duplicate'
           end
         end
+        resources :filter_groups
       end
     end
   end
@@ -39,7 +39,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :filter_group
 
   resource :user, only: :update
   get :profile, to: 'users#show'

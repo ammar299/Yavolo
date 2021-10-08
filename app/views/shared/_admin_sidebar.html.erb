@@ -1,0 +1,30 @@
+<div class="dashboard-page">
+  <div class="leftside">
+    <div class="sideheader">
+      <a href="<% root_path %>" class="logo"><%= image_tag "Yavolo_Logo_WarmRed.png" , style: 'width:168px' %></a>
+      <p class="mt-3 mb-0">A good deal better</p>
+    </div>
+    <div class="sidebody">
+      <ul>
+        <li class="active"><a href="#"><span><i class="fas fa-home pr-2"></i></span> Dashboard</a></li>
+        <li><a href="#">Pages</a></li>
+        <li><a href="#">Templates</a></li>
+        <li><a href="#">Orders</a></li>
+        <li><a href="#"><span><i class="fas fa-user pr-2"></i></span> Customer</a></li>
+        <li><a href="#">Sellers</a></li>
+        <li><a href="#">Products</a></li>
+        <li><a href="#">Tickets</a></li>
+        <li><a href="#">Blogs</a></li>
+        <li><a href="#">Reviews</a></li>
+        <li><a href="#">Manage Yavolos</a></li>
+        <li><a href="#">Finance</a></li>
+        <li><a href="#">Technical </a></li>
+        <li><a href="#">Rule Engine</a></li>
+        <li><a href="#">Appearance</a></li>
+      </ul>
+      <ul>
+        <li><a href="#">Settings</a></li>
+        <li><%= link_to "Logout", destroy_admin_session_path, :method => :delete %></li>
+      </ul>
+    </div>
+  </div>

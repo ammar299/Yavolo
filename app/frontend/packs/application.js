@@ -18,3 +18,4 @@ ActiveStorage.start();
 import "controllers"
 
 require('packs/delivery_options')
+require("@nathanvda/cocoon")

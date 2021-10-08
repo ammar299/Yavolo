@@ -157,7 +157,7 @@ ActiveRecord::Schema.define(version: 2021_10_06_123918) do
 
   create_table "filter_groups", force: :cascade do |t|
     t.string "name"
-    t.integer "type"
+    t.integer "filter_group_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
