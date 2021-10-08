@@ -1,0 +1,9 @@
+<!-- Business Representative -->
+<h4>Business Representative</h4>
+<%= form.simple_fields_for :business_representative do |br| %>
+    <%= br.input :full_legal_name, label: 'Full Legal Name', required: true, placeholder: 'John Paul Smith' %>
+    <%= br.input :email, label: 'BR Email Address', required: true, placeholder: 'john.smith@example.co.uk' %>
+    <%= br.input :job_title, label: 'Job Title', required: true, placeholder: 'Director' %>
+    <%= br.input :date_of_birth, label: 'Date of Birth', required: true %>
+    <%= br.input :contact_number, label: 'Business Representative Phone Number', required: true, placeholder: '0123456789' %>
+  <% end %>

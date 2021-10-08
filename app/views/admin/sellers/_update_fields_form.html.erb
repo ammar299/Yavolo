@@ -1,0 +1,50 @@
+<%= simple_form_for @seller, url: url do |form| %>
+
+<!-- Seller Email -->
+<h3>User</h3>
+<%= form.input :email, label: 'Email Address', required: true, placeholder: 'john.smith@example.co.uk' %>
+
+<!-- Business Information Section / Company Details -->
+<h3>Business Information</h3>
+  <%= form.simple_fields_for :company_detail do |cd| %>
+    <%= cd.input :name, label: 'Company Name', required: true, placeholder: 'JohnStons-Gymnasium' %>
+    <%= cd.input :country, label: 'Country', required: true, placeholder: 'United Kingdom' %>
+    <%= cd.input :legal_business_name, label: 'Legal Business Name', required: true, placeholder: 'JohnStons Gymnasium Ltd.' %>
+    <%= cd.input :companies_house_registration_number, label: 'Companies House Registration Number', required: true, placeholder: '0123456789' %>
+    <%= cd.input :doing_business_as, label: 'Doing Business As', required: true, placeholder: 'JohnStons Gym' %>
+    <%= cd.input :website_url, label: 'Website URL', required: true, placeholder: 'www.johnstons-Gymnasium.co.uk' %>
+    <%= cd.input :amazon_url, label: 'Amazon URL', required: true, placeholder: 'www.amazon.com/jgstore'  %>
+    <%= cd.input :ebay_url, label: 'Ebay URL', required: true, placeholder: 'www.ebaytores.com/jgstore' %>
+    <%= cd.input :vat_number, label: 'VAT Number', required: true, placeholder: '1234567890' %>
+  <% end %>
+
+  <!-- Registered Business Address / Address with type business_representative_address -->
+  <h4>Registered Business Address</h4>
+  <%= form.simple_fields_for :addresses do |addr| %>
+  <%= addr.input :address_type, as: :hidden, input_html: { value: Address.address_types.keys[Address.address_types["business_representative_address"]] }, required: true %>
+  <%= addr.input :address_line_1, label: 'Address Line 1', required: true, placeholder: 'Address Line 1' %>
+  <%= addr.input :address_line_2, label: 'Address Line 2', required: true, placeholder: 'Address Line 2' %>
+  <%= addr.input :city, label: 'City', required: true, placeholder: 'City' %>
+  <%= addr.input :county, label: 'County', required: true, placeholder: 'County' %>
+  <%= addr.input :postal_code, label: 'Postal Code', required: true, placeholder: 'Postal Code' %>
+  <%= addr.input :country, label: 'Country', required: true, placeholder: 'Country' %>
+<% end %>
+
+<%#= render partial: 'business_representative_form', :business_representative %>
+
+    <!-- Business Owner Address / Address with type business_address -->
+    <h4> Business Representative Address</h4>
+    <%= form.simple_fields_for :addresses do |addr| %>
+    <%= addr.input :address_type, as: :hidden, input_html: { value: Address.address_types.keys[Address.address_types["business_address"]] }, required: true %>
+    <%= addr.input :address_line_1, label: 'Address Line 1', required: true, placeholder: 'Address Line 1' %>
+    <%= addr.input :address_line_2, label: 'Address Line 2', required: true, placeholder: 'Address Line 2' %>
+    <%= addr.input :city, label: 'City', required: true, placeholder: 'City' %>
+    <%= addr.input :county, label: 'County', required: true, placeholder: 'County' %>
+    <%= addr.input :postal_code, label: 'Postal Code', required: true, placeholder: 'Postal Code' %>
+    <%= addr.input :country, label: 'Country', required: true, placeholder: 'Country' %>
+  <% end %>
+
+  <!-- Seller Fields -->
+<%= form.input :subscription_type, collection: Seller.subscription_types.keys.to_a, label: 'Subscription Type', required: true %>
+<%= form.button :submit %>
+<% end %>

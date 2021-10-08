@@ -6,14 +6,15 @@ Rails.application.routes.draw do
   devise_scope :admin do
     authenticated :admin do
       root 'admin/dashboard#index', as: :admins_dashboard
-      # resources :sellers
+      namespace :admin do
+        root 'admin/dashboard#index', as: :admins_dashboard
+        resources :delivery_options, except: %i[show]
+        resources :sellers do
+          get :update_business_representative
+        end
+        # patch 'update_business_representative', to: 'admin/sellers#update_business_representative', as: :update_business_representative
+      end
     end
-    # get 'sellers', to: 'admin/sellers#index', as: :all_sellers
-    # resources :sellers
-  end
-
-  namespace :admin do
-    resources :sellers
   end
 
 

@@ -9,5 +9,7 @@ class AddFieldsAndReferencesInTable < ActiveRecord::Migration[6.1]
     add_column :company_details, :website_url, :string, default: ""
     add_column :company_details, :amazon_url, :string, default: ""
     add_column :company_details, :ebay_url, :string, default: ""
+    add_column :company_details, :doing_business_as, :string, default: ""
+    add_column :business_representatives, :full_legal_name, :string, default: ""
   end
 end

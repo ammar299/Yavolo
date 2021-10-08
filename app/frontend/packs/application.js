@@ -14,5 +14,6 @@ import "../stylesheets/application.scss";
 Rails.start();
 Turbolinks.start();
 ActiveStorage.start();
+require("@rails/ujs").start()
 
 import "controllers"

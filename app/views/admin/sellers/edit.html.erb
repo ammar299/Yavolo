@@ -1,9 +1,1 @@
-<%= @seller.inspect %>
-
-<%= simple_form_for @seller do |form| %>
-<%= f.input :email, label: 'Your username please', error: 'Username is mandatory, please specify one' %>
-<%= f.input :first_name, label: 'Your username please', error: 'Username is mandatory, please specify one' %>
-<%= f.input :last_name, label: 'Your username please', error: 'Username is mandatory, please specify one' %>
-<%= f.input :surname, label: 'Your username please', error: 'Username is mandatory, please specify one' %>
-<%= form.button :submit %>
-<% end %>
+<%= render 'form', url: admin_seller_path %>

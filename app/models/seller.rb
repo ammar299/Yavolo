@@ -4,11 +4,9 @@ class Seller < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :timeoutable, :trackable, :omniauthable, omniauth_providers: [:google_oauth2 , :facebook]
   validates :email, confirmation: true
-  validates_format_of :contact_number,
-  :with => /\A(?:\+?\d{1,3}\s*-?)?\(?(?:\d{3})?\)?[- ]?\d{3}[- ]?\d{4}\z/,
-  :message => "- Phone numbers must be in xxx-xxx-xxxx format."
+  validates :contact_number, phone: {allow_blank: true}
   has_one :business_representative
-  has_one :address
+  has_many :addresses
   has_one :company_detail
   enum account_status: {
     pending: 0,
@@ -24,6 +22,11 @@ class Seller < ApplicationRecord
     yearly: 1,
     lifetime: 2,
   }
+  accepts_nested_attributes_for :business_representative
+  accepts_nested_attributes_for :addresses
+  accepts_nested_attributes_for :company_detail
+  attr_accessor :skip_password_validation  # virtual attribute to skip password validation while saving
+
 
 
          def self.create_from_provider_data(provider_data)
@@ -35,4 +38,14 @@ class Seller < ApplicationRecord
             user.password = Devise.friendly_token[0,20]
           end
         end
+
+  protected
+
+  def password_required?
+    return false if skip_password_validation
+    super
+  end
+  # Usage
+  # @seller.skip_password_validation = true
+  # @seller.save
 end

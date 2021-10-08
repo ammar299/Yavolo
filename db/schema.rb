@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 2021_10_06_114531) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "seller_id"
+    t.string "full_legal_name", default: ""
     t.index ["email"], name: "index_business_representatives_on_email", unique: true
     t.index ["seller_id"], name: "index_business_representatives_on_seller_id"
   end
@@ -160,7 +161,26 @@ ActiveRecord::Schema.define(version: 2021_10_06_114531) do
     t.string "website_url", default: ""
     t.string "amazon_url", default: ""
     t.string "ebay_url", default: ""
+    t.string "doing_business_as", default: ""
     t.index ["seller_id"], name: "index_company_details_on_seller_id"
+  end
+
+  create_table "delivery_option_ships", force: :cascade do |t|
+    t.decimal "price", precision: 8, scale: 2
+    t.bigint "delivery_option_id"
+    t.bigint "ship_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["delivery_option_id"], name: "index_delivery_option_ships_on_delivery_option_id"
+    t.index ["ship_id"], name: "index_delivery_option_ships_on_ship_id"
+  end
+
+  create_table "delivery_options", force: :cascade do |t|
+    t.string "name"
+    t.integer "processing_time"
+    t.integer "delivery_time"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "sellers", force: :cascade do |t|
@@ -206,6 +226,12 @@ ActiveRecord::Schema.define(version: 2021_10_06_114531) do
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
+  create_table "ships", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -235,4 +261,6 @@ ActiveRecord::Schema.define(version: 2021_10_06_114531) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "delivery_option_ships", "delivery_options"
+  add_foreign_key "delivery_option_ships", "ships"
 end
