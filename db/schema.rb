@@ -118,6 +118,14 @@ ActiveRecord::Schema.define(version: 2021_10_07_120410) do
     t.index ["reset_password_token"], name: "index_buyers_on_reset_password_token", unique: true
   end
 
+  create_table "carriers", force: :cascade do |t|
+    t.string "name"
+    t.string "api_key"
+    t.string "secret_key"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string "category_name"
     t.boolean "baby_category", default: false
@@ -130,7 +138,7 @@ ActiveRecord::Schema.define(version: 2021_10_07_120410) do
   end
 
   create_table "delivery_option_ships", force: :cascade do |t|
-    t.float "price"
+    t.decimal "price", precision: 8, scale: 2
     t.bigint "delivery_option_id"
     t.bigint "ship_id"
     t.datetime "created_at", precision: 6, null: false
@@ -157,28 +165,6 @@ ActiveRecord::Schema.define(version: 2021_10_07_120410) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["product_id"], name: "index_ebay_details_on_product_id"
-  end
-
-  create_table "filter_categories", force: :cascade do |t|
-    t.string "category_name"
-    t.integer "filter_group_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "filter_groups", force: :cascade do |t|
-    t.string "name"
-    t.integer "type"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "filter_in_categories", force: :cascade do |t|
-    t.string "filter_name"
-    t.integer "sort_order"
-    t.integer "filter_group_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "google_shoppings", force: :cascade do |t|

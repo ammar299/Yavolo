@@ -3,6 +3,7 @@ class Admin::DeliveryOptionsController < Admin::BaseController
 
   def index
     @delivery_options = DeliveryOption.all
+    @carriers = Carrier.all
   end
 
   def new
