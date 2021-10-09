@@ -1,0 +1,40 @@
+<div class="product-details-section" style="border: 1px solid #ccc">
+<h2>Listing Details</h2>
+
+<%= form.label :title %>
+<%= form.text_field :title %>
+
+<%= form.label :condition %>
+<%= form.select :condition, Product.conditions.keys.map{|c| [c.titleize, c]} %>
+
+
+<div>
+  <h5>Product Spec</h5>
+  <div>
+    <%= form.label :width %>
+    <%= form.text_field :width %>
+
+    <%= form.label :depth %>
+    <%= form.text_field :depth %>
+
+    <%= form.label :height %>
+    <%= form.text_field :height %>
+
+    <%= form.label :colour %>
+    <%= form.text_field :colour %>
+
+    <%= form.label :material %>
+    <%= form.text_field :material %>
+  </div>
+</div>
+
+<%= form.label :brand %>
+<%= form.text_field :brand %>
+
+<%= form.label :keywords %>
+<%= form.text_area :keywords %>
+
+<%= form.label :description %>
+<%= form.text_field :description %>
+
+</div>

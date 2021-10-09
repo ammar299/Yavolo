@@ -1,0 +1,17 @@
+<div class="seo-content-section" style="border: 1px solid #ccc">
+<%= form.fields_for :seo_content, @product.seo_content do |seo_data| %>
+
+  <%= seo_data.label :title %>
+  <%= seo_data.text_field :title %>
+
+  <%= seo_data.label :url %>
+  <%= seo_data.text_field :url %>
+
+  <%= seo_data.label :description %>
+  <%= seo_data.text_area :description %>
+
+  <%= seo_data.label :keywords %>
+  <%= seo_data.text_area :keywords %>
+
+<% end %>
+</div>
