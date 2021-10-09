@@ -7,6 +7,14 @@ Rails.application.routes.draw do
     authenticated :admin do
       namespace :admin do
         root 'dashboard#index', as: :dashboard
+        resources :categories
+
+        resources :carriers, except: %i[index show] do
+          collection do
+            delete :delete_carriers
+          end
+        end
+
         resources :delivery_options, except: %i[show] do
           collection do
             delete :delete_delivery_options

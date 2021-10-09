@@ -7,13 +7,13 @@
     <button class="btn dropdown-item" type="button" id="delete-delivery-options">Delete</button>
   </div>
 </div>
-<%= link_to 'Add New Template', new_admin_delivery_option_path, class: 'btn btn-secondary ml-3' %>
-</div>
+<%= link_to 'Add New Template', new_admin_delivery_option_path, class: 'btn btn-secondary ml-3', data: { remote: true } %>
+
 <table>
   <tr>
     <th>
-      <div class="checkbox-container select-all-container">
-        <input type="checkbox" id="select-all" name="select-all" value="select-all">
+      <div class="checkbox-container delivery-options-select-all-container">
+        <input type="checkbox" class="delivery-option" id="delivery-option-select-all" name="select-all" value="select-all">
       </div>
     </th>
     <th>
@@ -25,18 +25,37 @@
     <th>
       Delivery Time
     </th>
+    <th>
+      Action
+    </th>
   </tr>
 
   <% delivery_options.each do |delivery_option| %>
     <tr>
       <td>
-        <div class="checkbox-container select-checkbox-container">
+        <div class="checkbox-container delivery-options-checkbox-container">
           <input type="checkbox" id="<%= "select-#{delivery_option.id}" %>" value="<%= delivery_option.id %>">
         </div>
       </td>
       <td><%= delivery_option.name %></td>
-      <td><%= delivery_option.processing_time.split('_').map(&:capitalize).join(' ') %></td>
-      <td><%= delivery_option.delivery_time.split('_').map(&:capitalize).join(' ') %></td>
+      <td><%= template_processing_time(delivery_option.processing_time) %></td>
+      <td><%= template_processing_time(delivery_option.delivery_time) %></td>
+      <td>
+        <%= link_to 'Edit', edit_admin_delivery_option_path(delivery_option), class: 'btn btn-secondary', data: { remote: true } %>
+        <%= link_to 'Delete', admin_delivery_option_path(delivery_option), method: 'delete', class: 'btn btn-secondary ml-3' %>
+      </td>
     </tr>
   <% end %>
 </table>
+
+<!-- Delivery Template Form Modal -->
+<div class="modal fade" id="deliveryTemplateForm" tabindex="-1" role="dialog" aria-labelledby="deliveryOptionFormLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h5 class="mb-4 text-center">Add New Template</h5>
+        <div id="delivery-template-form"></div>
+      </div>
+    </div>
+  </div>
+</div>
