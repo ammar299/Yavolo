@@ -1,0 +1,6 @@
+if ('<%= params[:form_to_update] %>' == 'company_detail' || '<%= params[:form_to_update] %>' == 'business_representative') {
+$("#<%= params[:form_to_update] %>").append("<%= j render(partial: 'update_fields_form', locals: { url: admin_seller_path(@seller), method: :patch }) %>");
+}
+else {
+$("#addresses").append("<%= j render(partial: 'update_fields_form', locals: { url: admin_seller_path(@seller), method: :patch }) %>");
+}

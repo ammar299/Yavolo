@@ -1,65 +1,32 @@
-<% seller_columns = Seller.column_names.select{|col| !['id','created_at','updated_at'].include?(col) } %>
-<% business_represantative_columns = BusinessRepresentative.column_names.select{|col| !['id','created_at','updated_at'].include?(col) } %>
-<% address_columns = Address.column_names.select{|col| !['id','created_at','updated_at'].include?(col) } %>
-<% company_detail_columns = CompanyDetail.column_names.select{|col| !['id','created_at','updated_at'].include?(col) } %>
-
-<div id="business-representative">
+<div id="business_representative">
 <h3>Business Representative</h3>
-    <%#= seller_columns.inspect %>
-    <%#= business_represantative_columns.inspect %>
-    <%#= address_columns.inspect %>
-    <%#= company_detail_columns.inspect %>
-    <%#= business_represantative_columns.inspect %>
-
     <% if @seller.business_representative.present? %>
-      <% business_represantative_columns.each do |col| %>
-      <%= col.titleize %>:
-      <% a = @seller.business_representative.send(col.to_sym) %>
-      <%= a %><br>
-      <% end %>
-      <%= link_to "Update Business Representative", admin_seller_update_business_representative_path(@seller.id), remote: true %>
-      <!-- <a href="<%#= admin_seller_update_business_representative_path(@seller.id) %>" data-remote="true">Update Business Representative</a> -->
+    <% @seller.business_representative.attributes.each do |key, value| %>
+      <%= key.humanize %> : <%=h value %><br>
+    <% end %>
+      <%= link_to "Update Business Representative", edit_admin_seller_path(id: @seller.id, form_to_update: 'business_representative'), remote: true %>
     <% end %>
 </div>
 
-<div>
+<div id="company_detail">
 <h3>Company Details</h3>
-    <%#= seller_columns.inspect %>
-    <%#= business_represantative_columns.inspect %>
-    <%#= address_columns.inspect %>
-    <%#= company_detail_columns.inspect %>
-    <%#= business_represantative_columns.inspect %>
-
     <% if @seller.company_detail.present? %>
-    <% company_detail_columns.each do |col| %>
-    <%= col.titleize %>:
-    <% a = @seller.company_detail.send(col.to_sym) %>
-    <%= a %><br>
+    <% @seller.company_detail.attributes.each do |key, value| %>
+      <%= key.humanize %> : <%=h value %><br>
     <% end %>
+    <%= link_to "Update Company Details", edit_admin_seller_path(id: @seller.id, form_to_update: 'company_detail'), remote: true %>
     <% end %>
 </div>
 
-<div>
+<div id="addresses">
 <h3>Addresses</h3>
-    <%#= seller_columns.inspect %>
-    <%#= business_represantative_columns.inspect %>
-    <%#= address_columns.inspect %>
-    <%#= company_detail_columns.inspect %>
-    <%#= business_represantative_columns.inspect %>
-    <% business_representative_address = @seller.addresses.where(address_type: "business_representative_address").last %>
-    <% business_address = @seller.addresses.where(address_type: "business_address").last %>
-
-    <% if @seller.addresses.present? %>
-
-    <h2>Business Representative Address</h2>
-    <% address_columns.each do |col| %>
-    <%= col.titleize %>:
-    <%= business_representative_address.send(col.to_sym) %><br>
-    <% end %>
-    <h2>Business Address</h2>
-    <% address_columns.each do |col| %>
-    <%= col.titleize %>:
-    <%= business_address.send(col.to_sym) %><br>
-    <% end %>
-    <% end %>
+<% @seller.addresses.each do |address| %>
+<div id="<%=address.address_type%>">
+<h3><%= address.address_type.humanize %></h3>
+<% address.attributes.each do |key, value| %>
+  <%= key.humanize %> : <%=h value %><br>
+<% end %>
+  <%= link_to "Update #{ address.address_type.humanize }", edit_admin_seller_path(id: @seller.id, form_to_update: "#{address.address_type}", address_id: address.id), remote: true %>
+<% end %>
+</div>
 </div>

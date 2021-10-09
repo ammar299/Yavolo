@@ -16,7 +16,7 @@ global.$ = jQuery;
 Rails.start();
 Turbolinks.start();
 ActiveStorage.start();
-require("@rails/ujs").start()
+// require("@rails/ujs").start()
 
 import "controllers"
 

@@ -10,9 +10,7 @@ Rails.application.routes.draw do
         root 'admin/dashboard#index', as: :admins_dashboard
         resources :delivery_options, except: %i[show]
         resources :sellers do
-          get :update_business_representative
         end
-        # patch 'update_business_representative', to: 'admin/sellers#update_business_representative', as: :update_business_representative
         root 'dashboard#index', as: :dashboard
         resources :categories
 

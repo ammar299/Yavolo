@@ -12,12 +12,16 @@ class Admin::SellersController < ApplicationController
         @seller.build_company_detail
     end
 
-    def show; end
+    def show
+        @business_representative_address = @seller.addresses.where(address_type: "business_representative_address").last
+        @business_address = @seller.addresses.where(address_type: "business_address").last
+        @remaining_addresses = Address.address_types.keys - @seller.addresses.collect(&:address_type)
+        @remaining_addresses.each do |address_type| @seller.addresses.build address_type: address_type end if @remaining_addresses.present?
+    end
 
     def create
         @seller = Seller.new(seller_params)
         @seller.skip_password_validation = true
-        byebug
         if @seller.save
           redirect_to admin_sellers_path
         else
@@ -28,17 +32,17 @@ class Admin::SellersController < ApplicationController
     def edit
     end
 
-    def update_business_representative
-        @seller = Seller.find(params[:seller_id])
-    end
-
     def update
         byebug
+        if @seller.update(seller_params)
+            redirect_to admin_sellers_path
+          else
+            render :edit
+          end
     end
 
     private
     def seller_params
-        byebug
         params.require(:seller).permit(:email, :subscription_type,
             business_representative_attributes: [:id, :full_legal_name, :email, :job_title, :date_of_birth, :contact_number],
             company_detail_attributes: [:id, :name, :vat_number, :country, :legal_business_name, :companies_house_registration_number, :business_industry, :business_phone, :website_url, :amazon_url, :ebay_url, :doing_business_as],
