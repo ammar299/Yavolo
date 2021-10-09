@@ -72,4 +72,5 @@ gem 'kaminari'
 gem 'carrierwave', '~> 2.0'
 
 gem 'cocoon'
-
+gem 'pg_search'
+gem 'select_all-rails'
