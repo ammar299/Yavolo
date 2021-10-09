@@ -21,3 +21,8 @@ import "controllers"
 
 require('packs/delivery_options')
 require("@nathanvda/cocoon")
+require ("select_all.js")
+
+$(function() {
+  $("#selectAll").select_all();
+});
