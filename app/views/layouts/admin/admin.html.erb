@@ -1,55 +1,28 @@
 <!DOCTYPE html>
-
-
-<!DOCTYPE html>
 <html>
 
 <head>
-    <title>Admin-Dashboard</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+  <title>Admin-Dashboard</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
-
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= stylesheet_pack_tag 'application', media: 'all' %>
+  <%= javascript_pack_tag 'application' %>
+</head>
 <body>
-
   <div class="dashboard-page">
-    <div class="leftside">
-      <div class="sideheader">
-        <a href="<% root_path %>" class="logo"><%= image_tag "Yavolo_Logo_WarmRed.png" , style: 'width:168px' %></a>
-        <p class="mt-3 mb-0">A good deal better</p>
-      </div>
-      <div class="sidebody">
-        <ul>
-          <li class="active"><a href="#"><span><i class="fas fa-home pr-2"></i></span> Dashboard</a></li>
-          <li><a href="#">Pages</a></li>
-          <li><a href="#">Templates</a></li>
-          <li><a href="#">Orders</a></li>
-          <li><a href="#"><span><i class="fas fa-user pr-2"></i></span> Customer</a></li>
-          <li><a href="#">Sellers</a></li>
-          <li><a href="#">Products</a></li>
-          <li><a href="#">Tickets</a></li>
-          <li><a href="#">Blogs</a></li>
-          <li><a href="#">Reviews</a></li>
-          <li><a href="#">Manage Yavolos</a></li>
-          <li><a href="#">Finance</a></li>
-          <li><a href="#">Technical </a></li>
-          <li><a href="#">Rule Engine</a></li>
-          <li><a href="#">Appearance</a></li>
-        </ul>
-        <ul>
-          <li><a href="#">Settings</a></li>
-          <li><%= link_to "Logout", destroy_admin_session_path, :method => :delete %></li>
-        </ul>
+    <%= render "shared/admin_sidebar" %>
+    <div class="rightside">
+      <div class="main-page">
+        <div class="admin-dashboard">
+          <%= render "shared/admin_header" %>
+          <%= yield %>
+        </div>
       </div>
     </div>
-      <%= yield %>
   </div>
-
 </body>
 
 </html>

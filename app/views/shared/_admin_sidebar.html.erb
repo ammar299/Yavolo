@@ -1,0 +1,30 @@
+<div class="dashboard-page">
+  <div class="leftside">
+    <div class="sideheader">
+      <%= link_to image_tag("Yavolo_Logo_WarmRed.png"), root_path, :class => 'logo' %>
+      <p class="mt-3 mb-0">A good deal better</p>
+    </div>
+    <div class="sidebody">
+      <ul>
+        <li class="active"><%= link_to "Dashboard" %></li>
+        <li><%= link_to "Pages" %></li>
+        <li><%= link_to "Template" %></li>
+        <li><%= link_to "Order" %></li>
+        <li><%= link_to "Customers" %></li>
+        <li><%= link_to "Sellers" %></li>
+        <li><%= link_to "Products" %></li>
+        <li><%= link_to "Tickets" %></li>
+        <li><%= link_to "Blogs" %></li>
+        <li><%= link_to "Reviews" %></li>
+        <li><%= link_to "Manage Yavollos" %></li>
+        <li><%= link_to "Finance" %></li>
+        <li><%= link_to "Technical" %></li>
+        <li><%= link_to "Rule Engine" %></li>
+        <li><%= link_to "Appearance" %></li>
+      </ul>
+      <ul>
+        <li><%= link_to "Settings" %></li>
+        <li><%= link_to "Logout", destroy_admin_session_path, :method => :delete %></li>
+      </ul>
+    </div>
+  </div>
