@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_06_123918) do
+ActiveRecord::Schema.define(version: 2021_10_09_074208) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(version: 2021_10_06_123918) do
     t.integer "filter_group_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["filter_group_id"], name: "index_filter_categories_on_filter_group_id"
   end
 
   create_table "filter_groups", force: :cascade do |t|
@@ -160,6 +161,7 @@ ActiveRecord::Schema.define(version: 2021_10_06_123918) do
     t.integer "filter_group_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_filter_groups_on_name"
   end
 
   create_table "filter_in_categories", force: :cascade do |t|
@@ -168,6 +170,7 @@ ActiveRecord::Schema.define(version: 2021_10_06_123918) do
     t.integer "filter_group_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["filter_group_id"], name: "index_filter_in_categories_on_filter_group_id"
   end
 
   create_table "google_shoppings", force: :cascade do |t|

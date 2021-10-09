@@ -14,7 +14,7 @@ class Admin::FilterGroupsController < Admin::BaseController
   def create
     @filter_group = FilterGroup.new(filter_group_params)
     if @filter_group.save
-      redirect_to admin_filter_group_path(@filter_group)
+      redirect_to admin_filter_group_path
     else
       redirect_to new_admin_filter_group_path
     end
@@ -25,7 +25,7 @@ class Admin::FilterGroupsController < Admin::BaseController
 
   def update
     if @filter_group.update(filter_group_params)
-      redirect_to admin_filter_group_path(@filter_group)
+      redirect_to admin_filter_group_path
     else
       redirect_to edit_admin_filter_group_path(@filter_group)
     end
