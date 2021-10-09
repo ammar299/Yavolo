@@ -1,0 +1,28 @@
+<div class="Yavolo-table">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Number Of Filter Groups</th>
+        <th>Categories Assigned</th>
+        <th>Assinged Categories</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @filter_groups.each do |filter_group|%>
+      <tr>
+        <td><%= filter_group.id %></td>
+        <td><%= filter_group.filter_group_type if filter_group.filter_group_type.present? %></td>
+        <td><%= filter_group.name %></td>
+        <td><%= filter_group.filter_in_categories.count%></td>
+        <td><%= filter_group.filter_categories.count%></td>
+        <td><%= link_to 'Edit', edit_admin_filter_group_path(filter_group) %>| <%= link_to 'Delete', admin_filter_group_path(filter_group), method: :delete %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+

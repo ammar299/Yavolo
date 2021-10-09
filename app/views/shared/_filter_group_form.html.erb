@@ -1,0 +1,22 @@
+<%= simple_form_for @filter_group, url: admin_filter_groups_path do |form| %>
+  <%= form.label :name%>
+  <%= form.text_field :name %>
+
+  <%= form.label :filter_group_type %>
+  <%= form.select :filter_group_type, FilterGroup.filter_group_types.map{ |a| [a.first,a.first] } %>
+  <br />
+  <%= form.fields_for :filter_categories, @filter_group.filter_categories do |filter_category| %>
+    <%= filter_category.label :category_name%>
+    <%= filter_category.text_field :category_name %>
+  <% end %>
+  <br />
+  <%= form.fields_for :filter_in_categories, @filter_group.filter_in_categories do |filter_form| %>
+    <%= filter_form.label :filter_name %>
+    <%= filter_form.text_field :filter_name %>
+
+    <%= filter_form.label :sort_order %>
+    <%= filter_form.number_field :sort_order %>
+  <% end %>
+  <br />
+  <%= form.submit %>
+<% end %>

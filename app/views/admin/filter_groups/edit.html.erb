@@ -1,0 +1,36 @@
+<%= simple_form_for @filter_group, url: admin_filter_group_path  do |f| %>
+<%= f.error_notification %>
+
+<div class="form-inputs">
+  <%= f.input :name %>
+  <%= f.label :filter_group_type %>
+  <%= f.select :filter_group_type, FilterGroup.filter_group_types.keys %>
+</div>
+<h3>category</h3>
+
+<div id='certifications'>
+  <%= f.fields_for :filter_categories do |filter_category| %>
+  <%= render 'filter_category_fields', :f => filter_category %>
+  <% end %>
+  <div class="state-content links">
+    <%= link_to_add_association f, :filter_categories do  %>
+    <span> <i class="fas fa-plus"></i></span>
+    <p class="pl-2">Filter Category</p>
+    <% end %>
+  </div>
+</div>
+
+<div id='certifications'>
+  <%= f.fields_for :filter_in_categories do |filter_in_category| %>
+  <%= render 'filter_in_category_fields', :f => filter_in_category %>
+  <% end %>
+  <div class="state-content links">
+    <%= link_to_add_association f, :filter_in_categories do  %>
+    <span> <i class="fas fa-plus"></i></span>
+    <p class="pl-2">Filter In Category</p>
+    <% end %>
+  </div>
+</div>
+<%= f.submit %>
+
+<% end %>
