@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_06_123918) do
+
+ActiveRecord::Schema.define(version: 2021_10_09_074208) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -118,8 +119,27 @@ ActiveRecord::Schema.define(version: 2021_10_06_123918) do
     t.index ["reset_password_token"], name: "index_buyers_on_reset_password_token", unique: true
   end
 
+  create_table "carriers", force: :cascade do |t|
+    t.string "name"
+    t.string "api_key"
+    t.string "secret_key"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "category_name"
+    t.boolean "baby_category", default: false
+    t.string "category_description"
+    t.string "bundle_label"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "ancestry"
+    t.index ["ancestry"], name: "index_categories_on_ancestry"
+  end
+
   create_table "delivery_option_ships", force: :cascade do |t|
-    t.float "price"
+    t.decimal "price", precision: 8, scale: 2
     t.bigint "delivery_option_id"
     t.bigint "ship_id"
     t.datetime "created_at", precision: 6, null: false
@@ -153,13 +173,15 @@ ActiveRecord::Schema.define(version: 2021_10_06_123918) do
     t.integer "filter_group_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["filter_group_id"], name: "index_filter_categories_on_filter_group_id"
   end
 
   create_table "filter_groups", force: :cascade do |t|
     t.string "name"
-    t.integer "type"
+    t.integer "filter_group_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_filter_groups_on_name"
   end
 
   create_table "filter_in_categories", force: :cascade do |t|
@@ -168,8 +190,9 @@ ActiveRecord::Schema.define(version: 2021_10_06_123918) do
     t.integer "filter_group_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["filter_group_id"], name: "index_filter_in_categories_on_filter_group_id"
   end
-
+  
   create_table "google_shoppings", force: :cascade do |t|
     t.string "title"
     t.decimal "price", precision: 8, scale: 2

@@ -68,6 +68,8 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    ancestry (4.1.0)
+      activerecord (>= 5.2.6)
     bcrypt (3.1.16)
     bindex (0.8.1)
     bootsnap (1.7.5)
@@ -91,6 +93,7 @@ GEM
       mini_mime (>= 0.1.3)
       ssrf_filter (~> 1.0)
     childprocess (3.0.0)
+    cocoon (1.2.15)
     concurrent-ruby (1.1.8)
     crass (1.0.6)
     devise (4.8.0)
@@ -305,10 +308,12 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-session_store
+  ancestry
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
   carrierwave (~> 2.0)
+  cocoon
   devise
   dotenv-rails
   image_processing (~> 1.2)

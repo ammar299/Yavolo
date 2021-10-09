@@ -596,3 +596,15 @@ text-decoration: none;
 
 
 /*=========Admin-login============ */
+
+
+.admin_filter_header{
+	cursor: pointer;
+	text-decoration: none;
+}
+
+/*=========Admin Categories======= */
+.btn-text-color{
+	color: white !important;
+}
+

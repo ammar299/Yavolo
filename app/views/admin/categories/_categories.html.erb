@@ -1,0 +1,32 @@
+<%=notice%>
+<div class="">
+  <%= link_to 'Create Category', new_admin_category_path, class: 'btn btn-primary btn-text-color ml-3' %>
+  <%= link_to 'Create Sub Category', new_admin_category_path , :class => "btn btn-primary sub-category-link  btn-text-color ml-3 disabled" %>
+</div>
+<div class="">
+  <table class="table">
+    <tr>
+      <th>
+        Category Name
+      </th>
+      <th>
+      </th>
+      <th>
+        Action
+      </th>
+    </tr>
+    <% categories.each do |category| %>
+      <tr>
+        <td><input type="checkbox" class="category_id" name="<%=category.id%>"></td>
+        <td><%= category.category_name %></td>
+        <td></td>
+        <td>
+          <%= link_to 'Edit', edit_admin_category_path(category), class: 'btn btn-info btn-text-color' %>
+          <%= link_to 'Delete', admin_category_path(category), method: 'delete', class: 'btn btn-danger btn-text-color ml-3' %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<%= javascript_pack_tag 'category' %>
