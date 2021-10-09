@@ -2,7 +2,11 @@ class Admin::FilterGroupsController < Admin::BaseController
   before_action :set_filter_group, only: [:show, :edit, :update, :destroy]
 
   def index
-    @filter_groups = FilterGroup.includes(:filter_categories, :filter_in_categories)
+    if params[:search].present?
+       @filter_groups = FilterGroup.includes(:filter_categories, :filter_in_categories).search_by_name(params[:search]).page(params[:page]).per(params[:per_page].presence || 15)
+    else
+       @filter_groups = FilterGroup.includes(:filter_categories, :filter_in_categories).page(params[:page]).per(params[:per_page].presence || 15)
+    end
   end
 
   def new
@@ -14,9 +18,9 @@ class Admin::FilterGroupsController < Admin::BaseController
   def create
     @filter_group = FilterGroup.new(filter_group_params)
     if @filter_group.save
-      redirect_to admin_filter_group_path
+      redirect_to admin_filter_groups_path
     else
-      redirect_to new_admin_filter_group_path
+      redirect_to new_admin_filter_groups_path
     end
   end
 
@@ -25,7 +29,7 @@ class Admin::FilterGroupsController < Admin::BaseController
 
   def update
     if @filter_group.update(filter_group_params)
-      redirect_to admin_filter_group_path
+      redirect_to admin_filter_groups_path
     else
       redirect_to edit_admin_filter_group_path(@filter_group)
     end
@@ -40,6 +44,11 @@ class Admin::FilterGroupsController < Admin::BaseController
     redirect_to admin_filter_groups_path
   end
 
+  def destroy_multiple
+    FilterGroup.destroy(params[:filter_group_ids])
+    redirect_to admin_filter_groups_path 
+  end
+
   private
 
   def set_filter_group
@@ -47,6 +56,6 @@ class Admin::FilterGroupsController < Admin::BaseController
   end
 
   def filter_group_params
-    params.require(:filter_group).permit(:name, :filter_group_type, filter_categories_attributes: [:id, :category_name, :filter_group_id, :_destroy], filter_in_categories_attributes: [:id, :filter_name, :sort_order, :filter_group_id, :_destroy])
+    params.require(:filter_group).permit(:name, :filter_group_type, filter_group_ids: [], filter_categories_attributes: [:id, :category_name, :filter_group_id, :_destroy], filter_in_categories_attributes: [:id, :filter_name, :sort_order, :filter_group_id, :_destroy])
   end
 end

@@ -25,7 +25,11 @@ Rails.application.routes.draw do
             get 'duplicate'
           end
         end
-        resources :filter_groups
+        resources :filter_groups do
+          collection do
+            delete 'destroy_multiple'
+          end
+        end
       end
     end
   end
