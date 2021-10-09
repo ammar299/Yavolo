@@ -14,7 +14,7 @@ class Admin::DeliveryOptionsController < Admin::BaseController
     @delivery_option = DeliveryOption.new(delivery_option_params)
     if @delivery_option.save
       delivery_option_ships(@delivery_option)
-      redirect_to admin_delivery_options_path
+      @delivery_options = DeliveryOption.all
     else
       render :new
     end
@@ -23,19 +23,9 @@ class Admin::DeliveryOptionsController < Admin::BaseController
   def update
     if @delivery_option.update(delivery_option_params)
       delivery_option_ships(@delivery_option)
-      redirect_to admin_delivery_options_path
+      @delivery_options = DeliveryOption.all
     else
       render :edit
-    end
-  end
-
-  def delivery_option_ships(delivery_option)
-    delivery_option.ships.destroy_all if delivery_option.ships.exists?
-    unselected_ships = Hash[Ship.pluck(:id).map(&:to_s).zip params['ship_price']]
-    selected_ships = {}
-    selected_ships = unselected_ships.slice(*params['delivery_option']['ship_ids'].reject(&:blank?))
-    selected_ships.each do |ship_id, price|
-      DeliveryOptionShip.create(price: price, ship_id: ship_id, delivery_option_id: delivery_option.id)
     end
   end
 
@@ -46,7 +36,7 @@ class Admin::DeliveryOptionsController < Admin::BaseController
 
   def delete_delivery_options
     DeliveryOption.where(id: params['ids'].split(',')).destroy_all
-    redirect_to admin_delivery_options_path
+    @delivery_options = DeliveryOption.all
   end
 
   private
@@ -58,5 +48,14 @@ class Admin::DeliveryOptionsController < Admin::BaseController
   def set_delivery_option
     @delivery_option = DeliveryOption.find(params[:id])
   end
-  
+
+  def delivery_option_ships(delivery_option)
+    delivery_option.ships.destroy_all if delivery_option.ships.exists?
+    unselected_ships = Hash[Ship.pluck(:id).map(&:to_s).zip params['ship_price']]
+    selected_ships = {}
+    selected_ships = unselected_ships.slice(*params['delivery_option']['ship_ids'].reject(&:blank?))
+    selected_ships.each do |ship_id, price|
+      DeliveryOptionShip.create(price: price, ship_id: ship_id, delivery_option_id: delivery_option.id)
+    end
+  end
 end

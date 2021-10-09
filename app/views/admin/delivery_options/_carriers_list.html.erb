@@ -1,50 +1,16 @@
-<div class="row">
-  <div class="dropdown ml-4">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Actions
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <button class="btn dropdown-item" type="button" id="delete-carriers">Delete</button>
-  </div>
-</div>
-<%= link_to 'Add New Carrier', new_admin_carrier_path, class: 'btn btn-secondary ml-3', data: { remote: true } %>
-
-<table>
+<% carriers.each do |carrier| %>
   <tr>
-    <th>
-      <div class="carrier-checkbox-container carriers-select-all-container">
-        <input type="checkbox" class="carrier" id="carrier-select-all" name="select-all" value="select-all">
+    <td>
+      <div class="carrier-checkbox-container carriers-checkbox-container">
+        <input type="checkbox" id="<%= "select-#{carrier.id}" %>" value="<%= carrier.id %>">
       </div>
-    </th>
-    <th>
-      Name
-    </th>
-    <th>
-      API Key
-    </th>
-    <th>
-      Secret Key
-    </th>
-    <th>
-      Action
-    </th>
+    </td>
+    <td><%= carrier.name %></td>
+    <td><%= carrier.api_key %></td>
+    <td><%= carrier.secret_key %></td>
+    <td>
+      <%= link_to 'Edit', edit_admin_carrier_path(carrier), class: 'btn btn-secondary', data: { remote: true } %>
+      <%= link_to 'Delete', admin_carrier_path(carrier), method: 'delete', class: 'btn btn-secondary ml-3' %>
+    </td>
   </tr>
-
-  <% carriers.each do |carrier| %>
-    <tr>
-      <td>
-        <div class="carrier-checkbox-container carriers-checkbox-container">
-          <input type="checkbox" id="<%= "select-#{carrier.id}" %>" value="<%= carrier.id %>">
-        </div>
-      </td>
-      <td><%= carrier.name %></td>
-      <td><%= carrier.api_key %></td>
-      <td><%= carrier.secret_key %></td>
-      <td>
-        <%= link_to 'Edit', edit_admin_carrier_path(carrier), class: 'btn btn-secondary', data: { remote: true } %>
-        <%= link_to 'Delete', admin_carrier_path(carrier), method: 'delete', class: 'btn btn-secondary ml-3' %>
-      </td>
-    </tr>
-  <% end %>
-</table>
-
+<% end %>
