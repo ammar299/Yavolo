@@ -1,4 +1,4 @@
-<%= simple_form_for Carrier.new, url: url do |f| %>
+<%= simple_form_for Carrier.new, url: url, remote: true do |f| %>
   <%= f.label :name, 'Delivery Option Name' %>
   <%= f.text_field :name %>
   <div class="row mt-4">

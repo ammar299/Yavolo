@@ -1,8 +1,94 @@
 <div class=row>
   <div class="col-12">
-    <%= render 'delivery_options_list', delivery_options: @delivery_options %>
+    <div class="row">
+      <div class="dropdown ml-4">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Actions
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <button class="btn dropdown-item" type="button" id="delete-delivery-options">Delete</button>
+      </div>
+    </div>
+    <%= link_to 'Add New Template', new_admin_delivery_option_path, class: 'btn btn-secondary ml-3', data: { remote: true } %>
+
+    <table>
+      <thead>
+        <tr>
+          <th>
+            <div class="checkbox-container delivery-options-select-all-container">
+              <input type="checkbox" class="delivery-option" id="delivery-option-select-all" name="select-all" value="select-all">
+            </div>
+          </th>
+          <th>
+            Delivery Template Name
+          </th>
+          <th>
+            Processing Time
+          </th>
+          <th>
+            Delivery Time
+          </th>
+          <th>
+            Action
+          </th>
+        </tr>
+        </thead>
+        <tbody id="delivery-options-list">
+          <%= render 'delivery_options_list', delivery_options: @delivery_options %>
+        </tbody>
+    </table>
+
   </div>
   <div class="col-12">
-    <%= render 'carriers_list', carriers: @carriers %>
+    <div class="row">
+      <div class="dropdown ml-4">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Actions
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <button class="btn dropdown-item" type="button" id="delete-carriers">Delete</button>
+      </div>
+    </div>
+    <%= link_to 'Add New Carrier', new_admin_carrier_path, class: 'btn btn-secondary ml-3', data: { remote: true } %>
+
+    <table>
+    <thead>
+      <tr>
+        <th>
+          <div class="carrier-checkbox-container carriers-select-all-container">
+            <input type="checkbox" class="carrier" id="carrier-select-all" name="select-all" value="select-all">
+          </div>
+        </th>
+        <th>
+          Name
+        </th>
+        <th>
+          API Key
+        </th>
+        <th>
+          Secret Key
+        </th>
+        <th>
+          Action
+        </th>
+      </tr>
+    </thead>
+    <tbody id="carriers-list">
+      <%= render 'carriers_list', carriers: @carriers %>
+    </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- Delivery Template Form Modal -->
+<div class="modal fade" id="deliveryTemplateForm" tabindex="-1" role="dialog" aria-labelledby="deliveryOptionFormLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h5 class="mb-4 text-center">Add New Template</h5>
+        <div id="delivery-template-form"></div>
+      </div>
+    </div>
   </div>
 </div>
