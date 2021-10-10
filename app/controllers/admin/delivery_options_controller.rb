@@ -14,7 +14,7 @@ class Admin::DeliveryOptionsController < Admin::BaseController
     @delivery_option = DeliveryOption.new(delivery_option_params)
     if @delivery_option.save
       delivery_option_ships(@delivery_option)
-      redirect_to admin_delivery_options_path
+      redirect_to admin_delivery_options_path unless params[:from]=='create_product'
     else
       render :new
     end

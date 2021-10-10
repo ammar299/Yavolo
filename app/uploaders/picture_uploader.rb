@@ -1,16 +1,39 @@
 class PictureUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
   # storage :file
-  storage :file
+  storage Rails.env.production? ? :fog : :file
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  end
+
+  version :thumb do
+    process resize_to_fit: [50, 50]
+  end
+
+  version :medium do
+    process resize_to_fit: [300, 300]
+  end
+
+  version :large do
+    process resize_to_fit: [800, 800]
+  end
+
+  def extension_allowlist
+    model.file_metadata = {} unless model.file_metadata.is_a?(Hash)
+    output = `file --mime-type #{file.file}`
+    if uploader_name == "name"
+      extention = output.split(':').last
+      valid_extention = ['jpg','jpeg','png'].select{|ext| extention.include?(ext) }
+      model.file_metadata.merge!({"#{uploader_name}" => { 'ext'=> extention, 'file_exist' => valid_extention.present? }})
+      %w(jpg jpeg png)
+    end
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
@@ -44,4 +67,9 @@ class PictureUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
+
+  protected
+    def uploader_name
+      self.mounted_as.to_s
+    end
 end

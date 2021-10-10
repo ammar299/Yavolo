@@ -11,13 +11,15 @@ import "bootstrap";
 import "@fortawesome/fontawesome-free/js/all";
 import "../stylesheets/application.scss";
 
-global.$ = jQuery;
+// global.$ = jQuery;
 
 Rails.start();
 Turbolinks.start();
 ActiveStorage.start();
 
 import "controllers"
-
-require('packs/delivery_options')
 require("@nathanvda/cocoon")
+require('packs/admin')
+require('packs/delivery_options')
+require('packs/products')
+

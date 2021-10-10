@@ -7,6 +7,13 @@
     <%= picture.check_box :_destroy %>
   <% end %>
 <% end %>
+<div>
+<% if !form.object.new_record? && form.object.pictures.present? %>
+  <% form.object.pictures.each do |pic| %>
+    <%= image_tag pic.name.url %>
+  <% end %>
+<% end %>
+</div>
 </div>
 
 
