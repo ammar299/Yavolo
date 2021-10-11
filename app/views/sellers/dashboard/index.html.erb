@@ -10,111 +10,13 @@
         </div>
       </div>
     </div>
-    <section class="seller-order-board">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-3">
-            <p class="title">Your Open Orders</p>
-            <div class="detail">
-              100
-            </div>
-          </div>
-          <div class="col-md-3">
-            <p class="title">Last 30 Days Revenue</p>
-            <div class="detail">
-              £50,000
-            </div>
-          </div>
-          <div class="col-md-3">
-            <p class="title">New Messages</p>
-            <div class="detail">
-              4
-            </div>
-          </div>
-          <div class="col-md-3">
-            <p class="title">% Yavolo Enabled Listings</p>
-            <div class="detail">
-              85%
-            </div>
-          </div>
-          <div class="col-md-3">
-            <p class="title">Estimated Payment</p>
-            <div class="detail">
-              £40,000
-            </div>
-          </div>
-        </div>
-        <hr class="mt-5 mb-5" >
-      </div>
-    </section>
+    <%= render 'sellers/dashboard/stats' %>
     <section class="seller-news">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-4 d-flex flex-column">
-            <p class="news-title">Seller News</p>
-            <div class="seller-news-inner">
-              <div class="seller-news-detail brdr-btm mb-4">
-                <p class="news-date mb-0">09.02.21</p>
-                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
-                <p class="read-more"><a href="">Read more</a></p>
-              </div>
-              <div class="seller-news-detail brdr-btm mb-4">
-                <p class="news-date mb-0">09.02.21</p>
-                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
-                <p class="read-more"><a href="">Read more</a></p>
-              </div>
-              <div class="seller-news-detail">
-                <p class="news-date mb-0">09.02.21</p>
-                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
-                <p class="read-more pb-4"><a href="">Read more</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex flex-column">
-            <p class="news-title">To Do List</p>
-            <div class="seller-news-inner">
-              <ul>
-                <li class="d-flex justify-content-between brdr-btm">
-                  <span>Orders to dispatch today</span>
-                  <span>17</span>
-                </li>
-                <li class="d-flex justify-content-between brdr-btm">
-                  <span>Review Yavolo requests</span>
-                  <span>12</span>
-                </li>
-                <li class="d-flex justify-content-between brdr-btm">
-                  <span>Review low stock items</span>
-                  <span>8</span>
-                </li>
-                <li class="d-flex justify-content-between">
-                  <span>Reply to new messages</span>
-                  <span>14</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex flex-column">
-            <p class="news-title">Success Meter</p>
-            <div class="seller-news-inner">
-              <span>
-              <img src="" alt="">
-              </span>
-              <ul>
-                <li class="d-flex justify-content-between brdr-btm">
-                  <span>Perfect timed dispatch</span>
-                  <span>100%</span>
-                </li>
-                <li class="d-flex justify-content-between brdr-btm">
-                  <span>Courier delivered on time</span>
-                  <span>50%</span>
-                </li>
-                <li class="d-flex justify-content-between">
-                  <span>Successful orders</span>
-                  <span class="red">10%</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <%= render 'sellers/dashboard/news' %>
+          <%= render 'sellers/dashboard/to_do_list' %>
+          <%= render 'sellers/dashboard/success_meter' %>
         </div>
       </div>
     </section>
