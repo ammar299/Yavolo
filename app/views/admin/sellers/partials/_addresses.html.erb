@@ -1,6 +1,6 @@
     <!-- Business Owner Address / Address with type business_address -->
 <h4><%= params[:form_to_update].humanize %></h4>
-<%= form.simple_fields_for :addresses,(params['address_id'].blank? ? @seller.addresses.build(address_type: params[:form_to_update]) : addresses ) do |addr| %>
+<%= form.simple_fields_for :addresses,(params['address_id'].blank? ? @seller.addresses.build(address_type: params[:form_to_update]) : addresses.select{ | ad | ad.id == params[:address_id].to_i } ) do |addr| %>
   <%= addr.input :address_type, as: :hidden, input_html: { value: params[:form_to_update] } %>
   <%= addr.input :address_line_1, label: 'Address Line 1', required: true, placeholder: 'Address Line 1' %>
   <%= addr.input :address_line_2, label: 'Address Line 2', required: true, placeholder: 'Address Line 2' %>
