@@ -51,7 +51,7 @@ Rails.application.routes.draw do
   devise_scope :buyer do
     authenticated :buyer do
       namespace :buyers do
-        root 'dashboard/buyer_dashboard#index', as: :buyer_authenticated_root
+        root 'dashboard#index', as: :buyer_authenticated_root
       end
     end
   end
