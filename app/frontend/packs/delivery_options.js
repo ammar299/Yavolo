@@ -1,4 +1,4 @@
-$(document).on('turbolinks:load', function(){
+$(document).ready(function(){
   $('#delete-delivery-options').click(() => deleteDeliveryOptionsCarriers('.delivery-options-checkbox-container'));
   $('#delete-carriers').click(() => deleteDeliveryOptionsCarriers('.carriers-checkbox-container'));
   $('.delivery-options-select-all-container #delivery-option-select-all').change(() => selectedDeliveryOptionsCarriers('.delivery-options-checkbox-container'));

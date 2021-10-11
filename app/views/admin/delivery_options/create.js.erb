@@ -1,4 +1,12 @@
+<% if params[:from] == 'create_product' %>
 $('.delivery-details-section').append("<%= j radio_button_tag 'product[delivery_option_id]',@delivery_option.id, true, value: @delivery_option.id  %> <%=@delivery_option.name%><br/>")
 $('#delivery-template-form').hide();
 $('#delivery-template-form').html("");
 $("#add_new").prop("checked", false);
+<% end %>
+
+<% if !params[:from].present? %>
+  $("#deliveryTemplateForm").modal('hide');
+  $('#delivery-options-list').html("<%= j render(partial: 'delivery_options_list', locals: { delivery_options: @delivery_options }) %>");
+<% end %>
+

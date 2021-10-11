@@ -4,17 +4,16 @@
 // that code so it'll be compiled.
 
 import Rails from "@rails/ujs";
-import Turbolinks from "turbolinks";
 import * as ActiveStorage from "@rails/activestorage";
 import "channels";
+
+global.$ = jQuery;
+
 import "bootstrap";
 import "@fortawesome/fontawesome-free/js/all";
 import "../stylesheets/application.scss";
 
-// global.$ = jQuery;
-
 Rails.start();
-Turbolinks.start();
 ActiveStorage.start();
 
 import "controllers"
@@ -22,4 +21,9 @@ require("@nathanvda/cocoon")
 require('packs/admin')
 require('packs/delivery_options')
 require('packs/products')
+require("@nathanvda/cocoon")
+require ("select_all.js")
 
+$(function() {
+  $("#selectAll").select_all();
+});
