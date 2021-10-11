@@ -13,8 +13,6 @@ class Admin::SellersController < ApplicationController
     end
 
     def show
-        @business_representative_address = @seller.addresses.where(address_type: "business_representative_address").last
-        @business_address = @seller.addresses.where(address_type: "business_address").last
         @remaining_addresses = Address.address_types.keys - @seller.addresses.collect(&:address_type)
         @remaining_addresses.each do |address_type| @seller.addresses.build address_type: address_type end if @remaining_addresses.present?
     end
@@ -33,7 +31,6 @@ class Admin::SellersController < ApplicationController
     end
 
     def update
-        byebug
         if @seller.update(seller_params)
             redirect_to admin_sellers_path
           else

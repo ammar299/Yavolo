@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     authenticated :admin do
       root 'admin/dashboard#index', as: :admins_dashboard
       namespace :admin do
-        root 'admin/dashboard#index', as: :admins_dashboard
+        # root 'admin/dashboard#index', as: :admins_dashboard
         resources :delivery_options, except: %i[show]
         resources :sellers do
         end
