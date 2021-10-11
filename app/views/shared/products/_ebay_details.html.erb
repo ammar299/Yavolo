@@ -1,0 +1,20 @@
+<div class="ebay-details-section" style="border: 1px solid #ccc">
+<%= form.fields_for :ebay_detail, @product.ebay_detail do |ebay_data| %>
+
+  <%= ebay_data.label :lifetime_sales %>
+  <%= ebay_data.text_field :lifetime_sales %>
+
+  <%= ebay_data.label :thirty_day_sales %>
+  <%= ebay_data.text_field :thirty_day_sales %>
+
+  <%= ebay_data.label :price %>
+  <%= ebay_data.text_field :price %>
+
+  <%= ebay_data.label :thirty_day_revenue %>
+  <%= ebay_data.text_field :thirty_day_revenue %>
+
+  <%= ebay_data.label :mpn_number %>
+  <%= ebay_data.text_field :mpn_number %>
+
+<% end %>
+</div>

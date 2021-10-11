@@ -1,0 +1,19 @@
+<div class="photos-section" style="border: 1px solid #ccc">
+<%= form.fields_for :pictures, Picture.new do |picture| %>
+  <% if picture.object.new_record? %>
+    <%= picture.file_field :name, multiple: true, name: "product[pictures_attributes][][name]" %>
+  <% else %>
+    <%= image_tag picture.object.name.url %>
+    <%= picture.check_box :_destroy %>
+  <% end %>
+<% end %>
+<div>
+<% if !form.object.new_record? && form.object.pictures.present? %>
+  <% form.object.pictures.each do |pic| %>
+    <%= image_tag pic.name.url %>
+  <% end %>
+<% end %>
+</div>
+</div>
+
+
