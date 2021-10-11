@@ -10,4 +10,11 @@ class Product < ApplicationRecord
     has_many :pictures, as: :imageable, dependent: :destroy
 
     belongs_to :owner, polymorphic: true
+    belongs_to :delivery_option
+
+    accepts_nested_attributes_for :seo_content, :ebay_detail, :google_shopping, :pictures
+
+    validates :sku,:ean,:yan, uniqueness: { case_sensitive: true }
+
+
 end

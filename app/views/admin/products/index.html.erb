@@ -1,3 +1,4 @@
+
 <h3>All Products</h3>
 <ul>
 <% @products.each do |product| %>
@@ -12,7 +13,7 @@
 <span>Condition: <%=product.condition %></span>
 
 </span>
-<span><%=product.published_at.strftime("%d/%m/%Y") %></span>
+<span><%=product.published_at.strftime("%d/%m/%Y") if product.published_at.present?%></span>
 <span><%=product.stock %></span>
 <span><%=number_to_currency(product.price, unit: '£') %></span>
 <span><%=product.yavolo_enabled%></span>
@@ -32,3 +33,12 @@
 </ul>
 
 <div class="text-center"><%= paginate @products %></div>
+
+
+
+<br>
+<br>
+<br>
+<br>
+<div class="text-right"><%=link_to 'Create New Product', new_admin_product_path %></div>
+

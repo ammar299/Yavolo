@@ -1,0 +1,5 @@
+<div class="delivery-details-section" style="border: 1px solid #ccc">
+<% @delivery_options.each do |d_option| %>
+  <%= form.radio_button :delivery_option_id, d_option.id %> <%= d_option.name %><br />
+<% end %>
+</div>

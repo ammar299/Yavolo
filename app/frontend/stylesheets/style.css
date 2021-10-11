@@ -541,3 +541,8 @@
 	    max-width: 100%;
 	}
 }
+
+/* custom css */
+.loading {
+  background: transparent url('/assets/loading.gif') center no-repeat;
+}

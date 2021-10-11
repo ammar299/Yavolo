@@ -1,0 +1,23 @@
+<div class="google-shopping-section" style="border: 1px solid #ccc">
+<%= form.fields_for :google_shopping, @product.google_shopping do |google_data| %>
+
+  <%= google_data.label :title %>
+  <%= google_data.text_field :title %>
+
+  <%= google_data.label :price %>
+  <%= google_data.number_field :price, min: 0 %>
+
+  <%= google_data.label :category %>
+  <%= google_data.text_field :category %>
+
+  <%= google_data.label :campaign_category %>
+  <%= google_data.text_field :campaign_category %>
+
+  <%= google_data.label :description %>
+  <%= google_data.text_area :description %>
+
+  <%= google_data.label :exclude_from_google_feed %>
+  <%= google_data.check_box :exclude_from_google_feed %>
+
+<% end %>
+</div>
