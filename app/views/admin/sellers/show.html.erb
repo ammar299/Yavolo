@@ -1,32 +1,30 @@
 <div id="business_representative">
-<h3>Business Representative</h3>
-    <% if @seller.business_representative.present? %>
+  <h3>Business Representative</h3>
+  <% if @seller.business_representative.present? %>
     <% @seller.business_representative.attributes.each do |key, value| %>
       <%= key.humanize %> : <%=h value %><br>
     <% end %>
-      <%= link_to "Update Business Representative", edit_admin_seller_path(id: @seller.id, form_to_update: 'business_representative'), remote: true %>
-    <% end %>
+    <%= link_to "Update Business Representative", edit_admin_seller_path(id: @seller.id, form_to_update: 'business_representative'), remote: true %>
+  <% end %>
 </div>
-
 <div id="company_detail">
-<h3>Company Details</h3>
-    <% if @seller.company_detail.present? %>
+  <h3>Company Details</h3>
+  <% if @seller.company_detail.present? %>
     <% @seller.company_detail.attributes.each do |key, value| %>
       <%= key.humanize %> : <%=h value %><br>
     <% end %>
     <%= link_to "Update Company Details", edit_admin_seller_path(id: @seller.id, form_to_update: 'company_detail'), remote: true %>
-    <% end %>
+  <% end %>
 </div>
-
 <div id="addresses">
-<h3>Addresses</h3>
-<% @seller.addresses.each do |address| %>
-<div id="<%=address.address_type%>">
-<h3><%= address.address_type.humanize %></h3>
-<% address.attributes.each do |key, value| %>
-  <%= key.humanize %> : <%=h value %><br>
-<% end %>
-  <%= link_to "Update #{ address.address_type.humanize }", edit_admin_seller_path(id: @seller.id, form_to_update: "#{address.address_type}", address_id: address.id), remote: true %>
-<% end %>
-</div>
+  <h3>Addresses</h3>
+  <% @seller.addresses.each do |address| %>
+    <div id="<%=address.address_type%>">
+      <h3><%= address.address_type.humanize %></h3>
+      <% address.attributes.each do |key, value| %>
+        <%= key.humanize %> : <%=h value %><br>
+      <% end %>
+      <%= link_to "Update #{ address.address_type.humanize }", edit_admin_seller_path(id: @seller.id, form_to_update: address.address_type, address_id: address.id), remote: true %>
+  </div>
+    <% end %>
 </div>
