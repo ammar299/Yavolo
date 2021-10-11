@@ -5,7 +5,7 @@
   </div>
   <div class="sidebody">
     <ul>
-      <li class="active"><a href="#">Success Hub</a></li>
+      <li class="active"><%= link_to "Success Hub" %></li>
       <li><%= link_to "Listings" %></li>
       <li><%= link_to "Messages" %></li>
       <li><%= link_to "Orders & Delivery" %></li>
@@ -15,8 +15,8 @@
       <li><%= link_to "Account & Settings" %></li>
     </ul>
     <ul>
-      <li><a href="<%= destroy_seller_session_path %>" data-method="delete" >Logout</a></li>
-      <li><a href="#">Switch Accounts</a></li>
+      <li><%= link_to "Logout", destroy_seller_session_path, data: { method: :delete } %></li>
+      <li><%= link_to "Switch Accounts" %></a></li>
     </ul>
   </div>
 </div>
