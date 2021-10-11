@@ -1,0 +1,27 @@
+<%= simple_form_for @seller, url: url do |form| %>
+  <% if params[:form_to_update] == 'company_detail' %>
+    <!-- Business Information Section / Company Details -->
+    <%= render partial: 'admin/sellers/partials/company_detail_form', locals: { form: form, company_detail: @seller.company_detail } %>
+  <% end %>
+  <% if params[:form_to_update] == 'business_representative' %>
+    <!-- Seller Fields -->
+    <%= render partial: 'admin/sellers/partials/business_representative_form', locals: {form: form, business_representative: @seller.business_representative} %>
+  <% end %>
+  <% if params[:form_to_update] == 'business_representative_address' %>
+    <!-- Business Owner Address / Address with type business_address -->
+    <%= render partial: 'admin/sellers/partials/addresses', locals: { form: form, addresses: @seller.addresses, address_id: params[:address_id] } %>
+  <% end %>
+  <% if params[:form_to_update] == 'business_address' %>
+    <!-- Business Owner Address / Address with type business_address -->
+    <%= render partial: 'admin/sellers/partials/addresses', locals: { form: form, addresses: @seller.addresses, address_id: params[:address_id] } %>
+  <% end %>
+  <% if params[:form_to_update] == 'return_address' %>
+    <!-- Business Owner Address / Address with type business_address -->
+    <%= render partial: 'admin/sellers/partials/addresses', locals: { form: form, addresses: @seller.addresses, address_id: params[:address_id] } %>
+  <% end %>
+  <% if params[:form_to_update] == 'invoice_address' %>
+    <!-- Business Owner Address / Address with type business_address -->
+    <%= render partial: 'admin/sellers/partials/addresses', locals: { form: form, addresses: @seller.addresses, address_id: params[:address_id] } %>
+  <% end %>
+  <%= form.button :submit %>
+<% end %>

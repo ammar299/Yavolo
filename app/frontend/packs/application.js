@@ -15,6 +15,7 @@ import "../stylesheets/application.scss";
 
 Rails.start();
 ActiveStorage.start();
+// require("@rails/ujs").start()
 
 import "controllers"
 require("@nathanvda/cocoon")
