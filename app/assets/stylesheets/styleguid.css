@@ -119,7 +119,7 @@ h1, h2, h3, h4, h5, h6 {
 	padding: 12px 12px 10px 12px;
 }
 .btn-sm {
-    font-size: 15px;
+    font-size: 12px;
     line-height: 15px;
     padding: 8px 12px 5px 12px;
 }
@@ -533,13 +533,13 @@ textarea.form-control {
 
 /*TABLE*/
 .Yavolo-table table {
-    font-size: 14px;
+    font-size: 12px;
     line-height: 24px;
 }
 .Yavolo-table table thead tr th {
     background-color: var(--dark-red);
     color: var(--white);
-    font-weight: 400;
+    font-weight: 600;
     border: 0;
 }
 .Yavolo-table table thead tr th:first-child {
