@@ -1,4 +1,4 @@
-class Admin::SellersController < ApplicationController
+class Admin::SellersController < Admin::BaseController
     before_action :set_seller, only: %i[show edit update]
 
     def index
@@ -8,7 +8,14 @@ class Admin::SellersController < ApplicationController
     def new
         @seller = Seller.new
         @seller.build_business_representative
-        @seller.addresses.build
+        # 2.times { |i| 
+        #   if i == 1
+        #     @seller.addresses.build address_type: 'business_representative_address'
+        #   else
+        #     @seller.addresses.build address_type: 'business_address'
+        #   end
+          #  }
+        # @seller.addresses.build address_type: address_type
         @seller.build_company_detail
     end
 
