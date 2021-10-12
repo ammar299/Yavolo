@@ -8,7 +8,7 @@ class Admin::CarriersController < Admin::BaseController
   def create
     @carrier = Carrier.new(carrier_params)
     if @carrier.save
-      @carriers = Carrier.all
+      redirect_to admin_delivery_options_path
     else
       render :new
     end
@@ -16,7 +16,7 @@ class Admin::CarriersController < Admin::BaseController
 
   def update
     if @carrier.update(carrier_params)
-      @carriers = Carrier.all
+      redirect_to admin_delivery_options_path
     else
       render :edit
     end
