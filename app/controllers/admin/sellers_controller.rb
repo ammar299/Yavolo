@@ -25,6 +25,7 @@ class Admin::SellersController < Admin::BaseController
     end
 
     def create
+      byebug
         @seller = Seller.new(seller_params)
         @seller.skip_password_validation = true
         if @seller.save
