@@ -1032,4 +1032,34 @@ text-decoration: none;
 .btn-text-color{
 	color: white !important;
 }
+/* =======pagintion ========*/
 
+.pager-middle .page-item:first-child .page-link {
+    margin-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.pager-middle .page-item .page-link {
+    position: relative;
+    display: block;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #640529;
+    background-color: transparent;
+    border: none;
+    margin: 0 10px;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+}
+.pager-middle .page-item .page-link:hover {
+    background-color: #FF3E55;
+    color: #FFFFFF;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+	-moz-transition: .3s linear;
+    -webkit-transition: .3s ease-out;
+    transition: .3s linear;
+}
+/* =======pagintion ========*/

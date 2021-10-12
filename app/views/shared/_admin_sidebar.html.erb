@@ -6,103 +6,183 @@
     </div>
     <div class="sidebody">
       <ul>
-        <li class="active">
+        <li class="active parent">
           <%= link_to '#' do %>
             <span class="icon-dashboard icon-right-pd"></span>
             Dashboard
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "This", ""%></li>
+            <li><%= link_to "This", ""%></li>
+            <li><%= link_to "This", ""%></li>
+          </ul>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-page icon-right-pd"></span>
             Pages
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "This", ""%></li>
+            <li><%= link_to "This", ""%></li>
+            <li><%= link_to "This", ""%></li>
+          </ul>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-templates icon-right-pd"></span>
             Templates
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "This", ""%></li>
+            <li><%= link_to "This", ""%></li>
+            <li><%= link_to "This", ""%></li>
+          </ul>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-orders icon-right-pd"></span>
             Orders
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "This", ""%></li>
+            <li><%= link_to "This", ""%></li>
+            <li><%= link_to "This", ""%></li>
+          </ul>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-customer icon-right-pd"></span>
             Customer
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "All Customer", ""%></li>
+            <li><%= link_to "Suspension", ""%></li>
+          </ul>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to admin_sellers_path do %>
             <span class="icon-sellers icon-right-pd"></span>
             Sellers
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "All Sellers", "admin_sellers_path"%></li>
+            <li><%= link_to "Suspension", ""%></li>
+            <li><%= link_to "This", ""%></li>
+          </ul>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-products icon-right-pd"></span>
             Products
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "All Products", ""%></li>
+            <li><%= link_to "Categories", ""%></li>
+            <li><%= link_to "Filter Groups", ""%></li>
+          </ul>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-tickets icon-right-pd"></span>
             Tickets
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "All Tickets", ""%></li>
+            <li><%= link_to "Seller Tickets", ""%></li>
+            <li><%= link_to "Escalted Tickets", ""%></li>
+            <li><%= link_to "Feedback", ""%></li>
+          </ul>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-blog icon-right-pd"></span>
             Blogs
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "This", ""%></li>
+            <li><%= link_to "This", ""%></li>
+            <li><%= link_to "This", ""%></li>
+          </ul>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-reviews icon-right-pd"></span>
             Reviews
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "All Reviews", ""%></li>
+            <li><%= link_to "Product Reviews", ""%></li>
+            <li><%= link_to "Seller Reviews", ""%></li>
+          </ul>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-manage-Yavolo icon-right-pd"></span>
             Manage Yavolos
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "Manual", ""%></li>
+            <li><%= link_to "Automatic", ""%></li>
+          </ul>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-finances icon-right-pd"></span>
             Finance
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "Summary", ""%></li>
+            <li><%= link_to "Transactions", ""%></li>
+            <li><%= link_to "Invoices", ""%></li>
+            <li><%= link_to "Taxes", ""%></li>
+          </ul>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to admin_delivery_options_path do %>
             <span class="icon-technical icon-right-pd"></span>
             Technical
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "This", ""%></li>
+            <li><%= link_to "This", ""%></li>
+            <li><%= link_to "This", ""%></li>
+          </ul>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-rule-engine icon-right-pd"></span>
             Rule Engine
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "This", ""%></li>
+            <li><%= link_to "This", ""%></li>
+            <li><%= link_to "This", ""%></li>
+          </ul>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-right-pd"></span>
             Appearance
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "This", ""%></li>
+            <li><%= link_to "This", ""%></li>
+            <li><%= link_to "This", ""%></li>
+          </ul>
         </li>
       </ul>
       <ul>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-settings icon-right-pd"></span>
             Settings
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "This", ""%></li>
+            <li><%= link_to "This", ""%></li>
+            <li><%= link_to "This", ""%></li>
+          </ul>
         </li>
           <%= link_to destroy_admin_session_path, method: :delete do %>
             <span class="icon-right-pd"></span>

@@ -1,41 +1,408 @@
-<%= form_tag(admin_filter_groups_path, method: :get) do %>
-  <%= text_field_tag(:search, params[:search]) %>
-  <%= submit_tag 'search'%>
-<% end %>
-<br />
-<h1>Filter Groups</h1>
-<%= form_tag destroy_multiple_admin_filter_groups_path , method: :delete do %>
-  <div class="Yavolo-table">
-    <table class="table">
-      <thead>
-        <tr></th>
-          <th data-sort-ignore="true"><input type="checkbox" id="selectAll"></input></th>
-          <th>Id</th>
-          <th>Type</th>
-          <th>Name</th>
-          <th>Number Of Filter Groups</th>
-          <th>Categories Assigned</th>
-          <th>Assinged Categories</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @filter_groups.each do |filter_group|%>
-        <tr>
-          <td><%= check_box_tag "filter_group_ids[]", filter_group.id, false, class: 'selectable' %></td>
-          <td><%= filter_group.id %></td>
-          <td><%= filter_group.filter_group_type if filter_group.filter_group_type.present? %></td>
-          <td><%= filter_group.name %></td>
-          <td><%= filter_group.filter_in_categories.count %></td>
-          <td><%= filter_group.filter_categories.count %></td>
-          <td></td>
-          <td><%= link_to 'Edit', edit_admin_filter_group_path(filter_group) %>| <%= link_to 'Delete', admin_filter_group_path(filter_group), method: :delete %></td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-  <%= submit_tag "Delete selected", :class => 'btn btn-primary btn-xs' %>
-<% end %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
 
-<div class="text-center"><%= paginate @filter_groups %></div>
+      <div class="all-products-header d-flex justify-content-between flex-wrap mt-3">
+        <div class="all-products-header-left d-flex flex-wrap">
+          <div class="search-field mb-0">
+            <%= form_tag destroy_multiple_admin_filter_groups_path , method: :delete do %>
+            <%= form_tag(admin_filter_groups_path, method: :get) do %>
+              <%= text_field_tag(:search, params[:search]) %>
+              <i class="fa fa-search" aria-hidden="true"></i>
+            <% end %>
+          </div>
+          <div class="dropdown dropdown-filter  d-inline-flex">
+            <a href="#"
+            class="btn btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center"
+            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">Action <i class="fa fa-angle-down ml-3"
+            aria-hidden="true"></i></a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item active" href="#">Action <i class="fa fa-check"
+                aria-hidden="true"></i></a>
+                <%= submit_tag "Delete selected", :class => 'dropdown-item' %>
+                <a class="dropdown-item" href="#">Another action <i class="fa fa-check"
+                  aria-hidden="true"></i></a>
+                  <a class="dropdown-item" href="#">Something else here <i class="fa fa-check"
+                    aria-hidden="true"></i></a>
+                  </div>
+                </div>
+                <div class="dropdown dropdown-filter  d-inline-flex">
+                  <a href="#"
+                  class="btn btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center"
+                  id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">Result per page 15 <i class="fa fa-angle-down ml-3"
+                  aria-hidden="true"></i></a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item active" href="#">Action <i class="fa fa-check"
+                      aria-hidden="true"></i></a>
+                      <a class="dropdown-item" href="#">Another action <i class="fa fa-check"
+                        aria-hidden="true"></i></a>
+                        <a class="dropdown-item" href="#">Something else here <i class="fa fa-check"
+                          aria-hidden="true"></i></a>
+                        </div>
+                      </div>
+                      <div class="dropdown dropdown-filter  d-inline-flex">
+                        <a href="#"
+                        class="btn btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center"
+                        id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">Filter by <i class="fa fa-angle-down ml-3"
+                        aria-hidden="true"></i></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <a class="dropdown-item active" href="#">Action <i class="fa fa-check"
+                            aria-hidden="true"></i></a>
+                            <a class="dropdown-item" href="#">Another action <i class="fa fa-check"
+                              aria-hidden="true"></i></a>
+                              <a class="dropdown-item" href="#">Something else here <i class="fa fa-check"
+                                aria-hidden="true"></i></a>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="all-products-header-right d-flex justify-content-between">
+                            <a href="#" class="btn btn-radius px-4 btn-primary">Add New Filter Group</a>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="mt-3">
+                          <p>Results <span><%= @filter_groups.count %></span> of <span><%= @filter_group_count %></span></p>
+                        </div>
+
+                        <br />
+                        <h3>Filter Groups</h3>
+                        <%#= form_tag destroy_multiple_admin_filter_groups_path , method: :delete do %>
+                        <div class="Yavolo-table">
+                          <table class="table">
+                            <thead>
+                              <tr></th>
+                                <th data-sort-ignore="true"><input type="checkbox" id="selectAll"></input></th>
+                                <th>Id</th>
+                                <th>Type</th>
+                                <th>Name</th>
+                                <th>Number Of Filter Groups</th>
+                                <th>Categories Assigned</th>
+                                <th>Assinged Categories</th>
+                                <th>Actions</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <% @filter_groups.each do |filter_group|%>
+                              <tr>
+                                <td><%= check_box_tag "filter_group_ids[]", filter_group.id, false, class: 'selectable' %></td>
+                                <td><%= filter_group.id %></td>
+                                <td><%= filter_group.filter_group_type if filter_group.filter_group_type.present? %></td>
+                                <td><%= filter_group.name %></td>
+                                <td><%= filter_group.filter_in_categories.count %></td>
+                                <td><%= filter_group.filter_categories.count %></td>
+                                <td></td>
+                                <td><%= link_to 'Edit', edit_admin_filter_group_path(filter_group),class: "btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100" %> <%= link_to 'Delete', admin_filter_group_path(filter_group), method: :delete, class: "btn btn-sm btn-radius px-4 btn-secondary w-100" %></td>
+                              </tr>
+                              <% end %>
+                            </tbody>
+                          </table>
+                        </div>
+                        <%= submit_tag "Delete selected", :class => 'btn btn-primary btn-xs' %>
+                        <% end %>
+                        <div class="row">
+                          <div class="col-md-6 mx-auto">
+                            <div class="pager-middle text-center d-flex justify-content-center mb-4 ">
+                              <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                  <li class="page-item">
+                                    <%= paginate @filter_groups, class: "page-link fas fa-chevron-left" %>
+                                  </li>
+                                </ul>
+                              </nav>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
+
+
+
+
+
+
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="all-products-header d-flex justify-content-between flex-wrap mt-3">
+                          <div class="all-products-header-left d-flex flex-wrap">
+                            <div class="search-field mb-0">
+                              <input type="text" placeholder="Search Filter Groups">
+                              <i class="fa fa-search" aria-hidden="true"></i>
+                            </div>
+                            <div class="dropdown dropdown-filter  d-inline-flex">
+                              <a href="#"
+                              class="btn btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center"
+                              id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                              aria-expanded="false">Action <i class="fa fa-angle-down ml-3"
+                              aria-hidden="true"></i></a>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item active" href="#">Action <i class="fa fa-check"
+                                  aria-hidden="true"></i></a>
+                                  <a class="dropdown-item" href="#">Another action <i class="fa fa-check"
+                                    aria-hidden="true"></i></a>
+                                    <a class="dropdown-item" href="#">Something else here <i class="fa fa-check"
+                                      aria-hidden="true"></i></a>
+                                    </div>
+                                  </div>
+                                  <div class="dropdown dropdown-filter  d-inline-flex">
+                                    <a href="#"
+                                    class="btn btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center"
+                                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">Result per page 15 <i class="fa fa-angle-down ml-3"
+                                    aria-hidden="true"></i></a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                      <a class="dropdown-item active" href="#">Action <i class="fa fa-check"
+                                        aria-hidden="true"></i></a>
+                                        <a class="dropdown-item" href="#">Another action <i class="fa fa-check"
+                                          aria-hidden="true"></i></a>
+                                          <a class="dropdown-item" href="#">Something else here <i class="fa fa-check"
+                                            aria-hidden="true"></i></a>
+                                          </div>
+                                        </div>
+                                        <div class="dropdown dropdown-filter  d-inline-flex">
+                                          <a href="#"
+                                          class="btn btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center"
+                                          id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                          aria-expanded="false">Filter by <i class="fa fa-angle-down ml-3"
+                                          aria-hidden="true"></i></a>
+                                          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <a class="dropdown-item active" href="#">Action <i class="fa fa-check"
+                                              aria-hidden="true"></i></a>
+                                              <a class="dropdown-item" href="#">Another action <i class="fa fa-check"
+                                                aria-hidden="true"></i></a>
+                                                <a class="dropdown-item" href="#">Something else here <i class="fa fa-check"
+                                                  aria-hidden="true"></i></a>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="all-products-header-right d-flex justify-content-between">
+                                              <a href="#" class="btn btn-radius px-4 btn-primary">Add New Filter Group</a>
+
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-lg-12">
+                                          <div class="mt-3">
+                                            <p>Results <span>1 -15</span> of <span>666</span></p>
+                                          </div>
+                                          <div class="Yavolo-table mt-4 yavolo-center">
+                                            <table class="table">
+                                              <thead>
+                                                <tr>
+                                                  <th>
+                                                    <label class="checkbox-blk">
+                                                      <input type="checkbox">
+                                                      <span class="checkmark checkmark-white"></span>
+                                                    </label>
+                                                  </th>
+                                                  <th>Type</th>
+                                                  <th>Name</th>
+                                                  <th>Number of filters in group</th>
+                                                  <th>Catagories Assigned</th>
+                                                  <th>Assigned catagory</th>
+                                                  <th class="text-center">Actions</th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                <tr>
+                                                  <td>
+                                                    <label class="checkbox-blk">
+                                                      <input type="checkbox">
+                                                      <span class="checkmark"></span>
+                                                    </label>
+                                                  </td>
+                                                  <td>global</td>
+                                                  <td>
+                                                   color
+                                                 </td>
+                                                 <td>
+                                                   5
+                                                 </td>
+                                                 <td>
+                                                   12
+                                                 </td>
+                                                 <td>
+                                                  N/A
+                                                </td>
+                                                <td>
+                                                  <div class="text-center">
+                                                    <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100">Edit</a>
+                                                  </div>
+                                                  <div class="text-center">
+                                                    <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary w-100">Delete</a>
+                                                  </div>
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <td>
+                                                  <label class="checkbox-blk">
+                                                    <input type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                  </label>
+                                                </td>
+                                                <td>global</td>
+                                                <td>
+                                                 color
+                                               </td>
+                                               <td>
+                                                 5
+                                               </td>
+                                               <td>
+                                                 12
+                                               </td>
+                                               <td>
+                                                N/A
+                                              </td>
+
+
+                                              <td>
+                                                <div class="text-center">
+                                                  <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100">Edit</a>
+                                                </div>
+                                                <div class="text-center">
+                                                  <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary w-100">Delete</a>
+                                                </div>
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <td>
+                                                <label class="checkbox-blk">
+                                                  <input type="checkbox">
+                                                  <span class="checkmark"></span>
+                                                </label>
+                                              </td>
+                                              <td>global</td>
+                                              <td>
+                                               color
+                                             </td>
+                                             <td>
+                                               5
+                                             </td>
+                                             <td>
+                                               12
+                                             </td>
+                                             <td>
+                                              N/A
+                                            </td>
+
+
+                                            <td>
+                                              <div class="text-center">
+                                                <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100">Edit</a>
+                                              </div>
+                                              <div class="text-center">
+                                                <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary w-100">Delete</a>
+                                              </div>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td>
+                                              <label class="checkbox-blk">
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                              </label>
+                                            </td>
+                                            <td>global</td>
+                                            <td>
+                                             color
+                                           </td>
+                                           <td>
+                                             5
+                                           </td>
+                                           <td>
+                                             12
+                                           </td>
+                                           <td>
+                                            N/A
+                                          </td>
+
+
+                                          <td>
+                                            <div class="text-center">
+                                              <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100">Edit</a>
+                                            </div>
+                                            <div class="text-center">
+                                              <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary w-100">Delete</a>
+                                            </div>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td>
+                                            <label class="checkbox-blk">
+                                              <input type="checkbox">
+                                              <span class="checkmark"></span>
+                                            </label>
+                                          </td>
+                                          <td>global</td>
+                                          <td>
+                                           color
+                                         </td>
+                                         <td>
+                                           5
+                                         </td>
+                                         <td>
+                                           12
+                                         </td>
+                                         <td>
+                                          N/A
+                                        </td>
+
+
+                                        <td>
+                                          <div class="text-center">
+                                            <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100">Edit</a>
+                                          </div>
+                                          <div class="text-center">
+                                            <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary w-100">Delete</a>
+                                          </div>
+                                        </td>
+                                      </tr>
+
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6 mx-auto">
+                                <div class="pager-middle text-center d-flex justify-content-center mb-4 ">
+                                  <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                      <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                          <span aria-hidden="true"><i class="fas fa-chevron-left"></i></span>
+                                          <span class="sr-only">Previous</span>
+                                        </a>
+                                      </li>
+
+                                      <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                      <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                          <span aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+                                          <span class="sr-only">Next</span>
+                                        </a>
+                                      </li>
+                                    </ul>
+                                  </nav>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>

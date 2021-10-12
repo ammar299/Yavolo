@@ -3,9 +3,11 @@ class Admin::FilterGroupsController < Admin::BaseController
 
   def index
     if params[:search].present?
-       @filter_groups = FilterGroup.includes(:filter_categories, :filter_in_categories).search_by_name(params[:search]).page(params[:page]).per(params[:per_page].presence || 15)
+      @filter_group_count = FilterGroup.count
+      @filter_groups = FilterGroup.includes(:filter_categories, :filter_in_categories).search_by_name(params[:search]).page(params[:page]).per(params[:per_page].presence || 15)
     else
-       @filter_groups = FilterGroup.includes(:filter_categories, :filter_in_categories).page(params[:page]).per(params[:per_page].presence || 15)
+      @filter_group_count = FilterGroup.count
+      @filter_groups = FilterGroup.includes(:filter_categories, :filter_in_categories).page(params[:page]).per(params[:per_page].presence || 15)
     end
   end
 

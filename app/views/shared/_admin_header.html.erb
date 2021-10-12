@@ -2,35 +2,43 @@
   <div class="container-fluid">
     <div class="admin-header-inner d-flex justify-content-between align-items-center">
       <div class="admin-header-left">
+        <%#= link_to "Create New Form", sampleform_path, 'data-no-turbolink' => true %> 
+       <a href="" class="mr-5"><i class="fas fa-calendar-alt" ></i></a>
 
-        <a href="" class="mr-5"><i class="fas fa-calendar-alt" ></i></a>
-
-        <a href=""><i class="fas fa-bell"></i></a>
-
-      </div>
-      <div class="admin-header-right">
-        <ul>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle bdr-left" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <%= image_tag "profile.jpg", class: 'rounded-circle', style: 'height:40px;width:40px' %>
-              <span class="pl-3">Jhon Smith</span>
-            </a>
-            <div class="dropdown-menu dropdown-text dropdown-profile" aria-labelledby="navbarDropdownMenuLink">
-              <div class="dropdown-profile-inner ">
-                <span>
-                  <%= image_tag "profile.jpg", class: 'user-img'%>
-                </span>
-                <p class="mb-0">JhonSmith</p>
-                <p>Jhon Smith@gmail.com</p>
-                <a href="" class="btn bg-red w-100 mb-3 btn-link">Manage Account</a>
-                <a href="" class="btn bg-red w-100 btn-link">Sign Out</a>
-              </div>
-
+       <div class="dropdown d-inline-block">
+          <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-bell"></i>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </div>
+     </div>
+     <div class="admin-header-right">
+      <ul>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle bdr-left" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= image_tag "profile.jpg", class: 'rounded-circle', style: 'height:40px;width:40px' %>
+            <span class="pl-3">Jhon Smith</span>
+          </a>
+          <div class="dropdown-menu dropdown-text dropdown-profile" aria-labelledby="navbarDropdownMenuLink">
+            <div class="dropdown-profile-inner ">
+              <span>
+                <%= image_tag "profile.jpg", class: 'user-img'%>
+              </span>
+              <p class="mb-0">JhonSmith</p>
+              <p>Jhon Smith@gmail.com</p>
+              <a href="" class="btn bg-red w-100 mb-3 btn-link">Manage Account</a>
+              <a href="" class="btn bg-red w-100 btn-link">Sign Out</a>
             </div>
-          </li>
-        </ul>
 
-      </div>
+          </div>
+        </li>
+      </ul>
+
     </div>
   </div>
+</div>
 </div>

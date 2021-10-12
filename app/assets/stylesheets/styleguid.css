@@ -66,8 +66,8 @@
   --defualt-red: #F60000;
 }
 body{
-	margin: 0px;
-	font-family: 'buenos_airesregular';
+    margin: 0px;
+    font-family: 'buenos_airesregular';
     background-color: var(--bgWhite);
     color: var(--dark-red);
 }
@@ -79,17 +79,17 @@ a {
     color: var(--dark-red);
 }
 ul{
-	padding: 0;
-	margin: 0;
+    padding: 0;
+    margin: 0;
 }
 ul li{
-	list-style: none;
+    list-style: none;
 }
 img{
-	max-width: 100%;
+    max-width: 100%;
 }
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'buenos_airessemibold';
+    font-family: 'buenos_airessemibold';
 }
 .dark-red-text {
     color: var(--dark-red) !important;
@@ -110,16 +110,16 @@ h1, h2, h3, h4, h5, h6 {
     overflow: hidden;
 }
 .btn {
-	font-size: 16px;
-	padding: 7px 7px 6px 7px;
-	text-align: center;
+    font-size: 16px;
+    padding: 7px 7px 6px 7px;
+    text-align: center;
     border: 2px solid transparent;
 }
 .btn-lg {
-	padding: 12px 12px 10px 12px;
+    padding: 12px 12px 10px 12px;
 }
 .btn-sm {
-    font-size: 15px;
+    font-size: 12px;
     line-height: 15px;
     padding: 8px 12px 5px 12px;
 }
@@ -128,18 +128,18 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: none !important;
 }
 .tabsme a {
-	color: #000;
-	border-radius: 4px;
-	margin-bottom: 10px;
+    color: #000;
+    border-radius: 4px;
+    margin-bottom: 10px;
 }
 .tabsme .nav-link.active {
-	background-color: var(--dark-red);
-	color: #fff;
+    background-color: var(--dark-red);
+    color: #fff;
 }
 .tab-content {
-	border-radius: 4px;
-	padding: 20px;
-	border: 1px solid var(--dark-red);
+    border-radius: 4px;
+    padding: 20px;
+    border: 1px solid var(--dark-red);
 }
 
 
@@ -170,9 +170,9 @@ h4 {
 
 
 .btn-primary {
-	background-color: var(--dark-red);
-	border-color: var(--dark-red);
-	color: var(--off-white);
+    background-color: var(--dark-red);
+    border-color: var(--dark-red);
+    color: var(--off-white);
     box-shadow: none;
 }
 .btn-primary:not([disabled]):not(.disabled).active, .btn-primary:not([disabled]):not(.disabled):active, .show>.btn-primary.dropdown-toggle,
@@ -184,9 +184,9 @@ h4 {
 .btn-secondary:not([disabled]):not(.disabled).active, .btn-secondary:not([disabled]):not(.disabled):active, .show>.btn-secondary.dropdown-toggle,
 .btn-secondary:hover,
 .btn-secondary {
-	background-color: var(--light-red);
-	border-color: var(--light-red);
-	color: var(--red);
+    background-color: var(--light-red);
+    border-color: var(--light-red);
+    color: var(--red);
 }
 
 .btn-outline-primary {
@@ -221,7 +221,7 @@ h4 {
     border-color: var(--danger-color);
 }
 .btn-radius {
-	border-radius: 30px;
+    border-radius: 30px;
 }
 .btn-radius-12 {
     border-radius: 12px;
@@ -347,6 +347,7 @@ textarea.form-control {
 .search-field.active input::placeholder {
     opacity: 1;
 }
+.search-field svg,
 .subscribe-field a,
 .search-field i {
     position: absolute;
@@ -533,13 +534,13 @@ textarea.form-control {
 
 /*TABLE*/
 .Yavolo-table table {
-    font-size: 14px;
+    font-size: 12px;
     line-height: 24px;
 }
 .Yavolo-table table thead tr th {
     background-color: var(--dark-red);
     color: var(--white);
-    font-weight: 400;
+    font-weight: 600;
     border: 0;
 }
 .Yavolo-table table thead tr th:first-child {

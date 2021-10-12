@@ -185,7 +185,7 @@ ActiveRecord::Schema.define(version: 2021_10_09_085608) do
   end
 
   create_table "delivery_option_ships", force: :cascade do |t|
-    t.decimal "price", precision: 8, scale: 2
+    t.float "price"
     t.bigint "delivery_option_id"
     t.bigint "ship_id"
     t.datetime "created_at", precision: 6, null: false
@@ -296,7 +296,9 @@ ActiveRecord::Schema.define(version: 2021_10_09_085608) do
     t.string "owner_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "delivery_option_id"
     t.index ["brand"], name: "index_products_on_brand"
+    t.index ["delivery_option_id"], name: "index_products_on_delivery_option_id"
     t.index ["ean"], name: "index_products_on_ean", unique: true
     t.index ["owner_type", "owner_id"], name: "index_products_on_owner_type_and_owner_id"
     t.index ["price"], name: "index_products_on_price"

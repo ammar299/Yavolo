@@ -1,3 +1,4 @@
+
 /*========= utility classes============ */
 
 .general-mrgn {
@@ -276,6 +277,14 @@
 .sidebody li a:hover {
 	background: var(--unnamed-color-731d3d) 0% 0% no-repeat padding-box;
 	background: #731D3D 0% 0% no-repeat padding-box;
+}
+.sidebody ul li ul {
+	padding: 10px 0px 0 30px;
+}
+.sidebody ul li ul li a {
+	padding: 10px 15px;
+    min-height: 40px;
+    margin-bottom: 5px;
 }
 .add-listing-text {
 	padding: 40px 0;
