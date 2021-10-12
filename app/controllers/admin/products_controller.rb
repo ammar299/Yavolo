@@ -25,6 +25,8 @@ class Admin::ProductsController < Admin::BaseController
         format.html { redirect_to edit_admin_product_path(@product), notice: 'Product was successfully created.' }
       else
         @delivery_options = DeliveryOption.all
+        @product.owner_id = owner_params[:owner_id]
+        @product.owner_type = owner_params[:owner_type]
         format.html { render action: 'new' }
       end
     end

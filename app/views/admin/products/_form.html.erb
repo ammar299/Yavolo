@@ -1,35 +1,15 @@
-<%= simple_form_for @product, method: method ,url: url do |form| %>
-
-<% if form.object.errors.any? %>
-  <div id="error_explanation">
-   <div class="alert alert-error">
-     The form contains <%= pluralize(form.object.errors.count, "error") %>.
-   </div>
-  <ul>
-   <% form.object.errors.full_messages.each do |msg| %>
-    <li style="border: 2px solid red;">* <%= msg %></li>
-   <% end %>
- </ul>
-</div>
-<% end %>
-
-  <%=form.hidden_field :owner_id %>
-  <%=form.hidden_field :owner_type %>
-  <%= render partial: "shared/products/photos", locals: { form: form } %>
-  <%= render partial: "shared/products/seo_content", locals: { form: form } %>
-  <%= render partial: "shared/products/google_shopping", locals: { form: form } %>
-  <%= render partial: "shared/products/ebay_details", locals: { form: form } %>
-  <%= render partial: "shared/products/listing_details", locals: { form: form } %>
-  <%= render partial: "shared/products/pricing_and_quantity", locals: { form: form } %>
-  <%= render partial: "shared/products/yavolo_discount", locals: { form: form } %>
-  <%= render partial: "shared/products/delivery_details", locals: { form: form } %>
-  <%= link_to "Preview Listing", "#", class: "btn btn-primary" %>
-  <%= form.submit 'Save Draft', class: 'btn btn-primary' %>
-  <%= form.submit 'Publish', class: 'btn btn-primary' %>
-
-<% end %>
-
-<%= render partial: "shared/products/add_new_delivery_option" %>
-<div class="form-actions-bar">
-<button type="button", class="back-btn-action btn btn-primary">Back<button/>
+<div class="container-fluid">
+    <%= simple_form_for @product, method: method ,url: url do |form| %>
+        <%=form.hidden_field :owner_id %>
+        <%=form.hidden_field :owner_type %>
+        <%= render partial: "shared/products/photos", locals: { form: form } %>
+        <%= render partial: "shared/products/seo_content", locals: { form: form } %>
+        <%= render partial: "shared/products/google_shopping", locals: { form: form } %>
+        <%= render partial: "shared/products/ebay_details", locals: { form: form } %>
+        <%= render partial: "shared/products/listing_details", locals: { form: form } %>
+        <%= render partial: "shared/products/pricing_and_quantity", locals: { form: form } %>
+        <%= render partial: "shared/products/delivery_details", locals: { form: form } %>
+        <%= render partial: "shared/products/product_actions_bar", locals: { form: form } %>
+    <% end %>
+    <%= render partial: "shared/products/add_new_delivery_option" %>
 </div>

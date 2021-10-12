@@ -1,15 +1,38 @@
-<div class="pricing-quantity-section" style="border: 1px solid #ccc">
+<div class="row">
+    <div class="col-lg-8">
+        <div class="pricing-quality box-border yo-white-card">
+            <h4>Pricing and Quantity</h4>
+            <hr>
+            <div>
+                    <% has_error, msg = get_errors(form, :price) %>
+                    <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
+                        <%= form.label 'Price (Inc VAT if applicable)' %>
+                        <%= form.text_field :price, class: 'form-control' %>
+                        <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+                    </div>
 
-<%= form.label :price %>
-<%= form.text_field :price %>
+                    <% has_error, msg = get_errors(form, :stock) %>
+                    <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
+                        <%= form.label 'Quantity*' %>
+                        <%= form.text_field :stock, class: 'form-control' %>
+                        <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+                    </div>
 
-<%= form.label :stock %>
-<%= form.text_field :stock %>
+                    <% has_error, msg = get_errors(form, :sku) %>
+                    <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
+                        <%= form.label 'SKU' %>
+                        <%= form.text_field :sku, class: 'form-control' %>
+                        <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+                    </div>
 
-<%= form.label :sku %>
-<%= form.text_field :sku %>
-
-<%= form.label :ean %>
-<%= form.text_field :ean %>
-
+                    <% has_error, msg = get_errors(form, :ean) %>
+                    <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
+                        <%= form.label 'EAN' %>
+                        <%= form.text_field :ean, class: 'form-control' %>
+                        <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <%= render partial: "shared/products/yavolo_discount", locals: { form: form } %>
 </div>

@@ -1032,4 +1032,165 @@ text-decoration: none;
 .btn-text-color{
 	color: white !important;
 }
+/* ================Add new listing modal=========== */
+.add-listing .create-product {
+	text-align: center;
+	position: relative;
+	padding: 40px 0;
+}
+.add-listing .prodct-brdr::after {
+	content: "";
+	display: block;
+	height: 1px;
+	background: #D5D5D5;
+	left: 10%;
+	right: 10%;
+	bottom: 0px;
+	position: absolute;
+}
+.add-listing .listing-btn {
+width: 233px;
+}
 
+
+/*============= Add new listing modal===================== */
+
+/* -=================newproduct-single-56 ================*/
+.add-photo {
+
+padding: 20px;
+width: 100%;
+min-height: 300px;
+margin-top: 20px;
+margin-bottom: 20px;
+display: flex;
+justify-content: center;
+text-align: center;
+align-items: center;
+flex-direction: column;
+position: relative;
+}
+.photo-text {
+position: absolute;
+top: 20px;
+left: 20px;
+}
+.add-photo-inner .photo-btn {
+width: 300px;
+}
+.box-border {
+
+padding: 20px;
+margin-bottom: 20px;
+
+}
+.yo-white-card {
+background-color: var(--white) ;
+border-radius: 10px;
+box-shadow: 1px 1px 5px #0000000A;
+}
+.ebay-forms input {
+width: 170px;
+}
+.yavolo-box-detail {
+display: flex;
+justify-content: space-between;
+flex-direction: column;
+width: 100%;
+min-height: 533px;
+}
+.checkbox-right-text span {
+font-size: 13px;
+}
+.checkbox-mrgn {
+margin-top: 12px;
+}
+.delivery-detail-footer-innerr {
+	background-color: #640529;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px;
+	border-radius: 10px;
+
+}
+.yavolo-box-top-detail p {
+font-size: 14px;
+}
+.yavolo-box-top-select {
+width: 110px;
+}
+/* -=================newproduct-single-56 ================*/
+
+
+/* -=================Delivery options================*/
+.delivery-option-table td {
+border: none;
+vertical-align: middle;
+padding: 0;
+}
+.delivery-option-input {
+width: 80px;
+height: 28px !important;
+margin: 3px 0;
+}
+.delivery-option-btn {
+float: right;
+}
+/* -=================Delivery options================*/
+
+
+/*/ ================Photo Grid ==============/*/
+
+.add-product-inner .add-product-detail {
+	background-color: #FFFFFF;
+	border-radius: 12px;
+	width: 100%;
+	min-height: 450px;
+	position: relative;
+}
+.photo-grid-img .product-images-inner img {
+box-shadow: 0px 2px 4px #00000029;
+	width: 100%;
+	/* margin: 5px;
+	padding: 5px; */
+}
+.photo-grid,
+.grid-single-img {
+position: relative;
+}
+.img-del-icon,
+.img-star-icon {
+position: absolute;
+top: 6px;
+left: 6px;
+cursor: pointer;
+opacity: 0;
+-moz-transition: .3s linear;
+-webkit-transition: .3s ease-out;
+transition: .3s linear;
+}
+.img-del-icon {
+bottom: 6px;
+right: 6px;
+left: inherit;
+top: inherit;
+}
+.grid-single-img:hover .img-star-icon, 
+.grid-single-img:hover .img-del-icon {
+opacity: 1;
+}
+@media (max-width: 991px) {
+.grid-btn-top {
+	margin-top: 50px;
+}
+}
+
+
+/*/ ================Photo Grid ==============/*/
+/*/ ================product Review ==============/*/
+.product-review {
+border: 1px solid #640529;
+border-radius: 10px;
+}
+/*/ ================product Review ==============/*/

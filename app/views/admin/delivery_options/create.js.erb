@@ -1,5 +1,5 @@
 <% if params[:from] == 'create_product' %>
-$('.delivery-details-section').append("<%= j radio_button_tag 'product[delivery_option_id]',@delivery_option.id, true, value: @delivery_option.id  %> <%=@delivery_option.name%><br/>")
+$('.delivery-details-section').append("<%= j render(partial: 'single_delivery_option_item', locals: { delivery_option: @delivery_option }) %>")
 $('#delivery-template-form').hide();
 $('#delivery-template-form').html("");
 $("#add_new").prop("checked", false);

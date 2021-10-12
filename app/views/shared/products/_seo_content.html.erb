@@ -1,17 +1,36 @@
-<div class="seo-content-section" style="border: 1px solid #ccc">
-<%= form.fields_for :seo_content, @product.seo_content do |seo_data| %>
-
-  <%= seo_data.label :title %>
-  <%= seo_data.text_field :title %>
-
-  <%= seo_data.label :url %>
-  <%= seo_data.text_field :url %>
-
-  <%= seo_data.label :description %>
-  <%= seo_data.text_area :description %>
-
-  <%= seo_data.label :keywords %>
-  <%= seo_data.text_area :keywords %>
-
-<% end %>
+<div class="row">
+    <div class="col-md-12">
+        <div class="seo-content box-border yo-white-card">
+            <h4>SEO Content</h4>
+            <hr>
+            <div>
+            <%= form.fields_for :seo_content, @product.seo_content do |seo_data| %>
+                <% has_error, msg = get_errors(form, "seo_content.title") %>
+                <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
+                    <%= seo_data.label 'Meta Title' %>
+                    <%= seo_data.text_field :title, class: 'form-control', placeholder: "Enter Title" %>
+                    <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+                </div>
+                <% has_error, msg = get_errors(form, "seo_content.url") %>
+                <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
+                    <%= seo_data.label 'Url' %>
+                    <%= seo_data.text_field :url, class: 'form-control', placeholder: "Enter Url" %>
+                    <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+                </div>
+                <% has_error, msg = get_errors(form, "seo_content.keywords") %>
+                <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
+                    <%= seo_data.label 'Meta Keywords' %>
+                    <%= seo_data.text_area :keywords, class: 'form-control', placeholder: "Enter Keywords" %>
+                    <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+                </div>
+                <% has_error, msg = get_errors(form, "seo_content.description") %>
+                <div class="form-group <%= has_error ? 'error-field' : '' %>">
+                    <%= seo_data.label 'Meta Description' %>
+                    <%= seo_data.text_area :description, class: 'form-control', placeholder: "Enter Description" %>
+                    <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+                </div>
+            <% end %>
+            </div>
+        </div>
+    </div>
 </div>

@@ -15,6 +15,7 @@
  *= require bootstrap.min
  *= require bootstrap
  *= require styleguid
+ *= require custom
  *= require_tree .
  *= require_self
  */
