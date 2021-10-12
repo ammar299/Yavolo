@@ -2,15 +2,22 @@
   <tr>
     <td>
       <div class="checkbox-container delivery-options-checkbox-container">
-        <input type="checkbox" id="<%= "select-#{delivery_option.id}" %>" value="<%= delivery_option.id %>">
+        <label class="checkbox-blk">
+          <input type="checkbox" id="<%= "select-#{delivery_option.id}" %>" value="<%= delivery_option.id %>">
+          <span class="checkmark"></span>
+        </label>
       </div>
     </td>
     <td><%= delivery_option.name %></td>
     <td><%= template_processing_time(delivery_option.processing_time) %></td>
     <td><%= template_processing_time(delivery_option.delivery_time) %></td>
     <td>
-      <%= link_to 'Edit', edit_admin_delivery_option_path(delivery_option), class: 'btn btn-secondary', data: { remote: true } %>
-      <%= link_to 'Delete', admin_delivery_option_path(delivery_option), method: 'delete', class: 'btn btn-secondary ml-3' %>
+      <div class="text-center">
+        <%= link_to 'Edit', edit_admin_delivery_option_path(delivery_option), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100', data: { remote: true } %>
+      </div>
+      <div class="text-center">
+        <%= link_to 'Delete', admin_delivery_option_path(delivery_option), method: 'delete', class: 'btn btn-sm btn-radius px-4 btn-secondary w-100' %>
+      </div>
     </td>
   </tr>
 <% end %>

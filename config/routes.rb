@@ -8,10 +8,14 @@ Rails.application.routes.draw do
       root 'admin/dashboard#index', as: :admins_dashboard
       namespace :admin do
         # root 'admin/dashboard#index', as: :admins_dashboard
-        resources :delivery_options, except: %i[show]
-        resources :sellers do
-        end
         root 'dashboard#index', as: :dashboard
+        resources :delivery_options, except: %i[show] do
+          collection do
+            delete :delete_delivery_options
+          end
+        end
+
+        resources :sellers
         resources :categories
 
         resources :carriers, except: %i[index show] do
@@ -25,11 +29,13 @@ Rails.application.routes.draw do
             delete :delete_delivery_options
           end
         end
+
         resources :products do
           collection do
             get 'duplicate'
           end
         end
+
         resources :filter_groups do
           collection do
             delete 'destroy_multiple'

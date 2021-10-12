@@ -10,4 +10,9 @@ module Admin::DeliveryOptionsHelper
   def template_processing_time(time)
     time.split('_').map(&:capitalize).join(' ')
   end
+
+  def delivery_ship_price(delivery_option_id, ship_id)
+    price = DeliveryOptionShip.find_by(ship_id: ship_id, delivery_option_id: delivery_option_id)&.price
+    (delivery_option_id && price).present? ? price : 0.00
+  end
 end
