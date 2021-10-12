@@ -8,14 +8,6 @@ class Admin::SellersController < Admin::BaseController
     def new
         @seller = Seller.new
         @seller.build_business_representative
-        # 2.times { |i| 
-        #   if i == 1
-        #     @seller.addresses.build address_type: 'business_representative_address'
-        #   else
-        #     @seller.addresses.build address_type: 'business_address'
-        #   end
-          #  }
-        # @seller.addresses.build address_type: address_type
         @seller.build_company_detail
     end
 
