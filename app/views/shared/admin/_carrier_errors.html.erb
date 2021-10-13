@@ -1,0 +1,9 @@
+<% if carrier.errors.any? %>
+  <div class="alert alert-danger">
+    <% carrier.errors.full_messages.each do |msg| %>
+      <p class="m-0">
+        <%= msg %>
+      </p>
+    <% end %>
+  </div>
+<% end %>
