@@ -1112,7 +1112,7 @@ h1, h2, h3, h4, h5, h6 {
 /* =======Add new seller-50 ========*/
 @media (max-width: 480px) {
 	.form-group-vertical-responsive {
-	    display: unset !important;
+		flex-direction: column !important;
 	}
 }
 /* =======Add new seller-50 ========*/
@@ -1248,6 +1248,54 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ===============all-filter-group-66-1============= */
+/* ===============product catagory baby-61============= */
+.panel .panel-head {
+	background-color: var(--dark-red);
+	color: #fff;
+	padding: 10px;
+	border-radius: 6px;
+}
+.panel .panel-body {
+	background-color: var(--white);
+	border-radius: 6px;
+	padding: 10px;
+	margin-top: 6px;
+}
+.panel .panel-body .checkbox-blk {
+	font-size: 12px !important;
+}
+.panel .panel-body ul li ul {
+	margin-left: 40px;
+}
+.panel .panel-body ul > li.active > .checkbox-blk .folder-icon {
+	content: url('../images/folder-open.svg');
+}
+.checkbox-blk-box.checkbox-blk input:checked ~ .checkmark {
+    background-color: transparent !important;
+    border-color: var(--dark-red) !important;
+}
+.checkbox-blk-box.checkbox-blk .checkmark:after {
+	transform: rotate(0deg);
+    border: 0 !important;
+    background-color: var(--dark-red);
+    width: 14px;
+    left: 2px;
+    height: 14px;
+    border-radius: 4px;
+}
+.product-content-img {
+	background-color: #FF3E55;
+	width: 100%;
+	min-width: 280px;
+	height: 140px;
+	display: flex;
+	object-fit: cover;
+}
+.search-field-flex {
+	flex: 1;
+}
+/* ===============product catagory baby-61============= */
+
 /*/ ================Seller Success Hub ==============/*/
 .seller-success-hub .seller-center-heading h3 {
     margin-top: 45px;
