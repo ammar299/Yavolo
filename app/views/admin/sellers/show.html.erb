@@ -1,30 +1,65 @@
-<div id="business_representative">
-  <h3>Business Representative</h3>
-  <% if @seller.business_representative.present? %>
-    <% @seller.business_representative.attributes.each do |key, value| %>
-      <%= key.humanize %> : <%=h value %><br>
-    <% end %>
-    <%= link_to "Update Business Representative", edit_admin_seller_path(id: @seller.id, form_to_update: 'business_representative'), remote: true %>
-  <% end %>
-</div>
-<div id="company_detail">
-  <h3>Company Details</h3>
-  <% if @seller.company_detail.present? %>
-    <% @seller.company_detail.attributes.each do |key, value| %>
-      <%= key.humanize %> : <%=h value %><br>
-    <% end %>
-    <%= link_to "Update Company Details", edit_admin_seller_path(id: @seller.id, form_to_update: 'company_detail'), remote: true %>
-  <% end %>
-</div>
-<div id="addresses">
-  <h3>Addresses</h3>
-  <% @seller.addresses.each do |address| %>
-    <div id="<%=address.address_type%>">
-      <h3><%= address.address_type.humanize %></h3>
-      <% address.attributes.each do |key, value| %>
+<div class="container-fluid">
+  <div class="d-flex flex-wrap justify-content-between mb-4 mt-5 align-items-start">
+    <h4 class="m-0">Customer Account<br>
+      &amp; Settings</h4>
+    <div class="d-flex align-items-center">
+      <p class="pr-1 mb-0">Seller Locked</p>
+      <a href="#" class="btn btn-sm btn-radius px-4 btn-outline-primary mr-1">Reset password</a>
+      <a href="#" class="btn btn-sm btn-radius px-4 btn-outline-primary mr-1">Outline</a>
+      <a href="#" class="btn btn-sm btn-radius px-4 btn-outline-primary mr-1">Outline</a>
+      <a href="#" class="btn btn-sm btn-radius px-4 btn-outline-primary">Outline</a>
+    </div>
+  </div>
+  <div class="row ac-setting-tabs">
+    <div class="col-md-3">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home"
+                                            role="tab" aria-controls="home" aria-selected="true">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile"
+                                            role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact"
+                                            role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="4-tab" data-toggle="tab" href="#4" role="tab"
+                                            aria-controls="4" aria-selected="false">Contact1</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div id="business_representative">
+    <h3>Business Representative</h3>
+    <% if @seller.business_representative.present? %>
+      <% @seller.business_representative.attributes.each do |key, value| %>
         <%= key.humanize %> : <%=h value %><br>
       <% end %>
-      <%= link_to "Update #{ address.address_type.humanize }", edit_admin_seller_path(id: @seller.id, form_to_update: address.address_type, address_id: address.id), remote: true %>
-  </div>
+      <%= link_to "Update Business Representative", edit_admin_seller_path(id: @seller.id, form_to_update: 'business_representative'), remote: true %>
     <% end %>
+  </div>
+  <div id="company_detail">
+    <h3>Company Details</h3>
+    <% if @seller.company_detail.present? %>
+      <% @seller.company_detail.attributes.each do |key, value| %>
+        <%= key.humanize %> : <%=h value %><br>
+      <% end %>
+      <%= link_to "Update Company Details", edit_admin_seller_path(id: @seller.id, form_to_update: 'company_detail'), remote: true %>
+    <% end %>
+  </div>
+  <div id="addresses">
+    <h3>Addresses</h3>
+    <% @seller.addresses.each do |address| %>
+      <div id="<%=address.address_type%>">
+        <h3><%= address.address_type.humanize %></h3>
+        <% address.attributes.each do |key, value| %>
+          <%= key.humanize %> : <%=h value %><br>
+        <% end %>
+        <%= link_to "Update #{ address.address_type.humanize }", edit_admin_seller_path(id: @seller.id, form_to_update: address.address_type, address_id: address.id), remote: true %>
+      </div>
+    <% end %>
+  </div>
 </div>
