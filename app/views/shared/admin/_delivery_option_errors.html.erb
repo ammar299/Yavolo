@@ -1,0 +1,9 @@
+<% if delivery_option.errors.any? %>
+  <div class="alert alert-danger">
+    <% delivery_option.errors.full_messages.each do |msg| %>
+      <p class="m-0">
+        <%= msg %>
+      </p>
+    <% end %>
+  </div>
+<% end %>

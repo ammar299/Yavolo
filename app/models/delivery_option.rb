@@ -5,6 +5,5 @@ class DeliveryOption < ApplicationRecord
   has_many :delivery_option_ships, dependent: :destroy
   has_many :ships, through: :delivery_option_ships
 
-  validates :name, uniqueness: true
   validates :processing_time, :delivery_time, presence: true
 end
