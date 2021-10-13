@@ -2,7 +2,7 @@ class Admin::SellersController < Admin::BaseController
     before_action :set_seller, only: %i[show edit update]
 
     def index
-        @sellers = Seller.all
+        @sellers = Seller.page(params[:page]).per(params[:per_page].presence || 15)
     end
 
     def new
