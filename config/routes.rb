@@ -71,7 +71,7 @@ Rails.application.routes.draw do
     patch 'password/update', to: 'users#update_password', as: :update_password
   end
 
-  root to: 'home#index'
+  root to: 'buyers/dashboard#index'
 
 
 
