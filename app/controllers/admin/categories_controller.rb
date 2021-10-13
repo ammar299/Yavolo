@@ -19,7 +19,7 @@ class Admin::CategoriesController < Admin::BaseController
         @category.parent = parent
         @category.save
       end
-      redirect_to admin_categories_path, notice: "Category is Created"
+      redirect_to admin_categories_path
     else
       render :new
     end

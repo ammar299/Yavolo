@@ -1,2 +1,10 @@
 <h1>Categories</h1>
-<%= render 'categories', categories: @categories %>
+<%= notice %>
+<div>
+  <%= link_to 'Create Category', new_admin_category_path, class: 'btn btn-primary btn-text-color ml-3' %>
+  <%= link_to 'Create Sub Category', new_admin_category_path , class: 'btn btn-primary sub-category-link  btn-text-color ml-3 disabled' %>
+</div>
+<%#= render 'categories', categories: @categories %>
+<div id="categories-tree">
+  <%= nested_categories(@categories.arrange) %>
+</div>
