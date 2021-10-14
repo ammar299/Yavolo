@@ -1,5 +1,5 @@
 class Admin::SellersController < Admin::BaseController
-    before_action :set_seller, only: %i[show edit update]
+    before_action :set_seller, only: %i[show edit update update_business_representative update_company_detail update_addresses]
 
     def index
       @q = Seller.ransack(params[:q])
@@ -28,6 +28,20 @@ class Admin::SellersController < Admin::BaseController
       end
 
     def edit
+    end
+
+    def update_business_representative
+      @seller.update(seller_params)
+    end
+
+    def update_company_detail
+      @seller.update(seller_params)
+    end
+    
+    def update_addresses
+      @seller.update(seller_params)
+      @address_type = params[:seller][:addresses_attributes]["0"][:address_type]
+      @address = @seller.addresses.where(address_type: @address_type).last
     end
 
     def update_multiple

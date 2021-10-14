@@ -1,0 +1,22 @@
+<div id="<%=address.address_type%>">
+  <h5 class="text-center"><%= address.address_type.humanize %></h5>
+  <table class="table mt-2">
+    <tbody>
+      <tr>
+        <!--<td class="">Address Line 1:</td>-->
+        <td>
+          <%= address.address_line_1.present? ? address.address_line_1 : "nil" %><br/>
+          <%= address.address_line_2.present? ? address.address_line_2 : "nil" %><br/>
+          <%= address.county.present? ? address.county : "nil" %><br/>
+          <%= address.city.present? ? address.city : "nil" %><br/>
+          <%= address.postal_code.present? ? address.postal_code : "nil" %><br/>
+          <%= address.country.present? ? address.country : "nil" %><br/>
+        </td>
+      </tr>
+      <tr>
+        <td class="">Phone Number:</td>
+        <td><%= address.phone_number.present? ? address.phone_number : "nil" %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

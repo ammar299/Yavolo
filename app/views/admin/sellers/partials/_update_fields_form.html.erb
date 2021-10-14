@@ -23,5 +23,7 @@
     <!-- Business Owner Address / Address with type business_address -->
     <%= render partial: 'admin/sellers/partials/addresses', locals: { form: form, addresses: @seller.addresses, address_id: params[:address_id] } %>
   <% end %>
-  <%= form.button :submit %>
+  <div class="text-center">
+  <%= form.button :submit, 'Update', class: 'btn btn-sm btn-radius px-4 btn-primary' %>
+  </div>
 <% end %>
