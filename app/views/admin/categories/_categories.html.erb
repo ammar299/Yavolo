@@ -18,7 +18,7 @@
     <% categories.each do |category| %>
       <tr>
         <td><input type="checkbox" class="category_id" name="<%=category.id%>"></td>
-        <td><%= category.category_name %></td>
+        <td><%= category.category_id %></td>
         <td></td>
         <td>
           <%= link_to 'Edit', edit_admin_category_path(category), class: 'btn btn-info btn-text-color' %>

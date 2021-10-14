@@ -11,44 +11,24 @@
             <span class="icon-dashboard icon-right-pd"></span>
             Dashboard
           <% end %>
-          <ul class="d-none">
-            <li><%= link_to "This", ""%></li>
-            <li><%= link_to "This", ""%></li>
-            <li><%= link_to "This", ""%></li>
-          </ul>
         </li>
         <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-page icon-right-pd"></span>
             Pages
           <% end %>
-          <ul class="d-none">
-            <li><%= link_to "This", ""%></li>
-            <li><%= link_to "This", ""%></li>
-            <li><%= link_to "This", ""%></li>
-          </ul>
         </li>
         <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-templates icon-right-pd"></span>
             Templates
           <% end %>
-          <ul class="d-none">
-            <li><%= link_to "This", ""%></li>
-            <li><%= link_to "This", ""%></li>
-            <li><%= link_to "This", ""%></li>
-          </ul>
         </li>
         <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-orders icon-right-pd"></span>
             Orders
           <% end %>
-          <ul class="d-none">
-            <li><%= link_to "This", ""%></li>
-            <li><%= link_to "This", ""%></li>
-            <li><%= link_to "This", ""%></li>
-          </ul>
         </li>
         <li class="parent">
           <%= link_to '#' do %>
@@ -99,11 +79,6 @@
             <span class="icon-blog icon-right-pd"></span>
             Blogs
           <% end %>
-          <ul class="d-none">
-            <li><%= link_to "This", ""%></li>
-            <li><%= link_to "This", ""%></li>
-            <li><%= link_to "This", ""%></li>
-          </ul>
         </li>
         <li class="parent">
           <%= link_to '#' do %>
@@ -139,14 +114,19 @@
           </ul>
         </li>
         <li class="parent">
-          <%= link_to admin_delivery_options_path do %>
+          <%= link_to '#' do %>
             <span class="icon-technical icon-right-pd"></span>
             Technical
           <% end %>
           <ul class="d-none">
-            <li><%= link_to "This", ""%></li>
-            <li><%= link_to "This", ""%></li>
-            <li><%= link_to "This", ""%></li>
+            <li><%= link_to "Delivery Options", ""%></li>
+            <li><%= link_to "Limit Login Attempts", ""%></li>
+            <li><%= link_to "Maintenance Mode", ""%></li>
+            <li><%= link_to "Tracking", ""%></li>
+            <li><%= link_to "Google Feed", ""%></li>
+            <li><%= link_to "Cache", ""%></li>
+            <li><%= link_to "User Log", ""%></li>
+            <li><%= link_to "Error Log", ""%></li>
           </ul>
         </li>
         <li class="parent">
@@ -155,9 +135,9 @@
             Rule Engine
           <% end %>
           <ul class="d-none">
-            <li><%= link_to "This", ""%></li>
-            <li><%= link_to "This", ""%></li>
-            <li><%= link_to "This", ""%></li>
+            <li><%= link_to "All Rules", ""%></li>
+            <li><%= link_to "Business Inteligence", ""%></li>
+            <li><%= link_to "System Rules", ""%></li>
           </ul>
         </li>
         <li class="parent">
@@ -166,9 +146,9 @@
             Appearance
           <% end %>
           <ul class="d-none">
-            <li><%= link_to "This", ""%></li>
-            <li><%= link_to "This", ""%></li>
-            <li><%= link_to "This", ""%></li>
+            <li><%= link_to "Yadgets", ""%></li>
+            <li><%= link_to "Navigation", ""%></li>
+            <li><%= link_to "Notifications", ""%></li>
           </ul>
         </li>
       </ul>
@@ -179,9 +159,10 @@
             Settings
           <% end %>
           <ul class="d-none">
-            <li><%= link_to "This", ""%></li>
-            <li><%= link_to "This", ""%></li>
-            <li><%= link_to "This", ""%></li>
+            <li><%= link_to "General Settings", ""%></li>
+            <li><%= link_to "Users", ""%></li>
+            <li><%= link_to "User Roles", ""%></li>
+            <li><%= link_to "Subscriptions", ""%></li>
           </ul>
         </li>
           <%= link_to destroy_admin_session_path, method: :delete do %>

@@ -41,7 +41,7 @@ class Admin::CategoriesController < Admin::BaseController
   private
 
   def category_params
-    params.require(:category).permit(:category_name, :baby_category, :category_description,bundle_label: [])
+    params.require(:category).permit(:category_id, :baby_category, :category_description,bundle_label: [])
   end
 
   def set_category

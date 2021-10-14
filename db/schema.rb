@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_09_085608) do
+ActiveRecord::Schema.define(version: 2021_10_14_102325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -156,7 +156,7 @@ ActiveRecord::Schema.define(version: 2021_10_09_085608) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string "category_name"
+    t.string "category_id"
     t.boolean "baby_category", default: false
     t.string "category_description"
     t.string "bundle_label"
@@ -164,6 +164,13 @@ ActiveRecord::Schema.define(version: 2021_10_09_085608) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "ancestry"
     t.index ["ancestry"], name: "index_categories_on_ancestry"
+  end
+
+  create_table "category_filter_groups", force: :cascade do |t|
+    t.integer "filter_group_id"
+    t.integer "category_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "company_details", force: :cascade do |t|
@@ -215,10 +222,10 @@ ActiveRecord::Schema.define(version: 2021_10_09_085608) do
   end
 
   create_table "filter_categories", force: :cascade do |t|
-    t.string "category_name"
     t.integer "filter_group_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "category_id"
     t.index ["filter_group_id"], name: "index_filter_categories_on_filter_group_id"
   end
 

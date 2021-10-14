@@ -5,18 +5,58 @@
   </div>
   <div class="sidebody">
     <ul>
-      <li class="active"><%= link_to "Success Hub" %></li>
-      <li><%= link_to "Listings" %></li>
-      <li><%= link_to "Messages" %></li>
-      <li><%= link_to "Orders & Delivery" %></li>
-      <li><%= link_to "Finances" %></li>
-      <li><%= link_to "Success Meter" %></li>
-      <li><%= link_to "Help & Resource Centre" %></li>
-      <li><%= link_to "Account & Settings" %></li>
+      <li class="active "><%= link_to '#' do %>
+        <span class="icon-dashboard icon-right-pd"></span>
+        Succes Hub
+        <% end %>
+      </li>
+      <li><%= link_to '#' do %>
+        <span class="icon-listing icon-right-pd"></span>
+        Listing
+        <% end %>
+      </li>
+      <li><%= link_to '#' do %>
+        <span class="icon-messages icon-right-pd"></span>
+        Messages
+        <% end %>
+      </li>
+      <li><%= link_to '#' do %>
+        <span class="icon-orders--delivery icon-right-pd"></span>
+        Orders & Delivery
+        <% end %>
+      </li>
+      <li><%= link_to '#' do %>
+        <span class="icon-finance icon-right-pd"></span>
+        Finances
+        <% end %>
+      </li>
+      <li><%= link_to '#' do %>
+        <span class="icon-success-meter icon-right-pd"></span>
+        Success Meter
+        <% end %>
+      </li>
+      <li><%= link_to '#' do %>
+        <span class="icon-help--resource-center icon-right-pd"></span>
+        Help & Resource Centre
+        <% end %>
+      </li>
+      <li><%= link_to '#' do %>
+        <span class="icon-accounts--settings icon-right-pd"></span>
+        Account & Settings
+        <% end %>
+      </li>
     </ul>
     <ul>
-      <li><%= link_to "Logout", destroy_seller_session_path, data: { method: :delete } %></li>
-      <li><%= link_to "Switch Accounts" %></a></li>
+      <li><%= link_to destroy_seller_session_path,  method: :delete do %>
+        <span class="icon-logout icon-right-pd"></span>
+        Logout
+        <% end %>
+      </li>
+      <li><%= link_to '#' do %>
+        <span class="icon-switch-accounts icon-right-pd"></span>
+        Switch Accouts
+        <% end %>
+      </li>
     </ul>
   </div>
 </div>
