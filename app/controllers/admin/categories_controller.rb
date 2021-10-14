@@ -4,6 +4,7 @@ class Admin::CategoriesController < Admin::BaseController
 
   def index
     @categories = Category.all
+    @category = Category.first
   end
 
   def new
@@ -43,10 +44,15 @@ class Admin::CategoriesController < Admin::BaseController
     redirect_to admin_categories_path, notice: "Category is destroyed"
   end
 
+  def category_details
+    @category = Category.find(params[:id])
+    render partial:"admin/categories/category_details"
+  end
+
   private
 
   def category_params
-    params.require(:category).permit(:category_name, :baby_category, :category_description,bundle_label: [])
+    params.require(:category).permit(:category_name, :baby_category, :category_description,:bundle_label, picture_attributes: ["name", "@original_filename", "@content_type", "@headers", "_destroy", "id"])
   end
 
   def set_category

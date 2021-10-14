@@ -13,8 +13,8 @@ class Picture < ApplicationRecord
 
     def file_content_and_size_validation(field)
 			custom_errors = ["#{field.to_s.titleize}:"]
-			allowed_extentions = ['jpg','jpeg','png']
-			msg = "Only files with the following extensions are allowed: JPG, JPEG & PNG and file must be less than 2MB."
+			allowed_extentions = ['jpg','jpeg','png','gif']
+			msg = "Only files with the following extensions are allowed: JPG, JPEG,GIF & PNG and file must be less than 2MB."
 			if send(field).present?
 					if send(field).size > 2.megabytes
 						custom_errors.insert(1,msg)

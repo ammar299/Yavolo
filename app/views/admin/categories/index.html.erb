@@ -1,10 +1,33 @@
-<h1>Categories</h1>
-<%= notice %>
-<div>
-  <%= link_to 'Create Category', new_admin_category_path, class: 'btn btn-primary btn-text-color ml-3 category-link' %>
-  <%= link_to 'Create Sub Category', new_admin_category_path(is_subcategory:true) , class: 'btn btn-primary sub-category-link  btn-text-color ml-3 disabled' %>
-</div>
+<!--<h1>Categories</h1>-->
+<%#= notice %>
+<!--<div>-->
+  <%#= link_to 'Create Category', new_admin_category_path, class: 'btn btn-primary btn-text-color ml-3 category-link' %>
+  <%#= link_to 'Create Sub Category', new_admin_category_path(is_subcategory:true) , class: 'btn btn-primary sub-category-link  btn-text-color ml-3 disabled' %>
+<!--</div>-->
 <%#= render 'categories', categories: @categories %>
-<div id="categories-tree">
-  <%= nested_categories(@categories.arrange) %>
+<!--<div id="categories-tree">-->
+  <%#= nested_categories(@categories.arrange) %>
+<!--</div>-->
+
+
+<div class="container-fluid">
+  <%= render 'category_action_btns' %>
+  <div class="row ac-setting-tabs">
+    <%= render 'categories_tree' %>
+    <div class="col-md-8 category-details-wrapper">
+      <%#= render 'category_details' %>
+    </div>
+  </div>
 </div>
+
+<style>
+  .categories-tree-body ul{
+    display: none;
+  }
+
+  .categories-tree-body ul.active{
+    display: block;
+  }
+
+
+</style>

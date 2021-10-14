@@ -165,6 +165,8 @@ ActiveRecord::Schema.define(version: 2021_10_15_091908) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "ancestry"
+    t.string "category_id_string"
+    t.string "url"
     t.index ["ancestry"], name: "index_categories_on_ancestry"
   end
 

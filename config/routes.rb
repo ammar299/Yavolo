@@ -19,13 +19,18 @@ Rails.application.routes.draw do
           collection do
             get :update_multiple
           end
-          member do 
+          member do
             patch :update_business_representative
             patch :update_company_detail
             patch :update_addresses
           end
         end
-        resources :categories
+
+        resources :categories do
+          member do
+            get :category_details
+          end
+        end
 
         resources :carriers, except: %i[index show] do
           collection do
