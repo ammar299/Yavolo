@@ -28,6 +28,7 @@ Rails.application.routes.draw do
         resources :products do
           collection do
             get 'duplicate'
+            post 'upload_csv'
           end
         end
         resources :filter_groups do

@@ -1,6 +1,9 @@
 // load all products related js here
 $(document).ready(function(){
   // bindDragAndDropPhotosEvents();
+  if(document.getElementById('upload-csv-popup'))
+    bindDragAndDropEvents('upload-csv-popup');
+
   console.log('products js is loaded');
   $('#product_pictures_attributes_0_name').change(function(e){
     previewProductImages(e.target.files);
@@ -13,7 +16,51 @@ $(document).ready(function(){
     console.log('asdfjalfajflaj')
   });
 
+  // UPLOAD PRODUCTS CSV 
+  $('.upload-csv-btn').click(function(){
+    $('#upload-csv-popup').modal('show');
+  });
+
+  $('#csv_import_file').change(function(e){
+    let files = e.target.files;
+    let fileValidator = validCsvFile(files);
+    if(fileValidator.isValid){
+      $('#upload-csv-popup .modal-body').find('.file-errors').remove();
+      uploadCSVFile(files);
+    }else{
+      document.getElementById('csv_import_file').value = "";
+      $('#upload-csv-popup .modal-body').find('.file-errors').remove();
+      $('#upload-csv-popup .modal-body').append('<ul class="file-errors" style="color: red;">'+fileValidator.errors.map(e => '<li>'+e+'</li>').join("")+'</ul>')
+    }
+  });
+
 });
+
+function uploadCSVFile(files){
+  $('#csv_import_file').attr('disabled', true);
+  let url = 'YOUR URL HERE'
+  let formData = new FormData()
+  formData.append('csv_import[file]', files[0])
+  $.ajax({
+    url: "/admin/products/upload_csv",
+    type: "POST",
+    data: formData,
+    processData: false,  // tell jQuery not to process the data
+    contentType: false,  // tell jQuery not to set contentType
+    success: function(res){
+      $('#upload-csv-popup').modal('hide');
+      $('#upload-csv-success-popup').modal('show');
+      console.log(res)
+    },
+    error: function(xhr){
+      document.getElementById('csv_import_file').value = "";
+      $('#upload-csv-popup .modal-body').find('.file-errors').remove();
+      $('#upload-csv-popup .modal-body').append('<ul class="file-errors" style="color: red;">'+[xhr.responseJSON.errors].map(e => '<li>'+e+'</li>').join("")+'</ul>')
+      // hide any loading image
+      $('#csv_import_file').attr('disabled', false);
+    }
+  });
+}
 
 function previewProductImages(files){
   let preveiwImagesTemplate = [];
@@ -26,6 +73,41 @@ function previewProductImages(files){
     $('.product-photos-section').show();
     $('#upload-images-popup').modal('hide');
   }
+}
+
+function bindDragAndDropEvents(dropAreaId){
+  let dropArea = document.getElementById(dropAreaId)
+  ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, preventDefaults, false)
+  })
+  dropArea.addEventListener('drop', fileDropHandler, false)
+}
+
+function fileDropHandler(e){
+  let dt = e.dataTransfer
+  let files = dt.files;
+  let fileValidator = validCsvFile(files);
+  if(fileValidator.isValid){
+    $('#upload-csv-popup .modal-body').find('.file-errors').remove();
+    uploadCSVFile(files);
+  }else{
+    $('#upload-csv-popup .modal-body').find('.file-errors').remove();
+    $('#upload-csv-popup .modal-body').append('<ul class="file-errors" style="color: red;">'+fileValidator.errors.map(e => '<li>'+e+'</li>').join("")+'</ul>')
+  }
+}
+
+function validCsvFile(files){
+  let allowedExtensions = /(\.csv)$/i;
+  let errors = [];
+  if(!allowedExtensions.exec(files[0].name)) {
+    errors.push('Invalid file type, allowed type is .csv')
+  }
+  let size = (files[0].size/1024)/1024;
+
+  if(size > 10){
+    errors.push('File size should be less than 10MB');
+  }
+  return { errors: errors , isValid: !(errors.length > 0) }
 }
 
 function bindDragAndDropPhotosEvents(){

@@ -75,3 +75,6 @@ gem 'fog-aws'
 gem 'cocoon'
 gem 'pg_search'
 gem 'select_all-rails'
+gem 'sidekiq'
+gem 'friendly_id', '~> 5.4.0'
+gem "letter_opener", group: :development

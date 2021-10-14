@@ -13,7 +13,7 @@
             <div class="photo-grid-img">
                 <div class="product-images-inner text-center">
                     <div class="row product-photos-grid">
-                        <%= form.fields_for :pictures do |picture| %>
+                        <%= form.fields_for :pictures,form.object.pictures do |picture| %>
                           <% unless picture.object.new_record? %>
                             <div class="col-md-4 p-1">
                               <div class="grid-single-img">

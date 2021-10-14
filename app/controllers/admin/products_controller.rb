@@ -1,5 +1,6 @@
 class Admin::ProductsController < Admin::BaseController
   def index
+    # @csv_import = CsvImport.new({ importer_id: current_admin.id, importer_type: 'Admin'})
     @products = Product.order(:title).page(params[:page]).per(params[:per_page].presence || 15)
   end
 
@@ -33,12 +34,12 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def edit
-    @product = Product.find(params[:id])
+    @product = Product.friendly.find(params[:id])
     @delivery_options = DeliveryOption.all
   end
 
   def update
-    @product = Product.find(params[:id])
+    @product = Product.friendly.find(params[:id])
     # TODO: handle statuses
     if !@product.active? && params[:commit]== 'Publish'
       @product.status = 'active'
@@ -54,6 +55,20 @@ class Admin::ProductsController < Admin::BaseController
         @delivery_options = DeliveryOption.all
         format.html { render action: 'edit' }
       end
+    end
+  end
+
+  def upload_csv
+    csv_import = CsvImport.new(params.require(:csv_import).permit(:file))
+    csv_import.importer_id = current_admin.id
+    csv_import.importer_type = 'Admin'
+    if csv_import.valid?
+      csv_import.save
+      csv_import.update({status: :uploaded})
+      ImportCsvWorker.perform_async(csv_import.id)
+      render json: { message: 'Your file is uploaded and you will be notified with import status.' }, status: :ok
+    else
+      render json: { errors: csv_import.errors.where(:file).last.message }, status: :unprocessable_entity
     end
   end
 
