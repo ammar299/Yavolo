@@ -11,20 +11,30 @@ class Admin::DeliveryOptionsController < Admin::BaseController
   end
 
   def create
+    @delivery_opts = true
+    delivery_option_filtering
+
     @delivery_option = DeliveryOption.new(delivery_option_params)
-    if @delivery_option.save
-      delivery_option_ships(@delivery_option)
+    if @delivery_opts == true
+      @delivery_option.save
+      create_delivery_option_ships(@delivery_option)
       @delivery_options = DeliveryOption.all
     else
+      @delivery_option.errors[:base] << 'Template already exists!'
       render :new
     end
   end
 
   def update
-    if @delivery_option.update(delivery_option_params)
-      delivery_option_ships(@delivery_option)
+    @delivery_opts = true
+    delivery_option_filtering
+
+    if @delivery_opts == true
+      @delivery_option.update(delivery_option_params)
+      create_delivery_option_ships(@delivery_option)
       @delivery_options = DeliveryOption.all
     else
+      @delivery_option.errors[:base] << 'Template already exists!'
       render :edit
     end
   end
@@ -49,13 +59,32 @@ class Admin::DeliveryOptionsController < Admin::BaseController
     @delivery_option = DeliveryOption.find(params[:id])
   end
 
-  def delivery_option_ships(delivery_option)
-    delivery_option.ships.destroy_all if delivery_option.ships.exists?
+  def delivery_option_filtering
+    delivery_options = DeliveryOption.where(delivery_option_params)
+    if delivery_options.exists?
+      check_delivery_option_availbility(delivery_options)
+    end
+  end
+
+  def filter_ship_ids
     unselected_ships = Hash[Ship.pluck(:id).map(&:to_s).zip params['ship_price']]
-    selected_ships = {}
-    selected_ships = unselected_ships.slice(*params['delivery_option']['ship_ids'].reject(&:blank?))
-    selected_ships.each do |ship_id, price|
+    @selected_ships = {}
+    @selected_ships = unselected_ships.slice(*params['delivery_option']['ship_ids'].reject(&:blank?))
+  end
+
+  def create_delivery_option_ships(delivery_option)
+    delivery_option.ships.destroy_all if delivery_option.ships.exists?
+    filter_ship_ids
+    @selected_ships.each do |ship_id, price|
       DeliveryOptionShip.create(price: price, ship_id: ship_id, delivery_option_id: delivery_option.id)
+    end
+  end
+
+  def check_delivery_option_availbility(delivery_options)
+    delivery_options.each do |delivery_option|
+      delivery_ships = DeliveryOptionShip.where(delivery_option_id: delivery_option.id).map{ |c| [c.ship_id, c.price.to_f] }.to_h
+      result = delivery_ships == filter_ship_ids.transform_keys(&:to_i).transform_values(&:to_f)
+      return @delivery_opts = false if result
     end
   end
 end

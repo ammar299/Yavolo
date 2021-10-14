@@ -1,4 +1,5 @@
 <%= simple_form_for delivery_option, url: url,  data: { remote: true } do |f| %>
+  <%= render '/shared/admin/delivery_option_errors', delivery_option: @delivery_option %>
   <div class="form-group form-group-vertical flex-wrap">
     <%= f.label :name, 'Delivery Option Name', class: 'text-left pr-3 w-100' %>
     <%= f.text_field :name, class: 'form-control' %>
@@ -26,7 +27,7 @@
       <%= collection_check_boxes(:delivery_option, 'ship_ids', Ship.all, :id, :name) do |b| %>
         <div class="d-flex align-items-center justify-content-between mb-2 mainlang-list">
           <label class="checkbox-blk">
-            <%= b.check_box checked: (b.value == 1) %>
+            <%= b.check_box checked: (b.value == 1)? true : checked_delivery_ship?(@delivery_option, b.value) %>
             <span class="checkmark"></span>
             <%= b.label %>
           </label>

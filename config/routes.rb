@@ -15,7 +15,11 @@ Rails.application.routes.draw do
           end
         end
 
-        resources :sellers
+        resources :sellers do
+          collection do
+            get :update_multiple
+          end
+        end
         resources :categories
 
         resources :carriers, except: %i[index show] do
@@ -71,7 +75,7 @@ Rails.application.routes.draw do
     patch 'password/update', to: 'users#update_password', as: :update_password
   end
 
-  root to: 'home#index'
+  root to: 'buyers/dashboard#index'
 
 
 
