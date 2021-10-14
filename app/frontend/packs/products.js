@@ -4,7 +4,6 @@ $(document).ready(function(){
   if(document.getElementById('upload-csv-popup'))
     bindDragAndDropEvents('upload-csv-popup');
 
-  console.log('products js is loaded');
   $('#product_pictures_attributes_0_name').change(function(e){
     previewProductImages(e.target.files);
   });
@@ -13,7 +12,6 @@ $(document).ready(function(){
   $('.show-upload-images-popup').click(function(e){
     e.preventDefault();
     $('#upload-images-popup').modal('show');
-    console.log('asdfjalfajflaj')
   });
 
   // UPLOAD PRODUCTS CSV 
@@ -50,7 +48,6 @@ function uploadCSVFile(files){
     success: function(res){
       $('#upload-csv-popup').modal('hide');
       $('#upload-csv-success-popup').modal('show');
-      console.log(res)
     },
     error: function(xhr){
       document.getElementById('csv_import_file').value = "";
@@ -134,13 +131,11 @@ function preventDefaults (e) {
 }
 
 function highlight(e) {
-  console.log('entered ')
   let dropArea = document.getElementById('upload-images-popup')
   dropArea.classList.add('highlight')
 }
 
 function unhighlight(e) {
-  console.log('left')
   let dropArea = document.getElementById('upload-images-popup')
   dropArea.classList.remove('highlight')
 }

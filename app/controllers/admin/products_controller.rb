@@ -1,6 +1,5 @@
 class Admin::ProductsController < Admin::BaseController
   def index
-    # @csv_import = CsvImport.new({ importer_id: current_admin.id, importer_type: 'Admin'})
     @products = Product.order(:title).page(params[:page]).per(params[:per_page].presence || 15)
   end
 
@@ -23,12 +22,12 @@ class Admin::ProductsController < Admin::BaseController
 
     respond_to do |format|
       if @product.save
-        format.html { redirect_to edit_admin_product_path(@product), notice: 'Product was successfully created.' }
+        redirect_to edit_admin_product_path(@product), notice: 'Product was successfully created.'
       else
         @delivery_options = DeliveryOption.all
         @product.owner_id = owner_params[:owner_id]
         @product.owner_type = owner_params[:owner_type]
-        format.html { render action: 'new' }
+        render action: 'new'
       end
     end
   end
@@ -50,10 +49,10 @@ class Admin::ProductsController < Admin::BaseController
 
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to edit_admin_product_path(@product), notice: 'Product was successfully updated.' }
+        redirect_to edit_admin_product_path(@product), notice: 'Product was successfully updated.'
       else
         @delivery_options = DeliveryOption.all
-        format.html { render action: 'edit' }
+        render action: 'edit'
       end
     end
   end

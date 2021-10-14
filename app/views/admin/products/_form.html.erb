@@ -2,14 +2,14 @@
     <%= simple_form_for @product, method: method ,url: url do |form| %>
         <%=form.hidden_field :owner_id %>
         <%=form.hidden_field :owner_type %>
-        <%= render partial: "shared/products/photos", locals: { form: form } %>
-        <%= render partial: "shared/products/seo_content", locals: { form: form } %>
-        <%= render partial: "shared/products/google_shopping", locals: { form: form } %>
-        <%= render partial: "shared/products/ebay_details", locals: { form: form } %>
-        <%= render partial: "shared/products/listing_details", locals: { form: form } %>
-        <%= render partial: "shared/products/pricing_and_quantity", locals: { form: form } %>
-        <%= render partial: "shared/products/delivery_details", locals: { form: form } %>
-        <%= render partial: "shared/products/product_actions_bar", locals: { form: form } %>
+        <%= render "shared/products/photos", form: form %>
+        <%= render "shared/products/seo_content", form: form %>
+        <%= render "shared/products/google_shopping", form: form %>
+        <%= render "shared/products/ebay_details", form: form %>
+        <%= render "shared/products/listing_details", form: form %>
+        <%= render "shared/products/pricing_and_quantity", form: form %>
+        <%= render "shared/products/delivery_details", form: form %>
+        <%= render "shared/products/product_actions_bar", form: form %>
     <% end %>
-    <%= render partial: "shared/products/add_new_delivery_option" %>
+    <%= render "shared/products/add_new_delivery_option" %>
 </div>
