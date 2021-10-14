@@ -1,15 +1,19 @@
-<%= simple_form_for carrier, url: url, data: { remote: true } do |f| %>
-  <%= f.label :name, 'Name' %>
-  <%= f.text_field :name %>
-  <div class="row mt-4">
-    <div class="col-6">
-    <%= f.label :api_key, 'API Key' %>
-    <%= f.text_field :api_key  %>
-    </div>
-    <div class="col-6">
-    <%= f.label :secret_key, 'Secret Key' %>
-    <%= f.text_field :secret_key  %>
-    </div>
+<%= simple_form_for carrier, url: url do |f| %>
+  <%= render '/shared/admin/carrier_errors', carrier: @carrier %>
+  <div class="form-group form-group-vertical form-group-vertical-responsive">
+    <%= f.label :name, 'Carrier Name*' %>
+    <%= f.text_field :name, class: 'form-control', required: true %>
   </div>
-  <%= f.submit %>
+  <div class="form-group form-group-vertical form-group-vertical-responsive">
+    <%= f.label :api_key, 'API Key*' %>
+    <%= f.text_field :api_key, class: 'form-control', required: true %>
+  </div>
+  <div class="form-group form-group-vertical form-group-vertical-responsive">
+    <%= f.label :secret_key, 'Secret Key*' %>
+    <%= f.text_field :secret_key, class: 'form-control' %>
+  </div>
+  <div class="carrier-btn text-right">
+    <%= link_to 'Cancel', admin_delivery_options_path, class: 'btn btn-sm btn-radius px-4 btn-primary mt-2' %>
+    <%= f.submit 'Save New Carrier', class: 'btn btn-sm btn-radius px-4 btn-primary mt-2', required: true %>
+  </div>
 <% end %>

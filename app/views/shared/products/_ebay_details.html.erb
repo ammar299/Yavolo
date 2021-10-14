@@ -1,20 +1,46 @@
-<div class="ebay-details-section" style="border: 1px solid #ccc">
-<%= form.fields_for :ebay_detail, @product.ebay_detail do |ebay_data| %>
+<div class="row">
+    <div class="col-md-12">
+        <div class="ebay box-border yo-white-card">
+            <h4>eBay Details</h4>
+            <hr>
+            <%= form.fields_for :ebay_detail, @product.ebay_detail do |ebay_data| %>
+            <div class="ebay-forms d-flex justify-content-between flex-wrap align-items-center mb-3">
+                <% has_error, msg = get_errors(form, "ebay_detail.lifetime_sales") %>
+                <div class="form-group general-mrgn mb-0 <%= has_error ? 'error-field' : '' %>">
+                    <%= ebay_data.label 'Lifetime Sales' %>
+                    <%= ebay_data.text_field :lifetime_sales, class: 'form-control' %>
+                    <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+                </div>
 
-  <%= ebay_data.label :lifetime_sales %>
-  <%= ebay_data.text_field :lifetime_sales %>
+                <% has_error, msg = get_errors(form, "ebay_detail.thirty_day_sales") %>
+                <div class="form-group general-mrgn mb-0 <%= has_error ? 'error-field' : '' %>">
+                    <%= ebay_data.label '30-day Sales' %>
+                    <%= ebay_data.text_field :thirty_day_sales, class: 'form-control' %>
+                    <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+                </div>
 
-  <%= ebay_data.label :thirty_day_sales %>
-  <%= ebay_data.text_field :thirty_day_sales %>
+                <% has_error, msg = get_errors(form, "ebay_detail.price") %>
+                <div class="form-group general-mrgn mb-0 <%= has_error ? 'error-field' : '' %>">
+                    <%= ebay_data.label 'Price' %>
+                    <%= ebay_data.text_field :price, class: 'form-control' %>
+                    <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+                </div>
 
-  <%= ebay_data.label :price %>
-  <%= ebay_data.text_field :price %>
+                <% has_error, msg = get_errors(form, "ebay_detail.thirty_day_revenue") %>
+                <div class="form-group general-mrgn mb-0 <%= has_error ? 'error-field' : '' %>">
+                    <%= ebay_data.label '30-day Revenue' %>
+                    <%= ebay_data.text_field :thirty_day_revenue, class: 'form-control' %>
+                    <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+                </div>
 
-  <%= ebay_data.label :thirty_day_revenue %>
-  <%= ebay_data.text_field :thirty_day_revenue %>
-
-  <%= ebay_data.label :mpn_number %>
-  <%= ebay_data.text_field :mpn_number %>
-
-<% end %>
+                <% has_error, msg = get_errors(form, "ebay_detail.mpn_number") %>
+                <div class="form-group general-mrgn mb-0 <%= has_error ? 'error-field' : '' %>">
+                    <%= ebay_data.label 'MPN Number' %>
+                    <%= ebay_data.text_field :mpn_number, class: 'form-control' %>
+                    <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+                </div>
+            </div>
+            <% end %>
+        </div>
+    </div>
 </div>

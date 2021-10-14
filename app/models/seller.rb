@@ -8,9 +8,11 @@ class Seller < ApplicationRecord
   has_one :business_representative
   has_many :addresses
   has_one :company_detail
+  
+  
   enum account_status: {
     pending: 0,
-    approved: 1,
+    approve: 1,
     rejected: 2,
   }
   enum listing_status: {
@@ -41,6 +43,9 @@ class Seller < ApplicationRecord
   end
 
   protected
+  def username
+    [first_name, last_name].join(' ')
+  end
 
   def password_required?
     return false if skip_password_validation

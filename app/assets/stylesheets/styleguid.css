@@ -1,58 +1,3 @@
-@font-face {
-    font-family: 'buenos_airesblack';
-    src: url('buenosaires-black-webfont.woff2') format('woff2'),
-         url('buenosaires-black-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'buenos_airesbold';
-    src: url('buenosaires-bold-webfont.woff2') format('woff2'),
-         url('buenosaires-bold-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'buenos_airesbook';
-    src: url('buenosaires-book-webfont.woff2') format('woff2'),
-         url('buenosaires-book-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'buenos_aireslight';
-    src: url('buenosaires-light-webfont.woff2') format('woff2'),
-         url('buenosaires-light-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'buenos_airesregular';
-    src: url('../fonts/buenosaires-regular-webfont.woff2') format('woff2'),
-         url('../fonts/buenosaires-regular-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'buenos_airessemibold';
-    src: url('../fonts/buenosaires-semibold-webfont.woff2') format('woff2'),
-         url('../fonts/buenosaires-semibold-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'buenos_airesthin';
-    src: url('buenosaires-thin-webfont.woff2') format('woff2'),
-         url('buenosaires-thin-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
 :root {
   --white: #fff;
   --black: #000;
@@ -269,6 +214,9 @@ h4 {
 .dropdown-filter.show .dropdown-menu a i {
     display: none;
     font-size: 12px;
+}
+.dropdown-filter.show .dropdown-menu a svg {
+    width: 12px !important;
 }
 .dropdown-filter.show .dropdown-menu a.active i {
     display: block;
@@ -641,3 +589,13 @@ textarea.form-control {
 }
 
 /*Modal*/
+
+.mainlang-list .field-me {
+    border: 2px solid #640529 !important;
+    border-radius: 16px;
+    background-color: transparent;
+    width: 100px;
+    padding: 6px 20px 2px 20px;
+    color: #640529;
+    outline: none !important;
+}

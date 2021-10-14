@@ -12,7 +12,8 @@
 
   <body>
     <div class="dashboard-page buyer-layout">
-      <%= render 'layouts/sellers/seller_sidebar' %>
+      <%#= render 'layouts/sellers/seller_sidebar' %>
+      <%= link_to "Logout", destroy_buyer_session_path, data: { method: :delete } %>
       <div class="rightside">
         <%= yield %>
         <%= render 'layouts/sellers/footer' %>

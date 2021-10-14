@@ -1,6 +1,14 @@
 if ('<%= params[:form_to_update] %>' == 'company_detail' || '<%= params[:form_to_update] %>' == 'business_representative') {
-$("#<%= params[:form_to_update] %>").append("<%= j render(partial: 'admin/sellers/partials/update_fields_form', locals: { url: admin_seller_path(@seller) }) %>");
+$("#update-seller-form").html("<%= j render(partial: 'admin/sellers/partials/update_fields_form', locals: { url: admin_seller_path(@seller) }) %>");
+$('#editTemplateForm').modal('show');
+var $sellerForm = $("#update-seller-form form");
+$sellerForm.attr('action', "/admin/sellers/<%= @seller.id %>/update_<%= params[:form_to_update] %>")
+$sellerForm.attr('data-remote', true);
 }
 else {
-$("#addresses").append("<%= j render(partial: 'admin/sellers/partials/update_fields_form', locals: { url: admin_seller_path(@seller), addresses: @seller.addresses }) %>");
+$("#update-seller-form").html("<%= j render(partial: 'admin/sellers/partials/update_fields_form', locals: { url: admin_seller_path(@seller) }) %>");
+$('#editTemplateForm').modal('show');
+var $sellerForm = $("#update-seller-form form");
+$sellerForm.attr('action', "/admin/sellers/<%= @seller.id %>/update_addresses")
+$sellerForm.attr('data-remote', true);
 }

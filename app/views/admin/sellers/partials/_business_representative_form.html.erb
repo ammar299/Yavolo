@@ -1,11 +1,44 @@
-<%= form.input :email, label: 'Email Address', required: true, placeholder: 'john.smith@example.co.uk' %>
+<div class="form-group form-group-vertical form-group-vertical-responsive">
+  <%= form.label :seller_email, 'Email' %>
+  <%= form.text_field :seller_email, value: @seller.email, disabled: true, required: true, class: 'form-control' %>
+</div>
 <!-- Business Representative -->
 <h4>Business Representative</h4>
 <%= form.simple_fields_for :business_representative do |br| %>
-  <%= br.input :full_legal_name, label: 'Full Legal Name', required: true, placeholder: 'John Paul Smith' %>
-  <%= br.input :email, label: 'BR Email Address', required: true, placeholder: 'john.smith@example.co.uk' %>
-  <%= br.input :job_title, label: 'Job Title', required: true, placeholder: 'Director' %>
-  <%= br.input :date_of_birth, label: 'Date of Birth', required: true %>
-  <%= br.input :contact_number, label: 'Business Representative Phone Number', required: true, placeholder: '0123456789' %>
+  <div class="form-group form-group-vertical form-group-vertical-responsive">
+    <%= br.label :full_legal_name, 'Full Legal Name' %>
+    <%= br.text_field :full_legal_name, placeholder: 'John Paul Smith', required: true, class: 'form-control' %>
+  </div>
+  <div class="form-group form-group-vertical form-group-vertical-responsive">
+    <%= br.label :business_representative_email, 'Contact Email' %>
+    <%= br.text_field :business_representative_email, value: business_representative.email, disabled: true, class: 'form-control' %>
+  </div>
+  <div class="form-group form-group-vertical form-group-vertical-responsive">
+    <%= br.label :job_title, 'Job Title' %>
+    <%= br.text_field :job_title, placeholder: 'Director', required: true, class: 'form-control' %>
+  </div>
+  <div class="form-group form-group-vertical form-group-vertical-responsive">
+    <%= br.label :date_of_birth, 'Date of Birth' %>
+    <%= br.date_field :date_of_birth, as: :date, value: br.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
+  </div>
 <% end %>
-<%= form.input :subscription_type, collection: Seller.subscription_types.keys.to_a, label: 'Subscription Type', required: true %>
+<div class="form-group form-group-vertical form-group-vertical-responsive">
+  <%= form.label :account_status, 'Account Status' %>
+  <%= form.select :account_status, Seller.account_statuses.keys.to_a, { prompt: 'Account Status' }, required: true, class: 'form-control' %>
+</div>
+<div class="form-group form-group-vertical form-group-vertical-responsive">
+  <%= form.label :listing_status, 'Listing Status' %>
+  <%= form.select :listing_status, Seller.listing_statuses.keys.to_a, { prompt: 'Listing Status' }, required: true, class: 'form-control' %>
+</div>
+<div class="form-group form-group-vertical form-group-vertical-responsive">
+  <label>Account Created</label>
+  <div class="mt-2"><%= @seller.created_at.strftime("%m/%d/%Y") %></div>
+</div>
+<div class="form-group form-group-vertical form-group-vertical-responsive">
+  <label>Last Logged In</label>
+  <div class="mt-2"><%= @seller.last_sign_in_at.strftime("%m/%d/%Y") %></div>
+</div>
+<div class="form-group form-group-vertical form-group-vertical-responsive">
+  <label>Subscription Type</label>
+  <div class="mt-2"><%= @seller.subscription_type %></div>
+</div>

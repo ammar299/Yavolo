@@ -15,7 +15,6 @@ import "../stylesheets/application.scss";
 
 Rails.start();
 ActiveStorage.start();
-// require("@rails/ujs").start()
 
 import "controllers"
 require("@nathanvda/cocoon")
@@ -23,3 +22,6 @@ require('packs/admin')
 require('packs/delivery_options')
 require('packs/filter_groups')
 require('packs/products')
+require('packs/sellers')
+require('packs/success-meter')
+require("@nathanvda/cocoon")

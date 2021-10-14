@@ -191,6 +191,17 @@ ActiveRecord::Schema.define(version: 2021_10_14_102325) do
     t.index ["seller_id"], name: "index_company_details_on_seller_id"
   end
 
+  create_table "csv_imports", force: :cascade do |t|
+    t.string "file"
+    t.bigint "importer_id"
+    t.string "importer_type"
+    t.integer "status"
+    t.text "import_errors"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["importer_type", "importer_id"], name: "index_csv_imports_on_importer_type_and_importer_id"
+  end
+
   create_table "delivery_option_ships", force: :cascade do |t|
     t.float "price"
     t.bigint "delivery_option_id"
@@ -244,6 +255,17 @@ ActiveRecord::Schema.define(version: 2021_10_14_102325) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["filter_group_id"], name: "index_filter_in_categories_on_filter_group_id"
+  end
+
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
   create_table "google_shoppings", force: :cascade do |t|
@@ -307,6 +329,7 @@ ActiveRecord::Schema.define(version: 2021_10_14_102325) do
     t.index ["brand"], name: "index_products_on_brand"
     t.index ["delivery_option_id"], name: "index_products_on_delivery_option_id"
     t.index ["ean"], name: "index_products_on_ean", unique: true
+    t.index ["handle"], name: "index_products_on_handle", unique: true
     t.index ["owner_type", "owner_id"], name: "index_products_on_owner_type_and_owner_id"
     t.index ["price"], name: "index_products_on_price"
     t.index ["sku"], name: "index_products_on_sku", unique: true
