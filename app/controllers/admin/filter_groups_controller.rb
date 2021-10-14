@@ -57,7 +57,7 @@ class Admin::FilterGroupsController < Admin::BaseController
   end
 
   def filter_groups_sort
-    byebug    
+    
   end
 
   private
