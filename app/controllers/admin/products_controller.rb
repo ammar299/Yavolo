@@ -20,16 +20,15 @@ class Admin::ProductsController < Admin::BaseController
       @product.status = 'draft'
     end
 
-    respond_to do |format|
-      if @product.save
-        redirect_to edit_admin_product_path(@product), notice: 'Product was successfully created.'
-      else
-        @delivery_options = DeliveryOption.all
-        @product.owner_id = owner_params[:owner_id]
-        @product.owner_type = owner_params[:owner_type]
-        render action: 'new'
-      end
+    if @product.save
+      redirect_to edit_admin_product_path(@product), notice: 'Product was successfully created.'
+    else
+      @delivery_options = DeliveryOption.all
+      @product.owner_id = owner_params[:owner_id]
+      @product.owner_type = owner_params[:owner_type]
+      render action: 'new'
     end
+
   end
 
   def edit
@@ -47,14 +46,13 @@ class Admin::ProductsController < Admin::BaseController
       @product.status = 'draft'
     end
 
-    respond_to do |format|
-      if @product.update(product_params)
-        redirect_to edit_admin_product_path(@product), notice: 'Product was successfully updated.'
-      else
-        @delivery_options = DeliveryOption.all
-        render action: 'edit'
-      end
+    if @product.update(product_params)
+      redirect_to edit_admin_product_path(@product), notice: 'Product was successfully updated.'
+    else
+      @delivery_options = DeliveryOption.all
+      render action: 'edit'
     end
+
   end
 
   def upload_csv
