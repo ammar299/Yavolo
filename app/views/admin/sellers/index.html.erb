@@ -5,10 +5,10 @@
       <div class="all-products-header-left d-flex mb-1">
         <div class="dropdown-filter-field active mb-0">
           <div class="dropdown">
-            <a class="btn btn-sm btn-radius px-4 btn-primary" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Search All <i class="fa fa-angle-down ml-4" aria-hidden="true"></i>
+            <a class="btn btn-sm btn-radius px-4 btn-primary seller-search-dropdown" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= set_filter_type_in_dropdown(params) %> <i class="fa fa-angle-down ml-4" aria-hidden="true"></i>
             </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <div class="dropdown-menu" id="seller-serarch-by-toggle" aria-labelledby="dropdownMenuLink">
               <%= link_to 'Search All', (admin_sellers_path(search_by: 'search_all')), class: 'dropdown-item' %>
               <%= link_to 'Username', (admin_sellers_path(search_by: 'username')), class: 'dropdown-item' %>
               <%= link_to 'Email', (admin_sellers_path(search_by: 'email')), class: 'dropdown-item' %>
@@ -16,13 +16,8 @@
           </div>
           <div class="search-field mb-0">
             <%= search_form_for @q, url: admin_sellers_path do |f| %>
-              <% if params['search_by'] == 'username' %>
-                <%= f.search_field :first_name_or_last_name_cont, { class: 'input-btn-sm', placeholder: 'Search Seller' } %>
-              <% elsif params['search_by'] == 'email' %>
-                <%= f.search_field :email_cont, { class: 'input-btn-sm', placeholder: 'Search Seller' } %>
-              <% else %>
-                <%= f.search_field :first_name_or_last_name_or_email_cont, { class: 'input-btn-sm', placeholder: 'Search Seller' } %>
-              <% end %>
+              <input type="hidden" name="filter_type" id="seller-filter-type" value="<%= params[:filter_type] %>">
+              <%= f.search_field :first_name_or_last_name_or_email_cont, { class: 'input-btn-sm seller-search-field', placeholder: 'Search Seller', value: "#{search_field_params(params)}" } %>
               <i class="fa fa-search" aria-hidden="true"></i>
             <% end %>
           </div>

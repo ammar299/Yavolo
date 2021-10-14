@@ -4,5 +4,6 @@ class Admin < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :products, as: :owner, dependent: :destroy
+  has_many :csv_imports, as: :importer, dependent: :destroy
 
 end

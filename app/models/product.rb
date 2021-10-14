@@ -1,4 +1,7 @@
 class Product < ApplicationRecord
+    extend FriendlyId
+    friendly_id :title
+
     enum condition: { brand_new: 0, refurbished: 1 }
     enum status: { draft: 0, active: 1, inactive: 2, pending: 3, disapproved: 4 }
     enum discount_unit:{ percentage: 0, amount: 1 }
@@ -14,7 +17,7 @@ class Product < ApplicationRecord
 
     accepts_nested_attributes_for :seo_content, :ebay_detail, :google_shopping, :pictures
 
-    validates :sku,:ean,:yan, uniqueness: { case_sensitive: true }
+    validates :sku,:ean,:yan, uniqueness: true, allow_nil: true
 
 
 end

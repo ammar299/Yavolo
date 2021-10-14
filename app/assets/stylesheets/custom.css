@@ -1,0 +1,10 @@
+/* put all custom css here */
+.form-control.yavolo-box-top-select {
+  width: 110px !important;
+}
+.add-photoo.photos-uploader-section{
+  height: 430px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

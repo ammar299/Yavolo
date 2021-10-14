@@ -20,23 +20,24 @@ class Admin::ProductsController < Admin::BaseController
       @product.status = 'draft'
     end
 
-    respond_to do |format|
-      if @product.save
-        format.html { redirect_to edit_admin_product_path(@product), notice: 'Product was successfully created.' }
-      else
-        @delivery_options = DeliveryOption.all
-        format.html { render action: 'new' }
-      end
+    if @product.save
+      redirect_to edit_admin_product_path(@product), notice: 'Product was successfully created.'
+    else
+      @delivery_options = DeliveryOption.all
+      @product.owner_id = owner_params[:owner_id]
+      @product.owner_type = owner_params[:owner_type]
+      render action: 'new'
     end
+
   end
 
   def edit
-    @product = Product.find(params[:id])
+    @product = Product.friendly.find(params[:id])
     @delivery_options = DeliveryOption.all
   end
 
   def update
-    @product = Product.find(params[:id])
+    @product = Product.friendly.find(params[:id])
     # TODO: handle statuses
     if !@product.active? && params[:commit]== 'Publish'
       @product.status = 'active'
@@ -45,13 +46,26 @@ class Admin::ProductsController < Admin::BaseController
       @product.status = 'draft'
     end
 
-    respond_to do |format|
-      if @product.update(product_params)
-        format.html { redirect_to edit_admin_product_path(@product), notice: 'Product was successfully updated.' }
-      else
-        @delivery_options = DeliveryOption.all
-        format.html { render action: 'edit' }
-      end
+    if @product.update(product_params)
+      redirect_to edit_admin_product_path(@product), notice: 'Product was successfully updated.'
+    else
+      @delivery_options = DeliveryOption.all
+      render action: 'edit'
+    end
+
+  end
+
+  def upload_csv
+    csv_import = CsvImport.new(params.require(:csv_import).permit(:file))
+    csv_import.importer_id = current_admin.id
+    csv_import.importer_type = 'Admin'
+    if csv_import.valid?
+      csv_import.save
+      csv_import.update({status: :uploaded})
+      ImportCsvWorker.perform_async(csv_import.id)
+      render json: { message: 'Your file is uploaded and you will be notified with import status.' }, status: :ok
+    else
+      render json: { errors: csv_import.errors.where(:file).last.message }, status: :unprocessable_entity
     end
   end
 

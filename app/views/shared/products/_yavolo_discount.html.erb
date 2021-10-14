@@ -1,9 +1,28 @@
-<div class="yavolo-discount-section" style="border: 1px solid #ccc">
-
-<%= form.label 'Yavolo Discount' %>
-<%= form.select :discount, [['2.5%','2.5'],['3.5%','3.5'],['4.5%','4.5']] %>
-
-<%= form.label :yavolo_enabled %>
-<%= form.check_box :yavolo_enabled %>
-
+<div class="col-lg-4">
+  <div class="yavolo-box-detail yo-white-card box-border">
+      <div class="yavolo-box-top">
+          <h4>Yavolo</h4>
+          <hr>
+          <div class="d-flex justify-content-between">
+              <div class="yavolo-box-top-detail">
+                  <h6>Yavolo discount  <span class="icon-help"></span></h6>
+                  <p class="">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo harum
+                  mollitia quaerat. Incidunt vero tempore nostrum nulla, .</p>
+              </div>
+              <% has_error, msg = get_errors(form, :discount) %>
+              <div class="form-group <%= has_error ? 'error-field' : '' %>">
+                <%= form.select :discount, [['2.5%','2.5'],['3.5%','3.5'],['4.5%','4.5']],{},class: "form-control select-input yavolo-box-top-select" %>
+                <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+              </div>
+          </div>
+      </div>
+      <div class="yavolo-box-bottom d-flex">
+          <label class="checkbox-blk">Bundle with Yavolo </a>
+              <%= form.check_box :yavolo_enabled %>
+              <span class="checkmark"></span>
+          </label>
+          <a href="#" style="text-decoration: none;"><span class="icon-manage-Yavolo pl-3">
+          </span></a>
+      </div>
+  </div>
 </div>
