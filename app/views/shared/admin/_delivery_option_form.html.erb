@@ -1,4 +1,5 @@
 <%= simple_form_for delivery_option, url: url,  data: { remote: true } do |f| %>
+  <%= render '/shared/admin/delivery_option_errors', delivery_option: @delivery_option %>
   <div class="form-group form-group-vertical flex-wrap">
     <%= f.label :name, 'Delivery Option Name', class: 'text-left pr-3 w-100' %>
     <%= f.text_field :name, class: 'form-control' %>
