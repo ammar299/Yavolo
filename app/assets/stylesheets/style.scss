@@ -1,74 +1,4 @@
-@font-face {
-    font-family: 'buenos_airesblack';
-    src: asset-url('fonts/buenosaires-black-webfont.woff2') format('woff2'),
-         asset-url('fonts/buenosaires-black-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'buenos_airesbold';
-    src: asset-url('fonts/buenosaires-bold-webfont.woff2') format('woff2'),
-         asset-url('fonts/buenosaires-bold-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'buenos_airesbook';
-    src: asset-url('fonts/buenosaires-book-webfont.woff2') format('woff2'),
-         asset-url('fonts/buenosaires-book-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'buenos_aireslight';
-    src: asset-url('fonts/buenosaires-light-webfont.woff2') format('woff2'),
-         asset-url('fonts/buenosaires-light-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'buenos_airesregular';
-    src: asset-url('fonts/buenosaires-regular-webfont.woff2') format('woff2'),
-         asset-url('fonts/buenosaires-regular-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'buenos_airessemibold';
-    src: asset-url('fonts/buenosaires-semibold-webfont.woff2') format('woff2'),
-         asset-url('fonts/buenosaires-semibold-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'buenos_airesthin';
-    src: asset-url('fonts/buenosaires-thin-webfont.woff2') format('woff2'),
-         asset-url('fonts/buenosaires-thin-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
-/*===============================================================*/
-@font-face {
-	font-family: 'icomoon';
-	src:  url(asset-path('icomoon.eot?fdv9kq'));
-	src:  url(asset-path('icomoon.eot?fdv9kq#iefix')) format('embedded-opentype'),
-	  url(asset-path('icomoon.ttf?fdv9kq')) format('truetype'),
-	  url(asset-path('icomoon.woff?fdv9kq')) format('woff'),
-	  url(asset-path('icomoon.svg?fdv9kq#icomoon')) format('svg');
-	font-weight: normal;
-	font-style: normal;
-	font-display: block;
-  }
-  
-  [class^="icon-"], [class*=" icon-"] {
+ [class^="icon-"], [class*=" icon-"] {
 	/* use !important to prevent issues with browser extensions that change fonts */
 	font-family: 'icomoon' !important;
 	speak: never;
@@ -470,7 +400,8 @@
   .icon-paypal:before {
 	content: "\ead8";
   }
-  /*=====================================================================================  */
+  
+/* fonts  */
 body{
 	background-color: #fdf8f3;
 	margin: 0px;
@@ -517,6 +448,12 @@ h1, h2, h3, h4, h5, h6 {
 .red-color {
 	color: #640529;
 }
+.font-20px {
+	font-size: 20px;
+}
+.font-13px {
+	font-size: 13px;
+}
 /*========= utility classes============ */
 
 
@@ -525,16 +462,10 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-}
+} 
 .main-content {
 	flex: 1;
-}
-
-
-
-
-
-
+} 
 
 /*=============admin-Dashboard=======================*/
 /* admin-header */
@@ -542,9 +473,9 @@ h1, h2, h3, h4, h5, h6 {
 	border-bottom: 1px solid black;
 }
 .admin-header-left a {
-font-size: 22px;
-color: #640529;
-text-decoration: none;
+	font-size: 22px;
+	color: #640529;
+	text-decoration: none;
 }
 .admin-header-right .nav-link {
 	padding: 1rem 0;
@@ -576,19 +507,19 @@ text-decoration: none;
 	border-radius: 20px;
 	text-decoration: none;
 }
-.icon-right-pd {
-	width: 30px;
-	height: 30px;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	margin-right: 10px;
-}
 /* admin-header */
 
 .dashboard-page {
 	display: flex;
 	min-height: 100vh;
+}
+.icon-right-pd {
+	width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
 }
 .dashboard-page .leftside {
 	max-width: 280px;
@@ -710,7 +641,7 @@ text-decoration: none;
 	text-decoration: none;
 	background-color: #640529;
 	padding: 12px 20px;
-
+	
 }
 .seller-manual-product .create-product .btn {
 	min-width: 232px;
@@ -756,19 +687,16 @@ text-decoration: none;
 	font-size: 14px;
 	border-radius: 0;
 	cursor: pointer;
-
 }
 .overview-dropdown:focus {
 	outline: none;
 	box-shadow: none;
 	background-color: transparent;
 	border-bottom: 1px solid #640529;
-
 }
 
 /* table */
  .seller-product-table .seler-table-header {
-
 	color: #FEFCF9;
 	font-size: 14px;
 	font-weight: normal !important;
@@ -817,19 +745,35 @@ text-decoration: none;
 	color: #640529;
 	font-size: 12px;
 }
- /*
+ /* 
   */
 .imglist {
 	height: 45px;
 	width: 45px;
 	display: inline-flex;
 	background-color: #eee;
-}
+} 
 .fa-eye-icon {
 	font-size: 16px;
 	cursor: pointer;
 }
 /* table */
+/* yavolo table */
+.yavolo-center table tbody tr td,
+.yavolo-center table thead tr th {
+	text-align: center;
+	
+}
+.Yavolo-table table thead tr th {
+	vertical-align: middle;
+	text-transform: capitalize;
+}
+.Yavolo-table table tbody tr td {
+    background-color: #ffff;
+    vertical-align: middle;
+}
+
+/* yavolo table */
 
 
 
@@ -867,72 +811,6 @@ text-decoration: none;
   }
 /*=============admin-Dashboard=======================*/
 
-
-/*/ ================Seller Success Hub ==============/*/
-.seller-success-hub .seller-center-heading h3 {
-    margin-top: 45px;
-    color: #640529;
-    font-size: 38px;
-}
-.seller-success-hub .seller-center-heading .request-heading-text {
-    color: #640529;
-    font-size: 16px;
-    max-width: 480px;
-    margin: auto;
-    margin-bottom: 60px ;
-}
-
-.seller-order-board p {
-	color: #640529;
-	font-size: 16px;
-	text-align: center;
-	padding-top: 0;
-	margin-bottom: 0 !important;
-	min-height: 48px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-.seller-order-board .detail {
-    align-items: center;
-    text-align: center;
-    color: #640529;
-    font-size: 44px;
-    background-color: #FFFFFF;
-    border-radius: 12px;
-    width: 100%;
-    height: 129px;
-    padding: 37px 0;
-    margin: 6px 0;
-}
-
-
-
-
-
-
-@media (min-width: 768px) {
-	.seller-order-board .col-md-3 {
-	    flex: 0 0 33.33%;
-	    max-width: 33.33%;
-	}
-}
-@media (min-width: 1025px) {
-	.seller-order-board .col-md-3 {
-	    flex: 0 0 20%;
-	    max-width: 20%;
-	}
-}
-/* ================Seller Success Hub ==============*/
-
-
-/* ==============Orders & Delivery ========*/
-@media (max-width: 680px) {
-	.wrapper-rd {
-	    margin-top: 65px;
-	    max-width: 100%;
-	}
-}
 /* -===================admin-login ========================*/
 .sign-in .mid {
 	position: relative;
@@ -987,7 +865,6 @@ text-decoration: none;
 	padding: 12px 14px;
 	color: #AAAAAA;
 	margin-left: 0px;
-
 }
 .sign-in form .forgt-text {
 	text-decoration: none;
@@ -1011,26 +888,308 @@ text-decoration: none;
 .sign-in form .form-chrck-bt {
 	overflow: hidden;
 }
-
 .signin-header .signin-logo img {
 	width: 168px;
 	height: 30px;
 }
-
-
-
-
 /*=========Admin-login============ */
 
-
-.admin_filter_header{
-	cursor: pointer;
-	text-decoration: none;
+/* ================Add new listing modal=========== */
+.add-listing .create-product {
+    text-align: center;
+    position: relative;
+    padding: 40px 0;
 }
+.add-listing .prodct-brdr::after {
+    content: "";
+    display: block;
+    height: 1px;
+    background: #D5D5D5;
+    left: 10%;
+    right: 10%;
+    bottom: 0px;
+    position: absolute;
+}
+.add-listing .listing-btn {
+	width: 233px;
+}
+/*============= Add new listing modal===================== */
 
-/*=========Admin Categories======= */
-.btn-text-color{
-	color: white !important;
+/* -=================newproduct-single-56 ================*/
+.add-photo {
+	padding: 20px;
+	width: 100%;
+	min-height: 300px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	align-items: center;
+	flex-direction: column;
+	position: relative;
+}
+.photo-text {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+}
+.add-photo-inner .photo-btn {
+	width: 300px;
+}
+.box-border {
+	padding: 20px;
+	margin-bottom: 20px;
+}
+.yo-white-card {
+	background-color: var(--white) ;
+	border-radius: 10px;
+	box-shadow: 1px 1px 5px #0000000A;
+}
+.ebay-forms input {
+	width: 170px;
+}
+.yavolo-box-detail {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+	width: 100%;
+	min-height: 533px;
+}
+.checkbox-right-text span {
+	font-size: 13px;
+}
+.checkbox-mrgn {
+	margin-top: 12px;
+}
+.delivery-detail-footer-innerr {
+    background-color: #640529;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+	
+}
+.yavolo-box-top-detail p {
+	font-size: 14px;
+}
+.yavolo-box-top-select {
+	width: 110px;
+}
+/* -=================newproduct-single-56 ================*/
+
+
+/* -=================Delivery options================*/
+.delivery-option-table td {
+	border: none;
+	vertical-align: middle;
+	padding: 0;
+}
+.delivery-option-input {
+	width: 80px;
+	height: 28px !important;
+	margin: 3px 0;
+}
+.delivery-option-btn {
+	float: right;
+}
+/* -=================Delivery options================*/
+
+
+/*/ ================Photo Grid ==============/*/
+
+.add-product-inner .add-product-detail {
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    width: 100%;
+    min-height: 450px;
+    position: relative;
+}
+.photo-grid-img .product-images-inner img {
+	box-shadow: 0px 2px 4px #00000029;
+    width: 100%;
+    /* margin: 5px;
+    padding: 5px; */
+}
+.photo-grid,
+.grid-single-img {
+	position: relative;
+}
+.img-del-icon,
+.img-star-icon {
+	position: absolute;
+	top: 6px;
+	left: 6px;
+	cursor: pointer;
+	opacity: 0;
+	-moz-transition: .3s linear;
+  	-webkit-transition: .3s ease-out;
+  	transition: .3s linear;
+}
+.img-del-icon {
+	bottom: 6px;
+	right: 6px;
+	left: inherit;
+	top: inherit;
+}
+.grid-single-img:hover .img-star-icon, 
+.grid-single-img:hover .img-del-icon {
+	opacity: 1;
+}
+@media (max-width: 991px) {
+	.grid-btn-top {
+		margin-top: 50px;
+	}
+}
+	
+
+/*/ ================Photo Grid ==============/*/
+/*/ ================product Review ==============/*/
+.product-review {
+	border: 1px solid #640529;
+	border-radius: 10px;
+}
+/*/ ================product Review ==============/*/
+
+/*/ ================All products 53 ==============/*/
+
+
+.checkmark-white {
+	border: 2px solid var(--white) !important;
+	top: -6px !important;
+}
+.checkbox-blk input:checked ~ .checkmark-white {
+    background-color: var(--red);
+    border-color: var(--red) !important;
+}
+.input-btn-sm {
+	height: 35px !important;
+}
+/*/ ================All products 53 ==============/*/
+
+
+/* =======pagintion ========*/
+
+.pager-middle .page-item:first-child .page-link {
+    margin-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.pager-middle .page-item .page-link {
+    position: relative;
+    display: block;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #640529;
+    background-color: transparent;
+    border: none;
+    margin: 0 10px;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+}
+.pager-middle .page-item .page-link:hover {
+    background-color: #FF3E55;
+    color: #FFFFFF;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+	-moz-transition: .3s linear;
+    -webkit-transition: .3s ease-out;
+    transition: .3s linear;
+}
+/* =======pagintion ========*/
+
+
+/* =======All Seller-36 ========*/
+
+.all-seller-btn .btn {
+	width: 155px;
+}
+/* =======All Seller-36 ========*/
+
+/* =======Add new seller-50 ========*/
+@media (max-width: 480px) {
+	.form-group-vertical-responsive {
+		flex-direction: column !important;
+	}
+}
+/* =======Add new seller-50 ========*/
+
+/* =======seller-edit-37 ========*/
+.seller-edit-card table td,
+.seller-edit-card table th
+{
+	border: none;
+	font-size: 12px;
+	padding: 10px 4px;
+}
+.seller-edit-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 100%;
+}
+.yo-card-list li {
+	font-size: 12px;
+}
+.seller-edit-card .yo-logo {
+	display: flex;
+	width: 200px;
+	margin: auto;
+
+}
+.ac-setting-tabs .nav-tabs {
+	display: flex;
+	flex-direction: column;
+	border: 0;
+}
+.ac-setting-tabs .nav-tabs .nav-link {
+	border: 0;
+	background-color: transparent;
+	padding: 10px;
+	border-radius: 6px;
+	margin: 2px 0;
+}
+.ac-setting-tabs .nav-tabs .nav-link.active,
+.ac-setting-tabs .nav-tabs .nav-link:hover {
+	background-color: var(--off-white);
+	color: var(--dark-red);
+}
+.min-pad {
+	margin-right: -5px !important;
+    margin-left: -5px !important;
+}
+.min-pad .col-lg-4.d-flex {
+	padding-right: 5px !important;
+    padding-left: 5px !important;
+}
+.nowrap {
+	white-space: nowrap;
+}
+/* subscription */
+.subscription-table thead td {
+	font-weight: 600;
+}
+.subscription-table thead td,
+.subscription-table tbody td {
+	border: none;
+	font-size: 12px;
+	
+}
+.select-width {
+	width: 150px;
+}
+/* subscription */
+/* =======seller-edit-37 ========*/
+
+
+/* =======technical-delivery-option-102 ========*/
+
+.carrier-btn {
+	display: flex;
+	justify-content: flex-end;
 }
 /* ================Add new listing modal=========== */
 .add-listing .create-product {
@@ -1194,3 +1353,193 @@ border: 1px solid #640529;
 border-radius: 10px;
 }
 /*/ ================product Review ==============/*/
+/* =======technical-delivery-option-102 ========*/
+
+/* ===============all-filter-group-66-1============= */
+.modal-header {
+	border-bottom: 0;
+}
+.modal-xl .modal-dialog {
+    max-width: 960px !important;
+}
+.min-100 {
+	min-width: 100px !important;
+	white-space: nowrap;
+}
+.w-20 {
+	max-width: 80px;
+	width: 80px;
+}
+.filter-group-modal .form-group-vertical label {
+    font-size: 14px;
+}
+.min-btn,.pluse-btn {
+	text-decoration: none !important;
+}
+.plus-btn-hide {
+	visibility: hidden;
+}
+@media (max-width: 768px) {
+	.tab-100 {
+		width: 100%;
+		padding: 10px 0 0 0 !important;
+		flex-direction: column;
+	}
+	.filter-group-modal .form-control {
+		width: 100%;
+		max-width: 100% !important;
+	}
+	.min-btn,.pluse-btn {
+		padding: 7px !important;
+		background-color: var(--dark-red);
+		border-color: var(--dark-red);
+		color: var(--off-white);
+		box-shadow: none;
+		border-radius: 30px;
+		width: 38px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 5px;
+		min-width: 38px;
+		height: 38px;
+	}
+	.modal.show {
+		align-items: flex-start !important;
+	}
+}
+
+/* ===============all-filter-group-66-1============= */
+/* ===============product catagory baby-61============= */
+.panel .panel-head {
+	background-color: var(--dark-red);
+	color: #fff;
+	padding: 10px;
+	border-radius: 6px;
+}
+.panel .panel-body {
+	background-color: var(--white);
+	border-radius: 6px;
+	padding: 10px;
+	margin-top: 6px;
+}
+.panel .panel-body .checkbox-blk {
+	font-size: 12px !important;
+}
+.panel .panel-body ul li ul {
+	margin-left: 40px;
+}
+.panel .panel-body ul > li.active > .checkbox-blk .folder-icon {
+	content: url('../images/folder-open.svg');
+}
+.checkbox-blk-box.checkbox-blk input:checked ~ .checkmark {
+    background-color: transparent !important;
+    border-color: var(--dark-red) !important;
+}
+.checkbox-blk-box.checkbox-blk .checkmark:after {
+	transform: rotate(0deg);
+    border: 0 !important;
+    background-color: var(--dark-red);
+    width: 14px;
+    left: 2px;
+    height: 14px;
+    border-radius: 4px;
+}
+.product-content-img {
+	background-color: #FF3E55;
+	width: 100%;
+	min-width: 280px;
+	height: 140px;
+	display: flex;
+	object-fit: cover;
+}
+.search-field-flex {
+	flex: 1;
+}
+/* ===============product catagory baby-61============= */
+
+/*/ ================Seller Success Hub ==============/*/
+.seller-success-hub .seller-center-heading h3 {
+    margin-top: 45px;
+    color: #640529;
+    font-size: 38px;    
+}
+.seller-success-hub .seller-center-heading .request-heading-text {
+    color: #640529;
+    font-size: 16px;
+    max-width: 480px;
+    margin: auto;
+    margin-bottom: 60px ; 
+}
+.seller-order-board p {
+	color: #640529;
+	font-size: 16px;
+	text-align: center;
+	padding-top: 0;
+	margin-bottom: 0 !important;
+	min-height: 48px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.seller-order-board .detail {
+    align-items: center;
+    text-align: center;
+    color: #640529;
+    font-size: 30px;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    width: 100%;
+    height: 100px;
+    padding: 37px 0;
+    margin: 6px 0;
+	display: flex;
+	justify-content: center;
+}
+
+
+
+
+@media (min-width: 768px) {
+	.seller-order-board .col-md-3 {
+	    flex: 0 0 33.33%;
+	    max-width: 33.33%;
+	}
+}
+@media (min-width: 1025px) {
+	.seller-order-board .col-md-3 {
+	    flex: 0 0 20%;
+	    max-width: 20%;
+	}
+}
+/* ================Seller Success Hub ==============*/
+
+
+/* ==============Orders & Delivery ========*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 680px) {
+	.wrapper-rd {
+	    margin-top: 65px;
+	    max-width: 100%;
+	}
+}

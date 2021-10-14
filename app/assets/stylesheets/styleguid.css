@@ -1,58 +1,3 @@
-@font-face {
-    font-family: 'buenos_airesblack';
-    src: url('buenosaires-black-webfont.woff2') format('woff2'),
-         url('buenosaires-black-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'buenos_airesbold';
-    src: url('buenosaires-bold-webfont.woff2') format('woff2'),
-         url('buenosaires-bold-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'buenos_airesbook';
-    src: url('buenosaires-book-webfont.woff2') format('woff2'),
-         url('buenosaires-book-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'buenos_aireslight';
-    src: url('buenosaires-light-webfont.woff2') format('woff2'),
-         url('buenosaires-light-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'buenos_airesregular';
-    src: url('../fonts/buenosaires-regular-webfont.woff2') format('woff2'),
-         url('../fonts/buenosaires-regular-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'buenos_airessemibold';
-    src: url('../fonts/buenosaires-semibold-webfont.woff2') format('woff2'),
-         url('../fonts/buenosaires-semibold-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'buenos_airesthin';
-    src: url('buenosaires-thin-webfont.woff2') format('woff2'),
-         url('buenosaires-thin-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
 :root {
   --white: #fff;
   --black: #000;
@@ -119,7 +64,7 @@ h1, h2, h3, h4, h5, h6 {
 	padding: 12px 12px 10px 12px;
 }
 .btn-sm {
-    font-size: 15px;
+    font-size: 12px;
     line-height: 15px;
     padding: 8px 12px 5px 12px;
 }
@@ -136,7 +81,7 @@ h1, h2, h3, h4, h5, h6 {
 	background-color: var(--dark-red);
 	color: #fff;
 }
-.tab-content {
+.tab-content.tab-content-yo {
 	border-radius: 4px;
 	padding: 20px;
 	border: 1px solid var(--dark-red);
@@ -146,19 +91,22 @@ h1, h2, h3, h4, h5, h6 {
 /*Typography*/
 
 h1 {
-    font-size: 60px;
+    font-size: 52px;
 }
 h2 {
-    font-size: 48px;
+    font-size: 40px;
 }
 h3 {
-    font-size: 38px;
+    font-size: 30px;
 }
 h4 {
-    font-size: 32px;
+    font-size: 24px;
 }
 .sm-text {
-    font-size: 14px;
+    font-size: 14px !important;
+}
+.mm-text {
+    font-size: 12px !important;
 }
 
 /*Typography*/
@@ -249,10 +197,11 @@ h4 {
 .dropdown-filter.show .dropdown-menu a {
     color: var(--dark-red);
     background-color: transparent;
-    padding: 5px 20px;
+    padding: 6px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-size: 14px;
 }
 .dropdown-filter .btn-link-dropdown i {
     -moz-transition: .3s linear;
@@ -266,8 +215,23 @@ h4 {
     display: none;
     font-size: 12px;
 }
+.dropdown-filter.show .dropdown-menu a svg {
+    width: 12px !important;
+}
 .dropdown-filter.show .dropdown-menu a.active i {
     display: block;
+}
+.dropdown-filter-border .dropdown-menu a {
+    border-bottom: 1px solid var(--dark-red);
+}
+.dropdown-filter-border .dropdown-menu a:last-child {
+    border-bottom: 0;
+}
+.dropdown-filter-border.show .dropdown-menu {
+    top: 50px !important;
+    min-width: 200px;
+    border-radius: 12px;
+    overflow: hidden;
 }
 /*Button Style*/
 
@@ -347,6 +311,7 @@ textarea.form-control {
 .search-field.active input::placeholder {
     opacity: 1;
 }
+.search-field svg,
 .subscribe-field a,
 .search-field i {
     position: absolute;
@@ -533,13 +498,13 @@ textarea.form-control {
 
 /*TABLE*/
 .Yavolo-table table {
-    font-size: 14px;
+    font-size: 12px;
     line-height: 24px;
 }
 .Yavolo-table table thead tr th {
     background-color: var(--dark-red);
     color: var(--white);
-    font-weight: 400;
+    font-weight: 600;
     border: 0;
 }
 .Yavolo-table table thead tr th:first-child {
@@ -624,3 +589,13 @@ textarea.form-control {
 }
 
 /*Modal*/
+
+.mainlang-list .field-me {
+    border: 2px solid #640529 !important;
+    border-radius: 16px;
+    background-color: transparent;
+    width: 100px;
+    padding: 6px 20px 2px 20px;
+    color: #640529;
+    outline: none !important;
+}

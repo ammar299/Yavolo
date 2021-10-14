@@ -8,10 +8,18 @@ Rails.application.routes.draw do
       root 'admin/dashboard#index', as: :admins_dashboard
       namespace :admin do
         # root 'admin/dashboard#index', as: :admins_dashboard
-        resources :delivery_options, except: %i[show]
-        resources :sellers do
-        end
         root 'dashboard#index', as: :dashboard
+        resources :delivery_options, except: %i[show] do
+          collection do
+            delete :delete_delivery_options
+          end
+        end
+
+        resources :sellers do
+          collection do
+            get :update_multiple
+          end
+        end
         resources :categories
 
         resources :carriers, except: %i[index show] do
@@ -25,12 +33,14 @@ Rails.application.routes.draw do
             delete :delete_delivery_options
           end
         end
+
         resources :products do
           collection do
             get 'duplicate'
             post 'upload_csv'
           end
         end
+
         resources :filter_groups do
           collection do
             delete 'destroy_multiple'
@@ -66,7 +76,7 @@ Rails.application.routes.draw do
     patch 'password/update', to: 'users#update_password', as: :update_password
   end
 
-  root to: 'home#index'
+  root to: 'buyers/dashboard#index'
 
 
 

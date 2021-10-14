@@ -13,7 +13,9 @@
 
   <body>
     <div class="main-page">
-      <%= render 'layouts/header' %>
+      <% unless params[:controller] == 'admin/sessions' %>
+        <%= render 'layouts/header' %>
+      <% end %>
       
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
@@ -23,10 +25,9 @@
         <%= yield %>
 
       </div>
-  
-  
-      <%= render 'layouts/footer' %>
-
+      <% unless params[:controller] == 'admin/sessions' %>
+        <%= render 'layouts/footer' %>
+      <% end %>
     </div>
     
   </body>

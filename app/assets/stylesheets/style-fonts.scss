@@ -1,0 +1,69 @@
+@font-face {
+    font-family: 'buenos_airesblack';
+    src: asset-url('fonts/buenosaires-black-webfont.woff2') format('woff2'),
+         asset-url('fonts/buenosaires-black-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'buenos_airesbold';
+    src: asset-url('fonts/buenosaires-bold-webfont.woff2') format('woff2'),
+         asset-url('fonts/buenosaires-bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'buenos_airesbook';
+    src: asset-url('fonts/buenosaires-book-webfont.woff2') format('woff2'),
+         asset-url('fonts/buenosaires-book-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'buenos_aireslight';
+    src: asset-url('fonts/buenosaires-light-webfont.woff2') format('woff2'),
+         asset-url('fonts/buenosaires-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'buenos_airesregular';
+    src: asset-url('fonts/buenosaires-regular-webfont.woff2') format('woff2'),
+         asset-url('fonts/buenosaires-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'buenos_airessemibold';
+    src: asset-url('fonts/buenosaires-semibold-webfont.woff2') format('woff2'),
+         asset-url('fonts/buenosaires-semibold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'buenos_airesthin';
+    src: asset-url('fonts/buenosaires-thin-webfont.woff2') format('woff2'),
+         asset-url('fonts/buenosaires-thin-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+/*===============================================================*/
+@font-face {
+	font-family: 'icomoon';
+	src:  url(asset-path('icomoon.eot?fdv9kq'));
+	src:  url(asset-path('icomoon.eot?fdv9kq#iefix')) format('embedded-opentype'),
+	  url(asset-path('icomoon.ttf?fdv9kq')) format('truetype'),
+	  url(asset-path('icomoon.woff?fdv9kq')) format('woff'),
+	  url(asset-path('icomoon.svg?fdv9kq#icomoon')) format('svg');
+	font-weight: normal;
+	font-style: normal;
+	font-display: block;
+  }
