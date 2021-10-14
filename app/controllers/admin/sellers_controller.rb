@@ -2,7 +2,8 @@ class Admin::SellersController < Admin::BaseController
     before_action :set_seller, only: %i[show edit update]
 
     def index
-        @sellers = Seller.page(params[:page]).per(params[:per_page].presence || 15)
+      @q = Seller.ransack(params[:q])
+      @sellers = @q.result(distinct: true).page(params[:page]).per(params[:per_page].presence || 15)
     end
 
     def new
@@ -27,6 +28,19 @@ class Admin::SellersController < Admin::BaseController
       end
 
     def edit
+    end
+
+    def update_multiple
+      if params[:field_to_update].present?
+        @seller_ids = params[:seller_ids].split(',') if params[:seller_ids].present?
+        if params[:field_to_update] == 'delete'
+          Seller.where(id: @seller_ids).destroy_all
+        elsif params[:field_to_update] == 'send_password_reset_email'
+        else
+          Seller.where(id: @seller_ids).update_all(account_status: params[:field_to_update])
+        end
+      end
+      redirect_to admin_sellers_path
     end
 
     def update

@@ -15,7 +15,11 @@ Rails.application.routes.draw do
           end
         end
 
-        resources :sellers
+        resources :sellers do
+          collection do
+            get :update_multiple
+          end
+        end
         resources :categories
 
         resources :carriers, except: %i[index show] do

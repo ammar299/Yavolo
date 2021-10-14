@@ -22,6 +22,7 @@ require("@nathanvda/cocoon")
 require('packs/admin')
 require('packs/delivery_options')
 require('packs/products')
+require('packs/sellers')
 require("@nathanvda/cocoon")
 require ("select_all.js")
 

@@ -1,39 +1,51 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="all-products-header d-flex justify-content-between mt-3 flex-wrap">
-        <div class="all-products-header-left d-flex mb-1">
-          <div class="dropdown-filter-field active mb-0">
-            <div class="dropdown">
-              <a class="btn btn-sm btn-radius px-4 btn-primary" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Search All <i class="fa fa-angle-down ml-4" aria-hidden="true"></i>
-              </a>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </div>
-            <div class="search-field mb-0">
-              <input type="text" placeholder="Search Seller" class="input-btn-sm">
-              <i class="fa fa-search" aria-hidden="true"></i>
+  
+<div class="row">
+  <div class="col-lg-12">
+    <div class="all-products-header d-flex justify-content-between mt-3 flex-wrap">
+      <div class="all-products-header-left d-flex mb-1">
+        <div class="dropdown-filter-field active mb-0">
+          <div class="dropdown">
+            <a class="btn btn-sm btn-radius px-4 btn-primary" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Search All <i class="fa fa-angle-down ml-4" aria-hidden="true"></i>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <%= link_to 'Search All', (admin_sellers_path(search_by: 'search_all')), class: 'dropdown-item' %>
+              <%= link_to 'Username', (admin_sellers_path(search_by: 'username')), class: 'dropdown-item' %>
+              <%= link_to 'Email', (admin_sellers_path(search_by: 'email')), class: 'dropdown-item' %>
             </div>
           </div>
-          <div class="dropdown dropdown-filter  d-inline-flex">
+          <div class="search-field mb-0">
+            <%= search_form_for @q, url: admin_sellers_path do |f| %>
+              <% if params['search_by'] == 'username' %>
+                <%= f.search_field :first_name_or_last_name_cont, { class: 'input-btn-sm', placeholder: 'Search Seller' } %>
+              <% elsif params['search_by'] == 'email' %>
+                <%= f.search_field :email_cont, { class: 'input-btn-sm', placeholder: 'Search Seller' } %>
+              <% else %>
+                <%= f.search_field :first_name_or_last_name_or_email_cont, { class: 'input-btn-sm', placeholder: 'Search Seller' } %>
+              <% end %>
+              <i class="fa fa-search" aria-hidden="true"></i>
+            <% end %>
+          </div>
+        </div>
+          <div class="dropdown dropdown-filter d-inline-flex">
             <a href="#" class="btn btn-sm btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <i class="fa fa-angle-down ml-3" aria-hidden="true"></i>
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item active" href="#">Action <i class="fa fa-check" aria-hidden="true"></i></a>
-              <a class="dropdown-item" href="#">Another action <i class="fa fa-check" aria-hidden="true"></i></a>
-              <a class="dropdown-item" href="#">Something else here <i class="fa fa-check" aria-hidden="true"></i></a>
+              <a class="dropdown-item multiple-update-sellers" href="#" id="approve-sellers">Approve <i class="fa fa-check" aria-hidden="true"></i></a>
+              <a class="dropdown-item multiple-update-sellers" href="#" id="suspend-sellers">Suspend <i class="fa fa-check" aria-hidden="true"></i></a>
+              <a class="dropdown-item multiple-update-sellers" href="#" id="delete-sellers">Delete <i class="fa fa-check" aria-hidden="true"></i></a>
+              <a class="dropdown-item multiple-update-sellers" href="#" id="activate-sellers">Activate <i class="fa fa-check" aria-hidden="true"></i></a>
+              <a class="dropdown-item multiple-update-sellers" href="#" id="send-password-reset-email-sellers">Send Password Reset Email<i class="fa fa-check" aria-hidden="true"></i></a>
             </div>
           </div>
           <div class="dropdown dropdown-filter  d-inline-flex">
-            <a href="#" class="btn btn-sm btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Result Per Page 15 <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+            <a href="#" class="btn btn-sm btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Result Per Page <%= params[:per_page] %> <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item active" href="#">Action <i class="fa fa-check" aria-hidden="true"></i></a>
-              <a class="dropdown-item" href="#">Another action <i class="fa fa-check" aria-hidden="true"></i></a>
-              <a class="dropdown-item" href="#">Something else here <i class="fa fa-check" aria-hidden="true"></i></a>
+              <%= link_to 'Result per page: 15', admin_sellers_path(per_page: 15), class: 'dropdown-item' %>
+              <%= link_to 'Result per page: 30', admin_sellers_path(per_page: 30), class: 'dropdown-item' %>
+              <%= link_to 'Result per page: 60', admin_sellers_path(per_page: 60), class: 'dropdown-item' %>
+              <%= link_to 'Result per page: 90', admin_sellers_path(per_page: 90), class: 'dropdown-item' %>
+              <%= link_to 'Result per page: 180', admin_sellers_path(per_page: 180), class: 'dropdown-item' %>
             </div>
           </div>
         </div>
@@ -48,7 +60,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="mt-3">
-        <p>Results <span>1 -15</span> of <span>666</span></p>
+        <p>Results <span>1 - <%= params[:per_page] %></span> of <span><%= Seller.count %></span></p>
       </div>
       <div class="Yavolo-table mt-4">
         <table class="table">
@@ -75,10 +87,12 @@
             <% @sellers.each do |seller| %>
               <tr>
                 <td>
-                  <label class="checkbox-blk">
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                  </label>
+                  <div class="multiple-update-sellers">
+                    <label class="checkbox-blk">
+                      <input type="checkbox" id="<%= "select-#{seller.id}" %>" value="<%= seller.id %>">
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
                 </td>
                 <td><%= seller.first_name %></td>
                 <td><%=seller.email %></td>
@@ -102,14 +116,14 @@
             <% end %>
           </tbody>
         </table>
-      </div>
-      <div class="row">
-        <div class="col-md-4 mx-auto">
-          <div class="pager-middle text-center d-flex justify-content-center mb-4">
+    </div>
+    <div class="row">
+      <div class="col-md-4 mx-auto">
+        <div class="pager-middle text-center d-flex justify-content-center mb-4">
           <div class="text-center"><%= paginate @sellers %></div>
-          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>
