@@ -27,7 +27,7 @@
       <%= collection_check_boxes(:delivery_option, 'ship_ids', Ship.all, :id, :name) do |b| %>
         <div class="d-flex align-items-center justify-content-between mb-2 mainlang-list">
           <label class="checkbox-blk">
-            <%= b.check_box checked: (b.value == 1) %>
+            <%= b.check_box checked: (b.value == 1)? true : checked_delivery_ship?(@delivery_option, b.value) %>
             <span class="checkmark"></span>
             <%= b.label %>
           </label>

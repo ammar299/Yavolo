@@ -15,4 +15,8 @@ module Admin::DeliveryOptionsHelper
     price = DeliveryOptionShip.find_by(ship_id: ship_id, delivery_option_id: delivery_option_id)&.price
     (delivery_option_id && price).present? ? price : 0.00
   end
+
+  def checked_delivery_ship?(delivery_option, ship_id)
+    delivery_option.ship_ids.include?(ship_id)
+  end
 end
