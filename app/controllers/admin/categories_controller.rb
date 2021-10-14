@@ -8,14 +8,19 @@ class Admin::CategoriesController < Admin::BaseController
 
   def new
     @category = Category.new
-    @parent_id = params[:parent_id] if params[:parent_id].present?
+    @selected_cat_id = params[:selected_cat_id] if params[:selected_cat_id].present?
+    @is_subcategory = params[:is_subcategory] if params[:selected_cat_id].present?
   end
 
   def create
     @category = Category.new(category_params)
     if @category.save
-      if params[:parent_id].present?
-        parent = Category.find(params[:parent_id].to_i)
+      if params[:selected_cat_id].present?
+        if params[:is_subcategory].present? # If its assigned as subcategory
+          parent = Category.find(params[:selected_cat_id].to_i)
+        else # If its assigned as sibling
+          parent = Category.find(params[:selected_cat_id].to_i).parent
+        end
         @category.parent = parent
         @category.save
       end
