@@ -83,8 +83,8 @@ class Admin::DeliveryOptionsController < Admin::BaseController
   def check_delivery_option_availbility(delivery_options)
     delivery_options.each do |delivery_option|
       delivery_ships = DeliveryOptionShip.where(delivery_option_id: delivery_option.id).map{ |c| [c.ship_id, c.price.to_f] }.to_h
-      bool = delivery_ships.as_json.transform_values(&:to_s) == filter_ship_ids
-      return @delivery_opts = false if bool
+      result = delivery_ships == filter_ship_ids.transform_keys(&:to_i).transform_values(&:to_f)
+      return @delivery_opts = false if result
     end
   end
 end
