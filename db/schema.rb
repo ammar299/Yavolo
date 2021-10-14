@@ -156,7 +156,7 @@ ActiveRecord::Schema.define(version: 2021_10_14_102325) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string "category_id"
+    t.string "category_name"
     t.boolean "baby_category", default: false
     t.string "category_description"
     t.string "bundle_label"
