@@ -4,7 +4,6 @@ class Admin::CategoriesController < Admin::BaseController
 
   def index
     @categories = Category.all
-    @category = Category.first
   end
 
   def new
