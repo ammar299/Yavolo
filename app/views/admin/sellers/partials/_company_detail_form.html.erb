@@ -1,13 +1,44 @@
 <!-- Business Information Section / Company Details -->
 <h3>Business Information</h3>
 <%= form.simple_fields_for :company_detail do |cd| %>
-  <%= cd.input :name, label: 'Company Name', required: true, placeholder: 'JohnStons-Gymnasium' %>
-  <%= cd.input :country, label: 'Country', required: true, placeholder: 'United Kingdom' %>
-  <%= cd.input :legal_business_name, label: 'Legal Business Name', required: true, placeholder: 'JohnStons Gymnasium Ltd.' %>
-  <%= cd.input :companies_house_registration_number, label: 'Companies House Registration Number', required: true, placeholder: '0123456789' %>
-  <%= cd.input :doing_business_as, label: 'Doing Business As', required: true, placeholder: 'JohnStons Gym' %>
-  <%= cd.input :website_url, label: 'Website URL', required: true, placeholder: 'www.johnstons-Gymnasium.co.uk' %>
-  <%= cd.input :amazon_url, label: 'Amazon URL', required: true, placeholder: 'www.amazon.com/jgstore'  %>
-  <%= cd.input :ebay_url, label: 'Ebay URL', required: true, placeholder: 'www.ebaytores.com/jgstore' %>
-  <%= cd.input :vat_number, label: 'VAT Number', required: true, placeholder: '1234567890' %>
+  <div class="form-group form-group-vertical form-group-vertical-responsive">
+    <%= cd.label :name, 'Company Name' %>
+    <%= cd.text_field :name, placeholder: 'Startrek', class: 'form-control' %>
+  </div>
+  <div class="form-group form-group-vertical form-group-vertical-responsive">
+    <%= cd.label :country, 'Country' %>
+    <%= cd.text_field :country, placeholder: 'United Kingdom', class: 'form-control' %>
+  </div>
+  <div class="form-group form-group-vertical form-group-vertical-responsive">
+    <%= cd.label :doing_business_as, 'Doing Business As' %>
+    <%= cd.text_field :doing_business_as, placeholder: 'Homcom', class: 'form-control' %>
+  </div>
+  <div class="form-group form-group-vertical form-group-vertical-responsive">
+    <%= cd.label :legal_business_name, 'Legal Business Name' %>
+    <%= cd.text_field :legal_business_name, placeholder: 'Startrek', class: 'form-control' %>
+  </div>
+  <div class="form-group form-group-vertical form-group-vertical-responsive">
+    <%= cd.label :companies_house_registration_number, 'Companies House Registration Number' %>
+    <%= cd.text_field :companies_house_registration_number, placeholder: '73738823', required: true, class: 'form-control' %>
+  </div>
+  <div class="form-group form-group-vertical form-group-vertical-responsive">
+    <%= cd.label :business_industry, 'Business Industry' %>
+    <%= cd.text_field :business_industry, placeholder: 'sales@mhstar.co.uk', class: 'form-control' %>
+  </div>
+  <div class="form-group form-group-vertical form-group-vertical-responsive">
+    <%= cd.label :vat_number, 'VAT Number' %>
+    <%= cd.text_field :vat_number, placeholder: 'GADA1313443', class: 'form-control' %>
+  </div>
+  <div class="form-group form-group-vertical form-group-vertical-responsive">
+    <%= cd.label :website_url, 'Website URL' %>
+    <%= cd.url_field :website_url, placeholder: 'https://www.google.com', class: 'form-control' %>
+  </div>
+  <div class="form-group form-group-vertical form-group-vertical-responsive">
+    <%= cd.label :ebay_url, 'eBay URL' %>
+    <%= cd.url_field :ebay_url, placeholder: 'https://www.ebaystore.com/mystore', class: 'form-control' %>
+  </div>
+  <div class="form-group form-group-vertical form-group-vertical-responsive">
+    <%= cd.label :amazon_url, 'Full Legal Name' %>
+    <%= cd.url_field :amazon_url, placeholder: 'https://www.amazon.com/mystore', class: 'form-control' %>
+  </div>
 <% end %>
