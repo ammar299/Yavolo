@@ -35,7 +35,6 @@ class Admin::SellersController < Admin::BaseController
         @seller_ids = params[:seller_ids].split(',') if params[:seller_ids].present?
         if params[:field_to_update] == 'delete'
           Seller.where(id: @seller_ids).destroy_all
-        elsif params[:field_to_update] == 'send_password_reset_email'
         else
           Seller.where(id: @seller_ids).update_all(account_status: params[:field_to_update])
         end
