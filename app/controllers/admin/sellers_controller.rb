@@ -1,5 +1,5 @@
 class Admin::SellersController < Admin::BaseController
-    before_action :set_seller, only: %i[show edit update update_business_representative update_company_detail update_addresses]
+    before_action :set_seller, only: %i[show edit update update_business_representative update_company_detail update_addresses update_seller_logo remove_logo_image]
 
     def index
       @q = Seller.ransack(params[:q])
@@ -37,6 +37,14 @@ class Admin::SellersController < Admin::BaseController
     def update_company_detail
       @seller.update(seller_params)
     end
+
+    def update_seller_logo
+      @seller.update(seller_params)
+    end
+      
+    def remove_logo_image
+      @seller.picture.destroy if @seller.picture.present?
+    end
     
     def update_addresses
       @seller.update(seller_params)
@@ -69,8 +77,9 @@ class Admin::SellersController < Admin::BaseController
         params.require(:seller).permit(:email, :subscription_type,:account_status, :listing_status,
             business_representative_attributes: [:id, :full_legal_name, :email, :job_title, :date_of_birth],
             company_detail_attributes: [:id, :name, :vat_number, :country, :legal_business_name, :companies_house_registration_number, :business_industry, :website_url, :amazon_url, :ebay_url, :doing_business_as],
-            addresses_attributes: [:id, :address_line_1, :address_line_2, :city, :county, :country, :postal_code, :phone_number, :address_type]
-        )
+            addresses_attributes: [:id, :address_line_1, :address_line_2, :city, :county, :country, :postal_code, :phone_number, :address_type],
+            picture_attributes: ["name", "@original_filename", "@content_type", "@headers", "_destroy", "id"],
+          )
       end
 
       def set_seller

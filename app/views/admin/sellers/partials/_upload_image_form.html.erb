@@ -1,0 +1,27 @@
+<!-- Upload Logo Section -->
+<div>
+  <div class="modal-body px-lg-4 pt-0">
+    <div class="text-center">
+      <span>
+        <% if picture.present? && picture.name.url.present? %>
+          <%= image_tag picture.name.url, class: 'w-25 mb-3 mt-1' %>
+        <% else %>
+          <%= image_tag picture.object.name.url, class: 'w-25 mb-3 mt-1' %>
+        <% end %>
+      </span>
+    </div>
+    <div class="csv-file-uploader bg-white p-4 mb-4">
+      <p class="text-center">Drag and drop files from your desktop</p>
+      <p class="text-center">or</p>
+      <p class="text-center">
+        <a href="#" class="btn btn-sm btn-radius px-4 btn-primary text-uppercase position-relative overflow-hidden">Browse files 
+          <%= form.fields_for :picture, Picture.new do |picture| %>
+            <% if picture.object.new_record? %>
+              <%= picture.file_field :name %>
+            <% end %>
+          <% end %>
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
