@@ -48,7 +48,7 @@ class Admin::FilterGroupsController < Admin::BaseController
   end
 
   def assign_category
-    byebug
+    
   end
 
   def destroy_multiple
