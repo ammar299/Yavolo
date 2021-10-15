@@ -7,11 +7,13 @@ import Rails from "@rails/ujs";
 import * as ActiveStorage from "@rails/activestorage";
 import "channels";
 
-global.$ = jQuery;
+import JQuery from 'jquery';
+window.$ = window.jQuery = JQuery;
 
 import "bootstrap";
 import "@fortawesome/fontawesome-free/js/all";
 import "../stylesheets/application.scss";
+
 
 Rails.start();
 ActiveStorage.start();
@@ -25,3 +27,5 @@ require('packs/products')
 require('packs/sellers')
 require('packs/success-meter')
 require("@nathanvda/cocoon")
+const ClassicEditor = require('@ckeditor/ckeditor5-build-classic');
+

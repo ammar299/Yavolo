@@ -32,6 +32,18 @@ $(document).ready(function(){
     }
   });
 
+
+  $(document).on('click','.img-del-icon', function(){
+    if(confirm("Are you sure to delete this image?")){
+      if($(this).hasClass('new-obj')){
+        $(this).parents('.col-md-4').remove();
+      }else{
+        $(this).parents('.p-img-container').hide();
+        $(this).find("[type='checkbox']").prop('checked',true)
+      }
+    }
+  });
+
 });
 
 function uploadCSVFile(files){
@@ -157,7 +169,7 @@ function imageTemplate(path){
   template +=      '<div class="img-star-icon">';
   template +=          '<span class="icon-reviews"></span>';
   template +=      '</div>';
-  template +=      '<div class="img-del-icon">';
+  template +=      '<div class="img-del-icon new-obj">';
   template +=          '<span class="fas fa-trash-alt"></span>';
   template +=      '</div>';
   template +=  '</div>';

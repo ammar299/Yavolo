@@ -16,6 +16,7 @@
  *= require bootstrap
  *= require styleguid
  *= require custom
+ *= require tagsinput
  *= require_tree .
  *= require_self
  */

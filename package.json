@@ -2,6 +2,7 @@
   "name": "yavolo",
   "private": true,
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^30.0.0",
     "@fortawesome/fontawesome-free": "^5.15.3",
     "@nathanvda/cocoon": "^1.2.14",
     "@popperjs/core": "^2.9.2",
