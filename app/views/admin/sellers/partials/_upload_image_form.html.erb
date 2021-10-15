@@ -5,8 +5,6 @@
       <span>
         <% if picture.present? && picture.name.url.present? %>
           <%= image_tag picture.name.url, class: 'w-25 mb-3 mt-1' %>
-        <% else %>
-          <%= image_tag picture.object.name.url, class: 'w-25 mb-3 mt-1' %>
         <% end %>
       </span>
     </div>
