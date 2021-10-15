@@ -5,17 +5,12 @@
       <tr>
         <!--<td class="">Address Line 1:</td>-->
         <td>
-          <%= address.address_line_1.present? ? address.address_line_1 : "nil" %><br/>
-          <%= address.address_line_2.present? ? address.address_line_2 : "nil" %><br/>
-          <%= address.county.present? ? address.county : "nil" %><br/>
-          <%= address.city.present? ? address.city : "nil" %><br/>
-          <%= address.postal_code.present? ? address.postal_code : "nil" %><br/>
-          <%= address.country.present? ? address.country : "nil" %><br/>
+          <%= simple_format(address_format(address)) %>
         </td>
       </tr>
       <tr>
         <td class="">Phone Number:</td>
-        <td><%= address.phone_number.present? ? address.phone_number : "nil" %></td>
+        <td><%= address.phone_number.present? ? address.phone_number : "" %></td>
       </tr>
     </tbody>
   </table>

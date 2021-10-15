@@ -22,4 +22,18 @@ module Admin::SellersHelper
     val
   end
 
+  def return_value(value)
+    value.present? ? value : ''
+  end
+
+  def address_format(address)
+    address.try(:address_line_1).to_s + "\n" + address.try(:address_line_2).to_s + "\n" + address.try(:county).to_s + "\n" + address.try(:city).to_s + "\n" + address.try(:postal_code).to_s + "\n" + address.try(:country).to_s
+  end
+
+  def address_type_filter(address, filter)
+    if address.address_type == filter
+      address
+    end
+  end
+
 end

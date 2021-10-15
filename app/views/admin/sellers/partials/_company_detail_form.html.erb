@@ -7,7 +7,7 @@
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
     <%= cd.label :country, 'Country' %>
-    <%= cd.text_field :country, placeholder: 'United Kingdom', class: 'form-control' %>
+    <%= cd.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Country' }, required: true, class: 'form-control' %>
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
     <%= cd.label :doing_business_as, 'Doing Business As' %>

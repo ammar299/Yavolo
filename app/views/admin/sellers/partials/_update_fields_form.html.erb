@@ -9,21 +9,21 @@
   <% end %>
   <% if params[:form_to_update] == 'business_representative_address' %>
     <!-- Business Owner Address / Address with type business_address -->
-    <%= render partial: 'admin/sellers/partials/addresses', locals: { form: form, addresses: @seller.addresses, address_id: params[:address_id] } %>
+    <%= render partial: 'admin/sellers/partials/addresses_form', locals: { form: form, addresses: @seller.addresses, address_id: params[:address_id] } %>
   <% end %>
   <% if params[:form_to_update] == 'business_address' %>
     <!-- Business Owner Address / Address with type business_address -->
-    <%= render partial: 'admin/sellers/partials/addresses', locals: { form: form, addresses: @seller.addresses, address_id: params[:address_id] } %>
+    <%= render partial: 'admin/sellers/partials/addresses_form', locals: { form: form, addresses: @seller.addresses, address_id: params[:address_id] } %>
   <% end %>
   <% if params[:form_to_update] == 'return_address' %>
     <!-- Business Owner Address / Address with type business_address -->
-    <%= render partial: 'admin/sellers/partials/addresses', locals: { form: form, addresses: @seller.addresses, address_id: params[:address_id] } %>
+    <%= render partial: 'admin/sellers/partials/addresses_form', locals: { form: form, addresses: @seller.addresses, address_id: params[:address_id] } %>
   <% end %>
   <% if params[:form_to_update] == 'invoice_address' %>
     <!-- Business Owner Address / Address with type business_address -->
-    <%= render partial: 'admin/sellers/partials/addresses', locals: { form: form, addresses: @seller.addresses, address_id: params[:address_id] } %>
+    <%= render partial: 'admin/sellers/partials/addresses_form', locals: { form: form, addresses: @seller.addresses, address_id: params[:address_id] } %>
   <% end %>
   <div class="text-center">
-  <%= form.button :submit, 'Update', class: 'btn btn-sm btn-radius px-4 btn-primary' %>
+    <%= form.button :submit, 'Update', class: 'btn btn-sm btn-radius px-4 btn-primary' %>
   </div>
 <% end %>
