@@ -24,6 +24,7 @@ class Seller < ApplicationRecord
     yearly: 1,
     lifetime: 2,
   }
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP } 
   accepts_nested_attributes_for :business_representative
   accepts_nested_attributes_for :addresses
   accepts_nested_attributes_for :company_detail

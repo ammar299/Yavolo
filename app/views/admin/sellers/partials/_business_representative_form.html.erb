@@ -1,6 +1,6 @@
 <div class="form-group form-group-vertical form-group-vertical-responsive">
   <%= form.label :seller_email, 'Email' %>
-  <%= form.text_field :seller_email, value: @seller.email, disabled: true, required: true, class: 'form-control' %>
+  <%= form.email_field :seller_email, value: @seller.email, disabled: true, required: true, class: 'form-control' %>
 </div>
 <!-- Business Representative -->
 <h4>Business Representative</h4>
@@ -11,7 +11,7 @@
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
     <%= br.label :business_representative_email, 'Contact Email' %>
-    <%= br.text_field :business_representative_email, value: business_representative.email, disabled: true, class: 'form-control' %>
+    <%= br.email_field :business_representative_email, value: business_representative.email, disabled: true, class: 'form-control' %>
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
     <%= br.label :job_title, 'Job Title' %>
@@ -32,11 +32,11 @@
 </div>
 <div class="form-group form-group-vertical form-group-vertical-responsive">
   <label>Account Created</label>
-  <div class="mt-2"><%= @seller.created_at.strftime("%m/%d/%Y") %></div>
+  <div class="mt-2"><%= @seller.created_at.strftime("%m/%d/%Y") if @seller.created_at.present?  %></div>
 </div>
 <div class="form-group form-group-vertical form-group-vertical-responsive">
   <label>Last Logged In</label>
-  <div class="mt-2"><%= @seller.last_sign_in_at.strftime("%m/%d/%Y") %></div>
+  <div class="mt-2"><%= @seller.last_sign_in_at.strftime("%m/%d/%Y") if @seller.last_sign_in_at.present? %></div>
 </div>
 <div class="form-group form-group-vertical form-group-vertical-responsive">
   <label>Subscription Type</label>
