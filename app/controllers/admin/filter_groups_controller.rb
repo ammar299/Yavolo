@@ -1,5 +1,5 @@
 class Admin::FilterGroupsController < Admin::BaseController
-  before_action :set_filter_group, only: [:show, :edit, :update, :destroy]
+  before_action :set_filter_group, only: [:show, :edit, :update, :destroy, :confirm_delete]
 
   def index
     @filter_group_count = FilterGroup.count
@@ -56,8 +56,7 @@ class Admin::FilterGroupsController < Admin::BaseController
     redirect_to admin_filter_groups_path 
   end
 
-  def filter_groups_sort
-    
+  def confirm_delete
   end
 
   private

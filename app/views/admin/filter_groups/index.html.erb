@@ -58,10 +58,8 @@
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item active" href="#">Type <i class="fa fa-check"
                   aria-hidden="true"></i></a>
-                  <%= form_tag  assign_category_admin_filter_groups_path, id: 'assign-filter-groups' do %>
                     <a class="dropdown-item" href="#">Assign Category <i class="fa fa-check"
                     aria-hidden="true"></i></a>
-                  <% end %>
                   </div>
                 </div>
               </div>
@@ -118,7 +116,7 @@
               <td><%= filter_group.filter_categories.count %></td>
               <td></td>
               <td><%= link_to 'Edit', edit_admin_filter_group_path(filter_group), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100', data: { remote: true } %>
-                <%= link_to 'Delete', admin_filter_group_path(filter_group), method: :delete, class: "btn btn-sm btn-radius px-4 btn-secondary w-100" %></td>
+                <%= link_to 'Delete', confirm_delete_admin_filter_group_path(filter_group), remote: true, class: "btn btn-sm btn-radius px-4 btn-secondary w-100 delete-filter-group" %></td>
             </tr>
             <% end %>
           </tbody>
