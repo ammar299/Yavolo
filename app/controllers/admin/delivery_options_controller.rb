@@ -1,5 +1,5 @@
 class Admin::DeliveryOptionsController < Admin::BaseController
-  before_action :set_delivery_option, only: %i[edit update destroy]
+  before_action :set_delivery_option, only: %i[edit update confirm_delete destroy]
 
   def index
     @delivery_options = DeliveryOption.all
@@ -26,10 +26,12 @@ class Admin::DeliveryOptionsController < Admin::BaseController
   end
 
   def update
+    @existing_obj = true
     @delivery_opts = true
-    delivery_option_filtering
+    verify_delivery_option(@delivery_option)
+    delivery_option_filtering(@delivery_option) if @existing_obj == false
 
-    if @delivery_opts == true
+    if @existing_obj == true || @delivery_opts == true
       @delivery_option.update(delivery_option_params)
       create_delivery_option_ships(@delivery_option)
       @delivery_options = DeliveryOption.all
@@ -59,10 +61,23 @@ class Admin::DeliveryOptionsController < Admin::BaseController
     @delivery_option = DeliveryOption.find(params[:id])
   end
 
-  def delivery_option_filtering
+  def verify_delivery_option(delivery_option)
+    if delivery_option.id == DeliveryOption.find_by(delivery_option_params).id
+      delivery_ships = DeliveryOptionShip.where(delivery_option_id: delivery_option.id).map{ |c| [c.ship_id, c.price.to_f] }.to_h
+      result = delivery_ships == filter_ship_ids.transform_keys(&:to_i).transform_values(&:to_f)
+      @existing_obj = result
+    else
+      @existing_obj = false
+    end
+  end
+
+  def delivery_option_filtering(delivery_option=nil)
     delivery_options = DeliveryOption.where(delivery_option_params)
+    delivery_options = delivery_options.where.not(id: delivery_option.id) if !delivery_option.nil?
     if delivery_options.exists?
       check_delivery_option_availbility(delivery_options)
+    else
+      @delivery_opts = true
     end
   end
 
