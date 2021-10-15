@@ -29,6 +29,8 @@ Rails.application.routes.draw do
         resources :categories do
           member do
             get :category_details
+            delete :remove_filter_group_association
+            delete :remove_image
           end
         end
 

@@ -1,6 +1,6 @@
 class Admin::CategoriesController < Admin::BaseController
 
-  before_action :set_category, only: %i[edit update destroy]
+  before_action :set_category, only: %i[edit update destroy category_details remove_filter_group_association remove_image]
 
   def index
     @categories = Category.all
@@ -44,8 +44,16 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def category_details
-    @category = Category.find(params[:id])
     render partial:"admin/categories/category_details"
+  end
+
+  def remove_filter_group_association
+    @filter_group = FilterGroup.find(params[:filter_group_id])
+
+  end
+
+  def remove_image
+    @category.picture.destroy
   end
 
   private

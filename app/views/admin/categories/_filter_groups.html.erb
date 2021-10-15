@@ -1,10 +1,11 @@
 <div class="product-catagory-inner yo-white-card box-border">
-  <h5>filter group and variations</h5>
+  <h5>Filter Groups and Variations</h5>
   <form action="">
     <div class="form-group form-group-vertical align-items-center form-group-vertical-responsive">
-      <label for="exampleInputPassword1" class="text-left pr-3">Catagory Name :</label>
+      <label for="exampleInputPassword1" class="text-left pr-3">Filter Groups and Variations Assigned to
+        Category</label>
       <select class="form-control">
-        <option>ArvindPanchmatia@gmail.co.uk</option>
+        <option>Colour</option>
       </select>
       <a href="#" class="pl-3 pluse-btn">+</a>
     </div>
@@ -21,71 +22,38 @@
         </th>
         <th>Name</th>
         <th>type</th>
-        <th>filter</th>
+        <th>filters</th>
         <th>sort order</th>
-        <th class="text-center" width="10%">Product available</th>
+        <th class="text-center" width="10%">Actions</th>
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td>
-          <label class="checkbox-blk">
-            <input type="checkbox">
-            <span class="checkmark"></span>
-          </label>
-        </td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-        <td class="text-center">
-          <a href="#"
-             class="btn btn-sm btn-radius px-4 btn-secondary w-100">Secondary</a>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label class="checkbox-blk">
-            <input type="checkbox">
-            <span class="checkmark"></span>
-          </label>
-        </td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdohwqoifowofoowofjowjojfojwjfojwjfjo</td>
-        <td>
-          <div class="form-group form-group-vertical">
-            <input type="email" class="form-control" id="exampleInputEmail1"
-                   aria-describedby="emailHelp" placeholder="Enter email">
-          </div>
-        </td>
-        <td class="text-center">
-          <a href="#"
-             class="btn btn-sm btn-radius px-4 btn-secondary w-100">Secondary</a>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label class="checkbox-blk">
-            <input type="checkbox">
-            <span class="checkmark"></span>
-          </label>
-        </td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-        <td class="text-center">
-          <a href="#"
-             class="btn btn-sm btn-radius px-4 btn-secondary w-100">Secondary</a>
-        </td>
-      </tr>
+      <% [FilterGroup.global].flatten.uniq.each do |fg| %>
+        <tr>
+          <td>
+            <label class="checkbox-blk">
+              <input type="checkbox">
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td><%= fg.name %></td>
+          <td><%= fg.filter_group_type %></td>
+          <td><%= fg.filter_in_categories.pluck(:filter_name).join(",") %></td>
+          <td>@mdo</td>
+          <td class="text-center">
+            <%= link_to "Remove", remove_filter_group_association_admin_category_path(@category,filter_group_id: fg.id) ,method: :delete,
+                        data: { confirm: 'Are you sure?', remote: true }, class: "btn btn-sm btn-radius px-4 btn-secondary w-100" %>
+          </td>
+        </tr>
+      <% end %>
+
+
       </tbody>
     </table>
   </div>
   <form action="">
     <div class="form-group form-group-vertical align-items-center form-group-vertical-responsive">
-      <label for="exampleInputPassword1" class="text-left pr-3">Catagory Name :</label>
+      <label for="exampleInputPassword1" class="text-left pr-3">Linking Filter</label>
       <select class="form-control">
         <option>ArvindPanchmatia@gmail.co.uk</option>
       </select>

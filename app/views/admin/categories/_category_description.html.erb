@@ -77,7 +77,7 @@
           </div>
 
           <% if !f.object.new_record? && f.object.picture.present? %>
-            <div class="filter-type d-flex align-items-center flex-wrap ">
+            <div class="filter-type d-flex align-items-center flex-wrap category-image-container">
               <div class="form-group form-group-vertical">
                 <label for="exampleInputPassword1" class="text-left pr-3"></label>
               </div>
@@ -87,7 +87,8 @@
 																<span>
                                   <%= image_tag f.object.picture.name.url, class:"product-content-img" %>
 																</span>
-                    <small class="mx-3">Remove Image</small>
+                    <small class="mx-3"><%= link_to "Remove Image", remove_image_admin_category_path(@category) ,method: :delete,
+                                                    data: { confirm: 'Are you sure?', remote: true }, class: "btn btn-sm btn-radius px-4 btn-secondary w-100" %></small>
                   </div>
                 </div>
               </div>
