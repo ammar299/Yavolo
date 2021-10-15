@@ -49,7 +49,11 @@ class Admin::CategoriesController < Admin::BaseController
 
   def remove_filter_group_association
     @filter_group = FilterGroup.find(params[:filter_group_id])
-
+    if @filter_group.global?
+      @category.category_excluded_filter_groups.create(filter_group: @filter_group)
+    else
+      # TODO:// Remove from category association
+    end
   end
 
   def remove_image

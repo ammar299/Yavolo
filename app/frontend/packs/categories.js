@@ -6,7 +6,7 @@ $(document).ready(function () {
         createNewCategory($(this)[0]);
         fetchCategoryDetails($(this)[0])
     });
-    $(".categories-tree-body ul:first-of-type li:first .category-input").prop('checked',true).trigger('change')
+    $(".categories-tree-body ul:first-of-type li:first .category-input:first").prop('checked',true).trigger('change')
 });
 
 function fetchCategoryDetails(element){

@@ -4,9 +4,8 @@ class Category < ApplicationRecord
 
   has_many :category_filter_groups, dependent: :destroy
   has_many :filter_groups, through: :category_filter_groups
-
-  validates :category_id, uniqueness: true,presence: true
-
+  has_many :category_excluded_filter_groups, dependent: :destroy
+  has_many :excluded_filter_groups, through: :category_excluded_filter_groups, source: :filter_group
   has_one :picture, as: :imageable, dependent: :destroy
   accepts_nested_attributes_for   :picture
 
@@ -25,6 +24,5 @@ class Category < ApplicationRecord
     return if self.url.present?
     self.url = self.category_name.parameterize if self.category_name.present?
   end
-
 
 end
