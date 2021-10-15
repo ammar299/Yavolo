@@ -20,6 +20,7 @@ import "controllers"
 require("@nathanvda/cocoon")
 require('packs/admin')
 require('packs/delivery_options')
+require('packs/filter_groups')
 require('packs/products')
 require('packs/sellers')
 require('packs/success-meter')
