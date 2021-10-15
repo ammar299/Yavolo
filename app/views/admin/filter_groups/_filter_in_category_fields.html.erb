@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <div class="form-group form-group-vertical align-items-center flex-lg-nowrap flex-wrap">
     <%= f.label :filter_name %>
-    <%= f.text_field :filter_name, class: 'form-control' %>
+    <%= f.text_field :filter_name, class: 'form-control', required: true %>
       <div class="d-flex px-3 tab-100">
        <%= f.label :sort_order, class: 'text-left pr-3 min-100'%>
       <%= f.number_field :sort_order, class: 'form-control w-20 px-2' %>
