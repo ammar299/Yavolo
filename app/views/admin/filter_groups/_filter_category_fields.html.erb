@@ -1,8 +1,12 @@
-<div class='nested-fields'>
-  <%= f.label :category_name%>
-  <%= f.text_field :category_name %>
-  <%= link_to_remove_association f,class: 'filter_categories' do %>
-  <span> <i class="fas fa-minus"></i></span>
-  <p class="pl-2">Filter Category</p>
-  <% end %>
+<div class="row nested-fields">
+  <div class="col-md-12">
+    <div class="form-group form-group-vertical align-items-center flex-lg-nowrap flex-wrap">
+      <%= f.label :category_id, class: 'text-left pr-3' %>
+      <%= select_tag("Assign Category", options_for_select(Category.pluck(:category_name, :id)), class:"form-control") %>
+        <%= link_to_remove_association f, class: 'filter_categories' do %>
+          <span> <i class="pl-3 min-btn"></i></span>
+          <p class="pl-3 pluse-btn"> - </p>
+        <% end %>
+    </div>
+  </div>
 </div>

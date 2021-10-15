@@ -6,8 +6,8 @@
   <%= form.select :filter_group_type, FilterGroup.filter_group_types.map{ |a| [a.first,a.first] } %>
   <br />
   <%= form.fields_for :filter_categories, @filter_group.filter_categories do |filter_category| %>
-    <%= filter_category.label :category_name%>
-    <%= filter_category.text_field :category_name %>
+    <%= filter_category.label :category_id%>
+    <%= filter_category.text_field :category_id %>
   <% end %>
   <br />
   <%= form.fields_for :filter_in_categories, @filter_group.filter_in_categories do |filter_form| %>

@@ -1,0 +1,49 @@
+<div>
+  <h5 class="text-center">Company Details</h5>
+  <% if company_detail.present? %>
+    <table class="table">
+      <tbody>
+        <tr>
+          <td class="">Company Name:</td>
+          <td><%=h return_value(company_detail.name) %></td>
+        </tr>
+        <tr>
+          <td class="">Country:</td>
+          <td><%=h return_value(company_detail.country) %></td>
+        </tr>
+        <tr>
+          <td class="">Doing Business As:</td>
+          <td><%=h return_value(company_detail.doing_business_as) %></td>
+        </tr>
+        <tr>
+          <td class="">Legal Name:</td>
+          <td><%=h return_value(company_detail.legal_business_name) %></td>
+        </tr>
+        <tr>
+          <td class="">Companies House Registration Number:</td>
+          <td><%=h return_value(company_detail.companies_house_registration_number) %></td>
+        </tr>
+        <tr>
+          <td class="">Business Industry:</td>
+          <td><%=h return_value(company_detail.business_industry) %></td>
+        </tr>
+        <tr>
+          <td class="">VAT Number:</td>
+          <td><%=h return_value(company_detail.vat_number) %></td>
+        </tr>
+        <tr>
+          <td class="">Website URL:</td>
+          <td><%=h return_value(company_detail.website_url) %></td>
+        </tr>
+        <tr>
+          <td class="">Ebay URL:</td>
+          <td><%=h return_value(company_detail.ebay_url) %></td>
+        </tr>
+        <tr>
+          <td class="">Amazon URL:</td>
+          <td><%=h return_value(company_detail.amazon_url) %></td>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
+</div>

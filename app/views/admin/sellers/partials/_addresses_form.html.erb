@@ -1,0 +1,33 @@
+    <!-- Business Owner Address / Address with type business_address -->
+<h4><%= params[:form_to_update].humanize %></h4>
+<%= form.simple_fields_for :addresses,(params['address_id'].blank? ? @seller.addresses.build(address_type: params[:form_to_update]) : addresses.select{ | ad | ad.id == params[:address_id].to_i } ) do |addr| %>
+  <%= addr.input :address_type, as: :hidden, input_html: { value: params[:form_to_update] } %>
+  <div class="form-group form-group-vertical form-group-vertical-responsive">
+    <%= addr.label :address_line_1, 'Address Line 1' %>
+    <%= addr.text_field :address_line_1, placeholder: '27 perivale business park', class: 'form-control' %>
+  </div>
+  <div class="form-group form-group-vertical form-group-vertical-responsive">
+    <%= addr.label :address_line_2, 'Address Line 2' %>
+    <%= addr.text_field :address_line_2, placeholder: 'horsenden lane south', class: 'form-control' %>
+  </div>
+  <div class="form-group form-group-vertical form-group-vertical-responsive">
+    <%= addr.label :city, 'City' %>
+    <%= addr.text_field :city, placeholder: 'Perivale,Greenford', class: 'form-control' %>
+  </div>
+  <div class="form-group form-group-vertical form-group-vertical-responsive">
+    <%= addr.label :county, 'County' %>
+    <%= addr.text_field :county, placeholder: 'Middlesex', class: 'form-control' %>
+  </div>
+  <div class="form-group form-group-vertical form-group-vertical-responsive">
+    <%= addr.label :postal_code, 'Post Code' %>
+    <%= addr.text_field :postal_code, placeholder: 'UB67RH', class: 'form-control' %>
+  </div>
+  <div class="form-group form-group-vertical form-group-vertical-responsive">
+    <%= addr.label :country, 'Country' %>
+    <%= addr.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Country' }, required: true, class: 'form-control' %>
+  </div>
+  <div class="form-group form-group-vertical form-group-vertical-responsive">
+    <%= addr.label :phone_number, 'Contact Number' %>
+    <%= addr.text_field :phone_number, placeholder: '+1312313123', class: 'form-control' %>
+  </div>
+<% end %>

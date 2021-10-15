@@ -1,5 +1,5 @@
 class Admin::SellersController < Admin::BaseController
-    before_action :set_seller, only: %i[show edit update]
+    before_action :set_seller, only: %i[show edit update update_business_representative update_company_detail update_addresses]
 
     def index
       @q = Seller.ransack(params[:q])
@@ -30,6 +30,20 @@ class Admin::SellersController < Admin::BaseController
     def edit
     end
 
+    def update_business_representative
+      @seller.update(seller_params)
+    end
+
+    def update_company_detail
+      @seller.update(seller_params)
+    end
+    
+    def update_addresses
+      @seller.update(seller_params)
+      @address_type = params[:seller][:addresses_attributes]["0"][:address_type]
+      @address = @seller.addresses.where(address_type: @address_type).last
+    end
+
     def update_multiple
       if params[:field_to_update].present?
         @seller_ids = params[:seller_ids].split(',') if params[:seller_ids].present?
@@ -52,9 +66,9 @@ class Admin::SellersController < Admin::BaseController
 
     private
     def seller_params
-        params.require(:seller).permit(:email, :subscription_type,
-            business_representative_attributes: [:id, :full_legal_name, :email, :job_title, :date_of_birth, :contact_number],
-            company_detail_attributes: [:id, :name, :vat_number, :country, :legal_business_name, :companies_house_registration_number, :business_industry, :business_phone, :website_url, :amazon_url, :ebay_url, :doing_business_as],
+        params.require(:seller).permit(:email, :subscription_type,:account_status, :listing_status,
+            business_representative_attributes: [:id, :full_legal_name, :email, :job_title, :date_of_birth],
+            company_detail_attributes: [:id, :name, :vat_number, :country, :legal_business_name, :companies_house_registration_number, :business_industry, :website_url, :amazon_url, :ebay_url, :doing_business_as],
             addresses_attributes: [:id, :address_line_1, :address_line_2, :city, :county, :country, :postal_code, :phone_number, :address_type]
         )
       end

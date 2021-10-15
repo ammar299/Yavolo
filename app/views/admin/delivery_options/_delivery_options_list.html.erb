@@ -16,7 +16,7 @@
         <%= link_to 'Edit', edit_admin_delivery_option_path(delivery_option), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100', data: { remote: true } %>
       </div>
       <div class="text-center">
-        <%= link_to 'Delete', admin_delivery_option_path(delivery_option), method: 'delete', class: 'btn btn-sm btn-radius px-4 btn-secondary w-100' %>
+        <%= link_to 'Delete', confirm_delete_admin_delivery_option_path(delivery_option), remote: true, class: 'btn btn-sm btn-radius px-4 btn-secondary w-100' %>
       </div>
     </td>
   </tr>

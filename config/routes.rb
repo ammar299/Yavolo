@@ -13,11 +13,19 @@ Rails.application.routes.draw do
           collection do
             delete :delete_delivery_options
           end
+          member do
+            get :confirm_delete
+          end
         end
 
         resources :sellers do
           collection do
             get :update_multiple
+          end
+          member do 
+            patch :update_business_representative
+            patch :update_company_detail
+            patch :update_addresses
           end
         end
         resources :categories
@@ -25,6 +33,9 @@ Rails.application.routes.draw do
         resources :carriers, except: %i[index show] do
           collection do
             delete :delete_carriers
+          end
+          member do
+            get :confirm_delete
           end
         end
 
@@ -44,6 +55,7 @@ Rails.application.routes.draw do
         resources :filter_groups do
           collection do
             delete 'destroy_multiple'
+            post 'assign_category'
           end
         end
       end

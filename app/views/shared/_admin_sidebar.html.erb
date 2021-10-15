@@ -5,103 +5,164 @@
     </div>
     <div class="sidebody">
       <ul>
-        <li class="active">
+        <li class="active parent">
           <%= link_to '#' do %>
             <span class="icon-dashboard icon-right-pd"></span>
             Dashboard
           <% end %>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-page icon-right-pd"></span>
             Pages
           <% end %>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-templates icon-right-pd"></span>
             Templates
           <% end %>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-orders icon-right-pd"></span>
             Orders
           <% end %>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-customer icon-right-pd"></span>
             Customer
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "All Customer", ""%></li>
+            <li><%= link_to "Suspension", ""%></li>
+          </ul>
         </li>
-        <li>
-          <%= link_to admin_sellers_path do %>
+        <li class="parent">
+          <%= link_to '#' do %>
             <span class="icon-sellers icon-right-pd"></span>
             Sellers
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "All Sellers", admin_sellers_path %></li>
+            <li><%= link_to "Suspension", ""%></li>
+            <li><%= link_to "This", ""%></li>
+          </ul>
         </li>
         <li>
           <%= link_to admin_products_path do %>
             <span class="icon-products icon-right-pd"></span>
             Products
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "All Products", admin_products_path %></li>
+            <li><%= link_to "Categories", admin_categories_path %></li>
+            <li><%= link_to "Filter Groups", admin_filter_groups_path %></li>
+          </ul>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-tickets icon-right-pd"></span>
             Tickets
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "All Tickets", ""%></li>
+            <li><%= link_to "Seller Tickets", ""%></li>
+            <li><%= link_to "Escalted Tickets", ""%></li>
+            <li><%= link_to "Feedback", ""%></li>
+          </ul>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-blog icon-right-pd"></span>
             Blogs
           <% end %>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-reviews icon-right-pd"></span>
             Reviews
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "All Reviews", ""%></li>
+            <li><%= link_to "Product Reviews", ""%></li>
+            <li><%= link_to "Seller Reviews", ""%></li>
+          </ul>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-manage-Yavolo icon-right-pd"></span>
             Manage Yavolos
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "Manual", ""%></li>
+            <li><%= link_to "Automatic", ""%></li>
+          </ul>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-finances icon-right-pd"></span>
             Finance
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "Summary", ""%></li>
+            <li><%= link_to "Transactions", ""%></li>
+            <li><%= link_to "Invoices", ""%></li>
+            <li><%= link_to "Taxes", ""%></li>
+          </ul>
         </li>
-        <li>
-          <%= link_to admin_delivery_options_path do %>
+        <li class="parent">
+          <%= link_to '#' do %>
             <span class="icon-technical icon-right-pd"></span>
             Technical
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "Delivery Options", admin_delivery_options_path %></li>
+            <li><%= link_to "Limit Login Attempts", ""%></li>
+            <li><%= link_to "Maintenance Mode", ""%></li>
+            <li><%= link_to "Tracking", ""%></li>
+            <li><%= link_to "Google Feed", ""%></li>
+            <li><%= link_to "Cache", ""%></li>
+            <li><%= link_to "User Log", ""%></li>
+            <li><%= link_to "Error Log", ""%></li>
+          </ul>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-rule-engine icon-right-pd"></span>
             Rule Engine
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "All Rules", ""%></li>
+            <li><%= link_to "Business Inteligence", ""%></li>
+            <li><%= link_to "System Rules", ""%></li>
+          </ul>
         </li>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-right-pd"></span>
             Appearance
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "Yadgets", ""%></li>
+            <li><%= link_to "Navigation", ""%></li>
+            <li><%= link_to "Notifications", ""%></li>
+          </ul>
         </li>
       </ul>
       <ul>
-        <li>
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-settings icon-right-pd"></span>
             Settings
           <% end %>
+          <ul class="d-none">
+            <li><%= link_to "General Settings", ""%></li>
+            <li><%= link_to "Users", ""%></li>
+            <li><%= link_to "User Roles", ""%></li>
+            <li><%= link_to "Subscriptions", ""%></li>
+          </ul>
         </li>
           <%= link_to destroy_admin_session_path, method: :delete do %>
             <span class="icon-right-pd"></span>

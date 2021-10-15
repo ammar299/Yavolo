@@ -1,4 +1,5 @@
 $('#delivery-template-form').html("<%= j render(partial: 'shared/admin/delivery_option_form', locals: { delivery_option: @delivery_option, url: admin_delivery_options_path }) %>");
+$('#deliveryTemplateForm').find('h5').text('Add New Template');
 <% if params[:add_new].blank? && params[:from].blank? %>
 $('#deliveryTemplateForm').modal('show');
 <% end %>
