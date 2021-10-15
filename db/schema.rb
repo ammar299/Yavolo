@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_15_101253) do
+ActiveRecord::Schema.define(version: 2021_10_15_130742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -171,13 +171,6 @@ ActiveRecord::Schema.define(version: 2021_10_15_101253) do
   end
 
   create_table "category_excluded_filter_groups", force: :cascade do |t|
-    t.integer "filter_group_id"
-    t.integer "category_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "category_filter_groups", force: :cascade do |t|
     t.integer "filter_group_id"
     t.integer "category_id"
     t.datetime "created_at", precision: 6, null: false

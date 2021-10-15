@@ -28,8 +28,7 @@
       </tr>
       </thead>
       <tbody>
-      <%# debugger %>
-      <% [[FilterGroup.global.includes(:filter_in_categories).where.not(id: @category.excluded_filter_groups.pluck(:id))] + @category.filter_groups].flatten.uniq.each do |fg| %>
+      <% @category.filter_groups_and_variation_tab_filters_groups.each do |fg| %>
         <tr class="filter-group-<%= fg.id %>">
           <td>
             <label class="checkbox-blk">

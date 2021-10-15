@@ -6,8 +6,7 @@ class FilterGroup < ApplicationRecord
 
   has_many :filter_categories, dependent: :destroy
   has_many :filter_in_categories, dependent: :destroy
-  has_many :category_filter_groups, dependent: :destroy
-  has_many :categories, through: :category_filter_groups
+  has_many :categories, through: :filter_categories
 
   enum filter_group_type: { global: 0, local: 1 }
 
