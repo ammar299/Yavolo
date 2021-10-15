@@ -13,6 +13,9 @@ Rails.application.routes.draw do
           collection do
             delete :delete_delivery_options
           end
+          member do
+            get :confirm_delete
+          end
         end
 
         resources :sellers do
@@ -30,6 +33,9 @@ Rails.application.routes.draw do
         resources :carriers, except: %i[index show] do
           collection do
             delete :delete_carriers
+          end
+          member do
+            get :confirm_delete
           end
         end
 

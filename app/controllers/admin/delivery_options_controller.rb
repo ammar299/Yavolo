@@ -1,5 +1,5 @@
 class Admin::DeliveryOptionsController < Admin::BaseController
-  before_action :set_delivery_option, only: %i[edit update destroy]
+  before_action :set_delivery_option, only: %i[edit update confirm_delete destroy]
 
   def index
     @delivery_options = DeliveryOption.all
