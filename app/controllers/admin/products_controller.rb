@@ -1,6 +1,23 @@
 class Admin::ProductsController < Admin::BaseController
   def index
-    @products = Product.order(:title).page(params[:page]).per(params[:per_page].presence || 15)
+    @q = Product.ransack(params[:q])
+    if params[:q].present? && params[:q][:price_low_high_cont].present?
+      @products = Product.order("price asc")
+      @products= @products.page(params[:page]).per(params[:per_page].presence || 15)
+    elsif params[:q].present? &&  params[:q][:price_high_low_cont].present?
+      @products = Product.order("price desc")
+      @products = @products.page(params[:page]).per(params[:per_page].presence || 15)
+    elsif params[:q].present? &&  params[:q][:title_a_z_cont].present?
+      @products = Product.order("title asc")
+      @products = @products.page(params[:page]).per(params[:per_page].presence || 15)
+    elsif params[:q].present? &&  params[:q][:title_a_z_cont].present?
+      @products = Product.order("title desc")
+      @products = @products.page(params[:page]).per(params[:per_page].presence || 15)
+    else
+      @q = Product.ransack(params[:q])
+      @products = @q.result(distinct: true).page(params[:page]).per(params[:per_page].presence || 15)      
+    end
+    # @products = Product.order(:title).page(params[:page]).per(params[:per_page].presence || 15)
   end
 
   def new

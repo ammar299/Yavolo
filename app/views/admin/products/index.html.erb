@@ -5,22 +5,30 @@
               <div class="all-products-header-left d-flex">
                   <div class="dropdown-filter-field active mb-0">
                       <div class="dropdown">
-                          <a class="btn btn-sm btn-radius px-2 btn-primary" href="#" role="button"
+                          <a class="btn btn-sm btn-radius px-2 btn-primary product-search-dropdown" href="#" role="button"
                               id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                               aria-expanded="false">
-                              Search All <i class="fa fa-angle-down ml-4" aria-hidden="true"></i>
+                              <%= set_filter_type_in_dropdown(params) %> <i class="fa fa-angle-down ml-4" aria-hidden="true"></i>
                           </a>
 
-                          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                              <a class="dropdown-item" href="#">Action</a>
-                              <a class="dropdown-item" href="#">Another action</a>
-                              <a class="dropdown-item" href="#">Something else here</a>
+                          <div class="dropdown-menu" id="product-search-by-toggle" aria-labelledby="dropdownMenuLink">
+                            <%= link_to 'Search All', (admin_products_path(search_by: 'search_all')), class: 'dropdown-item' %>
+                            <%= link_to 'Product Title A-Z', (admin_products_path(search_by: 'title-a-z')), class: 'dropdown-item' %>
+                            <%= link_to 'Product Title Z-A', (admin_products_path(search_by: 'title-z-a')), class: 'dropdown-item' %>
+                            <%= link_to 'Price Low-High', (admin_products_path(search_by: 'price-low-high')), class: 'dropdown-item' %>
+                            <%= link_to 'Price High-Low', (admin_products_path(search_by: 'price-high-low')), class: 'dropdown-item' %>
+                            <%= link_to 'Brand', (admin_products_path(search_by: 'brand')), class: 'dropdown-item' %>
+                            <%= link_to 'SKU', (admin_products_path(search_by: 'sku')), class: 'dropdown-item' %>
+                            <%= link_to 'YAN', (admin_products_path(search_by: 'yan')), class: 'dropdown-item' %>
+                            <%= link_to 'EAN', (admin_products_path(search_by: 'ean')), class: 'dropdown-item' %>
                           </div>
                       </div>
                       <div class="search-field mb-0 ">
-                          <input type="text" class="input-btn-sm"
-                              placeholder="Search articles, FAQ’s and your tickets here">
-                          <i class="fa fa-search" aria-hidden="true"></i>
+                      <%= search_form_for @q, url: admin_products_path do |f| %>
+                        <input type="hidden" name="filter_type" id="product-filter-type" value="<%= params[:filter_type] %>">
+                        <%= f.search_field :title_or_brand_or_sku_or_ean_or_yan_cont, { class: 'input-btn-sm product-search-field', placeholder: 'Search Products', value: "#{product_search_field_params(params)}" } %>
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                      <% end %>
                       </div>
                   </div>
                   <div class="dropdown dropdown-filter  d-inline-flex">
@@ -45,12 +53,11 @@
                           aria-expanded="false">Result per page 15 <i class="fa fa-angle-down ml-3"
                               aria-hidden="true"></i></a>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                          <a class="dropdown-item active" href="#">Action <i class="fa fa-check"
-                                  aria-hidden="true"></i></a>
-                          <a class="dropdown-item" href="#">Another action <i class="fa fa-check"
-                                  aria-hidden="true"></i></a>
-                          <a class="dropdown-item" href="#">Something else here <i class="fa fa-check"
-                                  aria-hidden="true"></i></a>
+                        <%= link_to 'Result per page: 15', admin_products_path(per_page: 15), class: 'dropdown-item' %>
+                        <%= link_to 'Result per page: 30', admin_products_path(per_page: 30), class: 'dropdown-item' %>
+                        <%= link_to 'Result per page: 60', admin_products_path(per_page: 60), class: 'dropdown-item' %>
+                        <%= link_to 'Result per page: 90', admin_products_path(per_page: 90), class: 'dropdown-item' %>
+                        <%= link_to 'Result per page: 180', admin_products_path(per_page: 180), class: 'dropdown-item' %>
                       </div>
                   </div>
                   <div class="dropdown dropdown-filter  d-inline-flex">
