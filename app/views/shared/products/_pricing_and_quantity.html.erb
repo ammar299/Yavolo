@@ -7,14 +7,14 @@
                     <% has_error, msg = get_errors(form, :price) %>
                     <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
                         <%= form.label 'Price (Inc VAT if applicable)' %>
-                        <%= form.text_field :price, class: 'form-control' %>
+                        <%= form.number_field :price, class: 'form-control', min: 0 %>
                         <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                     </div>
 
                     <% has_error, msg = get_errors(form, :stock) %>
                     <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
                         <%= form.label 'Quantity*' %>
-                        <%= form.text_field :stock, class: 'form-control' %>
+                        <%= form.number_field :stock, class: 'form-control', min: 0 %>
                         <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                     </div>
 

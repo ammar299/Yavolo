@@ -1,0 +1,46 @@
+<div class="yo-white-card  box-border seller-edit-card">
+  <div>
+    <div id="api-error-message" class="text-center"></div>
+    <h5 class="text-center">API</h5>
+    <%= simple_form_for seller_api, url: admin_seller_update_seller_api_path(@seller.id), data: { remote: true }  do |f| %>
+      <div class="d-flex align-items-center flex-wrap">
+        <div class="form-group form-group-vertical">
+          <label for="exampleInputPassword1">Status:</label>
+        </div>
+        <div class="mr-5">
+          <%= f.label :status, for: 'seller_api_status_0',class: 'checkbox-blk' do %>
+            <%= f.radio_button :status, '0', checked: seller_api_status(seller_api, 'enable') %>
+            <span class="checkmark"></span>
+            Enable
+          <% end %>
+        </div>
+        <div class="">
+          <%= f.label :status, for: 'seller_api_status_1',class: 'checkbox-blk' do %>
+            <%= f.radio_button :status, '1' , checked: seller_api_status(seller_api, 'disable') %>
+            <span class="checkmark"></span>
+            Disable
+          <% end %>
+        </div>
+      </div>
+      <div class="form-group form-group-vertical form-group-vertical-responsive">
+        <%= f.label :status, 'API Name' %>
+        <%= f.text_field :name, class: "form-control", placeholder: "Enter API name", required: true %>
+      </div>
+      <% if seller_api.api_token.present? %>
+        <div class="form-group form-group-vertical form-group-vertical-responsive">
+          <%= f.label :api_token, 'API Token' %>
+          <%= f.text_area :api_token, class: "form-control", placeholder: "Enter API name", readonly: true %>
+        </div>
+        <div style="float: right;">
+          <%= link_to 'Refresh Api', admin_seller_refresh_seller_api_path(@seller.id, seller_api_id: seller_api.id), data: {method: 'post' ,remote: true, confirm: 'Are you sure'} %>
+        </div>
+      <% end %>
+
+      <div class="text-center">
+        <%= f.submit 'Save', class: "btn btn-radius px-4 btn-primary"%>
+      </div>
+    <% end %>
+  </div>
+  <div class="text-center">
+  </div>
+</div>

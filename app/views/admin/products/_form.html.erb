@@ -1,5 +1,10 @@
+<% if flash[:notice].present? %>
+<div class="alert alert-success" role="alert">
+  <%=flash[:notice]%>
+</div>
+<% end %>
 <div class="container-fluid">
-    <%= simple_form_for @product, method: method ,url: url do |form| %>
+    <%= simple_form_for @product, url: url, method: method do |form| %>
         <%=form.hidden_field :owner_id %>
         <%=form.hidden_field :owner_type %>
         <%= render "shared/products/photos", form: form %>
@@ -13,3 +18,19 @@
     <% end %>
     <%= render "shared/products/add_new_delivery_option" %>
 </div>
+<script>
+    $(document).ready(function(){
+
+        ClassicEditor.create( document.querySelector( '#product_description' ) ).catch( error => {
+            console.error( error );
+        } );
+
+        ClassicEditor.create( document.querySelector( '#product_google_shopping_attributes_description' ) ).catch( error => {
+            console.error( error );
+        } );
+
+        ClassicEditor.create( document.querySelector( '#product_seo_content_attributes_description' ) ).catch( error => {
+            console.error( error );
+        } );
+    })
+</script>

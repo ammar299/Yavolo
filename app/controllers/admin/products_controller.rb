@@ -33,20 +33,24 @@ class Admin::ProductsController < Admin::BaseController
 
   def edit
     @product = Product.friendly.find(params[:id])
+    @product.pictures.build
     @delivery_options = DeliveryOption.all
   end
 
   def update
     @product = Product.friendly.find(params[:id])
-    # TODO: handle statuses
-    if !@product.active? && params[:commit]== 'Publish'
+    if !@product.active? && params[:commit]== 'PUBLISH'
       @product.status = 'active'
       @product.published_at = Time.zone.now
-    elsif params[:commit]== 'Save Draft'
+    elsif params[:commit]== 'SAVE DRAFT'
       @product.status = 'draft'
     end
 
     if @product.update(product_params)
+      if images_to_delete_params.present?
+        @product.pictures_attributes = images_to_delete_params
+        @product.save
+      end
       redirect_to edit_admin_product_path(@product), notice: 'Product was successfully updated.'
     else
       @delivery_options = DeliveryOption.all
@@ -73,12 +77,16 @@ class Admin::ProductsController < Admin::BaseController
     def product_params
       params.require(:product).permit(:owner_id,:owner_type,
       :title, :condition, :width, :depth, :height, :colour, :material, :brand, :keywords, :description, :price, :stock, :sku, :ean, :discount, :yavolo_enabled, :delivery_option_id,
-      pictures_attributes: ["name", "@original_filename", "@content_type", "@headers", "_destroy", "id"],
-      seo_content_attributes: [:title, :url, :description, :keywords],
-      ebay_detail_attributes: [:lifetime_sales, :thirty_day_sales, :price, :thirty_day_revenue, :mpn_number], google_shopping_attributes: [:title,:price,:category,:campaign_category,:description,:exclude_from_google_feed])
+      pictures_attributes: ["name", "@original_filename", "@content_type", "@headers"],
+      seo_content_attributes: [:id,:title, :url, :description, :keywords],
+      ebay_detail_attributes: [:id,:lifetime_sales, :thirty_day_sales, :price, :thirty_day_revenue, :mpn_number], google_shopping_attributes: [:id,:title,:price,:category,:campaign_category,:description,:exclude_from_google_feed])
     end
 
     def owner_params
       { owner_id: current_admin.id, owner_type: 'Admin' }
+    end
+
+    def images_to_delete_params
+      @images_to_remove ||= params[:product][:images_attributes].values.select{|h| h["_destroy"]=="1" } if params[:product][:images_attributes].present?
     end
 end

@@ -36,4 +36,16 @@ module Admin::SellersHelper
     end
   end
 
+  def seller_api_status(seller_api, status_type)
+    if seller_api.status.present?
+      if seller_api.status == status_type
+        true
+      else
+        false
+      end
+    elsif status_type == 'enable'
+      true
+    end
+  end
+
 end

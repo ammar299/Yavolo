@@ -9,7 +9,7 @@ class Seller < ApplicationRecord
   has_many :addresses, dependent: :destroy
   has_one :company_detail, dependent: :destroy
   has_one :picture, as: :imageable, dependent: :destroy
-
+  has_one :seller_api
   
   
   enum account_status: {

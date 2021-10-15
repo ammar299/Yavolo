@@ -29,6 +29,9 @@ Rails.application.routes.draw do
             patch :update_seller_logo
             delete :remove_logo_image
           end
+          post :update_seller_api
+          post :refresh_seller_api
+          patch :update_seller_api
         end
         resources :categories
 
