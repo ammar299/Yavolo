@@ -1,9 +1,7 @@
-
 <div class="col-md-4 d-flex flex-column">
   <p class="news-title">Success Meter</p>
-  <div id="barometer" class="barometer"></div>
-
-  <div class="seller-news-inner">
+  <div class="seller-news-inner yo-white-card">
+    <div id="barometer" class="barometer"></div>
     <span>
     <img src="" alt="">
     </span>
@@ -28,7 +26,12 @@
   
 $(function(){
   $('#barometer').barometer({
-    steps: 10
+    startvalue:"160"
   });
 });
 </script>
+<style type="text/css">
+  #barometer_form {
+    display:  none;
+  }
+</style>
