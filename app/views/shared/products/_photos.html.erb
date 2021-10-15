@@ -3,7 +3,7 @@
         <div class="add-edit-product-photos <%= form.object.new_record? ? 'col-lg-12' : 'col-lg-8' %>">
             <div class="add-photoo text-center <%= form.object.new_record? ? 'photos-uploader-section' : '' %>">
                 <div class="add-photo-inner">
-                    <a href="" class="btn btn-radius px-4 btn-primary photo-btn grid-btn-top show-upload-images-popup">Add Photos</a><br>
+                    <a href="" class="btn btn-radius px-4 btn-primary photo-btn grid-btn-top show-upload-images-popup"><%=form.object.new_record? ? 'Add Photos' : 'Edit Photos' %></a><br>
                     <small class="red-color">Upload images to show your sensational in all its
                         wonderfull glory</small>
                 </div>
@@ -13,24 +13,27 @@
             <div class="photo-grid-img">
                 <div class="product-images-inner text-center">
                     <div class="row product-photos-grid">
-                        <%= form.fields_for :pictures,form.object.pictures do |picture| %>
-                          <% unless picture.object.new_record? %>
-                            <div class="col-md-4 p-1">
-                              <div class="grid-single-img">
-                                  <span>
-                                      <%= image_tag picture.object.name.url %>
-                                  </span>
-                                  <div class="img-star-icon">
-                                      <span class="icon-reviews"></span>
-                                  </div>
-                                  <div class="img-del-icon">
-                                      <span class="fas fa-trash-alt">
-                                        <%= picture.check_box :_destroy %>
-                                      </span>
-                                  </div>
-                              </div>
-                            </div>
-                          <% end %>
+                        <% form.object.pictures.each.with_index do |picture,index| %>
+                            <%= form.fields_for :images,picture do |pic_form| %>
+                            <% unless pic_form.object.new_record? %>
+                                <div class="col-md-4 p-1 p-img-container">
+                                <div class="grid-single-img">
+                                    <span>
+                                        <%= image_tag pic_form.object.name.url %>
+                                    </span>
+                                    <div class="img-star-icon">
+                                        <span class="icon-reviews"></span>
+                                    </div>
+                                    <div class="img-del-icon rm-img">
+                                        <span class="fas fa-trash-alt">
+                                        </span>
+                                        <%= pic_form.check_box :_destroy,name: "product[images_attributes][#{index}][_destroy]" ,style: 'display:none' %>
+                                        <%= pic_form.hidden_field :id, name: "product[images_attributes][#{index}][id]", value: pic_form.object.id %>
+                                    </div>
+                                </div>
+                                </div>
+                            <% end %>
+                            <% end %>
                         <% end %>
                     </div>
                 </div>

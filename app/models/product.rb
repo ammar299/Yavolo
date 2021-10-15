@@ -11,11 +11,13 @@ class Product < ApplicationRecord
     has_one :google_shopping, dependent: :destroy
 
     has_many :pictures, as: :imageable, dependent: :destroy
+    alias_attribute  :images, :pictures
 
     belongs_to :owner, polymorphic: true
     belongs_to :delivery_option
 
-    accepts_nested_attributes_for :seo_content, :ebay_detail, :google_shopping, :pictures
+    accepts_nested_attributes_for :seo_content, :ebay_detail, :google_shopping
+    accepts_nested_attributes_for :pictures, allow_destroy: true
 
     validates :sku,:ean,:yan, uniqueness: true, allow_nil: true
 

@@ -8,28 +8,28 @@
                 <% has_error, msg = get_errors(form, "ebay_detail.lifetime_sales") %>
                 <div class="form-group general-mrgn mb-0 <%= has_error ? 'error-field' : '' %>">
                     <%= ebay_data.label 'Lifetime Sales' %>
-                    <%= ebay_data.text_field :lifetime_sales, class: 'form-control' %>
+                    <%= ebay_data.number_field :lifetime_sales, class: 'form-control', min: 0 %>
                     <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                 </div>
 
                 <% has_error, msg = get_errors(form, "ebay_detail.thirty_day_sales") %>
                 <div class="form-group general-mrgn mb-0 <%= has_error ? 'error-field' : '' %>">
                     <%= ebay_data.label '30-day Sales' %>
-                    <%= ebay_data.text_field :thirty_day_sales, class: 'form-control' %>
+                    <%= ebay_data.number_field :thirty_day_sales, class: 'form-control',min: 0 %>
                     <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                 </div>
 
                 <% has_error, msg = get_errors(form, "ebay_detail.price") %>
                 <div class="form-group general-mrgn mb-0 <%= has_error ? 'error-field' : '' %>">
                     <%= ebay_data.label 'Price' %>
-                    <%= ebay_data.text_field :price, class: 'form-control' %>
+                    <%= ebay_data.number_field :price, class: 'form-control', min: 0 %>
                     <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                 </div>
 
                 <% has_error, msg = get_errors(form, "ebay_detail.thirty_day_revenue") %>
                 <div class="form-group general-mrgn mb-0 <%= has_error ? 'error-field' : '' %>">
                     <%= ebay_data.label '30-day Revenue' %>
-                    <%= ebay_data.text_field :thirty_day_revenue, class: 'form-control' %>
+                    <%= ebay_data.number_field :thirty_day_revenue, class: 'form-control',min: 0 %>
                     <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                 </div>
 
