@@ -8,6 +8,7 @@ class Seller < ApplicationRecord
   has_one :business_representative
   has_many :addresses
   has_one :company_detail
+  has_one :seller_api
   
   
   enum account_status: {

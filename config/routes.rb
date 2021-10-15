@@ -27,6 +27,9 @@ Rails.application.routes.draw do
             patch :update_company_detail
             patch :update_addresses
           end
+          post :update_seller_api
+          post :refresh_seller_api
+          patch :update_seller_api
         end
         resources :categories
 
