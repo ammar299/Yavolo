@@ -26,6 +26,8 @@ Rails.application.routes.draw do
             patch :update_business_representative
             patch :update_company_detail
             patch :update_addresses
+            patch :update_seller_logo
+            delete :remove_logo_image
           end
           post :update_seller_api
           post :refresh_seller_api
