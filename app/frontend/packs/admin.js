@@ -19,4 +19,24 @@ $(document).ready(function(){
         $ul.removeClass('d-none');
       }
     });
+
+    // for hightlighting the sidemenu bar current option
+    let pathName = window.location.pathname.split('/');
+    pathName = "/"+pathName[1]+"/"+pathName[2]
+    $("a").each(function(){
+      $(this).parent().removeClass("active")
+      let linkHref = $(this).attr('href').split('/')
+      linkHref = "/"+linkHref[1]+"/"+linkHref[2]
+      if (linkHref === pathName)
+      {
+        $(this).parent().addClass("active")
+        if ($(this).parent().parent().hasClass("d-none")){
+          $(this).parent().parent().removeClass("d-none")
+        }
+      }
+      else if(pathName === '//undefined'){
+      $(".icon-dashboard").parent().parent().addClass("active")
+      }
+    });
+   
  });
