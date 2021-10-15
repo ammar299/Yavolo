@@ -23,10 +23,17 @@
                             <%= link_to 'EAN', (admin_products_path(search_by: 'ean')), class: 'dropdown-item' %>
                           </div>
                       </div>
+                      <%
+                        if params[:q].present?
+                          field_name = params[:q].keys.first
+                        else
+                          field_name = "title_or_brand_or_sku_or_ean_or_yan_cont"
+                        end
+                      %>
                       <div class="search-field mb-0 ">
                       <%= search_form_for @q, url: admin_products_path do |f| %>
                         <input type="hidden" name="filter_type" id="product-filter-type" value="<%= params[:filter_type] %>">
-                        <%= f.search_field :title_or_brand_or_sku_or_ean_or_yan_cont, { class: 'input-btn-sm product-search-field', placeholder: 'Search Products', value: "#{product_search_field_params(params)}" } %>
+                        <%= f.search_field field_name.to_sym, { class: 'input-btn-sm product-search-field', placeholder: 'Search Products', value: "#{product_search_field_params(params)}" } %>
                         <i class="fa fa-search" aria-hidden="true"></i>
                       <% end %>
                       </div>
