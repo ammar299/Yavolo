@@ -19,6 +19,7 @@ Rails.start();
 ActiveStorage.start();
 
 import "controllers"
+require("jquery")
 require("@nathanvda/cocoon")
 require('packs/admin')
 require('packs/delivery_options')
