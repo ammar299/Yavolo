@@ -48,7 +48,25 @@
   flex: 1;
   overflow: hidden;
 }
-
+#filter_in_categories {
+  position: relative;
+}
+#filter_in_categories .nested-fields {
+  padding-right: 15px;
+  position: relative;
+}
+#filter_in_categories .links a {
+text-decoration: none !important;
+}
+.filter_in_categories.remove_fields,
+#filter_in_categories .links {
+  position: absolute;
+  right: 0;
+  top: 7px;
+}
+.filter_in_categories.remove_fields span {
+  display: none;
+}
 .btn-outline-primary.disabled, .btn-outline-primary:disabled {
     color: var(--dark-red);
     background-color: transparent;
