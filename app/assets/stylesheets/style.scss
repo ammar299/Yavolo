@@ -1696,3 +1696,8 @@ border-radius: 10px;
 .seller-edit-card table {
 	word-break: break-all;
 }
+
+ /* ===============ckeditor settings============= */
+.ck.ck-editor__main .ck-content {
+  min-height: 150px;
+}
