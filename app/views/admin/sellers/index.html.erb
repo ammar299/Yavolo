@@ -31,11 +31,12 @@
         <div class="dropdown dropdown-filter d-inline-flex">
           <a href="#" class="btn btn-sm btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <i class="fa fa-angle-down ml-3" aria-hidden="true"></i>
           </a>
+          <% statuses = multi_actions_to_show %>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item multiple-update-sellers" href="#" id="approve-sellers">Approve <i class="fa fa-check" aria-hidden="true"></i></a>
-            <a class="dropdown-item multiple-update-sellers" href="#" id="suspend-sellers">Suspend <i class="fa fa-check" aria-hidden="true"></i></a>
-            <a class="dropdown-item multiple-update-sellers" href="#" id="delete-sellers">Delete <i class="fa fa-check" aria-hidden="true"></i></a>
-            <a class="dropdown-item multiple-update-sellers" href="#" id="activate-sellers">Activate <i class="fa fa-check" aria-hidden="true"></i></a>
+            <% statuses.each do |status_key, status_value| %>
+              <%= link_to status_key.humanize, (confirm_multi_update_admin_sellers_path(param_to_update: "#{status_key}")), remote: true, class: 'dropdown-item' %>
+            <% end %>
+            <%= link_to 'Delete', (confirm_multi_update_admin_sellers_path(param_to_update: "delete")), remote: true,class: 'dropdown-item' %>
             <a class="dropdown-item multiple-update-sellers" href="#" id="send-password-reset-email-sellers">Send Password Reset Email<i class="fa fa-check" aria-hidden="true"></i></a>
           </div>
         </div>
@@ -60,16 +61,16 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <div class="mt-3">
-      <p>Results <span>1 - <%= params[:per_page] %></span> of <span><%= Seller.count %></span></p>
+    <div class="mt-3" id="total-sellers-per-page">
+      <%= render 'admin/sellers/total_sellers_per_page' %>
     </div>
     <div class="Yavolo-table mt-4">
       <table class="table">
         <thead>
           <tr>
             <th>
-              <label class="checkbox-blk">
-                <input type="checkbox">
+              <label class="checkbox-blk sellers-checkbox-container">
+                <input type="checkbox" id="check-all-checkboxes">
                 <span class="checkmark checkmark-white"></span>
               </label>
             </th>
@@ -109,6 +110,7 @@
                     <%= render 'admin/sellers/seller_actions', seller: seller %>
                   </div>
                   <%= link_to 'Edit', admin_seller_path(seller), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1' %>
+                  <%= link_to "Delete", confirm_update_seller_admin_seller_path(seller, param_to_update: "delete"), remote: true, class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1 current-action', id: "#{seller.id}-delete" %>
                   <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-1">Contact</a>
                   <a href="#" class="btn btn-sm btn-radius px-4 btn-danger">View Products</a>
                 </div>

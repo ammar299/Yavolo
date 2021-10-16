@@ -1,7 +1,11 @@
 <% unless @seller.errors.count > 0 %>
-  debugger
-  $('#seller-row-<%= @seller.id %>').find(".account-status").text("<%= @seller.account_status %>");
-  $("#seller-row-<%= @seller.id %> #seller-action-btns").html("<%= j render 'admin/sellers/seller_actions', seller: @seller %>");
+  <% if params[:field_to_update].present? && params[:field_to_update] == 'delete' %>
+    $('#seller-row-<%= @seller.id %>').remove();
+    $("#total-sellers-per-page").html("<%= j render 'admin/sellers/total_sellers_per_page' %>");
+  <% else %>
+    $('#seller-row-<%= @seller.id %>').find(".account-status").text("<%= @seller.account_status %>");
+    $("#seller-row-<%= @seller.id %> #seller-action-btns").html("<%= j render 'admin/sellers/seller_actions', seller: @seller %>");
+  <% end %>
   $('#confirm-seller-actions-modal').modal('hide');
 <% else %>
   $('#error-message').html("<%= @seller.errors.full_messages.join('<br/>').html_safe %>");

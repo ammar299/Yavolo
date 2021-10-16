@@ -68,16 +68,20 @@ class Admin::SellersController < Admin::BaseController
       end
     end
 
+    def confirm_multi_update
+    end
+
     def update_multiple
-      if params[:field_to_update].present?
-        @seller_ids = params[:seller_ids].split(',') if params[:seller_ids].present?
+      if params[:field_to_update].present? && params[:ids].present?
+        @seller_ids = params[:ids].split(',')
         if params[:field_to_update] == 'delete'
+          @sellers = Seller.find(@seller_ids)
           Seller.where(id: @seller_ids).destroy_all
         else
           Seller.where(id: @seller_ids).update_all(account_status: params[:field_to_update])
+          @sellers = Seller.find(@seller_ids)
         end
       end
-      redirect_to admin_sellers_path
     end
 
     def update

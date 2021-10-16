@@ -22,6 +22,7 @@ Rails.application.routes.draw do
         resources :sellers do
           collection do
             get :update_multiple
+            get :confirm_multi_update
           end
           member do
             patch :update_business_representative
