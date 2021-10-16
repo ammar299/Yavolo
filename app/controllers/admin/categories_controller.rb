@@ -28,6 +28,9 @@ class Admin::CategoriesController < Admin::BaseController
 
   def update
     @category.update(category_params)
+    if @category.baby_category?
+      @category.descendants.map(&:destroy)
+    end
   end
 
   def destroy
