@@ -1,0 +1,6 @@
+<% unless @seller.errors.count > 0 %>
+  $("#seller-logo").html("<%= j render 'admin/sellers/seller_logo', logo: @seller.picture %>");
+  $('#editTemplateForm').modal('hide');
+<% else %>
+  $('#error-message').html("<%= @seller.errors.full_messages.join('<br/>').html_safe %>");
+<% end %>

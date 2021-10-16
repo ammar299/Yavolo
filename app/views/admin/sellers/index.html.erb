@@ -14,10 +14,17 @@
               <%= link_to 'Email', (admin_sellers_path(search_by: 'email')), class: 'dropdown-item' %>
             </div>
           </div>
+          <%
+            if params[:q].present?
+              field_name = params[:q].keys.first
+            else
+              field_name = "first_name_or_last_name_or_email_cont"
+            end
+          %>
           <div class="search-field mb-0">
             <%= search_form_for @q, url: admin_sellers_path do |f| %>
               <input type="hidden" name="filter_type" id="seller-filter-type" value="<%= params[:filter_type] %>">
-              <%= f.search_field :first_name_or_last_name_or_email_cont, { class: 'input-btn-sm seller-search-field', placeholder: 'Search Seller', value: "#{search_field_params(params)}" } %>
+              <%= f.search_field field_name.to_sym, { class: 'input-btn-sm seller-search-field', placeholder: 'Search Seller', value: "#{search_field_params(params)}" } %>
               <i class="fa fa-search" aria-hidden="true"></i>
             <% end %>
           </div>

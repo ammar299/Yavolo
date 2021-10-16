@@ -56,16 +56,20 @@
               aria-expanded="false">Filter by <i class="fa fa-angle-down ml-3"
               aria-hidden="true"></i></a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item active" href="#">Type <i class="fa fa-check"
-                  aria-hidden="true"></i></a>
-                  <%= form_tag  assign_category_admin_filter_groups_path, id: 'assign-filter-groups' do %>
-                    <a class="dropdown-item" href="#">Assign Category <i class="fa fa-check"
-                    aria-hidden="true"></i></a>
+                <%= form_tag(admin_filter_groups_path, method: :get) do %>
+                  <%= link_to admin_filter_groups_path(filter_type: 0),class: 'dropdown-item active' do %>
+                    <span class="fa fa-check" aria-hidden="true"></span>
+                    Global
+                  <% end %>      
+                  <%= link_to admin_filter_groups_path(filter_type: 1),class: 'dropdown-item' do %>
+                      <span class="fa fa-check" aria-hidden="true"></span>
+                      Local
                   <% end %>
-                  </div>
-                </div>
+                <% end%>
               </div>
-              <%= link_to 'Add New Filter Group', new_admin_filter_group_path, class: 'btn btn-radius px-4 btn-primary', data: { remote: true } %>
+            </div>
+          </div>
+          <%= link_to 'Add New Filter Group', new_admin_filter_group_path, class: 'btn btn-radius px-4 btn-primary', data: { remote: true } %>
             <div class="modal fade modal-xxl filter-group-modal pl-0 align-items-start" id="filterGroupForm" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -118,7 +122,7 @@
               <td><%= filter_group.filter_categories.count %></td>
               <td></td>
               <td><%= link_to 'Edit', edit_admin_filter_group_path(filter_group), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100', data: { remote: true } %>
-                <%= link_to 'Delete', admin_filter_group_path(filter_group), method: :delete, class: "btn btn-sm btn-radius px-4 btn-secondary w-100" %></td>
+                <%= link_to 'Delete', confirm_delete_admin_filter_group_path(filter_group), remote: true, class: "btn btn-sm btn-radius px-4 btn-secondary w-100 delete-filter-group" %></td>
             </tr>
             <% end %>
           </tbody>

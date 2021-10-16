@@ -13,8 +13,5 @@ class FilterGroup < ApplicationRecord
   accepts_nested_attributes_for :filter_in_categories, allow_destroy: true
   accepts_nested_attributes_for :filter_categories, allow_destroy: true
 
-  scope :filter_type, ->(filter_group_type) { where("filter_group_type = ?", type) }
-
-  # FilterGroup::filterPages = ['result per page 15', 'result per page 30', 'result per page 60', 'result per page 90']
 
 end

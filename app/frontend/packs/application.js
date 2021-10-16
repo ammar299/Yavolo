@@ -7,16 +7,19 @@ import Rails from "@rails/ujs";
 import * as ActiveStorage from "@rails/activestorage";
 import "channels";
 
-global.$ = jQuery;
+import JQuery from 'jquery';
+window.$ = window.jQuery = JQuery;
 
 import "bootstrap";
 import "@fortawesome/fontawesome-free/js/all";
 import "../stylesheets/application.scss";
 
+
 Rails.start();
 ActiveStorage.start();
 
 import "controllers"
+require("jquery")
 require("@nathanvda/cocoon")
 require('packs/admin')
 require('packs/categories')
@@ -26,8 +29,5 @@ require('packs/products')
 require('packs/sellers')
 require('packs/success-meter')
 require("@nathanvda/cocoon")
-require ("select_all.js")
+const ClassicEditor = require('@ckeditor/ckeditor5-build-classic');
 
-$(function() {
-  $("#selectAll").select_all();
-});

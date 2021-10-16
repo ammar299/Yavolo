@@ -75,71 +75,376 @@
             </div>
             <div class="col-lg-4 d-flex">
               <div class="yo-white-card box-border seller-edit-card">
-                <div>
-                  <h5 class="text-center">Logo</h5>
-                  <span class="mb-3">
-                    <img src="images/Yavolo_Logo_WarmRed.png" alt="" class="yo-logo">
-                  </span>
-                  <p class="mt-3 mm-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt nesciunt obcaecati animi, accusantium necessitatibus quas.</p>
+                <div id="seller-logo">
+                  <%= render 'admin/sellers/seller_logo', logo: @seller.picture %>
                 </div>
                 <div class="text-center">
-                  <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mt-1">Update image</a>
-                  <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mt-1">remove image</a>
+                  <%= link_to "Update Image", edit_admin_seller_path(id: @seller.id, form_to_update: 'seller_logo'), class: 'btn btn-sm btn-radius px-4 btn-primary mt-1', remote: true %>
+                  <%= link_to "Remove Image", remove_logo_image_admin_seller_path, class: 'btn btn-sm btn-radius px-4 btn-primary mt-1', remote: true, method: :delete %>
                 </div>
               </div>
             </div>
           </div>
           <h5 class="mt-3">Addresses</h5>
           <div class="row min-pad">
+            <%
+              business_representative_address = ''
+              business_address = ''
+              return_address = ''
+              invoice_address = ''
+            %>
             <% @seller.addresses.each do |address| %>
-              <div class="col-lg-4 d-flex">
-                <div class="yo-white-card box-border seller-edit-card">
-                  <div id="addresses-content">
-                    <%= render 'admin/sellers/addresses', address: address %>
-                  </div>
-                  <div class="text-center">
-                    <%= link_to "Update #{ address.address_type.humanize }", edit_admin_seller_path(id: @seller.id, form_to_update: address.address_type, address_id: address.id), class: "btn btn-sm btn-radius px-4 btn-primary", remote: true %>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-            <div class="col-lg-8 d-flex">
-              <div class="yo-white-card  box-border seller-edit-card">
-                <div>
-                  <h5 class="text-center">API</h5>
-                  <form action="">
-                    <div class="d-flex align-items-center flex-wrap">
-                      <div class="form-group form-group-vertical">
-                        <label for="exampleInputPassword1">Status:</label>
-                      </div>
-                      <div class="mr-5">
-                        <label class="checkbox-blk">Enable
-                          <input type="checkbox">
-                          <span class="checkmark"></span>
-                        </label>
-                      </div>
-                      <div class="">
-                        <label class="checkbox-blk">Disable
-                          <input type="checkbox">
-                          <span class="checkmark"></span>
-                        </label>
-                      </div>
-                    </div>
-                    <div class="form-group form-group-vertical form-group-vertical-responsive">
-                      <label for="exampleInputPassword1">API Name:</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                    </div>
-                    <div class="form-group form-group-vertical form-group-vertical-responsive">
-                      <label for="exampleInputPassword1">API Name:</label>
-                      <textarea class="form-control" placeholder="Text"></textarea>
-                    </div>
-                  </form>
+              <% if address.address_type == 'business_representative_address' %>
+                <% business_representative_address = address_type_filter(address, 'business_representative_address') %>
+              <% elsif address.address_type == 'business_address' %>
+                <% business_address = address_type_filter(address, 'business_address') %>
+              <% elsif address.address_type == 'return_address' %>
+                <% return_address = address_type_filter(address, 'return_address') %>
+              <% elsif address.address_type == 'invoice_address' %>
+                <% invoice_address = address_type_filter(address, 'invoice_address') %>
+              <% end %>
+            <%end %>
+            <div class="col-lg-4 d-flex">
+              <div class="yo-white-card box-border seller-edit-card">
+                <div id="business_representative_address">
+                  <%= render 'admin/sellers/addresses', address: business_representative_address %>
                 </div>
                 <div class="text-center">
+                  <%= link_to "Update Details", edit_admin_seller_path(id: @seller.id, form_to_update: business_representative_address.address_type, address_id: business_representative_address.id), class: "btn btn-sm btn-radius px-4 btn-primary", remote: true %>
                 </div>
               </div>
             </div>
+            <div class="col-lg-4 d-flex">
+              <div class="yo-white-card box-border seller-edit-card">
+                <div id="business_address">
+                  <%= render 'admin/sellers/addresses', address: business_address %>
+                </div>
+                <div class="text-center">
+                  <%= link_to "Update Details", edit_admin_seller_path(id: @seller.id, form_to_update: business_address.address_type, address_id: business_address.id), class: "btn btn-sm btn-radius px-4 btn-primary", remote: true %>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 d-flex">
+              <div class="yo-white-card box-border seller-edit-card">
+                <div id="return_address">
+                  <%= render 'admin/sellers/addresses', address: return_address %>
+                </div>
+                <div class="text-center">
+                  <%= link_to "Update Details", edit_admin_seller_path(id: @seller.id, form_to_update: return_address.address_type, address_id: return_address.id), class: "btn btn-sm btn-radius px-4 btn-primary", remote: true %>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 d-flex">
+              <div class="yo-white-card box-border seller-edit-card">
+                <div id="invoice_address">
+                  <%= render 'admin/sellers/addresses', address: invoice_address %>
+                </div>
+                <div class="text-center">
+                  <%= link_to "Update Details", edit_admin_seller_path(id: @seller.id, form_to_update: invoice_address.address_type, address_id: invoice_address.id), class: "btn btn-sm btn-radius px-4 btn-primary", remote: true %>
+                </div>
+              </div>
+            </div>
+            <% #end %>
+            <div class="col-lg-8 d-flex">
+              <div id="seller-edit-api">
+                <%= render 'admin/sellers/seller_api', seller_api: @seller_api %>
+              </div>
+            </div>
           </div>
+        </div>
+        <div class="tab-pane fade" id="Manage-Subscription" role="tabpanel"
+                                        aria-labelledby="Manage-Subscription-tab">
+          <section class="seller-subscription-section">
+            <h5>Subscripion</h5>
+            <div class="subscription-inner">
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="yo-white-card">
+                    <table class="table mt-2 subscription-table">
+                      <tbody>
+                        <tr>
+                          <td>User Email</td>
+                          <td>ahsanzafar@gmail.com</td>
+                        </tr>
+                        <tr>
+                          <td>User Email</td>
+                          <td>ahsanzafar@gmail.com</td>
+                        </tr>
+                        <tr>
+                          <td>User Email</td>
+                          <td>ahsanzafar@gmail.com</td>
+                        </tr>
+                        <tr>
+                          <td>User Email</td>
+                          <td>ahsanzafar@gmail.com</td>
+                        </tr>
+                        <tr class="align-items-center">
+                          <td>User Email</td>
+                          <td class="p-0">
+                            <select class="form-control input-btn-sm select-width ml-2">
+                              <option>ArvindPanchmatia@gmail.co.uk</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>User Email</td>
+                          <td>ahsanzafar@gmail.com</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="tab-pane fade" id="Delivery-Settings" role="tabpanel"
+                                        aria-labelledby="Delivery-Settings-tab">3
+        </div>
+        <div class="tab-pane fade" id="Payment-Methods" role="tabpanel" aria-labelledby="Payment-Methods-tab">
+          <section class="payment-method">
+            <h6>Payment Methods</h6>
+            <div class="payment-method-inner">
+              <h6 class="pt-3">Back accounts for oayment</h6>
+              <div class="payment-method-card yo-white-card box-border p-0">
+                <table class="table m-0 subscription-table text-left">
+                  <tr>
+                    <td>
+                      <p class="mb-1"><strong>Bank account number</strong> </p>
+                      <p class="m-0">User Email</p>
+                    </td>
+                    <td>
+                      <p class="mb-1"><strong>Bank account number</strong> </p>
+                      <p class="m-0">User Email</p>
+                    </td>
+                    <td>
+                      <p class="mb-1"><strong>Bank account number</strong> </p>
+                      <p class="m-0">User Email</p>
+                    </td>
+                    <td>
+                      <p class="mb-1"><strong>Bank account number</strong> </p>
+                      <p class="m-0">User Email</p>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mb-3">Remove</a>
+            </div>
+            <div class="payment-method-inner ">
+              <h6 class="pt-3">Back accounts for oayment</h6>
+              <div class="payment-method-card yo-white-card box-border p-0">
+                <table class="table m-0 subscription-table text-left">
+                  <tr>
+                    <td>
+                      <p class="mb-1"><strong>Bank account number</strong> </p>
+                      <p class="m-0">User Email</p>
+                    </td>
+                    <td>
+                      <p class="mb-1"><strong>Bank account number</strong> </p>
+                      <p class="m-0">User Email</p>
+                    </td>
+                    <td>
+                      <p class="mb-1"><strong>Bank account number</strong> </p>
+                      <p class="m-0">User Email</p>
+                    </td>
+                    <td>
+                      <p class="mb-1"><strong>Bank account number</strong> </p>
+                      <p class="m-0">User Email</p>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mb-3">Remove</a>
+              <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mb-3">Remove</a>
+            </div>
+            <div class="payment-method-inner ">
+              <div class="payment-method-card yo-white-card box-border p-0">
+                <table class="table m-0 subscription-table text-left">
+                  <tr>
+                    <td>
+                      <p class="mb-1"><strong>Bank account number</strong> </p>
+                      <p class="m-0">User Email</p>
+                    </td>
+                    <td>
+                      <p class="mb-1"><strong>Bank account number</strong> </p>
+                      <p class="m-0">User Email</p>
+                    </td>
+                    <td>
+                      <p class="mb-1"><strong>Bank account number</strong> </p>
+                      <p class="m-0">User Email</p>
+                    </td>
+                    <td>
+                      <p class="mb-1"><strong>Bank account number</strong> </p>
+                      <p class="m-0">User Email</p>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mb-3">Remove</a>
+              <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mb-3">Remove</a>
+            </div>
+            <div class="payment-method-inner ">
+              <h6 class="pt-3">Back accounts for oayment</h6>
+              <div class="payment-method-card yo-white-card box-border p-0">
+                <table class="table m-0 subscription-table text-left">
+                  <tr>
+                    <td>
+                      <p class="mb-1"><strong>Bank account number</strong> </p>
+                      <p class="m-0">User Email</p>
+                    </td>
+                    <td>
+                      <p class="mb-1"><strong>Bank account number</strong> </p>
+                      <p class="m-0">User Email</p>
+                    </td>
+                    <td>
+                      <p class="mb-1"><strong>Bank account number</strong> </p>
+                      <p class="m-0">User Email</p>
+                    </td>
+                    <td>
+                      <p class="mb-1"><strong>Bank account number</strong> </p>
+                      <p class="m-0">User Email</p>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mb-3">Remove</a>
+            </div>
+          </section>
+        </div>
+        <div class="tab-pane fade" id="Holiday-Mode" role="tabpanel" aria-labelledby="Holiday-Mode-tab">
+          <section class="holiday-mode yo-white-card box-border pb-0">
+            <h6>Holiday Mode</h6>
+            <div class="d-flex ">
+              <div class="pr-5">
+                <label class="checkbox-blk">Enable
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+              <div>
+                <label class="checkbox-blk">Disable
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="tab-pane fade" id="Billing" role="tabpanel" aria-labelledby="Billing-tab">
+          <section class="billing">
+            <div class="Yavolo-table">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>invoice#</th>
+                    <th>total</th>
+                    <th>description</th>
+                    <th>dete granted</th>
+                    <th>due date</th>
+                    <th>status</th>
+                    <th class="text-center" width="5%">change status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>xyz100</td>
+                    <td>1000</td>
+                    <td>monthly membership</td>
+                    <td>12/12/21</td>
+                    <td>12/12/21</td>
+                    <td>pad</td>
+                    <td class="text-center">
+                      <select class="form-control input-btn-sm select-width">
+                        <option>ArvindPanchmatia@gmail.co.uk</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>xyz100</td>
+                    <td>1000</td>
+                    <td>monthly membership</td>
+                    <td>12/12/21</td>
+                    <td>12/12/21</td>
+                    <td>pad</td>
+                    <td class="text-center">
+                      <select class="form-control input-btn-sm select-width">
+                        <option>ArvindPanchmatia@gmail.co.uk</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>xyz100</td>
+                    <td>1000</td>
+                    <td>monthly membership</td>
+                    <td>12/12/21</td>
+                    <td>12/12/21</td>
+                    <td>pad</td>
+                    <td class="text-center">
+                      <select class="form-control input-btn-sm select-width">
+                        <option>ArvindPanchmatia@gmail.co.uk</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>xyz100</td>
+                    <td>1000</td>
+                    <td>monthly membership</td>
+                    <td>12/12/21</td>
+                    <td>12/12/21</td>
+                    <td>pad</td>
+                    <td class="text-center">
+                      <select class="form-control input-btn-sm select-width">
+                        <option>ArvindPanchmatia@gmail.co.uk</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>xyz100</td>
+                    <td>1000</td>
+                    <td>monthly membership</td>
+                    <td>12/12/21</td>
+                    <td>12/12/21</td>
+                    <td>pad</td>
+                    <td class="text-center">
+                      <select class="form-control input-btn-sm select-width">
+                        <option>ArvindPanchmatia@gmail.co.uk</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>xyz100</td>
+                    <td>1000</td>
+                    <td>monthly membership</td>
+                    <td>12/12/21</td>
+                    <td>12/12/21</td>
+                    <td>pad</td>
+                    <td class="text-center">
+                      <select class="form-control input-btn-sm select-width">
+                        <option>ArvindPanchmatia@gmail.co.uk</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>xyz100</td>
+                    <td>1000</td>
+                    <td>monthly membership</td>
+                    <td>12/12/21</td>
+                    <td>12/12/21</td>
+                    <td>pad</td>
+                    <td class="text-center">
+                      <select class="form-control input-btn-sm select-width">
+                        <option>ArvindPanchmatia@gmail.co.uk</option>
+                      </select>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+        <div class="tab-pane fade" id="Product-Listings" role="tabpanel" aria-labelledby="Product-Listings-tab">4
+        </div>
+        <div class="tab-pane fade" id="Account-Health" role="tabpanel" aria-labelledby="Account-Health-tab">4
         </div>
       </div>
     </div>

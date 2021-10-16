@@ -5,7 +5,7 @@
     </div>
     <div class="sidebody">
       <ul>
-        <li class="active parent">
+        <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-dashboard icon-right-pd"></span>
             Dashboard
@@ -50,8 +50,8 @@
             <li><%= link_to "This", ""%></li>
           </ul>
         </li>
-        <li class="parent">
-          <%= link_to '#' do %>
+        <li>
+          <%= link_to admin_products_path do %>
             <span class="icon-products icon-right-pd"></span>
             Products
           <% end %>
@@ -118,7 +118,7 @@
             Technical
           <% end %>
           <ul class="d-none">
-            <li><%= link_to "Delivery Options", ""%></li>
+            <li><%= link_to "Delivery Options", admin_delivery_options_path %></li>
             <li><%= link_to "Limit Login Attempts", ""%></li>
             <li><%= link_to "Maintenance Mode", ""%></li>
             <li><%= link_to "Tracking", ""%></li>

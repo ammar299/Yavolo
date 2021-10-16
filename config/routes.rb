@@ -13,6 +13,9 @@ Rails.application.routes.draw do
           collection do
             delete :delete_delivery_options
           end
+          member do
+            get :confirm_delete
+          end
         end
 
         resources :sellers do
@@ -23,7 +26,12 @@ Rails.application.routes.draw do
             patch :update_business_representative
             patch :update_company_detail
             patch :update_addresses
+            patch :update_seller_logo
+            delete :remove_logo_image
           end
+          post :update_seller_api
+          post :refresh_seller_api
+          patch :update_seller_api
         end
 
         resources :categories do
@@ -38,6 +46,9 @@ Rails.application.routes.draw do
         resources :carriers, except: %i[index show] do
           collection do
             delete :delete_carriers
+          end
+          member do
+            get :confirm_delete
           end
         end
 
@@ -57,7 +68,9 @@ Rails.application.routes.draw do
         resources :filter_groups do
           collection do
             delete 'destroy_multiple'
-            post 'assign_category'
+          end
+          member do
+            get :confirm_delete
           end
         end
       end

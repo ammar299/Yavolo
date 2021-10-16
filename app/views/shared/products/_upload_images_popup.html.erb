@@ -13,10 +13,10 @@
                     <p class="text-center">Drag and drop files from your desktop</p>
                     <p class="text-center">or</p>
                     <p class="text-center">
-                        <a href="#" class="btn btn-sm btn-radius px-4 btn-primary text-uppercase position-relative overflow-hidden">Browse files 
-                        <%= form.fields_for :pictures, Picture.new do |picture| %>
+                        <a href="#" class="btn btn-sm btn-radius px-4 btn-primary text-uppercase position-relative overflow-hidden">Browse files
+                        <%= form.fields_for :pictures,Picture.new do |picture| %>
                             <% if picture.object.new_record? %>
-                            <%= picture.file_field :name, multiple: true, name: "product[pictures_attributes][][name]" %>
+                            <%= picture.file_field :name, multiple: true, name: "product[pictures_attributes][][name]", id: 'product_pictures_attributes_0_name' %>
                             <% end %>
                         <% end %>
                         </a>

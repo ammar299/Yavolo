@@ -1,5 +1,6 @@
 // load all products related js here
 $(document).ready(function(){
+  productSearchByFilter();
   // bindDragAndDropPhotosEvents();
   if(document.getElementById('upload-csv-popup'))
     bindDragAndDropEvents('upload-csv-popup');
@@ -29,6 +30,18 @@ $(document).ready(function(){
       document.getElementById('csv_import_file').value = "";
       $('#upload-csv-popup .modal-body').find('.file-errors').remove();
       $('#upload-csv-popup .modal-body').append('<ul class="file-errors" style="color: red;">'+fileValidator.errors.map(e => '<li>'+e+'</li>').join("")+'</ul>')
+    }
+  });
+
+
+  $(document).on('click','.img-del-icon', function(){
+    if(confirm("Are you sure to delete this image?")){
+      if($(this).hasClass('new-obj')){
+        $(this).parents('.col-md-4').remove();
+      }else{
+        $(this).parents('.p-img-container').hide();
+        $(this).find("[type='checkbox']").prop('checked',true)
+      }
     }
   });
 
@@ -157,7 +170,7 @@ function imageTemplate(path){
   template +=      '<div class="img-star-icon">';
   template +=          '<span class="icon-reviews"></span>';
   template +=      '</div>';
-  template +=      '<div class="img-del-icon">';
+  template +=      '<div class="img-del-icon new-obj">';
   template +=          '<span class="fas fa-trash-alt"></span>';
   template +=      '</div>';
   template +=  '</div>';
@@ -166,3 +179,49 @@ function imageTemplate(path){
 }
 
 
+function productSearchByFilter(){
+  var $productDropdown = $('.product-search-dropdown');
+  var $productSearchField = $('.product-search-field');
+  var $productFilterTypeField = $('#product-filter-type');
+  $('#product-search-by-toggle a').click(function(e){
+    var $currFilter = $(this).text().trim();
+    e.preventDefault();
+    $productDropdown.text($(this).text());
+    if($currFilter === 'Product Title A-Z'){
+      $productSearchField.attr('name', 'q[title_a_z_cont]');
+      $productFilterTypeField.val('Product Title A-Z');
+    }
+    else if($currFilter === 'Product Title Z-A'){
+      $productSearchField.attr('name', 'q[title_z_a_cont]');
+      $productFilterTypeField.val('Product Title Z-A');
+    }
+    else if($currFilter === 'Price Low-High'){
+      $productSearchField.attr('name', 'q[price_low_high_cont]');
+      $productFilterTypeField.val('Price Low-High');
+    }
+    else if($currFilter === 'Price High-Low'){
+      $productSearchField.attr('name', 'q[price_high_low_cont]');
+      $productFilterTypeField.val('Price High-Low');
+    }
+    else if($currFilter === 'Brand'){
+      $productSearchField.attr('name', 'q[brand_cont]');
+      $productFilterTypeField.val('Brand');
+    }
+    else if($currFilter === 'SKU'){
+      $productSearchField.attr('name', 'q[sku_cont]');
+      $productFilterTypeField.val('SKU');
+    }
+    else if($currFilter === 'YAN'){
+      $productSearchField.attr('name', 'q[yan_cont]');
+      $productFilterTypeField.val('YAN');
+    }
+    else if($currFilter === 'EAN'){
+      $productSearchField.attr('name', 'q[ean_cont]');
+      $productFilterTypeField.val('EAN');
+    }
+    else {
+      $productSearchField.attr('name', 'q[title_or_brand_or_sku_or_ean_or_yan_cont]');
+      $productFilterTypeField.val('Search All');
+    }
+  });
+}

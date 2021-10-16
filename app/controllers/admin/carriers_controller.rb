@@ -1,5 +1,5 @@
 class Admin::CarriersController < Admin::BaseController
-  before_action :set_carrier, only: %i[edit update destroy]
+  before_action :set_carrier, only: %i[edit update confirm_delete destroy]
 
   def new
     @carrier = Carrier.new

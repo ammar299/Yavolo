@@ -1,0 +1,12 @@
+<div>
+  <h5 class="text-center">Logo</h5>
+  <p class="mt-3 mm-text">
+    <span class="mb-3">
+      <% if logo.present? && logo.name.url.present? %>
+        <%= image_tag logo.name.url %>
+      <% else %>
+        <%= image_tag 'Yavolo_Logo_WarmRed.png' %>
+      <% end %>
+    </span>
+  </p>
+</div>

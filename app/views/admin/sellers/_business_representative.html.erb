@@ -5,47 +5,43 @@
       <tbody>
         <tr>
           <td class="">User email:</td>
-          <td><%=h @seller.email %></td>
+          <td><%=h return_value(@seller.email) %></td>
         </tr>
         <tr>
           <td class="">Full Legal Name:</td>
-          <td><%=h business_representative.full_legal_name %></td>
+          <td><%=h return_value(business_representative.full_legal_name) %></td>
         </tr>
         <tr>
           <td class="">Job Title:</td>
-          <td><%=h business_representative.job_title %></td>
+          <td><%=h return_value(business_representative.job_title) %></td>
         </tr>
         <tr>
           <td class="">Contact email:</td>
-          <td><%=h business_representative.email %></td>
+          <td><%=h return_value(business_representative.email) %></td>
         </tr>
         <tr>
           <td class="">Date of Birth:</td>
-          <td><%=h business_representative.date_of_birth.strftime("%m/%d/%Y") %></td>
-        </tr>
-        <tr>
-          <td class="">Contact Number:</td>
-          <td><%=h business_representative.contact_number %></td>
+          <td><%=h business_representative.date_of_birth.strftime("%m/%d/%Y") if business_representative.date_of_birth.present? %></td>
         </tr>
         <tr>
           <td class="">Account Status:</td>
-          <td><%=h @seller.account_status %></td>
+          <td><%=h return_value(@seller.account_status) %></td>
         </tr>
         <tr>
           <td class="">Listing Status:</td>
-          <td><%=h @seller.listing_status %></td>
+          <td><%=h return_value(@seller.listing_status) %></td>
         </tr>
         <tr>
           <td class="">Account Created:</td>
-          <td><%=h @seller.created_at.strftime("%m/%d/%Y") %></td>
+          <td><%=h @seller.created_at.strftime("%m/%d/%Y") if @seller.created_at.present? %></td>
         </tr>
         <tr>
           <td class="">Last Logged In:</td>
-          <td><%=h @seller.last_sign_in_at.strftime("%m/%d/%Y") %></td>
+          <td><%=h @seller.last_sign_in_at.strftime("%m/%d/%Y") if @seller.last_sign_in_at.present? %></td>
         </tr>
         <tr>
           <td class="">Subscription Type:</td>
-          <td><%=h @seller.subscription_type %></td>
+          <td><%=h return_value(@seller.subscription_type) %></td>
         </tr>
       </tbody>
     </table>

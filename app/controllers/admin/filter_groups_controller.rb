@@ -1,12 +1,12 @@
 class Admin::FilterGroupsController < Admin::BaseController
-  before_action :set_filter_group, only: [:show, :edit, :update, :destroy]
+  before_action :set_filter_group, only: [:show, :edit, :update, :destroy, :confirm_delete]
 
   def index
     @filter_group_count = FilterGroup.count
-    if params[:search].present?
-      @filter_groups = FilterGroup.includes(:filter_categories, :filter_in_categories).search_by_name(params[:search]).page(params[:page]).per(params[:per_page].presence || 15)
-    else
-      @filter_groups = FilterGroup.includes(:filter_categories, :filter_in_categories).page(params[:page]).per(params[:per_page].presence || 15)
+    case params.present?
+    when params[:filter_type].present?  then @filter_groups =  FilterGroup.where(filter_group_type: params[:filter_type].to_i).includes(:filter_categories, :filter_in_categories).page(params[:page]).per(params[:per_page].presence || 15)
+    when params[:search].present?       then @filter_groups = FilterGroup.includes(:filter_categories, :filter_in_categories).search_by_name(params[:search]).page(params[:page]).per(params[:per_page].presence || 15)
+    else @filter_groups = FilterGroup.includes(:filter_categories, :filter_in_categories).page(params[:page]).per(params[:per_page].presence || 15)
     end
   end
 
@@ -56,8 +56,7 @@ class Admin::FilterGroupsController < Admin::BaseController
     redirect_to admin_filter_groups_path 
   end
 
-  def filter_groups_sort
-    
+  def confirm_delete
   end
 
   private
