@@ -18,48 +18,12 @@
                     <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                 </div>
 
-                <div class="general-mrgn mt-0">
-                    <label for="exampleInputEmail1">Category*</label>
-                    <select class="form-control" placeholder="Search for the best Yavolo category for your product">
-                        <option>Cat 1</option>
-                        <option>Cat 2</option>
-                    </select>
-                </div>
-                <div class="row">
-                    <div class="general-mrgn col-md-3 mt-0">
-                        <label for="exampleInputEmail1">Category filter 1</label>
-                        <select class="form-control">
-                            <option>Cat filter 1</option>
-                            <option>Cat filter 2</option>
-                        </select>
-                    </div>
-                    <div class="general-mrgn col-md-3 mt-0">
-                        <label for="exampleInputEmail1">Category filter 2</label>
-                        <select class="form-control">
-                            <option>Cat filter 1</option>
-                            <option>Cat filter 2</option>
-                        </select>
-                    </div>
-                    <div class="general-mrgn col-md-3 mt-0">
-                        <label for="exampleInputEmail1">Category filter 3</label>
-                        <select class="form-control">
-                            <option>Cat filter 1</option>
-                            <option>Cat filter 2</option>
-                        </select>
-                    </div>
-                    <div class="general-mrgn col-md-3 mt-0">
-                        <label for="exampleInputEmail1">Category filter 4</label>
-                        <select class="form-control">
-                            <option>Cat filter 1</option>
-                            <option>Cat filter 2</option>
-                        </select>
-                    </div>
-                </div>
+                <%= render "shared/products/add_product_category", form: form %>
 
                 <p class="mb-0">Product spec</p>
 
                 <div class="ebay-forms d-flex justify-content-between flex-wrap align-items-center">
-                    
+
                     <% has_error, msg = get_errors(form, :width) %>
                     <div class="form-group general-mrgn mb-0 <%= has_error ? 'error-field' : '' %>">
                         <%= form.label 'Width' %>
