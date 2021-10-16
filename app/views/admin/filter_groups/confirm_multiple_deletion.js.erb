@@ -1,0 +1,12 @@
+$('.delete-modal-body').html("<%= j render(partial: 'filter_groups_confirmation_modal') %>");
+var selected_options = []
+$('.filter-groups-checkbox-container input[type=checkbox]:checked').each(function() {
+  selected_options.push($(this).val())
+});
+
+if (selected_options.length > 0) {
+  newUrl = $('.delete-filter-groups').attr('href') + '?ids=' + selected_options
+  $('.delete-filter-groups').attr('href', newUrl);
+  $('#delete-confirmation-modal').modal('show');
+}
+

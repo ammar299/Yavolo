@@ -1,0 +1,5 @@
+$(".category-details-wrapper").html("<%= j render partial:"category_description" %>")
+$(".category-details-wrapper #selected_cat_id").val($(".categories-checkbox-container .category-input:checked").attr('name'))
+<% if @is_subcategory.present? %>
+  $(".category-details-wrapper #is_subcategory").val(true)
+<% end %>
