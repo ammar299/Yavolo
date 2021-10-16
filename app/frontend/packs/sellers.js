@@ -11,20 +11,6 @@ $(document).ready(function(){
   });
 });
 
-
-// $('#check-all-checkboxes').click(function () {
-//   debugger
-//   if (this.checked) {
-//       $(':checkbox').each(function() {
-//           this.checked = true;                        
-//       });
-//   } else {
-//      $(':checkbox').each(function() {
-//           this.checked = false;                        
-//       });
-//   } 
-// });
-
 function sellerSearchByFilter(){
   var $sellerDropDown = $('.seller-search-dropdown');
   var $sellerSearchField = $('.seller-search-field');
