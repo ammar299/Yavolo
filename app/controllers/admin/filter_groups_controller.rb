@@ -51,12 +51,9 @@ class Admin::FilterGroupsController < Admin::BaseController
     
   end
 
-  def destroy_multiple
-    FilterGroup.destroy(params[:filter_group_ids])
-    redirect_to admin_filter_groups_path 
-  end
-
-  def confirm_delete
+  def delete_filter_groups
+    FilterGroup.where(id: params['ids'].split(',')).destroy_all
+    redirect_to admin_filter_groups_path
   end
 
   private
