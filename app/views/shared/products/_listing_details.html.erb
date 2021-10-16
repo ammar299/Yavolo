@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <div class="listing detail box-border yo-white-card">
+        <div class="listing detail box-border yo-white-card" id="listing-details">
             <h4>Listing Details</h4>
             <hr>
             <div>
@@ -11,10 +11,10 @@
                     <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                 </div>
 
-                <% has_error, msg = get_errors(form, :title) %>
-                <div class="general-mrgn mt-0 <%= has_error ? 'error-field' : '' %>">
+                <% has_error, msg = get_errors(form, :condition) %>
+                <div class="form-group general-mrgn mt-0 <%= has_error ? 'error-field' : '' %>">
                     <%= form.label 'Condition*' %>
-                    <%= form.select :condition, Product.conditions.keys.map{|c| [c.titleize, c]},{}, class: 'form-control', placeholder: 'Select the condition of your product' %>
+                    <%= form.select :condition, Product.conditions.keys.map{|c| [c.titleize, c]}, { prompt: 'Select Condition' }, class: 'form-control' %>
                     <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                 </div>
 
@@ -81,7 +81,7 @@
                         <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                     </div>
 
-                    <% has_error, msg = get_errors(form, :height) %>
+                    <% has_error, msg = get_errors(form, :colour) %>
                     <div class="form-group general-mrgn mb-0 <%= has_error ? 'error-field' : '' %>">
                         <%= form.label 'Colour' %>
                         <%= form.text_field :colour, class: 'form-control' %>
@@ -107,11 +107,11 @@
                 <% has_error, msg = get_errors(form, :keywords) %>
                 <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
                     <%= form.label 'Keywords*' %>
-                    <%= form.text_field :keywords, class: 'form-control', placeholder: 'Help customers find your product by selecting relevant keywords for your product', data: {role: "tagsinput"} %>
+                    <%= form.text_field :keywords, class: 'form-control', placeholder: 'Help customers find your product by selecting relevant keywords for your product', data: {role: "tagsinput"}, id: 'product_keywords' %>
                     <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                 </div>
 
-                <% has_error, msg = get_errors(form, :keywords) %>
+                <% has_error, msg = get_errors(form, :description) %>
                 <div class="form-group <%= has_error ? 'error-field' : '' %>">
                     <%= form.label 'Description*' %>
                     <%= form.text_area :description, class: 'form-control', placeholder: 'Why should the world buy your amazing product?' %>
