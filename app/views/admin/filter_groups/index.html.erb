@@ -5,7 +5,7 @@
         <div class="all-products-header-left d-flex flex-wrap">
           <div class="search-field mb-0">
             <%= form_tag(admin_filter_groups_path, method: :get) do %>
-            <%= text_field_tag(:search, params[:search]) %>
+              <%= text_field_tag(:search, params[:search], placeholder: "Search Filter Group") %>
             <i class="fa fa-search" aria-hidden="true"></i>
             <% end %>
           </div>
