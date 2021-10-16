@@ -184,3 +184,6 @@ body::-webkit-scrollbar-thumb {
     max-height: calc(100vh - 129px) !important;
         padding: 12px !important;
 }
+.notice, .alert {
+  text-align: center;
+}
