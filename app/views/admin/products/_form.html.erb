@@ -4,6 +4,7 @@
 </div>
 <% end %>
 <div class="container-fluid">
+    <div class="formme">
     <%= simple_form_for @product, url: url, method: method, html: { id: 'product_form' } do |form| %>
         <%=form.hidden_field :owner_id %>
         <%=form.hidden_field :owner_type %>
@@ -17,6 +18,8 @@
         <%= render "shared/products/product_actions_bar", form: form %>
     <% end %>
     <%= render "shared/products/add_new_delivery_option" %>
+    <div>
+
 </div>
 <script>
     let disEditor;
