@@ -1,0 +1,5 @@
+<% if @category.errors.any? %>
+$(".resource-errors-container").html("<%= j render("shared/resource_form_errors", resource: @category) %>")
+<% else %>
+window.location.reload();
+<% end %>
