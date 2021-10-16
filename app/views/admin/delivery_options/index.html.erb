@@ -12,7 +12,7 @@
             <div class="dropdown dropdown-filter mb-3 d-inline-flex">
               <a href="#" class="btn btn-sm btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item active" href="#" id="delete-delivery-options">Delete <i class="fa fa-check" aria-hidden="true"></i></a>
+                <%= link_to 'Delete', confirm_multiple_deletion_admin_delivery_options_path, class: 'dropdown-item active', data: { remote: true } %>
               </div>
             </div>
             <%= link_to 'Add New Template', new_admin_delivery_option_path, class: 'btn btn-radius px-4 btn-primary btn-sm', data: { remote: true } %>
@@ -65,7 +65,7 @@
             <div class="dropdown dropdown-filter mb-3 d-inline-flex">
               <a href="#" class="btn btn-sm btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item active" href="#" id="delete-carriers">Delete <i class="fa fa-check" aria-hidden="true"></i></a>
+                <%= link_to 'Delete', confirm_multiple_deletion_admin_carriers_path, class: 'dropdown-item active', data: { remote: true } %>
               </div>
             </div>
             <%= link_to 'Add New Carrier', new_admin_carrier_path, class: 'btn btn-radius px-4 btn-primary btn-sm' %>
@@ -117,6 +117,23 @@
       </div>
       <div class="modal-body px-lg-5">
         <div id="delivery-template-form"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delivery Template Confirmation Deletion Modal -->
+<div class="modal fade" id="delivery-option-carrier-delete-confirmation-modal" tabindex="-1" role="dialog" aria-labelledby="deliveryOptionFormLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="delete-delivery-options"></div>
       </div>
     </div>
   </div>
