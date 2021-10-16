@@ -142,8 +142,10 @@
         </table>
       </div>
       <div class="row">
-        <div class="col-md-6 mx-auto">
-          <%= paginate @filter_groups%>
+        <div class="col-md-4 mx-auto">
+          <div class="pager-middle text-center d-flex justify-content-center mb-4">
+            <div class="text-center"><%= paginate @filter_groups %></div>
+          </div>
         </div>
       </div>
     </div>
