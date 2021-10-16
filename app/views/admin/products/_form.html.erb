@@ -4,19 +4,21 @@
 </div>
 <% end %>
 <div class="container-fluid">
-    <%= simple_form_for @product, url: url, method: method do |form| %>
-        <%=form.hidden_field :owner_id %>
-        <%=form.hidden_field :owner_type %>
-        <%= render "shared/products/photos", form: form %>
-        <%= render "shared/products/seo_content", form: form %>
-        <%= render "shared/products/google_shopping", form: form %>
-        <%= render "shared/products/ebay_details", form: form %>
-        <%= render "shared/products/listing_details", form: form %>
-        <%= render "shared/products/pricing_and_quantity", form: form %>
-        <%= render "shared/products/delivery_details", form: form %>
-        <%= render "shared/products/product_actions_bar", form: form %>
-    <% end %>
-    <%= render "shared/products/add_new_delivery_option" %>
+    <div class="formme">
+        <%= simple_form_for @product, url: url, method: method do |form| %>
+            <%=form.hidden_field :owner_id %>
+            <%=form.hidden_field :owner_type %>
+            <%= render "shared/products/photos", form: form %>
+            <%= render "shared/products/seo_content", form: form %>
+            <%= render "shared/products/google_shopping", form: form %>
+            <%= render "shared/products/ebay_details", form: form %>
+            <%= render "shared/products/listing_details", form: form %>
+            <%= render "shared/products/pricing_and_quantity", form: form %>
+            <%= render "shared/products/delivery_details", form: form %>
+            <%= render "shared/products/product_actions_bar", form: form %>
+        <% end %>
+        <%= render "shared/products/add_new_delivery_option" %>
+    </div>
 </div>
 <script>
     $(document).ready(function(){

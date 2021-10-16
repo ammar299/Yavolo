@@ -33,8 +33,16 @@
   width: auto !important;
 }
 
-
-
+.formme {
+  position: relative;
+  padding-bottom: 150px;
+}
+.bottom-mee {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
 
 body::-webkit-scrollbar {
   width: 4px;

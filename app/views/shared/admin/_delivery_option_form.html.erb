@@ -1,42 +1,44 @@
-<%= simple_form_for delivery_option, url: url,  data: { remote: true } do |f| %>
-  <%= render '/shared/admin/delivery_option_errors', delivery_option: @delivery_option %>
-  <div class="form-group form-group-vertical flex-wrap">
-    <%= f.label :name, 'Delivery Option Name', class: 'text-left pr-3 w-100' %>
-    <%= f.text_field :name, class: 'form-control' %>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <div class="form-group form-group-vertical flex-wrap">
-        <%= f.label :processing_time, 'Processing time*', class: 'text-left pr-3 w-100' %>
-        <%= f.select :processing_time, select_processing_time, { prompt: 'how long will each order take to process?' }, required: true, class: 'form-control' %>
-      </div>
+<div class="pricing-quality box-border yo-white-card">
+  <%= simple_form_for delivery_option, url: url,  data: { remote: true } do |f| %>
+    <%= render '/shared/admin/delivery_option_errors', delivery_option: @delivery_option %>
+    <div class="form-group form-group-vertical flex-wrap">
+      <%= f.label :name, 'Delivery Option Name', class: 'text-left pr-3 w-100' %>
+      <%= f.text_field :name, class: 'form-control' %>
     </div>
-    <div class="col-md-6">
-      <div class="form-group form-group-vertical flex-wrap">
-        <%= f.label :delivery_time, 'Delivery time*', class: 'text-left pr-3 w-100' %>
-        <%= f.select :delivery_time, select_delivery_time, { prompt: 'how long will each order take to deliver?' }, required: true, class: 'form-control' %>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-6">
-      <div class="form-group form-group-vertical flex-wrap">
-        <label for="exampleInputPassword1" class="text-left pr-3 w-100 pb-0">Where can you ship to?</label>
-      </div>
-      <%= collection_check_boxes(:delivery_option, 'ship_ids', Ship.all, :id, :name) do |b| %>
-        <div class="d-flex align-items-center justify-content-between mb-2 mainlang-list">
-          <label class="checkbox-blk">
-            <%= b.check_box checked: (b.value == 1)? true : checked_delivery_ship?(@delivery_option, b.value) %>
-            <span class="checkmark"></span>
-            <%= b.label %>
-          </label>
-          <%= text_field_tag 'ship_price[]', b.value == 1? 40.00 : delivery_ship_price(@delivery_option.id, b.value), readonly: (b.value == 1), class: 'field-me' %>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group form-group-vertical flex-wrap">
+          <%= f.label :processing_time, 'Processing time*', class: 'text-left pr-3 w-100' %>
+          <%= f.select :processing_time, select_processing_time, { prompt: 'how long will each order take to process?' }, required: true, class: 'form-control' %>
         </div>
-      <% end %>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group form-group-vertical flex-wrap">
+          <%= f.label :delivery_time, 'Delivery time*', class: 'text-left pr-3 w-100' %>
+          <%= f.select :delivery_time, select_delivery_time, { prompt: 'how long will each order take to deliver?' }, required: true, class: 'form-control' %>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="text-right">
-    <%= f.submit 'Save Template', class: 'btn btn-radius px-4 btn-primary' %>
-  </div>
-<% end %>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group form-group-vertical flex-wrap">
+          <label for="exampleInputPassword1" class="text-left pr-3 w-100 pb-0">Where can you ship to?</label>
+        </div>
+        <%= collection_check_boxes(:delivery_option, 'ship_ids', Ship.all, :id, :name) do |b| %>
+          <div class="d-flex align-items-center justify-content-between mb-2 mainlang-list">
+            <label class="checkbox-blk">
+              <%= b.check_box checked: (b.value == 1)? true : checked_delivery_ship?(@delivery_option, b.value) %>
+              <span class="checkmark"></span>
+              <%= b.label %>
+            </label>
+            <%= text_field_tag 'ship_price[]', b.value == 1? 40.00 : delivery_ship_price(@delivery_option.id, b.value), readonly: (b.value == 1), class: 'field-me' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="text-right">
+      <%= f.submit 'Save Template', class: 'btn btn-radius px-4 btn-primary' %>
+    </div>
+  <% end %>
+</div>
