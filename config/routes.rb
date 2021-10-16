@@ -71,7 +71,8 @@ Rails.application.routes.draw do
 
         resources :filter_groups do
           collection do
-            delete 'destroy_multiple'
+            get    :confirm_multiple_deletion
+            delete :delete_filter_groups
           end
           member do
             get :confirm_delete
