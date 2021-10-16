@@ -1,2 +1,2 @@
-$('#delete-delivery-options').html("<%= j render(partial: 'carrier_confirmation_modal', locals: { carrier: @carrier }) %>");
-$('#delivery-option-carrier-delete-confirmation-modal').modal('show');
+$('.delete-modal-body').html("<%= j render(partial: 'carrier_confirmation_modal', locals: { carrier: @carrier }) %>");
+$('#delete-confirmation-modal').modal('show');
