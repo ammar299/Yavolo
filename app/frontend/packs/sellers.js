@@ -1,7 +1,29 @@
 $(document).ready(function(){
   console.log('sellers js is loaded');
   sellerSearchByFilter();
+  $("#check-all-checkboxes").click(function () {
+    if ($(this).is(':checked')) {
+      $('input:checkbox').not(this).prop('checked', true);
+    }
+    else {
+      $('input:checkbox').not(this).prop('checked', false);
+    }
+  });
 });
+
+
+// $('#check-all-checkboxes').click(function () {
+//   debugger
+//   if (this.checked) {
+//       $(':checkbox').each(function() {
+//           this.checked = true;                        
+//       });
+//   } else {
+//      $(':checkbox').each(function() {
+//           this.checked = false;                        
+//       });
+//   } 
+// });
 
 function sellerSearchByFilter(){
   var $sellerDropDown = $('.seller-search-dropdown');
