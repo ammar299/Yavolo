@@ -86,7 +86,7 @@
         </thead>
         <tbody>
           <% @sellers.each do |seller| %>
-            <tr>
+            <tr id="seller-row-<%= seller.id %>">
               <td>
                 <div class="multiple-update-sellers">
                   <label class="checkbox-blk">
@@ -101,14 +101,14 @@
               <td>Show the last sale date</td>
               <td>Show the number of active listings</td>
               <td>Show the total sales</td>
-              <td><%= seller.account_status %></td>
+              <td class="account-status"><%= seller.account_status %></td>
               <td>show the health status</td>
-              <td class="text-center">
+              <td class="text-center actions">
                 <div class="all-seller-btn">
-                  <%= link_to 'Approve', confirm_update_seller_admin_seller_path(seller, param_to_update: 'approve'), remote: true, class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1' %>
+                  <div id="seller-action-btns">
+                    <%= render 'admin/sellers/seller_actions', seller: seller %>
+                  </div>
                   <%= link_to 'Edit', admin_seller_path(seller), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1' %>
-                  <%= link_to 'Suspend', confirm_update_seller_admin_seller_path(seller, param_to_update: 'suspend'), remote: true, class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1' %>
-                  <%= link_to 'Re Activate', confirm_update_seller_admin_seller_path(seller, param_to_update: 'activate'), remote: true, class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1' %>
                   <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-1">Contact</a>
                   <a href="#" class="btn btn-sm btn-radius px-4 btn-danger">View Products</a>
                 </div>

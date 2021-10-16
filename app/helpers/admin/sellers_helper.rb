@@ -36,6 +36,18 @@ module Admin::SellersHelper
     end
   end
 
+  def actions_to_show(seller)
+    if seller.account_status == 'pending' || seller.account_status == 'rejected'
+       return ['approve']
+    elsif seller.account_status == 'approve'
+      return ['activate','suspend']
+    elsif seller.account_status == 'suspend'
+      return ['activate']
+      elsif seller.account_status == 'activate'
+        return ['suspend']
+    end
+  end
+
   def seller_api_status(seller_api, status_type)
     if seller_api.status.present?
       if seller_api.status == status_type

@@ -3,7 +3,7 @@ class Admin::SellersController < Admin::BaseController
 
     def index
       @q = Seller.ransack(params[:q])
-      @sellers = @q.result(distinct: true).page(params[:page]).per(params[:per_page].presence || 15)
+      @sellers = @q.result(distinct: true).order('created_at').page(params[:page]).per(params[:per_page].presence || 15)
     end
 
     def new
@@ -62,6 +62,7 @@ class Admin::SellersController < Admin::BaseController
         if params[:field_to_update] == 'delete'
           @seller.destroy
         else
+          @previous = @seller.account_status
           @seller.update(account_status: params[:field_to_update])
         end
       end
