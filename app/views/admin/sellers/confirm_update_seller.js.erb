@@ -1,0 +1,9 @@
+<% if params[:param_to_update].present? && params[:param_to_update] == 'approve' %>
+<% text = 'Are you sure you want to approve this seller?' %>
+<% elsif params[:param_to_update].present? && params[:param_to_update] == 'suspend' %>
+<% text = 'Are you sure you want to suspend this seller?' %>
+<% elsif params[:param_to_update].present? && params[:param_to_update] == 'activate' %>
+<% text = 'Are you sure you want to activate this seller?' %>
+<% end %>
+$('#seller-actions').html("<%= j render(partial: 'admin/sellers/update_seller_confirmation_modal', locals: { seller: @seller, text: text }) %>");
+$('#confirm-seller-actions-modal').modal('show');

@@ -1,0 +1,8 @@
+<% unless @seller.errors.count > 0 %>
+  debugger
+  $('#seller-row-<%= @seller.id %>').find(".account-status").text("<%= @seller.account_status %>");
+  $("#seller-row-<%= @seller.id %> #seller-action-btns").html("<%= j render 'admin/sellers/seller_actions', seller: @seller %>");
+  $('#confirm-seller-actions-modal').modal('hide');
+<% else %>
+  $('#error-message').html("<%= @seller.errors.full_messages.join('<br/>').html_safe %>");
+<% end %>

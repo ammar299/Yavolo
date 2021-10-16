@@ -1,10 +1,4 @@
 <tr class="filter-group-<%= fg.id %>">
-  <td>
-    <label class="checkbox-blk">
-      <input type="checkbox">
-      <span class="checkmark"></span>
-    </label>
-  </td>
   <td><%= fg.name %></td>
   <td><%= fg.filter_group_type %></td>
   <td><%= fg.filter_in_categories.pluck(:filter_name).join(",") %></td>

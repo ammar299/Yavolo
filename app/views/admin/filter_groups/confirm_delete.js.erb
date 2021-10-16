@@ -1,2 +1,2 @@
-$('.delete-filter-group').append("<%= j render(partial: 'filter_group_confirmation_modal', locals: { filter_group: @filter_group }) %>");
-$('#filter-group-delete-confirmation-modal').modal('show');
+$('.delete-modal-body').html("<%= j render(partial: 'filter_group_confirmation_modal', locals: { filter_group: @filter_group }) %>");
+$('#delete-confirmation-modal').modal('show');

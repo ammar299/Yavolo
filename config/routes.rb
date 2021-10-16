@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :admins, controllers: { sessions: 'admin/sessions', passwords: 'admin/passwords' }
-  devise_for :sellers, controllers: { registrations: 'sellers/auth/registrations', sessions: 'sellers/auth/sessions', omniauth_callbacks: 'sellers/auth/omniauth' }
-  devise_for :buyers, controllers: { registrations: 'buyers/auth/registrations', sessions: 'buyers/auth/sessions' }
+  devise_for :sellers, controllers: { registrations: 'sellers/auth/registrations', sessions: 'sellers/auth/sessions', omniauth_callbacks: 'sellers/auth/omniauth', passwords: 'sellers/auth/passwords'}
+  devise_for :buyers, controllers: { registrations: 'buyers/auth/registrations', sessions: 'buyers/auth/sessions', passwords: 'buyers/auth/passwords' }
 
   devise_scope :admin do
     authenticated :admin do
@@ -29,6 +29,8 @@ Rails.application.routes.draw do
             patch :update_addresses
             patch :update_seller_logo
             delete :remove_logo_image
+            get :confirm_update_seller
+            patch :update_seller
           end
           post :update_seller_api
           post :refresh_seller_api
@@ -69,7 +71,8 @@ Rails.application.routes.draw do
 
         resources :filter_groups do
           collection do
-            delete 'destroy_multiple'
+            get    :confirm_multiple_deletion
+            delete :delete_filter_groups
           end
           member do
             get :confirm_delete

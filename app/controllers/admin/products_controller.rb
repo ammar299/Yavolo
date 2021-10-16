@@ -15,7 +15,7 @@ class Admin::ProductsController < Admin::BaseController
       @products = @products.page(params[:page]).per(params[:per_page].presence || 15)
     else
       @q = Product.ransack(params[:q])
-      @products = @q.result(distinct: true).page(params[:page]).per(params[:per_page].presence || 15)      
+      @products = @q.result(distinct: true).page(params[:page]).per(params[:per_page].presence || 15)
     end
     # @products = Product.order(:title).page(params[:page]).per(params[:per_page].presence || 15)
   end

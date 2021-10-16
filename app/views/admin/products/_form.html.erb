@@ -5,13 +5,6 @@
 <% end %>
 <div class="container-fluid">
     <%= simple_form_for @product, url: url, method: method, html: { id: 'product_form' } do |form| %>
-    <% if @product.errors.any? %>
-            <ul>
-            <% @product.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-            <% end %>
-            </ul>
-        <% end %>
         <%=form.hidden_field :owner_id %>
         <%=form.hidden_field :owner_type %>
         <%= render "shared/products/photos", form: form %>

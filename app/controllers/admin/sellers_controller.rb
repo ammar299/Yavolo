@@ -1,9 +1,9 @@
 class Admin::SellersController < Admin::BaseController
-    before_action :set_seller, only: %i[show edit update update_business_representative update_company_detail update_addresses update_seller_logo remove_logo_image]
+    before_action :set_seller, only: %i[show edit update update_business_representative update_company_detail update_addresses update_seller_logo remove_logo_image confirm_update_seller update_seller]
 
     def index
       @q = Seller.ransack(params[:q])
-      @sellers = @q.result(distinct: true).page(params[:page]).per(params[:per_page].presence || 15)
+      @sellers = @q.result(distinct: true).order('created_at').page(params[:page]).per(params[:per_page].presence || 15)
     end
 
     def new
@@ -55,6 +55,17 @@ class Admin::SellersController < Admin::BaseController
       @seller.update(seller_params)
       @address_type = params[:seller][:addresses_attributes]["0"][:address_type]
       @address = @seller.addresses.where(address_type: @address_type).last
+    end
+
+    def update_seller
+      if params[:field_to_update].present?
+        if params[:field_to_update] == 'delete'
+          @seller.destroy
+        else
+          @previous = @seller.account_status
+          @seller.update(account_status: params[:field_to_update])
+        end
+      end
     end
 
     def update_multiple
