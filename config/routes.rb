@@ -11,6 +11,7 @@ Rails.application.routes.draw do
         root 'dashboard#index', as: :dashboard
         resources :delivery_options, except: %i[show] do
           collection do
+            get    :confirm_multiple_deletion
             delete :delete_delivery_options
           end
           member do
@@ -32,6 +33,7 @@ Rails.application.routes.draw do
 
         resources :carriers, except: %i[index show] do
           collection do
+            get    :confirm_multiple_deletion
             delete :delete_carriers
           end
           member do

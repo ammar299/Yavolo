@@ -1,0 +1,9 @@
+$('#delete-delivery-options').html("<%= j render(partial: 'delivery_options_confirmation_modal') %>");
+selected_delivery_options = []
+$('.delivery-options-checkbox-container input[type=checkbox]:checked').each(function() {
+  selected_delivery_options.push($(this).val())
+});
+
+if (selected_delivery_options.length > 0) {
+  $('#delivery-option-carrier-delete-confirmation-modal').modal('show');
+}
