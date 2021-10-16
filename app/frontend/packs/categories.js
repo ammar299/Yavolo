@@ -16,11 +16,18 @@ $(document).ready(function () {
         }
     });
 
+    $('body').on('click', '#category-description-form .remove_category_image', function (e) {
+        e.preventDefault();
+        const url = $(this).attr('href')
+        $("#delete-confirmation-modal .confirm-delete-btn").attr("href", url).attr('data-remote', true)
+        $('#delete-confirmation-modal').modal('show');
+    });
+
     $(".delete-category-action-btn").click(function (e) {
         e.preventDefault();
         const id = $(".categories-checkbox-container .category-input:checked").attr('name')
         if (!id) return;
-        $("#delete-confirmation-modal .confirm-delete-btn").attr("href", `/admin/categories/${id}`)
+        $("#delete-confirmation-modal .confirm-delete-btn").attr("href", `/admin/categories/${id}`).attr('data-remote', false)
         $('#delete-confirmation-modal').modal('show');
     })
 });
