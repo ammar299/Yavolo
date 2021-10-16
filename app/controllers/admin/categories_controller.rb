@@ -8,8 +8,7 @@ class Admin::CategoriesController < Admin::BaseController
 
   def new
     @category = Category.new
-    @selected_cat_id = params[:selected_cat_id] if params[:selected_cat_id].present?
-    @is_subcategory = params[:is_subcategory] if params[:selected_cat_id].present?
+    @is_subcategory = params[:is_subcategory] if params[:is_subcategory].present?
   end
 
   def create
@@ -24,9 +23,6 @@ class Admin::CategoriesController < Admin::BaseController
         @category.parent = parent
         @category.save
       end
-      redirect_to admin_categories_path
-    else
-      render :new
     end
   end
 

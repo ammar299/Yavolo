@@ -3,7 +3,10 @@
     <div class="col-lg-12">
       <div class="product-catagory-inner yo-white-card box-border">
         <h5>Content</h5>
-        <%= form_with(model: [:admin,@category], id: "category-description-form", local: false) do |f| %>
+        <%= form_with(model: [:admin, @category], id: "category-description-form", local: false) do |f| %>
+          <div class="resource-errors-container"></div>
+          <input type="hidden" id="selected_cat_id" name="selected_cat_id" value="" >
+          <input type="hidden" id="is_subcategory" name="is_subcategory" value="" >
           <div class="form-group form-group-vertical form-group-vertical-responsive">
             <%= f.label :category_name, "Category Name / H1 Tag" %>
             <%= f.text_field :category_name, class: "form-control" %>
@@ -31,7 +34,6 @@
               <div class="pr-3">
                 <label class="checkbox-blk">Ya
                   <%= f.radio_button :bundle_label, "ya" %>
-                  <input type="radio" name="1">
                   <span class="checkmark"></span>
                 </label>
               </div>
@@ -85,10 +87,10 @@
                 <div class="row">
                   <div class="col-md-12 my-2 d-flex align-items-end flex-wrap">
 																<span>
-                                  <%= image_tag f.object.picture.name.url, class:"product-content-img" %>
+                                  <%= image_tag f.object.picture.name.url, class: "product-content-img" %>
 																</span>
-                    <small class="mx-3"><%= link_to "Remove Image", remove_image_admin_category_path(@category) ,method: :delete,
-                                                    data: { confirm: 'Are you sure?', remote: true }, class: "btn btn-sm btn-radius px-4 btn-secondary w-100" %></small>
+                    <small class="mx-3"><%= link_to "Remove Image", remove_image_admin_category_path(@category), method: :delete,
+                                                    data: {confirm: 'Are you sure?', remote: true}, class: "btn btn-sm btn-radius px-4 btn-secondary w-100" %></small>
                   </div>
                 </div>
               </div>
@@ -108,3 +110,12 @@
     </div>
   </div>
 </section>
+
+<script>
+    $(document).ready(function(){
+
+        ClassicEditor.create( document.querySelector( '#category_category_description' ) ).catch( error => {
+            console.error( error );
+        } );
+    })
+</script>
