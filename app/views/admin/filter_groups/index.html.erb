@@ -16,7 +16,7 @@
             aria-expanded="false">Action <i class="fa fa-angle-down ml-3"
             aria-hidden="true"></i></a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item active disabled" href="#" id="delete-filter-groups"> Delete <i class="fa fa-check" aria-hidden="true"></i></a>
+              <%= link_to 'Delete', confirm_multiple_deletion_admin_filter_groups_path, class: 'dropdown-item active', data: { remote: true } %>
               <a class="dropdown-item" href="#">Assign to category <i class="fa fa-check"
                 aria-hidden="true"></i></a>
               </div>
@@ -100,10 +100,16 @@
       <h3>Filter Groups</h3>
       <div class="Yavolo-table">
         <table class="table">
-          <%= form_tag destroy_multiple_admin_filter_groups_path , method: :delete, id: 'select-filter-groups' do %>
           <thead>
             <tr></th>
-              <th data-sort-ignore="true"><input type="checkbox" id="selectAll"></input></th>
+              <th>
+                <div class="checkbox-container filter-groups-select-all-container">
+                  <label class="checkbox-blk">
+                    <input type="checkbox" class="filter-group" id="filter-group-select-all" name="select-all" value="select-all">
+                    <span class="checkmark checkmark-white"></span>
+                  </label>
+                </div>
+              </th>
               <th>Type</th>
               <th>Name</th>
               <th>Number Of Filter Groups</th>
@@ -115,7 +121,14 @@
           <tbody>
             <% @filter_groups.each do |filter_group|%>
             <tr>
-              <td id="all-checkboxes"><%= check_box_tag "filter_group_ids[]", filter_group.id, false, class: 'checkbox' %></td>
+              <td>
+                <div class="checkbox-container filter-groups-checkbox-container">
+                  <label class="checkbox-blk">
+                    <input type="checkbox" value="<%= filter_group.id %>">
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+              </td>
               <td><%= filter_group.filter_group_type if filter_group.filter_group_type.present? %></td>
               <td><%= filter_group.name %></td>
               <td><%= filter_group.filter_in_categories.count %></td>
@@ -128,7 +141,6 @@
           </tbody>
         </table>
       </div>
-      <% end %>
       <div class="row">
         <div class="col-md-6 mx-auto">
           <%= paginate @filter_groups%>
@@ -137,3 +149,6 @@
     </div>
   </div>
 </div>
+
+<!-- Filter Groups Confirmation Deletion Modal -->
+<%= render 'shared/admin/confirmation_deletion_modal' %>
