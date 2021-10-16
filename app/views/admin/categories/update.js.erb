@@ -1,8 +1,11 @@
 <% if @category.errors.any? %>
-$(".resource-errors-container").html("<%= j render("shared/resource_form_errors", resource: @category) %>")
-<% end %>
-<% if @category.baby_category? %>
-$(".sub-category-link").addClass('disabled');
+  $(".resource-errors-container").html("<%= j render("shared/resource_form_errors", resource: @category) %>")
 <% else %>
-$(".sub-category-link").removeClass('disabled');
+  <% if @category.baby_category? %>
+      $(".sub-category-link").addClass('disabled');
+      // Remove all children from left category tree
+      $(".categories-checkbox-container .category-input:checked").closest('li').children('ul').remove()
+  <% else %>
+      $(".sub-category-link").removeClass('disabled');
+  <% end %>
 <% end %>
