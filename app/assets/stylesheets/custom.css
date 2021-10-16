@@ -43,6 +43,26 @@
   right: 0;
   left: 0;
 }
+.ck.ck-editor {
+  margin-bottom: 10px !important;
+  flex: 1;
+  overflow: hidden;
+}
+
+.btn-outline-primary.disabled, .btn-outline-primary:disabled {
+    color: var(--dark-red);
+    background-color: transparent;
+}
+
+.pluse-btn {
+  background-color: transparent;
+  border: 0;
+}
+
+.checkbox-blk-box.checkbox-blk .checkmark:after {
+    width: 12px !important;
+    height: 12px !important;
+}
 
 body::-webkit-scrollbar {
   width: 4px;
