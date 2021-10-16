@@ -1,0 +1,5 @@
+<% unless @seller.errors.count > 0 %>
+$('#confirm-seller-actions-modal').modal('hide');
+<% else %>
+  $('#error-message').html("<%= @seller.errors.full_messages.join('<br/>').html_safe %>");
+<% end %>
