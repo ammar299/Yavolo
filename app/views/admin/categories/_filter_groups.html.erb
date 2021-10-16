@@ -1,0 +1,51 @@
+<div class="product-catagory-inner yo-white-card box-border">
+  <h5>Filter Groups and Variations</h5>
+  <%= form_tag("/admin/categories/#{@category.id}/add_filter_group_association", method: :put, local: false, remote: true) do |f| %>
+    <div class="form-group form-group-vertical align-items-center form-group-vertical-responsive">
+      <label for="exampleInputPassword1" class="text-left pr-3">Filter Groups and Variations Assigned to
+        Category</label>
+      <select class="form-control" name="filter_group_id">
+        <option value="">Select filter group</option>
+        <% @category.filter_groups_and_variation_tab_filters_groups_for_select_tag.each do |fg| %>
+          <option value="<%= fg.id %>"><%= fg.name %></option>
+        <% end %>
+
+      </select>
+      <%= submit_tag "+", class: "pl-3 pluse-btn add-filter-association-btn" %>
+    </div>
+  <% end %>
+  <div class="Yavolo-table">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>
+          <label class="checkbox-blk" checkbox-blk-box>
+            <input type="checkbox">
+            <span class="checkmark checkmark-white"></span>
+          </label>
+        </th>
+        <th>Name</th>
+        <th>type</th>
+        <th>filters</th>
+        <th>sort order</th>
+        <th class="text-center" width="10%">Actions</th>
+      </tr>
+      </thead>
+      <tbody class="filter-group-items-container">
+      <% @category.filter_groups_and_variation_tab_filters_groups.each do |fg| %>
+        <%= render 'filter_group_item', fg: fg %>
+      <% end %>
+
+      </tbody>
+    </table>
+  </div>
+  <form action="">
+    <div class="form-group form-group-vertical align-items-center form-group-vertical-responsive">
+      <label for="exampleInputPassword1" class="text-left pr-3">Linking Filter</label>
+      <select class="form-control">
+        <option>ArvindPanchmatia@gmail.co.uk</option>
+      </select>
+      <a href="#" class="pl-3 pluse-btn plus-btn-hide">+</a>
+    </div>
+  </form>
+</div>

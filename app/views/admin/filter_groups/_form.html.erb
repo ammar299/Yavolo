@@ -13,21 +13,21 @@
     <div class="d-flex">
       <div class="pr-3">
         <%= f.label :filter_group_type, for: 'filter_group_filter_group_type_0',class: 'checkbox-blk' do %>
-        <%= f.radio_button :filter_group_type, '0', checked: true, class: 'filter-group-radio' %>
+        <%= f.radio_button :filter_group_type, '0', checked: f.object.global?, class: 'filter-group-radio' %>
         <span class="checkmark"></span>
         Global
         <% end %>
       </div>
       <div>
         <%= f.label :filter_group_type, for: 'filter_group_filter_group_type_1',class: 'checkbox-blk' do %>
-        <%= f.radio_button :filter_group_type, '1', class: 'filter-group-radio' %>
+        <%= f.radio_button :filter_group_type, '1',checked: f.object.local?, class: 'filter-group-radio' %>
         <span class="checkmark"></span>
         Local
         <% end %>
       </div>
     </div>
   </div>
-  <div id="global-check" style="display:none">
+  <div id="global-check" style="display:<%= f.object.local? ? "block" : "none"  %>">
     <h6><strong>Add Catagory Which Show Filter Group</strong></h6>
     <%= f.fields_for :filter_categories do |filter_category| %>
     <%= render 'filter_category_fields', :f => filter_category %>

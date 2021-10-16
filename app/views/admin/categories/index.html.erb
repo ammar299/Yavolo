@@ -1,2 +1,21 @@
-<h1>Categories</h1>
-<%= render 'categories', categories: @categories %>
+<div class="container-fluid">
+  <%= render 'category_action_btns' %>
+  <div class="row ac-setting-tabs">
+    <%= render 'categories_tree' %>
+
+    <!--    Data will be added to below wrapper using ajax-->
+    <div class="col-md-8 category-details-wrapper"></div>
+  </div>
+</div>
+
+<style>
+  .categories-tree-body ul{
+    display: none;
+  }
+
+  .categories-tree-body ul.active{
+    display: block;
+  }
+
+
+</style>

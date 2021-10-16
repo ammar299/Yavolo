@@ -22,6 +22,7 @@ import "controllers"
 require("jquery")
 require("@nathanvda/cocoon")
 require('packs/admin')
+require('packs/categories')
 require('packs/delivery_options')
 require('packs/filter_groups')
 require('packs/products')

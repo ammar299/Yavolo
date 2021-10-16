@@ -42,3 +42,5 @@ yarn-debug.log*
 #Ignore environment variables
 .env
 /public/uploads
+.generators
+.ruby-gemset

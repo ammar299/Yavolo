@@ -1,7 +1,7 @@
-<%=notice%>
-<div class="">
+<%= notice %>
+<div>
   <%= link_to 'Create Category', new_admin_category_path, class: 'btn btn-primary btn-text-color ml-3' %>
-  <%= link_to 'Create Sub Category', new_admin_category_path , :class => "btn btn-primary sub-category-link  btn-text-color ml-3 disabled" %>
+  <%= link_to 'Create Sub Category', admin_categories_path(is_subcategory:true) , :class => "btn btn-primary sub-category-link  btn-text-color ml-3 disabled" %>
 </div>
 <div class="">
   <table class="table">

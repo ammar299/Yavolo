@@ -22,7 +22,7 @@ Rails.application.routes.draw do
           collection do
             get :update_multiple
           end
-          member do 
+          member do
             patch :update_business_representative
             patch :update_company_detail
             patch :update_addresses
@@ -33,7 +33,15 @@ Rails.application.routes.draw do
           post :refresh_seller_api
           patch :update_seller_api
         end
-        resources :categories
+
+        resources :categories do
+          member do
+            get :category_details
+            delete :remove_filter_group_association
+            delete :remove_image
+            put :add_filter_group_association
+          end
+        end
 
         resources :carriers, except: %i[index show] do
           collection do

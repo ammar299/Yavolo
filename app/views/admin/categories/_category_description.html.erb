@@ -1,0 +1,110 @@
+<section class="product-catagory">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="product-catagory-inner yo-white-card box-border">
+        <h5>Content</h5>
+        <%= form_with(model: [:admin,@category], id: "category-description-form", local: false) do |f| %>
+          <div class="form-group form-group-vertical form-group-vertical-responsive">
+            <%= f.label :category_name, "Category Name / H1 Tag" %>
+            <%= f.text_field :category_name, class: "form-control" %>
+          </div>
+          <div class="filter-type d-flex align-items-center flex-wrap">
+            <div class="form-group form-group-vertical form-group-vertical-responsive">
+              <%= f.label :baby_category, class: "text-left pr-3" %>
+            </div>
+            <div class="d-flex">
+              <div class="pr-3">
+                <label class="checkbox-blk">
+                  <%= f.check_box :baby_category %>
+                  <span class="invisible">no text</span>
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-type d-flex align-items-center flex-wrap">
+            <div class="form-group form-group-vertical form-group-vertical-responsive">
+              <%= f.label :bundle_label, class: "text-left pr-3" %>
+            </div>
+            <div class="d-flex flex-wrap">
+              <div class="pr-3">
+                <label class="checkbox-blk">Ya
+                  <%= f.radio_button :bundle_label, "ya" %>
+                  <input type="radio" name="1">
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+              <div class="pr-3">
+                <label class="checkbox-blk">Volo
+                  <%= f.radio_button :bundle_label, "volo" %>
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+              <div>
+                <label class="checkbox-blk">Ya/Volo
+                  <%= f.radio_button :bundle_label, "yavolo" %>
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group form-group-vertical form-group-vertical-responsive">
+            <%= f.label :category_id_string, "Category ID" %>
+            <%= f.text_field :category_id_string, class: "form-control", readonly: true %>
+          </div>
+
+          <div class="form-group form-group-vertical form-group-vertical-responsive">
+            <%= f.label :url %>
+            <%= f.text_field :url, class: "form-control", readonly: true %>
+          </div>
+
+          <div class="filter-type d-flex align-items-center flex-wrap">
+
+            <div class="form-group form-group-vertical form-group-vertical-responsive">
+              <%= f.label :picture, "Category banner image", class: "text-left pr-3" %>
+            </div>
+            <div class="row search-field-flex">
+              <div class="col-lg-8 mb-1">
+                <%= f.fields_for :picture, Picture.new do |picture| %>
+                  <%= picture.file_field :name, name: "category[picture_attributes][name]", class: "btn btn-radius px-4 w-100" %>
+                <% end %>
+                <%#= f.file_field :picture, class: "btn btn-radius px-4 w-100" %>
+                <small>Maximum file size: 2MB. Allowed file types: JPEG, PNG, GIF</small>
+              </div>
+            </div>
+          </div>
+
+          <% if !f.object.new_record? && f.object.picture.present? %>
+            <div class="filter-type d-flex align-items-center flex-wrap category-image-container">
+              <div class="form-group form-group-vertical">
+                <label for="exampleInputPassword1" class="text-left pr-3"></label>
+              </div>
+              <div class="search-field-flex">
+                <div class="row">
+                  <div class="col-md-12 my-2 d-flex align-items-end flex-wrap">
+																<span>
+                                  <%= image_tag f.object.picture.name.url, class:"product-content-img" %>
+																</span>
+                    <small class="mx-3"><%= link_to "Remove Image", remove_image_admin_category_path(@category) ,method: :delete,
+                                                    data: { confirm: 'Are you sure?', remote: true }, class: "btn btn-sm btn-radius px-4 btn-secondary w-100" %></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+
+          <div class="form-group form-group-vertical form-group-vertical-responsive">
+            <%= f.label :category_description %>
+            <%= f.text_area :category_description, class: "form-control" %>
+          </div>
+
+          <div class="form-group form-group-vertical form-group-vertical-responsive">
+            <%= f.submit :Save, class: "form-control w-30" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

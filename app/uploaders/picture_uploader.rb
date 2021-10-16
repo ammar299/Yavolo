@@ -30,9 +30,9 @@ class PictureUploader < CarrierWave::Uploader::Base
     output = `file --mime-type #{file.file}`
     if uploader_name == "name"
       extention = output.split(':').last
-      valid_extention = ['jpg','jpeg','png'].select{|ext| extention.include?(ext) }
+      valid_extention = ['jpg','jpeg','png','gif'].select{|ext| extention.include?(ext) }
       model.file_metadata.merge!({"#{uploader_name}" => { 'ext'=> extention, 'file_exist' => valid_extention.present? }})
-      %w(jpg jpeg png)
+      %w(jpg jpeg png gif)
     end
   end
 
