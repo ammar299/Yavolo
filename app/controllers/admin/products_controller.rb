@@ -3,19 +3,19 @@ class Admin::ProductsController < Admin::BaseController
     @q = Product.ransack(params[:q])
     if params[:q].present? && params[:q][:price_low_high_cont].present?
       @products = Product.where("price >= ?", params[:q][:price_low_high_cont].to_i).order("price asc")
-      @products= @products.page(params[:page]).per(params[:per_page].presence || 15)
+      @products= @products.page(params[:page]).per(params[:per_page].presence || 1)
     elsif params[:q].present? &&  params[:q][:price_high_low_cont].present?
       @products = Product.where("price <= ?", params[:q][:price_high_low_cont].to_i).order("price desc")
-      @products = @products.page(params[:page]).per(params[:per_page].presence || 15)
+      @products = @products.page(params[:page]).per(params[:per_page].presence || 1)
     elsif params[:q].present? &&  params[:q][:title_a_z_cont].present?
       @products = Product.order("title asc")
-      @products = @products.page(params[:page]).per(params[:per_page].presence || 15)
+      @products = @products.page(params[:page]).per(params[:per_page].presence || 1)
     elsif params[:q].present? &&  params[:q][:title_a_z_cont].present?
       @products = Product.order("title desc")
-      @products = @products.page(params[:page]).per(params[:per_page].presence || 15)
+      @products = @products.page(params[:page]).per(params[:per_page].presence || 1)
     else
       @q = Product.ransack(params[:q])
-      @products = @q.result(distinct: true).page(params[:page]).per(params[:per_page].presence || 15)      
+      @products = @q.result(distinct: true).page(params[:page]).per(params[:per_page].presence || 1)
     end
     # @products = Product.order(:title).page(params[:page]).per(params[:per_page].presence || 15)
   end
