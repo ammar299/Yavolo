@@ -1,5 +1,16 @@
 // load all products related js here
 $(document).ready(function(){
+  // on product form submit event
+  $('#product_form').submit(function(e){
+    if(!validProductForm()){
+      e.preventDefault();
+      $([document.documentElement, document.body]).animate({
+        scrollTop: $("#listing-details").offset().top
+      }, 2000);
+      return;
+    }
+  });
+
   productSearchByFilter();
   // bindDragAndDropPhotosEvents();
   if(document.getElementById('upload-csv-popup'))
@@ -224,4 +235,77 @@ function productSearchByFilter(){
       $productFilterTypeField.val('Search All');
     }
   });
+}
+
+
+function validProductForm(){
+  let has_errors = []
+
+  $("#product_title").parents('.form-group').find('small').remove();
+  if($("#product_title").val().length > 0){
+    $("#product_title").parents('.form-group').removeClass('error-field')
+    $("#product_title").parents('.form-group').find('small').remove();
+  }else{
+    has_errors.push(true)
+    $("#product_title").parents('.form-group').addClass('error-field')
+    $("#product_title").parents('.form-group').append('<small class="form-text">Title can\'t be blank</small>')
+  }
+
+  $("#product_price").parents('.form-group').find('small').remove();
+  if($("#product_price").val().length > 0){
+    $("#product_price").parents('.form-group').removeClass('error-field')
+    $("#product_price").parents('.form-group').find('small').remove();
+  }else{
+    has_errors.push(true)
+    $("#product_price").parents('.form-group').addClass('error-field')
+    $("#product_price").parents('.form-group').append('<small class="form-text">* Price can\'t be blank</small>')
+  }
+
+  $("#product_stock").parents('.form-group').find('small').remove();
+  if($("#product_stock").val().length > 0){
+    $("#product_stock").parents('.form-group').removeClass('error-field')
+    $("#product_stock").parents('.form-group').find('small').remove();
+  }else{
+    has_errors.push(true)
+    $("#product_stock").parents('.form-group').addClass('error-field')
+    $("#product_stock").parents('.form-group').append('<small class="form-text">* Stock can\'t be blank</small>')
+  }
+
+  if($("[name='product[delivery_option_id]']:checked").length > 0){
+    $('.d-option-id').hide();
+  }else{
+    has_errors.push(true)
+    $('.d-option-id').show();
+  }
+
+  $("#product_condition").parents('.form-group').find('small').remove();
+  if($('#product_condition').val().length > 0){
+    $("#product_condition").parents('.form-group').removeClass('error-field')
+    $("#product_condition").parents('.form-group').find('small').remove();
+  }else{
+    has_errors.push(true)
+    $("#product_condition").parents('.form-group').addClass('error-field')
+    $("#product_condition").parents('.form-group').append('<small class="form-text">* Condition can\'t be blank</small>')
+  }
+
+  $('#product_keywords').parents('.form-group').find('small').remove();
+  if($('#product_keywords').val().length > 0){
+    $('#product_keywords').parents('.form-group').removeClass('error-field')
+    $('#product_keywords').parents('.form-group').find('small').remove();
+  }else{
+    has_errors.push(true)
+    $('#product_keywords').parents('.form-group').addClass('error-field')
+    $('#product_keywords').parents('.form-group').append('<small class="form-text">* Keywords can\'t be blank</small>')
+  }
+
+  $('#product_description').parents('.form-group').find('small').remove();
+  if(disEditor.getData().length>0){
+    $('#product_description').parents('.form-group').removeClass('error-field')
+    $('#product_description').parents('.form-group').find('small').remove();
+  }else{
+    has_errors.push(true)
+    $('#product_description').parents('.form-group').addClass('error-field')
+    $('#product_description').parents('.form-group').append('<small class="form-text">* * Description can\'t be blank</small>')
+  }
+  return !has_errors.includes(true)
 }
