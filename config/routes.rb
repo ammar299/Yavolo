@@ -31,6 +31,7 @@ Rails.application.routes.draw do
             get :category_details
             delete :remove_filter_group_association
             delete :remove_image
+            put :add_filter_group_association
           end
         end
 

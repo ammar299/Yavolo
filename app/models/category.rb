@@ -30,4 +30,7 @@ class Category < ApplicationRecord
          self.filter_groups.includes(:filter_in_categories)].flatten.uniq
   end
 
+  def filter_groups_and_variation_tab_filters_groups_for_select_tag
+    (FilterGroup.all - filter_groups_and_variation_tab_filters_groups)
+  end
 end

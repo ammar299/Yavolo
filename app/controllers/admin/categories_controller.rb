@@ -1,6 +1,6 @@
 class Admin::CategoriesController < Admin::BaseController
 
-  before_action :set_category, only: %i[edit update destroy category_details remove_filter_group_association remove_image]
+  before_action :set_category, only: %i[edit update destroy category_details remove_filter_group_association remove_image add_filter_group_association]
 
   def index
     @categories = Category.all
@@ -52,7 +52,15 @@ class Admin::CategoriesController < Admin::BaseController
     if @filter_group.global?
       @category.category_excluded_filter_groups.create(filter_group: @filter_group)
     else
-      # TODO:// Remove from category association
+      @category.filter_categories.where(filter_group: @filter_group).first&.destroy
+    end
+  end
+
+  def add_filter_group_association
+    @filter_group = FilterGroup.find_by(id: params[:filter_group_id])
+    @association_present = @category.filter_categories.where(filter_group: @filter_group).present?
+    if @filter_group.present? && @association_present == false
+      @category.filter_categories.create(filter_group: @filter_group)
     end
   end
 

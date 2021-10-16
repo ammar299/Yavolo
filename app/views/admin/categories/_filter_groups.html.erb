@@ -1,15 +1,19 @@
 <div class="product-catagory-inner yo-white-card box-border">
   <h5>Filter Groups and Variations</h5>
-  <form action="">
+  <%= form_tag("/admin/categories/#{@category.id}/add_filter_group_association", method: :put, local: false, remote: true) do |f| %>
     <div class="form-group form-group-vertical align-items-center form-group-vertical-responsive">
       <label for="exampleInputPassword1" class="text-left pr-3">Filter Groups and Variations Assigned to
         Category</label>
-      <select class="form-control">
-        <option>Colour</option>
+      <select class="form-control" name="filter_group_id">
+        <option value="">Select filter group</option>
+        <% @category.filter_groups_and_variation_tab_filters_groups_for_select_tag.each do |fg| %>
+          <option value="<%= fg.id %>"><%= fg.name %></option>
+        <% end %>
+
       </select>
-      <a href="#" class="pl-3 pluse-btn">+</a>
+      <%= submit_tag "+", class: "pl-3 pluse-btn add-filter-association-btn" %>
     </div>
-  </form>
+  <% end %>
   <div class="Yavolo-table">
     <table class="table">
       <thead>
@@ -27,26 +31,10 @@
         <th class="text-center" width="10%">Actions</th>
       </tr>
       </thead>
-      <tbody>
+      <tbody class="filter-group-items-container">
       <% @category.filter_groups_and_variation_tab_filters_groups.each do |fg| %>
-        <tr class="filter-group-<%= fg.id %>">
-          <td>
-            <label class="checkbox-blk">
-              <input type="checkbox">
-              <span class="checkmark"></span>
-            </label>
-          </td>
-          <td><%= fg.name %></td>
-          <td><%= fg.filter_group_type %></td>
-          <td><%= fg.filter_in_categories.pluck(:filter_name).join(",") %></td>
-          <td>@mdo</td>
-          <td class="text-center">
-            <%= link_to "Remove", remove_filter_group_association_admin_category_path(@category,filter_group_id: fg.id) ,method: :delete,
-                        data: { confirm: 'Are you sure?', remote: true }, class: "btn btn-sm btn-radius px-4 btn-secondary w-100" %>
-          </td>
-        </tr>
+        <%= render 'filter_group_item', fg: fg %>
       <% end %>
-
 
       </tbody>
     </table>
