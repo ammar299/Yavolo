@@ -1,0 +1,7 @@
+<p class="pb-4 confirmation-text" id="updateable-text"> <%= text.present? ? text : 'Are you sure you want to perform this action on seller?' %> </p>
+<div class="carrier-btn text-right">
+  <div class="btn btn-sm btn-radius px-4 btn-primary mt-2" data-dismiss="modal">
+    No
+  </div>
+  <%= link_to 'Yes', admin_seller_refresh_seller_api_path(@seller.id, seller_api_id: seller_api.id), remote: true, method: :post, class: 'btn btn-sm btn-radius px-4 btn-primary mt-2 ml-2' %>
+</div>
