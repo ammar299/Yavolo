@@ -17,8 +17,25 @@
             aria-hidden="true"></i></a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <%= link_to 'Delete', confirm_multiple_deletion_admin_filter_groups_path, class: 'dropdown-item active', data: { remote: true } %>
-              <a class="dropdown-item" href="#">Assign to category <i class="fa fa-check"
-                aria-hidden="true"></i></a>
+              <%= link_to 'Assign to category', '#', class: 'dropdown-item', id: 'assign-filter-group-category', data: { remote: true } %>
+              <div class="modal fade modal-xxl filter-group-modal pl-0 align-items-start" id="assignFilterGroupForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Assign Category</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+                  <div class="modal-body px-lg-4">
+                    <div id="assign-filter-group-category">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              <!-- <a class="dropdown-item" href="">Assign to category <i class="fa fa-check"
+                aria-hidden="true"></i></a> -->
               </div>
             </div>
 
@@ -57,33 +74,31 @@
               aria-hidden="true"></i></a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <%= form_tag(admin_filter_groups_path, method: :get) do %>
-                  <%= link_to admin_filter_groups_path(filter_type: 0),class: 'dropdown-item active' do %>
-                    <span class="fa fa-check" aria-hidden="true"></span>
-                    Global
-                  <% end %>      
-                  <%= link_to admin_filter_groups_path(filter_type: 1),class: 'dropdown-item' do %>
-                      <span class="fa fa-check" aria-hidden="true"></span>
-                      Local
-                  <% end %>
+                <%= link_to admin_filter_groups_path(filter_type: 0),class: 'dropdown-item active' do %>
+                Global
+                <% end %>      
+                <%= link_to admin_filter_groups_path(filter_type: 1),class: 'dropdown-item' do %>
+                Local
+                <% end %>
                 <% end%>
               </div>
             </div>
           </div>
           <%= link_to 'Add New Filter Group', new_admin_filter_group_path, class: 'btn btn-radius px-4 btn-primary', data: { remote: true } %>
-            <div class="modal fade modal-xxl filter-group-modal pl-0 align-items-start" id="filterGroupForm" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Add New filter Group</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                  </button>
+          <div class="modal fade modal-xxl filter-group-modal pl-0 align-items-start" id="filterGroupForm" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New filter Group</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body px-lg-4">
+                <div id="filter-group-form">
                 </div>
-                <div class="modal-body px-lg-4">
-                  <div id="filter-group-form">
-                  </div>
-                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -136,19 +151,19 @@
               <td></td>
               <td><%= link_to 'Edit', edit_admin_filter_group_path(filter_group), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100', data: { remote: true } %>
                 <%= link_to 'Delete', confirm_delete_admin_filter_group_path(filter_group), remote: true, class: "btn btn-sm btn-radius px-4 btn-secondary w-100 delete-filter-group" %></td>
-            </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-      <div class="row">
-        <div class="col-md-6 mx-auto">
-          <%= paginate @filter_groups%>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mx-auto">
+            <%= paginate @filter_groups%>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Filter Groups Confirmation Deletion Modal -->
-<%= render 'shared/admin/confirmation_deletion_modal' %>
+  <!-- Filter Groups Confirmation Deletion Modal -->
+  <%= render 'shared/admin/confirmation_deletion_modal' %>

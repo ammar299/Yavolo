@@ -1,5 +1,5 @@
 class Admin::FilterGroupsController < Admin::BaseController
-  before_action :set_filter_group, only: [:show, :edit, :update, :destroy, :confirm_delete]
+  before_action :set_filter_group, only: [:show, :edit, :update, :destroy, :confirm_delete, :assign_category]
 
   def index
     @filter_group_count = FilterGroup.count
@@ -47,8 +47,18 @@ class Admin::FilterGroupsController < Admin::BaseController
     redirect_to admin_filter_groups_path
   end
 
+  def create_assign_category
+    @filter_group = FilterGroup.find_by(id: params[:filter_group_id])
+    if @filter_group.update(filter_group_params)
+      redirect_to admin_filter_groups_path, notice: "Categroies assigned"
+    else
+      redirect_to admin_filter_groups_path, notice: "Categories not assigned"
+    end
+  end
+
   def assign_category
-    
+    ids_of_category = FilterGroup.find_by(id: params[:id]).category_ids
+    @categories = Category.where.not(id: [ids_of_category])
   end
 
   def delete_filter_groups

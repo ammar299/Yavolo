@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	assignFilterGroupCategory();
 	$('body').on('change', '.filter-group-radio', function(){
 		var filterType = $(this).parent().text().trim();
 		var $globalCheck = $('#global-check');
@@ -30,5 +31,22 @@ function selectedFilterGroups() {
 		} else {
 			$('.filter-groups-checkbox-container input:checkbox').prop('checked', false)
 		}
+	});
+}
+
+function assignFilterGroupCategory(){
+	$('body').on('click', '#assign-filter-group-category', function(){
+	  selected_options = []
+	  $('.filter-groups-checkbox-container input[type=checkbox]:checked').each(function() {
+	    selected_options.push($(this).val())
+	  });
+
+	  if (selected_options.length == 1) {
+	    url = '/admin/filter_groups/assign_category?id=' + selected_options
+	    $.ajax({
+	      url: url,
+	      type: 'GET'
+	    });
+	  }
 	});
 }
