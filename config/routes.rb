@@ -34,6 +34,7 @@ Rails.application.routes.draw do
             delete :remove_logo_image
             get :confirm_update_seller
             patch :update_seller
+            get :confirm_refresh_api
           end
           post :update_seller_api
           post :refresh_seller_api

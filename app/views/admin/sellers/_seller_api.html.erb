@@ -32,7 +32,8 @@
           <%= f.text_area :api_token, class: "form-control", placeholder: "Enter API name", readonly: true %>
         </div>
         <div style="float: right;">
-          <%= link_to 'Refresh Api', admin_seller_refresh_seller_api_path(@seller.id, seller_api_id: seller_api.id), data: {method: 'post' ,remote: true, confirm: 'Are you sure'} %>
+          <%= link_to 'Refresh Api', confirm_refresh_api_admin_seller_path(@seller, seller_api: seller_api), remote: true %>
+          <%#= link_to 'Refresh Api', admin_seller_refresh_seller_api_path(@seller.id, seller_api_id: seller_api.id), data: {method: 'post' ,remote: true, confirm: 'Are you sure'} %>
         </div>
       <% end %>
 
