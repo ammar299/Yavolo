@@ -6,6 +6,15 @@ $(document).ready(function(){
     $('#upload-sellers-csv-popup').modal('show');
   });
 
+  $("#check-all-checkboxes").click(function () {
+    if ($(this).is(':checked')) {
+      $('input:checkbox').not(this).prop('checked', true);
+    }
+    else {
+      $('input:checkbox').not(this).prop('checked', false);
+    }
+  });
+
   $('#csv_import_sellers_file').change(function(e){
     let files = e.target.files;
     let fileValidator = validCsvFile(files);
