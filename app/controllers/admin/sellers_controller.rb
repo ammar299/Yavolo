@@ -145,7 +145,7 @@ class Admin::SellersController < Admin::BaseController
 
     private
       def seller_params
-        params.require(:seller).permit(:email, :subscription_type,:account_status, :listing_status,
+        params.require(:seller).permit(:first_name, :last_name, :email, :subscription_type,:account_status, :listing_status,
             business_representative_attributes: [:id, :full_legal_name, :email, :job_title, :date_of_birth],
             company_detail_attributes: [:id, :name, :vat_number, :country, :legal_business_name, :companies_house_registration_number, :business_industry, :website_url, :amazon_url, :ebay_url, :doing_business_as],
             addresses_attributes: [:id, :address_line_1, :address_line_2, :city, :county, :country, :postal_code, :phone_number, :address_type],

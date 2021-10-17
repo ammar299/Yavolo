@@ -96,7 +96,7 @@
                   </label>
                 </div>
               </td>
-              <td><%= seller.first_name %></td>
+              <td><%= seller.try(:first_name).to_s + " " + seller.try(:last_name).to_s  %></td>
               <td><%=seller.email %></td>
               <td><%=seller.created_at %></td>
               <td>Show the last sale date</td>
