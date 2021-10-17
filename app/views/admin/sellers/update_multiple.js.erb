@@ -1,0 +1,15 @@
+<% if params[:ids].present? %>
+  <% seller_ids = params[:ids].split(',') %>
+  <% @sellers.each do |seller| %>
+    <% if params[:field_to_update].present? && params[:field_to_update] == 'delete' %>
+      $('#seller-row-<%= seller.id %>').remove();
+      $("#total-sellers-per-page").html("<%= j render 'admin/sellers/total_sellers_per_page' %>");
+    <% else %>
+      $('#seller-row-<%= seller.id %>').find(".account-status").text("<%= seller.account_status %>");
+      $('#seller-row-<%= seller.id %>').find('#select-<%= seller.id %>').prop('checked', false);
+      $('#check-all-checkboxes').prop('checked', false);
+      $("#seller-row-<%= seller.id %> #seller-action-btns").html("<%= j render 'admin/sellers/seller_actions', seller: seller %>");
+    <% end %>
+  <% end %>
+<% end %>
+$('#confirm-seller-actions-modal').modal('hide');

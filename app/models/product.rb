@@ -9,6 +9,9 @@ class Product < ApplicationRecord
     has_one :seo_content, dependent: :destroy
     has_one :ebay_detail, dependent: :destroy
     has_one :google_shopping, dependent: :destroy
+    has_one :assigned_category, dependent: :destroy
+    has_one :category, through: :assigned_category, dependent: :destroy
+
 
     has_many :pictures, as: :imageable, dependent: :destroy
     alias_attribute  :images, :pictures
@@ -16,10 +19,19 @@ class Product < ApplicationRecord
     belongs_to :owner, polymorphic: true
     belongs_to :delivery_option
 
-    accepts_nested_attributes_for :seo_content, :ebay_detail, :google_shopping
+    accepts_nested_attributes_for :seo_content, :ebay_detail, :google_shopping, :assigned_category
     accepts_nested_attributes_for :pictures, allow_destroy: true
 
-    validates :sku,:ean,:yan, uniqueness: true, allow_nil: true
+    validates :sku, uniqueness: true, if: Proc.new{|p| p.sku.present? }
+    validates :ean, uniqueness: true, if: Proc.new{|p| p.ean.present? }
+    validates :yan, uniqueness: true, if: Proc.new{|p| p.yan.present? }
+    validates :title, :condition, :description, :keywords, :price, :stock, presence: true
 
+    validate :baby_category_present?
+
+    private
+
+    def baby_category_present?
+    end
 
 end

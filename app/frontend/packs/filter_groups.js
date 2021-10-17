@@ -1,5 +1,4 @@
 $(document).ready(function(){
-	$('#delete-filter-groups').click(() => deletefilterGroups());
 	$('body').on('change', '.filter-group-radio', function(){
 		var filterType = $(this).parent().text().trim();
 		var $globalCheck = $('#global-check');
@@ -20,8 +19,16 @@ $(document).ready(function(){
       $('#delete-filter-groups').removeClass("disabled");
     }
   });
+
+	selectedFilterGroups();
 });
 
-function deletefilterGroups() {
-	$('#select-filter-groups').submit();
+function selectedFilterGroups() {
+	$('.filter-groups-select-all-container #filter-group-select-all').change(function() {
+		if ($('#filter-group-select-all').is(':checked')) {
+			$('.filter-groups-checkbox-container input:checkbox').prop('checked', true)
+		} else {
+			$('.filter-groups-checkbox-container input:checkbox').prop('checked', false)
+		}
+	});
 }

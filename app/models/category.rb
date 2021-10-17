@@ -6,11 +6,17 @@ class Category < ApplicationRecord
   has_many :filter_groups, through: :filter_categories
   has_many :category_excluded_filter_groups, dependent: :destroy
   has_many :excluded_filter_groups, through: :category_excluded_filter_groups, source: :filter_group
+  has_many :assigned_categories, dependent: :destroy
+  has_many :products, through: :assigned_categories, dependent: :destroy
+
   has_one :picture, as: :imageable, dependent: :destroy
+
   accepts_nested_attributes_for :picture
 
   before_save :assign_unique_category_id_string
   before_save :assign_url
+
+  scope :baby_categories, -> { where(baby_category: true) }
 
   def assign_unique_category_id_string
     return if self.category_id_string.present?

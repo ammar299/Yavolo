@@ -1,0 +1,12 @@
+$('.delete-modal-body').html("<%= j render(partial: 'carriers_confirmation_modal') %>");
+selected_carriers = []
+$('.carriers-checkbox-container input[type=checkbox]:checked').each(function() {
+  selected_carriers.push($(this).val())
+});
+
+if (selected_carriers.length > 0) {
+  $('#delete-confirmation-modal').modal('show');
+}
+
+
+

@@ -1,0 +1,6 @@
+<% array_of_actions = actions_to_show(seller) %>
+<% if array_of_actions.present? %>
+  <% array_of_actions.each do |action| %>
+    <%= link_to "#{action.humanize}", confirm_update_seller_admin_seller_path(seller, param_to_update: "#{action}"), remote: true, class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1 current-action', id: "#{seller.id}-#{action}" %>
+  <% end %>
+<% end %>

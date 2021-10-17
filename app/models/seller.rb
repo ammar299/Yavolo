@@ -16,6 +16,8 @@ class Seller < ApplicationRecord
     pending: 0,
     approve: 1,
     rejected: 2,
+    activate: 3,
+    suspend: 4,
   }
   enum listing_status: {
     active: 0,

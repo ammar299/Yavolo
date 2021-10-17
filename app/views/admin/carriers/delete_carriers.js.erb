@@ -1,1 +1,3 @@
+$('#delete-confirmation-modal').modal('hide');
 $('#carriers-list').html("<%= j render('admin/delivery_options/carriers_list', carriers: @carriers) %>");
+$('.carriers-select-all-container input[type=checkbox]:checked').prop('checked', false);

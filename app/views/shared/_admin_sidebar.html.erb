@@ -8,31 +8,31 @@
         <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-dashboard icon-right-pd"></span>
-            Dashboard
+            <span><span>Dashboard</span></span>
           <% end %>
         </li>
         <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-page icon-right-pd"></span>
-            Pages
+            <span>Pages</span>
           <% end %>
         </li>
         <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-templates icon-right-pd"></span>
-            Templates
+            <span>Templates</span>
           <% end %>
         </li>
         <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-orders icon-right-pd"></span>
-            Orders
+            <span>Orders</span>
           <% end %>
         </li>
         <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-customer icon-right-pd"></span>
-            Customer
+            <span>Customer</span>
           <% end %>
           <ul class="d-none">
             <li><%= link_to "All Customer", ""%></li>
@@ -42,7 +42,7 @@
         <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-sellers icon-right-pd"></span>
-            Sellers
+            <span>Sellers</span>
           <% end %>
           <ul class="d-none">
             <li><%= link_to "All Sellers", admin_sellers_path %></li>
@@ -53,7 +53,7 @@
         <li>
           <%= link_to admin_products_path do %>
             <span class="icon-products icon-right-pd"></span>
-            Products
+            <span>Products</span>
           <% end %>
           <ul class="d-none">
             <li><%= link_to "All Products", admin_products_path %></li>
@@ -64,7 +64,7 @@
         <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-tickets icon-right-pd"></span>
-            Tickets
+            <span>Tickets</span>
           <% end %>
           <ul class="d-none">
             <li><%= link_to "All Tickets", ""%></li>
@@ -76,13 +76,13 @@
         <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-blog icon-right-pd"></span>
-            Blogs
+            <span>Blogs</span>
           <% end %>
         </li>
         <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-reviews icon-right-pd"></span>
-            Reviews
+            <span>Reviews</span>
           <% end %>
           <ul class="d-none">
             <li><%= link_to "All Reviews", ""%></li>
@@ -93,7 +93,7 @@
         <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-manage-Yavolo icon-right-pd"></span>
-            Manage Yavolos
+            <span>Manage Yavolos</span>
           <% end %>
           <ul class="d-none">
             <li><%= link_to "Manual", ""%></li>
@@ -103,7 +103,7 @@
         <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-finances icon-right-pd"></span>
-            Finance
+            <span>Finance</span>
           <% end %>
           <ul class="d-none">
             <li><%= link_to "Summary", ""%></li>
@@ -115,7 +115,7 @@
         <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-technical icon-right-pd"></span>
-            Technical
+            <span>Technical</span>
           <% end %>
           <ul class="d-none">
             <li><%= link_to "Delivery Options", admin_delivery_options_path %></li>
@@ -131,7 +131,7 @@
         <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-rule-engine icon-right-pd"></span>
-            Rule Engine
+            <span>Rule Engine</span>
           <% end %>
           <ul class="d-none">
             <li><%= link_to "All Rules", ""%></li>
@@ -142,7 +142,7 @@
         <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-right-pd"></span>
-            Appearance
+            <span>Appearance</span>
           <% end %>
           <ul class="d-none">
             <li><%= link_to "Yadgets", ""%></li>
@@ -155,7 +155,7 @@
         <li class="parent">
           <%= link_to '#' do %>
             <span class="icon-settings icon-right-pd"></span>
-            Settings
+            <span>Settings</span>
           <% end %>
           <ul class="d-none">
             <li><%= link_to "General Settings", ""%></li>
@@ -166,9 +166,10 @@
         </li>
           <%= link_to destroy_admin_session_path, method: :delete do %>
             <span class="icon-right-pd"></span>
-            Logout
+            <span>Logout</span>
           <% end %>
         </li>
       </ul>
     </div>
+    <a href="#" class="menuBtn side-bar-nav-toggle"><span class="icon-dashboard icon-right-pd"></span></a>
 </div>

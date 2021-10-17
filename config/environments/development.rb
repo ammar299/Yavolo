@@ -78,7 +78,7 @@ Rails.application.configure do
 
 
   config.hosts << ENV['DEFAULT_HOST_URL']
-  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   
 

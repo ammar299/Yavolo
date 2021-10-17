@@ -4,7 +4,8 @@
 </div>
 <% end %>
 <div class="container-fluid">
-    <%= simple_form_for @product, url: url, method: method do |form| %>
+    <div class="formme">
+    <%= simple_form_for @product, url: url, method: method, html: { id: 'product_form' } do |form| %>
         <%=form.hidden_field :owner_id %>
         <%=form.hidden_field :owner_type %>
         <%= render "shared/products/photos", form: form %>
@@ -17,11 +18,19 @@
         <%= render "shared/products/product_actions_bar", form: form %>
     <% end %>
     <%= render "shared/products/add_new_delivery_option" %>
+    <div>
+
 </div>
 <script>
+    let disEditor;
     $(document).ready(function(){
 
-        ClassicEditor.create( document.querySelector( '#product_description' ) ).catch( error => {
+        ClassicEditor
+        .create( document.querySelector( '#product_description' ) )
+        .then(newEditor=>{
+            disEditor = newEditor;
+        })
+        .catch( error => {
             console.error( error );
         } );
 
