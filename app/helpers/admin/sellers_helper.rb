@@ -48,6 +48,10 @@ module Admin::SellersHelper
     end
   end
 
+  def multi_actions_to_show
+    Seller.account_statuses.select {|status| status != "pending" && status != "rejected" }
+  end
+
   def seller_api_status(seller_api, status_type)
     if seller_api.status.present?
       if seller_api.status == status_type
