@@ -46,6 +46,17 @@ class Seller < ApplicationRecord
     end
   end
 
+  def self.to_csv
+    attributes = %w{id email first_name last_name surname gender date_of_birth contact_number provider uid account_status listing_status contact_email contact_name subscription_type}
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+      all.each do |seller|
+        csv << attributes.map{ |attr| seller.send(attr) }
+      end
+    end
+  end
+
+
   protected
   def username
     [first_name, last_name].join(' ')

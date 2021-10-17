@@ -102,6 +102,32 @@ class Admin::SellersController < Admin::BaseController
       @seller_api.save
     end
 
+    def export_sellers
+      @all_sellers = Seller.all
+      respond_to do |format|
+        format.html
+        format.csv { send_data @all_sellers.to_csv, filename: "#{Date.today}-sellers.csv" }
+      end
+      if @all_sellers.size > 100
+        csv = @all_sellers.to_csv
+        AdminMailer.export_sellers_email(csv).deliver!
+      end
+    end
+
+    def import_sellers
+      csv_import = CsvImport.new(params.require(:csv_import_sellers).permit(:file))
+      csv_import.importer_id = current_admin.id
+      csv_import.importer_type = 'Admin'
+      if csv_import.valid?
+        csv_import.save
+        csv_import.update({status: :uploaded})
+        ImportSellersWorker.perform_async(csv_import.id)
+        render json: { message: 'Your file is uploaded and you will be notified with import status.' }, status: :ok
+      else
+        render json: { errors: csv_import.errors.where(:file).last.message }, status: :unprocessable_entity
+      end
+    end
+
     private
       def seller_params
         params.require(:seller).permit(:email, :subscription_type,:account_status, :listing_status,
