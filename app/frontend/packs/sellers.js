@@ -73,7 +73,7 @@ function sellersMultipleUpdate(className, action) {
     }
   });
 });
-
+}
 function sellerSearchByFilter(){
   var $sellerDropDown = $('.seller-search-dropdown');
   var $sellerSearchField = $('.seller-search-field');
