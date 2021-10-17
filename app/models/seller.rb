@@ -16,6 +16,8 @@ class Seller < ApplicationRecord
     pending: 0,
     approve: 1,
     rejected: 2,
+    activate: 3,
+    suspend: 4,
   }
   enum listing_status: {
     active: 0,
@@ -45,6 +47,17 @@ class Seller < ApplicationRecord
       user.password = Devise.friendly_token[0,20]
     end
   end
+
+  def self.to_csv
+    attributes = %w{id email first_name last_name surname gender date_of_birth contact_number provider uid account_status listing_status contact_email contact_name subscription_type}
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+      all.each do |seller|
+        csv << attributes.map{ |attr| seller.send(attr) }
+      end
+    end
+  end
+
 
   protected
   def username

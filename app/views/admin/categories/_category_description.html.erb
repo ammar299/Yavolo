@@ -19,8 +19,9 @@
               <div class="pr-3">
                 <label class="checkbox-blk">
                   <%= f.check_box :baby_category %>
-                  <span class="invisible">no text</span>
+<!--                  <span class="invisible">no text</span>-->
                   <span class="checkmark"></span>
+                  <small style="font-size: 10px; color: red"> Note: Child categories will be removed if checked</small>
                 </label>
               </div>
             </div>
@@ -89,8 +90,7 @@
 																<span>
                                   <%= image_tag f.object.picture.name.url, class: "product-content-img" %>
 																</span>
-                    <small class="mx-3"><%= link_to "Remove Image", remove_image_admin_category_path(@category), method: :delete,
-                                                    data: {confirm: 'Are you sure?', remote: true}, class: "btn btn-sm btn-radius px-4 btn-secondary w-100" %></small>
+                    <small class="mx-3"><%= link_to "Remove Image", remove_image_admin_category_path(@category), class: "btn btn-sm btn-radius px-4 btn-secondary w-100 remove_category_image" %></small>
                   </div>
                 </div>
               </div>
@@ -99,7 +99,7 @@
 
           <div class="form-group form-group-vertical form-group-vertical-responsive">
             <%= f.label :category_description %>
-            <%= f.text_area :category_description, class: "form-control" %>
+            <%= f.text_area :category_description, class: "form-control"%>
           </div>
 
           <div class="form-group form-group-vertical form-group-vertical-responsive">

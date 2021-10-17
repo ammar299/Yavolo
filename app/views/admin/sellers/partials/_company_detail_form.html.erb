@@ -1,4 +1,8 @@
 <!-- Business Information Section / Company Details -->
+
+<% if @seller.company_detail.nil? %>
+  <% @seller.build_company_detail %>
+<% end %>
 <h3>Business Information</h3>
 <%= form.simple_fields_for :company_detail do |cd| %>
   <div class="form-group form-group-vertical form-group-vertical-responsive">

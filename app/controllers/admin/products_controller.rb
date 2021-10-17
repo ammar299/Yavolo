@@ -25,6 +25,7 @@ class Admin::ProductsController < Admin::BaseController
     @product.build_seo_content
     @product.build_ebay_detail
     @product.build_google_shopping
+    @product.build_assigned_category
     @delivery_options = DeliveryOption.all
   end
 
@@ -96,7 +97,8 @@ class Admin::ProductsController < Admin::BaseController
       :title, :condition, :width, :depth, :height, :colour, :material, :brand, :keywords, :description, :price, :stock, :sku, :ean, :discount, :yavolo_enabled, :delivery_option_id,
       pictures_attributes: ["name", "@original_filename", "@content_type", "@headers"],
       seo_content_attributes: [:id,:title, :url, :description, :keywords],
-      ebay_detail_attributes: [:id,:lifetime_sales, :thirty_day_sales, :price, :thirty_day_revenue, :mpn_number], google_shopping_attributes: [:id,:title,:price,:category,:campaign_category,:description,:exclude_from_google_feed])
+      ebay_detail_attributes: [:id,:lifetime_sales, :thirty_day_sales, :price, :thirty_day_revenue, :mpn_number], google_shopping_attributes: [:id,:title,:price,:category,:campaign_category,:description,:exclude_from_google_feed],
+      assigned_category_attributes: [:id,:category_id])
     end
 
     def owner_params

@@ -27,10 +27,9 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def update
-    if @category.update(category_params)
-      redirect_to admin_categories_path, notice: "Category is updated"
-    else
-      render :edit
+    @category.update(category_params)
+    if @category.baby_category?
+      @category.descendants.map(&:destroy)
     end
   end
 

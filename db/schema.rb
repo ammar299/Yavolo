@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_15_130742) do
+ActiveRecord::Schema.define(version: 2021_10_16_185631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -107,6 +107,15 @@ ActiveRecord::Schema.define(version: 2021_10_15_130742) do
     t.string "last_name"
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "assigned_categories", force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "category_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_assigned_categories_on_category_id"
+    t.index ["product_id"], name: "index_assigned_categories_on_product_id"
   end
 
   create_table "business_representatives", force: :cascade do |t|
@@ -332,14 +341,14 @@ ActiveRecord::Schema.define(version: 2021_10_15_130742) do
     t.bigint "delivery_option_id"
     t.index ["brand"], name: "index_products_on_brand"
     t.index ["delivery_option_id"], name: "index_products_on_delivery_option_id"
-    t.index ["ean"], name: "index_products_on_ean", unique: true
+    t.index ["ean"], name: "index_products_on_ean"
     t.index ["handle"], name: "index_products_on_handle", unique: true
     t.index ["owner_type", "owner_id"], name: "index_products_on_owner_type_and_owner_id"
     t.index ["price"], name: "index_products_on_price"
-    t.index ["sku"], name: "index_products_on_sku", unique: true
+    t.index ["sku"], name: "index_products_on_sku"
     t.index ["status"], name: "index_products_on_status"
     t.index ["title"], name: "index_products_on_title"
-    t.index ["yan"], name: "index_products_on_yan", unique: true
+    t.index ["yan"], name: "index_products_on_yan"
   end
 
   create_table "seller_apis", force: :cascade do |t|

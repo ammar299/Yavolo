@@ -29,11 +29,11 @@
                         <% has_error, msg = get_errors(form, "google_shopping.campaign_category") %>
                         <div class="general-mrgn col-md-3 mt-0 <%= has_error ? 'error-field' : '' %>">
                             <%= google_data.label 'Campaign Category' %>
-                            <%= google_data.select :campaign_category,[['a','a'],['b','b'],['c','c']],{},class: 'form-control', placeholder: 'Enter Category'  %>
+                            <%= google_data.select :campaign_category,[['Individual CPC','Individual CPC'],['All Products Expensive','All Products Expensive'],['All Products Cheap','All Products Cheap'],['Dumped','Dumped']],{},class: 'form-control', placeholder: 'Enter Category'  %>
                             <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                         </div>
                     </div>
-                    <% has_error, msg = get_errors(form, "google_shopping.campaign_category") %>
+                    <% has_error, msg = get_errors(form, "google_shopping.description") %>
                     <div class="form-group <%= has_error ? 'error-field' : '' %>">
                         <%= google_data.label 'Description' %>
                         <%= google_data.text_area :description, class: 'form-control', placeholder: 'Enter Description' %>

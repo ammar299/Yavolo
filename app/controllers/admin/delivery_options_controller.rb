@@ -62,7 +62,7 @@ class Admin::DeliveryOptionsController < Admin::BaseController
   end
 
   def verify_delivery_option(delivery_option)
-    if delivery_option.id == DeliveryOption.find_by(delivery_option_params).id
+    if delivery_option.id == DeliveryOption.find_by(delivery_option_params)&.id
       delivery_ships = DeliveryOptionShip.where(delivery_option_id: delivery_option.id).map{ |c| [c.ship_id, c.price.to_f] }.to_h
       result = delivery_ships == filter_ship_ids.transform_keys(&:to_i).transform_values(&:to_f)
       @existing_obj = result

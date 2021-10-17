@@ -5,7 +5,7 @@
         <div class="all-products-header-left d-flex flex-wrap">
           <div class="search-field mb-0">
             <%= form_tag(admin_filter_groups_path, method: :get) do %>
-            <%= text_field_tag(:search, params[:search]) %>
+              <%= text_field_tag(:search, params[:search], placeholder: "Search Filter Group") %>
             <i class="fa fa-search" aria-hidden="true"></i>
             <% end %>
           </div>
@@ -151,14 +151,15 @@
               <td></td>
               <td><%= link_to 'Edit', edit_admin_filter_group_path(filter_group), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100', data: { remote: true } %>
                 <%= link_to 'Delete', confirm_delete_admin_filter_group_path(filter_group), remote: true, class: "btn btn-sm btn-radius px-4 btn-secondary w-100 delete-filter-group" %></td>
-              </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-        <div class="row">
-          <div class="col-md-6 mx-auto">
-            <%= paginate @filter_groups%>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-4 mx-auto">
+          <div class="pager-middle text-center d-flex justify-content-center mb-4">
+            <div class="text-center"><%= paginate @filter_groups %></div>
           </div>
         </div>
       </div>

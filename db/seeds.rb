@@ -9,7 +9,6 @@
 Admin.create(email: "admin@yavolo.com", password: "password") if Admin.count == 0
 Seller.create(email: "seller@yavolo.com", password: "password") if Seller.count == 0
 Buyer.create(email: "buyer@yavolo.com", password: "password") if Buyer.count == 0
-Buyer.create(email: "talha.waseem@phaedrasolutions.com", password: "password")
 
 Ship.find_or_create_by(name: 'UK Mainland')
 Ship.find_or_create_by(name: 'Highlands')

@@ -4,14 +4,18 @@
 </div>
 <!-- Business Representative -->
 <h4>Business Representative</h4>
+<% if @seller.business_representative.nil? %>
+  <% @seller.build_business_representative %>
+<% end %>
 <%= form.simple_fields_for :business_representative do |br| %>
+
   <div class="form-group form-group-vertical form-group-vertical-responsive">
     <%= br.label :full_legal_name, 'Full Legal Name' %>
     <%= br.text_field :full_legal_name, placeholder: 'John Paul Smith', required: true, class: 'form-control' %>
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
-    <%= br.label :business_representative_email, 'Contact Email' %>
-    <%= br.email_field :business_representative_email, value: business_representative.email, disabled: true, class: 'form-control' %>
+    <%= br.label :email, 'Contact Email' %>
+    <%= br.email_field :email, value: business_representative.try(:email), class: 'form-control' %>
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
     <%= br.label :job_title, 'Job Title' %>

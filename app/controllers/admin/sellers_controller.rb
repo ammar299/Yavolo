@@ -1,9 +1,9 @@
 class Admin::SellersController < Admin::BaseController
-    before_action :set_seller, only: %i[show edit update update_business_representative update_company_detail update_addresses update_seller_logo remove_logo_image]
+    before_action :set_seller, only: %i[show edit update update_business_representative update_company_detail update_addresses update_seller_logo remove_logo_image confirm_update_seller update_seller confirm_refresh_api]
 
     def index
       @q = Seller.ransack(params[:q])
-      @sellers = @q.result(distinct: true).page(params[:page]).per(params[:per_page].presence || 15)
+      @sellers = @q.result(distinct: true).order('created_at').page(params[:page]).per(params[:per_page].presence || 15)
     end
 
     def new
@@ -57,16 +57,31 @@ class Admin::SellersController < Admin::BaseController
       @address = @seller.addresses.where(address_type: @address_type).last
     end
 
-    def update_multiple
+    def update_seller
       if params[:field_to_update].present?
-        @seller_ids = params[:seller_ids].split(',') if params[:seller_ids].present?
         if params[:field_to_update] == 'delete'
+          @seller.destroy
+        else
+          @previous = @seller.account_status
+          @seller.update(account_status: params[:field_to_update])
+        end
+      end
+    end
+
+    def confirm_multi_update
+    end
+
+    def update_multiple
+      if params[:field_to_update].present? && params[:ids].present?
+        @seller_ids = params[:ids].split(',')
+        if params[:field_to_update] == 'delete'
+          @sellers = Seller.find(@seller_ids)
           Seller.where(id: @seller_ids).destroy_all
         else
           Seller.where(id: @seller_ids).update_all(account_status: params[:field_to_update])
+          @sellers = Seller.find(@seller_ids)
         end
       end
-      redirect_to admin_sellers_path
     end
 
     def update
@@ -102,9 +117,35 @@ class Admin::SellersController < Admin::BaseController
       @seller_api.save
     end
 
+    def export_sellers
+      @all_sellers = Seller.all
+      respond_to do |format|
+        format.html
+        format.csv { send_data @all_sellers.to_csv, filename: "#{Date.today}-sellers.csv" }
+      end
+      if @all_sellers.size > 100
+        csv = @all_sellers.to_csv
+        AdminMailer.export_sellers_email(csv).deliver!
+      end
+    end
+
+    def import_sellers
+      csv_import = CsvImport.new(params.require(:csv_import_sellers).permit(:file))
+      csv_import.importer_id = current_admin.id
+      csv_import.importer_type = 'Admin'
+      if csv_import.valid?
+        csv_import.save
+        csv_import.update({status: :uploaded})
+        ImportSellersWorker.perform_async(csv_import.id)
+        render json: { message: 'Your file is uploaded and you will be notified with import status.' }, status: :ok
+      else
+        render json: { errors: csv_import.errors.where(:file).last.message }, status: :unprocessable_entity
+      end
+    end
+
     private
       def seller_params
-        params.require(:seller).permit(:email, :subscription_type,:account_status, :listing_status,
+        params.require(:seller).permit(:first_name, :last_name, :email, :subscription_type,:account_status, :listing_status,
             business_representative_attributes: [:id, :full_legal_name, :email, :job_title, :date_of_birth],
             company_detail_attributes: [:id, :name, :vat_number, :country, :legal_business_name, :companies_house_registration_number, :business_industry, :website_url, :amazon_url, :ebay_url, :doing_business_as],
             addresses_attributes: [:id, :address_line_1, :address_line_2, :city, :county, :country, :postal_code, :phone_number, :address_type],

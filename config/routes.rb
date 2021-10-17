@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       namespace :admin do
         # root 'admin/dashboard#index', as: :admins_dashboard
         root 'dashboard#index', as: :dashboard
+        
         resources :delivery_options, except: %i[show] do
           collection do
             get    :confirm_multiple_deletion
@@ -18,10 +19,12 @@ Rails.application.routes.draw do
             get :confirm_delete
           end
         end
-
+        get 'export_sellers', to: 'sellers#export_sellers', as: :export_sellers
+        post 'import_sellers', to: 'sellers#import_sellers', as: :import_sellers
         resources :sellers do
           collection do
             get :update_multiple
+            get :confirm_multi_update
           end
           member do
             patch :update_business_representative
@@ -29,6 +32,9 @@ Rails.application.routes.draw do
             patch :update_addresses
             patch :update_seller_logo
             delete :remove_logo_image
+            get :confirm_update_seller
+            patch :update_seller
+            get :confirm_refresh_api
           end
           post :update_seller_api
           post :refresh_seller_api
