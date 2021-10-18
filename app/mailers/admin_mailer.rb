@@ -18,5 +18,8 @@ class AdminMailer < ApplicationMailer
     mail(to: params[:to], subject: 'Yavolo: Sellers Csv imported successfully')
   end
   
-
+  def send_account_creation_email
+    @password = params[:password]
+    mail(to: params[:to], subject: 'Yavolo: Your seller account has been created.')
+  end
 end

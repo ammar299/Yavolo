@@ -30,9 +30,11 @@ module Sellers
         csv.each do |row|
           seller_found = Seller.where(email: row["email"])&.first
           if !seller_found.present?
-            seller = Seller.new(email: row["email"],password: "password",first_name: row["first_name"],last_name: row["last_name"],surname: row["surname"],gender: row["gender"],date_of_birth: row["date_of_birth"],contact_number: row["contact_number"],provider: row["provider"],uid: row["uid"],account_status: row["account_status"],listing_status: row["listing_status"],contact_email: row["contact_email"],contact_name: row["contact_name"],subscription_type: row["subscription_type"])
+            password = Random.rand(11111111...99999999)
+            seller = Seller.new(email: row["email"],password: "#{password}",first_name: row["first_name"],last_name: row["last_name"],surname: row["surname"],gender: row["gender"],date_of_birth: row["date_of_birth"],contact_number: row["contact_number"],provider: row["provider"],uid: row["uid"],account_status: 0,listing_status: row["listing_status"],contact_email: row["contact_email"],contact_name: row["contact_name"],subscription_type: row["subscription_type"])
             if seller.valid?
               seller.save
+              AdminMailer.with(to: row["email"].to_s.downcase, password: password ).send_account_creation_email.deliver_now #send notification email to seller
             else
               @errors << seller.errors.full_messages.join("<br>")
             end
@@ -67,3 +69,4 @@ module Sellers
 
   end
 end
+
