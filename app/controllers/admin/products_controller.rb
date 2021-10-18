@@ -18,7 +18,7 @@ class Admin::ProductsController < Admin::BaseController
       @products = @q.result(distinct: true).page(params[:page]).per(params[:per_page].presence || 15)
     end
     # @products = Product.order(:title).page(params[:page]).per(params[:per_page].presence || 15)
-    @products =  Product.where(status: params[:filter_type].to_i).page(params[:page]).per(params[:per_page].presence || 15) if params[:filter_type].present?
+    @products =  Product.where(status: params[:filter_by].to_i).page(params[:page]).per(params[:per_page].presence || 15) if params[:filter_by].present?
   end
 
   def new
