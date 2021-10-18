@@ -42,7 +42,8 @@ $(document).ready(function () {
         if (!selected_options.length > 0) return;
         const per_page = $(".category-products-per-page").val()
         const current_page = $("#category_paginator .page-item.active .page-link").text()
-        const newUrl = `${$(this).attr('href')}?product_ids=${selected_options}&per_page=${per_page}&page=${current_page}`
+        const query_term = $(".category-products-search-term").val()
+        const newUrl = `${$(this).attr('href')}?product_ids=${selected_options}&per_page=${per_page}&page=${current_page}&q=${query_term}`
         $("#delete-confirmation-modal .confirm-delete-btn").attr("href", newUrl).attr('data-remote', true)
         $('#delete-confirmation-modal').modal('show');
     });
@@ -50,8 +51,9 @@ $(document).ready(function () {
     $('body').on('click', '#category_paginator .page-link', function (e) {
         e.preventDefault();
         const per_page = $(".category-products-per-page").val()
+        const query_term = $(".category-products-search-term").val()
         if (!$(this).attr('href')) return;
-        const newUrl = `${$(this).attr('href')}&per_page=${per_page}`
+        const newUrl = `${$(this).attr('href')}&per_page=${per_page}&q=${query_term}`
         $(this).attr('href', newUrl)
         e.returnValue = true;
     });
