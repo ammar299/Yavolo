@@ -115,9 +115,8 @@ text-decoration: none !important;
 .dashboard-page.toggle-close .sidebody {
   overflow-y: hidden;
 }
-.dashboard-page.toggle-close .sidebody::-webkit-scrollbar{
-  width: 1px;
-}
+
+.sidebody::-webkit-scrollbar,
 body::-webkit-scrollbar {
   width: 4px;
   height: 4px;
@@ -200,7 +199,7 @@ body::-webkit-scrollbar-thumb {
 .notice, .alert {
   text-align: center;
 }
-.alert {
+.alert-msg {
   position: relative;
   padding: .75rem 1.25rem;
   margin-bottom: 1rem;
