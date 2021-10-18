@@ -124,20 +124,31 @@
 .dashboard-page.toggle-close .sidebody {
   overflow-y: hidden;
 }
+
 .dashboard-page.toggle-close .sidebody::-webkit-scrollbar {
   width: 1px;
 }
-body::-webkit-scrollbar {
+
+.sidebody::-webkit-scrollbar,
+::-webkit-scrollbar {
   width: 4px;
+  height: 4px;
 }
 .dashboard-page.toggle-close .sidebody::-webkit-scrollbar-thumb,
-body::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   background-color: var(--dark-red);
 }
 
 .nowrap .dropdown-menu a {
   word-break: break-word;
   white-space: normal;
+}
+.sign-in {
+  min-height: 400px !important;
+}
+.dropdown-filter.show .dropdown-menu a {
+    word-break: break-word;
+    white-space: normal;
 }
 
 .sidebody {
