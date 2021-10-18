@@ -1,6 +1,7 @@
 class Product < ApplicationRecord
     extend FriendlyId
     friendly_id :title
+    serialize :filter_in_category_ids, Array
 
     enum condition: { brand_new: 0, refurbished: 1 }
     enum status: { draft: 0, active: 1, inactive: 2, pending: 3, disapproved: 4 }

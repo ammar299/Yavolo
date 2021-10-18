@@ -99,7 +99,8 @@ class Admin::ProductsController < Admin::BaseController
       pictures_attributes: ["name", "@original_filename", "@content_type", "@headers"],
       seo_content_attributes: [:id,:title, :url, :description, :keywords],
       ebay_detail_attributes: [:id,:lifetime_sales, :thirty_day_sales, :price, :thirty_day_revenue, :mpn_number], google_shopping_attributes: [:id,:title,:price,:category,:campaign_category,:description,:exclude_from_google_feed],
-      assigned_category_attributes: [:id,:category_id])
+      assigned_category_attributes: [:id,:category_id],
+      filter_in_category_ids: [])
     end
 
     def owner_params

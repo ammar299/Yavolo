@@ -49,12 +49,14 @@ class Seller < ApplicationRecord
   end
 
   def self.to_csv
+    #seller_api_name seller_api_token seller_api_status seller_api_seller_id
+    #seller&.seller_api&.name , seller&.seller_api&.api_token , seller&.seller_api&.status , seller&.seller_api&.seller_id,
+
     attributes = %w{id email first_name last_name surname gender date_of_birth contact_number provider uid account_status listing_status contact_email contact_name subscription_type company_detail_name
       company_detail_vat_number company_detail_country company_detail_legal_business_name company_detail_companies_house_registration_number company_detail_business_industry company_detail_business_phone company_detail_seller_id company_detail_website_url
       company_detail_amazon_url company_detail_ebay_url company_detail_doing_business_as  
       business_representative_email business_representative_job_title business_representative_date_of_birth business_representative_contact_number business_representative_seller_id business_representative_full_legal_name
       picture_name picture_imageable_id picture_imageable_type
-      seller_api_name seller_api_token seller_api_status seller_api_seller_id
 
       business_representative_address_line_1 business_representative_address_line_2 business_representative_address_city business_representative_address_county business_representative_address_state business_representative_address_country business_representative_address_postal_code business_representative_address_phone_number business_representative_address_type 
       business_address_line_1 business_address_line_2 business_address_city business_address_county business_address_state business_address_country business_address_postal_code business_address_phone_number business_address_type 
@@ -64,7 +66,10 @@ class Seller < ApplicationRecord
     CSV.generate(headers: true) do |csv|
       csv << attributes
       all.each do |seller|        
-        csv << [seller.id, seller.email, seller.first_name, seller.last_name, seller.surname, seller.gender, seller.date_of_birth, seller.contact_number, seller.provider, seller.uid, seller.account_status, seller.listing_status, seller.contact_email, seller.contact_name, seller.subscription_type,  seller&.company_detail&.name,  seller&.company_detail&.vat_number,seller&.company_detail&.country,  seller&.company_detail&.legal_business_name,  seller&.company_detail&.companies_house_registration_number,  seller&.company_detail&.business_industry,  seller&.company_detail&.business_phone,  seller&.company_detail&.seller_id,  seller&.company_detail&.website_url,  seller&.company_detail&.amazon_url,seller&.company_detail&.ebay_url,  seller&.company_detail&.doing_business_as, seller&.business_representative&.email, seller&.business_representative&.job_title , seller&.business_representative&.date_of_birth, seller&.business_representative&.contact_number, seller&.business_representative&.seller_id, seller&.business_representative&.full_legal_name, seller&.picture&.name,seller&.picture&.imageable_id,seller&.picture&.imageable_type, seller&.seller_api&.name , seller&.seller_api&.api_token , seller&.seller_api&.status , seller&.seller_api&.seller_id,
+        csv << [seller.id, seller.email, seller.first_name, seller.last_name, seller.surname, seller.gender, seller.date_of_birth, seller.contact_number, seller.provider, seller.uid, seller.account_status, seller.listing_status, seller.contact_email, seller.contact_name, seller.subscription_type,
+          seller&.company_detail&.name,  seller&.company_detail&.vat_number,seller&.company_detail&.country,  seller&.company_detail&.legal_business_name,  seller&.company_detail&.companies_house_registration_number,  seller&.company_detail&.business_industry,  seller&.company_detail&.business_phone,  seller&.company_detail&.seller_id,  seller&.company_detail&.website_url,  seller&.company_detail&.amazon_url,seller&.company_detail&.ebay_url,  seller&.company_detail&.doing_business_as,
+          seller&.business_representative&.email, seller&.business_representative&.job_title , seller&.business_representative&.date_of_birth, seller&.business_representative&.contact_number, seller&.business_representative&.seller_id, seller&.business_representative&.full_legal_name,
+          seller&.picture&.name,seller&.picture&.imageable_id,seller&.picture&.imageable_type,
           seller&.addresses[0]&.address_line_1, seller&.addresses[0]&.address_line_2, seller&.addresses[0]&.city , seller&.addresses[0]&.county , seller&.addresses[0]&.state , seller&.addresses[0]&.country , seller&.addresses[0]&.postal_code , seller&.addresses[0]&.phone_number , seller&.addresses[0]&.address_type,
           seller&.addresses[1]&.address_line_1, seller&.addresses[1]&.address_line_2, seller&.addresses[1]&.city , seller&.addresses[1]&.county , seller&.addresses[1]&.state , seller&.addresses[1]&.country , seller&.addresses[1]&.postal_code , seller&.addresses[1]&.phone_number , seller&.addresses[1]&.address_type,
           seller&.addresses[2]&.address_line_1, seller&.addresses[2]&.address_line_2, seller&.addresses[2]&.city , seller&.addresses[2]&.county , seller&.addresses[2]&.state , seller&.addresses[2]&.country , seller&.addresses[2]&.postal_code , seller&.addresses[2]&.phone_number , seller&.addresses[2]&.address_type,

@@ -8,6 +8,7 @@ class Category < ApplicationRecord
   has_many :excluded_filter_groups, through: :category_excluded_filter_groups, source: :filter_group
   has_many :assigned_categories, dependent: :destroy
   has_many :products, through: :assigned_categories, dependent: :destroy
+  has_many :filter_in_categories
 
   has_one :picture, as: :imageable, dependent: :destroy
   has_one :meta_content, as: :meta_able

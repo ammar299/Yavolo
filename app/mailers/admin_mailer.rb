@@ -11,7 +11,7 @@ class AdminMailer < ApplicationMailer
 
   def export_sellers_email(csv)
     attachments["#{Date.today}-sellers.csv"] = {mime_type: 'text/csv', content: csv}
-    mail(to: "arhum.ali@phaedrasolutions.com", subject: 'Yavolo: CSV sellers data')
+    mail(to: "talha.waseem@phaedrasolutions.com", subject: 'Yavolo: CSV sellers data')
   end
 
   def import_sellers_email
@@ -21,5 +21,6 @@ class AdminMailer < ApplicationMailer
   def send_account_creation_email
     @password = params[:password]
     mail(to: params[:to], subject: 'Yavolo: Your seller account has been created.')
+    puts "---- Email Sent ------"
   end
 end
