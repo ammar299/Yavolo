@@ -290,7 +290,6 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selectize-rails (0.12.6)
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
@@ -375,7 +374,6 @@ DEPENDENCIES
   ransack
   redis (~> 4.0)
   sass-rails (>= 6)
-  selectize-rails
   selenium-webdriver
   sidekiq
   simple_form (~> 5.1.0)
