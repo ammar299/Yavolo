@@ -99,7 +99,7 @@ $(document).ready(function(){
 
 
   // on product page load
-  if($('#product_category').val().length > 0)
+  if($('#product_category').val() && $('#product_category').val().length > 0)
     getFilterGroupsOfBabyCategory($('#product_id').val(), $('#product_category').val());
 
 });
