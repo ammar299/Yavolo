@@ -44,9 +44,11 @@ Rails.application.routes.draw do
         resources :categories do
           member do
             get :category_details
+            get :category_products_with_pagination
             delete :remove_filter_group_association
             delete :remove_image
             put :add_filter_group_association
+            delete :category_products_delete_multiple
           end
         end
 

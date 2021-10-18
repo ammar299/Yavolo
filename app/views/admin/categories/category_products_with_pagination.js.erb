@@ -1,0 +1,2 @@
+$(".category-products-container").html("<%= j render :partial => "product_in_category", :collection => @category_products, :as => :product %>")
+$("#category_paginator").html("<%= j (paginate @category_products, remote: true, params: {controller: "/admin/categories", action: 'category_products_with_pagination'})  %>");
