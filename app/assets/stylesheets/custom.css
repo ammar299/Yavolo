@@ -231,9 +231,16 @@ body::-webkit-scrollbar-thumb {
   overflow-x:  auto;
 }
 
+.dashboard-page .rightside {
+  overflow-x: hidden;
+}
 
-
-
+.admin-header {
+  border-bottom: 1px solid black;
+  min-height: 82px;
+  display: flex;
+  align-items: center;
+}
 
 
 
