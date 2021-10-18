@@ -59,8 +59,9 @@ $(document).ready(function () {
     $('body').on('change', '.category-products-per-page', function (e) {
         const current_page = $("#category_paginator .page-item.active .page-link").text()
         $(".category-products-form .page-number").val(current_page)
-       $(".submit-category-products-form-btn").click()
+        $(".submit-category-products-form-btn").click()
     });
+
 
 });
 

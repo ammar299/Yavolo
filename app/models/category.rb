@@ -10,8 +10,9 @@ class Category < ApplicationRecord
   has_many :products, through: :assigned_categories, dependent: :destroy
 
   has_one :picture, as: :imageable, dependent: :destroy
+  has_one :meta_content, as: :meta_able
 
-  accepts_nested_attributes_for :picture
+  accepts_nested_attributes_for :picture, :meta_content
 
   before_save :assign_unique_category_id_string
   before_save :assign_url
