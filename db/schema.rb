@@ -260,6 +260,18 @@ ActiveRecord::Schema.define(version: 2021_10_18_120416) do
     t.index ["product_id"], name: "index_google_shoppings_on_product_id"
   end
 
+  create_table "meta_contents", force: :cascade do |t|
+    t.string "title"
+    t.text "keywords"
+    t.text "description"
+    t.string "url"
+    t.string "meta_able_type"
+    t.bigint "meta_able_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["meta_able_type", "meta_able_id"], name: "index_meta_contents_on_meta_able"
+  end
+
   create_table "pg_search_documents", force: :cascade do |t|
     t.text "content"
     t.string "searchable_type"
