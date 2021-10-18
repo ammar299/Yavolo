@@ -22,11 +22,19 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def new
-    @product = Product.new(owner_params)
-    @product.build_seo_content
-    @product.build_ebay_detail
-    @product.build_google_shopping
-    @product.build_assigned_category
+    if params[:product_id].present?
+      @product = Product.friendly.find_by(id: params[:product_id])
+      @product.seo_content.duplicate
+      @product.ebay_detail.duplicate
+      @product.google_shopping.duplicate
+      @product.assigned_category.duplicate
+    else
+      @product = Product.new(owner_params)
+      @product.build_seo_content
+      @product.build_ebay_detail
+      @product.build_google_shopping
+      @product.build_assigned_category
+    end
     @delivery_options = DeliveryOption.all
   end
 
