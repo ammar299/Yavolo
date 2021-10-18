@@ -63,14 +63,6 @@ module Sellers
         business_address = seller.addresses.create(address_line_1: row["business_address_line_1"],address_line_2: row["business_address_line_2"],city: row["business_address_city"],county: row["business_address_county"],state: row["business_address_state"],country: row["business_address_country"],postal_code: row["business_address_postal_code"],phone_number: row["business_address_phone_number"],address_type: row["business_address_type"])
         return_address = seller.addresses.create(address_line_1: row["return_address_line_1"],address_line_2: row["return_address_line_2"],city: row["return_address_city"],county: row["return_address_county"],state: row["return_address_state"],country: row["return_address_country"],postal_code: row["return_address_postal_code"],phone_number: row["return_address_phone_number"],address_type: row["return_address_type"])
         invoice_address = seller.addresses.create(address_line_1: row["invoice_address_line_1"],address_line_2: row["invoice_address_line_2"],city: row["invoice_address_city"],county: row["invoice_address_county"],state: row["invoice_address_state"],country: row["invoice_address_country"],postal_code: row["invoice_address_postal_code"],phone_number: row["invoice_address_phone_number"],address_type: row["invoice_address_type"])
-        puts "business_representative = #{business_representative.present?}"
-        puts "company_detail = #{company_detail.present?}"
-        puts "picture = #{picture.present?}"
-        puts "seller_api = #{seller_api.present?}"
-        puts "business_representative_address = #{business_representative_address.present?}"
-        puts "business_address = #{business_address.present?}"
-        puts "return_address = #{return_address.present?}"
-        puts "invoice_address = #{invoice_address.present?}"
         puts "*** Associated Entries completed ***"
       end
   end
