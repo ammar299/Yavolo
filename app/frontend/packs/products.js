@@ -56,7 +56,99 @@ $(document).ready(function(){
     }
   });
 
+  $("#product_category").selectize({
+    valueField: "id",
+    labelField: "category_name",
+    searchField: "category_name",
+    // options: [],
+    // create: false,
+    render: {
+      option: function (item, escape) {
+        return (
+          '<option value="'+item.id+'">'+item.category_name+'</option>'
+        );
+      },
+    },
+    load: function (query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: "/admin/categories/search_category",
+        type: "GET",
+        dataType: "json",
+        data: {
+          q: query,
+          page_limit: 10,
+          apikey: "w82gs68n8m2gur98m6du5ugc",
+        },
+        error: function () {
+          callback();
+        },
+        success: function (res) {
+          callback(res.data);
+        },
+      });
+    },
+  });
+
+  $('#product_category').change(function(){
+    console.log($(this).val());
+    let productId = $('#product_id').val();
+    let categoryId = $(this).val();
+    getFilterGroupsOfBabyCategory(productId, categoryId);
+  });
+
+
+  // on product page load
+  if($('#product_category').val().length > 0)
+    getFilterGroupsOfBabyCategory($('#product_id').val(), $('#product_category').val());
+
 });
+
+function getFilterGroupsOfBabyCategory(productId, selectedCategoryId){
+  $.ajax({
+    url: "/admin/categories/"+selectedCategoryId+"/get_filter_groups.json?product_id="+productId,
+    type: "GET",
+    success: function(res){
+      renderCategoryFilterGroups(res)
+    },
+    error: function(){}
+  })
+}
+
+function renderCategoryFilterGroups(res){
+  let filterGroups = [];
+  let filterInCategoryIds = res.data.filter_in_category_ids;
+
+  if(res.data.filter_groups.length > 0){
+    for(let i=0; i < res.data.filter_groups.length; i++){
+      let FGroup = '';
+      FGroup += '<div class="general-mrgn col-md-3 mt-0">'
+      FGroup +=    '<label>'+res.data.filter_groups[i].filter_name+'</label>'
+      FGroup +=    '<select name="product[filter_in_category_ids][]" class="form-control filter-names" multiple required>'
+      if(res.data.filter_groups[i].filter_in_categories.length > 0){
+        for(let j=0; j < res.data.filter_groups[i].filter_in_categories.length; j++){
+          let finId = res.data.filter_groups[i].filter_in_categories[j].id
+          FGroup +='<option '+(filterInCategoryIds.length > 0 && filterInCategoryIds.includes(finId) ? 'selected' : '' )+' value="'+finId+'">'+res.data.filter_groups[i].filter_in_categories[j].name+'</option>'
+        }
+      }
+      FGroup +=    '</select>'
+      FGroup += '</div>'
+
+      filterGroups.push(FGroup)
+    }
+  }
+
+  if(filterGroups.length > 0){
+    $('#category-filter-section').html("")
+    $('#category-filter-section').html(filterGroups.join(""))
+  }else{
+    $('#category-filter-section').html("").html("No Filter Groups found")
+    $('#category-filter-section').append("<input class='finids' type='hidden' name='product[filter_in_category_ids][]'>")
+  }
+  $(".filter-names").selectize();
+}
+
+
 
 function uploadCSVFile(files){
   $('#csv_import_file').attr('disabled', true);
