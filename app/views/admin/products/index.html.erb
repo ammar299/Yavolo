@@ -1,206 +1,203 @@
 <div class="container-fluid">
   <div class="row">
-      <div class="col-lg-12">
-          <div class="all-products-header d-flex justify-content-between align-items-center mt-3">
-              <div class="all-products-header-left d-flex">
-                  <div class="dropdown-filter-field active mb-0">
-                      <div class="dropdown">
-                          <a class="btn btn-sm btn-radius px-2 btn-primary product-search-dropdown" href="#" role="button"
+    <div class="col-lg-12">
+      <div class="all-products-header d-flex justify-content-between align-items-center mt-3">
+        <div class="all-products-header-left d-flex">
+          <div class="dropdown-filter-field active mb-0">
+            <div class="dropdown">
+              <a class="btn btn-sm btn-radius px-2 btn-primary product-search-dropdown" href="#" role="button"
                               id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                               aria-expanded="false">
-                              <%= set_filter_type_in_dropdown(params) %> <i class="fa fa-angle-down ml-4" aria-hidden="true"></i>
-                          </a>
-
-                          <div class="dropdown-menu" id="product-search-by-toggle" aria-labelledby="dropdownMenuLink">
-                            <%= link_to 'Search All', (admin_products_path(search_by: 'search_all')), class: 'dropdown-item' %>
-                            <%= link_to 'Product Title A-Z', (admin_products_path(search_by: 'title-a-z')), class: 'dropdown-item' %>
-                            <%= link_to 'Product Title Z-A', (admin_products_path(search_by: 'title-z-a')), class: 'dropdown-item' %>
-                            <%= link_to 'Price Low-High', (admin_products_path(search_by: 'price-low-high')), class: 'dropdown-item' %>
-                            <%= link_to 'Price High-Low', (admin_products_path(search_by: 'price-high-low')), class: 'dropdown-item' %>
-                            <%= link_to 'Brand', (admin_products_path(search_by: 'brand')), class: 'dropdown-item' %>
-                            <%= link_to 'SKU', (admin_products_path(search_by: 'sku')), class: 'dropdown-item' %>
-                            <%= link_to 'YAN', (admin_products_path(search_by: 'yan')), class: 'dropdown-item' %>
-                            <%= link_to 'EAN', (admin_products_path(search_by: 'ean')), class: 'dropdown-item' %>
-                          </div>
-                      </div>
-                      <%
+                <%= set_filter_type_in_dropdown(params) %> <i class="fa fa-angle-down ml-4" aria-hidden="true"></i>
+              </a>
+              <div class="dropdown-menu" id="product-search-by-toggle" aria-labelledby="dropdownMenuLink">
+                <%= link_to 'Search All', (admin_products_path(search_by: 'search_all')), class: 'dropdown-item' %>
+                <%= link_to 'Product Title A-Z', (admin_products_path(search_by: 'title-a-z')), class: 'dropdown-item' %>
+                <%= link_to 'Product Title Z-A', (admin_products_path(search_by: 'title-z-a')), class: 'dropdown-item' %>
+                <%= link_to 'Price Low-High', (admin_products_path(search_by: 'price-low-high')), class: 'dropdown-item' %>
+                <%= link_to 'Price High-Low', (admin_products_path(search_by: 'price-high-low')), class: 'dropdown-item' %>
+                <%= link_to 'Brand', (admin_products_path(search_by: 'brand')), class: 'dropdown-item' %>
+                <%= link_to 'SKU', (admin_products_path(search_by: 'sku')), class: 'dropdown-item' %>
+                <%= link_to 'YAN', (admin_products_path(search_by: 'yan')), class: 'dropdown-item' %>
+                <%= link_to 'EAN', (admin_products_path(search_by: 'ean')), class: 'dropdown-item' %>
+              </div>
+            </div>
+            <%
                         if params[:q].present?
                           field_name = params[:q].keys.first
                         else
                           field_name = "title_or_brand_or_sku_or_ean_or_yan_cont"
                         end
                       %>
-                      <div class="search-field mb-0 ">
-                      <%= search_form_for @q, url: admin_products_path do |f| %>
-                        <input type="hidden" name="filter_type" id="product-filter-type" value="<%= params[:filter_type] %>">
-                        <%= f.search_field field_name.to_sym, { class: 'input-btn-sm product-search-field', placeholder: 'Search Products', value: "#{product_search_field_params(params)}" } %>
-                        <i class="fa fa-search" aria-hidden="true"></i>
-                      <% end %>
-                      </div>
-                  </div>
-                  <div class="dropdown dropdown-filter  d-inline-flex">
-                      <a href="#"
+            <div class="search-field mb-0 ">
+              <%= search_form_for @q, url: admin_products_path do |f| %>
+                <input type="hidden" name="filter_type" id="product-filter-type" value="<%= params[:filter_type] %>">
+                <%= f.search_field field_name.to_sym, { class: 'input-btn-sm product-search-field', placeholder: 'Search Products', value: "#{product_search_field_params(params)}" } %>
+                <i class="fa fa-search" aria-hidden="true"></i>
+              <% end %>
+            </div>
+          </div>
+          <div class="dropdown dropdown-filter  d-inline-flex nowrap">
+            <a href="#"
                           class="btn btn-sm btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center"
                           id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                           aria-expanded="false">Action <i class="fa fa-angle-down ml-3"
                               aria-hidden="true"></i></a>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                          <a class="dropdown-item active" href="#">Action <i class="fa fa-check"
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item active" href="#">Action <i class="fa fa-check"
                                   aria-hidden="true"></i></a>
-                          <a class="dropdown-item" href="#">Another action <i class="fa fa-check"
+              <a class="dropdown-item" href="#">Another action <i class="fa fa-check"
                                   aria-hidden="true"></i></a>
-                          <a class="dropdown-item" href="#">Something else here <i class="fa fa-check"
+              <a class="dropdown-item" href="#">Something else here nononnono <i class="fa fa-check"
                                   aria-hidden="true"></i></a>
-                      </div>
-                  </div>
-                  <div class="dropdown dropdown-filter  d-inline-flex">
-                      <a href="#"
+            </div>
+          </div>
+          <div class="dropdown dropdown-filter  d-inline-flex">
+            <a href="#"
                           class="btn btn-sm btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center"
                           id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                           aria-expanded="false">Result per page 15 <i class="fa fa-angle-down ml-3"
                               aria-hidden="true"></i></a>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <%= link_to 'Result per page: 15', admin_products_path(per_page: 15), class: 'dropdown-item' %>
-                        <%= link_to 'Result per page: 30', admin_products_path(per_page: 30), class: 'dropdown-item' %>
-                        <%= link_to 'Result per page: 60', admin_products_path(per_page: 60), class: 'dropdown-item' %>
-                        <%= link_to 'Result per page: 90', admin_products_path(per_page: 90), class: 'dropdown-item' %>
-                        <%= link_to 'Result per page: 180', admin_products_path(per_page: 180), class: 'dropdown-item' %>
-                      </div>
-                  </div>
-                  <div class="dropdown dropdown-filter  d-inline-flex">
-                    <a href="#"
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <%= link_to 'Result per page: 15', admin_products_path(per_page: 15), class: 'dropdown-item' %>
+              <%= link_to 'Result per page: 30', admin_products_path(per_page: 30), class: 'dropdown-item' %>
+              <%= link_to 'Result per page: 60', admin_products_path(per_page: 60), class: 'dropdown-item' %>
+              <%= link_to 'Result per page: 90', admin_products_path(per_page: 90), class: 'dropdown-item' %>
+              <%= link_to 'Result per page: 180', admin_products_path(per_page: 180), class: 'dropdown-item' %>
+            </div>
+          </div>
+          <div class="dropdown dropdown-filter  d-inline-flex">
+            <a href="#"
                     class="btn btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center"
                     id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false"><%= set_product_filter_type_in_dropdown(params) %> <i class="fa fa-angle-down ml-3"
                     aria-hidden="true"></i></a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <%= form_tag(admin_products_path, method: :get) do %>
-                        <%= link_to admin_products_path(filter_type: 0),class: 'dropdown-item active' do %>
-                          <span class="fa fa-check" aria-hidden="true"></span>
-                          Draft
-                        <% end %>
-                        <%= link_to admin_products_path(filter_type: 1),class: 'dropdown-item' do %>
-                          <span class="fa fa-check" aria-hidden="true"></span>
-                          Active
-                        <% end %>
-                        <%= link_to admin_products_path(filter_type: 2),class: 'dropdown-item' do %>
-                          <span class="fa fa-check" aria-hidden="true"></span>
-                          Inactive
-                        <% end %>
-                        <%= link_to admin_products_path(filter_type: 3),class: 'dropdown-item' do %>
-                          <span class="fa fa-check" aria-hidden="true"></span>
-                          Pending
-                        <% end %>
-                        <%= link_to admin_products_path(filter_type: 4),class: 'dropdown-item' do %>
-                          <span class="fa fa-check" aria-hidden="true"></span>
-                          Disapproved
-                        <% end %>
-                      <% end%>
-                    </div>
-                </div>
-              </div>
-              <div class="all-products-header-right d-flex justify-content-between">
-                  <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mr-1 upload-csv-btn">Upload CSV</a>
-                  <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mr-1">Export CSV</a>
-                  <%=link_to 'Create New Product', new_admin_product_path, class: 'btn btn-sm btn-radius px-4 btn-primary' %>
-              </div>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <%= form_tag(admin_products_path, method: :get) do %>
+                <%= link_to admin_products_path(filter_type: 0),class: 'dropdown-item active' do %>
+                  Draft
+                <% end %>
+                <%= link_to admin_products_path(filter_type: 1),class: 'dropdown-item' do %>
+                  Active
+                <% end %>
+                <%= link_to admin_products_path(filter_type: 2),class: 'dropdown-item' do %>
+                  Inactive
+                <% end %>
+                <%= link_to admin_products_path(filter_type: 3),class: 'dropdown-item' do %>
+                  Pending
+                <% end %>
+                <%= link_to admin_products_path(filter_type: 4),class: 'dropdown-item' do %>
+                  Disapproved
+                <% end %>
+              <% end%>
+            </div>
           </div>
+        </div>
+        <div class="all-products-header-right d-flex justify-content-between">
+          <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mr-1 upload-csv-btn">Upload CSV</a>
+          <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mr-1">Export CSV</a>
+          <%=link_to 'Create New Product', new_admin_product_path, class: 'btn btn-sm btn-radius px-4 btn-primary' %>
+        </div>
       </div>
+    </div>
   </div>
   <div class="row">
-      <div class="col-lg-12">
-          <div class="Yavolo-table mt-4">
-              <table class="table">
-                  <thead>
-                      <tr>
-                          <th>
-                              <label class="checkbox-blk">
-                                  <input type="checkbox">
-                                  <span class="checkmark checkmark-white"></span>
-                              </label>
-                          </th>
-                          <th>Status</th>
-                          <th>Image</th>
-                          <th>product Name</th>
-                          <th>Attribute</th>
-                          <th>Uploaded</th>
-                          <th>Stock</th>
-                          <th>Price</th>
-                          <th>30 Day Sales</th>
-                          <th>30 Day Revenue</th>
-                          <th>Yavolo Enabled</th>
-                          <th>Yavolo Discount</th>
-                          <th>Assign</th>
-                          <th class="text-center">Action</th>
-
-                      </tr>
-                  </thead>
-                  <tbody>
-                    <% @products.each do |product| %>
-                      <tr>
-                          <td>
-                              <label class="checkbox-blk">
-                                  <input type="checkbox">
-                                  <span class="checkmark"></span>
-                              </label>
-                          </td>
-                          <td><%=product.status.to_s.titleize%></td>
-                          <td>
-                              <div class="">
-                                  <span class="imglist" width="100%"></span>
-                              </div>
-                          </td>
-                          <td>
-                              <%=product.title%>
-                          </td>
-                          <td>
-                            <p class="mb-0">SKU: <%=product.sku %></p>
-                            <p class="mb-0">EAN: <%=product.ean %></p>
-                            <p class="mb-0">YAN: <%=product.yan %></p>
-                            <p class="mb-0">Brand: <%=product.brand %></p>
-                            <p class="mb-0">Condition: <%=product.condition %></p>
-                          </td>
-                          <td>
-                              <%=product.published_at.strftime("%d/%m/%Y") if product.published_at.present?%>
-                          </td>
-                          <td><%=product.stock %></td>
-                          <td><%=number_to_currency(product.price, unit: '£') %></td>
-                          <td>300</td>
-                          <td>300</td>
-                          <td>
-                              <% if product.yavolo_enabled %>
-                              <span class="icon-manage-Yavolo font-20px"></span>
-                              <% else %>
-                              No
-                              <% end %>
-                          </td>
-                          <td><%= "#{product.discount}#{product.discount_unit}" %></td>
-                          <td>
-                              <div class="d-flex">
-                                  <span class="icon-star pr-1 font-20px pr-2"></span>
-                                  <span class="icon-Yavolo-selling-fast-icon pr-2 font-20px"></span>
-                                  <span class="icon-Yavolo-top-seller-icon  font-20px"></span>
-                              </div>
-                          </td>
-                          <td>
-                              <div>
-                                  <%=link_to 'Edit', edit_admin_product_path(product), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100' %>
-                                  <%=link_to 'Duplicate', duplicate_admin_products_path(product_id: product.id), class: 'btn btn-sm btn-radius px-4 btn-secondary w-100' %>
-                              </div>
-                          </td>
-                      </tr>
-                    <% end %>
-                  </tbody>
-              </table>
-          </div>
+    <div class="col-lg-12">
+      <div class="mt-3" id="total-sellers-per-page">
+        <p>Results <span><%= Product.count > 0 ? 1 : 0 %> - <%= params[:per_page] %></span> of <span><%= Product.count %></span></p>
       </div>
+      <h3 class="mt-4 mb-3">All Products</h3>
+      <div class="Yavolo-table mt-4">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>
+                <label class="checkbox-blk">
+                  <input type="checkbox">
+                  <span class="checkmark checkmark-white"></span>
+                </label>
+              </th>
+              <th>Status</th>
+              <th>Image</th>
+              <th>product Name</th>
+              <th>Attribute</th>
+              <th>Uploaded</th>
+              <th>Stock</th>
+              <th>Price</th>
+              <th>30 Day Sales</th>
+              <th>30 Day Revenue</th>
+              <th>Yavolo Enabled</th>
+              <th>Yavolo Discount</th>
+              <th>Assign</th>
+              <th class="text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @products.each do |product| %>
+              <tr>
+                <td>
+                  <label class="checkbox-blk">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                  </label>
+                </td>
+                <td><%=product.status.to_s.titleize%></td>
+                <td>
+                  <div class="">
+                    <span class="imglist" width="100%"></span>
+                  </div>
+                </td>
+                <td>
+                  <%=product.title%>
+                </td>
+                <td>
+                  <p class="mb-0">SKU: <%=product.sku %></p>
+                  <p class="mb-0">EAN: <%=product.ean %></p>
+                  <p class="mb-0">YAN: <%=product.yan %></p>
+                  <p class="mb-0">Brand: <%=product.brand %></p>
+                  <p class="mb-0">Condition: <%=product.condition %></p>
+                </td>
+                <td>
+                  <%=product.published_at.strftime("%d/%m/%Y") if product.published_at.present?%>
+                </td>
+                <td><%=product.stock %></td>
+                <td><%=number_to_currency(product.price, unit: '£') %></td>
+                <td>300</td>
+                <td>300</td>
+                <td>
+                  <% if product.yavolo_enabled %>
+                    <span class="icon-manage-Yavolo font-20px"></span>
+                  <% else %>
+                    No
+                  <% end %>
+                </td>
+                <td><%= "#{product.discount}#{product.discount_unit}" %></td>
+                <td>
+                  <div class="d-flex">
+                    <span class="icon-star pr-1 font-20px pr-2"></span>
+                    <span class="icon-Yavolo-selling-fast-icon pr-2 font-20px"></span>
+                    <span class="icon-Yavolo-top-seller-icon  font-20px"></span>
+                  </div>
+                </td>
+                <td>
+                  <div>
+                    <%=link_to 'Edit', edit_admin_product_path(product), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100' %>
+                    <%=link_to 'Duplicate', duplicate_admin_products_path(product_id: product.id), class: 'btn btn-sm btn-radius px-4 btn-secondary w-100' %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
   <div class="row">
-      <div class="col-md-6 mx-auto">
-          <div class="pager-middle text-center d-flex justify-content-center mb-4 mt-5">
-              <%= paginate @products %>
-          </div>
+    <div class="col-md-6 mx-auto">
+      <div class="pager-middle text-center d-flex justify-content-center mb-4 mt-5">
+        <%= paginate @products %>
       </div>
+    </div>
   </div>
 </div>
 <%= render 'upload_csv_popup' %>
