@@ -47,6 +47,10 @@ Rails.application.routes.draw do
             delete :remove_filter_group_association
             delete :remove_image
             put :add_filter_group_association
+            get :get_filter_groups
+          end
+          collection do
+            get :search_category
           end
         end
 
