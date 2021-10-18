@@ -1,7 +1,7 @@
 <div class="product-catagory-inner yo-white-card box-border">
   <h5>Products in Catagory</h5>
   <%= form_tag("/admin/categories/#{@category.id}/category_products_with_pagination",method: :get, local: false, remote: true, class: "category-products-form")  do |f|%>
-
+    <input type="hidden" name="page" class="page-number">
     <div class="d-flex align-items-center flex-wrap">
       <div class="search-field active mb-3 mr-2 search-field-flex">
         <input type="text"
