@@ -50,15 +50,14 @@ class Admin::FilterGroupsController < Admin::BaseController
   def create_assign_category
     @filter_group = FilterGroup.find_by(id: params[:filter_group_id])
     if @filter_group.update(filter_group_params)
-      redirect_to admin_filter_groups_path, notice: "Categroies assigned"
-    else
-      redirect_to admin_filter_groups_path, notice: "Categories not assigned"
+      redirect_to admin_filter_groups_path
     end
+    
   end
 
   def assign_category
     ids_of_category = FilterGroup.find_by(id: params[:id]).category_ids
-    @categories = Category.where.not(id: [ids_of_category])
+    @categories = Category.all
   end
 
   def delete_filter_groups
@@ -73,6 +72,6 @@ class Admin::FilterGroupsController < Admin::BaseController
   end
 
   def filter_group_params
-    params.require(:filter_group).permit(:name, :filter_group_type, filter_group_ids: [], filter_categories_attributes: [:id, :category_id, :filter_group_id, :_destroy], filter_in_categories_attributes: [:id, :filter_name, :sort_order, :filter_group_id, :_destroy])
+    params.require(:filter_group).permit(:name, :filter_group_type, filter_group_ids: [], filter_categories_attributes: [:id, :category_id, :filter_group_id, :_destroy], filter_in_categories_attributes: [:id, :filter_name, :sort_order, :filter_group_id, :category_id, :_destroy])
   end
 end

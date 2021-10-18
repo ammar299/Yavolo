@@ -6,7 +6,7 @@
     <div class="sidebody">
       <ul>
         <li class="parent">
-          <%= link_to '#' do %>
+          <%= link_to admins_dashboard_path do %>
             <span class="icon-dashboard icon-right-pd"></span>
             <span><span>Dashboard</span></span>
           <% end %>
@@ -141,7 +141,10 @@
         </li>
         <li class="parent">
           <%= link_to '#' do %>
-            <span class="icon-right-pd"></span>
+            <span class="icon-right-pd">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 48 48"><defs><style>.a{isolation:isolate;}.b,.d{fill:none;}.b{stroke:#F9EDE1;stroke-width:3.5px;}.c{stroke:none;}</style></defs><g class="a" transform="translate(142 -3121)"><g class="b" transform="translate(-122 3146)"><rect class="c" width="28" height="23" rx="2"/><rect class="d" x="1.75" y="1.75" width="24.5" height="19.5" rx="0.25"/></g><g class="b" transform="translate(-112 3121)"><rect class="c" width="18" height="22" rx="2"/><rect class="d" x="1.75" y="1.75" width="14.5" height="18.5" rx="0.25"/></g><g class="b" transform="translate(-142 3121)"><rect class="c" width="26" height="22" rx="2"/><rect class="d" x="1.75" y="1.75" width="22.5" height="18.5" rx="0.25"/></g><g class="b" transform="translate(-142 3146)"><rect class="c" width="18" height="23" rx="2"/><rect class="d" x="1.75" y="1.75" width="14.5" height="19.5" rx="0.25"/></g></g></svg>
+
+            </span>
             <span>Appearance</span>
           <% end %>
           <ul class="d-none">
@@ -171,5 +174,5 @@
         </li>
       </ul>
     </div>
-    <a href="#" class="menuBtn side-bar-nav-toggle"><span class="icon-dashboard icon-right-pd"></span></a>
+    <a href="#" class="menuBtn side-bar-nav-toggle"><span class="icon-switch-accounts"></span></a>
 </div>

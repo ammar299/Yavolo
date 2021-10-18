@@ -19,14 +19,12 @@
           <h5 class="mt-4 mb-4">User</h5>
           <div class="form-group form-group-vertical form-group-vertical-responsive">
             <%= form.label :first_name %>
-            <%= form.text_field :first_name, placeholder: 'First Name', class: 'form-control' %>
+            <%= form.text_field :first_name, placeholder: 'First Name', class: 'form-control', required: true %>
           </div>
-
           <div class="form-group form-group-vertical form-group-vertical-responsive">
             <%= form.label :last_name %>
-            <%= form.text_field :last_name, placeholder: 'Last Name', class: 'form-control' %>
+            <%= form.text_field :last_name, placeholder: 'Last Name', class: 'form-control', required: true %>
           </div>
-
           <div class="form-group form-group-vertical form-group-vertical-responsive">
             <%= form.label :email %>
             <%= form.email_field :email, placeholder: 'john.smith@example.co.uk', required: true, class: 'form-control' %>
@@ -75,8 +73,16 @@
               <%= cd.text_field :vat_number, placeholder: '1234567890', required: true, class: 'form-control' %>
             </div>
           <% end %>
+          <% business_address = '', business_representative_address = '' %>
+          <% if form.object.addresses.present? && form.object.addresses.length > 0 %>
+            <% business_address = form.object.addresses.select{ |addr| addr.address_type == "business_address"} %>
+            <% business_representative_address = form.object.addresses.select{ |addr| addr.address_type == "business_representative_address"} %>
+          <% else %>
+            <% business_address = @seller.addresses.build(address_type: 'business_address') %>
+            <% business_representative_address = @seller.addresses.build(address_type: 'business_representative_address') %>
+          <% end %>
           <!-- Registered Business Address / Address with type business_address -->
-          <%= form.simple_fields_for :addresses, (@seller.addresses.build(address_type: 'business_address')) do |addr| %>
+          <%= form.simple_fields_for :addresses, (business_address) do |addr| %>
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group form-group-vertical form-group-vertical-responsive">
@@ -132,7 +138,7 @@
             </div>
           <% end %>
           <!-- Business Owner Address / Address with type business_representative_address -->
-          <%= form.simple_fields_for :addresses, (@seller.addresses.build(address_type: 'business_representative_address')) do |addr| %>
+          <%= form.simple_fields_for :addresses, (business_representative_address) do |addr| %>
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group form-group-vertical form-group-vertical-responsive">

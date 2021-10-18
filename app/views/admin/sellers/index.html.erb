@@ -28,7 +28,7 @@
             <% end %>
           </div>
         </div>
-        <div class="dropdown dropdown-filter d-inline-flex">
+        <div class="dropdown dropdown-filter d-inline-flex nowrap">
           <a href="#" class="btn btn-sm btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <i class="fa fa-angle-down ml-3" aria-hidden="true"></i>
           </a>
           <% statuses = multi_actions_to_show %>
@@ -37,24 +37,43 @@
               <%= link_to status_key.humanize, (confirm_multi_update_admin_sellers_path(param_to_update: "#{status_key}")), remote: true, class: 'dropdown-item' %>
             <% end %>
             <%= link_to 'Delete', (confirm_multi_update_admin_sellers_path(param_to_update: "delete")), remote: true,class: 'dropdown-item' %>
-            <a class="dropdown-item multiple-update-sellers" href="#" id="send-password-reset-email-sellers">Send Password Reset Email<i class="fa fa-check" aria-hidden="true"></i></a>
+            <a class="dropdown-item multiple-update-sellers" href="#" id="send-password-reset-email-sellers">Send Password Reset Email</a>
           </div>
         </div>
-        <div class="dropdown dropdown-filter  d-inline-flex">
-          <a href="#" class="btn btn-sm btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Result Per Page <%= params[:per_page] %> <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+
+        <div class="dropdown dropdown-filter  d-inline-flex" id="pages-id">
+          <a href="#" class="btn btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Result Per Page <%= params[:per_page] %><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <%= link_to 'Result per page: 15', admin_sellers_path(per_page: 15), class: 'dropdown-item' %>
-            <%= link_to 'Result per page: 30', admin_sellers_path(per_page: 30), class: 'dropdown-item' %>
-            <%= link_to 'Result per page: 60', admin_sellers_path(per_page: 60), class: 'dropdown-item' %>
-            <%= link_to 'Result per page: 90', admin_sellers_path(per_page: 90), class: 'dropdown-item' %>
-            <%= link_to 'Result per page: 180', admin_sellers_path(per_page: 180), class: 'dropdown-item' %>
+            <%= form_tag(admin_filter_groups_path, method: :get) do %>
+              <%= link_to (admin_sellers_path(per_page: '15'))  do %>
+              <span class="<%= 'fa fa-check' if params[:per_page] == '15' %>" aria-hidden="true"></span>
+              Result per page 15
+              <% end %>
+              <%= link_to (admin_sellers_path(per_page: '30'))  do %>
+              <span class="<%= 'fa fa-check' if params[:per_page] == '30' %>" aria-hidden="true"></span>
+              Result per page 30
+              <% end %>
+              <%= link_to (admin_sellers_path(per_page: '60'))  do %>
+              <span class="<%= 'fa fa-check' if params[:per_page] == '60' %>" aria-hidden="true"></span>
+              Result per page 60
+              <% end %>
+              <%= link_to (admin_sellers_path(per_page: '90'))  do %>
+              <span class="<%= 'fa fa-check' if params[:per_page] == '90' %>" aria-hidden="true"></span>
+              Result per page 90
+              <% end %>
+              <%= link_to (admin_sellers_path(per_page: '180'))  do %>
+              <span class="<%= 'fa fa-check' if params[:per_page] == '180' %>" aria-hidden="true"></span>
+              Result per page 180
+              <% end %>
+            <% end %>
           </div>
         </div>
+
       </div>
       <div class="all-products-header-right d-flex justify-content-between mb-1">
         <a href="#" class="btn btn-radius px-4 btn-primary btn-sm mr-1 upload-sellers-csv-btn">Upload CSV</a>
         <%= link_to 'Export CSV', admin_export_sellers_path(format: "csv"), class: 'btn btn-radius px-4 btn-primary btn-sm mr-1' %>
-        <%= link_to 'Add new Seller', new_admin_seller_path, class: 'btn btn-radius px-4 btn-primary btn-sm' %>
+        <%= link_to 'Add New Seller', new_admin_seller_path, class: 'btn btn-radius px-4 btn-primary btn-sm' %>
       </div>
     </div>
   </div>
@@ -64,6 +83,7 @@
     <div class="mt-3" id="total-sellers-per-page">
       <%= render 'admin/sellers/total_sellers_per_page' %>
     </div>
+    <h3 class="mt-4 mb-3">All Sellers</h3>
     <div class="Yavolo-table mt-4">
       <table class="table">
         <thead>
@@ -102,7 +122,7 @@
               <td>Show the last sale date</td>
               <td>Show the number of active listings</td>
               <td>Show the total sales</td>
-              <td class="account-status"><%= seller.account_status %></td>
+              <td class="account-status"><%= seller.account_status.humanize %></td>
               <td>show the health status</td>
               <td class="text-center actions">
                 <div class="all-seller-btn">
@@ -130,10 +150,8 @@
   </div>
 </div>
 </div>
-
 <%= render 'admin/sellers/partials/upload_csv_popup' %>
 <%= render 'admin/sellers/partials/upload_csv_success_popup' %>
-
 <!-- Delete Seller Confirmation Modal -->
 <div class="modal fade" id="confirm-seller-actions-modal" tabindex="-1" role="dialog" aria-labelledby="deliveryOptionFormLabel" aria-hidden="true">
   <div class="modal-dialog">

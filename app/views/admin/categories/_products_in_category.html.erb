@@ -1,6 +1,7 @@
 <div class="product-catagory-inner yo-white-card box-border">
   <h5>Products in Catagory</h5>
-  <form action="">
+  <%= form_tag("/admin/categories/#{@category.id}/category_products_with_pagination",method: :get, local: false, remote: true, class: "category-products-form")  do |f|%>
+    <input type="hidden" name="page" class="page-number">
     <div class="d-flex align-items-center flex-wrap">
       <div class="search-field active mb-3 mr-2 search-field-flex">
         <input type="text"
@@ -8,7 +9,7 @@
         <i class="fa fa-search" aria-hidden="true"></i>
       </div>
       <div class="form-group mr-2">
-        <select class="form-control category-products-per-page">
+        <select class="form-control category-products-per-page" name="per_page">
           <option value="15">Result per page: 15</option>
           <option value="30">Result per page: 30</option>
           <option value="60">Result per page: 60</option>
@@ -17,11 +18,11 @@
         </select>
       </div>
       <div class="">
-        <a href="#"
-           class="btn btn-radius px-4 btn-primary mb-3">Remove from Category</a>
+        <%= link_to 'Remove from Category', category_products_delete_multiple_admin_category_path(@category), class: 'btn btn-radius px-4 btn-primary mb-3 remove-category-products-btn' %>
       </div>
     </div>
-  </form>
+    <%= submit_tag "+", class: "pl-3 pluse-btn submit-category-products-form-btn d-none" %>
+  <% end %>
   <div class="Yavolo-table">
     <table class="table">
       <thead>
@@ -37,25 +38,22 @@
         <th>Sort Order</th>
         <th>Stock</th>
         <th>Price</th>
-<!--        <th class="text-right" width="">Product available</th>-->
+        <!--        <th class="text-right" width="">Product available</th>-->
       </tr>
       </thead>
       <tbody class="category-products-container">
-      <tr>
-        <td class="filter-groups-checkbox-container">
-          <label class="checkbox-blk checkbox-blk-box">
-            <input type="checkbox">
-            <span class="checkmark"></span>
-          </label>
-        </td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-<!--        <td class="text-right">@mdo</td>-->
-      </tr>
+      <% @category_products.each do |p| %>
+        <%= render 'product_in_category', product: p %>
+      <% end %>
+
       </tbody>
     </table>
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        <div class="pager-middle text-center d-flex justify-content-center mb-4 mt-5" id="category_paginator">
+          <%= paginate @category_products, remote: true, params: {controller: "/admin/categories", action: 'category_products_with_pagination'} %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
