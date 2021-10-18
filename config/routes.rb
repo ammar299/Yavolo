@@ -79,7 +79,7 @@ Rails.application.routes.draw do
           collection do
             get    :confirm_multiple_deletion
             get    :assign_category
-            put   :create_assign_category
+            put    :create_assign_category
             delete :delete_filter_groups
           end
           member do
