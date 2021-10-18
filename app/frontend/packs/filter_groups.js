@@ -22,16 +22,6 @@ $(document).ready(function(){
     }
   });
 
-  // $('body').on('change', 'input[type=checkbox]', function(){
-  //   if($('input[type=checkbox]:checked').length == 1){
-  //   	$('#assign-filter-group-category').attr('title', 'Please select just one filter group');
-  //     $('#assign-filter-group-category').removeClass("disabled");
-  //   }else{
-  //   	$('#assign-filter-group-category').addClass("disabled");
-  //     $('#assign-filter-group-category').attr('title', 'Please select just one filter group');
-  //   }
-  // });
-
 	selectedFilterGroups();
 });
 
