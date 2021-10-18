@@ -17,8 +17,7 @@
         </select>
       </div>
       <div class="">
-        <a href="#"
-           class="btn btn-radius px-4 btn-primary mb-3">Remove from Category</a>
+        <%= link_to 'Remove from Category', category_products_delete_multiple_admin_category_path(@category), class: 'btn btn-radius px-4 btn-primary mb-3 remove-category-products-btn' %>
       </div>
     </div>
   </form>
@@ -37,25 +36,22 @@
         <th>Sort Order</th>
         <th>Stock</th>
         <th>Price</th>
-<!--        <th class="text-right" width="">Product available</th>-->
+        <!--        <th class="text-right" width="">Product available</th>-->
       </tr>
       </thead>
       <tbody class="category-products-container">
-      <tr>
-        <td class="filter-groups-checkbox-container">
-          <label class="checkbox-blk checkbox-blk-box">
-            <input type="checkbox">
-            <span class="checkmark"></span>
-          </label>
-        </td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-<!--        <td class="text-right">@mdo</td>-->
-      </tr>
+      <% @category_products.each do |p| %>
+        <%= render 'product_in_category', product: p %>
+      <% end %>
+
       </tbody>
     </table>
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        <div class="pager-middle text-center d-flex justify-content-center mb-4 mt-5" id="category_paginator">
+          <%= paginate @category_products, remote: true, params: {controller: "/admin/categories", action: 'category_products_with_pagination'} %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
