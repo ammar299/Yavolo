@@ -40,32 +40,33 @@
             </div>
 
             <div class="dropdown dropdown-filter  d-inline-flex" id="pages-id">
-              <a href="#" class="btn btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="<%= params['per_page'] %>"><%= "Result per page #{params[:per_page]}"%><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
-              <%= form_tag(admin_filter_groups_path, method: :get) do %>
+              <a href="#" class="btn btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="<%= params['per_page'] %>">Result Per Page <%= params[:per_page] %><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <%= link_to (admin_filter_groups_path(per_page: '15'))  do %>
-                <i class="fa fa-check" aria-hidden="true"></i>
-                Result per page 15
-                <% end %>
-                <%= link_to (admin_filter_groups_path(per_page: "30"))  do %>
-                <i class="fa fa-check" aria-hidden="true"></i>
-                Result per page 30
-                <% end %>
-                <%= link_to (admin_filter_groups_path(per_page: "60"))  do %>
-                <i class="fa fa-check" aria-hidden="true"></i>
-                Result per page 60
-                <% end %>
-                <%= link_to (admin_filter_groups_path(per_page: "90"))  do %>
-                <i class="fa fa-check" aria-hidden="true"></i>
-                Result per page 90
-                <% end %>
-                <%= link_to (admin_filter_groups_path(per_page: "180"))  do %>
-                <i class="fa fa-check" aria-hidden="true"></i>
-                Result per page 180
+                <%= form_tag(admin_filter_groups_path, method: :get) do %>
+                  <%= link_to (admin_filter_groups_path(per_page: '15'))  do %>
+                  <span class="<%= 'fa fa-check' if params[:per_page] == '15' %>" aria-hidden="true"></span>
+                  Result per page 15
+                  <% end %>
+                  <%= link_to (admin_filter_groups_path(per_page: '30'))  do %>
+                  <span class="<%= 'fa fa-check' if params[:per_page] == '30' %>" aria-hidden="true"></span>
+                  Result per page 30
+                  <% end %>
+                  <%= link_to (admin_filter_groups_path(per_page: '60'))  do %>
+                  <span class="<%= 'fa fa-check' if params[:per_page] == '60' %>" aria-hidden="true"></span>
+                  Result per page 60
+                  <% end %>
+                  <%= link_to (admin_filter_groups_path(per_page: '90'))  do %>
+                  <span class="<%= 'fa fa-check' if params[:per_page] == '90' %>" aria-hidden="true"></span>
+                  Result per page 90
+                  <% end %>
+                  <%= link_to (admin_filter_groups_path(per_page: '180'))  do %>
+                  <span class="<%= 'fa fa-check' if params[:per_page] == '180' %>" aria-hidden="true"></span>
+                  Result per page 180
+                  <% end %>
                 <% end %>
               </div>
             </div>
-            <% end %>
+            
             <div class="dropdown dropdown-filter  d-inline-flex">
               <a href="#"
               class="btn btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center"
