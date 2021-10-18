@@ -117,12 +117,12 @@ text-decoration: none !important;
 }
 
 .sidebody::-webkit-scrollbar,
-body::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 4px;
   height: 4px;
 }
 .dashboard-page.toggle-close .sidebody::-webkit-scrollbar-thumb,
-body::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   background-color: var(--dark-red);
 }
 .sign-in {
