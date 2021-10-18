@@ -26,4 +26,13 @@ module Admin::ProductHelper
     val
   end
 
+  def set_product_filter_type_in_dropdown(params)
+    val = 'filter by'
+    product_status = Product.statuses.invert.as_json
+    if (params[:filter_type] && product_status[params[:filter_type]]).present?
+      val = product_status[params[:filter_type]].capitalize
+    end
+    val
+  end
+
 end
