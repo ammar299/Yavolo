@@ -115,17 +115,19 @@ text-decoration: none !important;
 .dashboard-page.toggle-close .sidebody {
   overflow-y: hidden;
 }
-.dashboard-page.toggle-close .sidebody::-webkit-scrollbar{
-  width: 1px;
-}
-body::-webkit-scrollbar {
+
+.sidebody::-webkit-scrollbar,
+::-webkit-scrollbar {
   width: 4px;
+  height: 4px;
 }
 .dashboard-page.toggle-close .sidebody::-webkit-scrollbar-thumb,
-body::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   background-color: var(--dark-red);
 }
-
+.sign-in {
+  min-height: 400px !important;
+}
 .dropdown-filter.show .dropdown-menu a {
     word-break: break-word;
     white-space: normal;
@@ -197,3 +199,41 @@ body::-webkit-scrollbar-thumb {
 .notice, .alert {
   text-align: center;
 }
+.alert-msg {
+  position: relative;
+  padding: .75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  color: #fff;
+  background-color: var(--red);
+  border-color: var(--red);
+  position: fixed;
+  z-index: 11;
+  right: 0;
+}
+.check-container {
+  line-height: 18px;
+}
+
+.form-group-vertical label {
+  max-width: 200px;
+  line-height: 16px;
+}
+
+.dropdown-profile {
+  background-color: var(--off-white) !important;
+  border: 0 !important;
+}
+
+.Yavolo-table {
+  overflow-x:  auto;
+}
+
+
+
+
+
+
+
+

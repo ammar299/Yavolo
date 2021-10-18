@@ -1,6 +1,6 @@
 class Admin::CategoriesController < Admin::BaseController
 
-  before_action :set_category, only: %i[edit update destroy category_details remove_filter_group_association remove_image add_filter_group_association]
+  before_action :set_category, only: %i[edit update destroy category_details remove_filter_group_association remove_image add_filter_group_association category_products_delete_multiple category_products_with_pagination]
 
   def index
     @categories = Category.all
@@ -39,7 +39,12 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def category_details
-    render partial:"admin/categories/category_details"
+    @category_products = @category.products.page(params[:page]).per(params[:per_page].presence || 15)
+    render partial: "admin/categories/category_details"
+  end
+
+  def category_products_with_pagination
+    @category_products = @category.products.page(params[:page]).per(params[:per_page].presence || 15)
   end
 
   def remove_filter_group_association
@@ -63,10 +68,15 @@ class Admin::CategoriesController < Admin::BaseController
     @category.picture.destroy
   end
 
+  def category_products_delete_multiple
+    @category.assigned_categories.where(product_id: params['product_ids'].split(',')).destroy_all
+    @category_products = @category.products.page(params[:page]).per(params[:per_page].presence || 15)
+  end
+
   private
 
   def category_params
-    params.require(:category).permit(:category_name, :baby_category, :category_description,:bundle_label, picture_attributes: ["name", "@original_filename", "@content_type", "@headers", "_destroy", "id"])
+    params.require(:category).permit(:category_name, :baby_category, :category_description, :bundle_label, picture_attributes: ["name", "@original_filename", "@content_type", "@headers", "_destroy", "id"])
   end
 
   def set_category
