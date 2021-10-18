@@ -146,10 +146,10 @@
 .sign-in {
   min-height: 400px !important;
 }
-.dropdown-filter.show .dropdown-menu a {
+/* .dropdown-filter.show .dropdown-menu a {
     word-break: break-word;
     white-space: normal;
-}
+} */
 
 .sidebody {
   max-height: calc(100vh - 158px) !important;
