@@ -56,6 +56,52 @@ $(document).ready(function(){
     }
   });
 
+  $("#product_category").selectize({
+    valueField: "id",
+    labelField: "category_name",
+    searchField: "category_name",
+    // options: [],
+    // create: false,
+    render: {
+      option: function (item, escape) {
+        return (
+          '<option value="'+item.id+'">'+item.category_name+'</option>'
+        );
+      },
+    },
+    load: function (query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: "/admin/categories/search_category",
+        type: "GET",
+        dataType: "json",
+        data: {
+          q: query,
+          page_limit: 10,
+          apikey: "w82gs68n8m2gur98m6du5ugc",
+        },
+        error: function () {
+          callback();
+        },
+        success: function (res) {
+          callback(res.data);
+        },
+      });
+    },
+  });
+
+  $('#product_category').change(function(){
+    console.log($(this).val());
+    let productId = $('#product_id').val();
+    let categoryId = $(this).val();
+    getFilterGroupsOfBabyCategory(productId, categoryId);
+  });
+
+
+  // on product page load
+  if($('#product_category').val() && $('#product_category').val().length > 0)
+    getFilterGroupsOfBabyCategory($('#product_id').val(), $('#product_category').val());
+
 });
 
 function uploadCSVFile(files){
