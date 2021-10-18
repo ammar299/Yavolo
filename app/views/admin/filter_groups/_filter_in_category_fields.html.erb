@@ -2,12 +2,17 @@
   <div class="row">
     <div class="col-md-12">
       <div class="form-group form-group-vertical align-items-center flex-lg-nowrap flex-wrap">
-        <%= f.label :filter_name %>
-        <%= f.text_field :filter_name, class: 'form-control' %>
-        <%= f.label :sort_order, 'Sort Order:', class: 'text-left pr-3 min-100 ml-3'%>
-        <%= f.number_field :sort_order, class: 'form-control w-20 px-2 mr-3' %>
+      <%= f.label :filter_name %>
+      <%= f.text_field :filter_name, required: true, class: 'form-control' %>
+      <div class="d-flex px-3 tab-100">
+        <%= f.label :sort_order, required: true, class: 'text-left pr-3 min-100'%>
+        <%= f.number_field :sort_order, required: true, class: 'form-control w-20 px-2' %>
+        </div>
         <label for="exampleInputPassword1" class="text-left pr-3">Assigned Baby Category :</label>
-        <%= select_tag("Assign Category", options_for_select(Category.where(baby_category: :true).pluck(:category_name, :id)), class:"form-control") %>
+
+        <%= f.select(:category_id, options_for_select(Category.where(baby_category: :true).pluck(:category_name, :id), selected: f.object.category_id), {}, {class: "text-left pr-3 form-control" }) %>
+
+        <%#= select_tag(:category_id, options_for_select(Category.where(baby_category: :true).pluck(:category_name, :id)), class:"form-control") %>
         <%= link_to_remove_association f,class: 'filter_in_categories' do %>
           <span> <i class="pl-3 min-btn"></i></span>
           <p class="pl-3 pluse-btn"> - </p>
