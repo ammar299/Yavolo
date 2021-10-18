@@ -4,6 +4,7 @@ class Admin::CategoriesController < Admin::BaseController
 
   def index
     @categories = Category.all
+    @selected_cat_id = flash[:selected_cat_id].to_i if flash[:selected_cat_id].present?
   end
 
   def new
@@ -15,6 +16,7 @@ class Admin::CategoriesController < Admin::BaseController
     @category = Category.new(category_params)
     if @category.save
       if params[:selected_cat_id].present?
+        flash[:selected_cat_id] = params[:selected_cat_id]
         if params[:is_subcategory].present? # If its assigned as subcategory
           parent = Category.find(params[:selected_cat_id].to_i)
         else # If its assigned as sibling

@@ -6,7 +6,14 @@ $(document).ready(function () {
         createNewCategory($(this)[0]);
         fetchCategoryDetails($(this)[0])
     });
-    $(".categories-tree-body ul:first-of-type li:first .category-input:first").prop('checked', true).trigger('change')
+    const selectedIdCategory = $(".categories-tree-body .category-input[data-selected='true']")
+    if(selectedIdCategory.length){
+        selectedIdCategory.prop('checked', true).trigger('change')
+        selectedIdCategory.parents('ul').addClass('active')
+        selectedIdCategory.attr('data-selected', false)
+    } else{
+        $(".categories-tree-body ul:first-of-type li:first .category-input:first").prop('checked', true).trigger('change')
+    }
 
     $('body').on('change', '.filter-groups-select-all-container #filter-group-select-all', function () {
         if ($('#filter-group-select-all').is(':checked')) {
