@@ -6,6 +6,7 @@
 <div class="container-fluid">
     <div class="formme">
     <%= simple_form_for @product, url: url, method: method, html: { id: 'product_form' } do |form| %>
+        <%=hidden_field_tag :product_id, form.object.id %>
         <%=form.hidden_field :owner_id %>
         <%=form.hidden_field :owner_type %>
         <%= render "shared/products/photos", form: form %>

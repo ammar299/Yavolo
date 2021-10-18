@@ -17,6 +17,7 @@
  *= require styleguid
  *= require tagsinput
  *= require custom
+ *= require selectize.bootstrap4
  *= require_tree .
  *= require_self
  */
