@@ -56,6 +56,10 @@ $(document).ready(function () {
         e.returnValue = true;
     });
 
+    $('body').on('change', '.category-products-per-page', function (e) {
+       $(".submit-category-products-form-btn").click()
+    });
+
 });
 
 function fetchCategoryDetails(element) {
