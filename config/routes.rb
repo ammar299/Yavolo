@@ -98,7 +98,10 @@ Rails.application.routes.draw do
   devise_scope :seller do
     authenticated :seller do
       namespace :sellers do
-        root 'dashboard#index', as: :seller_authenticated_root
+        namespace :auth do 
+          resources :sign_up_steps
+        end
+        root to: 'dashboard#index', as: :seller_authenticated_root
       end
     end
   end

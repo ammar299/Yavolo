@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="row">
+    <div class="col col-12 col-lg-6 col-md-8 mx-auto">
+      <div class="sign-in">
+     <h3 class="text-center mb-5" style="color: #640529;">Register you business with Yavolo
+        </h3>
+        <h5 class="text-center mb-5" style="color: #640529;font-size: 18px; margin-top: -36px;">Add Business Representative Address</h5>
+        <%= form_for @seller, url: wizard_path, method: :put do |form| %>
+          <% if @seller.errors.any? %>
+            <div class="error_messages">
+              <h2><%= pluralize(@seller.errors.count, "error") %> prohibited this user from being saved:</h2>
+              <ul>
+                <% @seller.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <%= form.fields_for :addresses, (@seller.addresses.build(address_type: "business_address")) do |br_addr| %>
+            <div class="form-group general-mrgn">
+              <%= br_addr.hidden_field :address_type, value: Address.address_types.keys[Address.address_types["business_representative_address"]], class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= br_addr.label :address_line_1, 'Address Line 1*' %>
+              <%= br_addr.text_field :address_line_1, required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= br_addr.label :address_line_2, 'Address Line 2*' %>
+              <%= br_addr.text_field :address_line_2, required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= br_addr.label :city, 'City*' %>
+              <%= br_addr.text_field :city, required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= br_addr.label :county, 'County*' %>
+              <%= br_addr.text_field :county, required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= br_addr.label :country, 'Country*' %>
+              <%= br_addr.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Country' }, required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= br_addr.label :postal_code, 'Postal Code*' %>
+              <%= br_addr.text_field :postal_code, required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= br_addr.label :phone_number, 'Business Representative Phone Number*' %>
+              <%= br_addr.text_field :phone_number, required: true, class: 'form-control' %>
+            </div>
+            <%= br_addr.submit "Continue", class: 'btn btn-primary btn-lg btn-block mb-4' %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
