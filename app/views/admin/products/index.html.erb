@@ -110,7 +110,7 @@
             </div>
             <div class="all-products-header-right d-flex justify-content-between">
                 <a href="#" class="btn btn-sm btn-radius px-2 btn-primary mr-1 upload-csv-btn">Upload CSV</a>
-                <a href="#" class="btn btn-sm btn-radius px-2 btn-primary mr-1">Export CSV</a>
+                <%= link_to "Export CSV", export_csv_admin_products_path(:format => :csv), class: 'btn btn-sm btn-radius px-2 btn-primary mr-1' %>
                 <%=link_to 'Create New Product', new_admin_product_path, class: 'btn btn-sm btn-radius px-2 btn-primary' %>
             </div>
         </div>

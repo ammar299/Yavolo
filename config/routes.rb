@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       namespace :admin do
         # root 'admin/dashboard#index', as: :admins_dashboard
         root 'dashboard#index', as: :dashboard
-        
+
         resources :delivery_options, except: %i[show] do
           collection do
             get    :confirm_multiple_deletion
@@ -74,8 +74,9 @@ Rails.application.routes.draw do
 
         resources :products do
           collection do
-            get 'duplicate'
-            post 'upload_csv'
+            get :duplicate
+            post :upload_csv
+            get :export_csv
           end
         end
 
