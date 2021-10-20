@@ -1,10 +1,11 @@
 class Picture < ApplicationRecord
     belongs_to :imageable, polymorphic: true
     mount_uploader :name, PictureUploader
+		attr_accessor :file_metadata
 
     validates :name, presence: { message: 'Product picture not attached'}
+
     validate :validate_attachments
-		attr_accessor :file_metadata
 
     private
 		def validate_attachments
