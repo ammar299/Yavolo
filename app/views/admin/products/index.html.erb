@@ -145,7 +145,13 @@
                         <td><%=product.status.to_s.titleize%></td>
                         <td>
                             <div class="">
-                                <span class="imglist" width="100%"></span>
+                                <span class="imglist" width="100%">
+                                <% if product.pictures.present?%>
+                                  <% if product.pictures.first&.name&.url.present? %>
+                                    <%=image_tag product.pictures.first&.name&.url(:thumb) %>
+                                  <% end %>
+                                <% end %> 
+                                </span>
                             </div>
                         </td>
                         <td>

@@ -24,10 +24,10 @@ class Admin::ProductsController < Admin::BaseController
   def new
     if params[:product_id].present?
       @product = Product.friendly.find_by(id: params[:product_id])
-      @product.seo_content.duplicate
-      @product.ebay_detail.duplicate
-      @product.google_shopping.duplicate
-      @product.assigned_category.duplicate
+      @product.seo_content.duplicate if @product.seo_content.present?
+      @product.ebay_detail.duplicate if @product.ebay_detail.present?
+      @product.google_shopping.duplicate if @product.google_shopping.present?
+      @product.assigned_category.duplicate if @product.assigned_category.present?
     else
       @product = Product.new(owner_params)
       @product.build_seo_content
@@ -53,7 +53,7 @@ class Admin::ProductsController < Admin::BaseController
       @delivery_options = DeliveryOption.all
       @product.owner_id = owner_params[:owner_id]
       @product.owner_type = owner_params[:owner_type]
-      render action: 'new'
+      render action: 'new', product_id: params[:product_id]
     end
 
   end
@@ -104,7 +104,7 @@ class Admin::ProductsController < Admin::BaseController
     def product_params
       params.require(:product).permit(:owner_id,:owner_type,
       :title, :condition, :width, :depth, :height, :colour, :material, :brand, :keywords, :description, :price, :stock, :sku, :ean, :discount, :yavolo_enabled, :delivery_option_id,
-      pictures_attributes: ["name", "@original_filename", "@content_type", "@headers"],
+      pictures_attributes: ["name", "@original_filename", "@content_type", "@headers", [:remote_name_url]],
       seo_content_attributes: [:id,:title, :url, :description, :keywords],
       ebay_detail_attributes: [:id,:lifetime_sales, :thirty_day_sales, :price, :thirty_day_revenue, :mpn_number], google_shopping_attributes: [:id,:title,:price,:category,:campaign_category,:description,:exclude_from_google_feed],
       assigned_category_attributes: [:id,:category_id])

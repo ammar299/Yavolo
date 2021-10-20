@@ -29,6 +29,9 @@
                                         </span>
                                         <%= pic_form.check_box :_destroy,name: "product[images_attributes][#{index}][_destroy]" ,style: 'display:none' %>
                                         <%= pic_form.hidden_field :id, name: "product[images_attributes][#{index}][id]", value: pic_form.object.id %>
+                                        <% if params[:product_id].present? %>
+                                        <%=hidden_field_tag 'product[pictures_attributes][][remote_name_url]', pic_form.object.name.url%>
+                                        <% end %>
                                     </div>
                                 </div>
                                 </div>
