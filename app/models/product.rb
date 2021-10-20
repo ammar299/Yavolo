@@ -28,11 +28,4 @@ class Product < ApplicationRecord
     validates :yan, uniqueness: true, if: Proc.new{|p| p.yan.present? }
     validates :title, :condition, :description, :keywords, :price, :stock, presence: true
 
-    validate :baby_category_present?
-
-    private
-
-    def baby_category_present?
-    end
-
 end
