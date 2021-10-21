@@ -17,7 +17,16 @@ $(document).ready(function(){
     bindDragAndDropEvents('upload-csv-popup');
 
   $('#product_pictures_attributes_0_name').change(function(e){
-    previewProductImages(e.target.files);
+    let imagesValidator = validProductImages(e.target.files);
+    if(imagesValidator.isValid){
+      $('.file-errors').html("")
+      previewProductImages(e.target.files);
+    }else{
+      document.getElementById('product_pictures_attributes_0_name').value=''
+      $('.file-errors').html("")
+      $('.file-errors').html(imagesValidator.errors.map(e => '<li>'+e+'</li>').join(""))
+      $('#upload-images-popup').modal('hide');
+    }
   });
 
   // show upload images popup
@@ -223,6 +232,22 @@ function validCsvFile(files){
 
   if(size > 10){
     errors.push('File size should be less than 10MB');
+  }
+  return { errors: errors , isValid: !(errors.length > 0) }
+}
+
+function validProductImages(files){
+  let allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+  let errors = [];
+
+  for(let i=0; i< files.length; i++){
+    if(!allowedExtensions.exec(files[i].name)) {
+      errors.push('Invalid file type, allowed type is jpg, jpeg and png')
+    }
+    let size = (files[i].size/1024)/1024;
+    if(size > 10){
+      errors.push('File size should be less than 10MB');
+    }
   }
   return { errors: errors , isValid: !(errors.length > 0) }
 }
