@@ -66,7 +66,7 @@ h1, h2, h3, h4, h5, h6 {
 .btn-sm {
     font-size: 12px;
     line-height: 15px;
-    padding: 8px 12px 5px 12px;
+    padding: 8px 12px 8px 12px;
 }
 .btn.focus, 
 .btn:focus {
