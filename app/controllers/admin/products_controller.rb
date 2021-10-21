@@ -92,6 +92,22 @@ class Admin::ProductsController < Admin::BaseController
     end
   end
 
+  def export_csv
+    if current_admin.products.count > 50
+      ExportCsvWorker.perform_async(current_admin.id, current_admin.class.name)
+      redirect_to admin_products_path, notice: 'Products export is started, You will receive a file when its completed.'
+    else
+      exporter = Products::Exporter.call({ owner: current_admin })
+      if exporter.status
+        respond_to do |format|
+          format.csv { send_data exporter.csv_file, filename: "products_#{Time.zone.now.to_i}.csv" }
+        end
+      else
+        render json: { error: exporter.errors.first.to_s }
+      end
+    end
+  end
+
   private
     def product_params
       params.require(:product).permit(:owner_id,:owner_type,
@@ -99,7 +115,8 @@ class Admin::ProductsController < Admin::BaseController
       pictures_attributes: ["name", "@original_filename", "@content_type", "@headers", [:remote_name_url] ],
       seo_content_attributes: [:id,:title, :url, :description, :keywords],
       ebay_detail_attributes: [:id,:lifetime_sales, :thirty_day_sales, :price, :thirty_day_revenue, :mpn_number], google_shopping_attributes: [:id,:title,:price,:category,:campaign_category,:description,:exclude_from_google_feed],
-      assigned_category_attributes: [:id,:category_id])
+      assigned_category_attributes: [:id,:category_id],
+      filter_in_category_ids: [])
     end
 
     def owner_params

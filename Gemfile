@@ -78,3 +78,4 @@ gem 'sidekiq'
 gem 'friendly_id', '~> 5.4.0'
 gem "letter_opener", group: :development
 gem 'ransack'
+gem 'wicked'

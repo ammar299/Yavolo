@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_17_213520) do
+ActiveRecord::Schema.define(version: 2021_10_18_120416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -216,7 +216,7 @@ ActiveRecord::Schema.define(version: 2021_10_17_213520) do
   end
 
   create_table "delivery_option_ships", force: :cascade do |t|
-    t.float "price"
+    t.decimal "price", precision: 8, scale: 2
     t.bigint "delivery_option_id"
     t.bigint "ship_id"
     t.datetime "created_at", precision: 6, null: false
@@ -295,6 +295,18 @@ ActiveRecord::Schema.define(version: 2021_10_17_213520) do
     t.index ["product_id"], name: "index_google_shoppings_on_product_id"
   end
 
+  create_table "meta_contents", force: :cascade do |t|
+    t.string "title"
+    t.text "keywords"
+    t.text "description"
+    t.string "url"
+    t.string "meta_able_type"
+    t.bigint "meta_able_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["meta_able_type", "meta_able_id"], name: "index_meta_contents_on_meta_able"
+  end
+
   create_table "pg_search_documents", force: :cascade do |t|
     t.text "content"
     t.string "searchable_type"
@@ -340,6 +352,7 @@ ActiveRecord::Schema.define(version: 2021_10_17_213520) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "delivery_option_id"
+    t.text "filter_in_category_ids", default: ""
     t.index ["brand"], name: "index_products_on_brand"
     t.index ["delivery_option_id"], name: "index_products_on_delivery_option_id"
     t.index ["ean"], name: "index_products_on_ean"

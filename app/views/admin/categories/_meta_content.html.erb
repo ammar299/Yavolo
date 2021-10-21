@@ -1,19 +1,35 @@
 <div class="product-catagory-inner yo-white-card box-border">
   <h5>Meta Content</h5>
-  <form action="">
+  <%= form_with(model: [:admin, @category], local: false, html: {id: 'category_meta_form'}) do |f| %>
+    <%= f.fields_for :meta_content, @category.meta_content || @category.build_meta_content do |g| %>
+      <div class="form-group form-group-vertical form-group-vertical-responsive">
+        <%= g.label :title, "Meta Title" %>
+        <%= g.text_field :title, class: "form-control" %>
+      </div>
+
+      <div class="form-group form-group-vertical form-group-vertical-responsive">
+        <%= g.label :keywords, "Meta Tags" %>
+        <%= g.text_field :keywords, class: "form-control category-meta-tags", placeholder: "Enter Keywords", data: {role: "tagsinput"} %>
+      </div>
+
+      <div class="form-group form-group-vertical form-group-vertical-responsive">
+        <%= g.label :description, "Meta Description" %>
+        <%= g.text_area :description, class: "form-control meta-description" %>
+      </div>
+    <% end %>
     <div class="form-group form-group-vertical form-group-vertical-responsive">
-      <label for="exampleInputPassword1">Meta title:</label>
-      <input type="email" class="form-control" id="exampleInputEmail1"
-             aria-describedby="emailHelp">
+      <%= f.submit :Save, class: "form-control w-30" %>
     </div>
-    <div class="form-group form-group-vertical form-group-vertical-responsive">
-      <label for="exampleInputPassword1">Meta Keywords:</label>
-      <input type="email" class="form-control" id="exampleInputEmail1"
-             aria-describedby="emailHelp" >
-    </div>
-    <div class="form-group form-group-vertical form-group-vertical-responsive">
-      <label for="exampleInputPassword1">Meta Description:</label>
-      <textarea class="form-control" ></textarea>
-    </div>
-  </form>
+  <% end %>
+
 </div>
+
+<script>
+    $(".category-meta-tags").tagsinput('items')
+    $(document).ready(function () {
+
+        ClassicEditor.create(document.querySelector('.meta-description')).catch(error => {
+            console.error(error);
+        });
+    })
+</script>

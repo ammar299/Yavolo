@@ -31,6 +31,7 @@ module Products
             product = Product.new(get_params(row))
             product.owner_id = csv_import.importer_id
             product.owner_type = csv_import.importer_type
+            product.filter_in_category_ids = []
             if product.valid?
               product.save
             else
@@ -127,7 +128,7 @@ module Products
         :title, :condition, :width, :depth, :height, :colour, :material, :brand, :keywords, :description, :price, :stock, :sku, :ean, :discount, :yavolo_enabled, :delivery_option_id,
         seo_content_attributes: [:title, :url, :description, :keywords],
         ebay_detail_attributes: [:lifetime_sales, :thirty_day_sales, :price, :thirty_day_revenue, :mpn_number], google_shopping_attributes: [:title,:price,:category,:campaign_category,:description,:exclude_from_google_feed],
-        pictures_attributes: [remote_name_url:[]])
+        pictures_attributes: [[:remote_name_url]])
       end
 
       def have_required_fields?(row)

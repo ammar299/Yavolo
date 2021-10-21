@@ -4,6 +4,7 @@ class Admin::CategoriesController < Admin::BaseController
 
   def index
     @categories = Category.all
+    @selected_cat_id = flash[:selected_cat_id].to_i if flash[:selected_cat_id].present?
   end
 
   def new
@@ -15,6 +16,7 @@ class Admin::CategoriesController < Admin::BaseController
     @category = Category.new(category_params)
     if @category.save
       if params[:selected_cat_id].present?
+        flash[:selected_cat_id] = params[:selected_cat_id]
         if params[:is_subcategory].present? # If its assigned as subcategory
           parent = Category.find(params[:selected_cat_id].to_i)
         else # If its assigned as sibling
@@ -39,12 +41,12 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def category_details
-    @category_products = @category.products.page(params[:page]).per(params[:per_page].presence || 15)
+    @category_products = category_products
     render partial: "admin/categories/category_details"
   end
 
   def category_products_with_pagination
-    @category_products = @category.products.page(params[:page]).per(params[:per_page].presence || 15)
+    @category_products = category_products
   end
 
   def remove_filter_group_association
@@ -68,19 +70,35 @@ class Admin::CategoriesController < Admin::BaseController
     @category.picture.destroy
   end
 
+  def search_category
+    @categories = Category.where("category_name LIKE ? AND baby_category = ?", "%#{params[:q]}%", true).limit(10)
+    render json: { data: @categories }
+  end
+
+  def get_filter_groups
+    @product = Product.where(id: params[:product_id]).first if params[:product_id].present?
+    @category = Category.where(id: params[:id]).includes(filter_groups: :filter_in_categories).first
+  end
+
   def category_products_delete_multiple
     @category.assigned_categories.where(product_id: params['product_ids'].split(',')).destroy_all
-    @category_products = @category.products.page(params[:page]).per(params[:per_page].presence || 15)
+    @category_products = category_products
   end
 
   private
 
   def category_params
-    params.require(:category).permit(:category_name, :baby_category, :category_description, :bundle_label, picture_attributes: ["name", "@original_filename", "@content_type", "@headers", "_destroy", "id"])
+    params.require(:category).permit(:category_name, :baby_category, :category_description, :bundle_label, picture_attributes: ["name", "@original_filename", "@content_type", "@headers", "_destroy", "id"], meta_content_attributes: [:id, :title, :description, :keywords])
   end
 
   def set_category
     @category = Category.find(params[:id])
+  end
+
+  def category_products
+    products = @category.products
+    products = products.where('lower(products.title) ilike ?', "%#{params[:q].downcase}%") if params[:q].present?
+    products.page(params[:page]).per(params[:per_page].presence || 15)
   end
 
 end

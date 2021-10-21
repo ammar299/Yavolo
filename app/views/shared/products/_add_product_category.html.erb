@@ -1,37 +1,9 @@
 <%= form.fields_for :assigned_category, @product.assigned_category do |ac| %>
 <div class="general-mrgn mt-0">
     <label for="exampleInputEmail1">Category*</label>
-    <%= ac.select :category_id, Category.baby_categories.map{|bc| [bc.category_name.titleize, bc.id]}, { prompt: 'Search for the best Yavolo category for your product' }, class: 'form-control', required: true %>
+    <%= ac.select :category_id, Category.baby_categories.map{|bc| [bc.category_name.titleize, bc.id]}, { prompt: 'Search for the best Yavolo category for your product' }, class: 'form-control', id: 'product_category',required: true %>
 </div>
 <% end %>
 
-<div class="row">
-    <div class="general-mrgn col-md-3 mt-0">
-        <label for="exampleInputEmail1">Category filter 1</label>
-        <select class="form-control">
-            <option>Cat filter 1</option>
-            <option>Cat filter 2</option>
-        </select>
-    </div>
-    <div class="general-mrgn col-md-3 mt-0">
-        <label for="exampleInputEmail1">Category filter 2</label>
-        <select class="form-control">
-            <option>Cat filter 1</option>
-            <option>Cat filter 2</option>
-        </select>
-    </div>
-    <div class="general-mrgn col-md-3 mt-0">
-        <label for="exampleInputEmail1">Category filter 3</label>
-        <select class="form-control">
-            <option>Cat filter 1</option>
-            <option>Cat filter 2</option>
-        </select>
-    </div>
-    <div class="general-mrgn col-md-3 mt-0">
-        <label for="exampleInputEmail1">Category filter 4</label>
-        <select class="form-control">
-            <option>Cat filter 1</option>
-            <option>Cat filter 2</option>
-        </select>
-    </div>
+<div class="row mx-1 mb-2" id="category-filter-section">
 </div>

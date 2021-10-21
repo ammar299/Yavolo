@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       namespace :admin do
         # root 'admin/dashboard#index', as: :admins_dashboard
         root 'dashboard#index', as: :dashboard
-        
+
         resources :delivery_options, except: %i[show] do
           collection do
             get    :confirm_multiple_deletion
@@ -48,6 +48,10 @@ Rails.application.routes.draw do
             delete :remove_filter_group_association
             delete :remove_image
             put :add_filter_group_association
+            get :get_filter_groups
+          end
+          collection do
+            get :search_category
             delete :category_products_delete_multiple
           end
         end
@@ -70,8 +74,9 @@ Rails.application.routes.draw do
 
         resources :products do
           collection do
-            get 'duplicate'
-            post 'upload_csv'
+            get :duplicate
+            post :upload_csv
+            get :export_csv
           end
         end
 
@@ -94,7 +99,10 @@ Rails.application.routes.draw do
   devise_scope :seller do
     authenticated :seller do
       namespace :sellers do
-        root 'dashboard#index', as: :seller_authenticated_root
+        namespace :auth do 
+          resources :sign_up_steps
+        end
+        root to: 'dashboard#index', as: :seller_authenticated_root
       end
     end
   end
