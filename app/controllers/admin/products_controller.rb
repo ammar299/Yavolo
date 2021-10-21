@@ -22,11 +22,11 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def new
-    @product = Product.new(owner_params)
-    @product.build_seo_content
-    @product.build_ebay_detail
-    @product.build_google_shopping
-    @product.build_assigned_category
+    if params[:dup_product_id].present?
+      @product = duplicate_product_new(params[:dup_product_id])
+    else
+      @product = initialize_new_product
+    end
     @delivery_options = DeliveryOption.all
   end
 
@@ -40,12 +40,13 @@ class Admin::ProductsController < Admin::BaseController
     end
 
     if @product.save
+      save_product_images_from_remote_urls(@product) if params[:dup_product_id].present?
       redirect_to edit_admin_product_path(@product), notice: 'Product was successfully created.'
     else
       @delivery_options = DeliveryOption.all
       @product.owner_id = owner_params[:owner_id]
       @product.owner_type = owner_params[:owner_type]
-      render action: 'new'
+      render action: 'new', product_id: params[:product_id]
     end
 
   end
@@ -112,7 +113,7 @@ class Admin::ProductsController < Admin::BaseController
     def product_params
       params.require(:product).permit(:owner_id,:owner_type,
       :title, :condition, :width, :depth, :height, :colour, :material, :brand, :keywords, :description, :price, :stock, :sku, :ean, :discount, :yavolo_enabled, :delivery_option_id,
-      pictures_attributes: ["name", "@original_filename", "@content_type", "@headers"],
+      pictures_attributes: ["name", "@original_filename", "@content_type", "@headers", [:remote_name_url] ],
       seo_content_attributes: [:id,:title, :url, :description, :keywords],
       ebay_detail_attributes: [:id,:lifetime_sales, :thirty_day_sales, :price, :thirty_day_revenue, :mpn_number], google_shopping_attributes: [:id,:title,:price,:category,:campaign_category,:description,:exclude_from_google_feed],
       assigned_category_attributes: [:id,:category_id],
@@ -125,5 +126,36 @@ class Admin::ProductsController < Admin::BaseController
 
     def images_to_delete_params
       @images_to_remove ||= params[:product][:images_attributes].values.select{|h| h["_destroy"]=="1" } if params[:product][:images_attributes].present?
+    end
+
+    def duplicate_product_new(pid)
+      ex_product = Product.friendly.find_by(id: pid)
+      product = ex_product.present? ? ex_product.dup : initialize_new_product
+      return product if ex_product.blank?
+      ex_product.seo_content.present? ? product.seo_content = ex_product.seo_content.dup : product.build_seo_content
+      ex_product.ebay_detail.present? ? product.ebay_detail = ex_product.ebay_detail.dup : product.build_ebay_detail
+      ex_product.google_shopping.present? ? product.google_shopping = ex_product.google_shopping.dup : product.build_google_shopping
+      ex_product.assigned_category.present? ? product.assigned_category = ex_product.assigned_category.dup : product.build_assigned_category
+      product.pictures = ex_product.pictures.dup
+      product
+    end
+
+    def initialize_new_product
+      product = Product.new(owner_params)
+      product.build_seo_content
+      product.build_ebay_detail
+      product.build_google_shopping
+      product.build_assigned_category
+      product
+    end
+
+    def save_product_images_from_remote_urls(product)
+      if params[:product][:copy_images].present?
+        images_urls = params[:product][:copy_images].map{ |e|
+          {remote_name_url: "#{ENV['HOST_URL']}#{e[:remote_name_url]}"}
+        }
+        product.pictures_attributes=images_urls
+        product.save
+      end
     end
 end

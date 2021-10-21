@@ -160,7 +160,13 @@
                         <td><%=product.status.to_s.titleize%></td>
                         <td>
                             <div class="">
-                                <span class="imglist" width="100%"></span>
+                                <span class="imglist" width="100%">
+                                <% if product.pictures.present?%>
+                                  <% if product.pictures.first&.name&.url.present? %>
+                                    <%=image_tag product.pictures.first&.name&.url(:thumb) %>
+                                  <% end %>
+                                <% end %> 
+                                </span>
                             </div>
                         </td>
                         <td>
@@ -198,7 +204,7 @@
                         <td>
                             <div>
                                 <%=link_to 'Edit', edit_admin_product_path(product), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100' %>
-                                <%=link_to 'Duplicate', duplicate_admin_products_path(product_id: product.id), class: 'btn btn-sm btn-radius px-4 btn-secondary w-100' %>
+                                <%=link_to 'Duplicate', new_admin_product_path(dup_product_id: product.id), class: 'btn btn-sm btn-radius px-4 btn-secondary w-100' %>
                             </div>
                         </td>
                     </tr>

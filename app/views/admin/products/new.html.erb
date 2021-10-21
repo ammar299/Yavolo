@@ -1,1 +1,1 @@
-<%= render partial: 'form', locals: { method: :post, url: admin_products_path } %>
+<%= render partial: 'form', locals: { method: :post, url: admin_products_path(dup_product_id: params[:dup_product_id]) } %>
