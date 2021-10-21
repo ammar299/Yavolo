@@ -17,7 +17,7 @@ class Sellers::DashboardController < Sellers::BaseController
           elsif @seller.bank_detail.nil?
             redirect_to sellers_auth_sign_up_steps_path
           else
-            redirect_to sellers_auth_sign_up_steps_path
+            return
           end
         else
           unless @seller.company_detail.present? || @seller.business_representative.present? || @seller.addresses.where(address_type: 'business_address').first.present? || @seller.addresses.where(address_type: 'business_representative_address').first.present?
