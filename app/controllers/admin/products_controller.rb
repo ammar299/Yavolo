@@ -22,8 +22,8 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def new
-    if params[:product_id].present?
-      @product = duplicate_product_new(params[:product_id])
+    if params[:dup_product_id].present?
+      @product = duplicate_product_new(params[:dup_product_id])
     else
       @product = initialize_new_product
     end
@@ -40,6 +40,7 @@ class Admin::ProductsController < Admin::BaseController
     end
 
     if @product.save
+      save_product_images_from_remote_urls(@product) if params[:dup_product_id].present?
       redirect_to edit_admin_product_path(@product), notice: 'Product was successfully created.'
     else
       @delivery_options = DeliveryOption.all
@@ -146,5 +147,15 @@ class Admin::ProductsController < Admin::BaseController
       product.build_google_shopping
       product.build_assigned_category
       product
+    end
+
+    def save_product_images_from_remote_urls(product)
+      if params[:product][:copy_images].present?
+        images_urls = params[:product][:copy_images].map{ |e|
+          {remote_name_url: "#{ENV['HOST_URL']}#{e[:remote_name_url]}"}
+        }
+        product.pictures_attributes=images_urls
+        product.save
+      end
     end
 end

@@ -53,6 +53,10 @@ $(document).ready(function(){
         $(this).parents('.p-img-container').hide();
         $(this).find("[type='checkbox']").prop('checked',true)
       }
+      let idx = $(this).data('imgindex')+"";
+      if(idx && $('#dupimg'+idx).length > 0){
+        $('#dupimg'+idx).remove();
+      }
     }
   });
 

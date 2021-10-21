@@ -1,16 +1,16 @@
 <%="Is this New form #{form.object.new_record?}"%>
 <div class="photo-grid yo-white-card  box-border mt-3">
     <div class="row align-items-center">
-        <div class="add-edit-product-photos <%= form.object.new_record? && params[:product_id].blank? ? 'col-lg-12' : 'col-lg-8' %>">
-            <div class="add-photoo text-center <%= form.object.new_record? && params[:product_id].blank? ? 'photos-uploader-section' : '' %>">
+        <div class="add-edit-product-photos <%= form.object.new_record? && params[:dup_product_id].blank? ? 'col-lg-12' : 'col-lg-8' %>">
+            <div class="add-photoo text-center <%= form.object.new_record? && params[:dup_product_id].blank? ? 'photos-uploader-section' : '' %>">
                 <div class="add-photo-inner">
-                    <a href="" class="btn btn-radius px-4 btn-primary photo-btn grid-btn-top show-upload-images-popup"><%=form.object.new_record? && params[:product_id].blank? ? 'Add Photos' : 'Edit Photos' %></a><br>
+                    <a href="" class="btn btn-radius px-4 btn-primary photo-btn grid-btn-top show-upload-images-popup"><%=form.object.new_record? && params[:dup_product_id].blank? ? 'Add Photos' : 'Edit Photos' %></a><br>
                     <small class="red-color">Upload images to show your sensational in all its
                         wonderfull glory</small>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 product-photos-section" style="display: <%= form.object.new_record? && params[:product_id].blank? ? 'none' : 'block' %>">
+        <div class="col-lg-4 product-photos-section" style="display: <%= form.object.new_record? && params[:dup_product_id].blank? ? 'none' : 'block' %>">
             <div class="photo-grid-img">
                 <div class="product-images-inner text-center">
                     <div class="row product-photos-grid">
@@ -31,8 +31,8 @@
                                         <%= pic_form.check_box :_destroy,name: "product[images_attributes][#{index}][_destroy]" ,style: 'display:none' %>
                                         <%= pic_form.hidden_field :id, name: "product[images_attributes][#{index}][id]", value: pic_form.object.id %>
 
-                                        <% if params[:product_id].present? %>
-                                        <%=hidden_field_tag 'product[pictures_attributes][][remote_name_url]', "#{pic_form.object.name.url}", id: "dupimg#{index}" %>
+                                        <% if params[:dup_product_id].present? %>
+                                        <%=hidden_field_tag 'product[copy_images][][remote_name_url]', "#{pic_form.object.name.url}", id: "dupimg#{index}" %>
                                         <% end %>
 
                                     </div>
