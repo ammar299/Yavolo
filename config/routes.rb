@@ -102,6 +102,7 @@ Rails.application.routes.draw do
         namespace :auth do 
           resources :sign_up_steps
         end
+        resources :profiles
         root to: 'dashboard#index', as: :seller_authenticated_root
       end
     end

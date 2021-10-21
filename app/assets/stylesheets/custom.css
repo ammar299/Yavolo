@@ -228,3 +228,16 @@
   display: flex;
   align-items: center;
 }
+
+.progress-bar-outer {
+  width: 100%;
+  overflow: hidden;
+  height: 6px;
+  background-color: #ff3e55a3;
+}
+
+.progress-bar-inner {
+  height:10px;
+  width: 25%;
+  background-color: var(--red);
+}

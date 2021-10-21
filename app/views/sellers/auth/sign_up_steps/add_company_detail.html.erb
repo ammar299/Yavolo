@@ -1,3 +1,4 @@
+<%= render 'progress_bar', locals: { progress: "17" } %>
 <div class="container">
   <div class="row">
     <div class="col col-12 col-lg-6 col-md-8 mx-auto">
@@ -6,52 +7,66 @@
         </h3>
         <h5 class="text-center mb-5" style="color: #640529;font-size: 18px; margin-top: -36px;">Add Company Details</h5>
         <%= form_for @seller, url: wizard_path, method: :put do |form| %>
-          <% if @seller.errors.any? %>
-            <div class="error_messages">
-              <h2><%= pluralize(@seller.errors.count, "error") %> prohibited this user from being saved:</h2>
-              <ul>
-                <% @seller.errors.full_messages.each do |msg| %>
-                  <li><%= msg %></li>
-                <% end %>
-              </ul>
-            </div>
+          <% company_detail = '' %>
+          <% if form.object.company_detail.present? %>
+            <% company_detail = form.object.company_detail %>
+          <% else %>
+            <% company_detail = @seller.build_company_detail %>
           <% end %>
-          <%= form.fields_for :company_detail, @seller.build_company_detail do |cd| %>
-            <div class="form-group general-mrgn">
+          <%= form.fields_for :company_detail, (company_detail) do |cd| %>
+            <% has_error, msg = get_errors(form, "company_detail.name") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= cd.label :name, 'Company Name*' %>
               <%= cd.text_field :name, required: true, class: 'form-control' %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
-            <div class="form-group general-mrgn">
+            <% has_error, msg = get_errors(form, "company_detail.country") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= cd.label :country, 'Country*' %>
               <%= cd.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Country' }, required: true, class: 'form-control' %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
-            <div class="form-group general-mrgn">
+            <% has_error, msg = get_errors(form, "company_detail.legal_business_name") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= cd.label :legal_business_name, 'Legal Business Name*' %>
               <%= cd.text_field :legal_business_name, required: true, class: 'form-control' %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
-            <div class="form-group general-mrgn">
+            <% has_error, msg = get_errors(form, "company_detail.companies_house_registration_number") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= cd.label :companies_house_registration_number, 'Company House Registation Number*' %>
-              <%= cd.text_field :companies_house_registration_number, required: true, class: 'form-control' %>
+              <%= cd.text_field :companies_house_registration_number, required: true, class: 'form-control' %>     
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
-            <div class="form-group general-mrgn">
+            <% has_error, msg = get_errors(form, "company_detail.doing_business_as") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= cd.label :doing_business_as, 'Doing Business As*' %>
               <%= cd.text_field :doing_business_as, required: true, class: 'form-control' %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
-            <div class="form-group general-mrgn">
+            <% has_error, msg = get_errors(form, "company_detail.business_industry") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= cd.label :business_industry, 'Business Industry*' %>
               <%= cd.text_field :business_industry, required: true, class: 'form-control' %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
-            <div class="form-group general-mrgn">
+            <% has_error, msg = get_errors(form, "company_detail.website_url") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= cd.label :website_url, 'Business Website URL*' %>
               <%= cd.url_field :website_url, required: true, class: 'form-control' %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
-            <div class="form-group general-mrgn">
+            <% has_error, msg = get_errors(form, "company_detail.ebay_url") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= cd.label :ebay_url, 'eBay URL*' %>
               <%= cd.url_field :ebay_url, required: true, class: 'form-control' %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
-            <div class="form-group general-mrgn">
+            <% has_error, msg = get_errors(form, "company_detail.amazon_url") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= cd.label :amazon_url, 'Amazon URL*' %>
               <%= cd.url_field :amazon_url, required: true, class: 'form-control' %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
             <%= cd.submit "Continue", class: 'btn btn-primary btn-lg btn-block mb-4' %>
           <% end %>

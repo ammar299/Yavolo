@@ -5,11 +5,14 @@ class Seller < ApplicationRecord
          :recoverable, :rememberable, :validatable, :timeoutable, :trackable, :omniauthable, omniauth_providers: [:google_oauth2 , :facebook]
   validates :email, confirmation: true
   validates :contact_number, phone: {allow_blank: true}
+  validates_acceptance_of :terms_and_conditions, on: :on_final_step?
+  validates_acceptance_of :recieve_deals_via_email, on: :on_final_step?
   has_one :business_representative, dependent: :destroy
   has_many :addresses, dependent: :destroy
   has_one :company_detail, dependent: :destroy
   has_one :picture, as: :imageable, dependent: :destroy
   has_one :seller_api
+  has_one :bank_detail, dependent: :destroy
   
   
   enum account_status: {
@@ -33,6 +36,7 @@ class Seller < ApplicationRecord
   accepts_nested_attributes_for :addresses
   accepts_nested_attributes_for :company_detail
   accepts_nested_attributes_for :picture
+  accepts_nested_attributes_for :bank_detail
   attr_accessor :skip_password_validation  # virtual attribute to skip password validation while saving
 
 

@@ -1,0 +1,53 @@
+<%= render 'progress_bar', locals: { progress: "90" } %>
+<div class="container">
+  <div class="row">
+    <div class="col col-12 col-lg-6 col-md-8 mx-auto">
+      <div class="sign-in">
+        <h3 class="text-center mb-5" style="color: #640529;">Register you business with Yavolo
+        </h3>
+        <h5 class="text-center mb-5" style="color: #640529;font-size: 18px; margin-top: -36px;">Add Bank Account for Payouts</h5>
+        <%= form_for @seller, url: wizard_path, method: :put do |form| %>
+          <% bank_detail = '' %>
+          <% if form.object.bank_detail.present? %>
+            <% bank_detail = form.object.bank_detail %>
+          <% else %>
+            <% bank_detail = @seller.build_bank_detail %>
+          <% end %>
+          <%= form.fields_for :bank_detail, (bank_detail) do |cd| %>
+            <% has_error, msg = get_errors(form, "bank_detail.currency") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
+              <%= cd.label :currency, 'Currency*' %>
+              <%= cd.text_field :currency, required: true, class: 'form-control' %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+            </div>
+            <% has_error, msg = get_errors(form, "bank_detail.country") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
+              <%= cd.label :country, 'Country of Bank Account*' %>
+              <%= cd.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Country' }, required: true, class: 'form-control' %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+            </div>
+            <% has_error, msg = get_errors(form, "bank_detail.sort_code") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
+              <%= cd.label :sort_code, 'Sort Code*' %>
+              <%= cd.text_field :sort_code, required: true, class: 'form-control' %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+            </div>
+            <% has_error, msg = get_errors(form, "bank_detail.account_number") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
+              <%= cd.label :account_number, 'Account Number*' %>
+              <%= cd.text_field :account_number, required: true, class: 'form-control' %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+            </div>
+            <% has_error, msg = get_errors(form, "bank_detail.account_number_confirmation") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
+              <%= cd.label :account_number_confirmation, 'Confirm Account Number*' %>
+              <%= cd.text_field :account_number_confirmation, required: true, class: 'form-control' %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+            </div>
+            <%= cd.submit "Continue", class: 'btn btn-primary btn-lg btn-block mb-4' %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

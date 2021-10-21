@@ -1,3 +1,4 @@
+<%= render 'progress_bar', locals: { progress: "34" } %>
 <div class="container">
   <div class="row">
     <div class="col col-12 col-lg-6 col-md-8 mx-auto">
@@ -6,47 +7,57 @@
         </h3>
         <h5 class="text-center mb-5" style="color: #640529;font-size: 18px; margin-top: -36px;">Add Company Address</h5>
         <%= form_for @seller, url: wizard_path, method: :put do |form| %>
-          <% if @seller.errors.any? %>
-            <div class="error_messages">
-              <h2><%= pluralize(@seller.errors.count, "error") %> prohibited this user from being saved:</h2>
-              <ul>
-                <% @seller.errors.full_messages.each do |msg| %>
-                  <li><%= msg %></li>
-                <% end %>
-              </ul>
-            </div>
+          <% business_address = '' %>
+          <% if form.object.addresses.present? && form.object.addresses.length > 0 %>
+            <% business_address = form.object.addresses.select{ |addr| addr.address_type == "business_address"} %>
+          <% else %>
+            <% business_address = @seller.addresses.build(address_type: 'business_address') %>
           <% end %>
-          <%= form.fields_for :addresses, (@seller.addresses.build(address_type: "business_address")) do |b_addr| %>
+          <%= form.fields_for :addresses, (business_address) do |b_addr| %>
             <div class="form-group general-mrgn">
               <%= b_addr.hidden_field :address_type, value: Address.address_types.keys[Address.address_types["business_address"]], class: 'form-control' %>
             </div>
-            <div class="form-group general-mrgn">
+            <% has_error, msg = get_errors(form, "addresses.address_line_1") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= b_addr.label :address_line_1, 'Address Line 1*' %>
               <%= b_addr.text_field :address_line_1, required: true, class: 'form-control' %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
-            <div class="form-group general-mrgn">
+            <% has_error, msg = get_errors(form, "addresses.address_line_2") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= b_addr.label :address_line_2, 'Address Line 2*' %>
               <%= b_addr.text_field :address_line_2, required: true, class: 'form-control' %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
-            <div class="form-group general-mrgn">
+            <% has_error, msg = get_errors(form, "addresses.city") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= b_addr.label :city, 'City*' %>
               <%= b_addr.text_field :city, required: true, class: 'form-control' %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
-            <div class="form-group general-mrgn">
+            <% has_error, msg = get_errors(form, "addresses.county") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= b_addr.label :county, 'County*' %>
               <%= b_addr.text_field :county, required: true, class: 'form-control' %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
-            <div class="form-group general-mrgn">
+            <% has_error, msg = get_errors(form, "addresses.country") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= b_addr.label :country, 'Country*' %>
               <%= b_addr.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Country' }, required: true, class: 'form-control' %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
-            <div class="form-group general-mrgn">
+            <% has_error, msg = get_errors(form, "addresses.postal_code") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= b_addr.label :postal_code, 'Postal Code*' %>
               <%= b_addr.text_field :postal_code, required: true, class: 'form-control' %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
-            <div class="form-group general-mrgn">
+            <% has_error, msg = get_errors(form, "addresses.phone_number") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= b_addr.label :phone_number, 'Business Phone Number*' %>
               <%= b_addr.text_field :phone_number, required: true, class: 'form-control' %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
             <%= b_addr.submit "Continue", class: 'btn btn-primary btn-lg btn-block mb-4' %>
           <% end %>

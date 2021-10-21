@@ -1,0 +1,187 @@
+<div class="container">
+  <div class="row">
+    <div class="col col-12 col-lg-6 col-md-8 mx-auto">
+      <div class="">
+        <h3 class="text-center mb-5" style="color: #640529;">Register you business with Yavolo
+        </h3>
+        <h5 class="text-center mb-5" style="color: #640529;font-size: 18px; margin-top: -36px;">Add Company Details</h5>
+        <%= simple_form_for @seller, url: sellers_profile_path(@seller), method: :patch do |form| %>
+          <% if @seller.errors.any? %>
+            <div class="error_messages">
+              <h2><%= pluralize(@seller.errors.count, "error") %> prohibited this user from being saved:</h2>
+              <ul>
+                <% @seller.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <% company_detail = '' %>
+          <% if @seller.company_detail.present? %>
+            <% company_detail = @seller.company_detail %>
+          <% elsif form.object.company_detail.present? && form.object.company_detail.length > 0 %>
+            <% company_detail = form.object.company_detail %>
+          <% else %>
+            <% company_detail = @seller.build_company_detail %>
+          <% end %>
+          <!-- Business Information Section / Company Details -->
+          <h5 class="mt-4 mb-4">Business Information</h5>
+          <%= form.simple_fields_for :company_detail, (company_detail) do |cd| %>
+            <div class="form-group general-mrgn">
+              <%= cd.label :name, 'Company Name' %>
+              <%= cd.text_field :name, placeholder: 'JohnStons-Gymnasium', required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= cd.label :country, 'Country' %>
+              <%= cd.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Country' }, required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= cd.label :legal_business_name, 'Legal Business Name' %>
+              <%= cd.text_field :legal_business_name, placeholder: 'JohnStons Gymnasium Ltd.', required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= cd.label :companies_house_registration_number, 'Companies House Registration Number' %>
+              <%= cd.text_field :companies_house_registration_number, placeholder: '0123456789', required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= cd.label :doing_business_as, 'Doing Business As' %>
+              <%= cd.text_field :doing_business_as, placeholder: 'JohnStons Gym', required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= cd.label :business_industry, 'Business Industry' %>
+              <%= cd.text_field :business_industry, placeholder: 'Sports Equipment', required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= cd.label :website_url, 'Website URL' %>
+              <%= cd.url_field :website_url, placeholder: 'http://www.johnstons-Gymnasium.co.uk', required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= cd.label :amazon_url, 'Amazon URL' %>
+              <%= cd.url_field :amazon_url, placeholder: 'https://www.amazon.com/jgstore', required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= cd.label :ebay_url, 'Ebay URL' %>
+              <%= cd.url_field :ebay_url, placeholder: 'https://www.ebaytores.com/jgstore', required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= cd.label :vat_number, 'VAT Number' %>
+              <%= cd.text_field :vat_number, placeholder: '1234567890', required: true, class: 'form-control' %>
+            </div>
+          <% end %>
+          <% business_address = '', business_representative_address = '' %>
+          <% if @seller.addresses.present? && @seller.addresses.length > 0 %>
+            <% business_address = @seller.addresses.select{ |addr| addr.address_type == "business_address"}.first %>
+            <% business_representative_address = @seller.addresses.select{ |addr| addr.address_type == "business_representative_address"}.first %>
+          <% elsif form.object.addresses.present? && form.object.addresses.length > 0 %>
+            <% business_address = form.object.addresses.select{ |addr| addr.address_type == "business_address"} %>
+            <% business_representative_address = form.object.addresses.select{ |addr| addr.address_type == "business_representative_address"} %>
+          <% else %>
+            <% business_address = @seller.addresses.build(address_type: 'business_address') %>
+            <% business_representative_address = @seller.addresses.build(address_type: 'business_representative_address') %>
+          <% end %>
+          <!-- Registered Business Address / Address with type business_address -->
+          <%= form.simple_fields_for :addresses, (business_address) do |addr| %>
+            <div class="form-group general-mrgn">
+              <label for="">Registerd Business Address:</label>
+              <%= addr.hidden_field :address_type, value: Address.address_types.keys[Address.address_types["business_address"]], class: 'form-control' %>
+              <%= addr.text_field :address_line_1, placeholder: 'Address Line 1', required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= addr.text_field :address_line_2, placeholder: 'Address Line 2', required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= addr.text_field :city, placeholder: 'City', required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <label for=""></label>
+              <%= addr.text_field :county, placeholder: 'County', required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= addr.text_field :postal_code, placeholder: 'Postal Code', required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= addr.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Country' }, required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= addr.label :phone_number, 'Business Phone Number' %>
+              <%= addr.text_field :phone_number, placeholder: '+13443453123', required: true, class: 'form-control' %>
+            </div>
+          <% end %>
+          <% business_representative = '' %>
+          <% if @seller.business_representative.present? %>
+            <% business_representative = @seller.business_representative %>
+          <% elsif form.object.business_representative.present? && form.object.business_representative.length > 0 %>
+            <% business_representative = form.object.business_representative %>
+          <% else %>
+            <% business_representative = @seller.build_business_representative %>
+          <% end %>
+          <!-- Business Representative -->
+          <h5 class="mt-4 mb-4">Business Representative</h5>
+          <%= form.simple_fields_for :business_representative, (business_representative) do |br| %>
+            <div class="form-group general-mrgn">
+              <%= br.label :full_legal_name, 'Full Legal Name' %>
+              <%= br.text_field :full_legal_name, placeholder: 'John Paul Smith', required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= br.label :email, 'Business Representative Email Address' %>
+              <%= br.email_field :email, placeholder: 'john.smith@example.co.uk', required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= br.label :job_title, 'Job Title' %>
+              <%= br.text_field :job_title, placeholder: 'Director', required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= br.label :date_of_birth, 'Date of Birth' %>
+              <%= br.date_field :date_of_birth, as: :date, placeholder: '0123456789', required: true, class: 'form-control' %>
+            </div>
+          <% end %>
+          <!-- Business Owner Address / Address with type business_representative_address -->
+          <%= form.simple_fields_for :addresses, (business_representative_address) do |addr| %>
+            <div class="form-group general-mrgn">
+              <label for="">Business Owner Address:</label>
+              <%= addr.hidden_field :address_type, value: Address.address_types.keys[Address.address_types["business_representative_address"]], class: 'form-control' %>
+              <%= addr.text_field :address_line_1, placeholder: 'Address Line 1', required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= addr.text_field :address_line_2, placeholder: 'Address Line 2', required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= addr.text_field :city, placeholder: 'City', required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <label for=""></label>
+              <%= addr.text_field :county, placeholder: 'County', required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= addr.text_field :postal_code, placeholder: 'Postal Code', required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= addr.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Country' }, required: true, class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= addr.label :phone_number, 'Business Representative Phone Number' %>
+              <%= addr.text_field :phone_number, placeholder: '+13443453123', required: true, class: 'form-control' %>
+            </div>
+          <% end %>
+          <div class="d-flex flex-wrap" style="overflow: hidden;">
+            <div class="form-check mt-3">
+              <label class="check-container">I agree to
+                Yavolo’s <a href="" style="text-decoration:none;"><strong><u>Terms and Conditions</u></strong></a>
+                <%= form.check_box :terms_and_conditions, required: true %>
+                <!-- <input type="checkbox" > -->
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <div class="form-check mt-3 mb-3">
+              <label class="check-container">I’d like to receive the best deals via Email
+                <%= form.check_box :recieve_deals_via_email, required: true %>
+                <span class="checkmark"></span>
+              </label>
+            </div>
+          </div>
+          <%= form.submit "Register", class: 'btn btn-primary btn-lg btn-block mb-4' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

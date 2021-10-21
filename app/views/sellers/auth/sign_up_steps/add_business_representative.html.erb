@@ -1,3 +1,4 @@
+<%= render 'progress_bar', locals: { progress: "50" } %>
 <div class="container">
   <div class="row">
     <div class="col col-12 col-lg-6 col-md-8 mx-auto">
@@ -6,36 +7,42 @@
         </h3>
         <h5 class="text-center mb-5" style="color: #640529;font-size: 18px; margin-top: -36px;">Add Business Representative Details</h5>
         <%= form_for @seller, url: wizard_path, method: :put do |form| %>
-          <% if @seller.errors.any? %>
-            <div class="error_messages">
-              <h2><%= pluralize(@seller.errors.count, "error") %> prohibited this user from being saved:</h2>
-              <ul>
-                <% @seller.errors.full_messages.each do |msg| %>
-                  <li><%= msg %></li>
-                <% end %>
-              </ul>
-            </div>
+          <% company_detail = '' %>
+          <% if form.object.business_representative.present? %>
+            <% business_representative = form.object.business_representative %>
+          <% else %>
+            <% business_representative = @seller.build_business_representative %>
           <% end %>
-          <%= form.fields_for :business_representative, @seller.build_business_representative do |br| %>
-            <div class="form-group general-mrgn">
+          <%= form.fields_for :business_representative, (business_representative) do |br| %>
+            <% has_error, msg = get_errors(form, "business_representative.full_legal_name") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= br.label :full_legal_name, 'Full Legal Name*' %>
               <%= br.text_field :full_legal_name, autofocus: true, autocomplete: "full_legal_name", class: "form-control", id: "", placeholder: "Full Legal Name" , required: true %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
-            <div class="form-group general-mrgn">
+            <% has_error, msg = get_errors(form, "business_representative.email") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= br.label :email, 'Email*' %>
               <%= br.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", id: "", placeholder: "Business Representative Email", required: true %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
-            <div class="form-group general-mrgn">
+            <% has_error, msg = get_errors(form, "business_representative.full_legal_name") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= br.label :full_legal_name, 'Full Legal Name*' %>
               <%= br.text_field :full_legal_name, autofocus: true, autocomplete: "full_legal_name", class: "form-control", id: "", placeholder: "Full Legal Name", required: true %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
-            <div class="form-group general-mrgn">
+            <% has_error, msg = get_errors(form, "business_representative.job_title") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= br.label :job_title, 'Job Title*' %>
               <%= br.text_field :job_title, autofocus: true, autocomplete: "job_title", class: "form-control", id: "", placeholder: "Job Title", required: true %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
-            <div class="form-group general-mrgn">
+            <% has_error, msg = get_errors(form, "business_representative.date_of_birth") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= br.label :date_of_birth, 'Date of Birth*' %>
               <%= br.date_field :date_of_birth, autofocus: true, autocomplete: "date_of_birth", class: "form-control", id: "", placeholder: "Date of Birth", required: true %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
             <%= br.submit "Continue", class: 'btn btn-primary btn-lg btn-block mb-4' %>
           <% end %>

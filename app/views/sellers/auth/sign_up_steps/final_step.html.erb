@@ -1,0 +1,145 @@
+<%= render 'progress_bar', locals: { progress: "100" } %>
+<div class="container">
+  <div class="row">
+    <div class="col col-12 col-lg-6 col-md-8 mx-auto">
+      <div class="">
+        <h3 class="text-center mb-5" style="color: #640529;">Register you business with Yavolo
+        </h3>
+        <h5 class="text-center mb-5" style="color: #640529;font-size: 18px; margin-top: -36px;">Add Company Details</h5>
+        <%= form_for @seller, url: wizard_path, method: :put do |form| %>
+          <% if @seller.errors.any? %>
+            <div class="error_messages">
+              <h2><%= pluralize(@seller.errors.count, "error") %> prohibited this user from being saved:</h2>
+              <ul>
+                <% @seller.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <% if @seller.company_detail.present? %>
+            <h5>Business Detail</h5>
+            <% company_detail = @seller.company_detail %>
+            <div class="yo-red-card mb-3">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <ul>
+                    <li><%= company_detail.try(:name).to_s %></li>
+                    <li><%= company_detail.try(:country).to_s %></li>
+                    <li><%= company_detail.try(:legal_business_name).to_s %></li>
+                    <li><%= company_detail.try(:company_house_registration_number).to_s %></li>
+                    <li><%= company_detail.try(:doing_business_as).to_s %></li>
+                  </ul>
+                </div>
+                <div class="text-right">
+                  <%= link_to 'Edit', wizard_path(:add_company_detail, edit: true), class: 'btn btn-sm btn-radius px-4 btn-primary' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <% if @seller.addresses.present? %>
+            <% business_address = @seller.addresses.select { |addr| addr.address_type == 'business_address' }.first %>
+            <% business_representative_address = @seller.addresses.select { |addr| addr.address_type == 'business_representative_address' }.first %>
+          <% end %>
+          <% if business_address.present? %>
+            <h5>Business Address</h5>
+            <div class="yo-red-card mb-3">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <ul>
+                    <li><%= business_address.try(:address_line_1).to_s %></li>
+                    <li><%= business_address.try(:address_line_2).to_s %></li>
+                    <li><%= business_address.try(:city).to_s %></li>
+                    <li><%= business_address.try(:county).to_s %></li>
+                    <li><%= business_address.try(:country).to_s %></li>
+                    <li><%= business_address.try(:postal_code).to_s %></li>
+                    <li><%= business_address.try(:phone_number).to_s %></li>
+                  </ul>
+                </div>
+                <div class="text-right">
+                  <%= link_to 'Edit', wizard_path(:add_company_address, edit: true), class: 'btn btn-sm btn-radius px-4 btn-primary' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <% if @seller.business_representative.present? %>
+            <h5>Business Representative Detail</h5>
+            <% business_representative = @seller.business_representative %>
+            <div class="yo-red-card mb-3">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <ul>
+                    <li><%= business_representative.try(:full_legal_name).to_s %></li>
+                    <li><%= business_representative.try(:email).to_s %></li>
+                    <li><%= business_representative.try(:job_title).to_s %></li>
+                    <li><%= business_representative.try(:date_of_birth).to_s %></li>
+                  </ul>
+                </div>
+                <div class="text-right">
+                  <%= link_to 'Edit', wizard_path(:add_business_representative, edit: true), class: 'btn btn-sm btn-radius px-4 btn-primary' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <% if business_representative_address.present? %>
+            <h5>Business Representative Address</h5>
+            <div class="yo-red-card mb-3">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <ul>
+                    <li><%= business_representative_address.try(:address_line_1).to_s %></li>
+                    <li><%= business_representative_address.try(:address_line_2).to_s %></li>
+                    <li><%= business_representative_address.try(:city).to_s %></li>
+                    <li><%= business_representative_address.try(:county).to_s %></li>
+                    <li><%= business_representative_address.try(:country).to_s %></li>
+                    <li><%= business_representative_address.try(:postal_code).to_s %></li>
+                    <li><%= business_representative_address.try(:phone_number).to_s %></li>
+                  </ul>
+                </div>
+                <div class="text-right">
+                  <%= link_to 'Edit', wizard_path(:add_business_representative_address, edit: true), class: 'btn btn-sm btn-radius px-4 btn-primary' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <% if @seller.bank_detail.present? %>
+            <h5>Bank Detail</h5>
+            <% bank_detail = @seller.bank_detail %>
+            <div class="yo-red-card mb-3">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <ul>
+                    <li><%= bank_detail.try(:currency).to_s %></li>
+                    <li><%= bank_detail.try(:country).to_s %></li>
+                    <li><%= bank_detail.try(:sort_code).to_s %></li>
+                    <li><%= bank_detail.try(:account_number).to_s %></li>
+                  </ul>
+                </div>
+                <div class="text-right">
+                  <%= link_to 'Edit', wizard_path(:bank_detail, edit: true), class: 'btn btn-sm btn-radius px-4 btn-primary' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <div class="d-flex flex-wrap" style="overflow: hidden;">
+            <div class="form-check mt-3">
+              <label class="check-container">I agree to
+                Yavolo’s <a href="" style="text-decoration:none;"><strong><u>Terms and Conditions</u></strong></a>
+                <%= form.check_box :terms_and_conditions, required: true %>
+                <!-- <input type="checkbox" > -->
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <div class="form-check mt-3 mb-3">
+              <label class="check-container">I’d like to receive the best deals via Email
+                <%= form.check_box :recieve_deals_via_email, required: true %>
+                <span class="checkmark"></span>
+              </label>
+            </div>
+          </div>
+          <%= form.submit "Register", class: 'btn btn-primary btn-lg btn-block mb-4' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

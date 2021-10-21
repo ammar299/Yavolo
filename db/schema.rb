@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_18_120416) do
+ActiveRecord::Schema.define(version: 2021_10_21_083024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -81,6 +81,17 @@ ActiveRecord::Schema.define(version: 2021_10_18_120416) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_assigned_categories_on_category_id"
     t.index ["product_id"], name: "index_assigned_categories_on_product_id"
+  end
+
+  create_table "bank_details", force: :cascade do |t|
+    t.string "currency"
+    t.string "country"
+    t.string "sort_code"
+    t.string "account_number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "seller_id"
+    t.index ["seller_id"], name: "index_bank_details_on_seller_id"
   end
 
   create_table "business_representatives", force: :cascade do |t|
@@ -370,6 +381,9 @@ ActiveRecord::Schema.define(version: 2021_10_18_120416) do
     t.string "contact_email", default: "", null: false
     t.string "contact_name", default: "", null: false
     t.integer "subscription_type", default: 0
+    t.boolean "terms_and_conditions", default: false
+    t.boolean "recieve_deals_via_email", default: false
+    t.boolean "multistep_sign_up", default: true
     t.index ["email"], name: "index_sellers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_sellers_on_reset_password_token", unique: true
   end
