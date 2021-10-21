@@ -23,17 +23,9 @@ class Admin::ProductsController < Admin::BaseController
 
   def new
     if params[:product_id].present?
-      @product = Product.friendly.find_by(id: params[:product_id])
-      @product.seo_content.duplicate if @product.seo_content.present?
-      @product.ebay_detail.duplicate if @product.ebay_detail.present?
-      @product.google_shopping.duplicate if @product.google_shopping.present?
-      @product.assigned_category.duplicate if @product.assigned_category.present?
+      @product = duplicate_product_new(params[:product_id])
     else
-      @product = Product.new(owner_params)
-      @product.build_seo_content
-      @product.build_ebay_detail
-      @product.build_google_shopping
-      @product.build_assigned_category
+      @product = initialize_new_product
     end
     @delivery_options = DeliveryOption.all
   end
@@ -104,7 +96,7 @@ class Admin::ProductsController < Admin::BaseController
     def product_params
       params.require(:product).permit(:owner_id,:owner_type,
       :title, :condition, :width, :depth, :height, :colour, :material, :brand, :keywords, :description, :price, :stock, :sku, :ean, :discount, :yavolo_enabled, :delivery_option_id,
-      pictures_attributes: ["name", "@original_filename", "@content_type", "@headers", [:remote_name_url]],
+      pictures_attributes: ["name", "@original_filename", "@content_type", "@headers", [:remote_name_url] ],
       seo_content_attributes: [:id,:title, :url, :description, :keywords],
       ebay_detail_attributes: [:id,:lifetime_sales, :thirty_day_sales, :price, :thirty_day_revenue, :mpn_number], google_shopping_attributes: [:id,:title,:price,:category,:campaign_category,:description,:exclude_from_google_feed],
       assigned_category_attributes: [:id,:category_id])
@@ -116,5 +108,26 @@ class Admin::ProductsController < Admin::BaseController
 
     def images_to_delete_params
       @images_to_remove ||= params[:product][:images_attributes].values.select{|h| h["_destroy"]=="1" } if params[:product][:images_attributes].present?
+    end
+
+    def duplicate_product_new(pid)
+      ex_product = Product.friendly.find_by(id: pid)
+      product = ex_product.present? ? ex_product.dup : initialize_new_product
+      return product if ex_product.blank?
+      ex_product.seo_content.present? ? product.seo_content = ex_product.seo_content.dup : product.build_seo_content
+      ex_product.ebay_detail.present? ? product.ebay_detail = ex_product.ebay_detail.dup : product.build_ebay_detail
+      ex_product.google_shopping.present? ? product.google_shopping = ex_product.google_shopping.dup : product.build_google_shopping
+      ex_product.assigned_category.present? ? product.assigned_category = ex_product.assigned_category.dup : product.build_assigned_category
+      product.pictures = ex_product.pictures.dup
+      product
+    end
+
+    def initialize_new_product
+      product = Product.new(owner_params)
+      product.build_seo_content
+      product.build_ebay_detail
+      product.build_google_shopping
+      product.build_assigned_category
+      product
     end
 end
