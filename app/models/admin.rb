@@ -5,5 +5,6 @@ class Admin < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :products, as: :owner, dependent: :destroy
   has_many :csv_imports, as: :importer, dependent: :destroy
-
+  has_many :delivery_options, as: :delivery_optionable, dependent: :destroy
+  
 end

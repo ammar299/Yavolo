@@ -1,24 +1,33 @@
-class Admin::DeliveryOptionsController < Admin::BaseController
+class Sellers::DeliveryOptionsController < Sellers::BaseController
   before_action :set_delivery_option, only: %i[edit update confirm_delete destroy]
 
   def index
-    @delivery_options = DeliveryOption.admin_delivery_option("Admin")
-    @carriers = Carrier.all
+    if params[:search].present?
+      @delivery_options = current_seller.delivery_options.global_search(params[:search])
+    else 
+      @delivery_options = current_seller.delivery_options
+    end
   end
 
   def new
-    @delivery_option = DeliveryOption.new
+    seller = current_seller
+    @delivery_option = seller.delivery_options.new
   end
 
   def create
     @delivery_opts = true
     delivery_option_filtering
-
+    params[:delivery_option][:ship_ids] = params[:delivery_option][:ship_ids].reject { |c| c.empty? }
     @delivery_option = DeliveryOption.new(delivery_option_params)
-    if @delivery_opts == true
-      @delivery_option.save
-      create_delivery_option_ships(@delivery_option)
-      @delivery_options = DeliveryOption.admin_delivery_option("Admin")
+    unless global_template?(@delivery_option_params)
+      if @delivery_opts == true
+        @delivery_option.save
+        create_delivery_option_ships(@delivery_option)
+        @delivery_options = current_seller.delivery_options
+      else
+        @delivery_option.errors[:base] << 'Template already exists!'
+        render :new
+      end
     else
       @delivery_option.errors[:base] << 'Template already exists!'
       render :new
@@ -30,11 +39,16 @@ class Admin::DeliveryOptionsController < Admin::BaseController
     @delivery_opts = true
     verify_delivery_option(@delivery_option)
     delivery_option_filtering(@delivery_option) if @existing_obj == false
-
-    if @existing_obj == true || @delivery_opts == true
-      @delivery_option.update(delivery_option_params)
-      create_delivery_option_ships(@delivery_option)
-      @delivery_options = DeliveryOption.admin_delivery_option("Admin")
+    params[:delivery_option][:ship_ids] = params[:delivery_option][:ship_ids].reject { |c| c.empty? }
+    unless global_template?(@delivery_option_params)
+      if @existing_obj == true || @delivery_opts == true
+        @delivery_option.update(delivery_option_params)
+        create_delivery_option_ships(@delivery_option)
+        @delivery_options = current_seller.delivery_options
+      else
+        @delivery_option.errors[:base] << 'Template already exists!'
+        render :edit
+      end
     else
       @delivery_option.errors[:base] << 'Template already exists!'
       render :edit
@@ -43,12 +57,12 @@ class Admin::DeliveryOptionsController < Admin::BaseController
 
   def destroy
     @delivery_option.destroy
-    redirect_to admin_delivery_options_path
+    redirect_to sellers_delivery_options_path
   end
 
   def delete_delivery_options
     DeliveryOption.where(id: params['ids'].split(',')).destroy_all
-    @delivery_options = DeliveryOption.admin_delivery_option("Admin")
+    @delivery_options = current_seller.delivery_options
   end
 
   private
@@ -78,6 +92,13 @@ class Admin::DeliveryOptionsController < Admin::BaseController
       check_delivery_option_availbility(delivery_options)
     else
       @delivery_opts = true
+    end
+  end
+
+  def global_template?(delivery_option)
+    template = DeliveryOption.where(name: delivery_option_params[:name], processing_time: delivery_option_params[:processing_time],delivery_time: delivery_option_params[:delivery_time],delivery_optionable_type: "Admin").first
+    if template.present?
+      template.ship_ids == params[:delivery_option][:ship_ids].map(&:to_i)
     end
   end
 

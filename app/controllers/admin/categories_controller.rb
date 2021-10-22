@@ -23,7 +23,9 @@ class Admin::CategoriesController < Admin::BaseController
           parent = Category.find(params[:selected_cat_id].to_i).parent
         end
         @category.parent = parent
-        @category.save
+        if @category.save
+          flash[:notice] = "Category has been saved"
+        end
       end
     end
   end
@@ -31,13 +33,14 @@ class Admin::CategoriesController < Admin::BaseController
   def update
     @category.update(category_params)
     if @category.baby_category?
+      flash[:notice] = "Category has been updated"
       @category.descendants.map(&:destroy)
     end
   end
 
   def destroy
     @category.destroy
-    redirect_to admin_categories_path, notice: "Category is destroyed"
+    redirect_to admin_categories_path, notice: "Category has been deleted"
   end
 
   def category_details

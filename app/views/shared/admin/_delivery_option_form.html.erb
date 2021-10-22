@@ -5,6 +5,13 @@
       <%= f.label :name, 'Delivery Option Name', class: 'text-left pr-3 w-100' %>
       <%= f.text_field :name, class: 'form-control' %>
     </div>
+    <% if params[:controller] == "sellers/delivery_options" %>
+      <%= f.hidden_field :delivery_optionable_type, value: "Seller"%>
+      <%= f.hidden_field :delivery_optionable_id, value: current_seller.id %>
+    <% elsif params[:controller] == "admin/delivery_options" %>
+      <%= f.hidden_field :delivery_optionable_type, value: "Admin"%>
+      <%= f.hidden_field :delivery_optionable_id, value: current_admin.id %>
+    <% end %>
     <div class="row">
       <div class="col-md-6">
         <div class="form-group form-group-vertical flex-wrap">

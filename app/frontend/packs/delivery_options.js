@@ -1,5 +1,6 @@
 $(document).ready(function(){
   deleteDeliveryOptionsCarriers();
+  deleteDeliveryOptionsForSellers();
   $('.delivery-options-select-all-container #delivery-option-select-all').change(() => selectedDeliveryOptionsCarriers('.delivery-options-checkbox-container'));
   $('.carriers-select-all-container #carrier-select-all').change(() => selectedDeliveryOptionsCarriers('.carriers-checkbox-container'));
 });
@@ -27,4 +28,18 @@ function selectedDeliveryOptionsCarriers(className) {
   } else {
     $(className + ' ' + 'input:checkbox').prop('checked', false)
   }
+}
+
+function deleteDeliveryOptionsForSellers(){
+  $('body').on('click', '.delete-delivery-options-sellers', function(){
+    selected_options = []
+    $('.delivery-options-checkbox-container input[type=checkbox]:checked').each(function() {
+      selected_options.push($(this).val())
+    });
+    url = '/sellers/delivery_options/delete_delivery_options' + '?ids=' + selected_options
+    $.ajax({
+      url: url,
+      type: 'DELETE'
+    });
+  });
 }

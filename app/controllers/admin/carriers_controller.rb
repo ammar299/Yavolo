@@ -8,7 +8,7 @@ class Admin::CarriersController < Admin::BaseController
   def create
     @carrier = Carrier.new(carrier_params)
     if @carrier.save
-      redirect_to admin_delivery_options_path
+      redirect_to admin_delivery_options_path, flash: { notice: "Carrier has been saved" }
     else
       render :new
     end
@@ -16,7 +16,7 @@ class Admin::CarriersController < Admin::BaseController
 
   def update
     if @carrier.update(carrier_params)
-      redirect_to admin_delivery_options_path
+      redirect_to admin_delivery_options_path, flash: { notice: "Carrier has been updateds" }
     else
       render :edit
     end
@@ -24,7 +24,7 @@ class Admin::CarriersController < Admin::BaseController
 
   def destroy
     @carrier.destroy
-    redirect_to admin_delivery_options_path
+    redirect_to admin_delivery_options_path, flash: { alert: "Carrier has been deleted" }
   end
 
   def delete_carriers

@@ -1,0 +1,23 @@
+<% carriers.each do |carrier| %>
+  <tr>
+    <td>
+      <label class="checkbox-blk">
+        <div class="carrier-checkbox-container carriers-checkbox-container">
+          <input type="checkbox" id="<%= "select-#{carrier.id}" %>" value="<%= carrier.id %>">
+          <span class="checkmark"></span>
+        </div>
+      </label>
+    </td>
+    <td><%= carrier.name %></td>
+    <td><%= carrier.api_key %></td>
+    <td><%= carrier.secret_key %></td>
+    <td>
+      <div class="text-center">
+        <%= link_to 'Edit', edit_admin_carrier_path(carrier), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100' %>
+      </div>
+      <div class="text-center">
+        <%= link_to 'Delete', confirm_delete_admin_carrier_path(carrier), remote: true, class: 'btn btn-sm btn-radius px-4 btn-secondary w-100' %>
+      </div>
+    </td>
+  </tr>
+<% end %>

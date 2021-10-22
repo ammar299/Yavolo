@@ -99,6 +99,15 @@ Rails.application.routes.draw do
   devise_scope :seller do
     authenticated :seller do
       namespace :sellers do
+        resources :delivery_options, except: %i[show] do
+          collection do
+            get    :confirm_multiple_deletion
+            delete :delete_delivery_options
+          end
+          member do
+            get :confirm_delete
+          end
+        end
         namespace :auth do 
           resources :sign_up_steps
         end

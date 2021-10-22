@@ -20,9 +20,9 @@ class Admin::FilterGroupsController < Admin::BaseController
     params[:filter_group][:filter_group_type] =  params[:filter_group][:filter_group_type].to_i
     @filter_group = FilterGroup.new(filter_group_params)
     if @filter_group.save
-      redirect_to admin_filter_groups_path
+      redirect_to admin_filter_groups_path, flash: { notice: "Filter Group has been saved" }
     else
-      redirect_to new_admin_filter_groups_path
+      redirect_to admin_filter_groups_path, flash: { alert: "Filter Group can't save" }
     end
   end
 
@@ -32,9 +32,9 @@ class Admin::FilterGroupsController < Admin::BaseController
   def update
     params[:filter_group][:filter_group_type] =  params[:filter_group][:filter_group_type].to_i
     if @filter_group.update(filter_group_params)
-      redirect_to admin_filter_groups_path
+      redirect_to admin_filter_groups_path, flash: { notice: "Filter Group has been updated" }
     else
-      redirect_to edit_admin_filter_group_path(@filter_group)
+      redirect_to edit_admin_filter_group_path(@filter_group), flash: { alert: "Filter Group can't update" }
     end
   end
 
@@ -44,25 +44,26 @@ class Admin::FilterGroupsController < Admin::BaseController
 
   def destroy
     @filter_group.destroy
-    redirect_to admin_filter_groups_path
+    redirect_to admin_filter_groups_path, flash: { alert: "Filter Group has been deleted" }
   end
 
   def create_assign_category
     @filter_group = FilterGroup.find_by(id: params[:filter_group_id])
     if @filter_group.update(filter_group_params)
-      redirect_to admin_filter_groups_path
+      redirect_to admin_filter_groups_path, flash: { notice: "Category has been assigned" }
+    else
+      redirect_to admin_filter_groups_path, flash: { alert: "Category can't assigned" }
     end
-    
   end
 
   def assign_category
     ids_of_category = FilterGroup.find_by(id: params[:id]).category_ids
-    @categories = Category.all
+    @categories = Category.where.not(id: [ids_of_category])
   end
 
   def delete_filter_groups
     FilterGroup.where(id: params['ids'].split(',')).destroy_all
-    redirect_to admin_filter_groups_path
+    redirect_to admin_filter_groups_path, flash: { alert: "Filter Group has been deleted" }
   end
 
   private
@@ -72,6 +73,6 @@ class Admin::FilterGroupsController < Admin::BaseController
   end
 
   def filter_group_params
-    params.require(:filter_group).permit(:name, :filter_group_type, filter_group_ids: [], filter_categories_attributes: [:id, :category_id, :filter_group_id, :_destroy], filter_in_categories_attributes: [:id, :filter_name, :sort_order, :filter_group_id, :category_id, :_destroy])
+    params.require(:filter_group).permit(:name, :filter_group_type, filter_group_ids: [], filter_categories_attributes: [:id, :category_id, :filter_group_id, :_destroy], filter_in_categories_attributes: [:id, :filter_name, :sort_order, :category_id, :filter_group_id, :_destroy])
   end
 end

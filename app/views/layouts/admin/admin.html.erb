@@ -17,6 +17,8 @@
         <div class="main-page container-fluid">
           <div class="admin-dashboard">
             <%= render "shared/admin_header" %>
+            <p class="notice"><%= notice %></p>
+            <p class="alert <%= alert.present? ? 'alert-msg' : ''%>"><%= alert %></p>
             <%= yield %>
           </div>
         </div>

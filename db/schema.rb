@@ -10,11 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_21_083024) do
+ActiveRecord::Schema.define(version: 2021_10_21_105654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string "namespace"
+    t.text "body"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.string "author_type"
+    t.bigint "author_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author"
+    t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
+    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -58,6 +72,27 @@ ActiveRecord::Schema.define(version: 2021_10_21_083024) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "seller_id"
     t.index ["seller_id"], name: "index_addresses_on_seller_id"
+  end
+
+  create_table "admin_users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_admin_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
   create_table "admins", force: :cascade do |t|
@@ -192,7 +227,7 @@ ActiveRecord::Schema.define(version: 2021_10_21_083024) do
   end
 
   create_table "delivery_option_ships", force: :cascade do |t|
-    t.decimal "price", precision: 8, scale: 2
+    t.float "price"
     t.bigint "delivery_option_id"
     t.bigint "ship_id"
     t.datetime "created_at", precision: 6, null: false
@@ -207,6 +242,9 @@ ActiveRecord::Schema.define(version: 2021_10_21_083024) do
     t.integer "delivery_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "delivery_optionable_type"
+    t.bigint "delivery_optionable_id"
+    t.index ["delivery_optionable_type", "delivery_optionable_id"], name: "index_delivery_options_on_delivery_optionable"
   end
 
   create_table "ebay_details", force: :cascade do |t|
@@ -306,7 +344,7 @@ ActiveRecord::Schema.define(version: 2021_10_21_083024) do
     t.string "handle"
     t.text "description"
     t.text "keywords"
-    t.string "sku", null: false
+    t.string "sku"
     t.string "ean"
     t.string "yan"
     t.string "brand"
@@ -328,7 +366,7 @@ ActiveRecord::Schema.define(version: 2021_10_21_083024) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "delivery_option_id"
-    t.text "filter_in_category_ids", default: ""
+    t.text "filter_in_category_ids"
     t.index ["brand"], name: "index_products_on_brand"
     t.index ["delivery_option_id"], name: "index_products_on_delivery_option_id"
     t.index ["ean"], name: "index_products_on_ean"

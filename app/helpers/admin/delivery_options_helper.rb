@@ -8,7 +8,7 @@ module Admin::DeliveryOptionsHelper
   end
 
   def template_processing_time(time)
-    time.split('_').map(&:capitalize).join(' ')
+    time.split('_').map(&:capitalize).join(' ') if time.present?
   end
 
   def delivery_ship_price(delivery_option_id, ship_id)
