@@ -1,0 +1,6 @@
+<% unless @seller.errors.count > 0 %>
+$("#<%= @address_type %>").html("<%= j render 'admin/sellers/addresses', address: @address %>");
+$('#edit-seller-form').modal('hide');
+<% else %>
+  $('#error-message').html("<%= @seller.errors.full_messages.join('<br/>').html_safe %>");
+<% end %>

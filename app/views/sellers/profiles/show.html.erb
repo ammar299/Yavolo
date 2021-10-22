@@ -1,0 +1,47 @@
+<div class="container-fluid">
+  <div class="d-flex flex-wrap justify-content-between mb-4 mt-5 align-items-start">
+    <h4 class="m-0">Customer Account<br>
+      &amp; Settings</h4>
+    <div class="d-flex align-items-center">
+      <p class="pr-1 mb-0">Seller Locked</p>
+      <a href="#" class="btn btn-sm btn-radius px-4 btn-outline-primary mr-1">Reset password</a>
+      <a href="#" class="btn btn-sm btn-radius px-4 btn-outline-primary mr-1">Outline</a>
+      <a href="#" class="btn btn-sm btn-radius px-4 btn-outline-primary mr-1">Outline</a>
+      <a href="#" class="btn btn-sm btn-radius px-4 btn-outline-primary">Outline</a>
+    </div>
+  </div>
+  <div class="row ac-setting-tabs">
+    <div class="col-md-3">
+      <%= render "shared/sellers/left_sidebar_seller" %>
+    </div>
+    <div class="col-md-9">
+      <div class="tab-content" id="myTabContent">
+        <%= render 'shared/sellers/about_seller_section' %>
+        <%= render 'review_section' %>
+        <%= render 'manage_subscription_section' %>
+        <%= render 'delivery_setting_section' %>
+        <%= render 'return_term_section' %>
+        <%= render 'login_setting_section' %>
+        <%= render 'connection_manager_section' %>
+        <%= render 'holiday_mode_section' %>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Edit Form Modal -->
+<div class="modal fade" id="edit-seller-form" tabindex="-1" role="dialog" aria-labelledby="editSellerFormLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body px-lg-5">
+        <div id="error-message"></div>
+        <div id="update-seller-form"></div>
+      </div>
+    </div>
+  </div>
+</div>

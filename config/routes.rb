@@ -111,7 +111,19 @@ Rails.application.routes.draw do
         namespace :auth do 
           resources :sign_up_steps
         end
-        resources :profiles
+        resources :profiles do
+          member do
+            patch :update_business_representative
+            patch :update_company_detail
+            patch :update_addresses
+            patch :update_seller_logo
+            delete :remove_logo_image
+            get :confirm_refresh_api
+          end
+          post :update_seller_api
+          post :refresh_seller_api
+          patch :update_seller_api
+        end
         root to: 'dashboard#index', as: :seller_authenticated_root
       end
     end

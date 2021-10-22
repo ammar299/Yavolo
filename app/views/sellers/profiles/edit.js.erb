@@ -1,0 +1,13 @@
+<% if params[:form_to_update] == 'company_detail' || params[:form_to_update] == 'business_representative' || params[:form_to_update] == 'seller_logo' %>
+  $("#update-seller-form").html("<%= j render(partial: 'shared/sellers/forms/update_fields_form', locals: { url: sellers_profile_path(@seller) }) %>");
+  $('#edit-seller-form').modal('show');
+  var $sellerForm = $("#update-seller-form form");
+$sellerForm.attr('action', "/sellers/profiles/<%= @seller.id %>/update_<%= params[:form_to_update] %>")
+$sellerForm.attr('data-remote', true);
+<% else %>
+  $("#update-seller-form").html("<%= j render(partial: 'shared/sellers/forms/update_fields_form', locals: { url: sellers_profile_path(@seller) }) %>");
+  $('#edit-seller-form').modal('show');
+  var $sellerForm = $("#update-seller-form form");
+  $sellerForm.attr('action', "/sellers/profiles/<%= @seller.id %>/update_addresses")
+  $sellerForm.attr('data-remote', true);
+<% end %>

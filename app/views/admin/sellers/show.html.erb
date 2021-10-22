@@ -59,6 +59,7 @@
                   <%= render 'admin/sellers/business_representative', business_representative: @seller.business_representative %>
                 </div>
                 <div class="text-center">
+                  <%= link_to "Update Detail 1", create_url(params[:controller], "business_representative", @seller.id), class: 'btn btn-sm btn-radius px-4 btn-primary', remote: true %>
                   <%= link_to "Update Detail", edit_admin_seller_path(id: @seller.id, form_to_update: 'business_representative'), class: 'btn btn-sm btn-radius px-4 btn-primary', remote: true %>
                 </div>
               </div>
