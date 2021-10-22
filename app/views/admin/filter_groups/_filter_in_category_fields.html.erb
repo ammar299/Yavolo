@@ -6,7 +6,7 @@
       <%= f.text_field :filter_name, required: true, class: 'form-control' %>
       <div class="d-flex px-3 tab-100">
         <%= f.label :sort_order, required: true, class: 'text-left pr-3 min-100'%>
-        <%= f.number_field :sort_order, required: true, class: 'form-control w-20 px-2' %>
+        <%= f.number_field :sort_order, min: 0, required: true, class: 'form-control w-20 px-2' %>
         </div>
         <label for="exampleInputPassword1" class="text-left pr-3">Assigned Baby Category :</label>
 
