@@ -1,5 +1,5 @@
 <% unless @seller.errors.count > 0 %>
-  $("#seller-logo").html("<%= j render 'admin/sellers/seller_logo', logo: '' %>");
+  $("#seller-logo").html("<%= j render 'shared/sellers/seller_logo', logo: '' %>");
   $('#edit-seller-form').modal('hide');
 <% else %>
   $('#error-message').html("<%= @seller.errors.full_messages.join('<br/>').html_safe %>");

@@ -1,4 +1,4 @@
-<div class="tab-pane fade show active" id="About-You" role="tabpanel" aria-labelledby="home-tab">
+<div class="tab-pane fade show active" id="Seller-About-Page" role="tabpanel" aria-labelledby="home-tab">
   <h5 class="">Basic Info</h5>
   <div class="row min-pad">
     <div class="col-lg-4 d-flex">
@@ -92,10 +92,12 @@
         </div>
       </div>
     </div>
+    <% if section_to_show(params[:controller]) %>
     <div class="col-lg-8 d-flex">
       <div id="seller-edit-api">
         <%= render 'shared/sellers/seller_api', seller_api: @seller_api, url: seller_api_url(params[:controller],@seller) %>
       </div>
     </div>
+    <% end %>
   </div>
 </div>

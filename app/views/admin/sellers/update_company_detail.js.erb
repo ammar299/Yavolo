@@ -1,5 +1,5 @@
 <% unless @seller.errors.count > 0 %>
-  $("#company-detail-content").html("<%= j render 'admin/sellers/company_detail', company_detail: @seller.company_detail %>");
+  $("#company-detail-content").html("<%= j render 'shared/sellers/company_detail', company_detail: @seller.company_detail %>");
   $('#editTemplateForm').modal('hide');
 <% else %>
   $('#error-message').html("<%= @seller.errors.full_messages.join('<br/>').html_safe %>");

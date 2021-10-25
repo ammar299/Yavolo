@@ -1,15 +1,13 @@
-
-if ('<%= params[:form_to_update] %>' == 'company_detail' || '<%= params[:form_to_update] %>' == 'business_representative' || '<%= params[:form_to_update] %>' == 'seller_logo') {
-$("#update-seller-form").html("<%= j render(partial: 'admin/sellers/partials/update_fields_form', locals: { url: admin_seller_path(@seller) }) %>");
-$('#editTemplateForm').modal('show');
-var $sellerForm = $("#update-seller-form form");
-$sellerForm.attr('action', "/admin/sellers/<%= @seller.id %>/update_<%= params[:form_to_update] %>")
-$sellerForm.attr('data-remote', true);
-}
-else {
-$("#update-seller-form").html("<%= j render(partial: 'admin/sellers/partials/update_fields_form', locals: { url: admin_seller_path(@seller) }) %>");
-$('#editTemplateForm').modal('show');
-var $sellerForm = $("#update-seller-form form");
-$sellerForm.attr('action', "/admin/sellers/<%= @seller.id %>/update_addresses")
-$sellerForm.attr('data-remote', true);
-}
+<% if params[:form_to_update] == 'company_detail' || params[:form_to_update] == 'business_representative' || params[:form_to_update] == 'seller_logo' %>
+  $("#update-seller-form").html("<%= j render(partial: 'shared/sellers/forms/update_fields_form', locals: { url: admin_seller_path(@seller) }) %>");
+  $('#editTemplateForm').modal('show');
+  var $sellerForm = $("#update-seller-form form");
+  $sellerForm.attr('action', "/admin/sellers/<%= @seller.id %>/update_<%= params[:form_to_update] %>")
+  $sellerForm.attr('data-remote', true);
+<% else %>
+  $("#update-seller-form").html("<%= j render(partial: 'shared/sellers/forms/update_fields_form', locals: { url: admin_seller_path(@seller) }) %>");
+  $('#editTemplateForm').modal('show');
+  var $sellerForm = $("#update-seller-form form");
+  $sellerForm.attr('action', "/admin/sellers/<%= @seller.id %>/update_addresses")
+  $sellerForm.attr('data-remote', true);
+<% end %>

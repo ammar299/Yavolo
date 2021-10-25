@@ -17,7 +17,7 @@ module ApplicationHelper
           edit_sellers_profile_path(id: seller_id, form_to_update: form_to_update)
         end
       end
-    elsif controller_to_hit == 'admin/sellers'
+    else
       if form_to_update.include?('address')
         edit_admin_seller_path(id: seller_id, form_to_update: form_to_update, address_id: address_id)
       else
@@ -27,8 +27,21 @@ module ApplicationHelper
           edit_admin_seller_path(id: seller_id, form_to_update: form_to_update)
         end
       end
-      edit_admin_seller_path(id: seller_id, form_to_update: form_to_update)
     end
+  end
+
+  def return_value(value)
+    value.present? ? value : ''
+  end
+
+  def address_type_filter(address, filter)
+    if address.address_type == filter
+      address
+    end
+  end
+
+  def address_format(address)
+    address.try(:address_line_1).to_s + "\n" + address.try(:address_line_2).to_s + "\n" + address.try(:county).to_s + "\n" + address.try(:city).to_s + "\n" + address.try(:postal_code).to_s + "\n" + address.try(:country).to_s
   end
 
   def seller_api_url(from_controller, seller)
@@ -57,5 +70,9 @@ module ApplicationHelper
     elsif status_type == 'enable'
       true
     end
+  end
+
+  def section_to_show(from_controller)
+    from_controller == 'sellers/profiles' ? false : true
   end
 end
