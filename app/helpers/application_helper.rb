@@ -6,6 +6,10 @@ module ApplicationHelper
     [has_error,msg]
   end
 
+  def set_active_tab(tab_item, tab_param)
+    tab_item==tab_param ? 'active' : ''
+  end
+
   def create_url(controller_to_hit, form_to_update, seller_id, address_id = nil)
     if controller_to_hit == 'sellers/profiles'
       if form_to_update.include?('address')

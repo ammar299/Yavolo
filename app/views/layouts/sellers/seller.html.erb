@@ -14,9 +14,13 @@
     <div class="dashboard-page seller-layout">
       <%= render 'layouts/sellers/seller_sidebar' %>
       <div class="rightside">
-        <%= yield %>
-        <%= render 'layouts/sellers/footer' %>
+        <div class="admin-da">
+            <%= render 'layouts/sellers/seller_header' %>
+            <%= yield %>
+            <%= render 'layouts/sellers/seller_footer' %>
+        </div>
       </div>
     </div>
+    <%= javascript_pack_tag 'tagsinput' %>
   </body>
 </html>

@@ -1701,10 +1701,75 @@ border-radius: 10px;
 .ck.ck-editor__main .ck-content {
   min-height: 150px;
 }
-
-/* =============== seller sign up company profile edit ============= */
+/* ========seller-listings */
+.btn-light-hvr:hover {
+	background-color: #FFE4E7 !important;
+	border-color: #FFE4E7 !important;
+	color: var(--red);
+}
+.light-red {
+	color: var(--danger-color);
+}
+.help-popup:hover {
+	color: var(--danger-color);
+	cursor: pointer;
+}
+.help-popup:hover + .help-popup-inner {
+	display: block;
+}
+.help-popup-inner {
+	background-color: #efe3d7;
+	padding: 10px;
+	display: none;	
+	border-radius: 10px;
+	position: absolute;
+    right: 200px;
+    width: 200px;
+}
+.yo-opacity {
+	opacity: 0.3;
+}
 .yo-red-card {
 	background-color: #efe3d7;
 	border-radius: 10px;
 	padding: 20px;
 }
+.search-border {
+	border: 2px solid var(--dark-red);
+}
+.help-popup-text {
+	line-height: 12px;
+}
+.add-listing-col {
+	width: 100%;
+	min-height: 300px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.Yavolo-table table tbody .suspended-row td {
+	position: relative;
+	pointer-events: none !important;
+}
+.Yavolo-table table tbody .suspended-row td::after {
+	content: "";
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: #640529;
+	display: block;
+	opacity: 0.3;
+	top: 0;
+	right: 0;
+	z-index: 4;
+}
+.Yavolo-table table tbody tr td:first-child::after {
+	border-radius: 8px 0px 0px 8px;
+}
+.Yavolo-table table tbody tr td:last-child::after {
+	border-radius: 0px 8px 8px 0px;
+}
+/* ========seller-listings */
+
+/* =============== seller sign up company profile edit ============= */

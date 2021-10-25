@@ -1,0 +1,23 @@
+<div class="modal fade" id="customConfirmModal" tabindex="-1" role="dialog" aria-labelledby="deliveryOptionFormLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="seller-actions">
+          <p class="pb-4 confirmation-text">Are you sure about to mark it yavolo enabled?</p>
+          <div class="carrier-btn text-right">
+            <%= link_to "No", "javascript:void(0)",'data-dismiss': "modal", class: 'btn btn-sm btn-radius px-4 btn-primary mt-2' %>
+            <%= link_to "Yes", enable_yavolo_sellers_products_path,data: { 
+              disable_with: "Updating...", remote: true, method: :post 
+            },id: 'yes-btn', class: 'btn btn-sm btn-radius px-4 btn-primary mt-2 ml-2'  %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

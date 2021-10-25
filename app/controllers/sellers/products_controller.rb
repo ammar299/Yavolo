@@ -1,24 +1,11 @@
-class Admin::ProductsController < Admin::BaseController
+class Sellers::ProductsController < Sellers::BaseController
   def index
-    @q = Product.ransack(params[:q])
-    if params[:q].present? && params[:q][:price_low_high_cont].present?
-      @products = Product.where("price >= ?", params[:q][:price_low_high_cont].to_i).order("price asc")
-      @products= @products.page(params[:page]).per(params[:per_page].presence || 15)
-    elsif params[:q].present? &&  params[:q][:price_high_low_cont].present?
-      @products = Product.where("price <= ?", params[:q][:price_high_low_cont].to_i).order("price desc")
-      @products = @products.page(params[:page]).per(params[:per_page].presence || 15)
-    elsif params[:q].present? &&  params[:q][:title_a_z_cont].present?
-      @products = Product.order("title asc")
-      @products = @products.page(params[:page]).per(params[:per_page].presence || 15)
-    elsif params[:q].present? &&  params[:q][:title_a_z_cont].present?
-      @products = Product.order("title desc")
-      @products = @products.page(params[:page]).per(params[:per_page].presence || 15)
+    @listing_by_status_with_count = Product.get_group_by_status_count(current_seller)
+    if Product.statuses.keys.include?(params[:tab]) || params[:tab]=='all' || params[:tab]=='yavolo_enabled'
+      @products = Product.send("#{params[:tab]}_products", current_seller).page(params[:page]).per(params[:per_page] || 50)
     else
-      @q = Product.ransack(params[:q])
-      @products = @q.result(distinct: true).page(params[:page]).per(params[:per_page].presence || 15)
+      @products = Product.where(owner_id: current_seller.id, owner_type: current_seller.class.name).page(params[:page]).per(params[:per_page] || 50)
     end
-    # @products = Product.order(:title).page(params[:page]).per(params[:per_page].presence || 15)
-    @products =  Product.where(status: params[:filter_by].to_i).page(params[:page]).per(params[:per_page].presence || 15) if params[:filter_by].present?
   end
 
   def new
@@ -41,14 +28,13 @@ class Admin::ProductsController < Admin::BaseController
 
     if @product.save
       save_product_images_from_remote_urls(@product) if params[:dup_product_id].present?
-      redirect_to edit_admin_product_path(@product), notice: 'Product was successfully created.'
+      redirect_to edit_sellers_product_path(@product), notice: 'Product was successfully created.'
     else
       @delivery_options = DeliveryOption.all
       @product.owner_id = owner_params[:owner_id]
       @product.owner_type = owner_params[:owner_type]
       render action: 'new', product_id: params[:product_id]
     end
-
   end
 
   def edit
@@ -74,18 +60,23 @@ class Admin::ProductsController < Admin::BaseController
         @product.pictures_attributes = images_to_delete_params
         @product.save
       end
-      redirect_to edit_admin_product_path(@product), notice: 'Product was successfully updated.'
+      redirect_to edit_sellers_product_path(@product), notice: 'Product was successfully updated.'
     else
       @delivery_options = DeliveryOption.all
       render action: 'edit'
     end
+  end
 
+  def enable_yavolo
+    if params[:product][:ids].present?
+      @products = Product.where(id: params[:product][:ids], yavolo_enabled: false, owner_id: current_seller.id, owner_type: current_seller.class.name).update(yavolo_enabled: true)
+    end
   end
 
   def upload_csv
     csv_import = CsvImport.new(params.require(:csv_import).permit(:file))
-    csv_import.importer_id = current_admin.id
-    csv_import.importer_type = 'Admin'
+    csv_import.importer_id = current_seller.id
+    csv_import.importer_type = current_seller.class.name
     if csv_import.valid?
       csv_import.save
       csv_import.update({status: :uploaded})
@@ -97,11 +88,11 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def export_csv
-    if current_admin.products.count > 50
-      ExportCsvWorker.perform_async(current_admin.id, current_admin.class.name)
-      redirect_to admin_products_path, notice: 'Products export is started, You will receive a file when its completed.'
+    if current_seller.products.count > 50
+      ExportCsvWorker.perform_async(current_seller.id, current_seller.class.name)
+      redirect_to sellers_products_path, notice: 'Products export is started, You will receive a file when its completed.'
     else
-      exporter = Products::Exporter.call({ owner: current_admin })
+      exporter = Products::Exporter.call({ owner: current_seller })
       if exporter.status
         respond_to do |format|
           format.csv { send_data exporter.csv_file, filename: "products_#{Time.zone.now.to_i}.csv" }
@@ -111,6 +102,8 @@ class Admin::ProductsController < Admin::BaseController
       end
     end
   end
+
+
 
   private
     def product_params
@@ -124,7 +117,7 @@ class Admin::ProductsController < Admin::BaseController
     end
 
     def owner_params
-      { owner_id: current_admin.id, owner_type: 'Admin' }
+      { owner_id: current_seller.id, owner_type: current_seller.class.name }
     end
 
     def images_to_delete_params
@@ -161,4 +154,6 @@ class Admin::ProductsController < Admin::BaseController
         product.save
       end
     end
+
+
 end

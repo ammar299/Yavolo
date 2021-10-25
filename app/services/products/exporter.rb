@@ -52,7 +52,7 @@ module Products
         ginfo = product.google_shopping
         values << [ginfo.title, ginfo.price, ginfo.category, ginfo.campaign_category, ginfo.description,ginfo.exclude_from_google_feed ] if ginfo.present?
         values << product.pictures.map{|p| p.name.url}.join("|")
-        values.flatten!
+        values.flatten
       end
 
       def owner

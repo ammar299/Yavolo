@@ -1,0 +1,42 @@
+<div class="container-fluid">
+    <div class="formme">
+      <div class="file-errors mt-2"></div>
+      <%= simple_form_for @product, url: url, method: method, html: { id: 'product_form' } do |form| %>
+          <%=hidden_field_tag :product_id, form.object.id || params[:dup_product_id] %>
+          <%=form.hidden_field :owner_id %>
+          <%=form.hidden_field :owner_type %>
+          <%=form.hidden_field :namespace, value: 'sellers', id: 'namespace' %>
+          <%= render "shared/products/photos", form: form %>
+          <%= render "shared/products/seo_content", form: form %>
+          <%= render "shared/products/google_shopping", form: form %>
+          <%= render "shared/products/ebay_details", form: form %>
+          <%= render "shared/products/listing_details", form: form %>
+          <%= render "shared/products/pricing_and_quantity", form: form %>
+          <%= render "shared/products/delivery_details", form: form %>
+          <%= render "shared/products/product_actions_bar", form: form %>
+      <% end %>
+      <%= render "shared/products/add_new_delivery_option" %>
+    </div>
+</div>
+<script>
+    let disEditor;
+    $(document).ready(function(){
+
+        ClassicEditor
+        .create( document.querySelector( '#product_description' ) )
+        .then(newEditor=>{
+            disEditor = newEditor;
+        })
+        .catch( error => {
+            console.error( error );
+        } );
+
+        ClassicEditor.create( document.querySelector( '#product_google_shopping_attributes_description' ) ).catch( error => {
+            console.error( error );
+        } );
+
+        ClassicEditor.create( document.querySelector( '#product_seo_content_attributes_description' ) ).catch( error => {
+            console.error( error );
+        } );
+    })
+</script>

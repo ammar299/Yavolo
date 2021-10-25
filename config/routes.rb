@@ -125,6 +125,26 @@ Rails.application.routes.draw do
           patch :update_seller_api
         end
         root to: 'dashboard#index', as: :seller_authenticated_root
+
+        resources :products do
+          collection do
+            get :duplicate
+            post :upload_csv
+            get :export_csv
+            post :enable_yavolo
+            post :disable_yavolo
+          end
+        end
+
+        resources :categories do
+          member do
+            get :get_filter_groups
+          end
+          collection do
+            get :search_category
+          end
+        end
+
       end
     end
   end

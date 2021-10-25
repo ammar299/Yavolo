@@ -5,6 +5,7 @@
         <%=hidden_field_tag :product_id, form.object.id || params[:dup_product_id] %>
         <%=form.hidden_field :owner_id %>
         <%=form.hidden_field :owner_type %>
+        <%=form.hidden_field :namespace, value: 'admin', id: 'namespace' %>
         <%= render "shared/products/photos", form: form %>
         <%= render "shared/products/seo_content", form: form %>
         <%= render "shared/products/google_shopping", form: form %>

@@ -1,5 +1,5 @@
 class Admin::CategoriesController < Admin::BaseController
-
+  include CategoryMethods
   before_action :set_category, only: %i[edit update destroy category_details remove_filter_group_association remove_image add_filter_group_association category_products_delete_multiple category_products_with_pagination]
 
   def index
@@ -71,16 +71,6 @@ class Admin::CategoriesController < Admin::BaseController
 
   def remove_image
     @category.picture.destroy
-  end
-
-  def search_category
-    @categories = Category.where("category_name LIKE ? AND baby_category = ?", "%#{params[:q]}%", true).limit(10)
-    render json: { data: @categories }
-  end
-
-  def get_filter_groups
-    @product = Product.where(id: params[:product_id]).first if params[:product_id].present?
-    @category = Category.where(id: params[:id]).includes(filter_groups: :filter_in_categories).first
   end
 
   def category_products_delete_multiple

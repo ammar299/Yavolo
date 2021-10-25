@@ -1,5 +1,12 @@
 // load all products related js here
 $(document).ready(function(){
+
+  // on enable yavolo click
+  $(document).on('click',".enable-yavolo-btn", function(e){
+    e.preventDefault();
+    $(".modal-body #yes-btn").attr('data-params', $(this).data('params'));
+  });
+
   // on product form submit event
   $('#product_form').submit(function(e){
     if(!validProductForm()){
@@ -85,7 +92,7 @@ $(document).ready(function(){
     load: function (query, callback) {
       if (!query.length) return callback();
       $.ajax({
-        url: "/admin/categories/search_category",
+        url: "/"+$('#namespace').val()+"/categories/search_category",
         type: "GET",
         dataType: "json",
         data: {
@@ -118,8 +125,9 @@ $(document).ready(function(){
 });
 
 function getFilterGroupsOfBabyCategory(productId, selectedCategoryId){
+  console.log($('#namespace').val());
   $.ajax({
-    url: "/admin/categories/"+selectedCategoryId+"/get_filter_groups.json?product_id="+productId,
+    url: "/"+$('#namespace').val()+"/categories/"+selectedCategoryId+"/get_filter_groups.json?product_id="+productId,
     type: "GET",
     success: function(res){
       renderCategoryFilterGroups(res)
@@ -169,7 +177,7 @@ function uploadCSVFile(files){
   let formData = new FormData()
   formData.append('csv_import[file]', files[0])
   $.ajax({
-    url: "/admin/products/upload_csv",
+    url: "/"+$('#namespace').val()+"/products/upload_csv",
     type: "POST",
     data: formData,
     processData: false,  // tell jQuery not to process the data
