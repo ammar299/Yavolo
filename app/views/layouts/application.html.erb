@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= stylesheet_pack_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application' %>
+    
   </head>
-
   <body>
     <div class="main-page">
       <% unless params[:controller] == 'admin/sessions' %>
         <%= render 'layouts/header' %>
       <% end %>
+<<<<<<< HEAD
       <% if notice.present? %>
         <p class="flash-toast notice <%= notice.present? ? 'notice-msg' : ''%>">
           <%= notice %>
@@ -28,15 +28,16 @@
           <span class="notice-cross-icon" aria-hidden="true">&times;</span>
         </p>
       <% end %>
+=======
+      <p class="notice"><%= notice %></p>
+      <p class="alert <%= alert.present? ? 'alert-msg' : ''%>"><%= alert %></p>
+>>>>>>> 70512911cda8c3256519222a63e3afd0cbcf7f53
       <div class="main-content">
-
         <%= yield %>
-
       </div>
       <% unless params[:controller] == 'admin/sessions' %>
         <%= render 'layouts/footer' %>
       <% end %>
     </div>
-    
   </body>
 </html>

@@ -23,7 +23,7 @@
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
     <%= br.label :date_of_birth, 'Date of Birth' %>
-    <%= br.date_field :date_of_birth, as: :date, value: br.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
+    <%= br.text_field :date_of_birth, placeholder: 'yyyy-mm-dd', value: br.object.date_of_birth.present? ? br.object.date_of_birth.strftime("%m/%d/%Y") : '', class: 'form-control datepicker', autocomplete: 'date_of_birth' %>
   </div>
 <% end %>
 <div class="form-group form-group-vertical form-group-vertical-responsive">

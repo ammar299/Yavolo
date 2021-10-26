@@ -132,7 +132,7 @@
             </div>
             <div class="form-group general-mrgn">
               <%= br.label :date_of_birth, 'Date of Birth' %>
-              <%= br.date_field :date_of_birth, as: :date, placeholder: '0123456789', required: true, class: 'form-control' %>
+              <%= br.text_field :date_of_birth, placeholder: '0123456789', required: true, class: 'form-control datepicker', autocomplete: 'date_of_birth' %>
             </div>
           <% end %>
           <!-- Business Owner Address / Address with type business_representative_address -->

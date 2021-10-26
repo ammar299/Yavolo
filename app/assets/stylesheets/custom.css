@@ -327,8 +327,9 @@
 }
 
 
-
-
-
-
-
+.bulk-actions .fa-check{
+  display: none;
+}
+.bulk-actions .dropdown-item.active .fa-check{
+  display: block;
+}
