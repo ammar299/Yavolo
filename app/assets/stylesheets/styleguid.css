@@ -301,6 +301,7 @@ textarea.form-control {
     padding: 12px 35px 10px 20px;
     border-radius: 30px;
     outline: none;
+    font-size: 14px;
 }
 .subscribe-field input {
     padding-right: 132px !important;
@@ -318,7 +319,7 @@ textarea.form-control {
 .subscribe-field a,
 .search-field i {
     position: absolute;
-    top: 12px;
+    top: 11px;
     right: 15px;
 }
 .subscribe-field a {

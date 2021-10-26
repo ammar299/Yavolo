@@ -333,3 +333,32 @@
 .bulk-actions .dropdown-item.active .fa-check{
   display: block;
 }
+
+.dropdown-filter.show .dropdown-menu {
+  min-width: 40px;
+  top: 28px !important;
+}
+.dropdown-filter.show .dropdown-menu a {
+  word-break: break-word;
+  white-space: normal;
+  font-size: 12px;
+  padding: 1px 12px 1px 18px !important;
+  justify-content: flex-start;
+  transition: .3s linear;
+}
+.dropdown-filter .dropdown-menu a svg {
+    position: absolute;
+    right: 10px;
+    transition: .3s linear;
+}
+
+.dropdown-filter.show .btn-link-dropdown svg {
+  transform: rotate(180deg);
+}
+
+
+
+
+
+
+
