@@ -1061,7 +1061,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .checkmark-white {
 	border: 2px solid var(--white) !important;
-	top: -6px !important;
+	top: 0px !important;
 }
 .checkbox-blk input:checked ~ .checkmark-white {
     background-color: var(--red);
