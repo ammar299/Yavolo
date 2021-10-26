@@ -65,8 +65,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 .btn-sm {
     font-size: 12px;
-    line-height: 15px;
-    padding: 8px 12px 8px 12px;
+    line-height: 14px;
+    padding: 8px 12px 7px 12px;
 }
 .btn.focus, 
 .btn:focus {
@@ -173,6 +173,9 @@ h4 {
 }
 .btn-radius-12 {
     border-radius: 12px;
+}
+.btn-radius-6 {
+    border-radius: 6px;
 }
 
 .btn-link {
@@ -370,7 +373,7 @@ textarea.form-control {
 }
 .checkmark {
     position: absolute;
-    top: 0;
+    top: 2px;
     left: 0;
     height: 22px;
     width: 22px;
@@ -412,14 +415,17 @@ textarea.form-control {
     background-color: transparent;
 }
 .radiobox-blk.checkbox-blk input:checked ~ .checkmark:after {
-    left: 4px;
-    top: 4px;
+    left: 0;
     width: 10px;
     height: 10px;
     transform: inherit;
     border-radius: 50%;
     border: 0;
     background-color: var(--red);
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
 }
 
 /*===========================*/
@@ -590,12 +596,99 @@ textarea.form-control {
 
 /*Modal*/
 
-.mainlang-list .field-me {
-    border: 2px solid #640529 !important;
-    border-radius: 16px;
-    background-color: transparent;
-    width: 100px;
-    padding: 6px 20px 2px 20px;
-    color: #640529;
-    outline: none !important;
+
+
+
+/*CARDS*/
+
+
+.rating li span.icon-star:before {
+    color: #E0BD3E;
 }
+.rating li span.icon-star, 
+.rateNo {
+    opacity: 0.5;
+}
+.rating li.active span.icon-star {
+    opacity: 1;
+}
+.pdp-card {
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+.pdp-card .pdp-img {
+    border-radius: 12px;
+    padding: 15px;
+    background-color: #fff;
+    min-height: 250px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 1px 1px 5px #0000000A;
+    position: relative;
+}
+.pdp-card .pdp-img .lable-tag {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: -15px;
+    display: flex !important;
+    width: 120px;
+    align-items: center;
+    box-shadow: 1px 1px 2px #00000010;
+    justify-content: center;
+    height: 30px;
+    align-items: center;
+    line-height: 14px;
+    padding-top: 2px !important;
+}
+.pdp-card .pdp-img .lable-tag .icon-Yavolo-top-seller-icon {
+    font-size: 16px;
+}
+.pdp-card .pdp-img .lable-tag .icon-Yavolo-top-seller-icon:before {
+    color: #fff;
+}
+.delivery-note span.icon-orders--delivery {
+    font-size: 26px;
+    margin-right: 20px;
+}
+.delivery-note span.icon-orders--delivery:before {
+    color: var(--red);
+}
+.delivery-note .in-text {
+    opacity: 0.8;
+}
+.pdp-card .pdp-body a {
+    text-decoration: none !important;
+}
+.remove-btn .icon-remove:before {
+    color: var(--dark-red);
+}
+
+
+
+
+
+.category-card {
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 30px;
+}
+.category-card span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background-color: #000000a3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #fff;
+}
+/*CARDS*/

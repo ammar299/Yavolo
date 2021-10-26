@@ -28,6 +28,7 @@ require('packs/filter_groups')
 require('packs/products')
 require('packs/sellers')
 require('packs/success-meter')
+require('packs/all-page-events')
 require("@nathanvda/cocoon")
 const ClassicEditor = require('@ckeditor/ckeditor5-build-classic');
 require('packs/selectize.min')

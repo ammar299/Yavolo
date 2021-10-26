@@ -47,11 +47,10 @@
           <ul class="d-none">
             <li><%= link_to "All Sellers", admin_sellers_path %></li>
             <li><%= link_to "Suspension", ""%></li>
-            <li><%= link_to "This", ""%></li>
           </ul>
         </li>
-        <li>
-          <%= link_to admin_products_path do %>
+        <li class="parent">
+          <%= link_to '#' do %>
             <span class="icon-products icon-right-pd"></span>
             <span>Products</span>
           <% end %>

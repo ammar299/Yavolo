@@ -131,8 +131,8 @@
 
 .sidebody::-webkit-scrollbar,
 ::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+  width: 0px;
+  height: 0px;
 }
 .dashboard-page.toggle-close .sidebody::-webkit-scrollbar-thumb,
 ::-webkit-scrollbar-thumb {
@@ -152,7 +152,7 @@
 } */
 
 .sidebody {
-  max-height: calc(100vh - 158px) !important;
+  max-height: calc(100vh - 115px) !important;
   overflow-y: auto !important;
 }
 .menuBtn {
@@ -227,6 +227,16 @@
   min-height: 82px;
   display: flex;
   align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 280px;
+  z-index: 555;
+  transition: .3s linear;
+  background-color: #fdf8f3;
+}
+.toggle-close .admin-header {
+  left: 60px;
 }
 
 .progress-bar-outer {
@@ -241,3 +251,84 @@
   width: 25%;
   background-color: var(--red);
 }
+
+
+.admin-dashboard {
+  padding-top: 82px !important;
+}
+.alert,
+.notice {
+  position: fixed;
+  top: 0;
+  right: -350px;
+  z-index: 55555;
+  background-color: var(--light-red);
+  color: var(--red);
+  padding: 12px 0;
+  width: 348px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 35px;
+  transition: .3s linear;
+}
+.notice-msg,
+.alert-msg {
+  right: 0;
+}
+.notice-msg span ,
+.alert-msg span {
+  font-size: 21px;
+  line-height: 21px;
+  padding-bottom: 3px;
+}
+.notice-msg span {
+  cursor: pointer;
+}
+.badge-info {
+    background-color: var(--light-red) !important;
+    color: var(--red) !important;
+    border-radius: 20px;
+    padding-top: 3px !important;
+    padding-bottom: 6px !important;
+    padding-left: 10px !important;
+}
+.bootstrap-tagsinput .badge [data-role="remove"]:after {
+  background-color: transparent !important;
+}
+.bootstrap-tagsinput .badge [data-role="remove"] {
+  margin-left: 0 !important ;
+}
+.notice-cross-icon span {
+  cursor: pointer;
+}
+
+
+.admin-login .form-control::placeholder {
+    color: #aaa !important;
+    opacity: 1; /* Firefox */
+}
+
+.admin-login .form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #aaa !important;
+}
+
+.admin-login .form-control::-ms-input-placeholder { /* Microsoft Edge */
+    color: #aaa !important;
+}
+
+.form-check {
+  padding-left: 0 !important;
+}
+
+.logo img {
+  width: 145px;
+}
+
+
+
+
+
+
+

@@ -17,8 +17,18 @@
         <div class="main-page container-fluid">
           <div class="admin-dashboard">
             <%= render "shared/admin_header" %>
-            <p class="notice"><%= notice %></p>
-            <p class="alert <%= alert.present? ? 'alert-msg' : ''%>"><%= alert %></p>
+            <% if notice.present? %>
+              <p class="flash-toast notice <%= notice.present? ? 'notice-msg' : ''%>">
+                <%= notice %>
+                <span  class="notice-cross-icon" aria-hidden="true">&times;</span>
+              </p>
+            <% end %>
+            <% if alert.present? %>
+              <p class="flash-toast alert <%= alert.present? ? 'alert-msg' : ''%>">
+                <%= alert %>
+                <span class="notice-cross-icon" aria-hidden="true">&times;</span>
+              </p>
+            <% end %>
             <%= yield %>
           </div>
         </div>

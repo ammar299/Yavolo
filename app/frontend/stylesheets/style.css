@@ -176,42 +176,7 @@
 	height: 0;
 	width: 0;
   }
-  /* Create a custom checkbox */
-  .checkmark {
-	position: absolute;
-	top: 0px;
-	left: 0;
-	height: 20px;
-	width: 20px;
-	background-color: transparent;
-	border:2px solid #640529;
-	border-radius: 4px;
-  }
-  .check-container input:checked ~ .checkmark {
-	background-color: #640529;
-	border: none;
-	left: 0px;
-	top: 0px;
-  }
-  .checkmark:after {
-	content: "";
-	position: absolute;
-	display: none;
-  }
-  .container input:checked ~ .checkmark:after {
-	display: block;
-  }
-  .check-container .checkmark:after {
-	left: 8px;
-	top: 4px;
-	width: 5px;
-	height: 10px;
-	border: solid #FFFFFF;
-	border-width: 0 3px 3px 0;
-	-webkit-transform: rotate(45deg);
-	-ms-transform: rotate(45deg);
-	transform: rotate(45deg);
-  }
+  
 /*========= sign-in============ */
 
 
@@ -273,7 +238,7 @@
 	transition: .3s linear;
 	border-radius: 12px;
 }
-.sidebody li.active a,
+.sidebody > ul > li > ul > li.active a,
 .sidebody li a:hover {
 	background: var(--unnamed-color-731d3d) 0% 0% no-repeat padding-box;
 	background: #731D3D 0% 0% no-repeat padding-box;

@@ -16,6 +16,18 @@
       <div class="rightside">
         <div class="admin-da">
             <%= render 'layouts/sellers/seller_header' %>
+            <% if notice.present? %>
+              <p class="flash-toast notice <%= notice.present? ? 'notice-msg' : ''%>">
+                <%= notice %>
+                <span  class="notice-cross-icon" aria-hidden="true">&times;</span>
+              </p>
+            <% end %>
+            <% if alert.present? %>
+              <p class="flash-toast alert <%= alert.present? ? 'alert-msg' : ''%>">
+                <%= alert %>
+                <span class="notice-cross-icon" aria-hidden="true">&times;</span>
+              </p>
+            <% end %>
             <%= yield %>
             <%= render 'layouts/sellers/seller_footer' %>
         </div>
