@@ -10,26 +10,20 @@ class Sellers::DeliveryOptionsController < Sellers::BaseController
   end
 
   def new
-    seller = current_seller
-    @delivery_option = seller.delivery_options.new
+    @delivery_option = current_seller.delivery_options.new
   end
 
   def create
     @delivery_opts = true
+    @errors = 'Template already exists!'
     delivery_option_filtering
-    params[:delivery_option][:ship_ids] = params[:delivery_option][:ship_ids].reject { |c| c.empty? }
     @delivery_option = DeliveryOption.new(delivery_option_params)
-    unless global_template?(@delivery_option_params)
-      if @delivery_opts == true
-        @delivery_option.save
-        create_delivery_option_ships(@delivery_option)
-        @delivery_options = current_seller.delivery_options
-      else
-        @delivery_option.errors[:base] << 'Template already exists!'
-        render :new
-      end
+    if @delivery_opts == true
+      @delivery_option.save
+      create_delivery_option_ships(@delivery_option)
+      @delivery_options = current_seller.delivery_options
     else
-      @delivery_option.errors[:base] << 'Template already exists!'
+      @delivery_option.errors[:base] << @errors
       render :new
     end
   end
@@ -37,27 +31,23 @@ class Sellers::DeliveryOptionsController < Sellers::BaseController
   def update
     @existing_obj = true
     @delivery_opts = true
+    @errors = 'Template already exists'
     verify_delivery_option(@delivery_option)
     delivery_option_filtering(@delivery_option) if @existing_obj == false
     params[:delivery_option][:ship_ids] = params[:delivery_option][:ship_ids].reject { |c| c.empty? }
-    unless global_template?(@delivery_option_params)
-      if @existing_obj == true || @delivery_opts == true
-        @delivery_option.update(delivery_option_params)
-        create_delivery_option_ships(@delivery_option)
-        @delivery_options = current_seller.delivery_options
-      else
-        @delivery_option.errors[:base] << 'Template already exists!'
-        render :edit
-      end
+    if @existing_obj == true || @delivery_opts == true
+      @delivery_option.update(delivery_option_params)
+      create_delivery_option_ships(@delivery_option)
+      @delivery_options = current_seller.delivery_options
     else
-      @delivery_option.errors[:base] << 'Template already exists!'
+      @delivery_option.errors[:base] << @errors
       render :edit
     end
   end
 
   def destroy
     @delivery_option.destroy
-    redirect_to sellers_delivery_options_path
+    @delivery_options = current_seller.delivery_options
   end
 
   def delete_delivery_options
@@ -86,19 +76,12 @@ class Sellers::DeliveryOptionsController < Sellers::BaseController
   end
 
   def delivery_option_filtering(delivery_option=nil)
-    delivery_options = DeliveryOption.where(delivery_option_params)
+    delivery_options = DeliveryOption.where(name: delivery_option_params[:name], processing_time: delivery_option_params[:processing_time], delivery_time: delivery_option_params[:delivery_time])
     delivery_options = delivery_options.where.not(id: delivery_option.id) if !delivery_option.nil?
-    if delivery_options.exists?
+    if delivery_options.present?
       check_delivery_option_availbility(delivery_options)
     else
       @delivery_opts = true
-    end
-  end
-
-  def global_template?(delivery_option)
-    template = DeliveryOption.where(name: delivery_option_params[:name], processing_time: delivery_option_params[:processing_time],delivery_time: delivery_option_params[:delivery_time],delivery_optionable_type: "Admin").first
-    if template.present?
-      template.ship_ids == params[:delivery_option][:ship_ids].map(&:to_i)
     end
   end
 
@@ -120,7 +103,8 @@ class Sellers::DeliveryOptionsController < Sellers::BaseController
     delivery_options.each do |delivery_option|
       delivery_ships = DeliveryOptionShip.where(delivery_option_id: delivery_option.id).map{ |c| [c.ship_id, c.price.to_f] }.to_h
       result = delivery_ships == filter_ship_ids.transform_keys(&:to_i).transform_values(&:to_f)
-      return @delivery_opts = false if result
+      @errors = 'Template exists in Global Templates' if result && (delivery_option.delivery_optionable_type == 'Admin')
+      @delivery_opts = false if result
     end
   end
 end

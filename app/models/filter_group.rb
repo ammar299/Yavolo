@@ -1,6 +1,6 @@
 class FilterGroup < ApplicationRecord
 
-  include PgSearch
+  include PgSearch::Model
   multisearchable against: :filter_group_type
   pg_search_scope :search_by_name, against: :name
 
