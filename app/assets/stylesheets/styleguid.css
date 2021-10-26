@@ -283,8 +283,12 @@ textarea.form-control {
     margin: 0;
     padding: 10px 0;
 }
+.category-products-form select,
+.ck.ck-toolbar,
+.ck.ck-editor__main>.ck-editor__editable:not(.ck-focused),
+.form-group-vertical .bootstrap-tagsinput,
 .form-group-vertical .form-control {
-    border: 1px solid var(--dark-red);
+    border: 1px solid var(--dark-red) !important;
 }
 .subscribe-field,
 .search-field {
@@ -513,6 +517,7 @@ textarea.form-control {
     color: var(--white);
     font-weight: 600;
     border: 0;
+    line-height: 16px;
 }
 .Yavolo-table table thead tr th:first-child {
     border-radius: 8px 0px 0px 8px;
@@ -529,6 +534,7 @@ textarea.form-control {
 }
 .Yavolo-table table tbody tr td {
     background-color: #ffff;
+    line-height: 16px;
 }
 .Yavolo-table table tbody tr td:first-child {
     border-radius: 8px 0px 0px 8px;

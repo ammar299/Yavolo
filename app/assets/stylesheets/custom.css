@@ -351,7 +351,7 @@
     right: 10px;
     transition: .3s linear;
 }
-
+.dropdown-filter-field .dropdown.show .product-search-dropdown svg,
 .dropdown-filter.show .btn-link-dropdown svg {
   transform: rotate(180deg);
 }
@@ -363,8 +363,37 @@
 .Yavolo-table table td .checkmark {
   top: 0 !important;
 }
-
-
-
-
+.dropdown-filter-field .dropdown-item {
+  font-size: 14px;
+  padding: 2px 14px;
+}
+.Yavolo-table {
+  overflow-x: auto;
+}
+.Yavolo-table-min-height.Yavolo-table table tbody tr td {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+.uploader-btn {
+  position: relative;
+  width: 100px !important;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+.uploader-btn-1 {
+  width: 150px !important;
+}
+.uploader-btn:before {
+  content: "Upload";
+}
+.uploader-btn-1:before {
+  content: "Select From Gallery";
+}
+.uploader-btn input {
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  top: 0;
+}
 
