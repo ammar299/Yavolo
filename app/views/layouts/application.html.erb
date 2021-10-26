@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= stylesheet_pack_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application' %>
+    
   </head>
-
   <body>
     <div class="main-page">
       <% unless params[:controller] == 'admin/sessions' %>
@@ -18,16 +17,12 @@
       <% end %>
       <p class="notice"><%= notice %></p>
       <p class="alert <%= alert.present? ? 'alert-msg' : ''%>"><%= alert %></p>
-
       <div class="main-content">
-
         <%= yield %>
-
       </div>
       <% unless params[:controller] == 'admin/sessions' %>
         <%= render 'layouts/footer' %>
       <% end %>
     </div>
-    
   </body>
 </html>
