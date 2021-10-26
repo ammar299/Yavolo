@@ -50,4 +50,15 @@ module Admin::SellersHelper
     end
   end
 
+  def is_eligible?(seller)
+    invoice_address = seller.addresses.select do |address| address.address_type == 'invoice_address' end
+    return_address = seller.addresses.select do |address| address.address_type == 'return_address' end
+    
+    if seller.picture.present? && invoice_address.present? && return_address.present?
+      return true
+    else
+      return false
+    end
+  end
+
 end
