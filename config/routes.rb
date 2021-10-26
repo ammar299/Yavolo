@@ -118,7 +118,10 @@ Rails.application.routes.draw do
             patch :update_addresses
             patch :update_seller_logo
             delete :remove_logo_image
+            get :confirm_delete
             get :confirm_refresh_api
+            get :search_delivery_options
+            delete :destroy_delivery_template
           end
           post :update_seller_api
           post :refresh_seller_api

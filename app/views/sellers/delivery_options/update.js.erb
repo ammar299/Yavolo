@@ -1,2 +1,4 @@
 $("#deliveryTemplateForm").modal('hide');
 $('#delivery-options-list').html("<%= j render(partial: 'delivery_options_list', locals: { delivery_options: @delivery_options }) %>");
+$('div[id=setting-delivery-option]').remove();
+$('#setting-delivery-options').html("<%= j render(partial: 'setting_delivery_options', locals: { delivery_options: @delivery_options }) %>");

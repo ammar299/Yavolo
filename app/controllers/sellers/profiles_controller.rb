@@ -3,12 +3,14 @@ class Sellers::ProfilesController < Sellers::BaseController
   layout 'sellers/seller'
 
   before_action :set_seller, only: %i[new show edit update update_business_representative update_company_detail update_seller_logo remove_logo_image update_addresses]
+  before_action :set_delivery_template, only: %i[confirm_delete destroy_delivery_template]
 
 
   def new
   end
 
   def show
+    @delivery_options = current_seller.delivery_options
     @remaining_addresses = Address.address_types.keys - @seller.addresses.collect(&:address_type)
     @remaining_addresses.each do |address_type| @seller.addresses.build address_type: address_type end if @remaining_addresses.present?
     # this unless has nothing to do with if
@@ -16,6 +18,14 @@ class Sellers::ProfilesController < Sellers::BaseController
       @seller_api = @seller.build_seller_api
     else
       @seller_api = @seller.seller_api
+    end
+  end
+
+  def search_delivery_options
+    if params[:search].present?
+      @delivery_options = current_seller.delivery_options.global_search(params[:search])
+    else 
+      @delivery_options = current_seller.delivery_options
     end
   end
 
@@ -78,6 +88,11 @@ class Sellers::ProfilesController < Sellers::BaseController
     @seller_api.save
   end
 
+  def destroy_delivery_template
+    @delivery_option.destroy
+    @delivery_options = current_seller.delivery_options
+  end
+
   private
   def seller_params
     params.require(:seller).permit(:first_name, :last_name, :email, :subscription_type,:account_status, :listing_status,:terms_and_conditions, :recieve_deals_via_email,
@@ -90,5 +105,9 @@ class Sellers::ProfilesController < Sellers::BaseController
   end
   def set_seller
     @seller = Seller.includes([ :business_representative, :company_detail, :addresses ]).find(params[:id])
+  end
+
+  def set_delivery_template
+    @delivery_option = DeliveryOption.find(params[:id])
   end
 end

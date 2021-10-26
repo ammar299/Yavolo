@@ -520,3 +520,7 @@
 .loading {
   background: transparent url('/assets/loading.gif') center no-repeat;
 }
+
+.accounts-delivery-search {
+	right: inherit !important;
+}
