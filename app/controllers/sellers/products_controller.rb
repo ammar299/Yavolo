@@ -103,6 +103,23 @@ class Sellers::ProductsController < Sellers::BaseController
     end
   end
 
+  def bulk_products_update
+    valid_actions =['activate','yavolo_enabled','yavolo_disabled','delete','update_price','update_stock','update_discount']
+    if valid_actions.include?(params[:bulk_action]) && action_required_params(params[:bulk_action]).present?
+      action_params = action_required_params(params[:bulk_action])
+      result = Product.where(id: action_params).update_all(status: :active) if params[:bulk_action]=='activate'
+      result = Product.where(id: action_params).update_all(yavolo_enabled: true) if params[:bulk_action]=='yavolo_enabled'
+      result = Product.where(id: action_params).update_all(yavolo_enabled: false) if params[:bulk_action]=='yavolo_disabled'
+      result = Product.where(id: action_params).destroy_all if params[:bulk_action]=='delete'
+      result =  Product.update(action_params.keys, action_params.values) if ['update_price','update_stock','update_discount'].include?(params[:bulk_action])
+
+      updated_ids = ['update_price','update_stock','update_discount','delete'].include?(params[:bulk_action]) ? result.map(&:id) : action_params
+      render json: { notice: 'updated', update_ids: updated_ids }, status: :ok
+    else
+      render json: { errors: ['invalid action or params are missing'] }, status: :unprocessable_entity
+    end
+  end
+
 
 
   private
@@ -152,6 +169,23 @@ class Sellers::ProductsController < Sellers::BaseController
         }
         product.pictures_attributes=images_urls
         product.save
+      end
+    end
+
+    def selected_rows_params
+      @params_ary ||= params.permit(products_attributes:[:id,:marked,:stock,:price,:discount])["products_attributes"].select{|p| p["marked"].present? }
+    end
+
+    def action_required_params(action)
+      case action
+      when 'activate','yavolo_enabled','yavolo_disabled','delete'
+        selected_rows_params.map{|p| p["id"].to_i}
+      when 'update_price'
+        selected_rows_params.map{|p| {id: p["id"], price: p["price"]} }.index_by{|p| p[:id]}
+      when 'update_stock'
+        selected_rows_params.map{|p| {id: p["id"], stock: p["stock"]} }.index_by{|p| p[:id]}
+      when 'update_discount'
+        selected_rows_params.map{|p| {id: p["id"], discount: p["discount"]} }.index_by{|p| p[:id]}
       end
     end
 

@@ -1,6 +1,6 @@
 <%= render 'shared/custom_confirm_modal' %>
 <%=hidden_field_tag :namespace, 'sellers', id: 'namespace' %>
-<div class="container-fluid">
+<div class="container-fluid y-page-container">
     <div class="d-flex flex-wrap justify-content-between mb-4 mt-5 align-items-start">
         <h4 class="m-0">Listings</h4>
         <div class="d-flex align-items-center">
@@ -15,13 +15,11 @@
         <div class="col-md-3">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <% [:all, :active,:inactive,:pending,:draft,:yavolo_enabled].each do |tab| %>
-                <% if @listing_by_status_with_count[tab].present? %>
                     <li class="nav-item">
                         <%= link_to sellers_products_path(tab: tab), class: "nav-link d-flex justify-content-between align-items-center #{set_active_tab(tab.to_s, params[:tab] || 'all')}" do %>
-                        <%="#{tab} Listings".titleize%><span><%=@listing_by_status_with_count[tab]%></span>
+                        <%="#{tab} Listings".titleize%><span><%=@listing_by_status_with_count[tab].to_i%></span>
                         <% end %>
                     </li>
-                <% end %>
                 <% end %>
             </ul>
         </div>
@@ -59,15 +57,21 @@
                                 id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">Actions <i class="fas fa-ellipsis-h ml-3"
                                     aria-hidden="true"></i></a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item active" href="#">Activate <i
+                            <div class="dropdown-menu bulk-actions" aria-labelledby="dropdownMenuLink">
+                                <a data-bulkaction="activate" class="dropdown-item" href="#">Activate <i
                                         class="fa fa-check" aria-hidden="true"></i></a>
-                                <a class="dropdown-item" href="#">Yavolo Enabled</a>
-                                <a class="dropdown-item" href="#">Yavolo Disabled</a>
-                                <a class="dropdown-item" href="#">Delete</a>
-                                <a class="dropdown-item" href="#">Update Price</a>
-                                <a class="dropdown-item" href="#">Update Stock</a>
-                                <a class="dropdown-item" href="#">Update discount</a>
+                                <a data-bulkaction="yavolo_enabled" class="dropdown-item" href="#">Yavolo Enabled<i
+                                        class="fa fa-check" aria-hidden="true"></i></a>
+                                <a data-bulkaction="yavolo_disabled" class="dropdown-item" href="#">Yavolo Disabled<i
+                                        class="fa fa-check" aria-hidden="true"></i></a>
+                                <a data-bulkaction="delete" class="dropdown-item" href="#">Delete<i
+                                        class="fa fa-check" aria-hidden="true"></i></a>
+                                <a data-bulkaction="update_price" class="dropdown-item" href="#">Update Price<i
+                                        class="fa fa-check" aria-hidden="true"></i></a>
+                                <a data-bulkaction="update_stock" class="dropdown-item" href="#">Update Stock<i
+                                        class="fa fa-check" aria-hidden="true"></i></a>
+                                <a data-bulkaction="update_discount" class="dropdown-item" href="#">Update discount<i
+                                        class="fa fa-check" aria-hidden="true"></i></a>
                             </div>
                         </div>
                         <div class="dropdown dropdown-filter mb-3 d-inline-flex">
@@ -100,7 +104,7 @@
                                         <tr>
                                             <th>
                                                 <label class="checkbox-blk">
-                                                    <input type="checkbox">
+                                                    <input type="checkbox" class="mark-bulk-update">
                                                     <span class="checkmark checkmark-white"></span>
                                                 </label>
                                             </th>
@@ -116,91 +120,84 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% @products.each do |product| %>
-                                        <tr>
-                                            <td>
-                                                <label class="checkbox-blk">
-                                                    <input type="checkbox">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </td>
-                                            <td><%=product.status.to_s.titleize %></td>
-                                            <td>
-                                                <div class="">
-                                                    <span class="imglist" width="100%">
-                                                    <% if product.pictures.present?%>
-                                                        <% if product.pictures.first&.name&.url.present? %>
-                                                            <%=image_tag product.pictures.first&.name&.url(:thumb) %>
-                                                        <% end %>
-                                                    <% end %> 
-                                                    </span>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <%=product.title%>
-                                            </td>
-                                            <td>
-                                                <p class="mb-0">SKU: <%=product.sku.truncate(15) %></p>
-                                                <p class="mb-0">EAN: <%=product.ean.truncate(15) %></p>
-                                                <p class="mb-0">Brand: <%=product.brand %></p>
-                                                <p class="mb-0">Condition: <%=product.condition.to_s.titleize %></p>
-                                            </td>
-                                            <td>
-                                                <div class="form-group">
-                                                    <input type="email" class="form-control p-1"
-                                                        id="exampleInputEmail1"
-                                                        aria-describedby="emailHelp"
-                                                        placeholder="120">
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-group">
-                                                    <input type="email" class="form-control p-1"
-                                                        id="exampleInputEmail1"
-                                                        aria-describedby="emailHelp"
-                                                        placeholder="120">
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                <div class="d-flex">
-                                                    <div>
-                                                        <span
-                                                        class="icon-manage-Yavolo font-20px light-red"></span>
-                                                    </div>
-                                                    <div>
-                                                        <span
-                                                            class="icon-help--resource-center help-popup pl-2">
-
+                                        <%= form_tag admin_filter_groups_path, id: 'products-bulk-form' do %>
+                                            <% @products.each do |product| %>
+                                            <tr class="prod-table-row" id="prod-id-<%=product.id%>">
+                                                <td>
+                                                    <label class="checkbox-blk">
+                                                        <%=check_box_tag '[products_attributes][][marked]', product.id %>
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </td>
+                                                <td class="product-status"><%=product.status.to_s.titleize %></td>
+                                                <td>
+                                                    <div class="">
+                                                        <span class="imglist" width="100%">
+                                                        <% if product.pictures.present?%>
+                                                            <% if product.pictures.first&.name&.url.present? %>
+                                                                <%=image_tag product.pictures.first&.name&.url(:thumb) %>
+                                                            <% end %>
+                                                        <% end %> 
                                                         </span>
-                                                        <div class="help-popup-inner">
-                                                            <p class="text-center mb-0">
-                                                                <strong><%=product.title%></strong>
-                                                            </p>
-                                                            <p class="mb-0 help-popup-text"><%=product.description.html_safe%></p>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <%=product.title%>
+                                                </td>
+                                                <td>
+                                                    <p class="mb-0">SKU: <%=product.sku.truncate(15) %></p>
+                                                    <p class="mb-0">EAN: <%=product.ean.truncate(15) %></p>
+                                                    <p class="mb-0">Brand: <%=product.brand %></p>
+                                                    <p class="mb-0">Condition: <%=product.condition.to_s.titleize %></p>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <%= number_field_tag '[products_attributes][][stock]', product.stock, class: 'form-control p-1', placeholder: '50',min: 0, disabled: true %>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <%= number_field_tag '[products_attributes][][price]', product.price, class: 'form-control p-1', placeholder: '50',min: 0, disabled: true %>
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <div>
+                                                            <span
+                                                            class="icon-manage-Yavolo font-20px light-red"></span>
+                                                        </div>
+                                                        <div>
+                                                            <span
+                                                                class="icon-help--resource-center help-popup pl-2">
+                                                            </span>
+                                                            <div class="help-popup-inner">
+                                                                <p class="text-center mb-0">
+                                                                    <strong><%=product.title%></strong>
+                                                                </p>
+                                                                <p class="mb-0 help-popup-text"><%=product.description.html_safe%></p>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-group">
-                                                    <input type="email" class="form-control p-1"
-                                                        id="exampleInputEmail1"
-                                                        aria-describedby="emailHelp"
-                                                        placeholder="1%">
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div>
-                                                    <% unless product.yavolo_enabled %>
-                                                    <%= link_to 'Enable Yavolo',"#", class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr btn-danger enable-yavolo-btn',data: {toggle: 'modal', target: "#customConfirmModal", params: "product[ids][]=#{product.id}" }, id: "pro-enyavolo-btn-#{product.id}" %>
-                                                    <% end %>
+                                                </td>
+                                                <td>
+                                                    <%= hidden_field_tag '[products_attributes][][id]', product.id, readonly: true %>
+                                                    <div class="form-group">
+                                                        <%= number_field_tag '[products_attributes][][discount]', product.discount, class: 'form-control p-1', placeholder: '2.5', min: 0, disabled: true %>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row-actions">
+                                                        <% unless product.yavolo_enabled %>
+                                                        <%= link_to 'Enable Yavolo',"#", class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr btn-danger enable-yavolo-btn',data: {toggle: 'modal', target: "#customConfirmModal", params: "product[ids][]=#{product.id}" }, id: "pro-enyavolo-btn-#{product.id}" %>
+                                                        <% end %>
 
-                                                    <%=link_to 'Edit Listing', edit_sellers_product_path(product), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr' %>
-                                                    <%=link_to 'Duplicate', new_sellers_product_path(dup_product_id: product.id), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr' %>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                        <%=link_to 'Edit Listing', edit_sellers_product_path(product), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr' %>
+                                                        <%=link_to 'Duplicate', new_sellers_product_path(dup_product_id: product.id), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr' %>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <% end %>
                                         <% end %>
                                     </tbody>
                                 </table>
@@ -221,3 +218,4 @@
 </div>
 <%= render 'admin/products/upload_csv_popup' %>
 <%= render 'admin/products/upload_csv_success_popup' %>
+<%= render 'shared/simple_confirm_modal', confirm_statement: 'Are you sure to perform this bulk action?', id: 'yes-perform-action',path: '#', data: nil, modal_id: 'seller-products-confirm' %>

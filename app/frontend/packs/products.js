@@ -1,6 +1,44 @@
 // load all products related js here
 $(document).ready(function(){
 
+  $('')
+
+  // on bulk update click event
+  $('.mark-bulk-update').change(function(){
+    if($(this).is(':checked')){
+      $('.prod-table-row').find('input:checkbox').prop('checked', true);
+      $('.prod-table-row').find('input[type=number]').prop('disabled', false);
+    }else{
+      $('.prod-table-row').find('input:checkbox').prop('checked', false);
+      $('.prod-table-row').find('input[type=number]').prop('disabled', true);
+    }
+  });
+
+  $('.prod-table-row input[type=checkbox]').change(function(){
+    if($(this).is(':checked')){
+      $(this).parents('.prod-table-row').find('input[type=number]').prop('disabled', false);
+    }else{
+      $(this).parents('.prod-table-row').find('input[type=number]').prop('disabled', true);
+    }
+  });
+
+  $('.bulk-actions a.dropdown-item').click(function(e){
+    e.preventDefault();
+    if($('.prod-table-row input[type=checkbox]:checked').length > 0){
+      $('.y-page-container').find('.alert').remove();
+      $('.bulk-actions a.dropdown-item').removeClass('active');
+      $(this).addClass('active');
+      $('#seller-products-confirm').modal('show');
+    }else{
+      showErrorsAlert(['You have not selected any products to update'])
+    }
+  })
+  $('#yes-perform-action').click(function(e){
+    e.preventDefault();
+    $('#seller-products-confirm').modal('hide');
+    updateBulkProducts($('.bulk-actions a.dropdown-item.active').data('bulkaction'));
+  })
+
   // on enable yavolo click
   $(document).on('click',".enable-yavolo-btn", function(e){
     e.preventDefault();
@@ -111,7 +149,6 @@ $(document).ready(function(){
   });
 
   $('#product_category').change(function(){
-    console.log($(this).val());
     let productId = $('#product_id').val();
     let categoryId = $(this).val();
     getFilterGroupsOfBabyCategory(productId, categoryId);
@@ -125,7 +162,6 @@ $(document).ready(function(){
 });
 
 function getFilterGroupsOfBabyCategory(productId, selectedCategoryId){
-  console.log($('#namespace').val());
   $.ajax({
     url: "/"+$('#namespace').val()+"/categories/"+selectedCategoryId+"/get_filter_groups.json?product_id="+productId,
     type: "GET",
@@ -438,3 +474,57 @@ function validProductForm(){
   }
   return !has_errors.includes(true)
 }
+
+
+function updateBulkProducts(action){
+  $.ajax({
+    url: `/${$('#namespace').val()}/products/bulk_products_update?bulk_action=${action}`,
+    method: 'POST',
+    data: $('#products-bulk-form').serialize(),
+    success: function(res){
+      updateProductsDom(res);
+      showSuccessAlert('Products updated successfully');
+    },
+    error: function(xhr){
+      showErrorsAlert(xhr.responseJSON.errors);
+    }
+  })
+}
+
+function updateProductsDom(res){
+  let action = $('.bulk-actions a.dropdown-item.active').data('bulkaction')
+  let selectors = res.update_ids.map(id=> "#prod-id-"+id).join(',')
+  if(action=='delete')
+    $(selectors).remove();
+
+  if(action=='activate')
+    $(selectors).find('.product-status').html('Active');
+
+  if(action=='yavolo_enabled')
+    $(selectors).find('.enable-yavolo-btn').remove();
+
+  if(action=='yavolo_disabled'){
+    $(selectors).each(function(){
+      let pid = $(this).attr('id').split('-')[$(this).attr('id').split('-').length-1];
+      let yavoloBtn = '<a class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr btn-danger enable-yavolo-btn" data-toggle="modal" data-target="#customConfirmModal" data-params="product[ids][]='+pid+'" id="pro-enyavolo-btn-'+pid+'" href="#">Enable Yavolo</a>';
+      $(this).find('input[type=checkbox]').prop('checked',false).trigger('change');
+      $(this).find('.row-actions').prepend(yavoloBtn)
+    })
+  }
+}
+
+function showSuccessAlert(msg){
+  $('.y-page-container').find('.alert').remove();
+  let alertMsg = '<div class="alert alert-success text-left" role="alert">'+msg+'</div>'
+  $('.y-page-container').prepend(alertMsg);
+  $(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
+      $(".alert-success").slideUp(500);
+  });
+}
+function showErrorsAlert(errors){
+  $('.y-page-container').find('.alert').remove();
+  let alertErrors = '<div class="alert alert-danger text-left" role="alert"><ul>'+errors.map(e=>"<li>"+e+"</li>").join("")+'</ul></div>'
+  $('.y-page-container').prepend(alertErrors);
+}
+
+

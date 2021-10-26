@@ -133,6 +133,7 @@ Rails.application.routes.draw do
             get :export_csv
             post :enable_yavolo
             post :disable_yavolo
+            post :bulk_products_update
           end
         end
 
