@@ -2,37 +2,38 @@
   <div class="container-fluid">
     <section class="payment-method">
       <div class="return-term-inner">
-        <h6>Payment Methods</h6>
-        <div class="return-term-card yo-white-card box-border row">
-          <div class="col-lg-8">
-            <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <label for="exampleInputEmail1">Automatic
-                logout:</label>
-              <select class="form-control">
-                <option>ArvindPanchmatia@gmail.co.uk</option>
-              </select>
+        <h5>Returns & Terms</h5>
+
+        <%= simple_form_for current_seller.return_and_term || current_seller.build_return_and_term, url: manage_returns_and_terms_sellers_profiles_path, method: :post,  data: { remote: true } do |f| %>
+          <div class="return-term-card yo-white-card box-border row">
+            <div class="col-lg-8">
+              <div class="form-group form-group-vertical form-group-vertical-responsive">
+                <%= f.label :duration, 'Return items within:' %>
+                <%= f.select :duration, return_and_terms_duration, { }, class: 'form-control' %>
+              </div>
+              <div class="mb-4">
+                <p class="mb-2">Email format</p>
+                <label class="checkbox-blk">Receive return requests via email
+                  <%= f.check_box :email_format %>
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+              <div class="mb-3">
+                <p class="mb-2">Return authorisation & prepaid labels</p>
+                <label class="checkbox-blk">I do not want Yavolo to automatically authorise all return requests
+                  <%= f.check_box :authorisation_and_prepaid %>
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+              <div class="form-group form-group-vertical flex-column">
+                <label for="exampleInputPassword1">Return instructions</label>
+                <textarea class="form-control" placeholder="Enter email"></textarea>
+              </div>
+              <%= f.submit 'Save Returns & Terms', class: 'btn btn-sm btn-radius px-4 btn-primary' %>
             </div>
-            <div class="mb-4">
-              <p class="mb-2">Email format</p>
-              <label class="checkbox-blk">I agree to Yavolo’s <a href="#"><u>Terms and Conditions</u></a>
-                <input type="checkbox">
-                <span class="checkmark"></span>
-              </label>
-            </div>
-            <div class="mb-3">
-              <p class="mb-2">Email format</p>
-              <label class="checkbox-blk">I agree to Yavolo’s <a href="#"><u>Terms and Conditions</u></a>
-                <input type="checkbox">
-                <span class="checkmark"></span>
-              </label>
-            </div>
-            <div class="form-group form-group-vertical flex-column">
-              <label for="exampleInputPassword1">Recovery email:</label>
-              <textarea class="form-control" placeholder="Enter email"></textarea>
-            </div>
-            <a href="#" class="btn btn-sm btn-radius px-4 btn-primary">Remove</a>
           </div>
-        </div>
+        <% end %>
+
       </div>
     </section>
   </div>

@@ -112,6 +112,9 @@ Rails.application.routes.draw do
           resources :sign_up_steps
         end
         resources :profiles do
+          collection do
+            post :manage_returns_and_terms
+          end
           member do
             patch :update_business_representative
             patch :update_company_detail
