@@ -2,7 +2,7 @@
   <h5>Filter Groups and Variations</h5>
   <%= form_tag("/admin/categories/#{@category.id}/add_filter_group_association", method: :put, local: false, remote: true) do |f| %>
     <div class="form-group form-group-vertical align-items-center form-group-vertical-responsive">
-      <label for="exampleInputPassword1" class="text-left pr-3">Filter Groups and Variations Assigned to
+      <label for="exampleInputPassword1" class="text-left pr-3" style="min-width: 430px;">Filter Groups and Variations Assigned to
         Category</label>
       <select class="form-control" name="filter_group_id">
         <option value="">Select filter group</option>

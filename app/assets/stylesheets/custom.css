@@ -254,6 +254,12 @@
 
 .admin-dashboard {
   padding-top: 82px !important;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.y-page-container {
+  flex: 1;
 }
 .alert,
 .notice {
@@ -397,3 +403,16 @@
   top: 0;
 }
 
+.search-field-flex small {
+    font-size: 10px;
+}
+.modal-header {
+    border-bottom: 0 !important;
+}
+
+.simple_form.new_filter_group .checkbox-blk {
+    padding-top: 3px;
+}
+.admin-header-left .dropdown-filter.show .dropdown-menu {
+    min-width: 200px !important;
+}

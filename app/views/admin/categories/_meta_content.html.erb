@@ -8,7 +8,7 @@
       </div>
 
       <div class="form-group form-group-vertical form-group-vertical-responsive">
-        <%= g.label :keywords, "Meta Tags" %>
+        <%= g.label :keywords, "Meta Keywords" %>
         <%= g.text_field :keywords, class: "form-control category-meta-tags", placeholder: "Enter Keywords", data: {role: "tagsinput"} %>
       </div>
 
@@ -17,8 +17,8 @@
         <%= g.text_area :description, class: "form-control meta-description" %>
       </div>
     <% end %>
-    <div class="form-group form-group-vertical form-group-vertical-responsive">
-      <%= f.submit :Save, class: "form-control w-30" %>
+    <div class="form-group form-group-vertical form-group-vertical-responsive justify-content-end">
+      <%= f.submit :Save, class: "btn btn-sm btn-radius px-4 btn-primary my-2 w-25" %>
     </div>
   <% end %>
 

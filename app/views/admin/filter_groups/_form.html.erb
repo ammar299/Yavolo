@@ -28,7 +28,7 @@
     </div>
   </div>
   <div id="global-check" style="display:<%= f.object.local? ? "block" : "none"  %>">
-    <h6><strong>Add Catagory Which Show Filter Group</strong></h6>
+    <h6><strong>Add Category Which Show Filter Group</strong></h6>
     <%= f.fields_for :filter_categories do |filter_category| %>
     <%= render 'filter_category_fields', :f => filter_category %>
     <% end %>

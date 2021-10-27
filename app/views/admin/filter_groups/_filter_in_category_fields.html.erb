@@ -11,8 +11,6 @@
         <label for="exampleInputPassword1" class="text-left pr-3">Assigned Baby Category :</label>
 
         <%= f.select(:category_id, options_for_select(Category.where(baby_category: :true).pluck(:category_name, :id), selected: f.object.category_id), {}, {class: "text-left pr-3 form-control" }) %>
-
-        <%#= select_tag(:category_id, options_for_select(Category.where(baby_category: :true).pluck(:category_name, :id)), class:"form-control") %>
         <%= link_to_remove_association f,class: 'filter_in_categories' do %>
           <span> <i class="pl-3 min-btn"></i></span>
           <p class="pl-3 pluse-btn"> - </p>
