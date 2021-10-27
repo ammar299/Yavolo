@@ -1,7 +1,7 @@
 // load all products related js here
 $(document).ready(function(){
 
-  $('')
+  setSellerSearchMenuAndQueryName();
 
   // on bulk update click event
   $('.mark-bulk-update').change(function(){
@@ -527,4 +527,27 @@ function showErrorsAlert(errors){
   $('.y-page-container').prepend(alertErrors);
 }
 
-
+function setSellerSearchMenuAndQueryName(){
+  $('.seller-products-filters a').click(function(e){
+    e.preventDefault();
+    let currentFilter = $(this).text().trim();
+    let searchField = $('.seller-product-search-field');
+    $('.seller-products-filters a').removeClass('active');
+    $(this).addClass('active')
+    $('.current-search-filter').text(currentFilter);
+    if(currentFilter=='Product Title'){
+      searchField.attr('name', 'q[title_cont]');
+    }else if(currentFilter=='Brand'){
+      searchField.attr('name', 'q[brand_cont]');
+    }else if(currentFilter=='SKU'){
+      searchField.attr('name', 'q[sku_cont]');
+    }else if(currentFilter=='YAN'){
+      searchField.attr('name', 'q[yan_cont]');
+    }else if(currentFilter=='EAN'){
+      searchField.attr('name', 'q[ean_cont]');
+    }else{
+      $('.current-search-filter').text('Search All');
+      searchField.attr('name', 'q[title_or_brand_or_sku_or_yan_or_ean_cont]');
+    }
+  });
+}

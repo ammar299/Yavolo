@@ -252,7 +252,6 @@
   background-color: var(--red);
 }
 
-
 .admin-dashboard {
   padding-top: 82px !important;
 }
@@ -326,10 +325,11 @@
   width: 145px;
 }
 
-
+.seller-products-filters .fa-check,
 .bulk-actions .fa-check{
   display: none;
 }
+.seller-products-filters .dropdown-item.active .fa-check,
 .bulk-actions .dropdown-item.active .fa-check{
   display: block;
 }

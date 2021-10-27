@@ -1,11 +1,14 @@
 class Sellers::ProductsController < Sellers::BaseController
   def index
     @listing_by_status_with_count = Product.get_group_by_status_count(current_seller)
+    @q = Product.ransack(params[:q])
+    query = @q.result(distinct: true).page(params[:page]).per(params[:per_page].presence || 15)
     if Product.statuses.keys.include?(params[:tab]) || params[:tab]=='all' || params[:tab]=='yavolo_enabled'
-      @products = Product.send("#{params[:tab]}_products", current_seller).page(params[:page]).per(params[:per_page] || 50)
+      @products = query.send("#{params[:tab]}_products", current_seller)
     else
-      @products = Product.where(owner_id: current_seller.id, owner_type: current_seller.class.name).page(params[:page]).per(params[:per_page] || 50)
+      @products = query.where(owner_id: current_seller.id, owner_type: current_seller.class.name)
     end
+    @products = @products.page(params[:page]).per(params[:per_page].presence || 15)
   end
 
   def new

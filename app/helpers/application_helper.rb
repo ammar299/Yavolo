@@ -79,4 +79,15 @@ module ApplicationHelper
   def section_to_show(from_controller)
     from_controller == 'sellers/profiles' ? false : true
   end
+
+  def search_field_query_param_val(q_params)
+    [
+      q_params[:q][:title_cont],
+      q_params[:q][:brand_cont],
+      q_params[:q][:sku_cont],
+      q_params[:q][:yan_cont],
+      q_params[:q][:ean_cont],
+      q_params[:q][:title_or_brand_or_sku_or_yan_or_ean_cont]
+    ].compact.first.to_s unless q_params[:q].blank?
+  end
 end
