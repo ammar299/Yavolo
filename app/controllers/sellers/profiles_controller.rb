@@ -96,8 +96,10 @@ class Sellers::ProfilesController < Sellers::BaseController
   def manage_returns_and_terms
     if current_seller.return_and_term.present?
       current_seller.return_and_term.update(returns_and_terms_params)
+      flash.now[:notice] = 'Return and Term has been updated successfully!'
     else
       current_seller.create_return_and_term(returns_and_terms_params)
+      flash.now[:success] = 'Return and Term has been created successfully!'
     end
   end
 
@@ -113,7 +115,7 @@ class Sellers::ProfilesController < Sellers::BaseController
   end
 
   def returns_and_terms_params
-    params.require(:return_and_term).permit(:duration, :email_format, :authorisation_and_prepaid)
+    params.require(:return_and_term).permit(:duration, :email_format, :authorisation_and_prepaid, :instructions)
   end
 
   def set_seller
