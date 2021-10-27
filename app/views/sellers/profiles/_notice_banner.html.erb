@@ -1,0 +1,11 @@
+<div data-alert class="alert-box">
+  <%= notice %>
+</div>
+
+<script>
+  $(document).ready(function(){
+    setInterval(function(){
+      $('.alert-box').remove();
+    }, 3000);
+  });
+</script>
