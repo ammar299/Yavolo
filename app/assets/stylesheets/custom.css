@@ -269,12 +269,12 @@
   z-index: 55555;
   background-color: var(--light-red);
   color: var(--red);
-  padding: 12px 0;
-  width: 348px;
+  padding: 12px;
+  width: 450px;
   margin: 5px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   border-radius: 35px;
   transition: .3s linear;
 }
