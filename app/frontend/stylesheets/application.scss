@@ -1,11 +1,10 @@
-@import './fonts.scss';
 @import './date-picker.css';
 @import './style.css';
 
 body{
 	background-color: #fdf8f3;
 	margin: 0px;
-	font-family: 'buenos_airesregular';
+	font-family: 'BuenosAires';
 }
 ul{
 	padding: 0;
@@ -18,5 +17,5 @@ img{
 	max-width: 100%;
 }
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'buenos_airessemibold';
+	font-family: 'BuenosAires';
 }
