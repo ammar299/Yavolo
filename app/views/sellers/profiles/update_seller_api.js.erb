@@ -1,5 +1,0 @@
-<% unless @seller_api.errors.count > 0 %>
-$("#seller-edit-api").html("<%= j render 'shared/sellers/seller_api', seller_api: @seller_api %>");
-<% else %>
-  $('#api-error-message').html("<%= @seller_api.errors.full_messages.join('<br/>').html_safe %>");
-<% end %>

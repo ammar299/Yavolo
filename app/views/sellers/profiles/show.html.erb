@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="d-flex flex-wrap justify-content-between mb-4 mt-5 align-items-start">
-    <h4 class="m-0">Customer Account<br>
+    <h4 class="m-0">Account
       &amp; Settings</h4>
   </div>
   <div class="row ac-setting-tabs">
@@ -15,7 +15,7 @@
         <%= render 'delivery_setting_section' %>
         <%= render 'return_term_section' %>
         <%= render 'login_setting_section' %>
-        <%= render 'connection_manager_section' %>
+        <%= render 'shared/sellers/connection_manager_section' %>
         <%= render 'holiday_mode_section' %>
       </div>
     </div>
@@ -34,6 +34,24 @@
       <div class="modal-body px-lg-5">
         <div id="error-message"></div>
         <div id="update-seller-form"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Form Modal -->
+<div class="modal fade" id="connection-manager-modal" tabindex="-1" role="dialog" aria-labelledby="connectionManagerFormLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="connection-manager-modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="error-message"></div>
+        <div id="connection-manager-actions"></div>
       </div>
     </div>
   </div>

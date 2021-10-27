@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="d-flex flex-wrap justify-content-between mb-4 mt-5 align-items-start">
-    <h4 class="m-0">Customer Account<br>
+    <h4 class="m-0">Customer Account
       &amp; Settings</h4>
     <div class="d-flex align-items-center">
       <p class="pr-1 mb-0">Seller Locked</p>
@@ -17,6 +17,7 @@
     <div class="col-md-9">
       <div class="tab-content" id="myTabContent">
       <%= render 'shared/sellers/about_seller_section' %>
+        <%= render 'shared/sellers/connection_manager_section' %>
         <div class="tab-pane fade" id="Manage-Subscription" role="tabpanel"
                                         aria-labelledby="Manage-Subscription-tab">
           <section class="seller-subscription-section">
@@ -328,6 +329,24 @@
       <div class="modal-body px-lg-5">
         <div id="error-message"></div>
         <div id="update-seller-form"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Seller API Modal -->
+<div class="modal fade" id="seller-api-modal" tabindex="-1" role="dialog" aria-labelledby="sellerapiFormLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="seller-api-modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="error-message"></div>
+        <div id="seller-api-actions"></div>
       </div>
     </div>
   </div>

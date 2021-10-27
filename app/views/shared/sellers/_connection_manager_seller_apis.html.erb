@@ -1,0 +1,23 @@
+<% seller_apis.each do |seller_api| %>
+  <tr id="seller-api-<%= seller_api.id %>">
+    <td><%= seller_api.developer_name %></td>
+    <td id="seller-api-developer-id"><%= seller_api.developer_id %></td>
+    <td><%= seller_api.app_name %></td>
+    <td id="seller-api-status"><%= seller_api.status %></td>
+    <td id="seller-api-expiry-date"><%= seller_api.expiry_date ? seller_api.expiry_date.strftime("%d/%m/%Y") : '' %></td>
+    <td class="developer-api-token" id="developer-api-token">
+      <span id="api-token" class="help-popup api-token">
+        <%= seller_api.api_token %>
+        <span class="icon-add-attachment"></span>
+      </span>
+      <div class="help-popup-inner">
+        <p class="mb-0 help-popup-text" id="help-popup-text">Click to copy</p>
+      </div>
+    </td>
+    <td class="text-center">
+      <div id="seller-api-action-btns">
+        <%= render 'shared/sellers/connection_manager_actions', seller_api: seller_api %>
+      </div>
+    </td>
+  </tr>
+<% end %>

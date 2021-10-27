@@ -108,6 +108,7 @@
             <th>Lifetime Sales</th>
             <th>Account Status</th>
             <th>Account health</th>
+            <th>API Creation</th>
             <th class="text-center" width="5%">Action</th>
           </tr>
         </thead>
@@ -130,6 +131,9 @@
               <td>Show the total sales</td>
               <td class="account-status"><%= seller.account_status.humanize %></td>
               <td>show the health status</td>
+              <td id="eligibility-status" class="">
+                <%= seller.eligible_to_create_api == true ? "Enabled" : "Disabled" %>
+              </td>
               <td class="text-center actions">
                 <div class="all-seller-btn">
                   <div id="seller-action-btns">
@@ -138,7 +142,9 @@
                   <%= link_to 'Edit', admin_seller_path(seller), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1' %>
                   <%= link_to "Delete", confirm_update_seller_admin_seller_path(seller, param_to_update: "delete"), remote: true, class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1 current-action', id: "#{seller.id}-delete" %>
                   <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-1">Contact</a>
-                  <a href="#" class="btn btn-sm btn-radius px-4 btn-danger">View Products</a>
+                  <a href="#" class="btn btn-sm btn-radius px-4 btn-danger mb-1">View Products</a>
+                  <% text = seller.eligible_to_create_api == true ? "Disable API creation" : "Enable API creation" %>
+                  <%= link_to "#{text}", confirm_change_seller_api_eligibility_admin_seller_path(seller, param_to_update: "eligibility"), remote: true, class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1 current-action', id: "#{seller.id}-eligibility" %>
                 </div>
               </td>
             </tr>

@@ -1,5 +1,5 @@
 class Admin::SellersController < Admin::BaseController
-    before_action :set_seller, only: %i[show edit update update_business_representative update_company_detail update_addresses update_seller_logo remove_logo_image confirm_update_seller update_seller confirm_refresh_api]
+    before_action :set_seller, only: %i[show edit update update_business_representative update_company_detail update_addresses update_seller_logo remove_logo_image confirm_update_seller update_seller new_seller_api create_seller_api confirm_update_seller_api change_seller_api_eligibility]
 
     def index
       @q = Seller.ransack(params[:q])
@@ -15,11 +15,7 @@ class Admin::SellersController < Admin::BaseController
     def show
         @remaining_addresses = Address.address_types.keys - @seller.addresses.collect(&:address_type)
         @remaining_addresses.each do |address_type| @seller.addresses.build address_type: address_type end if @remaining_addresses.present?
-        unless @seller.seller_api
-          @seller_api = @seller.build_seller_api
-        else
-          @seller_api = @seller.seller_api
-        end
+        @seller_apis = @seller.seller_apis
     end
 
     def create
@@ -92,29 +88,34 @@ class Admin::SellersController < Admin::BaseController
           end
     end
 
-    def update_seller_api
-      random_token = SecureRandom.hex(30)
-      @seller = Seller.find(params[:seller_id])
-      params[:seller_api][:status] = params[:seller_api][:status].to_i
-      if @seller.seller_api.present?
-        @seller_api = @seller.seller_api
-      else
-        @seller_api = @seller.build_seller_api
-      end
-      unless @seller_api.api_token
-        @seller_api.api_token = random_token
-      end
-      @seller_api.name = params[:seller_api][:name]
-      @seller_api.status = params[:seller_api][:status]
+    def new_seller_api
+      @seller_api = @seller.seller_apis.build
+    end
+
+    def create_seller_api
+      @seller_api = SellerApi.new(seller_api_params)
+      @seller_api.seller_id = @seller.id
       @seller_api.save
     end
 
-    def refresh_seller_api
-      random_token = SecureRandom.hex(30)
-      @seller_api = SellerApi.find(params[:seller_api_id])
-      @seller = @seller_api.seller
-      @seller_api.api_token = random_token
-      @seller_api.save
+    def update_seller_api
+      @seller = Seller.find(params[:seller_id])
+      @seller_api = @seller.seller_apis.where(id: params[:seller_api_id]).last
+      if params[:field_to_update].present? && @seller_api.present?
+        if params[:field_to_update] == 'renew'
+          @seller_api.api_token = SecureRandom.hex(30)
+          @seller_api.developer_id = SecureRandom.hex(7)
+          @seller_api.expiry_date = Date.today + 6.month
+          @seller_api.save
+        else
+          @seller_api.update(status: params[:field_to_update])
+        end
+      end
+    end
+
+    def change_seller_api_eligibility
+      bool = @seller.eligible_to_create_api == true ? false : true
+      @seller.update(eligible_to_create_api: bool)
     end
 
     def export_sellers
@@ -151,6 +152,10 @@ class Admin::SellersController < Admin::BaseController
             addresses_attributes: [:id, :address_line_1, :address_line_2, :city, :county, :country, :postal_code, :phone_number, :address_type],
             picture_attributes: ["name", "@original_filename", "@content_type", "@headers", "_destroy", "id"],
           )
+      end
+
+      def seller_api_params
+        params.require(:seller_api).permit(:developer_name, :app_name)
       end
 
       def set_seller

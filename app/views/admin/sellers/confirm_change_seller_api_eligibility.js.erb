@@ -1,0 +1,2 @@
+$("#seller-actions").html("<%= j render(partial: 'admin/sellers/change_seller_api_eligibility', locals: { id: @seller, param_to_update: "true" }) %>");
+$('#confirm-seller-actions-modal').modal('show');

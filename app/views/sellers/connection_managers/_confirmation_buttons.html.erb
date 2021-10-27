@@ -3,5 +3,5 @@
   <div class="btn btn-sm btn-radius px-4 btn-primary mt-2" data-dismiss="modal">
     No
   </div>
-  <%= link_to 'Yes', update_seller_api_admin_seller_path(seller_api_id: seller_api_id, field_to_update: params[:param_to_update]), remote: true, method: :post, class: 'btn btn-sm btn-radius px-4 btn-primary mt-2 ml-2' %>
+  <%= link_to 'Yes', sellers_connection_manager_path(seller_api_id: seller_api, field_to_update: params[:param_to_update]), remote: true, method: :patch, class: 'btn btn-sm btn-radius px-4 btn-primary mt-2 ml-2' %>
 </div>

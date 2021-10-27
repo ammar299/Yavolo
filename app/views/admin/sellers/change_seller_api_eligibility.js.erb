@@ -1,0 +1,6 @@
+var text = $('#<%=@seller.id%>-eligibility').text();
+text = text == 'Enable API creation' ? 'Disable API creation' : 'Enable API creation';
+<% eligibility = @seller.eligible_to_create_api == true ? "Enabled" : "Disabled" %>
+$('#eligibility-status').text("<%= eligibility %>");
+$('#<%=@seller.id%>-eligibility').text(text);
+$('#confirm-seller-actions-modal').modal('hide');

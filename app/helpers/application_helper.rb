@@ -50,29 +50,9 @@ module ApplicationHelper
 
   def seller_api_url(from_controller, seller)
     if from_controller == 'sellers/profiles'
-      sellers_profile_update_seller_api_path(seller.id)
+      new_sellers_connection_manager_path(id: seller.id)
     else
-      admin_seller_update_seller_api_path(seller.id)
-    end
-  end
-
-  def seller_api_refresh_url(from_controller, seller, seller_api)
-    if from_controller == 'sellers/profiles'
-      sellers_profile_refresh_seller_api_path(seller, seller_api)
-    else
-      confirm_refresh_api_admin_seller_path(seller, seller_api: seller_api)
-    end
-  end
-
-  def seller_api_status(seller_api, status_type)
-    if seller_api.status.present?
-      if seller_api.status == status_type
-        true
-      else
-        false
-      end
-    elsif status_type == 'enable'
-      true
+      new_seller_api_admin_seller_path
     end
   end
 
@@ -89,5 +69,21 @@ module ApplicationHelper
       q_params[:q][:ean_cont],
       q_params[:q][:title_or_brand_or_sku_or_yan_or_ean_cont]
     ].compact.first.to_s unless q_params[:q].blank?
+  end
+
+  def connection_manager_actions_to_show(seller_api)
+    if seller_api.status == 'disable'
+       return ['enable']
+    elsif seller_api.status == 'enable'
+      return ['renew','disable']
+    end
+  end
+
+  def create_update_seller_api_confirmation_path(form_controller, seller, seller_api, action)
+    if form_controller == 'sellers/profiles' || form_controller == "sellers/connection_managers"
+      confirm_update_sellers_connection_manager_path(seller_api_id: seller_api.id, param_to_update: action)
+    else
+      confirm_update_seller_api_admin_seller_path(id: seller.id, seller_api_id: seller_api.id, param_to_update: action)
+    end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_27_130358) do
+ActiveRecord::Schema.define(version: 2021_10_27_191803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -437,6 +437,7 @@ ActiveRecord::Schema.define(version: 2021_10_27_130358) do
     t.boolean "terms_and_conditions", default: false
     t.boolean "recieve_deals_via_email", default: false
     t.boolean "multistep_sign_up", default: true
+    t.boolean "eligible_to_create_api", default: false
     t.index ["email"], name: "index_sellers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_sellers_on_reset_password_token", unique: true
   end

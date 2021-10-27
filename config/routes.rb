@@ -34,10 +34,14 @@ Rails.application.routes.draw do
             delete :remove_logo_image
             get :confirm_update_seller
             patch :update_seller
-            get :confirm_refresh_api
+            get :new_seller_api
+            post :create_seller_api
+            get :confirm_update_seller_api
+            patch :update_seller_api
+            get :confirm_change_seller_api_eligibility
+            patch :change_seller_api_eligibility
           end
           post :update_seller_api
-          post :refresh_seller_api
           patch :update_seller_api
         end
 
@@ -127,8 +131,10 @@ Rails.application.routes.draw do
             delete :destroy_delivery_template
           end
           post :update_seller_api
-          post :refresh_seller_api
           patch :update_seller_api
+        end
+        resource :connection_manager do
+          get :confirm_update
         end
         root to: 'dashboard#index', as: :seller_authenticated_root
 

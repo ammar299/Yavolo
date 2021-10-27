@@ -11,7 +11,7 @@ class Seller < ApplicationRecord
   has_many :addresses, dependent: :destroy
   has_one :company_detail, dependent: :destroy
   has_one :picture, as: :imageable, dependent: :destroy
-  has_one :seller_api
+  has_many :seller_apis
   has_one :return_and_term
   has_many :delivery_options, as: :delivery_optionable, dependent: :destroy
   has_one :bank_detail, dependent: :destroy
