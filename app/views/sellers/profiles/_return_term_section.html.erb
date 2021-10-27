@@ -4,7 +4,6 @@
       <div class="return-term-inner">
         <h5>Returns & Terms</h5>
         <%= simple_form_for current_seller.return_and_term || current_seller.build_return_and_term, url: manage_returns_and_terms_sellers_profiles_path, method: :post,  data: { remote: true } do |f| %>
-          <div id="flash"></div>
           <div class="return-term-card yo-white-card box-border row">
             <div class="col-lg-8">
               <div class="form-group form-group-vertical form-group-vertical-responsive">
