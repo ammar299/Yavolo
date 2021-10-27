@@ -93,6 +93,14 @@ class Sellers::ProfilesController < Sellers::BaseController
     @delivery_options = current_seller.delivery_options
   end
 
+  def manage_returns_and_terms
+    if current_seller.return_and_term.present?
+      current_seller.return_and_term.update(returns_and_terms_params)
+    else
+      current_seller.create_return_and_term(returns_and_terms_params)
+    end
+  end
+
   private
   def seller_params
     params.require(:seller).permit(:first_name, :last_name, :email, :subscription_type,:account_status, :listing_status,:terms_and_conditions, :recieve_deals_via_email,
@@ -103,6 +111,11 @@ class Sellers::ProfilesController < Sellers::BaseController
         picture_attributes: ["name", "@original_filename", "@content_type", "@headers", "_destroy", "id"],
       )
   end
+
+  def returns_and_terms_params
+    params.require(:return_and_term).permit(:duration, :email_format, :authorisation_and_prepaid)
+  end
+
   def set_seller
     @seller = Seller.includes([ :business_representative, :company_detail, :addresses ]).find(params[:id])
   end
