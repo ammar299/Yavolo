@@ -41,7 +41,7 @@
             <% has_error, msg = get_errors(form, "bank_detail.account_number_confirmation") %>
             <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= cd.label :account_number_confirmation, 'Confirm Account Number*' %>
-              <%= cd.text_field :account_number_confirmation, required: true, class: 'form-control' %>
+              <%= cd.text_field :account_number_confirmation, required: true, value: bank_detail.account_number.present? ? bank_detail.account_number : '', class: 'form-control' %>
               <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
             <%= cd.submit "Continue", class: 'btn btn-primary btn-lg btn-block mb-4' %>
