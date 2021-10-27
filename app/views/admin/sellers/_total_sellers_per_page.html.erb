@@ -1,1 +1,5 @@
-<p>Results <span>1 - <%= params[:per_page] %></span> of <span><%= Seller.count %></span></p>
+<% if Seller.count <= 15%>
+	<p>Results <span>1 - <%= Seller.count %></span> of <span><%= Seller.count %></span></p>
+<% else %>
+	<p>Results <span>1 - <%= params[:per_page]? params[:per_page] : 15 %></span> of <span><%= Seller.count %></span></p>
+<% end %>
