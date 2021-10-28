@@ -17,59 +17,52 @@
           <% end %>
           <!-- Seller Email -->
           <h5 class="mt-4 mb-4">User</h5>
+          
           <div class="form-group form-group-vertical form-group-vertical-responsive">
-            <%= form.label :first_name %>
-            <%= form.text_field :first_name, placeholder: 'First Name', class: 'form-control', required: true %>
-          </div>
-          <div class="form-group form-group-vertical form-group-vertical-responsive">
-            <%= form.label :last_name %>
-            <%= form.text_field :last_name, placeholder: 'Last Name', class: 'form-control', required: true %>
-          </div>
-          <div class="form-group form-group-vertical form-group-vertical-responsive">
-            <%= form.label :email %>
+            <%= form.label :email, 'Email Address:' %>
             <%= form.email_field :email, placeholder: 'john.smith@example.co.uk', required: true, class: 'form-control' %>
           </div>
           <!-- Business Information Section / Company Details -->
           <h5 class="mt-4 mb-4">Business Information</h5>
           <%= form.simple_fields_for :company_detail do |cd| %>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= cd.label :name, 'Company Name' %>
+              <%= cd.label :name, 'Company Name:' %>
               <%= cd.text_field :name, placeholder: 'JohnStons-Gymnasium', required: true, class: 'form-control' %>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= cd.label :country, 'Country' %>
+              <%= cd.label :country, 'Country:' %>
               <%= cd.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Country' }, required: true, class: 'form-control' %>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= cd.label :legal_business_name, 'Legal Business Name' %>
+              <%= cd.label :legal_business_name, 'Legal Business Name:' %>
               <%= cd.text_field :legal_business_name, placeholder: 'JohnStons Gymnasium Ltd.', required: true, class: 'form-control' %>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= cd.label :companies_house_registration_number, 'Companies House Registration Number' %>
+              <%= cd.label :companies_house_registration_number, 'Companies House Registration Number:' %>
               <%= cd.text_field :companies_house_registration_number, placeholder: '0123456789', required: true, class: 'form-control' %>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= cd.label :doing_business_as, 'Doing Business As' %>
+              <%= cd.label :doing_business_as, 'Doing Business As:' %>
               <%= cd.text_field :doing_business_as, placeholder: 'JohnStons Gym', required: true, class: 'form-control' %>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= cd.label :business_industry, 'Business Industry' %>
+              <%= cd.label :business_industry, 'Business Industry:' %>
               <%= cd.text_field :business_industry, placeholder: 'Sports Equipment', required: true, class: 'form-control' %>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= cd.label :website_url, 'Website URL' %>
+              <%= cd.label :website_url, 'Business Website:' %>
               <%= cd.url_field :website_url, placeholder: 'http://www.johnstons-Gymnasium.co.uk', required: true, class: 'form-control' %>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= cd.label :amazon_url, 'Amazon URL' %>
+              <%= cd.label :amazon_url, 'Amazon URL:' %>
               <%= cd.url_field :amazon_url, placeholder: 'https://www.amazon.com/jgstore', required: true, class: 'form-control' %>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= cd.label :ebay_url, 'Ebay URL' %>
+              <%= cd.label :ebay_url, 'Ebay URL:' %>
               <%= cd.url_field :ebay_url, placeholder: 'https://www.ebaytores.com/jgstore', required: true, class: 'form-control' %>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= cd.label :vat_number, 'VAT Number' %>
+              <%= cd.label :vat_number, 'VAT Number:' %>
               <%= cd.text_field :vat_number, placeholder: '1234567890', required: true, class: 'form-control' %>
             </div>
           <% end %>
@@ -113,7 +106,7 @@
               </div>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= addr.label :phone_number, 'Business Phone Number' %>
+              <%= addr.label :phone_number, 'Business Phone Number:' %>
               <%= addr.text_field :phone_number, placeholder: '+13443453123', required: true, class: 'form-control' %>
             </div>
           <% end %>
@@ -121,19 +114,19 @@
           <h5 class="mt-4 mb-4">Business Representative</h5>
           <%= form.simple_fields_for :business_representative do |br| %>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= br.label :full_legal_name, 'Full Legal Name' %>
+              <%= br.label :full_legal_name, 'Full Legal Name:' %>
               <%= br.text_field :full_legal_name, placeholder: 'John Paul Smith', required: true, class: 'form-control' %>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= br.label :email, 'Business Representative Email Address' %>
+              <%= br.label :email, 'Business Representative Email Address:' %>
               <%= br.email_field :email, placeholder: 'john.smith@example.co.uk', required: true, class: 'form-control' %>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= br.label :job_title, 'Job Title' %>
+              <%= br.label :job_title, 'Job Title:' %>
               <%= br.text_field :job_title, placeholder: 'Director', required: true, class: 'form-control' %>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= br.label :date_of_birth, 'Date of Birth' %>
+              <%= br.label :date_of_birth, 'Date of Birth:' %>
               <%= br.input_field :date_of_birth, placeholder: '0123456789', required: true, class: 'form-control datepicker', autocomplete: 'date_of_birth' %>
             </div>
           <% end %>
@@ -169,13 +162,13 @@
               </div>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= addr.label :phone_number, 'Business Representative Phone Number' %>
+              <%= addr.label :phone_number, 'Business Representative Phone Number:' %>
               <%= addr.text_field :phone_number, placeholder: '+13443453123', required: true, class: 'form-control' %>
             </div>
           <% end %>
           <!-- Seller Fields -->
           <div class="form-group form-group-vertical form-group-vertical-responsive">
-            <%= form.label :subscription_type, 'Subscription Type' %>
+            <%= form.label :subscription_type, 'Subscription Type:' %>
             <%= form.select(:subscription_type, Seller.subscription_types.keys.to_a, {:include_blank => "Select"}, {:class => "form-control"} ) %>
           </div>
           <div class="text-right mt-3 mb-3">

@@ -14,7 +14,7 @@
 
                 <% has_error, msg = get_errors(form, "ebay_detail.thirty_day_sales") %>
                 <div class="form-group general-mrgn mb-0 <%= has_error ? 'error-field' : '' %>">
-                    <%= ebay_data.label '30-day Sales' %>
+                    <%= ebay_data.label :title, '30-day Sales' %>
                     <%= ebay_data.number_field :thirty_day_sales, class: 'form-control',min: 0 %>
                     <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                 </div>
