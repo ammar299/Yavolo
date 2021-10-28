@@ -5,10 +5,10 @@
     <td><%= seller_api.app_name %></td>
     <td id="seller-api-status"><%= seller_api.status %></td>
     <td id="seller-api-expiry-date"><%= seller_api.expiry_date ? seller_api.expiry_date.strftime("%d/%m/%Y") : '' %></td>
-    <td class="developer-api-token" id="developer-api-token">
-      <span id="api-token" class="help-popup api-token">
-        <%= seller_api.api_token %>
-        <span class="icon-add-attachment"></span>
+    <td id="developer-api-token">
+      <a href="javascript:void(0)" class="view-api-token">View</a>
+      <span id="api-token" class="help-popup api-token d-none developer-api-token">
+        <span class="seller-api-token"><%= seller_api.api_token %><span class="icon-add-attachment"></span></span>
       </span>
       <div class="help-popup-inner">
         <p class="mb-0 help-popup-text" id="help-popup-text">Click to copy</p>
