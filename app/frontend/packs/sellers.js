@@ -30,25 +30,7 @@ $(document).ready(function () {
       );
     }
   });
-
-  $(".developer-api-token").click(function () {
-    var text = $(".api-token").text();
-    copyToClipboard(text);
-  });
-
-  $('.api-token').hover(function () {
-    $('.help-popup-text').text('Click to Copy')
-  })
 });
-
-function copyToClipboard(element) {
-  var $temp = $("<input>");
-  $("body").append($temp);
-  $temp.val(element).select();
-  document.execCommand("copy");
-  $temp.remove();
-  $('.help-popup-text').text("copied")
-}
 
 function validCsvFile(files) {
   let allowedExtensions = /(\.csv)$/i;
