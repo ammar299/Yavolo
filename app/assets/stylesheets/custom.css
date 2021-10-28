@@ -21,6 +21,16 @@
   border-bottom-right-radius: 12px !important;
 }
 
+.mainlang-list .field-me {
+    border: 2px solid #640529 !important;
+    border-radius: 16px;
+    background-color: transparent;
+    width: 100px;
+    padding: 6px 20px 2px 20px;
+    color: #640529;
+    outline: none !important;
+}
+
 .error-field
   .ck-rounded-corners
   .ck.ck-editor__top
