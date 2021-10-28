@@ -115,6 +115,7 @@
 .pluse-btn {
   background-color: transparent;
   border: 0;
+  text-decoration: none !important;
 }
 
 .checkbox-blk-box.checkbox-blk .checkmark:after {
@@ -415,4 +416,40 @@
 }
 .admin-header-left .dropdown-filter.show .dropdown-menu {
     min-width: 200px !important;
+}
+
+.pluse-aa .state-content.links {
+  position: absolute;
+  right: 0;
+  top: 10px;
+}
+.pluse-aa .remove_fields {
+  position: absolute;
+  right: -15px;
+}
+
+
+.new_filter_group .error-field {
+  position: relative;
+  }
+  .new_filter_group .form-text {
+    position: absolute;
+      top: 37px;
+      left: 205px;
+  }
+  .new_filter_group .filter-type {
+    margin-top: 25px;
+  }
+  
+  .error-field .form-control {
+    border: 1px solid var(--red) !important;
+  }
+  
+  /* ------------------ */
+
+
+.error {
+  color: var(--red) !important;
+    font-size: 14px !important;
+    padding: 3px 5px !important;
 }
