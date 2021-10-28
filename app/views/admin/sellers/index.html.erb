@@ -131,7 +131,7 @@
               <td>Show the total sales</td>
               <td class="account-status"><%= seller.account_status.humanize %></td>
               <td>show the health status</td>
-              <td id="eligibility-status" class="">
+              <td id="<%= seller.id %>-eligibility-status" class="">
                 <%= seller.eligible_to_create_api == true ? "Enabled" : "Disabled" %>
               </td>
               <td class="text-center actions">
