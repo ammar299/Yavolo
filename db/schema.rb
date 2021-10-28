@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_27_191803) do
+ActiveRecord::Schema.define(version: 2021_10_28_083704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -195,6 +195,15 @@ ActiveRecord::Schema.define(version: 2021_10_27_191803) do
     t.integer "category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "category_linking_filters", force: :cascade do |t|
+    t.bigint "category_id"
+    t.bigint "filter_in_category_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_category_linking_filters_on_category_id"
+    t.index ["filter_in_category_id"], name: "index_category_linking_filters_on_filter_in_category_id"
   end
 
   create_table "company_details", force: :cascade do |t|

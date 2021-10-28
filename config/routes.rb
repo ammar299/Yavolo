@@ -57,6 +57,7 @@ Rails.application.routes.draw do
           collection do
             get :search_category
             delete :category_products_delete_multiple
+            get :manage_category_linking_filter
           end
         end
 

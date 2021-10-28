@@ -16,6 +16,7 @@
       <div class="rightside">
         <div class="main-page container-fluid">
           <div class="admin-dashboard">
+            <div id="flash-msg"></div>
             <%= render "shared/admin_header" %>
             <% if notice.present? %>
               <p class="flash-toast notice <%= notice.present? ? 'notice-msg' : ''%>">

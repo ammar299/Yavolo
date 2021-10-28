@@ -37,7 +37,8 @@
     <form action="">
       <div class="form-group form-group-vertical align-items-center form-group-vertical-responsive">
         <label for="exampleInputPassword1" class="text-left pr-3">Linking Filter</label>
-        <%= select_tag "category[linking_filters]", options_for_select(category_linking_filters(@category&.parent&.id)), { class: 'form-control' } %>
+        <%= select_tag "category[linking_filters]", options_for_select(category_linking_filters(@category), selected: @category.linking_filter&.filter_in_category_id), { class: 'form-control', prompt: 'select linking filter' } %>
+        <%= hidden_field_tag 'category_id', '', class: 'checked-schools', value: @category.id %>
       </div>
     </form>
   <% end %>

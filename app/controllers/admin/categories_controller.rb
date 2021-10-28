@@ -78,6 +78,16 @@ class Admin::CategoriesController < Admin::BaseController
     @category_products = category_products
   end
 
+  def manage_category_linking_filter
+    category = Category.find(params[:category_id])
+    if category.linking_filter.present?
+      category.linking_filter.update(filter_in_category_id: params[:filter_in_category_id])
+    else
+      category.create_linking_filter(filter_in_category_id: params[:filter_in_category_id])
+    end
+    flash.now[:notice] = 'Linking filter has been updated successfully!'
+  end
+
   private
 
   def category_params

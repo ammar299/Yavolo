@@ -2,6 +2,8 @@ $(document).ready(function () {
     $('#categories-tree ul:not(:first-child)').addClass('ml-4')
     $('#categories-tree li').children('ul').toggle();
 
+    createCategoryLinkingFilter();
+
     $('body').on('change', '.categories-checkbox-container .category-input', function () {
         createNewCategory($(this)[0]);
         fetchCategoryDetails($(this)[0])
@@ -73,6 +75,19 @@ $(document).ready(function () {
 
 
 });
+
+function createCategoryLinkingFilter() {
+	$('body').on('change', '#category_linking_filters', function () {
+		var category_val = $('#category_id').val();
+		var filter_in_category_val = $('#category_linking_filters').val();
+		url = '/admin/categories/manage_category_linking_filter'
+    $.ajax({
+      url: url,
+      type: 'get',
+    	data: {category_id: category_val, filter_in_category_id: filter_in_category_val}
+    });
+	});
+}
 
 function fetchCategoryDetails(element) {
     let selected_category = $(element).attr("name")

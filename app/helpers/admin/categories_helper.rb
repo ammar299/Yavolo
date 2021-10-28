@@ -7,7 +7,8 @@ module Admin::CategoriesHelper
     end.join.html_safe
   end
 
-  def category_linking_filters(category_id)
-    FilterInCategory.where(filter_group_id: FilterGroup.local_filter_groups.includes(:filter_categories).where(filter_categories: { category_id: category_id })).pluck(:filter_name, :id)
+  def category_linking_filters(category)
+    category_id = (category.ancestry == nil && category.baby_category)? category.id : category.parent.id
+    FilterInCategory.where(filter_group_id: FilterGroup.local.includes(:filter_categories).where(filter_categories: { category_id: category_id })).pluck(:filter_name, :id)
   end
 end

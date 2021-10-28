@@ -10,6 +10,7 @@ class Category < ApplicationRecord
   has_many :products, through: :assigned_categories, dependent: :destroy
   has_many :filter_in_categories
 
+  has_one :linking_filter, dependent: :destroy
   has_one :picture, as: :imageable, dependent: :destroy
   has_one :meta_content, as: :meta_able
 
