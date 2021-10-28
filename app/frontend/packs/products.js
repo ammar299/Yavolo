@@ -1,6 +1,11 @@
 // load all products related js here
 $(document).ready(function(){
 
+  $('.editable').change(function(){
+    updateFieldValue($(this).data('pid'),$(this).val(),$(this).data('action'));
+  });
+
+  bindAndLoadSellersSelectize()
   setSellerSearchMenuAndQueryName();
 
   // on bulk update click event
@@ -185,6 +190,64 @@ $(document).ready(function(){
     getFilterGroupsOfBabyCategory($('#product_id').val(), $('#product_category').val());
 
 });
+
+function updateFieldValue(pid,val,action){
+  $.ajax({
+    url: "/sellers/products/"+pid+"/update_field",
+    type: "POST",
+    dataType: "json",
+    data: {
+      product: {
+        id: pid,
+        value: val,
+        action: action
+      }
+    },
+    error: function (xhr){
+      console.log(xhr)
+      // showErrorsAlert(xhr.responseJSON.errors);
+    },
+    success: function (res){
+      console.log(res)
+      // showSuccessAlert(res.msg);
+    }
+  });
+}
+
+function bindAndLoadSellersSelectize(){
+  $("#search_seller_select").selectize({
+    valueField: "id",
+    labelField: "username",
+    searchField: "username",
+    render: {
+      option: function (item, escape) {
+        return (
+          '<option value="'+item.id+'">'+item.username+'</option>'
+        );
+      },
+    },
+    load: function (query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: "/"+$('#namespace').val()+"/sellers/search",
+        type: "GET",
+        dataType: "json",
+        data: {
+          "q[email_or_first_name_or_last_name_cont]": query,
+          "q[s]": "first_name asc",
+          page_limit: 15,
+          apikey: "w82gs68n8m2gur98m6du5ugc",
+        },
+        error: function () {
+          callback();
+        },
+        success: function (res) {
+          callback(res.sellers);
+        },
+      });
+    },
+  });
+}
 
 function getFilterGroupsOfBabyCategory(productId, selectedCategoryId){
   $.ajax({
@@ -497,6 +560,17 @@ function validProductForm(){
     $('#product_description').parents('.form-group').addClass('error-field')
     $('#product_description').parents('.form-group').append('<small class="form-text">* * Description can\'t be blank</small>')
   }
+
+  $("#product_category").parents('.form-group').find('small').remove();
+  if($("#product_category").val().length > 0){
+    $(".selectize-input.items.has-options").removeClass('custom-border')
+    $("#product_category").parents('.form-group').find('small').remove();
+  }else{
+    has_errors.push(true)
+    $(".selectize-input.items.has-options").addClass('custom-border')
+    $("#product_category").parents('.form-group').append('<small class="form-text">* Category can\'t be blank</small>')
+  }
+
   return !has_errors.includes(true)
 }
 
@@ -538,13 +612,13 @@ function updateProductsDom(res){
     $(selectors).remove();
 
   if(action=='update_price')
-    $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('td.price-box').html('£'+res.value)
+    $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.price-field').val(res.value)
 
   if(action=='update_stock')
-    $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('td.stock-box').html(res.value)
+    $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.stock-field').val(res.value)
 
   if(action=='update_discount')
-    $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('td.discount-box').html(res.value)
+    $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.discount-field').val(res.value)
 
   if(action=='activate')
     $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('td.product-status').html('Active')

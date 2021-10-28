@@ -27,6 +27,11 @@ class Admin::ProductsController < Admin::BaseController
     end
 
     if @product.save
+      if params[:seller_id].present?
+        @product.owner_id = params[:seller_id].to_i
+        @product.owner_type = 'Seller'
+        @product.save
+      end
       save_product_images_from_remote_urls(@product) if params[:dup_product_id].present?
       redirect_to edit_admin_product_path(@product), notice: 'Product was successfully created.'
     else
@@ -57,6 +62,11 @@ class Admin::ProductsController < Admin::BaseController
     end
 
     if @product.update(product_params)
+      if params[:seller_id].present? 
+        @product.owner_id = params[:seller_id].to_i
+        @product.owner_type = 'Seller'
+        @product.save
+      end
       if images_to_delete_params.present?
         @product.pictures_attributes = images_to_delete_params
         @product.save

@@ -148,6 +148,12 @@ class Admin::SellersController < Admin::BaseController
       end
     end
 
+    def search
+      @q = Seller.ransack(params[:q])
+      @sellers = @q.result(distinct: true).order('created_at').page(params[:page]).per(params[:per_page].presence || 15)
+      render json: { sellers: @sellers.as_json(methods: :username) }, status: :ok
+    end
+
     private
       def seller_params
         params.require(:seller).permit(:first_name, :last_name, :email, :subscription_type,:account_status, :listing_status,

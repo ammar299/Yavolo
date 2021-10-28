@@ -25,6 +25,7 @@ Rails.application.routes.draw do
           collection do
             get :update_multiple
             get :confirm_multi_update
+            get :search
           end
           member do
             patch :update_business_representative
@@ -149,6 +150,9 @@ Rails.application.routes.draw do
             post :enable_yavolo
             post :disable_yavolo
             post :bulk_products_update
+          end
+          member do
+            post :update_field
           end
         end
 
