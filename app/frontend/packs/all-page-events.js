@@ -20,7 +20,22 @@ $(document).ready(function () {
   $('body').on('click', '.menu-icon', function(){
     $('.leftside').toggleClass('leftside-open');
   });
+
+  removeAboutPortion();
 });
+
+function removeAboutPortion(){
+  $('body').on('click','.seller-edit-nav a',function(){
+    var $topPortion = $('#about-top-portion');
+    var tabName = $(this).text().trim().toLowerCase();
+    if(tabName === 'about seller' || tabName === 'about you'){
+      $topPortion.removeClass('d-none');
+    }
+    else {
+      $topPortion.addClass('d-none');
+    }
+  });
+}
 
 function copyToClipboard(element) {
   var $temp = $("<input>");

@@ -284,6 +284,8 @@ textarea.form-control {
     margin: 0;
     padding: 10px 0;
 }
+
+
 .categories-main .category-products-form select,
 .categories-main .ck.ck-toolbar,
 .categories-main .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused),
