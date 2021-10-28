@@ -1,5 +1,5 @@
 <div id="<%=address.address_type%>">
-  <h5 class="text-center"><%= address.address_type.humanize %></h5>
+  <h5 class="text-center" style="text-transform: capitalize;"><%= address.address_type.humanize %></h5>
   <table class="table mt-2">
     <tbody>
       <tr>
@@ -9,7 +9,7 @@
         </td>
       </tr>
       <tr>
-        <td class="">Phone Number:</td>
+        <td class="">Phone number:</td>
         <td><%= address.phone_number.present? ? address.phone_number : "" %></td>
       </tr>
     </tbody>
