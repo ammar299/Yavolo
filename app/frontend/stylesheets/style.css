@@ -201,6 +201,7 @@
 	-moz-transition: .3s linear;
 	-webkit-transition: .3s ease-out;
 	transition: .3s linear;
+	z-index: 55556;
 }
 .dashboard-page .leftside .sideheader {
 	padding: 32px 32px 15px 32px;
