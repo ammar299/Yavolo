@@ -1,4 +1,4 @@
-<%= render 'shared/custom_confirm_modal' %>
+<%= render 'shared/custom_confirm_modal', request_path: enable_yavolo_sellers_products_path %>
 <%=hidden_field_tag :namespace, 'sellers', id: 'namespace' %>
 <div class="container-fluid y-page-container">
     <div class="d-flex flex-wrap justify-content-between mb-4 mt-5 align-items-start">
@@ -33,7 +33,7 @@
                                 <a class="btn btn-radius px-2 btn-primary current-search-filter" href="#" role="button"
                                     id="dropdownMenuLink" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
-                                    Search All <i class="fa fa-angle-down ml-2"
+                                    <%= set_filter_type_in_dropdown(params) %> <i class="fa fa-angle-down ml-2"
                                         aria-hidden="true"></i>
                                 </a>
                                 <div class="dropdown-menu seller-products-filters" aria-labelledby="dropdownMenuLink">
@@ -52,6 +52,7 @@
                                 </div>
                             </div>
                             <%
+
                             if params[:q].present?
                                 field_name = params[:q].keys.first
                             else
@@ -61,6 +62,7 @@
                             <div class="search-field mb-0">
                                 <%= search_form_for @q, url: sellers_products_path do |f| %>
                                 <%= hidden_field_tag :tab, params[:tab].to_s ||'all'%>
+                                <input type="hidden" name="filter_type" id="product-filter-type" value="<%= params[:filter_type] %>">
                                 <%= f.search_field field_name.to_sym, { class: 'input-btn-sm seller-product-search-field', placeholder: 'Search Products', value: "#{search_field_query_param_val(params)}" } %>
                                 <i class="fa fa-search" aria-hidden="true"></i>
                                 <% end %>
@@ -96,9 +98,11 @@
                                 aria-expanded="false">Filter by <i class="fa fa-angle-down ml-3"
                                     aria-hidden="true"></i></a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <%= sort_link(@q, :title, 'Product Title', {default_order: :asc}, {class: 'dropdown-item'}) %>
-                                <%= sort_link(@q, :price, 'Price', {default_order: :asc}, {class: 'dropdown-item'}) %>
-                                <%= sort_link(@q, :yavolo_enabled, 'Yavolo Enabled', {default_order: :asc}, {class: 'dropdown-item'}) %>
+                                <%=link_to 'Product Title A-Z',sellers_products_path({q: params[:q].present? ? (params.require(:q).merge!(s: 'title asc').permit!) : {s: 'title asc'} })  %>
+                                <%=link_to 'Product Title Z-A',sellers_products_path({q: params[:q].present? ? (params.require(:q).merge!(s: 'title desc').permit!) : {s: 'title desc'} })  %>
+                                <%=link_to 'Price High-Low',sellers_products_path({q: params[:q].present? ? (params.require(:q).merge!(s: 'price desc').permit!) : {s: 'price desc'} })  %>
+                                <%=link_to 'Price Low-High',sellers_products_path({q: params[:q].present? ? (params.require(:q).merge!(s: 'price asc').permit!) : {s: 'price asc'} })  %>
+                                <%=link_to 'Yavolo Enabled',sellers_products_path({q: params[:q].present? ? (params.require(:q).merge!(s: 'yavolo_enabled asc').permit!) : {s: 'yavolo_enabled asc'} })  %>
                             </div>
                         </div>
                         <div class="d-flex mb-3">
@@ -163,16 +167,8 @@
                                                     <p class="mb-0">Brand: <%=product.brand %></p>
                                                     <p class="mb-0">Condition: <%=product.condition.to_s.titleize %></p>
                                                 </td>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <%= number_field_tag '[products_attributes][][stock]', product.stock, class: 'form-control p-1', placeholder: '50',min: 0, disabled: true %>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <%= number_field_tag '[products_attributes][][price]', product.price, class: 'form-control p-1', placeholder: '50',min: 0, disabled: true %>
-                                                    </div>
-                                                </td>
+                                                <td class="stock-box"><%=product.stock %></td>
+                                                <td class="price-box"><%=number_to_currency(product.price, unit: '£') %></td>
 
                                                 <td>
                                                     <div class="d-flex">
@@ -193,12 +189,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td>
-                                                    <%= hidden_field_tag '[products_attributes][][id]', product.id, readonly: true %>
-                                                    <div class="form-group">
-                                                        <%= number_field_tag '[products_attributes][][discount]', product.discount, class: 'form-control p-1', placeholder: '2.5', min: 0, disabled: true %>
-                                                    </div>
-                                                </td>
+                                                <td class="discount-box"><%= "#{product.discount}" %></td>
                                                 <td>
                                                     <div class="row-actions">
                                                         <% unless product.yavolo_enabled %>
@@ -231,4 +222,5 @@
 </div>
 <%= render 'admin/products/upload_csv_popup' %>
 <%= render 'admin/products/upload_csv_success_popup' %>
+<%= render 'shared/bulk_update_form_modal' %>
 <%= render 'shared/simple_confirm_modal', confirm_statement: 'Are you sure to perform this bulk action?', id: 'yes-perform-action',path: '#', data: nil, modal_id: 'seller-products-confirm' %>

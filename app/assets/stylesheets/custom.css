@@ -404,6 +404,13 @@
   top: 0;
 }
 
+/* hide number field spin buttons */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 .search-field-flex small {
     font-size: 10px;
 }

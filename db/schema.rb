@@ -227,7 +227,7 @@ ActiveRecord::Schema.define(version: 2021_10_27_191803) do
   end
 
   create_table "delivery_option_ships", force: :cascade do |t|
-    t.decimal "price", precision: 8, scale: 2
+    t.float "price"
     t.bigint "delivery_option_id"
     t.bigint "ship_id"
     t.datetime "created_at", precision: 6, null: false
