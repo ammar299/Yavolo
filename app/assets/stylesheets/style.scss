@@ -12,7 +12,9 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
   }
-  
+  label {
+		text-transform: capitalize;
+	}
   .icon-day-guarantee:before {
 	content: "\e900";
   }
