@@ -81,6 +81,8 @@ Rails.application.routes.draw do
             get :duplicate
             post :upload_csv
             get :export_csv
+            post :bulk_products_update
+            post :enable_yavolo
           end
         end
 

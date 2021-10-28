@@ -95,6 +95,10 @@ class Admin::SellersController < Admin::BaseController
     def create_seller_api
       @seller_api = SellerApi.new(seller_api_params)
       @seller_api.seller_id = @seller.id
+      @seller_api.api_token = SecureRandom.hex(30)
+      @seller_api.developer_id = SecureRandom.hex(7)
+      @seller_api.expiry_date = Date.today + 6.month
+      @seller_api.status = 'enable'
       @seller_api.save
     end
 

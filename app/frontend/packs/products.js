@@ -28,16 +28,41 @@ $(document).ready(function(){
       $('.y-page-container').find('.alert').remove();
       $('.bulk-actions a.dropdown-item').removeClass('active');
       $(this).addClass('active');
-      $('#seller-products-confirm').modal('show');
+      let action = $('.bulk-actions a.dropdown-item.active').data('bulkaction');
+      if(['activate','yavolo_enabled','yavolo_disabled','delete'].includes(action)){
+        $('#seller-products-confirm').modal('show');
+      }else{
+        $('#bulk-update-form-modal').modal('show');
+      }
     }else{
+      console.log('shown errors');
       showErrorsAlert(['You have not selected any products to update'])
     }
   })
-  $('#yes-perform-action').click(function(e){
+
+  // to update status or yavolo status
+   $('#yes-perform-action').click(function(e){
+      e.preventDefault();
+      $('#seller-products-confirm').modal('hide');
+      updateBulkProducts($('.bulk-actions a.dropdown-item.active').data('bulkaction'));
+    })
+  // to update value like price , stock or discount
+  $('#y-yes-bulk-update').click(function(e){
     e.preventDefault();
-    $('#seller-products-confirm').modal('hide');
-    updateBulkProducts($('.bulk-actions a.dropdown-item.active').data('bulkaction'));
-  })
+    let action = $('.bulk-actions a.dropdown-item.active').data('bulkaction');
+    // $('#seller-products-confirm').modal('hide');
+    if($('#product-new-value').val().length > 0){
+      $('#product-new-value').parents('.form-group').find('small').remove();
+      $('#product-new-value').parents('.form-group').removeClass('error-field')
+      $('#bulk-update-form-modal').modal('hide');
+      // show loader
+      updateBulkProducts(action);
+    }else{
+      $('#product-new-value').parents('.form-group').find('small').remove();
+      $('#product-new-value').parents('.form-group').addClass('error-field');
+      $('#product-new-value').parents('.form-group').append('<small>Please enter a valid value.</small>')
+    }
+  });
 
   // on enable yavolo click
   $(document).on('click',".enable-yavolo-btn", function(e){
@@ -477,10 +502,25 @@ function validProductForm(){
 
 
 function updateBulkProducts(action){
+  let productIds = []
+  $('.prod-table-row input[type=checkbox]:checked').each(function(){ productIds.push($(this).val()) })
+  if(productIds.length==0)
+    return false;
+
+  let dataParams = {action: action, product_ids: productIds}
+  if(action =='update_price' || action =='update_stock' || action =='update_discount'){
+    if($('#product-new-value').val().length > 0){
+      dataParams.value = $('#product-new-value').val()
+    }else{
+      showErrorsAlert(['Error: param value is missing.']);
+      return false;
+    }
+  }
+
   $.ajax({
     url: `/${$('#namespace').val()}/products/bulk_products_update?bulk_action=${action}`,
     method: 'POST',
-    data: $('#products-bulk-form').serialize(),
+    data: { 'product': dataParams },//$('#products-bulk-form').serialize(),
     success: function(res){
       updateProductsDom(res);
       showSuccessAlert('Products updated successfully');
@@ -497,33 +537,47 @@ function updateProductsDom(res){
   if(action=='delete')
     $(selectors).remove();
 
+  if(action=='update_price')
+    $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('td.price-box').html('£'+res.value)
+
+  if(action=='update_stock')
+    $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('td.stock-box').html(res.value)
+
+  if(action=='update_discount')
+    $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('td.discount-box').html(res.value)
+
   if(action=='activate')
-    $(selectors).find('.product-status').html('Active');
+    $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('td.product-status').html('Active')
 
   if(action=='yavolo_enabled')
-    $(selectors).find('.enable-yavolo-btn').remove();
+    $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.enable-yavolo-btn').remove();
+
 
   if(action=='yavolo_disabled'){
-    $(selectors).each(function(){
+    $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').each(function(){
       let pid = $(this).attr('id').split('-')[$(this).attr('id').split('-').length-1];
       let yavoloBtn = '<a class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr btn-danger enable-yavolo-btn" data-toggle="modal" data-target="#customConfirmModal" data-params="product[ids][]='+pid+'" id="pro-enyavolo-btn-'+pid+'" href="#">Enable Yavolo</a>';
       $(this).find('input[type=checkbox]').prop('checked',false).trigger('change');
-      $(this).find('.row-actions').prepend(yavoloBtn)
+      if($(this).find('.row-actions .enable-yavolo-btn').length == 0)
+        $(this).find('.row-actions').prepend(yavoloBtn)
     })
   }
+  $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('input[type=checkbox]').prop('checked',false).trigger('change')
 }
 
-function showSuccessAlert(msg){
+window.showSuccessAlert = function(msg){
+  console.log('shown success msg');
   $('.y-page-container').find('.alert').remove();
-  let alertMsg = '<div class="alert alert-success text-left" role="alert">'+msg+'</div>'
+  let alertMsg = '<p class="flash-toast notice notice-msg">'+msg+'<span  class="notice-cross-icon" aria-hidden="true">&times;</span></p>'
   $('.y-page-container').prepend(alertMsg);
   $(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
       $(".alert-success").slideUp(500);
   });
 }
-function showErrorsAlert(errors){
+window.showErrorsAlert = function(errors){
+  console.log(errors);
   $('.y-page-container').find('.alert').remove();
-  let alertErrors = '<div class="alert alert-danger text-left" role="alert"><ul>'+errors.map(e=>"<li>"+e+"</li>").join("")+'</ul></div>'
+  let alertErrors = '<div class="flash-toast alert alert-msg text-left"><ul>'+errors.map(e=>"<li>"+e+"</li>").join("")+'</ul><span class="notice-cross-icon" aria-hidden="true">&times;<span></div>';
   $('.y-page-container').prepend(alertErrors);
 }
 
@@ -532,19 +586,25 @@ function setSellerSearchMenuAndQueryName(){
     e.preventDefault();
     let currentFilter = $(this).text().trim();
     let searchField = $('.seller-product-search-field');
+    let filterType = $('#product-filter-type');
     $('.seller-products-filters a').removeClass('active');
     $(this).addClass('active')
-    $('.current-search-filter').text(currentFilter);
+    $('.current-search-filter').html(currentFilter+' <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>');
     if(currentFilter=='Product Title'){
       searchField.attr('name', 'q[title_cont]');
+      filterType.val('Product Title');
     }else if(currentFilter=='Brand'){
       searchField.attr('name', 'q[brand_cont]');
+      filterType.val('Brand');
     }else if(currentFilter=='SKU'){
       searchField.attr('name', 'q[sku_cont]');
+      filterType.val('SKU');
     }else if(currentFilter=='YAN'){
       searchField.attr('name', 'q[yan_cont]');
+      filterType.val('YAN');
     }else if(currentFilter=='EAN'){
       searchField.attr('name', 'q[ean_cont]');
+      filterType.val('EAN');
     }else{
       $('.current-search-filter').text('Search All');
       searchField.attr('name', 'q[title_or_brand_or_sku_or_yan_or_ean_cont]');
