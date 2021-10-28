@@ -23,13 +23,13 @@
           <div class="search-field mb-0">
             <%= search_form_for @q, url: admin_sellers_path do |f| %>
               <input type="hidden" name="filter_type" id="seller-filter-type" value="<%= params[:filter_type] %>">
-              <%= f.search_field field_name.to_sym, { class: 'input-btn-sm seller-search-field', placeholder: 'Search Seller', value: "#{search_field_params(params)}" } %>
+              <%= f.search_field field_name.to_sym, { class: 'input-btn-sm seller-search-field', placeholder: 'Search Sellers', value: "#{search_field_params(params)}" } %>
               <i class="fa fa-search" aria-hidden="true"></i>
             <% end %>
           </div>
         </div>
         <div class="dropdown dropdown-filter d-inline-flex nowrap">
-          <a href="#" class="btn btn-sm btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <i class="fa fa-angle-down ml-3" aria-hidden="true"></i>
+          <a href="#" class="btn btn-sm btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions <i class="fa fa-angle-down ml-3" aria-hidden="true"></i>
           </a>
           <% statuses = multi_actions_to_show %>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
