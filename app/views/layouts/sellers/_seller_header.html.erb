@@ -7,30 +7,26 @@
                 <a href=""><i class="fas fa-bell"></i></a>
             </div>
             <div class="admin-header-right">
-                <ul>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle bdr-left" href="#"
-                            id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            <img class="rounded-circle" src="images/profile.jpg" width="40"
-                                height="40">
-                            <span class="pl-3">Jhon Smith</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-text dropdown-profile"
-                            aria-labelledby="navbarDropdownMenuLink">
-                            <div class="dropdown-profile-inner ">
-                                <span>
-                                    <img src="images/profile.jpg" alt="" class="user-img">
-                                </span>
-                                <p class="mb-0">JhonSmith</p>
-                                <p>Jhon Smith@gmail.com</p>
-                                <a href="" class="btn bg-red w-100 mb-3 btn-link">Manage Account</a>
-                                <a href="" class="btn bg-red w-100 btn-link">Sign Out</a>
-                            </div>
-
-                        </div>
-                    </li>
-                </ul>
+              <ul>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-tog bdr-left" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <%= image_tag "profile.jpg", class: 'rounded-circle', width:"40", height: "40" %>
+                  <span class="pl-3">Jhon Smith</span>
+                  <i class="fa fa-angle-down ml-3" aria-hidden="true"></i>
+                  </a>
+                  <div class="dropdown-menu dropdown-text dropdown-profile text-center p-3" aria-labelledby="navbarDropdownMenuLink">
+                    <div class="dropdown-profile-inner ">
+                      <span>
+                      <%= image_tag "profile.jpg", class: 'user-img' %>
+                      </span>
+                      <p class="mb-0"><%= admin_name(current_seller) %></p>
+                      <p><%= current_seller.email %></p>
+                      <a href="#" class="btn btn-sm bg-red w-100 mb-3 btn-link">Manage Account</a>
+                      <%= link_to 'Sign Out', destroy_seller_session_path, data: { method: :delete }, class: "btn btn-sm bg-red w-100 btn-link" %>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </div>
         </div>
     </div>
