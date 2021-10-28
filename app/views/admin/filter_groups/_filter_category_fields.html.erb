@@ -1,7 +1,7 @@
 <div class="row nested-fields">
   <div class="col-md-12">
     <div class="form-group form-group-vertical align-items-center flex-lg-nowrap flex-wrap">
-      <%= f.label :category_id, class: 'text-left pr-3' %>
+      <%= f.label :category_id, "Category Name", class: 'text-left pr-3' %>
       <% if params[:action] == "assign_category" %>
         <%= f.select(:category_id, options_for_select(@categories.pluck(:category_name, :id), selected: f.object.category_id), {}, {class: "text-left pr-3 form-control" }) %>
       <% else %>

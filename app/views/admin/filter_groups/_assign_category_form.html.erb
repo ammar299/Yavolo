@@ -1,7 +1,7 @@
 <%= simple_form_for filter_group, url: url, method: method do |f| %>
   <%= f.error_notification %>
   <%= hidden_field_tag :filter_group_id, '', value: filter_group.id %>
-  <h6><strong>Add Category Which Show Filter Group</strong></h6>
+  <h6><strong>Add Categories Which Show Filter Group</strong></h6>
   <%= f.fields_for :filter_categories do |filter_category| %>
   <%= render 'filter_category_fields', :f => filter_category %>
   <% end %>
