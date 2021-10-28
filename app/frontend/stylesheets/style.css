@@ -205,10 +205,10 @@
 .dashboard-page .leftside .sideheader {
 	padding: 32px 32px 15px 32px;
 	border-bottom: 1px solid #ffffff2e;
+	white-space: nowrap;
 }
 .dashboard-page .leftside .sideheader p {
 	color: #F9EDE1;
-	font-family: 'buenos_airesregular';
 }
 .dashboard-page .rightside {
 	flex: 1;
@@ -236,7 +236,9 @@
 	-moz-transition: .3s linear;
 	-webkit-transition: .3s ease-out;
 	transition: .3s linear;
+	margin: 6px 0 !important;
 	border-radius: 12px;
+	white-space: nowrap;
 }
 .sidebody > ul > li > ul > li.active a,
 .sidebody li a:hover {

@@ -544,7 +544,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 .dashboard-page .leftside .sideheader p {
 	color: #F9EDE1;
-	font-family: 'buenos_airesregular';
 }
 .dashboard-page .rightside {
 	flex: 1;
@@ -751,6 +750,7 @@ h1, h2, h3, h4, h5, h6 {
 .imglist {
 	height: 45px;
 	width: 45px;
+	min-width: 45px;
 	display: inline-flex;
 	background-color: #eee;
 } 
@@ -1504,6 +1504,7 @@ border-radius: 10px;
     margin: 6px 0;
 	display: flex;
 	justify-content: center;
+	box-shadow: 1px 1px 3px #0000000A;
 }
 
 
