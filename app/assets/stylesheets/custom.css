@@ -506,7 +506,13 @@ input::-webkit-inner-spin-button {
 .dashboard-page .leftside.leftside-open {
   left: 0;
 }
-
+.seller-api-token {
+  width: 100px;
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+  margin-right: 10px;
+}
 
 
 @media only screen and (max-width: 600px) {
