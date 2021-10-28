@@ -33,13 +33,13 @@
       </tbody>
     </table>
   </div>
-  <form action="">
-    <div class="form-group form-group-vertical align-items-center form-group-vertical-responsive">
-      <label for="exampleInputPassword1" class="text-left pr-3">Linking Filter</label>
-      <select class="form-control">
-        <option>ArvindPanchmatia@gmail.co.uk</option>
-      </select>
-      <a href="#" class="pl-3 pluse-btn plus-btn-hide">+</a>
-    </div>
-  </form>
+  <% if @category.baby_category %>
+    <form action="">
+      <div class="form-group form-group-vertical align-items-center form-group-vertical-responsive">
+        <label for="exampleInputPassword1" class="text-left pr-3">Linking Filter</label>
+        <%= select_tag "category[linking_filters]", options_for_select(category_linking_filters(@category&.parent&.id)), { class: 'form-control' } %>
+      </div>
+    </form>
+  <% end %>
+
 </div>
