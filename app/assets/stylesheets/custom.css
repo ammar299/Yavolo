@@ -349,9 +349,10 @@
   word-break: break-word;
   white-space: normal;
   font-size: 12px;
-  padding: 1px 12px 1px 18px !important;
+  padding: 3px 12px 3px 18px !important;
   justify-content: flex-start;
   transition: .3s linear;
+  line-height: 13px;
 }
 .dropdown-filter .dropdown-menu a svg {
     position: absolute;
@@ -365,7 +366,7 @@
 
 .Yavolo-table .checkbox-blk {
   margin-bottom: 0 !important;
-  min-height: 22px;
+  min-height: 20px;
 }
 .Yavolo-table table td .checkmark {
   top: 0 !important;
@@ -492,6 +493,28 @@ input::-webkit-inner-spin-button {
 .dropdown.dropdown-filter.mb-3.d-inline-flex {
   margin-bottom: 0 !important;
 }
+.email-in-table {
+  word-break: break-all;
+  min-width: 100px;
+  display: flex;
+}
+.menu-icon {
+  display: none;
+  font-size: 18px !important;
+  text-decoration: none !important;
+}
+.dashboard-page .leftside.leftside-open {
+  left: 0;
+}
+.seller-api-token {
+  width: 100px;
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+  margin-right: 10px;
+}
+
+
 @media only screen and (max-width: 600px) {
   .dropdown.dropdown-filter.mb-3.d-inline-flex {
     width: 100%;
@@ -499,7 +522,15 @@ input::-webkit-inner-spin-button {
   }
 }
 @media only screen and (max-width: 1024px) {
+  .dashboard-page .leftside {
+    top: 80px;
+  }
+
+
   .dashboard-page.toggle-close .rightside {
-    padding-left: 0;
+    padding-left: 0 !important;
+  }
+  .menu-icon {
+    display: inline-block;
   }
 }

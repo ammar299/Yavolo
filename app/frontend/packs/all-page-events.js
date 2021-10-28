@@ -16,6 +16,10 @@ $(document).ready(function () {
   $(".api-token").hover(function () {
     $(".help-popup-text").text("Click to Copy");
   });
+
+  $('body').on('click', '.menu-icon', function(){
+    $('.leftside').toggleClass('leftside-open');
+  });
 });
 
 function copyToClipboard(element) {
