@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
   console.log('sellers js is loaded');
   onBoardingApiScript();
