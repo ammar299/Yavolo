@@ -21,7 +21,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-tog bdr-left" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <%= image_tag "profile.jpg", class: 'rounded-circle', width:"40", height: "40" %>
-            <span class="pl-3">Jhon Smith</span>
+            <span class="pl-3"><%= current_admin.try(:first_name) + current_admin.try(:last_name) %></span>
             <i class="fa fa-angle-down ml-3" aria-hidden="true"></i>
             </a>
             <div class="dropdown-menu dropdown-text dropdown-profile text-center p-3" aria-labelledby="navbarDropdownMenuLink">
@@ -31,8 +31,8 @@
                 </span>
                 <p class="mb-0"><%= admin_name(current_admin) %></p>
                 <p><%= current_admin.email %></p>
-                <a href="#" class="btn btn-sm bg-red w-100 mb-3 btn-link">Manage Account</a>
-                <%= link_to 'Sign Out', destroy_admin_session_path, data: { method: :delete }, class: "btn btn-sm bg-red w-100 btn-link" %>
+                <a href="#" class="btn btn-radius px-4 btn-primary btn-sm w-100 my-1">Manage Account</a>
+                <%= link_to 'Sign Out', destroy_admin_session_path, data: { method: :delete }, class: "btn btn-radius px-4 btn-primary btn-sm w-100 my-1" %>
               </div>
             </div>
           </li>
