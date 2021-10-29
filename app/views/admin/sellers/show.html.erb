@@ -7,8 +7,14 @@
       &amp; Settings</h4>
     <div id="about-top-portion">
       <div class="d-flex align-items-center" >
-        <p class="pr-1 mb-0">Seller Locked</p>
+      <% display_class = @seller.is_locked == true ? 'd-block' : 'd-none' %>
+        <p class="pr-1 mb-0 <%= display_class %>" id="seller-locked-text"><%= "Seller Locked" if @seller.is_locked %></p>
         <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mr-1">Reset password</a>
+        <% if current_admin.present? %>
+          <% text = @seller.is_locked == true ? "Unlock" : "Lock" %>
+          <% class_to_include = @seller.is_locked == true ? "btn-success" : "btn-danger" %>
+          <%= link_to "#{text}", confirm_lock_status_admin_seller_path(@seller, param_to_update: "lock"), class: "btn btn-sm btn-radius px-4 mr-1 #{class_to_include} current-action", remote: true, id: "#{@seller.id}-lock-status" %>
+        <% end %>
         <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mr-1">Unlock</a>
         <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mr-1">Back</a>
         <a href="#" class="btn btn-sm btn-radius px-4 btn-primary">Save</a>
