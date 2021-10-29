@@ -1,5 +1,7 @@
 <div class="container-fluid">
-<div class="seller-hdng pt-4"><h3 class="">Seller Account Edit</h3></div>
+  <div class="seller-hdng pt-4">
+    <h3 class="">Seller Account Edit</h3>
+  </div>
   <div class="d-flex flex-wrap justify-content-between mb-4 mt-4 align-items-start">
     <h4 class="m-0">Seller Account
       &amp; Settings</h4>
@@ -19,12 +21,12 @@
     </div>
     <div class="col-md-10">
       <div class="tab-content" id="myTabContent">
-      <%= render 'shared/sellers/about_seller_section' %>
+        <%= render 'shared/sellers/about_seller_section' %>
         <%= render 'shared/sellers/connection_manager_section' %>
         <div class="tab-pane fade" id="Manage-Subscription" role="tabpanel"
                                         aria-labelledby="Manage-Subscription-tab">
           <section class="seller-subscription-section">
-            <h5>Subscripion</h5>
+            <h5>Subscription</h5>
             <div class="subscription-inner">
               <div class="row">
                 <div class="col-md-8">
@@ -72,88 +74,9 @@
         </div>
         <div class="tab-pane fade" id="Payment-Methods" role="tabpanel" aria-labelledby="Payment-Methods-tab">
           <section class="payment-method">
-            <h6>Payment Methods</h6>
-            <div class="payment-method-inner">
-              <h6 class="pt-3">Back accounts for oayment</h6>
-              <div class="payment-method-card yo-white-card box-border p-0">
-                <table class="table m-0 subscription-table text-left">
-                  <tr>
-                    <td>
-                      <p class="mb-1"><strong>Bank account number</strong> </p>
-                      <p class="m-0">User Email</p>
-                    </td>
-                    <td>
-                      <p class="mb-1"><strong>Bank account number</strong> </p>
-                      <p class="m-0">User Email</p>
-                    </td>
-                    <td>
-                      <p class="mb-1"><strong>Bank account number</strong> </p>
-                      <p class="m-0">User Email</p>
-                    </td>
-                    <td>
-                      <p class="mb-1"><strong>Bank account number</strong> </p>
-                      <p class="m-0">User Email</p>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mb-3">Remove</a>
-            </div>
-            <div class="payment-method-inner ">
-              <h6 class="pt-3">Back accounts for oayment</h6>
-              <div class="payment-method-card yo-white-card box-border p-0">
-                <table class="table m-0 subscription-table text-left">
-                  <tr>
-                    <td>
-                      <p class="mb-1"><strong>Bank account number</strong> </p>
-                      <p class="m-0">User Email</p>
-                    </td>
-                    <td>
-                      <p class="mb-1"><strong>Bank account number</strong> </p>
-                      <p class="m-0">User Email</p>
-                    </td>
-                    <td>
-                      <p class="mb-1"><strong>Bank account number</strong> </p>
-                      <p class="m-0">User Email</p>
-                    </td>
-                    <td>
-                      <p class="mb-1"><strong>Bank account number</strong> </p>
-                      <p class="m-0">User Email</p>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mb-3">Remove</a>
-              <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mb-3">Remove</a>
-            </div>
-            <div class="payment-method-inner ">
-              <div class="payment-method-card yo-white-card box-border p-0">
-                <table class="table m-0 subscription-table text-left">
-                  <tr>
-                    <td>
-                      <p class="mb-1"><strong>Bank account number</strong> </p>
-                      <p class="m-0">User Email</p>
-                    </td>
-                    <td>
-                      <p class="mb-1"><strong>Bank account number</strong> </p>
-                      <p class="m-0">User Email</p>
-                    </td>
-                    <td>
-                      <p class="mb-1"><strong>Bank account number</strong> </p>
-                      <p class="m-0">User Email</p>
-                    </td>
-                    <td>
-                      <p class="mb-1"><strong>Bank account number</strong> </p>
-                      <p class="m-0">User Email</p>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mb-3">Remove</a>
-              <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mb-3">Remove</a>
-            </div>
-            <div class="payment-method-inner ">
-              <h6 class="pt-3">Back accounts for oayment</h6>
+            <h6 class="font-weight-bold">Payment Methods</h6>
+            <div class="payment-method-inner pl-3">
+              <h6 class="font-weight-bold pt-3">Bank accounts for payout</h6>
               <div class="payment-method-card yo-white-card box-border p-0">
                 <table class="table m-0 subscription-table text-left">
                   <tr>
@@ -180,26 +103,9 @@
             </div>
           </section>
         </div>
-        <div class="tab-pane fade" id="Holiday-Mode" role="tabpanel" aria-labelledby="Holiday-Mode-tab">
-          <section class="holiday-mode yo-white-card box-border pb-0">
-            <h6>Holiday Mode</h6>
-            <div class="d-flex ">
-              <div class="pr-5">
-                <label class="checkbox-blk">Enable
-                  <input type="checkbox">
-                  <span class="checkmark"></span>
-                </label>
-              </div>
-              <div>
-                <label class="checkbox-blk">Disable
-                  <input type="checkbox">
-                  <span class="checkmark"></span>
-                </label>
-              </div>
-            </div>
-          </section>
-        </div>
+        <%= render 'shared/sellers/holiday_mode_section', url: holiday_mode_admin_seller_path(@seller) %>
         <div class="tab-pane fade" id="Billing" role="tabpanel" aria-labelledby="Billing-tab">
+          <h5 class="font-weight-bold">Billing</h5>
           <section class="billing">
             <div class="Yavolo-table">
               <table class="table">
@@ -208,7 +114,7 @@
                     <th>invoice#</th>
                     <th>total</th>
                     <th>description</th>
-                    <th>dete granted</th>
+                    <th>dete Generated</th>
                     <th>due date</th>
                     <th>status</th>
                     <th class="text-center" width="5%">change status</th>
@@ -336,7 +242,6 @@
     </div>
   </div>
 </div>
-
 <!-- Seller API Modal -->
 <div class="modal fade" id="seller-api-modal" tabindex="-1" role="dialog" aria-labelledby="sellerapiFormLabel" aria-hidden="true">
   <div class="modal-dialog">
