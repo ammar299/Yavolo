@@ -4,7 +4,7 @@ class Sellers::ProfilesController < Sellers::BaseController
 
   before_action :set_seller, only: %i[new show edit update update_business_representative update_company_detail update_seller_logo remove_logo_image update_addresses]
   before_action :set_delivery_template, only: %i[confirm_delete destroy_delivery_template]
-
+  before_action :get_action_url, only: %i[show]
 
   def new
   end
@@ -88,5 +88,11 @@ class Sellers::ProfilesController < Sellers::BaseController
 
   def set_delivery_template
     @delivery_option = DeliveryOption.find(params[:id])
+  end
+
+  def get_action_url
+    @seller = current_seller
+    @action_url = @seller&.paypal_detail&.seller_action_url
+    @action_url = Sellers::PaypalIntegrationService.call({seller: current_seller}) if !@action_url.present?
   end
 end

@@ -10,7 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 2021_10_29_064002) do
 
   # These are extensions that must be enabled in order to support this database
@@ -139,7 +138,7 @@ ActiveRecord::Schema.define(version: 2021_10_29_064002) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "seller_id"
     t.string "full_legal_name", default: ""
-    t.index ["email"], name: "index_business_representatives_on_email", unique: true
+    t.index ["email"], name: "index_business_representatives_on_email"
     t.index ["seller_id"], name: "index_business_representatives_on_seller_id"
   end
 
@@ -198,15 +197,6 @@ ActiveRecord::Schema.define(version: 2021_10_29_064002) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "category_linking_filters", force: :cascade do |t|
-    t.bigint "category_id"
-    t.bigint "filter_in_category_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["category_id"], name: "index_category_linking_filters_on_category_id"
-    t.index ["filter_in_category_id"], name: "index_category_linking_filters_on_filter_in_category_id"
-  end
-
   create_table "company_details", force: :cascade do |t|
     t.string "name"
     t.string "vat_number"
@@ -237,7 +227,7 @@ ActiveRecord::Schema.define(version: 2021_10_29_064002) do
   end
 
   create_table "delivery_option_ships", force: :cascade do |t|
-    t.float "price"
+    t.decimal "price", precision: 8, scale: 2
     t.bigint "delivery_option_id"
     t.bigint "ship_id"
     t.datetime "created_at", precision: 6, null: false
@@ -317,6 +307,13 @@ ActiveRecord::Schema.define(version: 2021_10_29_064002) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["product_id"], name: "index_google_shoppings_on_product_id"
+  end
+
+  create_table "linking_filters", force: :cascade do |t|
+    t.integer "filter_in_category_id"
+    t.integer "category_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "meta_contents", force: :cascade do |t|
@@ -520,7 +517,7 @@ ActiveRecord::Schema.define(version: 2021_10_29_064002) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "delivery_option_ships", "delivery_options"
   add_foreign_key "delivery_option_ships", "ships"
-  add_foreign_key "return_and_terms", "sellers"
   add_foreign_key "paypal_details", "sellers"
+  add_foreign_key "return_and_terms", "sellers"
   add_foreign_key "seller_apis", "sellers"
 end
