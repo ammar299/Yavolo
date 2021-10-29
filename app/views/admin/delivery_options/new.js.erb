@@ -2,6 +2,7 @@ $('#delivery-template-form').html("<%= j render(partial: 'shared/admin/delivery_
 $('#deliveryTemplateForm').find('h5').text('Add New Template');
 <% if params[:add_new].blank? && params[:from].blank? %>
 $('#deliveryTemplateForm').modal('show');
+setFormValidation();
 <% end %>
 <% if params[:add_new].present? %>
 $('#delivery-template-form #new_delivery_option').append("<input type='hidden' name='from' value='create_product'>")
