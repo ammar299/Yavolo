@@ -31,8 +31,8 @@ require('packs/all-page-events')
 require("@nathanvda/cocoon");
 const ClassicEditor = require("@ckeditor/ckeditor5-build-classic");
 require("packs/selectize.min");
-require ("packs/dist/jquery.validate");
-require ("packs/dist/additional-methods");
+require ("packs/jquery.validate");
+require ("packs/additional-methods");
 $(document).ready(() => {
   $("body").on("focus", ".datepicker", function () {
     $(this).datepicker({
