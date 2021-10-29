@@ -1,6 +1,14 @@
 // load all products related js here
 $(document).ready(function(){
 
+  $( "td" ).hover(
+    function() {
+      $( this ).addClass( "hover" );
+    }, function() {
+      $( this ).removeClass( "hover" );
+    }
+  );
+  
   $('.editable').change(function(){
     updateFieldValue($(this).data('pid'),$(this).val(),$(this).data('action'));
   });

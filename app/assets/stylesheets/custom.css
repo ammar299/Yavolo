@@ -562,3 +562,12 @@ input::-webkit-inner-spin-button {
   padding: 20px 30px !important;
 }
 
+/* yavolo icon css */
+.yo-opacity {
+	opacity: 0.3;
+	cursor: pointer;
+}
+.yo-opacity:hover {
+	opacity: 1;
+	transition: all 0.3s linear 0s;
+}
