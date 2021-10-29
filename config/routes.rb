@@ -107,6 +107,8 @@ Rails.application.routes.draw do
   devise_scope :seller do
     authenticated :seller do
       namespace :sellers do
+        resources :paypal_integration, only: %i[index]
+        post :check_onboarding_status, :to => 'paypal_integration#check_onboarding_status'
         resources :delivery_options, except: %i[show] do
           collection do
             get    :confirm_multiple_deletion
