@@ -179,23 +179,19 @@
                                                 </td>
 
                                                 <td>
-                                                    <div class="d-flex">
-                                                        <div>
-                                                            <span
-                                                            class="icon-manage-Yavolo font-20px light-red"></span>
-                                                        </div>
-                                                        <div>
-                                                            <span
-                                                                class="icon-help--resource-center help-popup pl-2">
-                                                            </span>
-                                                            <div class="help-popup-inner">
-                                                                <p class="text-center mb-0">
-                                                                    <strong><%=product.title%></strong>
-                                                                </p>
-                                                                <p class="mb-0 help-popup-text"><%=product.description.html_safe%></p>
+                                                    <% if product.yavolo_enabled %>
+                                                        <div class="d-flex">
+                                                            <div>
+                                                                <span class="icon-manage-Yavolo font-20px light-red"></span>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    <% else %>
+                                                        <div class="d-flex">
+                                                            <div>
+                                                                <span class="icon-manage-Yavolo font-20px light-red yo-opacity"></span>
+                                                            </div>
+                                                        </div>
+                                                    <% end %>
                                                 </td>
                                                 <td class="discount-box">
                                                 <div class="form-group">
@@ -206,6 +202,8 @@
                                                     <div class="row-actions">
                                                         <% unless product.yavolo_enabled %>
                                                         <%= link_to 'Enable Yavolo',"#", class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr btn-danger enable-yavolo-btn',data: {toggle: 'modal', target: "#customConfirmModal", params: "product[ids][]=#{product.id}" }, id: "pro-enyavolo-btn-#{product.id}" %>
+                                                        <% else %>
+                                                        <%= link_to 'Disable Yavolo',"#", class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr btn-danger disable-yavolo-btn',data: {toggle: 'modal', target: "#customConfirmModal", params: "product[ids][]=#{product.id}" }, id: "pro-disableyavolo-btn-#{product.id}" %>
                                                         <% end %>
 
                                                         <%=link_to 'Edit Listing', edit_sellers_product_path(product), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr' %>

@@ -220,9 +220,17 @@
                         <td>300</td>
                         <td>
                             <% if product.yavolo_enabled %>
-                            <span class="icon-manage-Yavolo font-20px"></span>
+                              <div class="d-flex">
+                                  <div>
+                                      <span class="icon-manage-Yavolo font-20px light-red"></span>
+                                  </div>
+                              </div>
                             <% else %>
-                            No
+                              <div class="d-flex">
+                                  <div>
+                                      <span class="icon-manage-Yavolo font-20px light-red yo-opacity"></span>
+                                  </div>
+                              </div>
                             <% end %>
                         </td>
                         <td class="discount-box"><%= "#{product.discount}" %></td>

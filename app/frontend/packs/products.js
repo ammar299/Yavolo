@@ -12,20 +12,20 @@ $(document).ready(function(){
   $('.mark-bulk-update').change(function(){
     if($(this).is(':checked')){
       $('.prod-table-row').find('input:checkbox').prop('checked', true);
-      $('.prod-table-row').find('input[type=number]').prop('disabled', false);
+      // $('.prod-table-row').find('input[type=number]').prop('disabled', false);
     }else{
       $('.prod-table-row').find('input:checkbox').prop('checked', false);
-      $('.prod-table-row').find('input[type=number]').prop('disabled', true);
+      // $('.prod-table-row').find('input[type=number]').prop('disabled', true);
     }
   });
 
-  $('.prod-table-row input[type=checkbox]').change(function(){
-    if($(this).is(':checked')){
-      $(this).parents('.prod-table-row').find('input[type=number]').prop('disabled', false);
-    }else{
-      $(this).parents('.prod-table-row').find('input[type=number]').prop('disabled', true);
-    }
-  });
+  // $('.prod-table-row input[type=checkbox]').change(function(){
+  //   if($(this).is(':checked')){
+  //     // $(this).parents('.prod-table-row').find('input[type=number]').prop('disabled', false);
+  //   }else{
+  //     // $(this).parents('.prod-table-row').find('input[type=number]').prop('disabled', true);
+  //   }
+  // });
 
   $('.bulk-actions a.dropdown-item').click(function(e){
     e.preventDefault();
@@ -37,6 +37,7 @@ $(document).ready(function(){
       if(['activate','yavolo_enabled','yavolo_disabled','delete'].includes(action)){
         $('#seller-products-confirm').modal('show');
       }else{
+        $('#product-new-value').val('');
         $('#bulk-update-form-modal').modal('show');
       }
     }else{
@@ -148,8 +149,6 @@ $(document).ready(function(){
     valueField: "id",
     labelField: "category_name",
     searchField: "category_name",
-    // options: [],
-    // create: false,
     render: {
       option: function (item, escape) {
         return (
@@ -204,12 +203,8 @@ function updateFieldValue(pid,val,action){
       }
     },
     error: function (xhr){
-      console.log(xhr)
-      // showErrorsAlert(xhr.responseJSON.errors);
     },
-    success: function (res){
-      console.log(res)
-      // showSuccessAlert(res.msg);
+    success: function (res){ 
     }
   });
 }
@@ -598,9 +593,11 @@ function updateBulkProducts(action){
     success: function(res){
       updateProductsDom(res);
       showSuccessAlert('Products updated successfully');
+      $('#product-new-value').val('');
     },
     error: function(xhr){
       showErrorsAlert(xhr.responseJSON.errors);
+      $('#product-new-value').val('');
     }
   })
 }
@@ -611,14 +608,32 @@ function updateProductsDom(res){
   if(action=='delete')
     $(selectors).remove();
 
-  if(action=='update_price')
-    $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.price-field').val(res.value)
+  if(action=='update_price'){
+    if($('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.price-field').length > 0){
+      $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.price-field').val(res.value)
+    }
+    if($('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.price-box').length > 0){
+      $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.price-box').html(res.value)
+    }
+  }
 
-  if(action=='update_stock')
-    $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.stock-field').val(res.value)
+  if(action=='update_stock'){
+    if($('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.stock-field').length > 0){
+      $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.stock-field').val(res.value)
+    }
+    if($('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.stock-box').length > 0){
+      $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.stock-box').html(res.value)
+    }
+  }
 
-  if(action=='update_discount')
-    $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.discount-field').val(res.value)
+  if(action=='update_discount'){
+    if($('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.discount-field').length > 0){
+      $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.discount-field').val(res.value)
+    }
+    if($('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.discount-box').length > 0){
+      $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.discount-box').html(res.value)
+    }
+  }
 
   if(action=='activate')
     $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('td.product-status').html('Active')
