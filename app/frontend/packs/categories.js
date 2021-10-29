@@ -3,7 +3,7 @@ $(document).ready(function () {
     $('#categories-tree li').children('ul').toggle();
 
     createCategoryLinkingFilter();
-
+    categoryInformResult();
     $('body').on('change', '.categories-checkbox-container .category-input', function () {
         createNewCategory($(this)[0]);
         fetchCategoryDetails($(this)[0])
@@ -117,4 +117,10 @@ function createNewCategory(element) {
         $(element).closest('li').children('ul').removeClass('active');
         $('.sub-category-link').addClass('disabled');
     }
+}
+
+function categoryInformResult(){
+  $('body').on('keyup', '.category-products-search-term', function(){
+    $('.submit-category-products-form-btn').trigger('click');
+  });
 }

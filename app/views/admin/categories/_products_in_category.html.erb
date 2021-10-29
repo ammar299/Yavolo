@@ -1,11 +1,11 @@
 <div class="product-catagory-inner yo-white-card box-border">
   <h5>Products in Category</h5>
-  <%= form_tag("/admin/categories/#{@category.id}/category_products_with_pagination",method: :get, local: false, remote: true, class: "category-products-form")  do |f|%>
+  <%= form_tag("/admin/categories/#{@category.id}/category_products_with_pagination",id: "product-in-category-form",method: :get, local: false, remote: true, class: "category-products-form")  do |f|%>
     <input type="hidden" name="page" class="page-number">
     <div class="d-flex align-items-center flex-wrap">
       <div class="search-field active mb-3 mr-2 search-field-flex">
         <input type="text"
-               placeholder="Search" name="q" class="category-products-search-term">
+               placeholder="Search" name="q[title_or_brand_or_sku_or_yan_or_ean_cont]" class="category-products-search-term">
         <i class="fa fa-search" aria-hidden="true"></i>
       </div>
       <div class="form-group mr-2">
@@ -36,8 +36,8 @@
         <th>Status</th>
         <th>Product Name</th>
         <th>Attribute</th>
-        <th>Sort Order</th>
-        <th>Stock</th>
+<!--         <th>Sort Order</th>
+ -->        <th>Stock</th>
         <th>Price</th>
       </tr>
       </thead>
