@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <div class="delivery-detail delivery-details-section">
+        <div class="delivery-detail delivery-details-section box-border yo-white-card">
             <div class="deliver-detail-content d-flex justify-content-between align-items-center flex-wrap mt-4">
                 <h4 mt-2>Delivery Details</h4>
                 <div class="mt-2">
@@ -10,6 +10,7 @@
                     </label>
                 </div>
             </div>
+            <hr>
             <% has_error, msg = get_errors(form, :delivery_option) %>
             <div class="d-option-id" style="display:<%= has_error ? 'block' : 'none' %>; margin-bottom: 10px; color: red;">Delivery option must exist</div>
 
