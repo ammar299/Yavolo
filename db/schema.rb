@@ -456,6 +456,8 @@ ActiveRecord::Schema.define(version: 2021_10_29_064002) do
     t.boolean "recieve_deals_via_email", default: false
     t.boolean "multistep_sign_up", default: true
     t.boolean "eligible_to_create_api", default: false
+    t.boolean "holiday_mode", default: false
+    t.boolean "is_locked", default: false
     t.index ["email"], name: "index_sellers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_sellers_on_reset_password_token", unique: true
   end

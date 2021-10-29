@@ -41,6 +41,9 @@ Rails.application.routes.draw do
             patch :update_seller_api
             get :confirm_change_seller_api_eligibility
             patch :change_seller_api_eligibility
+            get :confirm_lock_status
+            patch :change_lock_status
+            patch :holiday_mode
           end
           post :update_seller_api
           patch :update_seller_api
@@ -135,6 +138,7 @@ Rails.application.routes.draw do
             get :confirm_refresh_api
             get :search_delivery_options
             delete :destroy_delivery_template
+            patch :holiday_mode
           end
           post :update_seller_api
           patch :update_seller_api

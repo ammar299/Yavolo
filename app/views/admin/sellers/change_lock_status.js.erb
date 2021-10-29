@@ -1,0 +1,12 @@
+var text = $('#<%=@seller.id%>-lock-status').text();
+text = text == 'Lock' ? 'Unlock' : 'Lock';
+<% class_to_remove = @seller.is_locked == true ? "btn-danger" : "btn-success" %>
+<% class_to_include = @seller.is_locked == true ? "btn-success" : "btn-danger" %>
+$('#<%=@seller.id%>-lock-status').removeClass("<%= class_to_remove %>");
+$('#<%=@seller.id%>-lock-status').addClass("<%= class_to_include %>");
+$('#<%=@seller.id%>-lock-status').text(text);
+<% display_class_remove = @seller.is_locked == true ? 'd-none' : 'd-block' %>
+<% display_class_include = @seller.is_locked == true ? 'd-block' : 'd-none' %>
+$('#seller-locked-text').removeClass("<%= display_class_remove %>");
+$('#seller-locked-text').addClass("<%= display_class_include %>");
+$('#seller-api-modal').modal('hide');
