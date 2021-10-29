@@ -110,7 +110,7 @@
 .filter_in_categories.remove_fields,
 #filter_in_categories .links {
   position: absolute;
-  right: 0;
+  right: -10px;
   top: 7px;
 }
 .filter_in_categories.remove_fields span {
@@ -438,7 +438,7 @@ input::-webkit-inner-spin-button {
 
 .pluse-aa .state-content.links {
   position: absolute;
-  right: 0;
+  right: -10px;
   top: 10px;
 }
 .pluse-aa .remove_fields {

@@ -5,7 +5,7 @@
         <div class="all-products-header-left d-flex flex-wrap ">
           <div class="search-field mb-0">
             <%= form_tag(admin_filter_groups_path, method: :get) do %>
-              <%= text_field_tag(:search, params[:search], placeholder: "Search Filter Group") %>
+              <%= text_field_tag(:search, params[:search], placeholder: "Search Filter by Name") %>
             <i class="fa fa-search" aria-hidden="true"></i>
             <% end %>
           </div>
@@ -91,7 +91,7 @@
               </div>
             </div>
           </div>
-          <%= link_to 'Add New Filter Group', new_admin_filter_group_path, class: 'btn btn-sm btn-radius px-4 btn-primary', data: { remote: true } %>
+          <%= link_to 'Add New Filter Group', new_admin_filter_group_path, class: 'btn btn-sm btn-radius px-4 btn-primary my-2', data: { remote: true } %>
           <div class="modal fade modal-xxl filter-group-modal pl-0 align-items-start" id="filterGroupForm" tabindex="-1" role="dialog"
           aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -127,7 +127,7 @@
       </div>
       <h3 class="mt-4 mb-3">Filter Groups</h3>
       <div class="Yavolo-table">
-        <table class="table">
+        <table class="table text-center">
           <thead>
             <tr></th>
               <th>
@@ -143,7 +143,7 @@
               <th>Number Of Filter Groups</th>
               <th>Categories Assigned</th>
               <th>Assinged Categories</th>
-              <th class="text-center" >Actions</th>
+              <th class="text-center" width="15%" >Actions</th>
             </tr>
           </thead>
           <tbody>
