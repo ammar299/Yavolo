@@ -2,7 +2,7 @@ class Sellers::ProfilesController < Sellers::BaseController
   layout 'application', :only => [:new]
   layout 'sellers/seller'
 
-  before_action :set_seller, only: %i[new show edit update update_business_representative update_company_detail update_seller_logo remove_logo_image update_addresses]
+  before_action :set_seller, only: %i[new show edit update update_business_representative update_company_detail update_seller_logo remove_logo_image update_addresses holiday_mode]
   before_action :set_delivery_template, only: %i[confirm_delete destroy_delivery_template]
   before_action :get_action_url, only: %i[show]
 
@@ -52,6 +52,10 @@ class Sellers::ProfilesController < Sellers::BaseController
     @address = @seller.addresses.where(address_type: @address_type).last  
   end
 
+  def holiday_mode
+    @seller.update(holiday_mode_params)
+  end
+
   def destroy_delivery_template
     @delivery_option.destroy
     @delivery_options = current_seller.delivery_options
@@ -76,6 +80,10 @@ class Sellers::ProfilesController < Sellers::BaseController
         addresses_attributes: [:id, :address_line_1, :address_line_2, :city, :county, :country, :postal_code, :phone_number, :address_type],
         picture_attributes: ["name", "@original_filename", "@content_type", "@headers", "_destroy", "id"],
       )
+  end
+
+  def holiday_mode_params
+    params.require(:seller).permit(:holiday_mode)
   end
 
   def returns_and_terms_params

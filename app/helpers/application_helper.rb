@@ -86,4 +86,12 @@ module ApplicationHelper
       confirm_update_seller_api_admin_seller_path(id: seller.id, seller_api_id: seller_api.id, param_to_update: action)
     end
   end
+
+  def seller_account_setting_top_bar_buttons(active_tab)
+    if active_tab == 'about'
+      return true
+    else
+      return false
+    end
+  end
 end

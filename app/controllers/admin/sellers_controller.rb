@@ -1,5 +1,5 @@
 class Admin::SellersController < Admin::BaseController
-    before_action :set_seller, only: %i[show edit update update_business_representative update_company_detail update_addresses update_seller_logo remove_logo_image confirm_update_seller update_seller new_seller_api create_seller_api confirm_update_seller_api change_seller_api_eligibility]
+    before_action :set_seller, only: %i[show edit update update_business_representative update_company_detail update_addresses update_seller_logo remove_logo_image confirm_update_seller update_seller new_seller_api create_seller_api confirm_update_seller_api change_seller_api_eligibility holiday_mode change_lock_status]
 
     def index
       @q = Seller.ransack(params[:q])
@@ -122,6 +122,15 @@ class Admin::SellersController < Admin::BaseController
       @seller.update(eligible_to_create_api: bool)
     end
 
+    def change_lock_status
+      bool = @seller.is_locked == true ? false : true
+      @seller.update(is_locked: bool)
+    end
+  
+    def holiday_mode
+      @seller.update(holiday_mode_params)
+    end
+
     def export_sellers
       @all_sellers = Seller.all
       respond_to do |format|
@@ -166,6 +175,10 @@ class Admin::SellersController < Admin::BaseController
 
       def seller_api_params
         params.require(:seller_api).permit(:developer_name, :app_name)
+      end
+
+      def holiday_mode_params
+        params.require(:seller).permit(:holiday_mode)
       end
 
       def set_seller

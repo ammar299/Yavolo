@@ -1798,7 +1798,13 @@ select {
 	-moz-appearance: none;
 	appearance:  none;
 	background-image: asset-url('down-chevron.png') !important;
-	background-size: 12px;
+	background-size: 10px;
 	background-repeat: no-repeat;
-	background-position: 98.5% 13px;
+	background-position: 98% 13px;
 }
+.opacity-50 {
+	opacity: 0.5;
+}
+
+
+
