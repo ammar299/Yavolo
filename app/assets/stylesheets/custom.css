@@ -550,3 +550,15 @@ input::-webkit-inner-spin-button {
 .product-bb-cat small.form-text{
   color: red !important;
 }
+.admin-header-right .dropdown-profile {
+  background-color: var(--off-white);
+  border-color: var(--off-white);
+  border-radius: 15px;
+  min-width: 276px;
+  left: inherit;
+  transform: inherit;
+  right: 0;
+  top: 80px;
+  padding: 20px 30px !important;
+}
+
