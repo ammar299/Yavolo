@@ -276,7 +276,7 @@
 .notice {
   position: fixed;
   top: 0;
-  right: -450px;
+  right: -460px;
   z-index: 55555;
   background-color: var(--light-red);
   color: var(--red);
