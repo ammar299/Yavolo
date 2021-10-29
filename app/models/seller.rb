@@ -15,6 +15,7 @@ class Seller < ApplicationRecord
   has_many :delivery_options, as: :delivery_optionable, dependent: :destroy
   has_one :bank_detail, dependent: :destroy
   has_many :csv_imports, as: :importer, dependent: :destroy
+  has_one :paypal_detail,dependent: :destroy
 
   enum account_status: {
     pending: 0,
