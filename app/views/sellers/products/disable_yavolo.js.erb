@@ -1,0 +1,12 @@
+<% if @products.present? %>
+updatedProductIds = <%= @products.map(&:id) %>
+updatedProductIds.forEach(function(pid){
+  if( $('#prod-id-'+pid).length > 0 ){
+    let enableBtn = '<a class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr btn-danger enable-yavolo-btn yavolo-btn" data-toggle="modal" data-target="#customConfirmModal" data-params="product[ids][]='+pid+'" id="pro-enyavolo-btn-'+pid+'" href="#">Enable Yavolo</a>';
+    $('#pro-disableyavolo-btn-'+pid).remove();
+    $('#prod-id-'+pid).find('.icon-manage-Yavolo').addClass('yo-opacity');
+    $('#prod-id-'+pid).find('.row-actions').prepend(enableBtn);
+  }
+});
+<% end %>
+$("#customConfirmModal").modal('hide');

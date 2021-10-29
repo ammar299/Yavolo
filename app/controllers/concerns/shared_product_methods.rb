@@ -30,6 +30,12 @@ module SharedProductMethods
     end
   end
 
+  def disable_yavolo
+    if params[:product][:ids].present?
+      @products = Product.where(id: params[:product][:ids], yavolo_enabled: true, owner_id: current_user.id, owner_type: current_user.class.name).update(yavolo_enabled: false)
+    end
+  end
+
   private
     def bulk_action_params
       @bulk_params ||= params.require(:product).permit(:action,:value,product_ids:[])

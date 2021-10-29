@@ -571,3 +571,6 @@ input::-webkit-inner-spin-button {
 	opacity: 1;
 	transition: all 0.3s linear 0s;
 }
+.pointer {
+	cursor: pointer;
+}

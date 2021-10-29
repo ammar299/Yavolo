@@ -1,14 +1,15 @@
 // load all products related js here
 $(document).ready(function(){
-
-  $( "td" ).hover(
-    function() {
-      $( this ).addClass( "hover" );
-    }, function() {
-      $( this ).removeClass( "hover" );
+  let updatedProductIds = []
+  $(document).on({
+    mouseenter: function () {
+      $(this).parents('.prod-table-row').find('.yavolo-btn').removeClass('btn-danger');
+    },
+    mouseleave: function () {
+      $(this).parents('.prod-table-row').find('.yavolo-btn').addClass('btn-danger');
     }
-  );
-  
+  }, ".icon-manage-Yavolo.yo-opacity");
+
   $('.editable').change(function(){
     updateFieldValue($(this).data('pid'),$(this).val(),$(this).data('action'));
   });
@@ -82,6 +83,13 @@ $(document).ready(function(){
   $(document).on('click',".enable-yavolo-btn", function(e){
     e.preventDefault();
     $(".modal-body #yes-btn").attr('data-params', $(this).data('params'));
+    $("#yes-btn").attr("href", "/"+$('#namespace').val()+"/products/enable_yavolo");
+  });
+
+  $(document).on('click',".disable-yavolo-btn", function(e){
+    e.preventDefault();
+    $(".modal-body #yes-btn").attr('data-params', $(this).data('params'));
+    $("#yes-btn").attr("href", "/"+$('#namespace').val()+"/products/disable_yavolo");
   });
 
   // on product form submit event

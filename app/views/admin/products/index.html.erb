@@ -244,7 +244,9 @@
                         <td>
                             <div class="row-actions">
                                 <% unless product.yavolo_enabled %>
-                                <%= link_to 'Enable Yavolo',"#", class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr btn-danger enable-yavolo-btn',data: {toggle: 'modal', target: "#customConfirmModal", params: "product[ids][]=#{product.id}" }, id: "pro-enyavolo-btn-#{product.id}" %>
+                                <%= link_to 'Enable Yavolo',"#", class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr btn-danger enable-yavolo-btn yavolo-btn',data: {toggle: 'modal', target: "#customConfirmModal", params: "product[ids][]=#{product.id}" }, id: "pro-enyavolo-btn-#{product.id}" %>
+                                <% else %>
+                                <%= link_to 'Disable Yavolo',"#", class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr btn-danger disable-yavolo-btn yavolo-btn',data: {toggle: 'modal', target: "#customConfirmModal", params: "product[ids][]=#{product.id}" }, id: "pro-disableyavolo-btn-#{product.id}" %>
                                 <% end %>
                                 <%=link_to 'Edit', edit_admin_product_path(product), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100' %>
                                 <%=link_to 'Duplicate', new_admin_product_path(dup_product_id: product.id), class: 'btn btn-sm btn-radius px-4 btn-secondary w-100' %>
