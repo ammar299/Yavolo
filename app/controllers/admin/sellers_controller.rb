@@ -1,5 +1,5 @@
 class Admin::SellersController < Admin::BaseController
-    before_action :set_seller, only: %i[show edit update update_business_representative update_company_detail update_addresses update_seller_logo remove_logo_image confirm_update_seller update_seller new_seller_api create_seller_api confirm_update_seller_api change_seller_api_eligibility holiday_mode, change_lock_status]
+    before_action :set_seller, only: %i[show edit update update_business_representative update_company_detail update_addresses update_seller_logo remove_logo_image confirm_update_seller update_seller new_seller_api create_seller_api confirm_update_seller_api change_seller_api_eligibility holiday_mode change_lock_status]
 
     def index
       @q = Seller.ransack(params[:q])
