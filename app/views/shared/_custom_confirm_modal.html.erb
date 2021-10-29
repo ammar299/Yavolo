@@ -12,7 +12,7 @@
           <p class="pb-4 confirmation-text">Are you sure about to mark it yavolo enabled?</p>
           <div class="carrier-btn text-right">
             <%= link_to "No", "javascript:void(0)",'data-dismiss': "modal", class: 'btn btn-sm btn-radius px-4 btn-primary mt-2' %>
-            <%= link_to "Yes", enable_yavolo_sellers_products_path,data: { 
+            <%= link_to "Yes", request_path,data: { 
               disable_with: "Updating...", remote: true, method: :post 
             },id: 'yes-btn', class: 'btn btn-sm btn-radius px-4 btn-primary mt-2 ml-2'  %>
           </div>

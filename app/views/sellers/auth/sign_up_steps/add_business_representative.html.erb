@@ -41,7 +41,7 @@
             <% has_error, msg = get_errors(form, "business_representative.date_of_birth") %>
             <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= br.label :date_of_birth, 'Date of Birth*' %>
-              <%= br.text_field :date_of_birth, autofocus: true, autocomplete: "date_of_birth", class: "form-control datepicker", id: "", placeholder: "Date of Birth", required: true %>
+              <%= br.text_field :date_of_birth, autofocus: true, autocomplete: "date_of_birth", class: "form-control datepicker", id: "", placeholder: "DD/MM/YY", required: true %>
               <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
             <%= br.submit "Continue", class: 'btn btn-primary btn-lg btn-block mb-4' %>

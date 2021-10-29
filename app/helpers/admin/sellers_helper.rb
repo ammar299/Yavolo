@@ -38,18 +38,6 @@ module Admin::SellersHelper
     Seller.account_statuses.select {|status| status != "pending" && status != "rejected" }
   end
 
-  def seller_api_status(seller_api, status_type)
-    if seller_api.status.present?
-      if seller_api.status == status_type
-        true
-      else
-        false
-      end
-    elsif status_type == 'enable'
-      true
-    end
-  end
-
   def is_eligible?(seller)
     invoice_address = seller.addresses.select do |address| address.address_type == 'invoice_address' end
     return_address = seller.addresses.select do |address| address.address_type == 'return_address' end
@@ -58,6 +46,14 @@ module Admin::SellersHelper
       return true
     else
       return false
+    end
+  end
+
+  def connection_manager_actions_to_show(seller_api)
+    if seller_api.status == 'disable'
+       return ['enable']
+    elsif seller_api.status == 'enable'
+      return ['renew','disable']
     end
   end
 

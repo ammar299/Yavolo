@@ -1,3 +1,4 @@
+/*
 @font-face {
     font-family: 'buenos_airesblack';
     src: asset-url('fonts/buenosaires-black-webfont.woff2') format('woff2'),
@@ -54,6 +55,53 @@
     font-style: normal;
 
 }
+*/
+
+
+@font-face {
+font-family:'BuenosAires';
+src: url('fonts/BuenosAiresWeb-Black.woff2') format('woff2'),
+     url('fonts/BuenosAiresWeb-Black.woff') format('woff');
+font-weight: 800;
+font-style: normal;
+}
+
+
+
+@font-face {
+font-family:'BuenosAires';
+src: url('fonts/BuenosAiresWeb-Bold.woff2') format('woff2'),
+     url('fonts/BuenosAiresWeb-Bold.woff') format('woff');
+font-weight: 700;
+font-style: normal;
+}
+
+@font-face {
+font-family:'BuenosAires';
+src: url('fonts/BuenosAiresWeb-Light.woff2') format('woff2'),
+     url('fonts/BuenosAiresWeb-Light.woff') format('woff');
+font-weight: 200;
+font-style: normal;
+}
+
+
+
+@font-face {
+font-family:'BuenosAires';
+src: url('fonts/BuenosAiresWeb-Regular.woff2') format('woff2'),
+     url('fonts/BuenosAiresWeb-Regular.woff') format('woff');
+font-weight: 400;
+font-style: normal;
+}
+
+@font-face {
+font-family:'BuenosAires';
+src: url('fonts/BuenosAiresWeb-SemiBold.woff2') format('woff2'),
+     url('fonts/BuenosAiresWeb-SemiBold.woff') format('woff');
+font-weight: 600;
+font-style: normal;
+}
+
 
 /*===============================================================*/
 @font-face {
@@ -67,3 +115,52 @@
 	font-style: normal;
 	font-display: block;
   }
+
+
+
+
+
+@font-face {
+font-family:'BuenosAires';
+src: url(asset-path('BuenosAiresWeb-Black.woff2')) format('woff2'),
+     url(asset-path('BuenosAiresWeb-Black.woff')) format('woff');
+font-weight: 800;
+font-style: normal;
+}
+
+
+
+@font-face {
+font-family:'BuenosAires';
+src: url(asset-path('BuenosAiresWeb-Bold.woff2')) format('woff2'),
+     url(asset-path('BuenosAiresWeb-Bold.woff')) format('woff');
+font-weight: 700;
+font-style: normal;
+}
+
+@font-face {
+font-family:'BuenosAires';
+src: url(asset-path('BuenosAiresWeb-Light.woff2')) format('woff2'),
+     url(asset-path('BuenosAiresWeb-Light.woff')) format('woff');
+font-weight: 200;
+font-style: normal;
+}
+
+
+
+@font-face {
+font-family:'BuenosAires';
+src: url(asset-path('BuenosAiresWeb-Regular.woff2')) format('woff2'),
+     url(asset-path('BuenosAiresWeb-Regular.woff')) format('woff');
+font-weight: 400;
+font-style: normal;
+}
+
+@font-face {
+font-family:'BuenosAires';
+src: url(asset-path('BuenosAiresWeb-SemiBold.woff2')) format('woff2'),
+     url(asset-path('BuenosAiresWeb-SemiBold.woff')) format('woff');
+font-weight: 600;
+font-style: normal;
+}
+

@@ -25,6 +25,7 @@ Rails.application.routes.draw do
           collection do
             get :update_multiple
             get :confirm_multi_update
+            get :search
           end
           member do
             patch :update_business_representative
@@ -34,10 +35,14 @@ Rails.application.routes.draw do
             delete :remove_logo_image
             get :confirm_update_seller
             patch :update_seller
-            get :confirm_refresh_api
+            get :new_seller_api
+            post :create_seller_api
+            get :confirm_update_seller_api
+            patch :update_seller_api
+            get :confirm_change_seller_api_eligibility
+            patch :change_seller_api_eligibility
           end
           post :update_seller_api
-          post :refresh_seller_api
           patch :update_seller_api
         end
 
@@ -53,6 +58,7 @@ Rails.application.routes.draw do
           collection do
             get :search_category
             delete :category_products_delete_multiple
+            get :manage_category_linking_filter
           end
         end
 
@@ -77,6 +83,8 @@ Rails.application.routes.draw do
             get :duplicate
             post :upload_csv
             get :export_csv
+            post :bulk_products_update
+            post :enable_yavolo
           end
         end
 
@@ -114,6 +122,9 @@ Rails.application.routes.draw do
           resources :sign_up_steps
         end
         resources :profiles do
+          collection do
+            post :manage_returns_and_terms
+          end
           member do
             patch :update_business_representative
             patch :update_company_detail
@@ -126,8 +137,10 @@ Rails.application.routes.draw do
             delete :destroy_delivery_template
           end
           post :update_seller_api
-          post :refresh_seller_api
           patch :update_seller_api
+        end
+        resource :connection_manager do
+          get :confirm_update
         end
         root to: 'dashboard#index', as: :seller_authenticated_root
 
@@ -139,6 +152,9 @@ Rails.application.routes.draw do
             post :enable_yavolo
             post :disable_yavolo
             post :bulk_products_update
+          end
+          member do
+            post :update_field
           end
         end
 

@@ -2,9 +2,10 @@
   <section class="connection-manager">
     <div class="d-flex justify-content-between flex-wrap align-items-center mb-2">
       <div>
-        <h5 class="mb-0">About You</h5>
+        <h5 class="mb-0">Manage Your Connections</h5>
       </div>
-      <div> <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mb-1">Primary</a>
+      <div>
+        <%= link_to 'Add New Developer', new_sellers_connection_manager_path(id: @seller.id), class: 'btn btn-sm btn-radius px-4 btn-primary mb-1', remote: true %>
       </div>
     </div>
     <div class="Yavolo-table">
@@ -20,147 +21,8 @@
             <th class="text-center" width="5%">actions</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>xyz100</td>
-            <td>1000</td>
-            <td>monthly membership</td>
-            <td>12/12/21</td>
-            <td>12/12/21</td>
-            <td>
-              <a href="">
-                <u> View</u>
-              </a>
-            </td>
-            <td class="text-center">
-              <div class="text-center">
-                <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100">Edit</a>
-              </div>
-              <div class="text-center">
-                <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100">Edit</a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>xyz100</td>
-            <td>1000</td>
-            <td>monthly membership</td>
-            <td>12/12/21</td>
-            <td>12/12/21</td>
-            <td>
-              <a href="">
-                <u> View</u>
-              </a>
-            </td>
-            <td class="text-center">
-              <div class="text-center">
-                <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100">Edit</a>
-              </div>
-              <div class="text-center">
-                <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100">Edit</a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>xyz100</td>
-            <td>1000</td>
-            <td>monthly membership</td>
-            <td>12/12/21</td>
-            <td>12/12/21</td>
-            <td>
-              <a href="">
-                <u> View</u>
-              </a>
-            </td>
-            <td class="text-center">
-              <div class="text-center">
-                <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100">Edit</a>
-              </div>
-              <div class="text-center">
-                <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100">Edit</a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>xyz100</td>
-            <td>1000</td>
-            <td>monthly membership</td>
-            <td>12/12/21</td>
-            <td>12/12/21</td>
-            <td>
-              <a href="">
-                <u> View</u>
-              </a>
-            </td>
-            <td class="text-center">
-              <div class="text-center">
-                <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100">Edit</a>
-              </div>
-              <div class="text-center">
-                <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100">Edit</a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>xyz100</td>
-            <td>1000</td>
-            <td>monthly membership</td>
-            <td>12/12/21</td>
-            <td>12/12/21</td>
-            <td>
-              <a href="">
-                <u> View</u>
-              </a>
-            </td>
-            <td class="text-center">
-              <div class="text-center">
-                <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100">Edit</a>
-              </div>
-              <div class="text-center">
-                <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100">Edit</a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>xyz100</td>
-            <td>1000</td>
-            <td>monthly membership</td>
-            <td>12/12/21</td>
-            <td>12/12/21</td>
-            <td>
-              <a href="">
-                <u> View</u>
-              </a>
-            </td>
-            <td class="text-center">
-              <div class="text-center">
-                <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100">Edit</a>
-              </div>
-              <div class="text-center">
-                <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100">Edit</a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>xyz100</td>
-            <td>1000</td>
-            <td>monthly membership</td>
-            <td>12/12/21</td>
-            <td>12/12/21</td>
-            <td>
-              <a href="">
-                <u> View</u>
-              </a>
-            </td>
-            <td class="text-center">
-              <div class="text-center">
-                <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100">Remove</a>
-              </div>
-              <div class="text-center">
-                <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100">Disable</a>
-              </div>
-            </td>
-          </tr>
+        <tbody class="connection-manager-table-body">
+          <%= render 'shared/sellers/connection_manager_seller_apis', seller_apis: @seller_apis %>
         </tbody>
       </table>
     </div>

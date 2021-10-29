@@ -13,12 +13,7 @@ class Sellers::ProfilesController < Sellers::BaseController
     @delivery_options = current_seller.delivery_options
     @remaining_addresses = Address.address_types.keys - @seller.addresses.collect(&:address_type)
     @remaining_addresses.each do |address_type| @seller.addresses.build address_type: address_type end if @remaining_addresses.present?
-    # this unless has nothing to do with if
-    unless @seller.seller_api
-      @seller_api = @seller.build_seller_api
-    else
-      @seller_api = @seller.seller_api
-    end
+    @seller_apis = @seller.seller_apis
   end
 
   def search_delivery_options
@@ -54,43 +49,22 @@ class Sellers::ProfilesController < Sellers::BaseController
   def update_addresses
     @seller.update(seller_params)
     @address_type = params[:seller][:addresses_attributes]["0"][:address_type]
-    @address = @seller.addresses.where(address_type: @address_type).last
-    unless @seller.seller_api
-      @seller_api = @seller.build_seller_api
-    else
-      @seller_api = @seller.seller_api
-    end
-  end
-
-
-  def update_seller_api
-    random_token = SecureRandom.hex(30)
-    @seller = Seller.find(params[:profile_id])
-    params[:seller_api][:status] = params[:seller_api][:status].to_i
-    if @seller.seller_api.present?
-      @seller_api = @seller.seller_api
-    else
-      @seller_api = @seller.build_seller_api
-    end
-    unless @seller_api.api_token
-      @seller_api.api_token = random_token
-    end
-    @seller_api.name = params[:seller_api][:name]
-    @seller_api.status = params[:seller_api][:status]
-    @seller_api.save
-  end
-
-  def refresh_seller_api
-    random_token = SecureRandom.hex(30)
-    @seller_api = SellerApi.find(params[:seller_api])
-    @seller = @seller_api.seller
-    @seller_api.api_token = random_token
-    @seller_api.save
+    @address = @seller.addresses.where(address_type: @address_type).last  
   end
 
   def destroy_delivery_template
     @delivery_option.destroy
     @delivery_options = current_seller.delivery_options
+  end
+
+  def manage_returns_and_terms
+    if current_seller.return_and_term.present?
+      current_seller.return_and_term.update(returns_and_terms_params)
+      flash.now[:notice] = 'Return and Term has been updated successfully!'
+    else
+      current_seller.create_return_and_term(returns_and_terms_params)
+      flash.now[:success] = 'Return and Term has been created successfully!'
+    end
   end
 
   private
@@ -103,6 +77,11 @@ class Sellers::ProfilesController < Sellers::BaseController
         picture_attributes: ["name", "@original_filename", "@content_type", "@headers", "_destroy", "id"],
       )
   end
+
+  def returns_and_terms_params
+    params.require(:return_and_term).permit(:duration, :email_format, :authorisation_and_prepaid, :instructions)
+  end
+
   def set_seller
     @seller = Seller.includes([ :business_representative, :company_detail, :addresses ]).find(params[:id])
   end

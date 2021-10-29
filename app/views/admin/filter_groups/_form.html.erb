@@ -27,15 +27,17 @@
       </div>
     </div>
   </div>
-  <div id="global-check" style="display:<%= f.object.local? ? "block" : "none"  %>">
-    <h6><strong>Add Catagory Which Show Filter Group</strong></h6>
-    <%= f.fields_for :filter_categories do |filter_category| %>
-    <%= render 'filter_category_fields', :f => filter_category %>
-    <% end %>
-    <div class="state-content links">
-      <%= link_to_add_association f, :filter_categories do  %>
-      <span> <i class="pl-3 pluse-btn">+</i></span>
+  <div class="plus-btn-category-name" id="global-check" style="display:<%= f.object.local? ? "block" : "none"  %>">
+    <h6><strong>Add Categories Which Show Filter Group</strong></h6>
+    <div class="d-flex flex-column position-relative pluse-aa">
+      <%= f.fields_for :filter_categories do |filter_category| %>
+      <%= render 'filter_category_fields', :f => filter_category %>
       <% end %>
+      <div class="state-content links">
+        <%= link_to_add_association f, :filter_categories do  %>
+        <span> <i class="pl-3 pluse-btn">+</i></span>
+        <% end %>
+      </div>
     </div>
   </div>
 

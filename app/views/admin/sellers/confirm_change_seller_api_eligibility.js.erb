@@ -1,0 +1,7 @@
+<% if params[:came_from] == 'connection_manager' %>
+$("#seller-api-actions").html("<%= j render(partial: 'admin/sellers/change_seller_api_eligibility', locals: { id: @seller, param_to_update: "true" }) %>");
+$('#seller-api-modal').modal('show');
+<% else %>
+$("#seller-actions").html("<%= j render(partial: 'admin/sellers/change_seller_api_eligibility', locals: { id: @seller, param_to_update: "true" }) %>");
+$('#confirm-seller-actions-modal').modal('show');
+<% end %>

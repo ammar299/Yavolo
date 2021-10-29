@@ -1,5 +1,5 @@
 <div class="pricing-quality box-border yo-white-card">
-  <%= simple_form_for delivery_option, url: url,  data: { remote: true } do |f| %>
+  <%= simple_form_for delivery_option, url: url, data: { remote: true }, html: { id: :delivery_option_form } do |f| %>
     <%= render '/shared/admin/delivery_option_errors', delivery_option: @delivery_option %>
     <div class="form-group form-group-vertical flex-wrap">
       <%= f.label :name, 'Delivery Option Name', class: 'text-left pr-3 w-100' %>
@@ -16,13 +16,13 @@
       <div class="col-md-6">
         <div class="form-group form-group-vertical flex-wrap">
           <%= f.label :processing_time, 'Processing time*', class: 'text-left pr-3 w-100' %>
-          <%= f.select :processing_time, select_processing_time, { prompt: 'how long will each order take to process?' }, required: true, class: 'form-control' %>
+          <%= f.select :processing_time, select_processing_time, { prompt: 'how long will each order take to process?' }, class: 'form-control' %>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group form-group-vertical flex-wrap">
           <%= f.label :delivery_time, 'Delivery time*', class: 'text-left pr-3 w-100' %>
-          <%= f.select :delivery_time, select_delivery_time, { prompt: 'how long will each order take to deliver?' }, required: true, class: 'form-control' %>
+          <%= f.select :delivery_time, select_delivery_time, { prompt: 'how long will each order take to deliver?' }, class: 'form-control' %>
         </div>
       </div>
     </div>
@@ -39,7 +39,7 @@
               <span class="checkmark"></span>
               <%= b.label %>
             </label>
-            <%= text_field_tag 'ship_price[]', b.value == 1? 40.00 : delivery_ship_price(@delivery_option.id, b.value), readonly: (b.value == 1), class: 'field-me' %>
+            <%= text_field_tag 'ship_price[]', b.value == 1? 40.00 : delivery_ship_price(@delivery_option.id, b.value), readonly: (b.value == 1), class: 'field-me form-control' %>
           </div>
         <% end %>
       </div>

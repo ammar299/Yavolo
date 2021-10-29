@@ -1,0 +1,6 @@
+<% array_of_actions = connection_manager_actions_to_show(seller_api) %>
+<% if array_of_actions.present? %>
+  <% array_of_actions.each do |action| %>
+    <%= link_to "#{action.humanize}", confirm_update_sellers_connection_manager_path(seller_api_id: seller_api.id, param_to_update: "#{action}"), remote: true, class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1 current-action', id: "#{seller_api.id}-#{action}" %>
+  <% end %>
+<% end %>

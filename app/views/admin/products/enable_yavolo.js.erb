@@ -1,0 +1,4 @@
+<% if @products.present? %>
+$("<%=@products.map{|p| "#pro-enyavolo-btn-#{p.id}"}.join(",")%>").remove();
+<% end %>
+$("#customConfirmModal").modal('hide');

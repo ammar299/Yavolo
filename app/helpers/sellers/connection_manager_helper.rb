@@ -1,0 +1,2 @@
+module Sellers::ConnectionManagerHelper
+end

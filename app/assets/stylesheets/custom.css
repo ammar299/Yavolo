@@ -21,6 +21,16 @@
   border-bottom-right-radius: 12px !important;
 }
 
+.mainlang-list .field-me {
+    border: 2px solid #640529 !important;
+    border-radius: 16px;
+    background-color: transparent;
+    width: 100px;
+    padding: 6px 20px 2px 20px;
+    color: #640529;
+    outline: none !important;
+}
+
 .error-field
   .ck-rounded-corners
   .ck.ck-editor__top
@@ -115,6 +125,7 @@
 .pluse-btn {
   background-color: transparent;
   border: 0;
+  text-decoration: none !important;
 }
 
 .checkbox-blk-box.checkbox-blk .checkmark:after {
@@ -231,7 +242,7 @@
   top: 0;
   right: 0;
   left: 280px;
-  z-index: 555;
+  z-index: 55555;
   transition: .3s linear;
   background-color: #fdf8f3;
 }
@@ -254,21 +265,27 @@
 
 .admin-dashboard {
   padding-top: 82px !important;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.y-page-container {
+  flex: 1;
 }
 .alert,
 .notice {
   position: fixed;
   top: 0;
-  right: -350px;
+  right: -450px;
   z-index: 55555;
   background-color: var(--light-red);
   color: var(--red);
-  padding: 12px 0;
-  width: 348px;
+  padding: 12px;
+  width: 450px;
   margin: 5px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   border-radius: 35px;
   transition: .3s linear;
 }
@@ -342,9 +359,10 @@
   word-break: break-word;
   white-space: normal;
   font-size: 12px;
-  padding: 1px 12px 1px 18px !important;
+  padding: 3px 12px 3px 18px !important;
   justify-content: flex-start;
   transition: .3s linear;
+  line-height: 13px;
 }
 .dropdown-filter .dropdown-menu a svg {
     position: absolute;
@@ -358,7 +376,7 @@
 
 .Yavolo-table .checkbox-blk {
   margin-bottom: 0 !important;
-  min-height: 22px;
+  min-height: 20px;
 }
 .Yavolo-table table td .checkmark {
   top: 0 !important;
@@ -397,3 +415,138 @@
   top: 0;
 }
 
+/* hide number field spin buttons */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.search-field-flex small {
+    font-size: 10px;
+}
+.modal-header {
+    border-bottom: 0 !important;
+}
+
+.simple_form.new_filter_group .checkbox-blk {
+    padding-top: 3px;
+}
+.admin-header-left .dropdown-filter.show .dropdown-menu {
+    min-width: 200px !important;
+}
+
+.pluse-aa .state-content.links {
+  position: absolute;
+  right: 0;
+  top: 10px;
+}
+.pluse-aa .remove_fields {
+  position: absolute;
+  right: -15px;
+}
+
+
+.new_filter_group .error-field {
+  position: relative;
+  }
+  .new_filter_group .form-text {
+    position: absolute;
+      top: 37px;
+      left: 205px;
+  }
+  .new_filter_group .filter-type {
+    margin-top: 25px;
+  }
+  
+  .error-field .form-control {
+    border: 1px solid var(--red) !important;
+  }
+  
+  /* ------------------ */
+
+
+.error {
+  color: var(--red) !important;
+    font-size: 14px !important;
+    padding: 3px 5px !important;
+}
+
+
+.add-edit-product-photos {
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid-single-img {
+  height: 120px;
+  background-color: #ccc;
+  overflow: hidden;
+}
+
+.grid-single-img img {
+  height: 120px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.selectize-input {
+  border: 1px solid #D6D6D6 !important;
+  border-radius: 12px !important;
+  min-height: 38px !important;
+}
+.selectize-control.single .selectize-input.dropdown-active:after {
+  display: none;
+}
+.dropdown.dropdown-filter.mb-3.d-inline-flex {
+  margin-bottom: 0 !important;
+}
+.email-in-table {
+  word-break: break-all;
+  min-width: 100px;
+  display: flex;
+}
+.menu-icon {
+  display: none;
+  font-size: 18px !important;
+  text-decoration: none !important;
+}
+.dashboard-page .leftside.leftside-open {
+  left: 0;
+}
+.seller-api-token {
+  width: 100px;
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+  margin-right: 10px;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .dropdown.dropdown-filter.mb-3.d-inline-flex {
+    width: 100%;
+    justify-content: center;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .dashboard-page .leftside {
+    top: 80px;
+  }
+
+
+  .dashboard-page.toggle-close .rightside {
+    padding-left: 0 !important;
+  }
+  .menu-icon {
+    display: inline-block;
+  }
+}
+.custom-border{
+  border: 1px solid red !important;
+}
+.product-bb-cat small.form-text{
+  color: red !important;
+}

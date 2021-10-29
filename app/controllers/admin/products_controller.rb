@@ -1,24 +1,11 @@
 class Admin::ProductsController < Admin::BaseController
+  include SharedProductMethods
   def index
     @q = Product.ransack(params[:q])
-    if params[:q].present? && params[:q][:price_low_high_cont].present?
-      @products = Product.where("price >= ?", params[:q][:price_low_high_cont].to_i).order("price asc")
-      @products= @products.page(params[:page]).per(params[:per_page].presence || 15)
-    elsif params[:q].present? &&  params[:q][:price_high_low_cont].present?
-      @products = Product.where("price <= ?", params[:q][:price_high_low_cont].to_i).order("price desc")
-      @products = @products.page(params[:page]).per(params[:per_page].presence || 15)
-    elsif params[:q].present? &&  params[:q][:title_a_z_cont].present?
-      @products = Product.order("title asc")
-      @products = @products.page(params[:page]).per(params[:per_page].presence || 15)
-    elsif params[:q].present? &&  params[:q][:title_a_z_cont].present?
-      @products = Product.order("title desc")
-      @products = @products.page(params[:page]).per(params[:per_page].presence || 15)
-    else
-      @q = Product.ransack(params[:q])
-      @products = @q.result(distinct: true).page(params[:page]).per(params[:per_page].presence || 15)
-    end
-    # @products = Product.order(:title).page(params[:page]).per(params[:per_page].presence || 15)
-    @products =  Product.where(status: params[:filter_by].to_i).page(params[:page]).per(params[:per_page].presence || 15) if params[:filter_by].present?
+    query = @q.result(distinct: true)
+    @products = query.where(owner_type: current_admin.class.name)
+    @products = @products.where(status: params[:filter_by].to_i) if params[:filter_by].present?
+    @products = @products.page(params[:page]).per(params[:per_page].presence || 15)
   end
 
   def new
@@ -40,6 +27,11 @@ class Admin::ProductsController < Admin::BaseController
     end
 
     if @product.save
+      if params[:seller_id].present?
+        @product.owner_id = params[:seller_id].to_i
+        @product.owner_type = 'Seller'
+        @product.save
+      end
       save_product_images_from_remote_urls(@product) if params[:dup_product_id].present?
       redirect_to edit_admin_product_path(@product), notice: 'Product was successfully created.'
     else
@@ -70,6 +62,11 @@ class Admin::ProductsController < Admin::BaseController
     end
 
     if @product.update(product_params)
+      if params[:seller_id].present? 
+        @product.owner_id = params[:seller_id].to_i
+        @product.owner_type = 'Seller'
+        @product.save
+      end
       if images_to_delete_params.present?
         @product.pictures_attributes = images_to_delete_params
         @product.save
@@ -113,6 +110,10 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   private
+    def current_user
+      current_admin
+    end
+
     def product_params
       params.require(:product).permit(:owner_id,:owner_type,
       :title, :condition, :width, :depth, :height, :colour, :material, :brand, :keywords, :description, :price, :stock, :sku, :ean, :discount, :yavolo_enabled, :delivery_option_id,

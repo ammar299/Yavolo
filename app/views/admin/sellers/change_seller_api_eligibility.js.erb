@@ -1,0 +1,18 @@
+<% if params[:came_from].present? && params[:came_from] == 'connection_manager' %>
+  var text = $('#<%=@seller.id%>-eligibility').text();
+  text = text == 'Enable API creation' ? 'Disable API creation' : 'Enable API creation';
+  <% eligibility = @seller.eligible_to_create_api == true ? "Enabled" : "Disabled" %>
+  <% class_to_include = @seller.eligible_to_create_api == true ? "btn-danger" : "btn-success" %>
+  <% class_to_remove = @seller.eligible_to_create_api == true ? "btn-success" : "btn-danger" %>
+  $('#<%=@seller.id%>-eligibility').removeClass("<%= class_to_remove %>");
+  $('#<%=@seller.id%>-eligibility').addClass("<%= class_to_include %>");
+  $('#<%=@seller.id%>-eligibility').text(text);
+  $('#seller-api-modal').modal('hide');
+<% else %>
+  var text = $('#<%=@seller.id%>-eligibility').text();
+  text = text == 'Enable API creation' ? 'Disable API creation' : 'Enable API creation';
+  <% eligibility = @seller.eligible_to_create_api == true ? "Enabled" : "Disabled" %>
+  $('#<%=@seller.id%>-eligibility-status').text("<%= eligibility %>");
+  $('#<%=@seller.id%>-eligibility').text(text);
+  $('#confirm-seller-actions-modal').modal('hide');
+<% end %>

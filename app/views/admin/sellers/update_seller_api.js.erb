@@ -1,5 +1,6 @@
-<% unless @seller_api.errors.count > 0 %>
-$("#seller-edit-api").html("<%= j render 'shared/sellers/seller_api', seller_api: @seller_api %>");
-<% else %>
-  $('#api-error-message').html("<%= @seller_api.errors.full_messages.join('<br/>').html_safe %>");
-<% end %>
+$('#seller-api-<%= @seller_api.id %>').find("#developer-api-token #api-token").text("<%= @seller_api.api_token %>");
+$('#seller-api-<%= @seller_api.id %>').find("#seller-api-expiry-date").text("<%= @seller_api.expiry_date.strftime("%d/%m/%Y") %>");
+$('#seller-api-<%= @seller_api.id %>').find("#seller-api-developer-id").text("<%= @seller_api.developer_id %>");
+$('#seller-api-<%= @seller_api.id %>').find("#seller-api-status").text("<%= @seller_api.status %>");
+$("#seller-api-<%= @seller_api.id %> #seller-api-action-btns").html("<%= j render 'shared/sellers/connection_manager_actions', seller_api: @seller_api %>");
+$('#seller-api-modal').modal('hide');

@@ -12,7 +12,7 @@
 }
 body{
     margin: 0px;
-    font-family: 'buenos_airesregular';
+    font-family: 'BuenosAires';
     background-color: var(--bgWhite);
     color: var(--dark-red);
 }
@@ -34,7 +34,7 @@ img{
     max-width: 100%;
 }
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'buenos_airessemibold';
+    font-family: 'BuenosAires';
 }
 .dark-red-text {
     color: var(--dark-red) !important;
@@ -245,7 +245,7 @@ h4 {
 .form-control {
     border: 1px solid #D6D6D6;
     border-radius: 12px;
-    padding: 9px 15px 6px 15px;
+    padding: 9px 15px 9px 15px;
     height: 40px;
     color: var(--dark-red);
     font-size: 14px;
@@ -280,12 +280,15 @@ textarea.form-control {
 }
 .form-group-vertical label {
     min-width: 200px;
+    max-width: 200px;
     margin: 0;
     padding: 10px 0;
 }
-.category-products-form select,
-.ck.ck-toolbar,
-.ck.ck-editor__main>.ck-editor__editable:not(.ck-focused),
+
+
+.categories-main .category-products-form select,
+.categories-main .ck.ck-toolbar,
+.categories-main .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused),
 .form-group-vertical .bootstrap-tagsinput,
 .form-group-vertical .form-control {
     border: 1px solid var(--dark-red) !important;
@@ -380,8 +383,8 @@ textarea.form-control {
     position: absolute;
     top: 2px;
     left: 0;
-    height: 22px;
-    width: 22px;
+    height: 20px;
+    width: 20px;
     border: 2px solid var(--dark-red);
     border-radius: 4px;
 }
@@ -398,12 +401,12 @@ textarea.form-control {
     display: block;
 }
 .checkbox-blk .checkmark:after {
-    left: 6px;
-    top: 2px;
+    left: 5px;
+    top: 1px;
     width: 6px;
     height: 12px;
     border: solid white;
-    border-width: 0 3px 3px 0;
+    border-width: 0 2px 2px 0;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
@@ -599,6 +602,12 @@ textarea.form-control {
 }
 .modal-top-red-line .modal-content {
     border-top: 10px solid var(--defualt-red);
+}
+.modal {
+    z-index: 55556;
+}
+.modal-backdrop {
+    z-index: 55555;
 }
 
 /*Modal*/

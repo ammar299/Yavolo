@@ -132,7 +132,7 @@
             </div>
             <div class="form-group general-mrgn">
               <%= br.label :date_of_birth, 'Date of Birth' %>
-              <%= br.text_field :date_of_birth, placeholder: '0123456789', required: true, class: 'form-control datepicker', autocomplete: 'date_of_birth' %>
+              <%= br.text_field :date_of_birth, placeholder: 'DD/MM/YY', required: true, class: 'form-control datepicker', autocomplete: 'date_of_birth' %>
             </div>
           <% end %>
           <!-- Business Owner Address / Address with type business_representative_address -->
@@ -165,7 +165,7 @@
           <% end %>
           <div class="d-flex flex-wrap" style="overflow: hidden;">
             <div class="form-check mt-3">
-              <label class="check-container">I agree to
+              <label class="check-container checkbox-blk">I agree to
                 Yavolo’s <a href="" style="text-decoration:none;"><strong><u>Terms and Conditions</u></strong></a>
                 <%= form.check_box :terms_and_conditions, required: true %>
                 <!-- <input type="checkbox" > -->
@@ -173,7 +173,7 @@
               </label>
             </div>
             <div class="form-check mt-3 mb-3">
-              <label class="check-container">I’d like to receive the best deals via Email
+              <label class="check-container checkbox-blk">I’d like to receive the best deals via Email
                 <%= form.check_box :recieve_deals_via_email, required: true %>
                 <span class="checkmark"></span>
               </label>

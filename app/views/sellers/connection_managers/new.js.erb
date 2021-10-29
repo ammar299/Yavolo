@@ -1,0 +1,4 @@
+<% text = 'Authorize New Developer' %>
+$("#connection-manager-modal-title").html("<%= text %>");
+$("#connection-manager-actions").html("<%= j render(partial: 'shared/sellers/forms/seller_api_form', locals: { url: sellers_connection_manager_path, text: text }) %>");
+$('#connection-manager-modal').modal('show');

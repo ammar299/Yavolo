@@ -138,7 +138,7 @@ ActiveRecord::Schema.define(version: 2021_10_29_064002) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "seller_id"
     t.string "full_legal_name", default: ""
-    t.index ["email"], name: "index_business_representatives_on_email", unique: true
+    t.index ["email"], name: "index_business_representatives_on_email"
     t.index ["seller_id"], name: "index_business_representatives_on_seller_id"
   end
 
@@ -309,6 +309,13 @@ ActiveRecord::Schema.define(version: 2021_10_29_064002) do
     t.index ["product_id"], name: "index_google_shoppings_on_product_id"
   end
 
+  create_table "linking_filters", force: :cascade do |t|
+    t.integer "filter_in_category_id"
+    t.integer "category_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "meta_contents", force: :cascade do |t|
     t.string "title"
     t.text "keywords"
@@ -390,6 +397,17 @@ ActiveRecord::Schema.define(version: 2021_10_29_064002) do
     t.index ["yan"], name: "index_products_on_yan"
   end
 
+  create_table "return_and_terms", force: :cascade do |t|
+    t.integer "duration"
+    t.boolean "email_format", default: false
+    t.boolean "authorisation_and_prepaid", default: false
+    t.bigint "seller_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "instructions"
+    t.index ["seller_id"], name: "index_return_and_terms_on_seller_id"
+  end
+
   create_table "seller_apis", force: :cascade do |t|
     t.string "name"
     t.string "api_token"
@@ -397,6 +415,10 @@ ActiveRecord::Schema.define(version: 2021_10_29_064002) do
     t.bigint "seller_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "developer_name"
+    t.string "developer_id"
+    t.string "app_name"
+    t.datetime "expiry_date"
     t.index ["seller_id"], name: "index_seller_apis_on_seller_id"
   end
 
@@ -433,6 +455,7 @@ ActiveRecord::Schema.define(version: 2021_10_29_064002) do
     t.boolean "terms_and_conditions", default: false
     t.boolean "recieve_deals_via_email", default: false
     t.boolean "multistep_sign_up", default: true
+    t.boolean "eligible_to_create_api", default: false
     t.index ["email"], name: "index_sellers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_sellers_on_reset_password_token", unique: true
   end
@@ -495,5 +518,6 @@ ActiveRecord::Schema.define(version: 2021_10_29_064002) do
   add_foreign_key "delivery_option_ships", "delivery_options"
   add_foreign_key "delivery_option_ships", "ships"
   add_foreign_key "paypal_details", "sellers"
+  add_foreign_key "return_and_terms", "sellers"
   add_foreign_key "seller_apis", "sellers"
 end

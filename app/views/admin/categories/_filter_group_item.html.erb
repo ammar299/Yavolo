@@ -2,7 +2,7 @@
   <td><%= fg.name %></td>
   <td><%= fg.filter_group_type %></td>
   <td><%= fg.filter_in_categories.pluck(:filter_name).join(",") %></td>
-  <td>@mdo</td>
+  <td><%=  fg.filter_in_categories.pluck(:sort_order).join(',') %></td>
   <td class="text-center">
     <%= link_to "Remove", remove_filter_group_association_admin_category_path(@category, filter_group_id: fg.id), method: :delete,
                 data: {confirm: 'Are you sure?', remote: true}, class: "btn btn-sm btn-radius px-4 btn-secondary w-100" %>

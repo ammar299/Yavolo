@@ -1,0 +1,12 @@
+<p class="flash-toast notice notice-msg">
+  <%= notice %>
+  <span  class="notice-cross-icon" aria-hidden="true">&times;</span>
+</p>
+
+<script>
+  $(document).ready(function(){
+    setInterval(function(){
+      $('#flash-msg').find('p').remove();
+    }, 5000);
+  });
+</script>
