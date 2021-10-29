@@ -1,4 +1,4 @@
-<div class="pricing-quality box-border">
+<div class="pricing-quality <%= delivery_form_class(params) %>">
   <%= simple_form_for delivery_option, url: url, data: { remote: true }, html: { id: :delivery_option_form } do |f| %>
     <%= render '/shared/admin/delivery_option_errors', delivery_option: @delivery_option %>
     <div class="form-group form-group-vertical flex-wrap">
