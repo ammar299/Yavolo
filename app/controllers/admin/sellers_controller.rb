@@ -1,5 +1,5 @@
 class Admin::SellersController < Admin::BaseController
-    before_action :set_seller, only: %i[show edit update update_business_representative update_company_detail update_addresses update_seller_logo remove_logo_image confirm_update_seller update_seller new_seller_api create_seller_api confirm_update_seller_api change_seller_api_eligibility holiday_mode change_lock_status]
+    before_action :set_seller, only: %i[show edit update update_business_representative update_company_detail update_addresses update_seller_logo remove_logo_image confirm_update_seller update_seller new_seller_api create_seller_api confirm_update_seller_api change_seller_api_eligibility holiday_mode change_lock_status  confirm_reset_password_token reset_password_token]
 
     def index
       @q = Seller.ransack(params[:q])
@@ -140,6 +140,15 @@ class Admin::SellersController < Admin::BaseController
       if @all_sellers.size > 100
         csv = @all_sellers.to_csv
         AdminMailer.export_sellers_email(csv).deliver!
+      end
+    end
+
+    def reset_password_token
+      raw, hashed = Devise.token_generator.generate(Seller, :reset_password_token)
+      @seller.reset_password_token = hashed
+      @seller.reset_password_sent_at = Time.now.utc
+      if @seller.save
+        Devise::Mailer.reset_password_instructions(@seller, raw).deliver_now
       end
     end
 

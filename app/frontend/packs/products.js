@@ -664,9 +664,9 @@ function setSellerSearchMenuAndQueryName(){
     $('.seller-products-filters a').removeClass('active');
     $(this).addClass('active')
     $('.current-search-filter').html(currentFilter+' <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>');
-    if(currentFilter=='Product Title'){
+    if(currentFilter=='Product Title A to Z'){
       searchField.attr('name', 'q[title_cont]');
-      filterType.val('Product Title');
+      filterType.val('Product Title A to Z');
     }else if(currentFilter=='Brand'){
       searchField.attr('name', 'q[brand_cont]');
       filterType.val('Brand');

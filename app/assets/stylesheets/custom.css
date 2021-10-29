@@ -22,13 +22,13 @@
 }
 
 .mainlang-list .field-me {
-    border: 2px solid #640529 !important;
-    border-radius: 16px;
-    background-color: transparent;
-    width: 100px;
-    padding: 6px 20px 2px 20px;
-    color: #640529;
-    outline: none !important;
+  border: 2px solid #640529 !important;
+  border-radius: 16px;
+  background-color: transparent;
+  width: 100px;
+  padding: 6px 20px 2px 20px;
+  color: #640529;
+  outline: none !important;
 }
 
 .error-field
@@ -243,7 +243,7 @@
   right: 0;
   left: 280px;
   z-index: 55555;
-  transition: .3s linear;
+  transition: 0.3s linear;
   background-color: #fdf8f3;
 }
 .toggle-close .admin-header {
@@ -258,7 +258,7 @@
 }
 
 .progress-bar-inner {
-  height:10px;
+  height: 10px;
   width: 25%;
   background-color: var(--red);
 }
@@ -287,13 +287,13 @@
   align-items: center;
   justify-content: space-between;
   border-radius: 35px;
-  transition: .3s linear;
+  transition: 0.3s linear;
 }
 .notice-msg,
 .alert-msg {
   right: 0;
 }
-.notice-msg span ,
+.notice-msg span,
 .alert-msg span {
   font-size: 21px;
   line-height: 21px;
@@ -303,12 +303,12 @@
   cursor: pointer;
 }
 .badge-info {
-    background-color: var(--light-red) !important;
-    color: var(--red) !important;
-    border-radius: 20px;
-    padding-top: 3px !important;
-    padding-bottom: 6px !important;
-    padding-left: 10px !important;
+  background-color: var(--light-red) !important;
+  color: var(--red) !important;
+  border-radius: 20px;
+  padding-top: 3px !important;
+  padding-bottom: 6px !important;
+  padding-left: 10px !important;
 }
 .bootstrap-tagsinput .badge [data-role="remove"]:after {
   background-color: transparent !important;
@@ -320,18 +320,19 @@
   cursor: pointer;
 }
 
-
 .admin-login .form-control::placeholder {
-    color: #aaa !important;
-    opacity: 1; /* Firefox */
+  color: #aaa !important;
+  opacity: 1; /* Firefox */
 }
 
-.admin-login .form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: #aaa !important;
+.admin-login .form-control:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #aaa !important;
 }
 
-.admin-login .form-control::-ms-input-placeholder { /* Microsoft Edge */
-    color: #aaa !important;
+.admin-login .form-control::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #aaa !important;
 }
 
 .form-check {
@@ -343,12 +344,13 @@
 }
 
 .seller-products-filters .fa-check,
-.bulk-actions .fa-check{
+.bulk-actions .fa-check {
   display: none;
 }
 .seller-products-filters .dropdown-item.active .fa-check,
-.bulk-actions .dropdown-item.active .fa-check{
+.bulk-actions .dropdown-item.active .fa-check {
   display: block;
+  margin-left: 5px;
 }
 
 .dropdown-filter.show .dropdown-menu {
@@ -361,13 +363,13 @@
   font-size: 12px;
   padding: 3px 12px 3px 18px !important;
   justify-content: flex-start;
-  transition: .3s linear;
+  transition: 0.3s linear;
   line-height: 13px;
 }
 .dropdown-filter .dropdown-menu a svg {
-    position: absolute;
-    right: 10px;
-    transition: .3s linear;
+  position: absolute;
+  right: 10px;
+  transition: 0.3s linear;
 }
 .dropdown-filter-field .dropdown.show .product-search-dropdown svg,
 .dropdown-filter.show .btn-link-dropdown svg {
@@ -384,6 +386,9 @@
 .dropdown-filter-field .dropdown-item {
   font-size: 14px;
   padding: 2px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .Yavolo-table {
   overflow-x: auto;
@@ -423,17 +428,17 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 .search-field-flex small {
-    font-size: 10px;
+  font-size: 10px;
 }
 .modal-header {
-    border-bottom: 0 !important;
+  border-bottom: 0 !important;
 }
 
 .simple_form.new_filter_group .checkbox-blk {
-    padding-top: 3px;
+  padding-top: 3px;
 }
 .admin-header-left .dropdown-filter.show .dropdown-menu {
-    min-width: 200px !important;
+  min-width: 200px !important;
 }
 
 .pluse-aa .state-content.links {
@@ -446,32 +451,29 @@ input::-webkit-inner-spin-button {
   right: -15px;
 }
 
-
 .new_filter_group .error-field {
   position: relative;
-  }
-  .new_filter_group .form-text {
-    position: absolute;
-      top: 37px;
-      left: 205px;
-  }
-  .new_filter_group .filter-type {
-    margin-top: 25px;
-  }
-  
-  .error-field .form-control {
-    border: 1px solid var(--red) !important;
-  }
-  
-  /* ------------------ */
+}
+.new_filter_group .form-text {
+  position: absolute;
+  top: 37px;
+  left: 205px;
+}
+.new_filter_group .filter-type {
+  margin-top: 25px;
+}
 
+.error-field .form-control {
+  border: 1px solid var(--red) !important;
+}
+
+/* ------------------ */
 
 .error {
   color: var(--red) !important;
-    font-size: 14px !important;
-    padding: 3px 5px !important;
+  font-size: 14px !important;
+  padding: 3px 5px !important;
 }
-
 
 .add-edit-product-photos {
   min-height: 400px;
@@ -493,7 +495,7 @@ input::-webkit-inner-spin-button {
 }
 
 .selectize-input {
-  border: 1px solid #D6D6D6 !important;
+  border: 1px solid #d6d6d6 !important;
   border-radius: 12px !important;
   min-height: 38px !important;
 }
@@ -524,7 +526,6 @@ input::-webkit-inner-spin-button {
   margin-right: 10px;
 }
 
-
 @media only screen and (max-width: 600px) {
   .dropdown.dropdown-filter.mb-3.d-inline-flex {
     width: 100%;
@@ -536,7 +537,6 @@ input::-webkit-inner-spin-button {
     top: 80px;
   }
 
-
   .dashboard-page.toggle-close .rightside {
     padding-left: 0 !important;
   }
@@ -544,10 +544,10 @@ input::-webkit-inner-spin-button {
     display: inline-block;
   }
 }
-.custom-border{
+.custom-border {
   border: 1px solid red !important;
 }
-.product-bb-cat small.form-text{
+.product-bb-cat small.form-text {
   color: red !important;
 }
 .admin-header-right .dropdown-profile {
@@ -562,3 +562,12 @@ input::-webkit-inner-spin-button {
   padding: 20px 30px !important;
 }
 
+.seller-products-filters .dropdown-item.active {
+  color: var(--dark-red);
+}
+.seller-products-filters .dropdown-item {
+  background-color: var(--off-white) !important;
+}
+.seller-products-filters {
+  padding: 0 !important;
+}

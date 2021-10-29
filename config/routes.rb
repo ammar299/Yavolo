@@ -44,6 +44,8 @@ Rails.application.routes.draw do
             get :confirm_lock_status
             patch :change_lock_status
             patch :holiday_mode
+            get :confirm_reset_password_token
+            patch :reset_password_token
           end
           post :update_seller_api
           patch :update_seller_api
@@ -137,6 +139,8 @@ Rails.application.routes.draw do
             get :search_delivery_options
             delete :destroy_delivery_template
             patch :holiday_mode
+            get :confirm_reset_password_token
+            patch :reset_password_token
           end
           post :update_seller_api
           patch :update_seller_api

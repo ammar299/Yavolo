@@ -27,7 +27,7 @@ module Admin::ProductHelper
   end
 
   def set_product_filter_by_in_dropdown(params)
-    val = 'filter by'
+    val = 'Filter'
     product_status = Product.statuses.invert.as_json
     if (params[:filter_by] && product_status[params[:filter_by]]).present?
       val = product_status[params[:filter_by]].capitalize

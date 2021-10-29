@@ -16,14 +16,14 @@
             </div>
           <% end %>
           <!-- Seller Email -->
-          <h5 class="mt-4 mb-4">User</h5>
+          <h4 class="mt-4 mb-4">User</h4>
           
           <div class="form-group form-group-vertical form-group-vertical-responsive">
             <%= form.label :email, 'Email Address:' %>
             <%= form.email_field :email, placeholder: 'john.smith@example.co.uk', required: true, class: 'form-control' %>
           </div>
           <!-- Business Information Section / Company Details -->
-          <h5 class="mt-4 mb-4">Business Information</h5>
+          <h4 class="mt-4 mb-4">Business Information</h4>
           <%= form.simple_fields_for :company_detail do |cd| %>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
               <%= cd.label :name, 'Company Name:' %>
@@ -58,7 +58,7 @@
               <%= cd.url_field :amazon_url, placeholder: 'https://www.amazon.com/jgstore', required: true, class: 'form-control' %>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= cd.label :ebay_url, 'Ebay URL:' %>
+              <%= cd.label :ebay_url, 'eBay:', class: 'label-transform' %>
               <%= cd.url_field :ebay_url, placeholder: 'https://www.ebaytores.com/jgstore', required: true, class: 'form-control' %>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
@@ -78,7 +78,7 @@
           <%= form.simple_fields_for :addresses, (business_address) do |addr| %>
             <div class="row">
               <div class="col-md-6">
-                <div class="form-group form-group-vertical form-group-vertical-responsive">
+                <div class="form-group form-group-vertical form-group-vertical-responsive mb-lg-0">
                   <label for="">Registerd Business Address:</label>
                   <%= addr.hidden_field :address_type, value: Address.address_types.keys[Address.address_types["business_address"]], class: 'form-control' %>
                   <%= addr.text_field :address_line_1, placeholder: 'Address Line 1', required: true, class: 'form-control' %>
@@ -99,7 +99,7 @@
                 </div>
               </div>
               <div class="form-group form-group-vertical form-group-vertical-responsive col-md-3">
-                <%= addr.text_field :postal_code, placeholder: 'Postal Code', required: true, class: 'form-control' %>
+                <%= addr.text_field :postal_code, placeholder: 'Postcode', required: true, class: 'form-control' %>
               </div>
               <div class="form-group form-group-vertical form-group-vertical-responsive col-md-3">
                 <%= addr.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Country' }, required: true, class: 'form-control' %>
@@ -118,7 +118,7 @@
               <%= br.text_field :full_legal_name, placeholder: 'John Paul Smith', required: true, class: 'form-control' %>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= br.label :email, 'Business Representative Email Address:' %>
+              <%= br.label :email, 'Email:' %>
               <%= br.email_field :email, placeholder: 'john.smith@example.co.uk', required: true, class: 'form-control' %>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
@@ -127,7 +127,7 @@
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
               <%= br.label :date_of_birth, 'Date of Birth:' %>
-              <%= br.input_field :date_of_birth, placeholder: '0123456789', required: true, class: 'form-control datepicker', autocomplete: 'date_of_birth' %>
+              <%= br.text_field :date_of_birth, placeholder: 'DD/MM/YYYY', required: true, class: 'form-control datepicker', autocomplete: 'date_of_birth' %>
             </div>
           <% end %>
           <!-- Business Owner Address / Address with type business_representative_address -->
@@ -155,13 +155,13 @@
                 </div>
               </div>
               <div class="form-group form-group-vertical form-group-vertical-responsive col-md-3">
-                <%= addr.text_field :postal_code, placeholder: 'Postal Code', required: true, class: 'form-control' %>
+                <%= addr.text_field :postal_code, placeholder: 'Postcode', required: true, class: 'form-control' %>
               </div>
               <div class="form-group form-group-vertical form-group-vertical-responsive col-md-3">
                 <%= addr.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Country' }, required: true, class: 'form-control' %>
               </div>
             </div>
-            <div class="form-group form-group-vertical form-group-vertical-responsive">
+            <div class="form-group form-group-vertical form-group-vertical-responsive mb-lg-0">
               <%= addr.label :phone_number, 'Business Representative Phone Number:' %>
               <%= addr.text_field :phone_number, placeholder: '+13443453123', required: true, class: 'form-control' %>
             </div>

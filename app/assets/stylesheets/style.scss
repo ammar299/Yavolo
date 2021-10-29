@@ -15,6 +15,9 @@
   label {
 		text-transform: capitalize;
 	}
+	.label-transform {
+		text-transform: none;
+	}
   .icon-day-guarantee:before {
 	content: "\e900";
   }
