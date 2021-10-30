@@ -4,7 +4,8 @@ updatedProductIds.forEach(function(pid){
   if( $('#prod-id-'+pid).length > 0 ){
     let disableBtn = '<a class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr btn-danger disable-yavolo-btn yavolo-btn" data-toggle="modal" data-target="#customConfirmModal" data-params="product[ids][]='+pid+'" id="pro-disableyavolo-btn-'+pid+'" href="#">Disable Yavolo</a>';
     $('#pro-enyavolo-btn-'+pid).remove();
-    $('#prod-id-'+pid).find('.icon-manage-Yavolo').removeClass('yo-opacity');
+    $('#prod-id-'+pid).find('.icon-manage-Yavolo').removeClass('yo-opacity p-yavolo-disabled');
+    $('#prod-id-'+pid).find('.icon-manage-Yavolo').addClass('p-yavolo-enabled');
     $('#prod-id-'+pid).find('.row-actions').prepend(disableBtn);
   }
 });

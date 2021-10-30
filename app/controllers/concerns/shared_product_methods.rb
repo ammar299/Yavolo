@@ -18,7 +18,12 @@ module SharedProductMethods
 
       result = Product.where(id: product_ids).where(owner_conditions).update(update_hash) if action.present? && update_hash.present?
       result = Product.where(id: product_ids).where(owner_conditions).destroy_all if action=='delete'
-      render json: { notice: 'updated', update_ids: result.map(&:id), value: value, action: action }, status: :ok
+      result_errors = result.map{|p| p.errors.full_messages}.flatten
+      if result_errors.present?
+        render json: { errors: result_errors }, status: :unprocessable_entity
+      else
+        render json: { notice: 'updated', update_ids: result.map(&:id), value: value, action: action }, status: :ok
+      end
     else
       render json: { errors: ['invalid action or params are missing'] }, status: :unprocessable_entity
     end

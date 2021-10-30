@@ -214,23 +214,23 @@
                         <td>
                             <%=product.published_at.strftime("%d/%m/%Y") if product.published_at.present?%>
                         </td>
-                        <td class="stock-box"><%=product.stock %></td>
-                        <td class="price-box"><%=number_to_currency(product.price, unit: '£') %></td>
+                        <td class="stock-box"><%=product.stock.to_i %></td>
+                        <td class="price-box"><%=number_to_currency((number_with_precision(product.price, :precision => 2) || 0), unit: '£') %></td>
                         <td>300</td>
                         <td>300</td>
                         <td>
                             <% if product.yavolo_enabled %>
-                              <div class="d-flex">
-                                  <div>
-                                      <span class="icon-manage-Yavolo font-20px light-red"></span>
-                                  </div>
-                              </div>
+                                <div class="d-flex">
+                                    <div>
+                                        <span class="icon-manage-Yavolo font-20px light-red p-yavolo-enabled"></span>
+                                    </div>
+                                </div>
                             <% else %>
-                              <div class="d-flex">
-                                  <div>
-                                      <span class="icon-manage-Yavolo font-20px light-red yo-opacity"></span>
-                                  </div>
-                              </div>
+                                <div class="d-flex">
+                                    <div>
+                                        <span class="icon-manage-Yavolo font-20px light-red yo-opacity p-yavolo-disabled"></span>
+                                    </div>
+                                </div>
                             <% end %>
                         </td>
                         <td class="discount-box"><%= "#{product.discount}" %></td>

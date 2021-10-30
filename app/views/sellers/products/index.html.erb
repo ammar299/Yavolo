@@ -167,14 +167,14 @@
                                                     <p class="mb-0">Brand: <%=product.brand %></p>
                                                     <p class="mb-0">Condition: <%=product.condition.to_s.titleize %></p>
                                                 </td>
-                                                <td class="stock-box">
+                                                <td>
                                                     <div class="form-group">
                                                         <%=number_field_tag 'product_stock', product.stock.to_i, class: 'form-control p-1 stock-field editable', data: {pid: product.id, action: 'update_stock'}  %>
                                                     </div>
                                                 </td>
-                                                <td class="price-box">
+                                                <td>
                                                 <div class="form-group">
-                                                        <%=number_field_tag 'product_price', product.price.to_d, class: 'form-control p-1 price-field editable', data: {pid: product.id, action: 'update_price'} %>
+                                                        <%=number_field_tag 'product_price',(number_with_precision(product.price, :precision => 2) || 0), class: 'form-control p-1 price-field editable', data: {pid: product.id, action: 'update_price'} %>
                                                     </div>
                                                 </td>
 
@@ -182,18 +182,18 @@
                                                     <% if product.yavolo_enabled %>
                                                         <div class="d-flex">
                                                             <div>
-                                                                <span class="icon-manage-Yavolo font-20px light-red"></span>
+                                                                <span class="icon-manage-Yavolo font-20px light-red p-yavolo-enabled"></span>
                                                             </div>
                                                         </div>
                                                     <% else %>
                                                         <div class="d-flex">
                                                             <div>
-                                                                <span class="icon-manage-Yavolo font-20px light-red yo-opacity"></span>
+                                                                <span class="icon-manage-Yavolo font-20px light-red yo-opacity p-yavolo-disabled"></span>
                                                             </div>
                                                         </div>
                                                     <% end %>
                                                 </td>
-                                                <td class="discount-box">
+                                                <td>
                                                 <div class="form-group">
                                                         <%=number_field_tag 'product_discount', product.discount.to_d, class: 'form-control p-1 discount-field editable', data: {pid: product.id, action: 'update_discount'} %>
                                                     </div>

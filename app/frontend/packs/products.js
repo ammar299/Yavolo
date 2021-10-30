@@ -50,7 +50,6 @@ $(document).ready(function(){
         $('#bulk-update-form-modal').modal('show');
       }
     }else{
-      console.log('shown errors');
       showErrorsAlert(['You have not selected any products to update'])
     }
   })
@@ -90,6 +89,18 @@ $(document).ready(function(){
     e.preventDefault();
     $(".modal-body #yes-btn").attr('data-params', $(this).data('params'));
     $("#yes-btn").attr("href", "/"+$('#namespace').val()+"/products/disable_yavolo");
+  });
+
+  $(document).on('click','.p-yavolo-disabled',function(e){
+    e.preventDefault();
+    if($(this).parents('.prod-table-row').find('.enable-yavolo-btn').length > 0 )
+      $(this).parents('.prod-table-row').find('.enable-yavolo-btn').trigger('click');
+  });
+
+  $(document).on('click','.p-yavolo-enabled',function(e){
+    e.preventDefault();
+    if($(this).parents('.prod-table-row').find('.disable-yavolo-btn').length > 0 )
+      $(this).parents('.prod-table-row').find('.disable-yavolo-btn').trigger('click');
   });
 
   // on product form submit event
@@ -589,8 +600,10 @@ function validProductForm(){
 function updateBulkProducts(action){
   let productIds = []
   $('.prod-table-row input[type=checkbox]:checked').each(function(){ productIds.push($(this).val()) })
-  if(productIds.length==0)
+  if(productIds.length==0){
+    showErrorsAlert(['Error: param value is missing.']);
     return false;
+  }
 
   let dataParams = {action: action, product_ids: productIds}
   if(action =='update_price' || action =='update_stock' || action =='update_discount'){
@@ -625,20 +638,22 @@ function updateProductsDom(res){
     $(selectors).remove();
 
   if(action=='update_price'){
+    let price = parseFloat(res.value);
     if($('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.price-field').length > 0){
-      $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.price-field').val(res.value)
+      $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.price-field').val(price.toFixed(2))
     }
     if($('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.price-box').length > 0){
-      $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.price-box').html(res.value)
+      $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.price-box').html(price.toFixed(2))
     }
   }
 
   if(action=='update_stock'){
+    let stock = parseInt(res.value)
     if($('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.stock-field').length > 0){
-      $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.stock-field').val(res.value)
+      $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.stock-field').val(stock)
     }
     if($('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.stock-box').length > 0){
-      $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.stock-box').html(res.value)
+      $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.stock-box').html(stock)
     }
   }
 
@@ -654,24 +669,40 @@ function updateProductsDom(res){
   if(action=='activate')
     $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('td.product-status').html('Active')
 
-  if(action=='yavolo_enabled')
+  if(action=='yavolo_enabled'){
     $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.enable-yavolo-btn').remove();
+    $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').each(function(){
+      let pid = $(this).attr('id').split('-')[$(this).attr('id').split('-').length-1];
+      let disableBtn = '<a class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr btn-danger disable-yavolo-btn yavolo-btn" data-toggle="modal" data-target="#customConfirmModal" data-params="product[ids][]='+pid+'" id="pro-disableyavolo-btn-'+pid+'" href="#">Disable Yavolo</a>';
+      $(this).find('input[type=checkbox]').prop('checked',false).trigger('change');
+      $(this).find('.row-actions .enable-yavolo-btn').remove();
+      if($(this).find('.row-actions .disable-yavolo-btn').length == 0){
+        $(this).find('.row-actions').prepend(disableBtn);
+        $(this).find('.icon-manage-Yavolo').removeClass('yo-opacity p-yavolo-disabled');
+        $(this).find('.icon-manage-Yavolo').addClass('p-yavolo-enabled');
+      }
+    });
+  }
+
 
 
   if(action=='yavolo_disabled'){
     $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').each(function(){
       let pid = $(this).attr('id').split('-')[$(this).attr('id').split('-').length-1];
-      let yavoloBtn = '<a class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr btn-danger enable-yavolo-btn" data-toggle="modal" data-target="#customConfirmModal" data-params="product[ids][]='+pid+'" id="pro-enyavolo-btn-'+pid+'" href="#">Enable Yavolo</a>';
+      let enableBtn = '<a class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr btn-danger enable-yavolo-btn yavolo-btn" data-toggle="modal" data-target="#customConfirmModal" data-params="product[ids][]='+pid+'" id="pro-enyavolo-btn-'+pid+'" href="#">Enable Yavolo</a>';
       $(this).find('input[type=checkbox]').prop('checked',false).trigger('change');
-      if($(this).find('.row-actions .enable-yavolo-btn').length == 0)
-        $(this).find('.row-actions').prepend(yavoloBtn)
+      $(this).find('.row-actions .disable-yavolo-btn').remove();
+      if($(this).find('.row-actions .enable-yavolo-btn').length == 0){
+        $(this).find('.row-actions').prepend(enableBtn)
+        $(this).find('.icon-manage-Yavolo').addClass('yo-opacity p-yavolo-disabled');
+        $(this).find('.icon-manage-Yavolo').removeClass('p-yavolo-enabled');
+      }
     })
   }
   $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('input[type=checkbox]').prop('checked',false).trigger('change')
 }
 
 window.showSuccessAlert = function(msg){
-  console.log('shown success msg');
   $('.y-page-container').find('.alert').remove();
   let alertMsg = '<p class="flash-toast notice notice-msg">'+msg+'<span  class="notice-cross-icon" aria-hidden="true">&times;</span></p>'
   $('.y-page-container').prepend(alertMsg);
@@ -680,7 +711,6 @@ window.showSuccessAlert = function(msg){
   });
 }
 window.showErrorsAlert = function(errors){
-  console.log(errors);
   $('.y-page-container').find('.alert').remove();
   let alertErrors = '<div class="flash-toast alert alert-msg text-left"><ul>'+errors.map(e=>"<li>"+e+"</li>").join("")+'</ul><span class="notice-cross-icon" aria-hidden="true">&times;<span></div>';
   $('.y-page-container').prepend(alertErrors);
