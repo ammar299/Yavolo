@@ -7,6 +7,7 @@
     $("#seller-row-<%= @seller.id %> #seller-action-btns").html("<%= j render 'admin/sellers/seller_actions', seller: @seller %>");
   <% end %>
   $('#confirm-seller-actions-modal').modal('hide');
+  $('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
 <% else %>
   $('#error-message').html("<%= @seller.errors.full_messages.join('<br/>').html_safe %>");
 <% end %>

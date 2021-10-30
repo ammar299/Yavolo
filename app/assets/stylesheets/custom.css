@@ -278,7 +278,7 @@
   position: fixed;
   top: 0;
   right: -460px;
-  z-index: 55555;
+  z-index: 55556;
   background-color: var(--light-red);
   color: var(--red);
   padding: 12px;

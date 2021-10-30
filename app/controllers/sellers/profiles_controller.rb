@@ -27,33 +27,40 @@ class Sellers::ProfilesController < Sellers::BaseController
 
   def update
     @seller.update(seller_params)
-    redirect_to sellers_seller_authenticated_root_path
+    redirect_to sellers_seller_authenticated_root_path, flash: { notice: "Seller updated successfully" }
   end
 
   def update_business_representative
     @seller.update(seller_params)
+    flash.now[:notice] = 'Business Representative updated successfully!'
   end
 
   def update_company_detail
     @seller.update(seller_params)
+    flash.now[:notice] = 'Company Detail updated successfully!'
   end
 
   def update_seller_logo
     @seller.update(seller_params)
+    flash.now[:notice] = 'Seller Logo updated successfully!'
   end
     
   def remove_logo_image
     @seller.picture.destroy if @seller.picture.present?
+    flash.now[:alert] = 'Seller Logo removed successfully!'
   end
 
   def update_addresses
     @seller.update(seller_params)
     @address_type = params[:seller][:addresses_attributes]["0"][:address_type]
-    @address = @seller.addresses.where(address_type: @address_type).last  
+    @address = @seller.addresses.where(address_type: @address_type).last
+    flash.now[:notice] = "#{@address_type.humanize} updated successfully!"
   end
 
   def holiday_mode
     @seller.update(holiday_mode_params)
+    text = @seller.holiday_mode == true ? "Enabled holiday mode successfully" : "Disabled holiday mode successfully"
+    flash.now[:notice] = "#{text}"
   end
 
   def reset_password_token
@@ -62,12 +69,14 @@ class Sellers::ProfilesController < Sellers::BaseController
     @seller.reset_password_sent_at = Time.now.utc
     if @seller.save
       Devise::Mailer.reset_password_instructions(@seller, raw).deliver_now
+      flash.now[:notice] = "Reset password sent to your email successfully!"
     end
   end
 
   def destroy_delivery_template
     @delivery_option.destroy
     @delivery_options = current_seller.delivery_options
+    flash.now[:notice] = "Delivery template deleted successfully!"
   end
 
   def manage_returns_and_terms

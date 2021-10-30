@@ -7,15 +7,13 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application' %>
-    
   </head>
   <body>
     <div class="dashboard-page seller-layout">
       <%= render 'layouts/sellers/seller_sidebar' %>
       <div class="rightside">
         <div class="admin-dashboard">
-            <div id="flash-msg"></div>
-            <%= render 'layouts/sellers/seller_header' %>
+          <div id="flash-msg">
             <% if notice.present? %>
               <p class="flash-toast notice <%= notice.present? ? 'notice-msg' : ''%>">
                 <%= notice %>
@@ -28,12 +26,13 @@
                 <span class="notice-cross-icon" aria-hidden="true">&times;</span>
               </p>
             <% end %>
-            <%= yield %>
-            <%= render 'layouts/sellers/seller_footer' %>
+          </div>
+          <%= render 'layouts/sellers/seller_header' %>
+          <%= yield %>
+          <%= render 'layouts/sellers/seller_footer' %>
         </div>
       </div>
     </div>
     <%= javascript_pack_tag 'tagsinput' %>
   </body>
 </html>
-

@@ -12,6 +12,7 @@ class Sellers::ConnectionManagersController < Sellers::BaseController
      @seller_api.expiry_date = Date.today + 6.month
      @seller_api.status = 'enable'
      @seller_api.save
+     flash.now[:notice] = 'Seller API created successfully!'
   end
 
   def update
@@ -22,8 +23,10 @@ class Sellers::ConnectionManagersController < Sellers::BaseController
         @seller_api.developer_id = SecureRandom.hex(7)
         @seller_api.expiry_date = Date.today + 6.month
         @seller_api.save
+        flash.now[:notice] = 'Seller API renewed successfully!'
       else
         @seller_api.update(status: params[:field_to_update])
+        flash.now[:notice] = 'Seller API updated successfully!'
       end
     end
   end
