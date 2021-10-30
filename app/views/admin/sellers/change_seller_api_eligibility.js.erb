@@ -16,3 +16,4 @@
   $('#<%=@seller.id%>-eligibility').text(text);
   $('#confirm-seller-actions-modal').modal('hide');
 <% end %>
+$('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');

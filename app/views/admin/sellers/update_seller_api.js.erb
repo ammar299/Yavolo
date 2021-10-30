@@ -4,3 +4,4 @@ $('#seller-api-<%= @seller_api.id %>').find("#seller-api-developer-id").text("<%
 $('#seller-api-<%= @seller_api.id %>').find("#seller-api-status").text("<%= @seller_api.status %>");
 $("#seller-api-<%= @seller_api.id %> #seller-api-action-btns").html("<%= j render 'shared/sellers/connection_manager_actions', seller_api: @seller_api %>");
 $('#seller-api-modal').modal('hide');
+$('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');

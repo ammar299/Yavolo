@@ -22,7 +22,7 @@ class Admin::SellersController < Admin::BaseController
         @seller = Seller.new(seller_params)
         @seller.skip_password_validation = true
         if @seller.save
-          redirect_to admin_sellers_path
+          redirect_to admin_sellers_path, flash: { notice: "Seller has been saved" }
         else
           render :new
         end
@@ -33,33 +33,40 @@ class Admin::SellersController < Admin::BaseController
 
     def update_business_representative
       @seller.update(seller_params)
+      flash.now[:notice] = 'Business Representative updated successfully!'
     end
 
     def update_company_detail
       @seller.update(seller_params)
+      flash.now[:notice] = 'Company Detail updated successfully!'
     end
 
     def update_seller_logo
       @seller.update(seller_params)
+      flash.now[:notice] = 'Seller Logo updated successfully!'
     end
       
     def remove_logo_image
       @seller.picture.destroy if @seller.picture.present?
+      flash.now[:alert] = 'Seller Logo removed successfully!'
     end
     
     def update_addresses
       @seller.update(seller_params)
       @address_type = params[:seller][:addresses_attributes]["0"][:address_type]
       @address = @seller.addresses.where(address_type: @address_type).last
+      flash.now[:notice] = "#{@address_type.humanize} updated successfully!"
     end
 
     def update_seller
       if params[:field_to_update].present?
         if params[:field_to_update] == 'delete'
           @seller.destroy
+          flash.now[:alert] = 'Seller deleted successfully!'
         else
           @previous = @seller.account_status
           @seller.update(account_status: params[:field_to_update])
+          flash.now[:notice] = 'Seller updated successfully!'
         end
       end
     end
@@ -73,9 +80,11 @@ class Admin::SellersController < Admin::BaseController
         if params[:field_to_update] == 'delete'
           @sellers = Seller.find(@seller_ids)
           Seller.where(id: @seller_ids).destroy_all
+          flash.now[:alert] = 'Sellers deleted successfully!'
         else
           Seller.where(id: @seller_ids).update_all(account_status: params[:field_to_update])
           @sellers = Seller.find(@seller_ids)
+          flash.now[:notice] = 'Sellers updated successfully!'
         end
       end
     end
@@ -100,6 +109,7 @@ class Admin::SellersController < Admin::BaseController
       @seller_api.expiry_date = Date.today + 6.month
       @seller_api.status = 'enable'
       @seller_api.save
+      flash.now[:notice] = 'Seller API created successfully!'
     end
 
     def update_seller_api
@@ -111,8 +121,10 @@ class Admin::SellersController < Admin::BaseController
           @seller_api.developer_id = SecureRandom.hex(7)
           @seller_api.expiry_date = Date.today + 6.month
           @seller_api.save
+          flash.now[:notice] = 'Seller API renewed successfully!'
         else
           @seller_api.update(status: params[:field_to_update])
+          flash.now[:notice] = 'Seller API updated successfully!'
         end
       end
     end
@@ -120,15 +132,21 @@ class Admin::SellersController < Admin::BaseController
     def change_seller_api_eligibility
       bool = @seller.eligible_to_create_api == true ? false : true
       @seller.update(eligible_to_create_api: bool)
+      text = bool == false ? "Disabled Seller API creation successfully!" : "Enabled Seller API creation successfully!"
+      flash.now[:notice] = "#{text}"
     end
 
     def change_lock_status
       bool = @seller.is_locked == true ? false : true
       @seller.update(is_locked: bool)
+      text = bool == false ? "Unlocked seller successfully!" : "Locked seller successfully!"
+      flash.now[:notice] = "#{text}"
     end
   
     def holiday_mode
       @seller.update(holiday_mode_params)
+      text = @seller.holiday_mode == true ? "Enabled holiday mode successfully" : "Disabled holiday mode successfully"
+      flash.now[:notice] = "#{text}"
     end
 
     def export_sellers
@@ -149,6 +167,7 @@ class Admin::SellersController < Admin::BaseController
       @seller.reset_password_sent_at = Time.now.utc
       if @seller.save
         Devise::Mailer.reset_password_instructions(@seller, raw).deliver_now
+        flash.now[:notice] = "Reset password sent to your email successfully!"
       end
     end
 

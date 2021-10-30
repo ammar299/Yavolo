@@ -3,6 +3,9 @@ $(document).ready(function () {
     $('#categories-tree li').children('ul').toggle();
 
     createCategoryLinkingFilter();
+    selectImagesfromS3();
+	   selectImagesFromLocalStorage();
+     tempRemoveBtn();
     categoryInformResult();
     $('body').on('change', '.categories-checkbox-container .category-input', function () {
         createNewCategory($(this)[0]);
@@ -75,6 +78,51 @@ $(document).ready(function () {
 
 
 });
+
+function selectImagesfromS3() {
+	$('body').on('click', '.selected-image', function() {
+		addCustomImg();
+    if(!$('.temp-preview-button').hasClass('d-none')){
+      $('.remove_category_image').hide();
+    }
+    $('#category_picture_attributes_name').val("");
+		$("#picture-id-saved").val($(this).data('picid'));
+		$(".product-content-img").attr('src' , $(this).attr('src'));
+		$("#upload-images-popup").modal('hide');
+	});
+}
+
+function selectImagesFromLocalStorage() {
+	$('body').on('change', '#category_picture_attributes_name', function() {
+		addCustomImg();
+    if(!$('.temp-preview-button').hasClass('d-none')){
+      $('.remove_category_image').hide();
+    }
+		$('.product-content-img').attr('src', URL.createObjectURL(event.target.files[0]));
+	});
+}
+
+function addCustomImg() {
+	if ($('.product-content-img').length == 0) {
+		$('#category-image-preview').html("<img src='' alt='' class='product-content-img'></img>");
+	}
+  // if ($('.product-content-img').length == 1) {
+  //   $("#remove-picture").trigger("click")
+  //   event.preventDefault();
+  // }
+
+	$('.product-content-img').removeClass('d-none');
+  $('.temp-preview-button').removeClass('d-none');
+}
+
+function tempRemoveBtn(){
+  $('body').on('click', '.temp-preview-button', function(){
+    $('.product-content-img').remove();
+    $('.temp-preview-button').addClass('d-none');
+    $('#category_picture_attributes_name').val("");
+    $('#picture-id-saved').val("");
+  });
+}
 
 function createCategoryLinkingFilter() {
 	$('body').on('change', '#category_linking_filters', function () {

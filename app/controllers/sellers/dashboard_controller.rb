@@ -21,7 +21,7 @@ class Sellers::DashboardController < Sellers::BaseController
           end
         else
           unless @seller.company_detail.present? || @seller.business_representative.present? || @seller.addresses.where(address_type: 'business_address').first.present? || @seller.addresses.where(address_type: 'business_representative_address').first.present?
-            redirect_to new_sellers_profile_path(seller_id: @seller.id)
+            redirect_to new_sellers_profile_path(id: @seller.id)
           end
         end
       end

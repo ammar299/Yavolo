@@ -1,6 +1,8 @@
+$("#error-message").text('');
 <% unless @seller.errors.count > 0 %>
-$("#<%= @address_type %>").html("<%= j render 'shared/sellers/addresses', address: @address %>");
-$('#edit-seller-form').modal('hide');
+  $("#<%= @address_type %>").html("<%= j render 'shared/sellers/addresses', address: @address %>");
+  $('#edit-seller-form').modal('hide');
+  $('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
 <% else %>
   $('#error-message').html("<%= @seller.errors.full_messages.join('<br/>').html_safe %>");
 <% end %>

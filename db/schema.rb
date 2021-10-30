@@ -380,10 +380,6 @@ ActiveRecord::Schema.define(version: 2021_10_29_064002) do
     t.bigint "seller_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "developer_name"
-    t.string "developer_id"
-    t.string "app_name"
-    t.datetime "expiry_date"
     t.index ["seller_id"], name: "index_seller_apis_on_seller_id"
   end
 
