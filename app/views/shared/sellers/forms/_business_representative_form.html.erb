@@ -1,9 +1,9 @@
+<h4>Business Representative</h4>
 <div class="form-group form-group-vertical form-group-vertical-responsive">
   <%= form.label :seller_email, 'Email' %>
   <%= form.email_field :seller_email, value: @seller.email, disabled: true, required: true, class: 'form-control' %>
 </div>
 <!-- Business Representative -->
-<h4>Business Representative</h4>
 <% if @seller.business_representative.nil? %>
   <% @seller.build_business_representative %>
 <% end %>

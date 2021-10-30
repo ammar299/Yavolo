@@ -566,6 +566,7 @@ textarea.form-control {
 }
 .modal-content {
     background-color: var(--off-white);
+    border-radius: 12PX !important;
 }
 .modal-content h5 {
     text-align: center;

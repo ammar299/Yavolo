@@ -7,6 +7,7 @@
       &amp; Settings</h4>
     <div id="about-top-portion">
       <div class="d-flex align-items-center" >
+        <p class="uppercase-text m-0 pr-3"><strong>Seller locked</strong></p>
         <% display_class = @seller.is_locked == true ? 'd-block' : 'd-none' %>
         <p class="pr-1 mb-0 <%= display_class %>" id="seller-locked-text"><%= "Seller Locked" if @seller.is_locked %></p>
         <% if current_admin.present? %>
@@ -86,19 +87,19 @@
                 <table class="table m-0 subscription-table text-left">
                   <tr>
                     <td>
-                      <p class="mb-1"><strong>Bank account number</strong> </p>
+                      <p class="mb-1"><strong>Bank Account Number</strong> </p>
                       <p class="m-0">User Email</p>
                     </td>
                     <td>
-                      <p class="mb-1"><strong>Bank account number</strong> </p>
+                      <p class="mb-1"><strong>Account Holder Number </strong> </p>
                       <p class="m-0">User Email</p>
                     </td>
                     <td>
-                      <p class="mb-1"><strong>Bank account number</strong> </p>
+                      <p class="mb-1"><strong>Payment Terms</strong> </p>
                       <p class="m-0">User Email</p>
                     </td>
                     <td>
-                      <p class="mb-1"><strong>Bank account number</strong> </p>
+                      <p class="mb-1"><strong>System</strong> </p>
                       <p class="m-0">User Email</p>
                     </td>
                   </tr>

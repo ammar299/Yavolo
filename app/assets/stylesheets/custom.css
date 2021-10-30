@@ -154,6 +154,7 @@
   word-break: break-word;
   white-space: normal;
 }
+
 .sign-in {
   min-height: 400px !important;
 }
@@ -355,13 +356,13 @@
 
 .dropdown-filter.show .dropdown-menu {
   min-width: 40px;
-  top: 28px !important;
+  top: 40px !important;
 }
 .dropdown-filter.show .dropdown-menu a {
   word-break: break-word;
   white-space: normal;
   font-size: 12px;
-  padding: 3px 12px 3px 18px !important;
+  padding: 5px 12px 5px 18px !important;
   justify-content: flex-start;
   transition: 0.3s linear;
   line-height: 13px;
@@ -432,6 +433,7 @@ input::-webkit-inner-spin-button {
 }
 .modal-header {
   border-bottom: 0 !important;
+  padding-bottom: 5px !important;
 }
 
 .simple_form.new_filter_group .checkbox-blk {
@@ -525,25 +527,6 @@ input::-webkit-inner-spin-button {
   text-overflow: ellipsis;
   margin-right: 10px;
 }
-
-@media only screen and (max-width: 600px) {
-  .dropdown.dropdown-filter.mb-3.d-inline-flex {
-    width: 100%;
-    justify-content: center;
-  }
-}
-@media only screen and (max-width: 1024px) {
-  .dashboard-page .leftside {
-    top: 80px;
-  }
-
-  .dashboard-page.toggle-close .rightside {
-    padding-left: 0 !important;
-  }
-  .menu-icon {
-    display: inline-block;
-  }
-}
 .custom-border {
   border: 1px solid red !important;
 }
@@ -571,3 +554,66 @@ input::-webkit-inner-spin-button {
 .seller-products-filters {
   padding: 0 !important;
 }
+.minume .btn {
+  margin-top: -115px;
+}
+.uppercase-text {
+  text-transform: uppercase;
+}
+.seller-edit-card .btn.btn-primary {
+  text-transform: capitalize;
+}
+.csv-file-uploader-ammar {
+  display: flex;
+    flex-wrap: wrap;
+}
+.csv-file-uploader-ammar .imglist {
+  height: 100px;
+    width: 100px;
+    display: inline-flex;
+    overflow: hidden;
+    margin: 5px;
+}
+.csv-file-uploader-ammar .category-image {
+  border-style: solid;
+  border: 0 !important;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-width: 100px;
+}
+.temporary-image {
+  padding-left: 215px;
+}
+@media only screen and (max-width: 768px) {
+  .temporary-image {
+    padding-left: 0;
+  }
+  .modal.show {
+    align-items: flex-start;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .dropdown.dropdown-filter.mb-3.d-inline-flex {
+    width: 100%;
+    justify-content: center;
+  }
+  .signin-logo .logo-inner {
+    align-items: center !important;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .dashboard-page .leftside {
+    top: 80px;
+  }
+
+  .dashboard-page.toggle-close .rightside {
+    padding-left: 0 !important;
+  }
+  .menu-icon {
+    display: inline-block;
+  }
+}
+
+
+

@@ -31,7 +31,7 @@
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
               <%= cd.label :country, 'Country:' %>
-              <%= cd.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Country' }, required: true, class: 'form-control' %>
+              <%= cd.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Select Country' }, required: true, class: 'form-control' %>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
               <%= cd.label :legal_business_name, 'Legal Business Name:' %>
@@ -175,8 +175,8 @@
             <%= form.button :submit, 'Save', class: 'btn btn-radius px-4 btn-primary' %>
           </div>
         <% end %>
-        <div class="mt-4 mb-3">
-          <%= link_to "Cancel", admin_sellers_path, class: "btn btn-link" %>
+        <div class="mt-4 mb-3 minume">
+          <%= link_to "Cancel", admin_sellers_path, class: "btn btn-radius px-4 btn-primary" %>
         </div>
       </div>
     </div>
