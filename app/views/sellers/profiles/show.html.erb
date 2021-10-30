@@ -4,7 +4,7 @@
       &amp; Settings</h4>
     <div id="about-top-portion">
       <div class="d-flex align-items-center" >
-        <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mr-1">Reset password</a>
+        <%= link_to "Reset Password", confirm_reset_password_token_sellers_profile_path(@seller), class: "btn btn-sm btn-radius px-4 btn-primary mr-1", remote: true %>
       </div>
     </div>
   </div>
@@ -37,14 +37,13 @@
           <span aria-hidden="true">×</span>
         </button>
       </div>
-      <div class="modal-body px-lg-5">
+      <div class="modal-body px-lg-3">
         <div id="error-message"></div>
         <div id="update-seller-form"></div>
       </div>
     </div>
   </div>
 </div>
-
 <!-- Edit Form Modal -->
 <div class="modal fade" id="connection-manager-modal" tabindex="-1" role="dialog" aria-labelledby="connectionManagerFormLabel" aria-hidden="true">
   <div class="modal-dialog">

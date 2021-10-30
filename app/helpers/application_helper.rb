@@ -94,4 +94,13 @@ module ApplicationHelper
       return false
     end
   end
+
+  def delivery_form_class(params)
+    klass = ''
+    if params[:from].present? && params[:from] == 'create_product'
+      klass = 'box-border yo-white-card'
+    end
+    klass
+  end
+
 end

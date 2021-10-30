@@ -18,7 +18,12 @@ module SharedProductMethods
 
       result = Product.where(id: product_ids).where(owner_conditions).update(update_hash) if action.present? && update_hash.present?
       result = Product.where(id: product_ids).where(owner_conditions).destroy_all if action=='delete'
-      render json: { notice: 'updated', update_ids: result.map(&:id), value: value, action: action }, status: :ok
+      result_errors = result.map{|p| p.errors.full_messages}.flatten
+      if result_errors.present?
+        render json: { errors: result_errors }, status: :unprocessable_entity
+      else
+        render json: { notice: 'updated', update_ids: result.map(&:id), value: value, action: action }, status: :ok
+      end
     else
       render json: { errors: ['invalid action or params are missing'] }, status: :unprocessable_entity
     end
@@ -27,6 +32,12 @@ module SharedProductMethods
   def enable_yavolo
     if params[:product][:ids].present?
       @products = Product.where(id: params[:product][:ids], yavolo_enabled: false, owner_id: current_user.id, owner_type: current_user.class.name).update(yavolo_enabled: true)
+    end
+  end
+
+  def disable_yavolo
+    if params[:product][:ids].present?
+      @products = Product.where(id: params[:product][:ids], yavolo_enabled: true, owner_id: current_user.id, owner_type: current_user.class.name).update(yavolo_enabled: false)
     end
   end
 

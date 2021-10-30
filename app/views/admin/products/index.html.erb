@@ -15,7 +15,7 @@
                         <div class="dropdown-menu seller-products-filters" aria-labelledby="dropdownMenuLink">
                           <a class="dropdown-item active" href="#">Search All <i
                               class="fa fa-check" aria-hidden="true"></i></a>
-                          <a class="dropdown-item" href="#">Product Title <i
+                          <a class="dropdown-item" href="#">Product Title A to Z <i
                               class="fa fa-check" aria-hidden="true"></i></a>
                           <a class="dropdown-item" href="#">Brand <i
                               class="fa fa-check" aria-hidden="true"></i></a>
@@ -46,7 +46,7 @@
                     <a href="#"
                         class="btn btn-sm btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center"
                         id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">Action <i class="fa fa-angle-down ml-3"
+                        aria-expanded="false">Actions <i class="fa fa-angle-down ml-3"
                             aria-hidden="true"></i></a>
                     <div class="dropdown-menu bulk-actions" aria-labelledby="dropdownMenuLink">
                         <a data-bulkaction="activate" class="dropdown-item" href="#">Activate <i
@@ -146,9 +146,9 @@
     <div class="col-lg-12">
       <div class="mt-3" id="total-sellers-per-page">
         <% if Product.count <= 15%>
-          <p>Results <span>1 - <%= Product.count %></span> of <span><%= Product.count %></span></p>
+          <p>Results: <span>1 - <%= Product.count %></span> of <span><%= Product.count %></span></p>
         <% else %>
-          <p>Results <span>1 - <%= params[:per_page]? params[:per_page] : 15 %></span> of <span><%= Product.count %></span></p>
+          <p>Results: <span>1 - <%= params[:per_page]? params[:per_page] : 15 %></span> of <span><%= Product.count %></span></p>
         <% end %>
       </div>
       <h3 class="mt-4 mb-3">All Products</h3>
@@ -174,7 +174,7 @@
                         <th>Yavolo Enabled</th>
                         <th>Yavolo Discount</th>
                         <th>Assign</th>
-                        <th class="text-center">Action</th>
+                        <th class="text-center">Actions</th>
 
                     </tr>
                 </thead>
@@ -214,15 +214,23 @@
                         <td>
                             <%=product.published_at.strftime("%d/%m/%Y") if product.published_at.present?%>
                         </td>
-                        <td class="stock-box"><%=product.stock %></td>
-                        <td class="price-box"><%=number_to_currency(product.price, unit: '£') %></td>
+                        <td class="stock-box"><%=product.stock.to_i %></td>
+                        <td class="price-box"><%=number_to_currency((number_with_precision(product.price, :precision => 2) || 0), unit: '£') %></td>
                         <td>300</td>
                         <td>300</td>
                         <td>
                             <% if product.yavolo_enabled %>
-                            <span class="icon-manage-Yavolo font-20px"></span>
+                                <div class="d-flex">
+                                    <div>
+                                        <span class="icon-manage-Yavolo font-20px light-red p-yavolo-enabled"></span>
+                                    </div>
+                                </div>
                             <% else %>
-                            No
+                                <div class="d-flex">
+                                    <div>
+                                        <span class="icon-manage-Yavolo font-20px light-red yo-opacity p-yavolo-disabled"></span>
+                                    </div>
+                                </div>
                             <% end %>
                         </td>
                         <td class="discount-box"><%= "#{product.discount}" %></td>
@@ -236,7 +244,9 @@
                         <td>
                             <div class="row-actions">
                                 <% unless product.yavolo_enabled %>
-                                <%= link_to 'Enable Yavolo',"#", class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr btn-danger enable-yavolo-btn',data: {toggle: 'modal', target: "#customConfirmModal", params: "product[ids][]=#{product.id}" }, id: "pro-enyavolo-btn-#{product.id}" %>
+                                <%= link_to 'Enable Yavolo',"#", class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr btn-danger enable-yavolo-btn yavolo-btn',data: {toggle: 'modal', target: "#customConfirmModal", params: "product[ids][]=#{product.id}" }, id: "pro-enyavolo-btn-#{product.id}" %>
+                                <% else %>
+                                <%= link_to 'Disable Yavolo',"#", class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr btn-danger disable-yavolo-btn yavolo-btn',data: {toggle: 'modal', target: "#customConfirmModal", params: "product[ids][]=#{product.id}" }, id: "pro-disableyavolo-btn-#{product.id}" %>
                                 <% end %>
                                 <%=link_to 'Edit', edit_admin_product_path(product), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100' %>
                                 <%=link_to 'Duplicate', new_admin_product_path(dup_product_id: product.id), class: 'btn btn-sm btn-radius px-4 btn-secondary w-100' %>

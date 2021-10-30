@@ -49,7 +49,10 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def category_products_with_pagination
-    @category_products = category_products
+    @category_products = @category.products
+    @category_products = @category.products.ransack(params[:q])
+    @category_products = @category_products.result(distinct: true)
+    @category_products = @category_products.page(params[:page]).per(params[:per_page].presence || 15)
   end
 
   def remove_filter_group_association

@@ -31,7 +31,8 @@ require('packs/all-page-events')
 require("@nathanvda/cocoon");
 const ClassicEditor = require("@ckeditor/ckeditor5-build-classic");
 require("packs/selectize.min");
-
+require ("packs/jquery.validate");
+require ("packs/additional-methods");
 $(document).ready(() => {
   $("body").on("focus", ".datepicker", function () {
     $(this).datepicker({
@@ -42,5 +43,9 @@ $(document).ready(() => {
     }).on('changeDate', function (e) {
       // `e` here contains the extra attributes
     });
+  });
+  // hide flash toasts
+  $(document).on('click','.notice-cross-icon', function(){
+    $(this).parent().fadeOut("slow");
   });
 });
