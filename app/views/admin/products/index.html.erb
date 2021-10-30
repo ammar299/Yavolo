@@ -214,15 +214,23 @@
                         <td>
                             <%=product.published_at.strftime("%d/%m/%Y") if product.published_at.present?%>
                         </td>
-                        <td class="stock-box"><%=product.stock %></td>
-                        <td class="price-box"><%=number_to_currency(product.price, unit: '£') %></td>
+                        <td class="stock-box"><%=product.stock.to_i %></td>
+                        <td class="price-box"><%=number_to_currency((number_with_precision(product.price, :precision => 2) || 0), unit: '£') %></td>
                         <td>300</td>
                         <td>300</td>
                         <td>
                             <% if product.yavolo_enabled %>
-                            <span class="icon-manage-Yavolo font-20px"></span>
+                                <div class="d-flex">
+                                    <div>
+                                        <span class="icon-manage-Yavolo font-20px light-red p-yavolo-enabled"></span>
+                                    </div>
+                                </div>
                             <% else %>
-                            No
+                                <div class="d-flex">
+                                    <div>
+                                        <span class="icon-manage-Yavolo font-20px light-red yo-opacity p-yavolo-disabled"></span>
+                                    </div>
+                                </div>
                             <% end %>
                         </td>
                         <td class="discount-box"><%= "#{product.discount}" %></td>
@@ -236,7 +244,9 @@
                         <td>
                             <div class="row-actions">
                                 <% unless product.yavolo_enabled %>
-                                <%= link_to 'Enable Yavolo',"#", class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr btn-danger enable-yavolo-btn',data: {toggle: 'modal', target: "#customConfirmModal", params: "product[ids][]=#{product.id}" }, id: "pro-enyavolo-btn-#{product.id}" %>
+                                <%= link_to 'Enable Yavolo',"#", class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr btn-danger enable-yavolo-btn yavolo-btn',data: {toggle: 'modal', target: "#customConfirmModal", params: "product[ids][]=#{product.id}" }, id: "pro-enyavolo-btn-#{product.id}" %>
+                                <% else %>
+                                <%= link_to 'Disable Yavolo',"#", class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr btn-danger disable-yavolo-btn yavolo-btn',data: {toggle: 'modal', target: "#customConfirmModal", params: "product[ids][]=#{product.id}" }, id: "pro-disableyavolo-btn-#{product.id}" %>
                                 <% end %>
                                 <%=link_to 'Edit', edit_admin_product_path(product), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100' %>
                                 <%=link_to 'Duplicate', new_admin_product_path(dup_product_id: product.id), class: 'btn btn-sm btn-radius px-4 btn-secondary w-100' %>

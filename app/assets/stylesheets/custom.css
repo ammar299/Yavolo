@@ -545,6 +545,18 @@ input::-webkit-inner-spin-button {
   padding: 20px 30px !important;
 }
 
+/* yavolo icon css */
+.yo-opacity {
+	opacity: 0.3;
+	cursor: pointer;
+}
+.yo-opacity:hover {
+	opacity: 1;
+	transition: all 0.3s linear 0s;
+}
+.pointer {
+	cursor: pointer;
+}
 .seller-products-filters .dropdown-item.active {
   color: var(--dark-red);
 }
@@ -554,6 +566,7 @@ input::-webkit-inner-spin-button {
 .seller-products-filters {
   padding: 0 !important;
 }
+/* naseer code */
 .minume .btn {
   margin-top: -115px;
 }
@@ -617,3 +630,4 @@ input::-webkit-inner-spin-button {
 
 
 
+/* naseer */

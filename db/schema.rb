@@ -192,7 +192,7 @@ ActiveRecord::Schema.define(version: 2021_10_28_153723) do
   end
 
   create_table "delivery_option_ships", force: :cascade do |t|
-    t.decimal "price", precision: 8, scale: 2
+    t.float "price"
     t.bigint "delivery_option_id"
     t.bigint "ship_id"
     t.datetime "created_at", precision: 6, null: false
@@ -316,7 +316,7 @@ ActiveRecord::Schema.define(version: 2021_10_28_153723) do
     t.string "handle"
     t.text "description"
     t.text "keywords"
-    t.string "sku"
+    t.string "sku", null: false
     t.string "ean"
     t.string "yan"
     t.string "brand"
