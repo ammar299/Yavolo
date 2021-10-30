@@ -1,10 +1,11 @@
-<%= simple_form_for @filter_group, url: url    do |f| %>
+<%= simple_form_for @filter_group, url: url, html: { id: "filter_group_new_form"} do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-group form-group-vertical align-items-center form-group-vertical-responsive">
-    <label for="exampleInputPassword1" class="text-left pr-3">Filter Group Name</label>
-    <%= f.text_field :name, required: true ,class: "form-control" %>
-    <a href="#" class="pl-3 pluse-btn plus-btn-hide">+</a>
+  <% has_error, msg = get_errors(f, :name) %>
+  <div class="form-group form-group-vertical align-items-center form-group-vertical-responsive <%= has_error ? 'error-field' : '' %>">
+    <label for="exampleInputPassword1" class="text-left pr-3">Filter Group Name :</label>
+    <%= f.text_field :name, class: "form-control" %>
+    <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
   </div>
   <div class="filter-type d-flex align-items-center flex-wrap">
     <div class="form-group form-group-vertical">
@@ -54,6 +55,6 @@
   </div>
 
   <div class="text-center">
-    <%= f.submit 'Save Filter', class: "btn btn-radius px-4 btn-primary"%>
+    <%= f.submit 'Save Filter', id: "submitbutton", class: "btn btn-radius px-4 btn-primary"%>
   </div>
 <% end %>

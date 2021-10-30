@@ -22,6 +22,17 @@ $(document).ready(function(){
     }
   });
 
+	// filter group form errors validation
+	$('body').on('submit','form#filter_group_new_form',function(e){
+    if(!validFilterGroupForm()){
+      e.preventDefault();
+      // $([document.documentElement, document.body]).animate({
+      //   scrollTop: $("#filter_group_new_form").offset().top
+      // }, 2000);
+      // return;
+    }
+  });
+
 	selectedFilterGroups();
 });
 
@@ -51,3 +62,19 @@ function assignFilterGroupCategory(){
 	  }
 	});
 }
+
+function validFilterGroupForm(){
+  let has_errors = []
+
+  $("#filter_group_name").parents('.form-group').find('small').remove();
+  if($("#filter_group_name").val().length > 0){
+    $("#filter_group_name").parents('.form-group').removeClass('error-field')
+    $("#filter_group_name").parents('.form-group').find('small').remove();
+  }else{
+    has_errors.push(true)
+    $("#filter_group_name").parents('.form-group').addClass('error-field')
+    $("#filter_group_name").parents('.form-group').append('<small class="form-text">Name can\'t be blank</small>')
+  }
+  return !has_errors.includes(true)
+}
+
