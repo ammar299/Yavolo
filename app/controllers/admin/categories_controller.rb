@@ -13,28 +13,46 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def create
-    @category = Category.new(category_params)
-    if @category.save
-      if params[:selected_cat_id].present?
-        flash[:selected_cat_id] = params[:selected_cat_id]
-        if params[:is_subcategory].present? # If its assigned as subcategory
-          parent = Category.find(params[:selected_cat_id].to_i)
-        else # If its assigned as sibling
-          parent = Category.find(params[:selected_cat_id].to_i).parent
-        end
-        @category.parent = parent
+    if params[:picture_id].present?
+      image_url = upload_galery_image(params)
+      @category = Category.new(category_params)
+      @category.build_picture
+      @category.picture_attributes = image_url
+      @category.save
+      else
+        @category = Category.new(category_params)
         if @category.save
-          flash[:notice] = "Category has been saved"
+          if params[:selected_cat_id].present?
+            flash[:selected_cat_id] = params[:selected_cat_id]
+            if params[:is_subcategory].present? # If its assigned as subcategory
+              parent = Category.find(params[:selected_cat_id].to_i)
+            else # If its assigned as sibling
+              parent = Category.find(params[:selected_cat_id].to_i).parent
+            end
+            @category.parent = parent
+            if @category.save
+              flash[:notice] = "Category has been saved"
+            end
+          end
         end
       end
     end
-  end
 
   def update
-    @category.update(category_params)
-    if @category.baby_category?
-      flash[:notice] = "Category has been updated"
-      @category.descendants.map(&:destroy)
+    if params[:picture_id].present?
+      image_url = upload_galery_image(params)
+      @category.picture_attributes = image_url
+      @category.update(category_params)
+      if @category.baby_category?
+        flash[:notice] = "Category has been updated"
+        @category.descendants.map(&:destroy)
+      end
+    else
+      @category.update(category_params)
+      if @category.baby_category?
+        flash[:notice] = "Category has been updated"
+        @category.descendants.map(&:destroy)
+      end
     end
   end
 
@@ -105,6 +123,18 @@ class Admin::CategoriesController < Admin::BaseController
     products = @category.products
     products = products.where('lower(products.title) ilike ?', "%#{params[:q].downcase}%") if params[:q].present?
     products.page(params[:page]).per(params[:per_page].presence || 15)
+  end
+
+  def upload_galery_image(params)
+    picture_id = params[:picture_id].to_i
+    picture = Picture.find_by(id: picture_id)
+    path = Picture.find_by(id: picture_id).name_url
+    if Rails.env.production? 
+      image_url = {remote_name_url: path}
+    else
+      image_url = {remote_name_url: path}
+    end
+    image_url
   end
 
 end

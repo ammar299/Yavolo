@@ -72,12 +72,15 @@
               <div class="col-lg-8 mb-1">
                 <div class="d-flex">
                   <%= f.fields_for :picture, Picture.new do |picture| %>
-                    <div class="btn btn-sm btn-radius px-4 btn-primary w-100 uploader-btn mr-2">
-                      <%= picture.file_field :name, name: "category[picture_attributes][name]", class: "btn btn-radius px-4 w-100" %>
+                    <div class="btn btn-sm btn-radius px-4 btn-secondary w-100 uploader-btn mr-2">
+                      <%= picture.file_field :name, name: "category[picture_attributes][name]", class: "btn btn-radius px-4 w-100 choose-single" %>
+                      <%= f.hidden_field :name, name: "picture_id", id: 'picture-id-saved', class: 'choose-single' %>
                     </div>
                   <% end %>
-                  <div class="btn btn-sm btn-radius px-4 btn-primary w-100 uploader-btn uploader-btn-1 mr-2">
-                    <input name="gallery" class="btn btn-radius px-4 w-100" type="file" id="category_picture_attributes_gallery">
+                  <div class="btn btn-sm btn-radius px-4 btn-secondary w-100 uploader-btn uploader-btn-1 mr-2">
+                    <input name="picture" class="btn btn-radius px-4 w-100 choose-single" id="category_picture_attributes_gallery">
+                    <%#= f.file_field :picture, class: "btn btn-radius px-4 w-100" ,id: "category_picture_attributes_gallery"%>
+                    <%= f.hidden_field :picture , id: 'picture-id-saved'%>
                   </div>
                 </div>
                 <%#= f.file_field :picture, class: "btn btn-radius px-4 w-100" %>
@@ -95,15 +98,35 @@
                 <div class="row">
                   <div class="col-md-12 my-2 d-flex align-items-end flex-wrap">
 										<span>
-                      <%= image_tag f.object.picture.name.url, class: "product-content-img" %>
+                      <%= image_tag f.object.picture.name.url, class: "product-content-img existing-image" %>
 										</span>
-                    <small class="mx-3"><%= link_to "Remove Image", remove_image_admin_category_path(@category), class: "btn btn-sm btn-radius px-4 btn-secondary w-100 remove_category_image" %></small>
+                    <small class="mx-3"><%= link_to "Remove Image", remove_image_admin_category_path(@category), class: "btn btn-sm btn-radius px-4 btn-secondary w-100 remove_category_image", id: 'remove-picture' %></small>
                   </div>
                 </div>
               </div>
             </div>
+          <% else %>
+            <div class="row">
+              <div class="col-md-12 my-2 d-flex align-items-end flex-wrap temporary-image">
+                <img src="" alt="" class="product-content-img col-md-4 d-none">
+              </div>
+            </div>
           <% end %>
-
+            <div class="filter-type d-flex align-items-center flex-wrap category-image-container">
+              <div class="form-group form-group-vertical">
+                <label for="exampleInputPassword1" class="text-left pr-3"></label>
+              </div>
+              <div class="search-field-flex">
+                <div class="row">
+                  <div class="col-md-12 my-2 d-flex align-items-end flex-wrap">
+                    <span>
+                      <div id="category-image-preview" class="col-md-12 my-2 d-flex align-items-end flex-wrap"></div>
+                    </span>
+                    <small class="mx-3"><a href="javascript:void(0)" class="btn btn-sm btn-radius px-4 btn-secondary w-100  temp-preview-button d-none">Remove Image</a></small>
+                  </div>
+                </div>
+              </div>
+            </div>
           <div class="form-group form-group-vertical form-group-vertical-responsive">
             <%= f.label :category_description, 'Category Description' %>
             <%= f.text_area :category_description, class: "form-control"%>
@@ -116,11 +139,15 @@
       </div>
     </div>
   </div>
+
 </section>
+<%= render "categories_admin_images" %>
 
 <script>
     $(document).ready(function(){
-
+      $("#category_picture_attributes_gallery").click(function() { 
+        $('#upload-images-popup').modal('show');
+      });
         ClassicEditor.create( document.querySelector( '#category_category_description' ) ).catch( error => {
             console.error( error );
         } );

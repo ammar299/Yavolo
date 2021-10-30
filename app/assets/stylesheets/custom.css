@@ -477,6 +477,8 @@ input::-webkit-inner-spin-button {
   padding: 3px 5px !important;
 }
 
+/* ------ image style category -------*/
+
 .add-edit-product-photos {
   min-height: 400px;
   display: flex;
