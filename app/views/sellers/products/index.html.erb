@@ -37,33 +37,29 @@
                                         aria-hidden="true"></i>
                                 </a>
                                 <div class="dropdown-menu seller-products-filters" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item active" href="#">Search All <i
+                                    <a class="dropdown-item <%=set_filter_active('Search All')%>" href="#">Search All <i
                                         class="fa fa-check" aria-hidden="true"></i></a>
-                                    <a class="dropdown-item" href="#">Product Title A to Z <i
+                                    <a class="dropdown-item <%=set_filter_active('Product Title A to Z')%>" href="#">Product Title A to Z <i
                                         class="fa fa-check" aria-hidden="true"></i></a>
-                                    <a class="dropdown-item" href="#">Brand <i
+                                    <a class="dropdown-item <%=set_filter_active('Brand')%>" href="#">Brand <i
                                         class="fa fa-check" aria-hidden="true"></i></a>
-                                    <a class="dropdown-item" href="#">SKU <i
+                                    <a class="dropdown-item <%=set_filter_active('SKU')%>" href="#">SKU <i
                                         class="fa fa-check" aria-hidden="true"></i></a>
-                                    <a class="dropdown-item" href="#">YAN <i
+                                    <a class="dropdown-item <%=set_filter_active('YAN')%>" href="#">YAN <i
                                         class="fa fa-check" aria-hidden="true"></i></a>
-                                    <a class="dropdown-item" href="#">EAN <i
+                                    <a class="dropdown-item <%=set_filter_active('EAN')%>" href="#">EAN <i
                                         class="fa fa-check" aria-hidden="true"></i></a>
                                 </div>
                             </div>
-                            <%
-
-                            if params[:q].present?
-                                field_name = params[:q].keys.first
-                            else
-                                field_name = "title_or_brand_or_sku_or_yan_or_ean_cont"
-                            end
-                            %>
                             <div class="search-field mb-0">
                                 <%= search_form_for @q, url: sellers_products_path do |f| %>
                                 <%= hidden_field_tag :tab, params[:tab].to_s ||'all'%>
                                 <input type="hidden" name="filter_type" id="product-filter-type" value="<%= params[:filter_type] %>">
-                                <%= f.search_field field_name.to_sym, { class: 'input-btn-sm seller-product-search-field', placeholder: 'Search Products', value: "#{search_field_query_param_val(params)}" } %>
+                                <input type="hidden" name="csfname" id="csfn" value="<%= current_search_field_name %>">
+                                <% if params[:q].present? && params[:q].keys.include?('s') %>
+                                <%=hidden_field_tag 'q[s]', params[:q][:s] %>
+                                <% end %>
+                                <%= f.search_field current_search_field_name.to_sym, { class: 'input-btn-sm seller-product-search-field', placeholder: 'Search Products', value: "#{search_field_query_param_val(params)}" } %>
                                 <i class="fa fa-search" aria-hidden="true"></i>
                                 <% end %>
                             </div>
@@ -98,11 +94,36 @@
                                 aria-expanded="false">Filter by <i class="fa fa-angle-down ml-3"
                                     aria-hidden="true"></i></a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <%=link_to 'Product Title A-Z',sellers_products_path({q: params[:q].present? ? (params.require(:q).merge!(s: 'title asc').permit!) : {s: 'title asc'} })  %>
-                                <%=link_to 'Product Title Z-A',sellers_products_path({q: params[:q].present? ? (params.require(:q).merge!(s: 'title desc').permit!) : {s: 'title desc'} })  %>
-                                <%=link_to 'Price High-Low',sellers_products_path({q: params[:q].present? ? (params.require(:q).merge!(s: 'price desc').permit!) : {s: 'price desc'} })  %>
-                                <%=link_to 'Price Low-High',sellers_products_path({q: params[:q].present? ? (params.require(:q).merge!(s: 'price asc').permit!) : {s: 'price asc'} })  %>
-                                <%=link_to 'Yavolo Enabled',sellers_products_path({q: params[:q].present? ? (params.require(:q).merge!(s: 'yavolo_enabled asc').permit!) : {s: 'yavolo_enabled asc'} })  %>
+                                <% q_params = {q: params[:q].present? ? (params.require(:q).merge!(s: 'title asc').permit!) : {s: 'title asc'} }
+                                    q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
+                                    q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
+                                %>
+                                <%=link_to 'Product Title A-Z',sellers_products_path(q_params)  %>
+
+                                <% q_params = {q: params[:q].present? ? (params.require(:q).merge!(s: 'title desc').permit!) : {s: 'title desc'} }
+                                    q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
+                                    q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
+                                %>
+
+                                <%=link_to 'Product Title Z-A',sellers_products_path(q_params)  %>
+
+                                <% q_params = {q: params[:q].present? ? (params.require(:q).merge!(s: 'price desc').permit!) : {s: 'price desc'} }
+                                    q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
+                                    q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
+                                %>
+                                <%=link_to 'Price High-Low',sellers_products_path(q_params)  %>
+
+                                <% q_params = {q: params[:q].present? ? (params.require(:q).merge!(s: 'price asc').permit!) : {s: 'price asc'} }
+                                    q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
+                                    q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
+                                %>
+                                <%=link_to 'Price Low-High',sellers_products_path(q_params)  %>
+
+                                <% q_params = {q: params[:q].present? ? (params.require(:q).merge!(s: 'yavolo_enabled asc').permit!) : {s: 'yavolo_enabled asc'} }
+                                    q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
+                                    q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
+                                %>
+                                <%=link_to 'Yavolo Enabled',sellers_products_path(q_params)  %>
                             </div>
                         </div>
                         <div class="d-flex mb-3">

@@ -103,4 +103,13 @@ module ApplicationHelper
     klass
   end
 
+  def current_search_field_name
+    valid_field_names = ['title_cont','brand_cont','sku_cont','yan_cont','ean_cont','title_or_brand_or_sku_or_yan_or_ean_cont']
+    valid_field_names.include?(params[:csfname]) ? params[:csfname] : 'title_or_brand_or_sku_or_yan_or_ean_cont'
+  end
+
+  def set_filter_active(f_type)
+    'active' if set_filter_type_in_dropdown(params)==f_type
+  end
+
 end
