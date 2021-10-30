@@ -32,11 +32,11 @@ module Products
             product.owner_id = csv_import.importer_id
             product.owner_type = csv_import.importer_type
             product.filter_in_category_ids = []
-            if product.valid?
-              product.save
-            else
-              @errors << product.errors.full_messages.join("<br>")
-            end
+            # if product.valid?
+            product.save(validate: false)
+            # else
+              # @errors << product.errors.full_messages.join("<br>")
+            # end
           else
             @errors << "Required columns are missing"
             next
