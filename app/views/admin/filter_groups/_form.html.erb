@@ -28,7 +28,7 @@
     </div>
   </div>
   <div class="plus-btn-category-name" id="global-check" style="display:<%= f.object.local? ? "block" : "none"  %>">
-    <h6><strong>Add Categories Which Show Filter Group</strong></h6>
+    <h6><strong>Add Categories which show Filter Group</strong></h6>
     <div class="d-flex flex-column position-relative pluse-aa">
       <%= f.fields_for :filter_categories do |filter_category| %>
       <%= render 'filter_category_fields', :f => filter_category %>
@@ -41,7 +41,7 @@
     </div>
   </div>
 
-  <h6><strong>Add Filter In This Group</strong></h6>
+  <h6><strong>Add Filter within the Group</strong></h6>
   <div id='filter_in_categories'>
     <%= f.fields_for :filter_in_categories do |filter_in_category| %>
     <%= render 'filter_in_category_fields', :f => filter_in_category %>

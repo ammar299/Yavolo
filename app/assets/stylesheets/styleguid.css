@@ -243,9 +243,9 @@ h4 {
 
 
 .form-control {
-    border: 1px solid #D6D6D6;
-    border-radius: 12px;
-    padding: 9px 15px 9px 15px;
+    border: 1px solid #D6D6D6 !important;
+    border-radius: 12px !important;
+    padding: 9px 15px 9px 15px !important;
     height: 40px;
     color: var(--dark-red);
     font-size: 14px;
@@ -596,6 +596,9 @@ textarea.form-control {
     opacity: 0; 
     cursor: pointer;
     right: 0;
+}
+.border-none {
+    border: none;
 }
 .modal-top-green-line .modal-content {
     border-top: 10px solid var(--green);

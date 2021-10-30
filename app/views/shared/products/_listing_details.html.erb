@@ -6,7 +6,7 @@
             <div>
                 <% has_error, msg = get_errors(form, :title) %>
                 <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
-                    <%= form.label :title, 'Title/H1 tag*' %>
+                    <%= form.label :title, 'Title*' %>
                     <%= form.text_field :title, class: 'form-control', placeholder: 'Include all those important keywords' %>
                     <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                 </div>
@@ -31,35 +31,35 @@
                 <div class="ebay-forms d-flex justify-content-between flex-wrap align-items-center">
 
                     <% has_error, msg = get_errors(form, :width) %>
-                    <div class="form-group general-mrgn mb-0 <%= has_error ? 'error-field' : '' %>">
+                    <div class="form-group general-mrgn mb-0 mt-2 <%= has_error ? 'error-field' : '' %>">
                         <%= form.label 'Width' %>
                         <%= form.number_field :width, class: 'form-control', min: 0 %>
                         <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                     </div>
 
                     <% has_error, msg = get_errors(form, :depth) %>
-                    <div class="form-group general-mrgn mb-0 <%= has_error ? 'error-field' : '' %>">
+                    <div class="form-group general-mrgn mb-0 mt-2 <%= has_error ? 'error-field' : '' %>">
                         <%= form.label 'Depth' %>
                         <%= form.number_field :depth, class: 'form-control', min: 0 %>
                         <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                     </div>
 
                     <% has_error, msg = get_errors(form, :height) %>
-                    <div class="form-group general-mrgn mb-0 <%= has_error ? 'error-field' : '' %>">
+                    <div class="form-group general-mrgn mb-0 mt-2 <%= has_error ? 'error-field' : '' %>">
                         <%= form.label 'Height' %>
                         <%= form.number_field :height, class: 'form-control', min: 0 %>
                         <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                     </div>
 
                     <% has_error, msg = get_errors(form, :colour) %>
-                    <div class="form-group general-mrgn mb-0 <%= has_error ? 'error-field' : '' %>">
+                    <div class="form-group general-mrgn mb-0 mt-2 <%= has_error ? 'error-field' : '' %>">
                         <%= form.label 'Colour' %>
                         <%= form.text_field :colour, class: 'form-control' %>
                         <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                     </div>
 
                     <% has_error, msg = get_errors(form, :material) %>
-                    <div class="form-group general-mrgn mb-0 <%= has_error ? 'error-field' : '' %>">
+                    <div class="form-group general-mrgn mb-0 mt-2 <%= has_error ? 'error-field' : '' %>">
                         <%= form.label 'Material' %>
                         <%= form.text_field :material, class: 'form-control' %>
                         <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>

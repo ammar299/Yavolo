@@ -2,7 +2,7 @@ class Sellers::ProfilesController < Sellers::BaseController
   layout 'application', :only => [:new]
   layout 'sellers/seller'
 
-  before_action :set_seller, only: %i[new show edit update update_business_representative update_company_detail update_seller_logo remove_logo_image update_addresses holiday_mode]
+  before_action :set_seller, only: %i[new show edit update update_business_representative update_company_detail update_seller_logo remove_logo_image update_addresses holiday_mode confirm_reset_password_token reset_password_token]
   before_action :set_delivery_template, only: %i[confirm_delete destroy_delivery_template]
 
 
@@ -54,6 +54,15 @@ class Sellers::ProfilesController < Sellers::BaseController
 
   def holiday_mode
     @seller.update(holiday_mode_params)
+  end
+
+  def reset_password_token
+    raw, hashed = Devise.token_generator.generate(Seller, :reset_password_token)
+    @seller.reset_password_token = hashed
+    @seller.reset_password_sent_at = Time.now.utc
+    if @seller.save
+      Devise::Mailer.reset_password_instructions(@seller, raw).deliver_now
+    end
   end
 
   def destroy_delivery_template

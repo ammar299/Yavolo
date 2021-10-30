@@ -13,7 +13,7 @@
             <a href="#"
             class="btn btn-radius btn-sm px-3 btn-link btn-link-dropdown d-inline-flex align-items-center"
             id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">Action <i class="fa fa-angle-down ml-3"
+            aria-expanded="false">Actions <i class="fa fa-angle-down ml-3"
             aria-hidden="true"></i></a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <%= link_to 'Delete', confirm_multiple_deletion_admin_filter_groups_path, class: 'dropdown-item active', data: { remote: true } %>
@@ -125,9 +125,9 @@
           <p>Results <span>1 - <%= params[:per_page]? params[:per_page] : 15 %></span> of <span><%= FilterGroup.count %></span></p>
         <% end %>
       </div>
-      <h3 class="mt-4 mb-3">Filter Groups</h3>
-      <div class="Yavolo-table">
-        <table class="table text-center">
+      <h3 class="mt-4 mb-3 font-weight-bold">Filter Groups</h3>
+      <div class="Yavolo-table yavolo-center">
+        <table class="table">
           <thead>
             <tr></th>
               <th>
@@ -143,7 +143,7 @@
               <th>Number Of Filter Groups</th>
               <th>Categories Assigned</th>
               <th>Assinged Categories</th>
-              <th class="text-center" width="15%" >Actions</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -159,7 +159,7 @@
               </td>
               <td><%= filter_group.filter_group_type if filter_group.filter_group_type.present? %></td>
               <td><%= filter_group.name %></td>
-              <td><%#= filter_group.length %></td>
+              <td>5</td>
               <td><%= filter_group.filter_categories.count %></td>
               <td><%= filter_group.filter_in_categories.count %></td>
               <td><%= link_to 'Edit', edit_admin_filter_group_path(filter_group), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100', data: { remote: true } %>
