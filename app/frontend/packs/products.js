@@ -21,20 +21,10 @@ $(document).ready(function(){
   $('.mark-bulk-update').change(function(){
     if($(this).is(':checked')){
       $('.prod-table-row').find('input:checkbox').prop('checked', true);
-      // $('.prod-table-row').find('input[type=number]').prop('disabled', false);
     }else{
       $('.prod-table-row').find('input:checkbox').prop('checked', false);
-      // $('.prod-table-row').find('input[type=number]').prop('disabled', true);
     }
   });
-
-  // $('.prod-table-row input[type=checkbox]').change(function(){
-  //   if($(this).is(':checked')){
-  //     // $(this).parents('.prod-table-row').find('input[type=number]').prop('disabled', false);
-  //   }else{
-  //     // $(this).parents('.prod-table-row').find('input[type=number]').prop('disabled', true);
-  //   }
-  // });
 
   $('.bulk-actions a.dropdown-item').click(function(e){
     e.preventDefault();
