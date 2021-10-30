@@ -1,3 +1,4 @@
+$("#error-message").text('');
 <% unless @seller.errors.count > 0 %>
   $("#business-representative-content").html("<%= j render 'shared/sellers/business_representative', business_representative: @seller.business_representative %>");
   $('#editTemplateForm').modal('hide');

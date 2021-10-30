@@ -1,3 +1,4 @@
+$("#error-message").text('');
 <% unless @seller.errors.count > 0 %>
   $("#seller-logo").html("<%= j render 'shared/sellers/seller_logo', logo: @seller.picture %>");
   $('#edit-seller-form').modal('hide');

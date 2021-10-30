@@ -1,3 +1,4 @@
+$("#error-message").text('');
 <% unless @seller.errors.count > 0 %>
   $("#company-detail-content").html("<%= j render 'shared/sellers/company_detail', company_detail: @seller.company_detail %>");
   $('#editTemplateForm').modal('hide');
