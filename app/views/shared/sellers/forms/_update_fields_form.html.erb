@@ -1,4 +1,4 @@
-<%= simple_form_for @seller, url: url do |form| %>
+<%= simple_form_for @seller, url: url, html: { id: 'admin-sellers-update-form' } do |form| %>
   <% if params[:form_to_update] == 'company_detail' %>
     <!-- Business Information Section / Company Details -->
     <%= render partial: 'shared/sellers/forms/company_detail_form', locals: { form: form, company_detail: @seller.company_detail } %>

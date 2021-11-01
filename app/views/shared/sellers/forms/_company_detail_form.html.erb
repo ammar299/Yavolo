@@ -11,7 +11,9 @@
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
     <%= cd.label :country, 'Country' %>
-    <%= cd.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Country' }, required: true, class: 'form-control' %>
+    <div style="flex: 1;">
+      <%= cd.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Country' }, class: 'form-control' %>
+    </div>
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
     <%= cd.label :doing_business_as, 'Doing Business As' %>
@@ -23,7 +25,9 @@
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
     <%= cd.label :companies_house_registration_number, 'Companies House Registration Number' %>
-    <%= cd.text_field :companies_house_registration_number, placeholder: '73738823', required: true, class: 'form-control' %>
+    <div style="flex: 1;">
+      <%= cd.text_field :companies_house_registration_number, placeholder: '73738823', required: true, class: 'form-control' %>
+    </div>
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
     <%= cd.label :business_industry, 'Business Industry' %>

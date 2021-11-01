@@ -24,7 +24,9 @@
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
     <%= addr.label :country, 'Country' %>
-    <%= addr.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Country' }, required: true, class: 'form-control' %>
+    <div style="flex: 1;">
+      <%= addr.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Country' }, class: 'form-control' %>
+    </div>
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
     <%= addr.label :phone_number, 'Contact Number' %>

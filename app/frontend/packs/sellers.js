@@ -328,3 +328,69 @@ function newSellerFormDropdownValidation() {
     }
 	});
 }
+
+window.businessRepresentativeForm = function() {
+  $('form#admin-sellers-update-form').validate({
+    ignore: "",
+    rules: {
+      "seller[business_representative_attributes][full_legal_name]": {
+        required: true
+      },
+      "seller[business_representative_attributes][email]": {
+        required: true
+      },
+      "seller[business_representative_attributes][job_title]": {
+        required: true
+      },
+      "seller[account_status]": {
+        required: true
+      },
+      "seller[listing_status]": {
+        required: true
+      },
+      "seller[company_detail_attributes][country]": {
+        required: true
+      },
+      "seller[company_detail_attributes][companies_house_registration_number]": {
+        required: true
+      },
+      "seller[addresses_attributes][0][country]": {
+        required: true
+      }
+    },
+    highlight: function(element) {
+      console.log('asdasd');
+      $(element).parents("div.form-group").addClass('error-field');
+    },
+    unhighlight: function(element) {
+      $(element).parents("div.form-group").removeClass('error-field');
+    },
+    messages: {
+      "seller[business_representative_attributes][full_legal_name]": {
+        required: "Full legal name is required"
+      },
+      "seller[business_representative_attributes][email]": {
+        required: "Email is required"
+      },
+      "seller[business_representative_attributes][job_title]": {
+        required: "Job title is required"
+      },
+      "seller[account_status]": {
+        required: "Account Status is required"
+      },
+      "seller[listing_status]": {
+        required: "Listing Status is required"
+      },
+      "seller[company_detail_attributes][country]": {
+        required: "Country name is required"
+      },
+      "seller[company_detail_attributes][companies_house_registration_number]": {
+        required: "Registration number is required"
+      },
+      "seller[addresses_attributes][0][country]": {
+        required: "Country name is required"
+      }
+    },
+  });
+}
+
