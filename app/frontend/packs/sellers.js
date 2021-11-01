@@ -329,10 +329,64 @@ function newSellerFormDropdownValidation() {
 	});
 }
 
-window.businessRepresentativeForm = function() {
+window.validateSellerEditForm = function() {
   $('form#admin-sellers-update-form').validate({
-    ignore: "",
+    ignore: "", 
     rules: {
+      "seller[email]": {
+        required: true
+      },
+      "seller[company_detail_attributes][name]": {
+        required: true
+      },
+      "seller[company_detail_attributes][country]": {
+        required: true
+      },
+      "seller[company_detail_attributes][legal_business_name]": {
+        required: true
+      },
+      "seller[company_detail_attributes][companies_house_registration_number]": {
+        required: true
+      },
+      "seller[company_detail_attributes][doing_business_as]": {
+        required: true
+      },
+      "seller[company_detail_attributes][business_industry]": {
+        required: true
+      },
+      "seller[company_detail_attributes][website_url]": {
+        required: true
+      },
+      "seller[company_detail_attributes][amazon_url]": {
+        required: true
+      },
+      "seller[company_detail_attributes][ebay_url]": {
+        required: true
+      },
+      "seller[company_detail_attributes][vat_number]": {
+        required: true
+      },
+      "seller[addresses_attributes][0][address_line_1]": {
+        required: true
+      },
+      "seller[addresses_attributes][0][address_line_2]": {
+        required: true
+      },
+      "seller[addresses_attributes][0][city]": {
+        required: true
+      },
+      "seller[addresses_attributes][0][county]": {
+        required: true
+      },
+      "seller[addresses_attributes][0][postal_code]": {
+        required: true
+      },
+      "seller[addresses_attributes][0][country]": {
+        required: true
+      },
+      "seller[addresses_attributes][0][phone_number]": {
+        required: true
+      },
       "seller[business_representative_attributes][full_legal_name]": {
         required: true
       },
@@ -342,30 +396,95 @@ window.businessRepresentativeForm = function() {
       "seller[business_representative_attributes][job_title]": {
         required: true
       },
-      "seller[account_status]": {
+      "seller[business_representative_attributes][date_of_birth]": {
         required: true
       },
-      "seller[listing_status]": {
+      "seller[addresses_attributes][1][address_line_1]": {
         required: true
       },
-      "seller[company_detail_attributes][country]": {
+      "seller[addresses_attributes][1][address_line_2]": {
         required: true
       },
-      "seller[company_detail_attributes][companies_house_registration_number]": {
+      "seller[addresses_attributes][1][city]": {
         required: true
       },
-      "seller[addresses_attributes][0][country]": {
+      "seller[addresses_attributes][1][county]": {
+        required: true
+      },
+      "seller[addresses_attributes][1][postal_code]": {
+        required: true
+      },
+      "seller[addresses_attributes][1][country]": {
+        required: true
+      },
+      "seller[addresses_attributes][1][phone_number]": {
+        required: true
+      },
+      "seller[subscription_type]": {
         required: true
       }
-    },
+    }, 
     highlight: function(element) {
-      console.log('asdasd');
       $(element).parents("div.form-group").addClass('error-field');
     },
     unhighlight: function(element) {
       $(element).parents("div.form-group").removeClass('error-field');
     },
     messages: {
+      "seller[email]": {
+          required: "Name is required"
+      },
+      "seller[company_detail_attributes][name]": {
+        required: "Company name is required"
+      },
+      "seller[company_detail_attributes][country]": {
+        required: "Country name is required"
+      },
+      "seller[company_detail_attributes][legal_business_name]": {
+        required: "Legal business name is required"
+      },
+      "seller[company_detail_attributes][companies_house_registration_number]": {
+        required: "Registration number is required"
+      },
+      "seller[company_detail_attributes][doing_business_as]": {
+        required: "This field is required"
+      },
+      "seller[company_detail_attributes][business_industry]": {
+        required: "Business industry is required"
+      },
+      "seller[company_detail_attributes][website_url]": {
+        required: "Website URL is required"
+      },
+      "seller[company_detail_attributes][amazon_url]": {
+        required: "Amazon URL is required"
+      },
+      "seller[company_detail_attributes][ebay_url]": {
+        required: "ebay URL is required"
+      },
+      "seller[company_detail_attributes][vat_number]": {
+        required: "VAT number is required"
+      },
+      "seller[addresses_attributes][0][address_line_1]": {
+        required: "Address is required"
+      },
+      "seller[addresses_attributes][0][address_line_2]": {
+        required: "Address is required"
+      },
+      "seller[addresses_attributes][0][city]": {
+        required: "City is required"
+      },
+      "seller[addresses_attributes][0][county]": {
+        required: "County is required"
+      },
+      "seller[addresses_attributes][0][postal_code]": {
+        required: "Postal Code is required"
+      },
+      "seller[addresses_attributes][0][country]": {
+        required: "Country name is required"
+      },
+      "seller[addresses_attributes][0][phone_number]": {
+        required: "Phone number is required"
+      },
       "seller[business_representative_attributes][full_legal_name]": {
         required: "Full legal name is required"
       },
@@ -375,20 +494,32 @@ window.businessRepresentativeForm = function() {
       "seller[business_representative_attributes][job_title]": {
         required: "Job title is required"
       },
-      "seller[account_status]": {
-        required: "Account Status is required"
+      "seller[business_representative_attributes][date_of_birth]": {
+        required: "Date of birth is required"
       },
-      "seller[listing_status]": {
-        required: "Listing Status is required"
+      "seller[addresses_attributes][1][address_line_1]": {
+        required: "Address is required"
       },
-      "seller[company_detail_attributes][country]": {
+      "seller[addresses_attributes][1][address_line_2]": {
+        required: "Address is required"
+      },
+      "seller[addresses_attributes][1][city]": {
+        required: "City is required"
+      },
+      "seller[addresses_attributes][1][county]": {
+        required: "County is required"
+      },
+      "seller[addresses_attributes][1][postal_code]": {
+        required: "Postal code is required"
+      },
+      "seller[addresses_attributes][1][country]": {
         required: "Country name is required"
       },
-      "seller[company_detail_attributes][companies_house_registration_number]": {
-        required: "Registration number is required"
+      "seller[addresses_attributes][1][phone_number]": {
+        required: "Phone number is required"
       },
-      "seller[addresses_attributes][0][country]": {
-        required: "Country name is required"
+      "seller[subscription_type]": {
+        required: "Subscription type is required"
       }
     },
   });

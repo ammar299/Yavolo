@@ -14,20 +14,7 @@
       <% unless params[:controller] == 'admin/sessions' %>
         <%= render 'layouts/header' %>
       <% end %>
-      <div id="flash-msg">
-        <% if notice.present? %>
-          <p class="flash-toast notice <%= notice.present? ? 'notice-msg' : ''%>">
-            <%= notice %>
-            <span  class="notice-cross-icon" aria-hidden="true">&times;</span>
-          </p>
-        <% end %>
-        <% if alert.present? %>
-          <p class="flash-toast alert <%= alert.present? ? 'alert-msg' : ''%>">
-            <%= alert %>
-            <span class="notice-cross-icon" aria-hidden="true">&times;</span>
-          </p>
-        <% end %>
-      </div>
+      <%= render 'shared/flash_messages' %>
       <div class="main-content">
         <%= yield %>
       </div>

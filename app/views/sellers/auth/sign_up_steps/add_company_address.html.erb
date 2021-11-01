@@ -6,7 +6,7 @@
         <h3 class="text-center mb-5" style="color: #640529;">Register Your Business With Yavolo
         </h3>
         <h5 class="text-center mb-5" style="color: #640529;font-size: 18px; margin-top: -36px;">Add Company Address</h5>
-        <%= form_for @seller, url: wizard_path, method: :put do |form| %>
+        <%= form_for @seller, url: wizard_path, html: { id: :add_seller_steps }, method: :put do |form| %>
           <% business_address = '' %>
           <% if form.object.addresses.present? && form.object.addresses.length > 0 %>
             <% business_address = form.object.addresses.select{ |addr| addr.address_type == "business_address"} %>
@@ -44,7 +44,7 @@
             <% has_error, msg = get_errors(form, "addresses.country") %>
             <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= b_addr.label :country, 'Country*' %>
-              <%= b_addr.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Country' }, required: true, class: 'form-control' %>
+              <%= b_addr.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Select Country' }, required: true, class: 'form-control' %>
               <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
             <% has_error, msg = get_errors(form, "addresses.postal_code") %>

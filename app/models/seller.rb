@@ -2,7 +2,7 @@ class Seller < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :timeoutable, :trackable, :omniauthable, omniauth_providers: [:google_oauth2 , :facebook]
+         :recoverable, :rememberable, :validatable, :trackable, :omniauthable, omniauth_providers: [:google_oauth2 , :facebook]
   validates :email, confirmation: true
   validates :contact_number, phone: {allow_blank: true}
   validates_acceptance_of :terms_and_conditions, on: :on_final_step?

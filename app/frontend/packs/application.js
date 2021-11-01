@@ -33,6 +33,8 @@ const ClassicEditor = require("@ckeditor/ckeditor5-build-classic");
 require("packs/selectize.min");
 require("packs/jquery.validate");
 require("packs/additional-methods");
+require("packs/profile");
+require("packs/sign-up-steps");
 $(document).ready(() => {
   $("body").on("focus", ".datepicker", function () {
     $(this)
