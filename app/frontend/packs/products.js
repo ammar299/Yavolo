@@ -1,6 +1,7 @@
 // load all products related js here
 $(document).ready(function(){
-  let updatedProductIds = []
+  let updatedProductIds = [];
+  let productErrors = [];
   $(document).on({
     mouseenter: function () {
       $(this).parents('.prod-table-row').find('.yavolo-btn').removeClass('btn-danger');

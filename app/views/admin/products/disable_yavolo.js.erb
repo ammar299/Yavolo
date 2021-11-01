@@ -1,4 +1,10 @@
-<% if @products.present? %>
+<% resutl_errors = @products.map{|p| p.errors.full_messages }.flatten %>
+<% if resutl_errors.present? %>
+productErrors = <%=raw resutl_errors.to_a%>;
+if(productErrors.length > 0){
+  showErrorsAlert(productErrors)
+}
+<% elsif @products.present? %>
 updatedProductIds = <%= @products.map(&:id) %>
 updatedProductIds.forEach(function(pid){
   if( $('#prod-id-'+pid).length > 0 ){

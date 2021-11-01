@@ -12,7 +12,7 @@
         <%= render "shared/products/ebay_details", form: form %>
         <%= render "shared/products/listing_details", form: form %>
         <%= render "shared/products/pricing_and_quantity", form: form %>
-        <%= render "shared/products/delivery_details", form: form %>
+        <%= render "shared/products/delivery_details", form: form, new_delivery_option_url: new_admin_delivery_option_path %>
         <%= render "shared/products/product_actions_bar", form: form %>
     <% end %>
     <%= render "shared/products/add_new_delivery_option" %>
