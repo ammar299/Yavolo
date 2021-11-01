@@ -78,3 +78,33 @@ function validFilterGroupForm(){
   return !has_errors.includes(true)
 }
 
+	// validations
+window.FilterGroupFormValidation = function(){	
+	$('form#filter_group_new_form').validate({
+		ignore: "",
+	  rules: {
+      "delivery_option[name]": {
+        required: true
+      },
+      "filter_group[filter_group_type]": {
+      	required: true
+      }
+    },
+    errorPlacement: function (error, element) {
+	    error.insertAfter(element);
+	  },
+    highlight: function(element) {
+      $(element).closest('div').addClass('error-field');
+    },
+    unhighlight: function(element) {
+      $(element).closest('div').removeClass('error-field');
+    },
+
+	  messages: {
+      "filter_group[name]": {
+        required: "Filter Group name required"
+       },
+     }
+	});
+}
+

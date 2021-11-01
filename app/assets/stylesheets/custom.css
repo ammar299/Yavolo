@@ -601,6 +601,18 @@ input::-webkit-inner-spin-button {
 .temporary-image {
   padding-left: 215px;
 }
+.error-position .error {
+  position: absolute;
+  bottom: -23px;
+  left: 0;
+}
+select.form-control {
+  padding-right: 28px !important;
+}
+
+
+
+
 @media only screen and (max-width: 768px) {
   .temporary-image {
     padding-left: 0;
