@@ -48,6 +48,18 @@ $(document).ready(() => {
         // `e` here contains the extra attributes
       });
   });
+
+  $("body").on("focus", ".datepicker-dashboard", function () {
+    $(this)
+      .datepicker({
+        format: "dd/mm/yyyy",
+        todayHighlight: true,
+        defaultDate: new Date(),
+      })
+      .on("changeDate", function (e) {
+        // `e` here contains the extra attributes
+      });
+  });
   // hide flash toasts
   $(document).on('click','.notice-cross-icon', function(){
     $(this).parent().fadeOut("slow");

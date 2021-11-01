@@ -235,7 +235,7 @@
 }
 
 .admin-header {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #ccc;
   min-height: 82px;
   display: flex;
   align-items: center;
@@ -281,15 +281,14 @@
   z-index: 55556;
   background-color: var(--light-red);
   color: var(--red);
-  padding: 12px;
-  width: 230px;
+  padding: 12px 20px;
   margin: 5px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-radius: 35px;
   transition: 0.3s linear;
-  max-width: 500px;
+  max-width: 450px;
 }
 .notice-msg,
 .alert-msg {
@@ -300,6 +299,7 @@
   font-size: 21px;
   line-height: 21px;
   padding-bottom: 3px;
+  margin-left: 10px;
 }
 .notice-msg span {
   cursor: pointer;
@@ -358,6 +358,7 @@
 .dropdown-filter.show .dropdown-menu {
   min-width: 40px;
   top: 40px !important;
+  margin-top: 0;
 }
 .dropdown-filter.show .dropdown-menu a {
   word-break: break-word;
@@ -610,9 +611,6 @@ select.form-control {
   padding-right: 28px !important;
 }
 
-
-
-
 @media only screen and (max-width: 768px) {
   .temporary-image {
     padding-left: 0;
@@ -628,6 +626,9 @@ select.form-control {
   }
   .signin-logo .logo-inner {
     align-items: center !important;
+  }
+  .dropdown-filter.show .dropdown-menu {
+    top: 25px !important;
   }
 }
 @media only screen and (max-width: 1024px) {
@@ -668,7 +669,8 @@ select.form-control {
   color: var(--dark-red);
 }
 
-.btn-primary.disabled, .btn-primary:disabled {
+.btn-primary.disabled,
+.btn-primary:disabled {
   color: #fff;
   background-color: var(--dark-red);
   border-color: var(--dark-red);
