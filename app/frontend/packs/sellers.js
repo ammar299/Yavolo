@@ -3,6 +3,7 @@ $(document).ready(function () {
   sellerSearchByFilter();
   addNewSellerFormValidation();
   newSellerFormDropdownValidation();
+  validateEligibility();
   //Upload Sellers
   $(".upload-sellers-csv-btn").click(function () {
     $("#upload-sellers-csv-popup").modal("show");
@@ -525,3 +526,43 @@ window.validateSellerEditForm = function() {
   });
 }
 
+
+window.validateSellerSignIn = function () {
+  $('form#new_seller').validate({
+    ignore: "", 
+    rules: {
+      "seller[email]": {
+        required: true
+      },
+      "seller[password]": {
+        required: true
+      },
+    }, 
+    highlight: function(element) {
+      $(element).parents("div.form-group").addClass('error-field');
+    },
+    unhighlight: function(element) {
+      $(element).parents("div.form-group").removeClass('error-field');
+    },
+    messages: {
+      "seller[email]": {
+          required: "Email is required"
+      },
+      "seller[password]": {
+        required: "Password is required"
+      },
+    },
+  });
+}
+
+
+function validateEligibility () {
+  $('body').on('click', ".not-eligible-toast", function () {
+    $('#flash-msg').find('p').remove();
+    var toast = '<p class="flash-toast notice notice-msg">Please complete your dashboard required steps! <span  class="notice-cross-icon" aria-hidden="true">&times;</span> </p>'
+    $('#flash-msg').html(toast);
+    setTimeout(function () {
+      $("#flash-msg").find("p").remove();
+    }, 3000);
+  })
+}

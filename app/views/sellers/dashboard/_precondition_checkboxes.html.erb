@@ -4,24 +4,24 @@
       <div>
         <h5>Let's Get Selling!</h5>
         <label class="checkbox-blk">
-        <a href="<%= sellers_profile_path(@seller) %>">Brighten Up your business with a Logo</a>
+        <a href="<%= sellers_profile_path(@seller) %>">Brighten Up your business with a Logo*</a>
           <input type="checkbox" <%= @seller.picture.present? ? 'checked': '' %> disabled>
           <span class="checkmark"></span>
         </label>
         <% invoice_address = @seller.addresses.select do |address| address.address_type == 'invoice_address' end %>
         <% return_address = @seller.addresses.select do |address| address.address_type == 'return_address' end %>
         <label class="checkbox-blk">
-        <a href="<%= sellers_profile_path(@seller) %>">Help us find you with invoice address</a>
+        <a href="<%= sellers_profile_path(@seller) %>">Help us find you with invoice address*</a>
           <input type="checkbox" <%= invoice_address.present? ? 'checked': '' %> disabled>
           <span class="checkmark"></span>
         </label>
         <label class="checkbox-blk">
-        <a href="<%= sellers_profile_path(@seller) %>">Those returns need an address too</a>
+        <a href="<%= sellers_profile_path(@seller) %>">Those returns need an address too*</a>
           <input type="checkbox" <%= return_address.present? ? 'checked': '' %> disabled>
           <span class="checkmark"></span>
         </label>
         <label class="checkbox-blk">
-        <a href="<%= sellers_profile_path(@seller) %>">Add your bank account to recieve the dosh</a>
+        <a href="<%= sellers_profile_path(@seller) %>">Add your bank account to recieve the dosh*</a>
           <input type="checkbox" <%= @seller.bank_detail.present? ? 'checked': '' %> disabled>
           <span class="checkmark"></span>
         </label>
