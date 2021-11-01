@@ -716,10 +716,10 @@ function setSellerSearchMenuAndQueryName(){
     $('.seller-products-filters a').removeClass('active');
     $(this).addClass('active')
     $('.current-search-filter').html(currentFilter+' <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>');
-    if(currentFilter=='Product Title A to Z'){
+    if(currentFilter=='Product Title'){
       searchField.attr('name', 'q[title_cont]');
       $('#csfn').val('title_cont');
-      filterType.val('Product Title A to Z');
+      filterType.val('Product Title');
     }else if(currentFilter=='Brand'){
       searchField.attr('name', 'q[brand_cont]');
       $('#csfn').val('brand_cont');
