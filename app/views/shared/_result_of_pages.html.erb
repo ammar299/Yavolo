@@ -1,0 +1,14 @@
+<% if count == 0 %>
+   <p>Results <span>0 - 0</span> of <span><%= total_count %></span></p>
+<% elsif total_count > 1 && total_count <= 15 %>
+  <p>Results <span>1 - <%= count %></span> of <span><%= total_count %></span></p>
+<% else %>
+  <p>Results <span>
+  <% if params[:page] && params[:per_page].present? %>
+    <%= (params[:page].to_i - 1 ) * ( params[:per_page].to_i ) %> - <%= params[:per_page]? (((params[:page].to_i - 1) * params[:per_page].to_i ) + count) : 15 %></span> of <span><%= total_count %></span></p>
+  <% elsif  params[:page].to_i > 0 %>
+    <%= (params[:page].to_i - 1 ) * ( 15 ) %> - <%= params[:page]? (((params[:page].to_i - 1) * 15 ) + count) : 15 %></span> of <span><%= total_count %></span></p>
+  <% else %>
+    <%= 1 %> - <%= count %></span> of <span><%= total_count %></span></p>
+  <% end %>
+<% end %>
