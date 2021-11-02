@@ -26,12 +26,6 @@
               <%= br.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", id: "", placeholder: "Business Representative Email", required: true %>
               <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
-            <% has_error, msg = get_errors(form, "business_representative.full_legal_name") %>
-            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
-              <%= br.label :full_legal_name, 'Full Legal Name*' %>
-              <%= br.text_field :full_legal_name, autofocus: true, autocomplete: "full_legal_name", class: "form-control", id: "", placeholder: "Full Legal Name", required: true %>
-              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
-            </div>
             <% has_error, msg = get_errors(form, "business_representative.job_title") %>
             <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= br.label :job_title, 'Job Title*' %>
