@@ -113,6 +113,9 @@ function addNewSellerFormValidation() {
       },
       "seller[bank_detail_attributes][account_number_confirmation]": {
         required: true,
+      },
+      "seller[terms_and_conditions]": {
+        required: true,
       }
     },
     highlight: function (element) {
@@ -227,6 +230,9 @@ function addNewSellerFormValidation() {
       },
       "seller[bank_detail_attributes][account_number_confirmation]": {
         required: "Confirm Account Number is required",
+      },
+      "seller[terms_and_conditions]": {
+        required: "Please accept term & condtions",
       }
     },
   });

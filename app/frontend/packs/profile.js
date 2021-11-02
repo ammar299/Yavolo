@@ -100,11 +100,6 @@ function addNewSellerFormValidation() {
       },
       "seller[terms_and_conditions]": {
         required: true,
-        minlength: 1,
-      },
-      "seller[recieve_deals_via_email]": {
-        required: true,
-        minlength: 1,
       },
     },
     highlight: function (element) {
@@ -207,9 +202,6 @@ function addNewSellerFormValidation() {
       },
       "seller[terms_and_conditions]": {
         required: "Please accept these Terms and conditions",
-      },
-      "seller[recieve_deals_via_email]": {
-        required: "Please accept deals via email",
       },
     },
   });

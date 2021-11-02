@@ -675,3 +675,9 @@ select.form-control {
   background-color: var(--dark-red);
   border-color: var(--dark-red);
 }
+
+.check-container .error {
+  position: absolute;
+  bottom: -32px;
+  left: 30px;
+}
