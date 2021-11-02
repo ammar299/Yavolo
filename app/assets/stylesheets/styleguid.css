@@ -388,6 +388,7 @@ textarea.form-control {
     width: 20px;
     border: 2px solid var(--dark-red);
     border-radius: 4px;
+    pointer-events: none;
 }
 .checkbox-blk input:checked ~ .checkmark {
     background-color: var(--red);
