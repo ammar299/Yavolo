@@ -4,6 +4,7 @@ $(document).ready(function () {
   addNewSellerFormValidation();
   newSellerFormDropdownValidation();
   validateEligibility();
+  validateSellerSignInSignUp();
   //Upload Sellers
   $(".upload-sellers-csv-btn").click(function () {
     $("#upload-sellers-csv-popup").modal("show");
@@ -527,14 +528,23 @@ window.validateSellerEditForm = function() {
 }
 
 
-window.validateSellerSignIn = function () {
+function validateSellerSignInSignUp() {
   $('form#new_seller').validate({
     ignore: "", 
     rules: {
+      "seller[first_name]": {
+        required: true
+      },
+      "seller[last_name]": {
+        required: true
+      },
       "seller[email]": {
         required: true
       },
       "seller[password]": {
+        required: true
+      },
+      "seller[password_confirmation]": {
         required: true
       },
     }, 
@@ -545,11 +555,20 @@ window.validateSellerSignIn = function () {
       $(element).parents("div.form-group").removeClass('error-field');
     },
     messages: {
+      "seller[first_name]": {
+        required: "First name is required"
+      },
+      "seller[last_name]": {
+        required: "Last name is required"
+      },
       "seller[email]": {
           required: "Email is required"
       },
       "seller[password]": {
         required: "Password is required"
+      },
+      "seller[password_confirmation]": {
+        required: "Password confirmation is required"
       },
     },
   });
