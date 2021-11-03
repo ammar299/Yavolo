@@ -3,7 +3,8 @@ class Admin::ProductsController < Admin::BaseController
   def index
     @q = Product.ransack(params[:q])
     @products = @q.result(distinct: true)
-    @products = @products.where(status: params[:filter_by].to_i) if params[:filter_by].present?
+    @products = @products.where(status: filter_by_statuses) if filter_by_statuses.present?
+    @products = @products.where(yavolo_enabled: true) if params[:yavolo_enabled]=='1'
     @products = @products.page(params[:page]).per(params[:per_page].presence || 15)
   end
 
@@ -160,5 +161,9 @@ class Admin::ProductsController < Admin::BaseController
         product.pictures_attributes=images_urls
         product.save
       end
+    end
+
+    def filter_by_statuses
+      Product.statuses.keys&params[:statuses].split(',') if params[:statuses].present?
     end
 end
