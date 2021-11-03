@@ -6,7 +6,7 @@
         <h3 class="text-center mb-5" style="color: #640529;">Register Your Business With Yavolo
         </h3>
         <h5 class="text-center mb-5" style="color: #640529;font-size: 18px; margin-top: -36px;">Add Company Details</h5>
-        <%= form_for @seller, url: wizard_path, method: :put do |form| %>
+        <%= form_for @seller, url: wizard_path, html: { id: :add_seller_steps }, method: :put do |form| %>
           <% if @seller.errors.any? %>
             <div class="error_messages">
               <h2><%= pluralize(@seller.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -123,11 +123,12 @@
           <% end %>
           <div class="d-flex flex-wrap" style="overflow: hidden;">
             <div class="form-check mt-3">
-              <label class="check-container checkbox-blk">I agree to
-                Yavolo’s <a href="" style="text-decoration:none;"><strong><u>Terms and Conditions</u></strong></a>
-                <%= form.check_box :terms_and_conditions, required: true %>
-                <!-- <input type="checkbox" > -->
-                <span class="checkmark"></span>
+              <label class="checkbox-blk check-container">I agree to Yavolo’s &nbsp;
+                <a href="javascript:void(0)" style="text-decoration:none;">
+                  <u><strong>Terms and Conditions</strong></u>
+                  <input required="required" type="checkbox" value="0" name="seller[terms_and_conditions]" id="seller_terms_and_conditions">
+                  <span class="checkmark"></span>
+                </a>
               </label>
             </div>
             <div class="form-check mt-3 mb-3">
@@ -137,7 +138,7 @@
               </label>
             </div>
           </div>
-          <%= form.submit "Register", class: 'btn btn-primary btn-lg btn-block mb-4' %>
+          <%= form.submit "Register", class: 'btn btn-primary btn-radius btn-lg btn-block mb-4' %>
         <% end %>
       </div>
     </div>

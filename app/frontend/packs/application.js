@@ -33,6 +33,8 @@ const ClassicEditor = require("@ckeditor/ckeditor5-build-classic");
 require("packs/selectize.min");
 require("packs/jquery.validate");
 require("packs/additional-methods");
+require("packs/profile");
+require("packs/sign-up-steps");
 $(document).ready(() => {
   $("body").on("focus", ".datepicker", function () {
     $(this)
@@ -41,6 +43,18 @@ $(document).ready(() => {
         todayHighlight: true,
         defaultDate: new Date(),
         endDate: "-18y",
+      })
+      .on("changeDate", function (e) {
+        // `e` here contains the extra attributes
+      });
+  });
+
+  $("body").on("focus", ".datepicker-dashboard", function () {
+    $(this)
+      .datepicker({
+        format: "dd/mm/yyyy",
+        todayHighlight: true,
+        defaultDate: new Date(),
       })
       .on("changeDate", function (e) {
         // `e` here contains the extra attributes

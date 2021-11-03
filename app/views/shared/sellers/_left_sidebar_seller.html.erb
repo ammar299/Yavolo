@@ -1,40 +1,41 @@
 <ul class="nav nav-tabs seller-edit-nav" id="myTab" role="tablist">
+  <% class_name = is_eligible?(current_seller) ? "" : "not-eligible-toast" %>
   <li class="nav-item">
-    <a class="nav-link active" id="Seller-About-tab" data-toggle="tab" href="#Seller-About-Page" role="tab" aria-controls="Seller-About-Page" aria-selected="true">
+    <a class="nav-link active <%= class_name %>" id="Seller-About-tab" data-toggle="tab" href="#Seller-About-Page" role="tab" aria-controls="Seller-About-Page" aria-selected="true">
       About You
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="Reviews-tab" data-toggle="tab" href="<%= is_eligible?(current_seller) ? '#Reviews' : '' %>" role="tab" aria-controls="Reviews" aria-selected="false">
+    <a class="nav-link  <%= class_name %>" id="Reviews-tab" data-toggle="tab" href="<%= is_eligible?(current_seller) ? '#Reviews' : '' %>" role="tab" aria-controls="Reviews" aria-selected="false">
       Reviews
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="Manage-Subscription-tab" data-toggle="tab" href="<%= is_eligible?(current_seller) ? '#Manage-Subscription' : '' %>" role="tab" aria-controls="Manage-Subscription" aria-selected="false">Manage Subscription
+    <a class="nav-link  <%= class_name %>" id="Manage-Subscription-tab" data-toggle="tab" href="<%= is_eligible?(current_seller) ? '#Manage-Subscription' : '' %>" role="tab" aria-controls="Manage-Subscription" aria-selected="false">Manage Subscription
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="Delivery-Settings-tab" data-toggle="tab" href="<%= is_eligible?(current_seller) ? '#Delivery-Settings' : '' %>" role="tab" aria-controls="Delivery-Settings" aria-selected="false">
+    <a class="nav-link  <%= class_name %>" id="Delivery-Settings-tab" data-toggle="tab" href="<%= is_eligible?(current_seller) ? '#Delivery-Settings' : '' %>" role="tab" aria-controls="Delivery-Settings" aria-selected="false">
       Delivery Settings
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="return-term-tab" data-toggle="tab" href="#return-term" role="tab" aria-controls="return-term" aria-selected="false">
+    <a class="nav-link  <%= class_name %>" id="return-term-tab" data-toggle="tab" href="#return-term" role="tab" aria-controls="return-term" aria-selected="false">
       Return & Terms
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="login-settings-tab" data-toggle="tab" href="<%= is_eligible?(current_seller) ? '#login-settings' : '' %>" role="tab" aria-controls="login-settings" aria-selected="false">
-      Login setings
+    <a class="nav-link  <%= class_name %>" id="login-settings-tab" data-toggle="tab" href="<%= is_eligible?(current_seller) ? '#login-settings' : '' %>" role="tab" aria-controls="login-settings" aria-selected="false">
+      Login Settings
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="connection-manager-tab" data-toggle="tab" href="<%= is_eligible?(current_seller) ? '#connection-manager' : '' %>" role="tab" aria-controls="connection-manager" aria-selected="false">
+    <a class="nav-link  <%= class_name %>" id="connection-manager-tab" data-toggle="tab" href="<%= is_eligible?(current_seller) ? '#connection-manager' : '' %>" role="tab" aria-controls="connection-manager" aria-selected="false">
       Connection Manager
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="holiday-mode-tab" data-toggle="tab" href="<%= is_eligible?(current_seller) ? '#holiday-mode' : '' %>" role="tab" aria-controls="holiday-mode" aria-selected="false">
+    <a class="nav-link  <%= class_name %>" id="holiday-mode-tab" data-toggle="tab" href="<%= is_eligible?(current_seller) ? '#holiday-mode' : '' %>" role="tab" aria-controls="holiday-mode" aria-selected="false">
       Holiday mode</a>
   </li>
   <li class="nav-item">

@@ -5,6 +5,7 @@ $(document).ready(function(){
   $('.back-btn-action').click(function(){
     window.history.back();
   });
+  validateAdminSignIn()
 })
 $(document).ready(function(){
   toggleDashboardMenu();
@@ -56,5 +57,33 @@ function toggleDashboardMenu(){
     else {
       $('.dashboard-page').addClass('toggle-close');
     }
+  });
+}
+
+function validateAdminSignIn() {
+  $('form#new_admin').validate({
+    ignore: "", 
+    rules: {
+      "admin[email]": {
+        required: true
+      },
+      "admin[password]": {
+        required: true
+      },
+    }, 
+    highlight: function(element) {
+      $(element).parents("div.form-group").addClass('error-field');
+    },
+    unhighlight: function(element) {
+      $(element).parents("div.form-group").removeClass('error-field');
+    },
+    messages: {
+      "admin[email]": {
+          required: "Email is required"
+      },
+      "admin[password]": {
+        required: "Password is required"
+      },
+    },
   });
 }

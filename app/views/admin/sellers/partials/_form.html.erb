@@ -133,7 +133,7 @@
               </div>
               <div class="form-group form-group-vertical form-group-vertical-responsive col-md-3">
               <div style="flex: 1">
-                <%= addr.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Country' }, class: 'form-control' %>
+                <%= addr.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Select Country' }, class: 'form-control' %>
               </div>
               </div>
             </div>
@@ -168,7 +168,7 @@
             <div class="form-group form-group-vertical form-group-vertical-responsive">
               <%= br.label :date_of_birth, 'Date of Birth:' %>
               <div style="flex: 1">
-                <%= br.text_field :date_of_birth, placeholder: 'DD/MM/YYYY', class: 'form-control datepicker', autocomplete: 'date_of_birth' %>
+                <%= br.text_field :date_of_birth, placeholder: 'dd/mm/yyyy', class: 'form-control datepicker', autocomplete: 'date_of_birth' %>
               </div>
             </div>
           <% end %>
@@ -211,7 +211,7 @@
               </div>
               <div class="form-group form-group-vertical form-group-vertical-responsive col-md-3">
                 <div style="flex: 1">
-                  <%= addr.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Country' }, class: 'form-control' %>
+                  <%= addr.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Select Country' }, class: 'form-control' %>
                 </div>
               </div>
             </div>

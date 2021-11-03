@@ -5,7 +5,7 @@ $('#deliveryTemplateForm').modal('show');
 setFormValidation();
 <% end %>
 <% if params[:add_new].present? %>
-$('#delivery-template-form #new_delivery_option').append("<input type='hidden' name='from' value='create_product'>")
+$('#delivery-template-form #delivery_option_form').append("<input type='hidden' name='from' value='create_product'>")
 $('#delivery-template-form').show();
 <% elsif params[:from].present? %>
 $('#delivery-template-form').hide();

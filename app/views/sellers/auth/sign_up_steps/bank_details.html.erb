@@ -6,7 +6,7 @@
         <h3 class="text-center mb-5" style="color: #640529;">Register Your Business With Yavolo
         </h3>
         <h5 class="text-center mb-5" style="color: #640529;font-size: 18px; margin-top: -36px;">Add Bank Account for Payouts</h5>
-        <%= form_for @seller, url: wizard_path, method: :put do |form| %>
+        <%= form_for @seller, url: wizard_path, html: { id: :add_seller_steps }, method: :put do |form| %>
           <% bank_detail = '' %>
           <% if form.object.bank_detail.present? %>
             <% bank_detail = form.object.bank_detail %>
@@ -23,7 +23,7 @@
             <% has_error, msg = get_errors(form, "bank_detail.country") %>
             <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= cd.label :country, 'Country of Bank Account*' %>
-              <%= cd.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Country' }, required: true, class: 'form-control' %>
+              <%= cd.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Select Country' }, required: true, class: 'form-control' %>
               <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
             <% has_error, msg = get_errors(form, "bank_detail.sort_code") %>

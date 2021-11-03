@@ -1,6 +1,7 @@
 // load all products related js here
 $(document).ready(function(){
-  let updatedProductIds = []
+  let updatedProductIds = [];
+  let productErrors = [];
   $(document).on({
     mouseenter: function () {
       $(this).parents('.prod-table-row').find('.yavolo-btn').removeClass('btn-danger');
@@ -715,24 +716,31 @@ function setSellerSearchMenuAndQueryName(){
     $('.seller-products-filters a').removeClass('active');
     $(this).addClass('active')
     $('.current-search-filter').html(currentFilter+' <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>');
-    if(currentFilter=='Product Title A to Z'){
+    if(currentFilter=='Product Title'){
       searchField.attr('name', 'q[title_cont]');
-      filterType.val('Product Title A to Z');
+      $('#csfn').val('title_cont');
+      filterType.val('Product Title');
     }else if(currentFilter=='Brand'){
       searchField.attr('name', 'q[brand_cont]');
+      $('#csfn').val('brand_cont');
       filterType.val('Brand');
     }else if(currentFilter=='SKU'){
       searchField.attr('name', 'q[sku_cont]');
+      $('#csfn').val('sku_cont');
       filterType.val('SKU');
     }else if(currentFilter=='YAN'){
       searchField.attr('name', 'q[yan_cont]');
+      $('#csfn').val('yan_cont');
       filterType.val('YAN');
     }else if(currentFilter=='EAN'){
       searchField.attr('name', 'q[ean_cont]');
+      $('#csfn').val('ean_cont');
       filterType.val('EAN');
     }else{
       $('.current-search-filter').text('Search All');
       searchField.attr('name', 'q[title_or_brand_or_sku_or_yan_or_ean_cont]');
+      $('#csfn').val('title_or_brand_or_sku_or_yan_or_ean_cont');
+      filterType.val('Search All');
     }
   });
 }

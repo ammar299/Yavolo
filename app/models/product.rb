@@ -23,7 +23,7 @@ class Product < ApplicationRecord
     accepts_nested_attributes_for :seo_content, :ebay_detail, :google_shopping, :assigned_category
     accepts_nested_attributes_for :pictures, allow_destroy: true
 
-    validates :sku, uniqueness: true, if: Proc.new{|p| p.sku.present? }
+    # validates :sku, uniqueness: true, if: Proc.new{|p| p.sku.present? }
     validates :ean, uniqueness: true, if: Proc.new{|p| p.ean.present? }
     validates :yan, uniqueness: true, if: Proc.new{|p| p.yan.present? }
     validates :title, :condition, :description, :keywords, :price, :stock, presence: true

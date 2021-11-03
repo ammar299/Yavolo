@@ -2,8 +2,7 @@ class Admin::ProductsController < Admin::BaseController
   include SharedProductMethods
   def index
     @q = Product.ransack(params[:q])
-    query = @q.result(distinct: true)
-    @products = query.where(owner_type: current_admin.class.name)
+    @products = @q.result(distinct: true)
     @products = @products.where(status: params[:filter_by].to_i) if params[:filter_by].present?
     @products = @products.page(params[:page]).per(params[:per_page].presence || 15)
   end

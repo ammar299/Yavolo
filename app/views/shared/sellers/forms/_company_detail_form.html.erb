@@ -1,48 +1,66 @@
 <!-- Business Information Section / Company Details -->
-
 <% if @seller.company_detail.nil? %>
   <% @seller.build_company_detail %>
 <% end %>
-<h3>Business Information</h3>
 <%= form.simple_fields_for :company_detail do |cd| %>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
     <%= cd.label :name, 'Company Name' %>
-    <%= cd.text_field :name, placeholder: 'Startrek', class: 'form-control' %>
+    <div style="flex: 1;">
+      <%= cd.text_field :name, placeholder: 'Startrek', class: 'form-control' %>
+    </div>
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
     <%= cd.label :country, 'Country' %>
-    <%= cd.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Country' }, required: true, class: 'form-control' %>
+    <div style="flex: 1;">
+      <%= cd.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Select Country' }, class: 'form-control' %>
+    </div>
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
     <%= cd.label :doing_business_as, 'Doing Business As' %>
-    <%= cd.text_field :doing_business_as, placeholder: 'Homcom', class: 'form-control' %>
+    <div style="flex: 1;">
+      <%= cd.text_field :doing_business_as, placeholder: 'Homcom', class: 'form-control' %>
+    </div>
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
     <%= cd.label :legal_business_name, 'Legal Business Name' %>
-    <%= cd.text_field :legal_business_name, placeholder: 'Startrek', class: 'form-control' %>
+    <div style="flex: 1;">
+      <%= cd.text_field :legal_business_name, placeholder: 'Startrek', class: 'form-control' %>
+    </div>
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
     <%= cd.label :companies_house_registration_number, 'Companies House Registration Number' %>
-    <%= cd.text_field :companies_house_registration_number, placeholder: '73738823', required: true, class: 'form-control' %>
+    <div style="flex: 1;">
+      <%= cd.text_field :companies_house_registration_number, placeholder: '73738823', required: true, class: 'form-control' %>
+    </div>
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
     <%= cd.label :business_industry, 'Business Industry' %>
-    <%= cd.text_field :business_industry, placeholder: 'sales@mhstar.co.uk', class: 'form-control' %>
+    <div style="flex: 1;">
+      <%= cd.text_field :business_industry, placeholder: 'sales@mhstar.co.uk', class: 'form-control' %>
+    </div>
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
     <%= cd.label :vat_number, 'VAT Number' %>
-    <%= cd.text_field :vat_number, placeholder: 'GADA1313443', class: 'form-control' %>
+    <div style="flex: 1;">
+      <%= cd.text_field :vat_number, placeholder: 'GADA1313443', class: 'form-control' %>
+    </div>
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
     <%= cd.label :website_url, 'Website URL' %>
-    <%= cd.url_field :website_url, placeholder: 'https://www.google.com', class: 'form-control' %>
+    <div style="flex: 1;">
+      <%= cd.url_field :website_url, placeholder: 'https://www.google.com', class: 'form-control' %>
+    </div>
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
     <%= cd.label :ebay_url, 'eBay URL' %>
-    <%= cd.url_field :ebay_url, placeholder: 'https://www.ebaystore.com/mystore', class: 'form-control' %>
+    <div style="flex: 1;">
+      <%= cd.url_field :ebay_url, placeholder: 'https://www.ebaystore.com/mystore', class: 'form-control' %>
+    </div>
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
     <%= cd.label :amazon_url, 'Full Legal Name' %>
-    <%= cd.url_field :amazon_url, placeholder: 'https://www.amazon.com/mystore', class: 'form-control' %>
+    <div style="flex: 1;">
+      <%= cd.url_field :amazon_url, placeholder: 'https://www.amazon.com/mystore', class: 'form-control' %>
+    </div>
   </div>
 <% end %>

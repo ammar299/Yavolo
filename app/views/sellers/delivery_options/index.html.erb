@@ -54,7 +54,8 @@
             </tr>
           </thead>
           <tbody id="delivery-options-list">
-            <%= render 'delivery_options_list', delivery_options: @delivery_options %>
+            <% if @delivery_options.count > 0 %>
+              <%= render 'delivery_options_list', delivery_options: @delivery_options %>
           </tbody>
         </table>
       </div>

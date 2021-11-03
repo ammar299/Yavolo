@@ -235,7 +235,7 @@
 }
 
 .admin-header {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #ccc;
   min-height: 82px;
   display: flex;
   align-items: center;
@@ -281,14 +281,14 @@
   z-index: 55556;
   background-color: var(--light-red);
   color: var(--red);
-  padding: 12px;
-  width: 450px;
+  padding: 12px 20px;
   margin: 5px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-radius: 35px;
   transition: 0.3s linear;
+  max-width: 450px;
 }
 .notice-msg,
 .alert-msg {
@@ -299,6 +299,7 @@
   font-size: 21px;
   line-height: 21px;
   padding-bottom: 3px;
+  margin-left: 10px;
 }
 .notice-msg span {
   cursor: pointer;
@@ -357,6 +358,7 @@
 .dropdown-filter.show .dropdown-menu {
   min-width: 40px;
   top: 40px !important;
+  margin-top: 0;
 }
 .dropdown-filter.show .dropdown-menu a {
   word-break: break-word;
@@ -549,15 +551,15 @@ input::-webkit-inner-spin-button {
 
 /* yavolo icon css */
 .yo-opacity {
-	opacity: 0.3;
-	cursor: pointer;
+  opacity: 0.3;
+  cursor: pointer;
 }
 .yo-opacity:hover {
-	opacity: 1;
-	transition: all 0.3s linear 0s;
+  opacity: 1;
+  transition: all 0.3s linear 0s;
 }
 .pointer {
-	cursor: pointer;
+  cursor: pointer;
 }
 .seller-products-filters .dropdown-item.active {
   color: var(--dark-red);
@@ -580,14 +582,14 @@ input::-webkit-inner-spin-button {
 }
 .csv-file-uploader-ammar {
   display: flex;
-    flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 .csv-file-uploader-ammar .imglist {
   height: 100px;
-    width: 100px;
-    display: inline-flex;
-    overflow: hidden;
-    margin: 5px;
+  width: 100px;
+  display: inline-flex;
+  overflow: hidden;
+  margin: 5px;
 }
 .csv-file-uploader-ammar .category-image {
   border-style: solid;
@@ -600,6 +602,15 @@ input::-webkit-inner-spin-button {
 .temporary-image {
   padding-left: 215px;
 }
+.error-position .error {
+  position: absolute;
+  bottom: -23px;
+  left: 0;
+}
+select.form-control {
+  padding-right: 28px !important;
+}
+
 @media only screen and (max-width: 768px) {
   .temporary-image {
     padding-left: 0;
@@ -616,6 +627,9 @@ input::-webkit-inner-spin-button {
   .signin-logo .logo-inner {
     align-items: center !important;
   }
+  .dropdown-filter.show .dropdown-menu {
+    top: 25px !important;
+  }
 }
 @media only screen and (max-width: 1024px) {
   .dashboard-page .leftside {
@@ -630,6 +644,40 @@ input::-webkit-inner-spin-button {
   }
 }
 
-
-
 /* naseer */
+
+.datepicker.datepicker-orient-top {
+  padding: 5px 25px !important;
+  background-color: var(--off-white);
+  border: 1px solid var(--dark-red) !important;
+}
+.datepicker-switch,
+.datepicker .datepicker-days tbody tr td,
+.datepicker .datepicker-days thead tr .dow,
+.datepicker .datepicker-days thead tr .datepicker-switch {
+  color: var(--dark-red);
+}
+.datepicker-dropdown.datepicker-orient-top:after {
+  border-top: 6px solid var(--off-white) !important;
+}
+.datepicker table tr td span.active,
+.datepicker table tr td.active {
+  background-color: var(--dark-red) !important;
+  background-image: none !important;
+}
+.datepicker table tr td span {
+  color: var(--dark-red);
+}
+
+.btn-primary.disabled,
+.btn-primary:disabled {
+  color: #fff;
+  background-color: var(--dark-red);
+  border-color: var(--dark-red);
+}
+
+.check-container .error {
+  position: absolute;
+  bottom: -32px;
+  left: 30px;
+}

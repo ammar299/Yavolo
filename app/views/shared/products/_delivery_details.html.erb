@@ -5,7 +5,7 @@
                 <h4 mt-2>Delivery Details</h4>
                 <div class="mt-2">
                     <label class="checkbox-blk">Enter new delivery options
-                        <%=check_box_tag 'add_new', 'delivery_option',false, data: {url: new_admin_delivery_option_path, params: 'from=create_product',remote: true, method: :get } %>
+                        <%=check_box_tag 'add_new', 'delivery_option',false, data: {url: new_delivery_option_url, params: 'from=create_product',remote: true, method: :get } %>
                         <span class="checkmark"></span>
                     </label>
                 </div>

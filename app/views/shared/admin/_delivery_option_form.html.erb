@@ -39,7 +39,8 @@
               <span class="checkmark"></span>
               <%= b.label %>
             </label>
-            <%= text_field_tag 'ship_price[]', b.value == 1? 40.00 : delivery_ship_price(@delivery_option.id, b.value), readonly: (b.value == 1), class: 'field-me form-control' %>
+            <% value_to_show = delivery_ship_price(@delivery_option.id, b.value) %>
+            <%= text_field_tag 'ship_price[]', b.value == 1? "£#{40.00}" : "£#{(number_with_precision(value_to_show, precision: 2) || 0.00)}", readonly: (b.value == 1), class: 'field-me form-control', step: "any" %>
           </div>
         <% end %>
       </div>

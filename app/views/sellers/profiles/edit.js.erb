@@ -1,13 +1,17 @@
 <% if params[:form_to_update] == 'company_detail' || params[:form_to_update] == 'business_representative' || params[:form_to_update] == 'seller_logo' %>
+<% heading_text = params[:form_to_update] == 'seller_logo' ? 'Your Logo' : params[:form_to_update] %>
+  $("#edit-seller-form").find(".modal-title").text("<%= heading_text.humanize %>")
   $("#update-seller-form").html("<%= j render(partial: 'shared/sellers/forms/update_fields_form', locals: { url: sellers_profile_path(@seller) }) %>");
   $('#edit-seller-form').modal('show');
   var $sellerForm = $("#update-seller-form form");
-$sellerForm.attr('action', "/sellers/profiles/<%= @seller.id %>/update_<%= params[:form_to_update] %>")
-$sellerForm.attr('data-remote', true);
+  $sellerForm.attr('action', "/sellers/profiles/<%= @seller.id %>/update_<%= params[:form_to_update] %>")
+  $sellerForm.attr('data-remote', true);
 <% else %>
+  $("#edit-seller-form").find(".modal-title").text("<%= params[:form_to_update].humanize %>")
   $("#update-seller-form").html("<%= j render(partial: 'shared/sellers/forms/update_fields_form', locals: { url: sellers_profile_path(@seller) }) %>");
   $('#edit-seller-form').modal('show');
   var $sellerForm = $("#update-seller-form form");
   $sellerForm.attr('action', "/sellers/profiles/<%= @seller.id %>/update_addresses")
   $sellerForm.attr('data-remote', true);
 <% end %>
+validateSellerEditForm();

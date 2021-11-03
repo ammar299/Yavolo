@@ -3,14 +3,18 @@
   <div class="modal-body px-lg-4 pt-0">
     <div class="text-center">
       <span>
+        <% url = '' %>
         <% if picture.present? && picture.name.url.present? %>
-          <%= image_tag picture.name.url, class: 'w-25 mb-3 mt-1' %>
+          <% url = picture.name.url %>
+        <% else %>
+          <% url = 'Yavolo_Logo_WarmRed.png' %>
         <% end %>
+        <%= image_tag url, class: 'preview-img w-25 mb-3 mt-1' %>
       </span>
     </div>
     <div class="csv-file-uploader border-none p-4 mb-4">
-      <p class="text-center">Drag and drop files from your desktop</p>
-      <p class="text-center">or</p>
+      <p class="text-center">Image must be a .jpg,.gif or .png file smaller <br>
+        than 10MB and at least 500px by 500px.</p>
       <p class="text-center">
         <a href="#" class="btn btn-sm btn-radius px-4 btn-primary text-uppercase position-relative overflow-hidden">Browse files 
           <%= form.fields_for :picture, Picture.new do |picture| %>
@@ -20,6 +24,40 @@
           <% end %>
         </a>
       </p>
+      <br>
+      <p class="text-center">
+        <% if picture.present? %>
+          <span class="image-name pr-5"><%= picture[:name] %></span>
+          <u><%= link_to "remove image", create_url(params[:controller], "remove_seller_logo", @seller.id), class: 'remove-image', remote: true, method: :delete %></u>
+        <% else %>
+          <span class="image-name pr-5"></span>
+          <u><a href="javascript:void(0);" class="remove-image"></a></u>
+        <% end %>
+      </p>
     </div>
   </div>
 </div>
+<script>
+  $(document).ready(function(){
+    $(':input[type="submit"]').prop('disabled', true);
+    $('input[type="file"]').change(function(event){
+      var input = $(event.currentTarget);
+      var file = input[0].files[0];
+      var reader = new FileReader();
+      reader.onload = function(e){
+          image_base64 = e.target.result;
+          $('.preview-img').attr("src", image_base64);
+          $('.image-name').text(file.name);
+          $('.remove-image').text('remove image');
+          $(':input[type="submit"]').prop('disabled', false);
+      };
+      reader.readAsDataURL(file);
+    });
+    $('.remove-image').click(function() {
+          $('.preview-img').attr("src", "");
+          $('.image-name').text('');
+          $('.remove-image').text('');
+          $(':input[type="submit"]').prop('disabled', true);
+    })
+  });
+</script>

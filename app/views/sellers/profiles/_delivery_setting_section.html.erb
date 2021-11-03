@@ -11,10 +11,10 @@
         </div>
       </div>
       <%= form_tag(search_delivery_options_sellers_profile_path, method: :get, remote: true) do %>
-      <div class="search-field mb-0">
-        <input type="text" name="search" placeholder="Search Delivery Templates">
-        <i class="fa fa-search accounts-delivery-search" aria-hidden="true"></i>
-      </div>
+        <div class="search-field mb-0">
+          <input type="text" name="search" placeholder="Search Delivery Templates">
+          <i class="fa fa-search accounts-delivery-search" aria-hidden="true"></i>
+        </div>
       <% end %>
     </div>
     <div>
@@ -23,10 +23,13 @@
   </div>
   <h5 class="mb-3">Delivery Templates</h5>
   <div id="setting-delivery-options">
-    <%= render 'sellers/delivery_options/setting_delivery_options', delivery_options: @delivery_options %>
+    <% if @delivery_options.count > 0 %>
+      <%= render 'sellers/delivery_options/setting_delivery_options', delivery_options: @delivery_options %>
+    <% else %>
+      <p class="text-center">No Records Found.</p>
+    <% end %>
   </div>
 </div>
-
 <div class="modal fade" id="deliveryTemplateForm" tabindex="-1" role="dialog" aria-labelledby="deliveryOptionFormLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -43,6 +46,5 @@
   </div>
 </div>
 </div>
-
 <!-- Delivery Template Confirmation Deletion Modal -->
 <%= render 'shared/admin/confirmation_deletion_modal' %>

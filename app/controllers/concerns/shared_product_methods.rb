@@ -31,13 +31,21 @@ module SharedProductMethods
 
   def enable_yavolo
     if params[:product][:ids].present?
-      @products = Product.where(id: params[:product][:ids], yavolo_enabled: false, owner_id: current_user.id, owner_type: current_user.class.name).update(yavolo_enabled: true)
+      if current_user.class.name == 'Seller'
+        @products = Product.where(id: params[:product][:ids], yavolo_enabled: false, owner_id: current_user.id, owner_type: current_user.class.name).update(yavolo_enabled: true)
+      else
+        @products = Product.where(id: params[:product][:ids], yavolo_enabled: false).update(yavolo_enabled: true)
+      end
     end
   end
 
   def disable_yavolo
     if params[:product][:ids].present?
-      @products = Product.where(id: params[:product][:ids], yavolo_enabled: true, owner_id: current_user.id, owner_type: current_user.class.name).update(yavolo_enabled: false)
+      if current_user.class.name == 'Seller'
+        @products = Product.where(id: params[:product][:ids], yavolo_enabled: true, owner_id: current_user.id, owner_type: current_user.class.name).update(yavolo_enabled: false)
+      else
+        @products = Product.where(id: params[:product][:ids], yavolo_enabled: true).update(yavolo_enabled: false)
+      end
     end
   end
 
@@ -47,7 +55,11 @@ module SharedProductMethods
     end
 
     def owner_conditions
-      {owner_id: current_user.id, owner_type: current_user.class.name}
+      if current_user.class.name == 'Seller'
+        {owner_id: current_user.id, owner_type: current_user.class.name}
+      else
+        {}
+      end
     end
 
 end
