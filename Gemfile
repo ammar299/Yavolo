@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.1'
+ruby '2.7.2'
 
 # Authentication
 gem 'devise'
@@ -79,3 +79,4 @@ gem 'friendly_id', '~> 5.4.0'
 gem "letter_opener", group: :development
 gem 'ransack'
 gem 'wicked'
+gem 'paypal-checkout-sdk'

@@ -64,4 +64,8 @@ $(document).ready(() => {
   $(document).on('click','.notice-cross-icon', function(){
     $(this).parent().fadeOut("slow");
   });
+  // hide flash toasts
+  $(document).on('click','.notice-cross-icon', function(){
+    $(this).parent().fadeOut("slow");
+  });
 });

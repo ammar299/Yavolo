@@ -219,6 +219,9 @@ GEM
       actionpack (>= 4.2)
       omniauth (~> 2.0)
     orm_adapter (0.5.0)
+    paypal-checkout-sdk (1.0.4)
+      paypalhttp (~> 1.0.1)
+    paypalhttp (1.0.1)
     pg (1.2.3)
     pg_search (2.3.5)
       activerecord (>= 5.2)
@@ -367,6 +370,7 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
+  paypal-checkout-sdk
   pg (~> 1.1)
   pg_search
   phonelib
@@ -389,7 +393,7 @@ DEPENDENCIES
   wkhtmltopdf-binary
 
 RUBY VERSION
-   ruby 3.0.1p64
+   ruby 2.7.2p137
 
 BUNDLED WITH
    2.2.24

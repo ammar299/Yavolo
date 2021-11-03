@@ -1,0 +1,10 @@
+<% if @seller&.paypal_detail&.integration_status?%>
+  <div dir="ltr"  trbidi="on" class="">
+  <p class="pt-3">Your PayPal account is already integrated with YAVOLO. Do you want to <a data-paypal-button="true" href="<%=@action_url%>&displayMode=minibrowser" class="btn btn-outline-primary" target="PPFrame">Update</a> PayPal Integration?</p>
+  </div>
+<%else%>
+  <div class="py-4" dir="ltr"  trbidi="on">
+    <a data-paypal-button="true" href="<%=@action_url%>&displayMode=minibrowser" class="btn btn-primary mt-4" target="PPFrame">Integrate with PayPal</a>
+  </div>
+<%end%>
+<%= render 'sellers/paypal_integration/paypal_integration_toast' %>

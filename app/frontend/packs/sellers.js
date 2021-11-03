@@ -1,5 +1,7 @@
-$(document).ready(function () {
-  console.log("sellers js is loaded");
+$(document).ready(function(){
+  console.log('sellers js is loaded');
+  onBoardingApiScript();
+  sellerOnBoarding();
   sellerSearchByFilter();
   addNewSellerFormValidation();
   newSellerFormDropdownValidation();
@@ -315,6 +317,60 @@ function sellerSearchByFilter() {
   });
 }
 
+function sellerOnBoarding(){
+  let searchParams = new URLSearchParams(window.location.search)
+  if (searchParams.has('merchantId') == true)
+  {
+    let merchantId = searchParams.get('merchantId')
+    let merchantIdInPayPal = searchParams.get('merchantIdInPayPal')
+    let consentStatus = searchParams.get('consentStatus')
+    let productIntentId = searchParams.get('productIntentId')
+    let isEmailConfirmed = searchParams.get('isEmailConfirmed')
+    // console.log("params=>",merchantId,"   ",merchantIdInPayPal)
+    let host_url = process.env.DEFAULT_HOST_URL
+    $.ajax({
+      url: "/sellers/check_onboarding_status",
+      type: "POST",
+      data : { merchantId : merchantId, merchantIdInPayPal : merchantIdInPayPal},
+      success: function(response){
+        notify(response,host_url)
+      },
+      error: function () {
+        $("#paypal-integration-failure").addClass("notice-msg")
+        window.location.href = "https://"+host_url+"/sellers/paypal_integration";
+      }
+    });
+  }
+}
+
+function onBoardingApiScript(){
+  (function(d, s, id) {
+    var js, ref = d.getElementsByTagName(s)[0];
+    if (!d.getElementById(id)) {
+      js = d.createElement(s);
+      js.id = id;
+      js.async = true;
+      js.src = "https://www.paypal.com/webapps/merchantboarding/js/lib/lightbox/partner.js";
+      ref.parentNode.insertBefore(js, ref);
+    }
+  }(document, "script", "paypal-js"));
+}
+
+function notify(response,host_url){
+  if (response.status == true){
+    $("#paypal-integration-success").addClass("notice-msg")
+    setTimeout(function(){
+      window.location.href = "https://"+host_url+"/sellers";
+    }, 5000)
+  }
+  else{
+    $("#paypal-integration-failure").addClass("notice-msg")
+    setTimeout(function(){
+      window.location.href = "https://"+host_url+"/sellers/paypal_integration";
+    }, 5000);
+    
+  }
+}
 function newSellerFormDropdownValidation() {
 	$('body').on('change', '#seller_company_detail_attributes_country, #seller_addresses_attributes_0_country, #seller_addresses_attributes_1_country', '#seller_subscription_type', function () {
     labelId = $(this).is("#seller_company_detail_attributes_country")? '#seller_company_detail_attributes_country-error' : $(this).is("#seller_addresses_attributes_0_country")?'#seller_addresses_attributes_0_country-error' : $(this).is("#seller_addresses_attributes_1_country")? '#seller_addresses_attributes_1_country-error' : '#seller_subscription_type-error'

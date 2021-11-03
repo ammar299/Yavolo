@@ -31,8 +31,8 @@
       <div>
         <h5 class="invisible">Let's Get Selling!</h5>
         <label class="checkbox-blk">
-        <a href="<%= sellers_profile_path(@seller) %>">Link up your PayPal account</a>
-          <input type="checkbox">
+        <a href="<%= sellers_paypal_integration_index_path %>" >Link up your PayPal account</a>
+          <input type="checkbox" <%= @seller&.paypal_detail&.integration_status? ? 'checked': '' %> disabled>
           <span class="checkmark"></span>
         </label>
         <label class="checkbox-blk">

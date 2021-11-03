@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_28_153723) do
+ActiveRecord::Schema.define(version: 2021_10_29_064002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -293,6 +293,17 @@ ActiveRecord::Schema.define(version: 2021_10_28_153723) do
     t.index ["meta_able_type", "meta_able_id"], name: "index_meta_contents_on_meta_able"
   end
 
+  create_table "paypal_details", force: :cascade do |t|
+    t.boolean "integration_status"
+    t.string "seller_merchant_id_in_paypal"
+    t.string "seller_client_id"
+    t.string "seller_action_url"
+    t.bigint "seller_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["seller_id"], name: "index_paypal_details_on_seller_id"
+  end
+
   create_table "pg_search_documents", force: :cascade do |t|
     t.text "content"
     t.string "searchable_type"
@@ -473,6 +484,7 @@ ActiveRecord::Schema.define(version: 2021_10_28_153723) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "delivery_option_ships", "delivery_options"
   add_foreign_key "delivery_option_ships", "ships"
+  add_foreign_key "paypal_details", "sellers"
   add_foreign_key "return_and_terms", "sellers"
   add_foreign_key "seller_apis", "sellers"
 end
