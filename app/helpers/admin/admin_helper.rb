@@ -9,7 +9,7 @@ module Admin::AdminHelper
     tags_template = []
     params[:statuses].split(',').each do |status|
       tags_template << "<div class='mr-2 filter-tag'>#{status.titleize}<span data-yfilter=\"#{status}\"  class=\"rm-filterby icon-cross\"></span></div>"
-    end
+    end if params[:statuses].present?
     tags_template << "<div class='mr-2 filter-tag'>Yavolo Enabled<span data-yfilter='yavolo_enabled'  class='rm-filterby icon-cross'></span></div>" if params[:yavolo_enabled].present?
     tags_template.join('')
   end

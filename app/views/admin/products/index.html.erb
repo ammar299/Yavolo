@@ -108,7 +108,7 @@
                     q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
                     q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
                   %>
-                  <%=link_to admin_products_path(q_params), class: 'dropdown-item' do %>
+                  <%=link_to '#', class: 'dropdown-item sortby-products', data: {sortby: 'title asc'} do %>
                     Product Title A-Z
                   <% end %>
 
@@ -117,7 +117,7 @@
                     q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
                     q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
                   %>
-                  <%=link_to admin_products_path(q_params), class: 'dropdown-item' do %>
+                  <%=link_to '#', class: 'dropdown-item sortby-products',data: {sortby: 'title desc'} do %>
                     Product Title Z-A
                   <% end %>
 
@@ -125,16 +125,21 @@
                     q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
                     q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
                   %>
-                  <%=link_to 'Price High-Low',admin_products_path(q_params), class: 'dropdown-item'  %>
+
+                  <%=link_to 'Price High-Low','#', class: 'dropdown-item sortby-products', data: {sortby: 'price desc'}  %>
+
                   <% q_params = {q: params[:q].present? ? (params.require(:q).merge!(s: 'price asc').permit!) : {s: 'price asc'} }
                     q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
                     q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
                   %>
-                  <%=link_to 'Price Low-High',admin_products_path(q_params), class: 'dropdown-item'  %>
+
+                  <%=link_to 'Price Low-High','#', class: 'dropdown-item sortby-products', data: {sortby: 'price asc'}  %>
+                  
                   <% q_params = {q: params[:q].present? ? (params.require(:q).merge!(s: 'yavolo_enabled asc').permit!) : {s: 'yavolo_enabled asc'} }
                     q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
                     q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
                   %>
+
                   <%=link_to 'Yavolo Enabled',admin_products_path(q_params), class: 'dropdown-item admin-filter-by', data: {status: 'yavolo_enabled' }  %>
 
                   <% q_params = {q: params[:q] } if params[:q].present?

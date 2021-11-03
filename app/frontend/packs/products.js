@@ -1,5 +1,6 @@
 // load all products related js here
 $(document).ready(function(){
+  bindAndSortByEvent();
   bindFilterByEvents();
   bindRemoveFilterBy();
   let updatedProductIds = [];
@@ -209,6 +210,19 @@ $(document).ready(function(){
     getFilterGroupsOfBabyCategory($('#product_id').val(), $('#product_category').val());
 
 });
+
+function bindAndSortByEvent(){
+  $('.sortby-products').click(function(e){
+    e.preventDefault();
+    if($('#q_s').length > 0){
+      $('#q_s').val($(this).data('sortby'));
+    }else{
+      $('#product_search').append('<input type="hidden" name="q[s]" id="q_s">')
+      $('#q_s').val($(this).data('sortby'));
+    }
+    $('form#product_search').submit();
+  });
+}
 
 function bindRemoveFilterBy(){
   $(document).on('click','.rm-filterby',function(){
