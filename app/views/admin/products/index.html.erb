@@ -35,6 +35,12 @@
                       <% if params[:q].present? && params[:q].keys.include?('s') %>
                       <%=hidden_field_tag 'q[s]', params[:q][:s] %>
                       <% end %>
+                      <% if params[:yavolo_enabled].present? %>
+                      <%=hidden_field_tag 'yavolo_enabled', params[:yavolo_enabled], class: 'yp-yavolo_enabled' %>
+                      <% end %>
+                      <% if params[:statuses].present? %>
+                      <%=hidden_field_tag 'statuses', params[:statuses], class: 'yp-statuses' %>
+                      <% end %>
                       <%= f.search_field current_search_field_name.to_sym, { class: 'input-btn-sm seller-product-search-field', placeholder: 'Search Products', value: "#{search_field_query_param_val(params)}" } %>
                       <i class="fa fa-search" aria-hidden="true"></i>
                     <% end %>
@@ -119,17 +125,17 @@
                     q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
                     q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
                   %>
-                  <%=link_to 'Price High-Low',admin_products_path(q_params)  %>
+                  <%=link_to 'Price High-Low',admin_products_path(q_params), class: 'dropdown-item'  %>
                   <% q_params = {q: params[:q].present? ? (params.require(:q).merge!(s: 'price asc').permit!) : {s: 'price asc'} }
                     q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
                     q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
                   %>
-                  <%=link_to 'Price Low-High',admin_products_path(q_params)  %>
+                  <%=link_to 'Price Low-High',admin_products_path(q_params), class: 'dropdown-item'  %>
                   <% q_params = {q: params[:q].present? ? (params.require(:q).merge!(s: 'yavolo_enabled asc').permit!) : {s: 'yavolo_enabled asc'} }
                     q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
                     q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
                   %>
-                  <%=link_to 'Yavolo Enabled',admin_products_path(q_params)  %>
+                  <%=link_to 'Yavolo Enabled',admin_products_path(q_params), class: 'dropdown-item admin-filter-by', data: {status: 'yavolo_enabled' }  %>
 
                   <% q_params = {q: params[:q] } if params[:q].present?
                     q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
@@ -137,7 +143,7 @@
                     q_params.merge!(filter_by: 0)
                   %>
 
-                  <%= link_to admin_products_path(q_params),class: 'dropdown-item' do %>
+                  <%= link_to admin_products_path(q_params),class: "dropdown-item admin-filter-by #{ params[:statuses].present? && params[:statuses].split(',').include?('draft') ? 'active' : '' }", data: {status: :draft } do %>
                     Draft
                     <span class="<%= 'fa fa-check' if set_product_filter_by_in_dropdown(params) == 'Draft' %>" aria-hidden="true"></span>
                   <% end %>
@@ -146,7 +152,7 @@
                     q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
                     q_params.merge!(filter_by: 1)
                   %>
-                  <%= link_to admin_products_path(q_params),class: 'dropdown-item' do %>
+                  <%= link_to admin_products_path(q_params),class: "dropdown-item admin-filter-by #{ params[:statuses].present? && params[:statuses].split(',').include?('active') ? 'active' : '' }", data: {status: :active } do %>
                     Active
                     <span class="<%= 'fa fa-check' if set_product_filter_by_in_dropdown(params) == 'Active' %>" aria-hidden="true"></span>
                   <% end %>
@@ -156,7 +162,7 @@
                     q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
                     q_params.merge!(filter_by: 2)
                   %>
-                  <%= link_to admin_products_path(q_params),class: 'dropdown-item' do %>
+                  <%= link_to admin_products_path(q_params),class: "dropdown-item admin-filter-by #{ params[:statuses].present? && params[:statuses].split(',').include?('inactive') ? 'active' : '' }", data: {status: :inactive } do %>
                     Inactive
                     <span class="<%= 'fa fa-check' if set_product_filter_by_in_dropdown(params) == 'Inactive' %>" aria-hidden="true"></span>
                   <% end %>
@@ -165,7 +171,7 @@
                     q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
                     q_params.merge!(filter_by: 3)
                   %>
-                  <%= link_to admin_products_path(q_params),class: 'dropdown-item' do %>
+                  <%= link_to admin_products_path(q_params),class: "dropdown-item admin-filter-by #{ params[:statuses].present? && params[:statuses].split(',').include?('pending') ? 'active' : '' }", data: {status: :pending } do %>
                     Pending
                     <span class="<%= 'fa fa-check' if set_product_filter_by_in_dropdown(params) == 'Pending' %>" aria-hidden="true"></span>
                   <% end %>
@@ -174,7 +180,7 @@
                     q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
                     q_params.merge!(filter_by: 4)
                   %>
-                  <%= link_to admin_products_path(q_params),class: 'dropdown-item' do %>
+                  <%= link_to admin_products_path(q_params),class: "dropdown-item admin-filter-by #{ params[:statuses].present? && params[:statuses].split(',').include?('disapproved') ? 'active' : '' }", data: {status: :disapproved } do %>
                     Disapproved
                     <span class="<%= 'fa fa-check' if set_product_filter_by_in_dropdown(params) == 'Disapproved' %>" aria-hidden="true"></span>
                   <% end %>
@@ -187,6 +193,8 @@
                 <%=link_to 'Create New Product', new_admin_product_path, class: 'btn btn-sm btn-radius px-2 btn-primary' %>
             </div>
         </div>
+        <div class="filter-by-tags d-flex justify-content-start mt-2"><%=print_filter_by_status_tags.to_s.html_safe %></div>
+
 <div class="row">
     <div class="col-lg-12">
       <div class="mt-3" id="total-sellers-per-page">

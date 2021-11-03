@@ -1,5 +1,7 @@
 // load all products related js here
 $(document).ready(function(){
+  bindFilterByEvents();
+  bindRemoveFilterBy();
   let updatedProductIds = [];
   let productErrors = [];
   $(document).on({
@@ -207,6 +209,82 @@ $(document).ready(function(){
     getFilterGroupsOfBabyCategory($('#product_id').val(), $('#product_category').val());
 
 });
+
+function bindRemoveFilterBy(){
+  $(document).on('click','.rm-filterby',function(){
+    let removedFilter = $(this).data('yfilter');
+    let statuses = [];
+    if($('input.yp-statuses').length > 0 && $('input.yp-statuses').val().length > 0){
+      $('input.yp-statuses').val().split(',').forEach(function(status){
+        if(status!=removedFilter){
+          statuses.push(status)
+        }
+      });
+    }
+
+    if (removedFilter=='yavolo_enabled'){
+      $('#product_search').find('input.yp-yavolo_enabled').remove();
+    }
+
+    if(statuses.length > 0){
+      if($('#product_search').find('input.yp-statuses').length > 0){
+        $('#product_search').find('input.yp-statuses').val(statuses.join(','));
+      }else{
+        $('#product_search').append('<input type="hidden" name="statuses" class="yp-statuses">')
+        $('#product_search').find('input.yp-statuses').val(statuses.join(','));
+      }
+    }else{
+      $('#product_search').append('<input type="hidden" name="statuses" class="yp-statuses">')
+      $('#product_search').find('input.yp-statuses').val('');
+    }
+    console.log(statuses);
+    $('form#product_search').submit();
+  });
+}
+
+function bindFilterByEvents(){
+  $('.admin-filter-by').click(function(e){
+    e.preventDefault();
+    console.log($(this).data('status'));
+    if($(this).hasClass('active')){
+      $(this).removeClass('active');
+    }else{
+      $(this).addClass('active');
+    }
+    addFiltersAndFilterTags();
+  });
+}
+
+function addFiltersAndFilterTags(){
+  let html = [];
+  let statuses = [];
+  $('.admin-filter-by.active').each(function(){
+  // html.push('<div>'+$(this).text()+'<span data-yfilter="'+$(this).data('status')+'"  class="rm-filterby">X</span></div>');
+    if($(this).data('status')=='yavolo_enabled'){
+      if($('#product_search').find('input.yp-yavolo_enabled').length == 0){
+        $('#product_search').append('<input type="hidden" name="yavolo_enabled" class="yp-yavolo_enabled">')
+        $('#product_search').find('input.yp-yavolo_enabled').val('1');
+      }
+    }else{
+      statuses.push($(this).data('status'));
+    }
+  });
+  // $('.filter-by-tags').html(html);
+  console.log(statuses);
+
+  if(statuses.length > 0){
+    if($('#product_search').find('input.yp-statuses').length > 0){
+      $('#product_search').find('input.yp-statuses').val(statuses.join(','));
+    }else{
+      $('#product_search').append('<input type="hidden" name="statuses" class="yp-statuses">')
+      $('#product_search').find('input.yp-statuses').val(statuses.join(','));
+    }
+  }else{
+    $('#product_search').append('<input type="hidden" name="statuses" class="yp-statuses">')
+      $('#product_search').find('input.yp-statuses').val('');
+  }
+  $('form#product_search').submit();
+}
 
 function updateFieldValue(pid,val,action){
   $.ajax({

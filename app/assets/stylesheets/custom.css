@@ -675,6 +675,17 @@ select.form-control {
   background-color: var(--dark-red);
   border-color: var(--dark-red);
 }
+.filter-tag{
+  background-color: var(--light-red) !important;
+  color: var(--red) !important;
+  border-radius: 12px;
+  padding: 2px 12px;
+}
+.rm-filterby{
+  padding-left: 15px;
+  font-size: 12px;
+  cursor: pointer;
+}
 
 .check-container .error {
   position: absolute;
