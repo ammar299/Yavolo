@@ -94,14 +94,14 @@
                                 aria-expanded="false">Filter by <i class="fa fa-angle-down ml-3"
                                     aria-hidden="true"></i></a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <% q_params = {q: params[:q].present? ? (params.require(:q).merge!(s: 'title asc').permit!) : {s: 'title asc'} }
+                                <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'title asc').permit!) : {s: 'title asc'} }
                                     q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
                                     q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
                                     q_params.merge!(tab: params[:tab]) if params[:tab].present?
                                 %>
                                 <%=link_to 'Product Title A-Z',sellers_products_path(q_params)  %>
 
-                                <% q_params = {q: params[:q].present? ? (params.require(:q).merge!(s: 'title desc').permit!) : {s: 'title desc'} }
+                                <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'title desc').permit!) : {s: 'title desc'} }
                                     q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
                                     q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
                                     q_params.merge!(tab: params[:tab]) if params[:tab].present?
@@ -109,26 +109,21 @@
 
                                 <%=link_to 'Product Title Z-A',sellers_products_path(q_params)  %>
 
-                                <% q_params = {q: params[:q].present? ? (params.require(:q).merge!(s: 'price desc').permit!) : {s: 'price desc'} }
+                                <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'price desc').permit!) : {s: 'price desc'} }
                                     q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
                                     q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
                                     q_params.merge!(tab: params[:tab]) if params[:tab].present?
                                 %>
                                 <%=link_to 'Price High-Low',sellers_products_path(q_params)  %>
 
-                                <% q_params = {q: params[:q].present? ? (params.require(:q).merge!(s: 'price asc').permit!) : {s: 'price asc'} }
+                                <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'price asc').permit!) : {s: 'price asc'} }
                                     q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
                                     q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
                                     q_params.merge!(tab: params[:tab]) if params[:tab].present?
                                 %>
                                 <%=link_to 'Price Low-High',sellers_products_path(q_params)  %>
 
-                                <% q_params = {q: params[:q].present? ? (params.require(:q).merge!(s: 'yavolo_enabled asc').permit!) : {s: 'yavolo_enabled asc'} }
-                                    q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
-                                    q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
-                                    q_params.merge!(tab: params[:tab]) if params[:tab].present?
-                                %>
-                                <%=link_to 'Yavolo Enabled',sellers_products_path(q_params)  %>
+
                             </div>
                         </div>
                         <div class="d-flex">
