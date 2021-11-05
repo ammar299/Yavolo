@@ -31,12 +31,14 @@ module Products
             product = Product.new(get_params(row))
             product.owner_id = csv_import.importer_id
             product.owner_type = csv_import.importer_type
+            product.status = 'draft'
             product.filter_in_category_ids = []
-            # if product.valid?
-            product.save(validate: false)
-            # else
-              # @errors << product.errors.full_messages.join("<br>")
-            # end
+            product.delivery_option_id = get_default_delivery_option_id
+            if product.valid?
+              product.save
+            else
+              @errors << "#{product.title}: #{product.errors.full_messages.join("<br>")}"
+            end
           else
             @errors << "Required columns are missing"
             next
@@ -143,6 +145,22 @@ module Products
         remote_images_ary = []
         urls.map{|url| remote_images_ary << { remote_name_url: url } }
         remote_images_ary
+      end
+
+      def get_default_delivery_option_id
+        ship_id = Ship.find_or_create_by(name: 'UK Mainland').id
+
+        delivery_option = DeliveryOption.joins(:delivery_option_ships).where(delivery_options: { delivery_optionable_type: csv_import.importer_type, delivery_optionable_id: csv_import.importer_id },delivery_option_ships: {ship_id: ship_id}).last if ship_id.present?
+
+        return delivery_option.id if delivery_option.present?
+
+        delivery_option = importer.delivery_options.create({name: 'Default UK Mainland'})
+        DeliveryOptionShip.create(price: 40, processing_time: 'same_day', delivery_time: 'next_day', ship_id: ship_id, delivery_option_id: delivery_option.id)
+        delivery_option.id
+      end
+
+      def importer
+        @importer ||= csv_import.importer
       end
 
   end

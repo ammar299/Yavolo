@@ -9,7 +9,7 @@ $('#deliveryTemplateForm').modal('show');
 <% end %>
 <% end %>
 <% if params[:add_new].present? %>
-$('#delivery-template-form #delivery_option_form').append("<input type='hidden' name='from' value='create_product'>")
+$('#delivery-template-form #delivery-option-form').append("<input type='hidden' name='from' value='create_product'>")
 $('#delivery-template-form').show();
 // TODO: removed jquery plugin right now using custom validation for this form
 // setFormValidation();

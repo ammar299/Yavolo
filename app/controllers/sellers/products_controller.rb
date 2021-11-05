@@ -18,7 +18,7 @@ class Sellers::ProductsController < Sellers::BaseController
     else
       @product = initialize_new_product
     end
-    @delivery_options = DeliveryOption.all
+    @delivery_options = current_seller.delivery_options
   end
 
   def create
