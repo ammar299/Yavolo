@@ -83,7 +83,8 @@ function validateAdminSignIn() {
       },
       "admin[password]": {
         required: "Password is required"
-      },
-    },
+      }
+    }
   });
 }
+

@@ -136,18 +136,15 @@
   overflow-y: hidden;
 }
 
-.dashboard-page.toggle-close .sidebody::-webkit-scrollbar {
-  width: 1px;
+/* Hide scrollbar for Chrome, Safari and Opera */
+*::-webkit-scrollbar {
+  display: none;
 }
 
-.sidebody::-webkit-scrollbar,
-::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
-}
-.dashboard-page.toggle-close .sidebody::-webkit-scrollbar-thumb,
-::-webkit-scrollbar-thumb {
-  background-color: var(--dark-red);
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+-ms-overflow-style: none;  /* IE and Edge */
+scrollbar-width: none;  /* Firefox */
 }
 
 .nowrap .dropdown-menu a {
@@ -691,4 +688,7 @@ select.form-control {
   position: absolute;
   bottom: -32px;
   left: 30px;
+}
+label {
+    text-transform: inherit;
 }

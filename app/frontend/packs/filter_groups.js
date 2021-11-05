@@ -102,7 +102,7 @@ window.FilterGroupFormValidation = function(){
 
 	  messages: {
       "filter_group[name]": {
-        required: "Filter Group name required"
+        required: "Filter group name required"
        },
      }
 	});
