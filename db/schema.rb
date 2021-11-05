@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_29_064002) do
+ActiveRecord::Schema.define(version: 2021_11_02_074628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -192,19 +192,19 @@ ActiveRecord::Schema.define(version: 2021_10_29_064002) do
   end
 
   create_table "delivery_option_ships", force: :cascade do |t|
-    t.float "price"
+    t.decimal "price", precision: 8, scale: 2
     t.bigint "delivery_option_id"
     t.bigint "ship_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "processing_time"
+    t.integer "delivery_time"
     t.index ["delivery_option_id"], name: "index_delivery_option_ships_on_delivery_option_id"
     t.index ["ship_id"], name: "index_delivery_option_ships_on_ship_id"
   end
 
   create_table "delivery_options", force: :cascade do |t|
     t.string "name"
-    t.integer "processing_time"
-    t.integer "delivery_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "delivery_optionable_type"
@@ -327,7 +327,7 @@ ActiveRecord::Schema.define(version: 2021_10_29_064002) do
     t.string "handle"
     t.text "description"
     t.text "keywords"
-    t.string "sku", null: false
+    t.string "sku"
     t.string "ean"
     t.string "yan"
     t.string "brand"
