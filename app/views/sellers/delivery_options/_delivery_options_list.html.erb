@@ -9,8 +9,9 @@
       </div>
     </td>
     <td><%= delivery_option.name %></td>
-    <td><%= template_processing_time(delivery_option.processing_time) %></td>
-    <td><%= template_processing_time(delivery_option.delivery_time) %></td>
+    <%# TODO: here change the delivery & processing time %>
+    <td><%#= template_processing_time(delivery_option.processing_time) %></td>
+    <td><%#= template_processing_time(delivery_option.delivery_time) %></td>
     <td>
       <div class="text-center">
         <%= link_to 'Edit', edit_sellers_delivery_option_path(delivery_option), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100', data: { remote: true } %>

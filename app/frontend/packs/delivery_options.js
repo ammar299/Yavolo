@@ -1,81 +1,48 @@
 $(document).ready(function(){
   deleteDeliveryOptionsCarriers();
   deleteDeliveryOptionsForSellers();
-  deliveryOptionDropdownValidation();
   addNewCarrierFormValidation();
+  submitDeliveryForm(); // check fields are valid or not and then submit form
+  enableDeliveryOptionName(); // enable/disable name validation after form submit
+  deliveryOptionDropdownValidation(); // enable/disable select filed validation after form submit
+  enableDeliveryShipAttributes(); // enable and disable ship attributes on checked
   $('.delivery-options-select-all-container #delivery-option-select-all').change(() => selectedDeliveryOptionsCarriers('.delivery-options-checkbox-container'));
   $('.carriers-select-all-container #carrier-select-all').change(() => selectedDeliveryOptionsCarriers('.carriers-checkbox-container'));
 });
 
-  window.setFormValidation = function(){
-    $('form#delivery_option_form').validate({
-      ignore: "", 
-      rules: {
-        "delivery_option[name]": {
-          required: true
-        },
-        "delivery_option[processing_time]": {
-          required: true
-        },
-        "delivery_option[delivery_time]": {
-          required: true
-        }
-      }, 
-      highlight: function(element) {
-         $(element).parents("div.form-group").addClass('error-field');
+function addNewCarrierFormValidation() {
+  $('form#add_new_carrier_form').validate({
+    ignore: "", 
+    rules: {
+      "carrier[name]": {
+        required: true
       },
-      unhighlight: function(element) {
-        $(element).parents("div.form-group").removeClass('error-field');
+      "carrier[api_key]": {
+        required: true
       },
-      messages: {
-        "delivery_option[name]": {
-            required: "Delivery Option is required"
-        },
-        "delivery_option[processing_time]": {
-          required: "Processing Time is required"
-        },
-        "delivery_option[delivery_time]": {
-          required: "Delivery Time is required"
-        }
+      "carrier[secret_key]": {
+        required: true
       }
-    });
-  }
-
-  function addNewCarrierFormValidation() {
-    
-      $('form#add_new_carrier_form').validate({
-        ignore: "", 
-        rules: {
-          "carrier[name]": {
-            required: true
-          },
-          "carrier[api_key]": {
-            required: true
-          },
-          "carrier[secret_key]": {
-            required: true
-          }
-        }, 
-        highlight: function(element) {
-          $(element).parents("div.form-group").addClass('error-field');
-        },
-        unhighlight: function(element) {
-          $(element).parents("div.form-group").removeClass('error-field');
-        },
-        messages: {
-          "carrier[name]": {
-              required: "Name is required"
-          },
-          "carrier[api_key]": {
-            required: "API Key is required"
-          },
-          "carrier[secret_key]": {
-            required: "Secret Key is required"
-          }
-        }
-      });
-    
+    },
+    highlight: function(element) {
+      $(element).parents("div.form-group").addClass('error-field');
+    },
+    unhighlight: function(element) {
+      $(element).parents("div.form-group").removeClass('error-field');
+    },
+    messages: {
+      "carrier[name]": {
+          required: "Name is required"
+      },
+      "carrier[api_key]": {
+        required: "API Key is required"
+      },
+      "carrier[secret_key]": {
+        required: "Secret Key is required"
+      }
     }
+  });
+}
 
 function deleteDeliveryOptionsCarriers(){
   $('body').on('click', '.delete-delivery-options, .delete-carriers', function(){
@@ -116,18 +83,111 @@ function deleteDeliveryOptionsForSellers(){
   });
 }
 
-function deliveryOptionDropdownValidation() {
-	$('body').on('change', '#delivery_option_processing_time, #delivery_option_delivery_time', function () {
-    labelId = $(this).is("#delivery_option_processing_time")? '#delivery_option_processing_time-error' : '#delivery_option_delivery_time-error'
-    if ($(this).val() != '') {
-      $(this).parents("div.form-group").removeClass('error-field');
-      $(labelId).text('');
-      $(labelId).css('display', 'd-none');
+// check fields are valid or not and then submit form
+function submitDeliveryForm() {
+  $('body').on('click', '#delivery-option-form-btn', function(event) {
+    event.preventDefault();
+    var name_field = $('#delivery_option_name');
+    var non_empty_name_filed = (name_field.val() != '');
+    var processing_time_count = 0;
+    var delivery_time_count = 0;
+    $('#delivery-option-form input[type=checkbox]').each(function () {
+      if (this.checked) {
+        accessShipsAttributesClasses($(this));
+        if ($('.' + processing_time_klass).val() == '') {
+          processing_time_count += 1;
+        }
+        if ($('.' + delivery_time_klass).val() == '') {
+          delivery_time_count += 1;
+        }
+      }
+    });
+    if ((non_empty_name_filed == true) && (processing_time_count == 0) && (delivery_time_count == 0)) {
+      $('#delivery-option-form-btn').attr('id', 'delivery-option-submit-btn');
+      $('#delivery-option-form input[type=checkbox]').each(function () {
+        accessShipsAttributesClasses($(this));
+        $('.' + processing_time_klass).attr('disabled', false);
+        $('.' + delivery_time_klass).attr('disabled', false);
+      });
+      $('#delivery-option-submit-btn').trigger('click');
     } else {
+      if (name_field.val() == '') {
+        name_field.parents("div.form-group").addClass('error-field');
+        name_field.parent().find('#delivery-option-name-error-label').html('<label id="delivery_option_name_-error" class="error" for="delivery_option_time_"></label>');
+        $('#delivery_option_name_-error').text('Delivery Option Name is Required');
+      }
+      $('#delivery-option-form input[type=checkbox]').each(function () {
+        if (this.checked) {
+          accessShipsAttributesClasses($(this));
+          if ($('.' + processing_time_klass).val() == '') {
+            $('.' + processing_time_klass).parents("div.form-group").addClass('error-field');
+            $('#' + processing_time_klass + '-error-label').html('<label id="'+ processing_time_klass +'-error-text" class="error" for="ship_processing_time_"></label>');
+            $('#' + processing_time_klass + '-error-text').text('Processing Time is Required');
+          }
+          if ($('.' + delivery_time_klass).val() == '') {
+            $('.' + delivery_time_klass).parents("div.form-group").addClass('error-field');
+            $('#' + delivery_time_klass +'-error-label').html('<label id="'+ delivery_time_klass +'-error-text" class="error" for="ship_processing_time_"></label>');
+            $('#' + delivery_time_klass + '-error-text').text('Delivery Time is Required');
+          }
+        }
+      });
+    }
+  });
+}
+
+function accessShipsAttributesClasses($this) {
+  processing_time_klass = $this.data('processingShipId');
+  delivery_time_klass = $this.data('deliveryShipId');
+}
+
+// enable/disable name validation after form submit
+function enableDeliveryOptionName() {
+  $('body').on('input', '#delivery_option_name', function() {
+    if ($(this).parent().find('#delivery_option_name_-error').length > 0) {
+      if ($(this).val() != '') {
+        $(this).parents("div.form-group").removeClass('error-field');
+        $('#delivery_option_name_-error').text('');
+      } else {
+        $(this).parents("div.form-group").addClass('error-field');
+        $('#delivery_option_name_-error').text('Delivery Option Name is Required');
+      }
+    }
+  });
+}
+
+// enable/disable select filed validation after form submit
+function deliveryOptionDropdownValidation() {
+	$('body').on('change', '#select-ship-processing-time, #select-ship-delivery-time', function () {
+    klass = $(this).attr('class').split(' ')[1]
+    if (($(this).val() != '') && ($(this).parent().find('#' + klass + '-error-label').length > 0)) {
+      $(this).parents("div.form-group").removeClass('error-field');
+      $('#' + klass + '-error-text').text('');
+    } else if (($(this).val() == '') && ($(this).parent().find('#' + klass + '-error-label').length > 0)) {
+      error_text = klass.split('1').join('') == 'select-processing-ship-filed-'? 'Processing Time is Required' : 'Delivery Time is required'
       $(this).parents("div.form-group").addClass('error-field');
-      labeltext = $(this).is("#delivery_option_processing_time")? 'Processing Time is Required' : 'Delivery Time is Required'
-      $(labelId).text(labeltext);
-      $(labelId).css('display', 'block');
+      $('#' + klass + '-error-text').text(error_text);
     }
 	});
+}
+
+// This function is use for enable and disable ship attributes on checked
+function enableDeliveryShipAttributes() {
+	$('body').on('change', '#ship-checkbox', function() {
+    if ($(this).next().next().text() == 'UK Mainland') {
+      $(this).prop('checked', true);
+      return
+    }
+    accessShipsAttributesClasses($(this));
+    if (this.checked) {
+      $('.' + processing_time_klass).attr('disabled', false);
+      $('.' + delivery_time_klass).attr('disabled', false);
+    } else {
+      $('.' + processing_time_klass).attr('disabled', true);
+      $('.' + delivery_time_klass).attr('disabled', true);
+      $('.' + processing_time_klass).parents("div.form-group").removeClass('error-field');
+      $('#' + processing_time_klass + '-error-text').text('');
+      $('.' + delivery_time_klass).parents("div.form-group").removeClass('error-field');
+      $('#' + delivery_time_klass + '-error-text').text('');
+    }
+  });
 }

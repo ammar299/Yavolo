@@ -56,6 +56,7 @@
           <tbody id="delivery-options-list">
             <% if @delivery_options.count > 0 %>
               <%= render 'delivery_options_list', delivery_options: @delivery_options %>
+            <% end %>
           </tbody>
         </table>
       </div>
@@ -63,7 +64,7 @@
   </div>
 </div>
 <!-- Delivery Template Form Modal -->
-<div class="modal fade" id="deliveryTemplateForm" tabindex="-1" role="dialog" aria-labelledby="deliveryOptionFormLabel" aria-hidden="true">
+<div class="modal fade align-items-start" id="deliveryTemplateForm" tabindex="-1" role="dialog" aria-labelledby="deliveryOptionFormLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">

@@ -2,12 +2,20 @@ $('#delivery-template-form').html("<%= j render(partial: 'shared/admin/delivery_
 $('#deliveryTemplateForm').find('h5').html('<b>Add New Template</b>');
 <% if params[:add_new].blank? && params[:from].blank? %>
 $('#deliveryTemplateForm').modal('show');
-setFormValidation();
+// TODO: removed jquery plugin right now using custom validation for this form
+// setFormValidation();
+<% if notice.present? %>
+  $('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
+<% end %>
 <% end %>
 <% if params[:add_new].present? %>
 $('#delivery-template-form #delivery_option_form').append("<input type='hidden' name='from' value='create_product'>")
 $('#delivery-template-form').show();
-setFormValidation();
+// TODO: removed jquery plugin right now using custom validation for this form
+// setFormValidation();
+<% if notice.present? %>
+  $('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
+<% end %>
 <% elsif params[:from].present? %>
 $('#delivery-template-form').hide();
 $('#delivery-template-form').html("");

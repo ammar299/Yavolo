@@ -1,10 +1,10 @@
 module Admin::DeliveryOptionsHelper
   def select_processing_time
-    DeliveryOption.processing_times.map {|k, v| [k.split('_').map(&:capitalize).join(' '), k]}
+    DeliveryOptionShip.processing_times.map {|k, v| [k.split('_').map(&:capitalize).join(' '), k]}
   end
 
   def select_delivery_time
-    DeliveryOption.delivery_times.map {|k, v| [k.split('_').map(&:capitalize).join(' '), k]}
+    DeliveryOptionShip.delivery_times.map {|k, v| [k.split('_').map(&:capitalize).join(' '), k]}
   end
 
   def template_processing_time(time)
@@ -16,7 +16,21 @@ module Admin::DeliveryOptionsHelper
     (delivery_option_id && price).present? ? price : 0.00
   end
 
+  def ship_processing_time(delivery_option_id, ship_id)
+    DeliveryOptionShip.find_by(ship_id: ship_id, delivery_option_id: delivery_option_id)&.processing_time
+  end
+
+  def ship_delivery_time(delivery_option_id, ship_id)
+    DeliveryOptionShip.find_by(ship_id: ship_id, delivery_option_id: delivery_option_id)&.delivery_time
+  end
+
   def checked_delivery_ship?(delivery_option, ship_id)
     delivery_option.ship_ids.include?(ship_id)
+  end
+
+  def disable_ships_attribute?(delivery_option_id, ship_id)
+    return false if ship_id == 1
+    delivery_option = DeliveryOptionShip.find_by(ship_id: ship_id, delivery_option_id: delivery_option_id)
+    return delivery_option.present? ? false : (ship_id != 1)
   end
 end
