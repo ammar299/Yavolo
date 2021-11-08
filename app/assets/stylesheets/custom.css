@@ -694,6 +694,12 @@ label {
 }
 
 @media only screen and (min-width: 1025px) {
+  .admin-dashboard.no-header {
+    padding-top: 0 !important;
+  }
+  .admin-dashboard.no-header .admin-header {
+    display: none;
+  }
   .main-page-next .admin-header-inner .admin-header-left {
     flex: 1;
     justify-content: flex-end;
