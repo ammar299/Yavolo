@@ -14,4 +14,8 @@ module Admin::AdminHelper
     tags_template.join('')
   end
 
+  def admin_heading(params)
+    params[:controller] == 'admin/dashboard' && params[:action] == 'index'
+  end
+
 end

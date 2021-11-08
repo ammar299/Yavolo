@@ -13,7 +13,7 @@
     <div class="dashboard-page">
       <%= render "shared/admin_sidebar" %>
       <div class="rightside">
-        <div class="main-page container-fluid">
+        <div class="main-page container-fluid <%= !admin_heading(params) ? 'main-page-next' : ' ' %>">
           <div class="admin-dashboard">
             <%= render 'shared/flash_messages' %>
             <%= render "shared/admin_header" %>

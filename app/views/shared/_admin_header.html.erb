@@ -4,7 +4,9 @@
       <div class="admin-header-left">
         <%#= link_to "Create New Form", sampleform_path, 'data-no-turbolink' => true %> 
         <a href="javascript:void(0)" class="mr-lg-5 mr-2 menu-icon"><i class="icon-switch-accounts"></i></a>
-        <a href="#" class="mr-lg-5 mr-2"><i class="fas fa-calendar-alt" ></i></a>
+        <% if admin_heading(params) %>
+          <a href="#" class="mr-lg-5 mr-2"><i class="fas fa-calendar-alt" ></i></a>
+        <% end %>
         <div class="dropdown d-inline-block dropdown-filter dropdown-filter-border">
           <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-bell"></i>
