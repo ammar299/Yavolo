@@ -1,5 +1,6 @@
 class Admin::DeliveryOptionsController < Admin::BaseController
-  before_action :set_delivery_option, only: %i[edit update confirm_delete destroy]
+  before_action :set_delivery_option, only: %i[edit update confirm_delete destroy delete_delivery_option]
+  before_action :set_seller_id, only: %i[edit new]
 
   def index
     @delivery_options = DeliveryOption.admin_delivery_option("Admin")
@@ -18,7 +19,7 @@ class Admin::DeliveryOptionsController < Admin::BaseController
     if @delivery_opts == true
       @delivery_option.save
       create_delivery_option_ships(@delivery_option)
-      @delivery_options = DeliveryOption.admin_delivery_option("Admin")
+      manage_delivery_options_list(@delivery_option)
     else
       flash.now[:notice] = 'Template already exists!'
       render :new
@@ -33,7 +34,7 @@ class Admin::DeliveryOptionsController < Admin::BaseController
     if @existing_obj == true || @delivery_opts == true
       @delivery_option.update(delivery_option_params)
       create_delivery_option_ships(@delivery_option)
-      @delivery_options = DeliveryOption.admin_delivery_option("Admin")
+      manage_delivery_options_list(@delivery_option)
     else
       flash.now[:notice] = 'Template already exists!'
       render :edit
@@ -50,10 +51,25 @@ class Admin::DeliveryOptionsController < Admin::BaseController
     @delivery_options = DeliveryOption.admin_delivery_option("Admin")
   end
 
+  def delete_delivery_option
+    @delivery_option.destroy
+    @delivery_options = DeliveryOption.where(delivery_optionable_type: "Seller", delivery_optionable_id: @delivery_option.delivery_optionable_id)
+  end
+
+  def search_seller_delivery_options
+    if params[:search].present?
+      seller_id = Seller.find(params[:seller_id])
+      @delivery_options = DeliveryOption.where(delivery_optionable_type: "Seller", delivery_optionable_id: seller_id).global_search(params[:search])
+    else 
+      seller_id = Seller.find(params[:seller_id])
+      @delivery_options = DeliveryOption.where(delivery_optionable_type: "Seller", delivery_optionable_id: seller_id)
+    end
+  end
+
   private
 
   def delivery_option_params
-    params.require(:delivery_option).permit(:name, :ship_ids, :delivery_optionable_type, :delivery_optionable_id )
+    params.require(:delivery_option).permit(:name, :ship_ids, :delivery_optionable_type, :delivery_optionable_id)
   end
 
   def set_delivery_option
@@ -78,7 +94,8 @@ class Admin::DeliveryOptionsController < Admin::BaseController
   end
 
   def delivery_option_filtering(delivery_option=nil)
-    delivery_options = DeliveryOption.where(delivery_option_params)
+    byebug
+    delivery_options = DeliveryOption.where(name: delivery_option_params[:name])
     delivery_options = delivery_options.where.not(id: delivery_option.id) if !delivery_option.nil?
     if delivery_options.exists?
       check_delivery_option_availbility(delivery_options)
@@ -120,6 +137,19 @@ class Admin::DeliveryOptionsController < Admin::BaseController
       end
       bool = (result == delivery_option.delivery_option_ships.count)
       @delivery_opts = false if bool
+    end
+  end
+
+  def set_seller_id
+    @seller_id = params[:seller_id] if params[:seller_id].present?
+  end
+
+  def manage_delivery_options_list(delivery_option)
+    if delivery_option.delivery_optionable_type == 'Seller'
+      @delivery_options = DeliveryOption.where(delivery_optionable_type: 'Seller', delivery_optionable_id: params[:delivery_option][:delivery_optionable_id])
+      @seller_id = params[:seller_id] || params[:delivery_option][:delivery_optionable_id]
+    else
+      @delivery_options = DeliveryOption.admin_delivery_option('Admin')
     end
   end
 end

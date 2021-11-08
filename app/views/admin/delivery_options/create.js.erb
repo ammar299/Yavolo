@@ -1,3 +1,7 @@
+<% if params[:delivery_option][:delivery_optionable_type] == "Seller"%>
+$('#deliveryTemplateForm').modal('hide');
+$('#sellers-delivery-options-list').html("<%= j render(partial: 'shared/admin/sellers/delivery_options_list', locals: { delivery_options: @delivery_options }) %>");
+<% end %>
 <% if params[:from] == 'create_product' %>
 $('.delivery-details-section').append("<%= j render(partial: 'single_delivery_option_item', locals: { delivery_option: @delivery_option }) %>")
 $('#delivery-template-form').hide();

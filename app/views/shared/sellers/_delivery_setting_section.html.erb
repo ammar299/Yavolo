@@ -1,0 +1,51 @@
+<div class="tab-pane fade" id="Delivery-Settings" role="tabpanel"
+                                        aria-labelledby="Delivery-Settings-tab">
+  <div class="d-flex justify-content-between flex-wrap">
+    <div class="dropdown-filter-field active search-field-flex">
+      <div class="dropdown">
+        <a class="btn btn-radius px-4 btn-primary" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Search All <i class="fa fa-angle-down ml-4" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item" href="#">Search All</a>
+          <a class="dropdown-item" href="#">Delivery Name</a>
+        </div>
+      </div>
+      <%= form_tag(search_seller_delivery_options_admin_delivery_options_path, method: :get, remote: true) do %>
+      <div class="search-field mb-0">
+        <input type="text" name="search" placeholder="Search Delivery Templates">
+        <i class="fa fa-search accounts-delivery-search" aria-hidden="true"></i>
+        <input type="hidden" id="seller_id" name="seller_id" value="<%=params[:id]%>">
+      </div>
+
+      <% end %>
+    </div>
+    <div>
+      <%= link_to 'Create New Template', new_admin_delivery_option_path(seller_id: @seller.id ), class: 'btn btn-radius px-4 btn-primary ml-5 mb-3', data: { remote: true } %>
+    </div>
+  </div>
+  <h5 class="mb-3">Delivery Templates</h5>
+  <div id="setting-delivery-options">
+    <%= render 'shared/admin/sellers/delivery_options_list', delivery_options: @delivery_options %>
+  </div>
+</div>
+
+<div class="modal fade" id="deliveryTemplateForm" tabindex="-1" role="dialog" aria-labelledby="deliveryOptionFormLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body px-lg-3">
+        <div id="delivery-template-form"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Delivery Template Confirmation Deletion Modal -->
+<%= render 'shared/admin/confirmation_deletion_modal' %>

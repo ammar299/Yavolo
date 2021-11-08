@@ -1,0 +1,27 @@
+<div id="sellers-delivery-options-list" > 
+  <% delivery_options.each do |delivery|%>
+    <div class="row setting-delivery-option-list" id="setting-delivery-option">
+      <div class="col-md-12">
+        <div class="delivery-detail">
+          <div class="delivery-option d-flex justify-content-between align-items-center box-border yo-white-card flex-wrap">
+            <div class="deliver-option-left d-flex align-items-center">
+                
+                <div class="checkbox-right-text">
+                  <p class="mb-0"><%= delivery.name %></p>
+                  <%# TODO: here change the delivery & processing time %>
+                  <span class="red-color "><%#= delivery.processing_time%> <%#= delivery.delivery_time%></span>
+                </div>
+              </label>
+            </div>
+            <div class="deliver-option-left">
+              <p class="mb-0"><%= delivery.products.count > 0  ? pluralize(delivery.products.count, 'Listing') : '0 Listing'  %><%=%></p>
+            </div>
+            <div>
+              <%= link_to 'Edit Template', edit_admin_delivery_option_path(delivery,seller_id: @seller_id), class: 'btn btn-radius px-4 btn-primary btn-sm', data: { remote: true } %>
+              <%= link_to 'Remove Template', confirm_delete_admin_delivery_option_path(delivery, seller_id: @seller_id, path: 'seller'), remote: true, class: 'btn btn-radius px-4 btn-primary btn-sm' %>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+  <% end %>

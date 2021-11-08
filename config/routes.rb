@@ -14,9 +14,11 @@ Rails.application.routes.draw do
           collection do
             get    :confirm_multiple_deletion
             delete :delete_delivery_options
+            get    :search_seller_delivery_options
           end
           member do
             get :confirm_delete
+            delete :delete_delivery_option
           end
         end
         get 'export_sellers', to: 'sellers#export_sellers', as: :export_sellers

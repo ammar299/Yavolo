@@ -9,7 +9,10 @@
     <% if params[:controller] == "sellers/delivery_options" %>
       <%= f.hidden_field :delivery_optionable_type, value: "Seller"%>
       <%= f.hidden_field :delivery_optionable_id, value: current_seller.id %>
-    <% elsif params[:controller] == "admin/delivery_options" %>
+    <% elsif params[:controller] == "admin/delivery_options" && @seller_id.present? %>
+      <%= f.hidden_field :delivery_optionable_type, value: "Seller"%>
+      <%= f.hidden_field :delivery_optionable_id, value: @seller_id %>
+    <% else %>
       <%= f.hidden_field :delivery_optionable_type, value: "Admin"%>
       <%= f.hidden_field :delivery_optionable_id, value: current_admin.id %>
     <% end %>
@@ -60,6 +63,9 @@
       </div>
     </div>
     <div class="text-right">
+      <% if params[:controller] == "sellers/delivery_options" %>
+        <%= hidden_field_tag(seller_id: "Seller") %>
+      <% end %>
       <%= f.submit 'SAVE TEMPLATE', class: 'btn btn-radius px-4 btn-primary', id: 'delivery-option-form-btn' %>
     </div>
   <% end %>

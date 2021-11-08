@@ -13,9 +13,11 @@ class Admin::SellersController < Admin::BaseController
     end
 
     def show
+        @delivery_options =  @seller.delivery_options
         @remaining_addresses = Address.address_types.keys - @seller.addresses.collect(&:address_type)
         @remaining_addresses.each do |address_type| @seller.addresses.build address_type: address_type end if @remaining_addresses.present?
         @seller_apis = @seller.seller_apis
+        @seller_id = params[:id]
     end
 
     def create
