@@ -1,0 +1,32 @@
+<%= link_to 'Go To Cart', cart_path, class: 'btn btn-sm btn-primary m-3' %>
+<div class="row">
+  <div class="col-md-6">
+    <% five_products = Product.first(5) %>
+    <% five_products.each do |product| %>
+      <div>
+        <%#= product.pictures.inspect %>
+        <div id="<%= product.id %>">
+          <span>Product Name:</span>
+          <span><%= product.title %></span>
+        </div>
+        <div>
+          <% img = product.pictures.first.name.url ||= 'profile.jpg' %>
+          <%= image_tag(img, width: 200) %>
+        </div>
+        <div>
+          <span><%= number_to_currency(product.price) %> </span>
+        </div>
+        <div>
+          <%= link_to "Add to cart", add_to_cart_path(product: { product_id: product.id }), class: "btn btn-primary btn-sm btn-radius", method: :post %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-md-6">
+    <div>
+      <h4> Cart </h4>
+      <div id="display-cart-section">
+      </div>
+    </div>
+  </div>
+</div>

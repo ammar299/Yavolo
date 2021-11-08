@@ -8,7 +8,7 @@ class Seller < ApplicationRecord
   validates_acceptance_of :terms_and_conditions, on: :on_final_step?
   validates_acceptance_of :recieve_deals_via_email, on: :on_final_step?
   has_one :business_representative, dependent: :destroy
-  has_many :addresses, dependent: :destroy
+  has_many :addresses, as: :addressable, dependent: :destroy
   has_one :company_detail, dependent: :destroy
   has_one :picture, as: :imageable, dependent: :destroy
   has_many :seller_apis

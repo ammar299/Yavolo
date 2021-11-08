@@ -1,5 +1,5 @@
 class Address < ApplicationRecord
-    belongs_to :seller
+    belongs_to :addressable, polymorphic: true
     # validates :phone_number, phone: true
     enum address_type: { 
         business_representative_address: 0,
