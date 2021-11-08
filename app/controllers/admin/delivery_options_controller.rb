@@ -94,7 +94,6 @@ class Admin::DeliveryOptionsController < Admin::BaseController
   end
 
   def delivery_option_filtering(delivery_option=nil)
-    byebug
     delivery_options = DeliveryOption.where(name: delivery_option_params[:name])
     delivery_options = delivery_options.where.not(id: delivery_option.id) if !delivery_option.nil?
     if delivery_options.exists?
