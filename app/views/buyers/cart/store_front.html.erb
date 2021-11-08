@@ -10,7 +10,7 @@
           <span><%= product.title %></span>
         </div>
         <div>
-          <% img = product.pictures.first.name.url ||= 'profile.jpg' %>
+          <% img = product_cart_images(product) %>
           <%= image_tag(img, width: 200) %>
         </div>
         <div>

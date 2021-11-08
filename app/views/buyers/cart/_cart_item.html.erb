@@ -4,7 +4,7 @@
       <div class="col-lg-4 d-flex">
         <div class="card-img p-3 yo-white-card">
           <span>
-            <%= image_tag(product.pictures.first.name.url, width: 200) %>
+            <%= image_tag(product_cart_images(product), width: 200) %>
           </span>
         </div>
       </div>
@@ -17,7 +17,7 @@
               </h5>
             </div>
             <div class="price black-text">
-              <% total= product.price * cart_item[:quantity].to_i %>
+              <% total = product.price * cart_item[:quantity].to_i %>
                 <h5>
                   <%= number_to_currency(total, unit: "£" ) %>
                 </h5>
