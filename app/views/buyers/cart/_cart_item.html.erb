@@ -17,9 +17,8 @@
               </h5>
             </div>
             <div class="price black-text">
-              <% total = product.price * cart_item[:quantity].to_i %>
                 <h5>
-                  <%= number_to_currency(total, unit: "£" ) %>
+                  <%= number_to_currency(total_price(product, cart_item[:quantity].to_i), unit: "£" ) %>
                 </h5>
             </div>
           </div>

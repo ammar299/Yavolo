@@ -32,7 +32,9 @@ class Buyers::CartController < ApplicationController
 
   def update_product_quantity
     product_params = update_product_quantity_params
-    @product = Product.where(id: product_params[:product_id]).first
+    # todo only update if the product status is active
+    # add status: :active in find_by
+    @product = Product.find_by(id: product_params[:product_id])
     @cart_item = ''
     if @product.present?
       @cart = get_cart
@@ -63,7 +65,9 @@ class Buyers::CartController < ApplicationController
 
   def update_product_quantity_by_number
     update_product_quantity_by_number = update_product_quantity_by_number_params
-    @product = Product.where(id: update_product_quantity_by_number[:product_id]).first
+    # todo only update if the product status is active
+    # add status: :active in find_by
+    @product = Product.find_by(id: update_product_quantity_by_number[:product_id])
     @cart = ''
     @cart_item = ''
     if @product.present?
@@ -74,13 +78,15 @@ class Buyers::CartController < ApplicationController
           h[:quantity] = update_product_quantity_by_number[:quantity].to_i
         end
       }
-      session[:_current_user_cart] = @cart
+      # session[:_current_user_cart] = @cart
     end
   end
 
   def remove_product_form_cart
     remove_product_params = remove_product_from_cart_params
-    @product = Product.where(id: remove_product_params[:product_id]).first
+    # todo only update if the product status is active
+    # add status: :active in find_by
+    @product = Product.find_by(id: remove_product_params[:product_id])
     if @product.present?
       @cart = get_cart
       @cart.delete_if { |h| h[:product_id].to_i == @product.id }
