@@ -21,6 +21,7 @@ class Admin::DeliveryOptionsController < Admin::BaseController
       create_delivery_option_ships(@delivery_option)
       manage_delivery_options_list(@delivery_option)
     else
+      persisted_delivery_ships
       flash.now[:notice] = 'Template already exists!'
       render :new
     end
@@ -36,6 +37,8 @@ class Admin::DeliveryOptionsController < Admin::BaseController
       create_delivery_option_ships(@delivery_option)
       manage_delivery_options_list(@delivery_option)
     else
+      @delivery_option_name = params[:delivery_option][:name]
+      persisted_delivery_ships
       flash.now[:notice] = 'Template already exists!'
       render :edit
     end
@@ -150,5 +153,12 @@ class Admin::DeliveryOptionsController < Admin::BaseController
     else
       @delivery_options = DeliveryOption.admin_delivery_option('Admin')
     end
+  end
+
+  def persisted_delivery_ships
+    @ship_ids = params[:delivery_option][:ship_ids].reject(&:empty?)
+    @ship_prices = params['ship_price']
+    @ship_processing_times = params['ship_processing_time']
+    @ship_delivery_times = params['ship_delivery_time']
   end
 end
