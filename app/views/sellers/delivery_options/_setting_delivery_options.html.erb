@@ -7,8 +7,33 @@
             <div class="deliver-option-left d-flex align-items-center">
               <div class="checkbox-right-text">
                 <p class="mb-0"><%= delivery.name %></p>
-                <%# TODO: "UA" fix delivery time for delivery option %>
-                <span class="red-color "><%#= delivery.processing_time%> <%#= delivery.delivery_time%></span>
+              </div>
+              <div>
+                <span class="red-color ">
+                  <ul>
+                    <% ship_location(delivery).each do |ship_location| %>
+                      <li><%= ship_location %></li>
+                    <% end %>
+                  </ul>
+                </span>
+              </div>
+              <div>
+                <span class="red-color ">
+                  <ul>
+                    <% listed_ship_processing_time(delivery.id).each do |processing_time| %>
+                      <li><%= processing_time %></li>
+                    <% end %>
+                  </ul>
+                </span>
+              </div>
+              <div>
+                <span class="red-color ">
+                  <ul>
+                    <% listed_ship_delivery_time(delivery.id).each do |delivery_time| %>
+                      <li><%= delivery_time %></li>
+                    <% end %>
+                  </ul>
+                </span>
               </div>
             </div>
             <div class="deliver-option-left">

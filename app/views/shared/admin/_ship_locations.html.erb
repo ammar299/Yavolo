@@ -1,0 +1,22 @@
+<td>
+  <ul>
+    <% ship_location(delivery_option).each do |ship_location| %>
+      <li><%= ship_location %></li>
+    <% end %>
+  </ul>
+</td>
+
+<td>
+  <ul>
+    <% listed_ship_processing_time(delivery_option.id).each do |processing_time| %>
+      <li><%= processing_time %></li>
+    <% end %>
+  </ul>
+</td>
+<td>
+  <ul>
+    <% listed_ship_delivery_time(delivery_option.id).each do |delivery_time| %>
+      <li><%= delivery_time %></li>
+    <% end %>
+  </ul>
+</td>

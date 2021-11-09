@@ -16,12 +16,24 @@ module Admin::DeliveryOptionsHelper
     (delivery_option_id && price).present? ? price : 0.00
   end
 
+  def ship_location(delivery_option)
+    delivery_option.ships.pluck(:name)
+  end
+
   def ship_processing_time(delivery_option_id, ship_id)
     DeliveryOptionShip.find_by(ship_id: ship_id, delivery_option_id: delivery_option_id)&.processing_time
   end
 
   def ship_delivery_time(delivery_option_id, ship_id)
     DeliveryOptionShip.find_by(ship_id: ship_id, delivery_option_id: delivery_option_id)&.delivery_time
+  end
+
+  def listed_ship_processing_time(delivery_option_id)
+    DeliveryOptionShip.where(delivery_option_id: delivery_option_id).pluck(:processing_time).map{|v| v.split('_').map(&:capitalize).join(' ')}
+  end
+
+  def listed_ship_delivery_time(delivery_option_id)
+    DeliveryOptionShip.where(delivery_option_id: delivery_option_id).pluck(:delivery_time).map{|v| v.split('_').map(&:capitalize).join(' ')}
   end
 
   def checked_delivery_ship?(delivery_option, ship_id)

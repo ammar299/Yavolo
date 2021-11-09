@@ -5,13 +5,37 @@
         <div class="delivery-detail">
           <div class="delivery-option d-flex justify-content-between align-items-center box-border yo-white-card flex-wrap">
             <div class="deliver-option-left d-flex align-items-center">
-                
                 <div class="checkbox-right-text">
                   <p class="mb-0"><%= delivery.name %></p>
-                  <%# TODO: here change the delivery & processing time %>
-                  <span class="red-color "><%#= delivery.processing_time%> <%#= delivery.delivery_time%></span>
                 </div>
               </label>
+            </div>
+            <div>
+              <span class="red-color ">
+                <ul>
+                  <% ship_location(delivery).each do |ship_location| %>
+                    <li><%= ship_location %></li>
+                  <% end %>
+                </ul>
+              </span>
+            </div>
+            <div>
+              <span class="red-color ">
+                <ul>
+                  <% listed_ship_processing_time(delivery.id).each do |processing_time| %>
+                    <li><%= processing_time %></li>
+                  <% end %>
+                </ul>
+              </span>
+            </div>
+            <div>
+              <span class="red-color ">
+                <ul>
+                  <% listed_ship_delivery_time(delivery.id).each do |delivery_time| %>
+                    <li><%= delivery_time %></li>
+                  <% end %>
+                </ul>
+              </span>
             </div>
             <div class="deliver-option-left">
               <p class="mb-0"><%= delivery.products.count > 0  ? pluralize(delivery.products.count, 'Listing') : '0 Listing'  %><%=%></p>

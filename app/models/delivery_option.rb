@@ -1,6 +1,6 @@
 class DeliveryOption < ApplicationRecord
   include PgSearch
-  # TODO: Please remove processing/delivery time from this modal becasue this fields are shift to another model thanks
+  # TODO: 'RA' Please remove processing/delivery time from this modal becasue this fields are shift to another model thanks
   # multisearchable(
   #   against: [:name, :processing_time, :delivery_time],
   # )
