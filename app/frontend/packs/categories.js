@@ -87,8 +87,9 @@ function selectImagesfromS3() {
     }
     $('#category_picture_attributes_name').val("");
 		$("#picture-id-saved").val($(this).data('picid'));
-		$(".product-content-img").attr('src' , $(this).attr('src'));
-		$("#upload-images-popup").modal('hide');
+		$('.product-content-img').data('currentsrc',$(".product-content-img").attr('src'))
+    $(".product-content-img").attr('src' , $(this).attr('src'));
+    $("#upload-images-popup").modal('hide');
 	});
 }
 
@@ -98,6 +99,7 @@ function selectImagesFromLocalStorage() {
     if(!$('.temp-preview-button').hasClass('d-none')){
       $('.remove_category_image').hide();
     }
+    $('.product-content-img').data('currentsrc', $(".product-content-img").attr('src'));
 		$('.product-content-img').attr('src', URL.createObjectURL(event.target.files[0]));
 	});
 }
@@ -117,7 +119,12 @@ function addCustomImg() {
 
 function tempRemoveBtn(){
   $('body').on('click', '.temp-preview-button', function(){
-    $('.product-content-img').remove();
+    // $('.product-content-img').remove();
+    $('.product-content-img').attr('src',$(".product-content-img").data('currentsrc') )
+    $('#remove-picture').show();
+    if($('.product-content-img').attr('src')=='')
+      $('.product-content-img').addClass('d-none');
+
     $('.temp-preview-button').addClass('d-none');
     $('#category_picture_attributes_name').val("");
     $('#picture-id-saved').val("");
@@ -145,6 +152,7 @@ function fetchCategoryDetails(element) {
         success: function (data) {
             if (!data) return
             $(".category-details-wrapper").html(data)
+            validateCategoryForm();
         }
     })
 }
@@ -170,5 +178,35 @@ function createNewCategory(element) {
 function categoryInformResult(){
   $('body').on('keyup', '.category-products-search-term', function(){
     $('.submit-category-products-form-btn').trigger('click');
+  });
+}
+
+window.validateCategoryForm = function() {
+  $('form#category-description-form').validate({
+    invalidHandler: function(event,validator){
+      if (!validator.numberOfInvalids())
+            return;
+
+      $('html, body').animate({
+          scrollTop: $('body').offset().top
+      }, 1000);
+    },
+    ignore: ".ck",
+    rules: {
+      "category[category_name]": {
+        required: true
+      }
+    },
+    highlight: function(element) {
+      $(element).parents("div.form-group").addClass('error-field');
+    },
+    unhighlight: function(element) {
+      $(element).parents("div.form-group").removeClass('error-field');
+    },
+    messages: {
+      "category[category_name]": {
+          required: "Category Name can't be blank."
+      }
+    }
   });
 }

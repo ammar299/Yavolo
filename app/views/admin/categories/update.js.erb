@@ -1,5 +1,13 @@
 <% if @category.errors.any? %>
-  $(".resource-errors-container").html("<%= j render("shared/resource_form_errors", resource: @category) %>")
+  <%
+    column = @category.errors.where(:category_name).last
+    has_error = column.present?
+    if has_error
+  %>
+    $('#category_category_name').parent().addClass('error-field')
+    $('#category_category_name').parent().find('small').remove();
+    $('#category_category_name').parent().append("<%="<small class='form-text'>#{column.full_message}</small>".html_safe %>")
+  <% end %>
 <% else %>
   <% if @category.baby_category? %>
       $(".sub-category-link").addClass('disabled');
@@ -8,4 +16,6 @@
   <% else %>
       $(".sub-category-link").removeClass('disabled');
   <% end %>
+  $('.main-page.container-fluid').find('.notice').remove();
+  $('.main-page.container-fluid').prepend("<%="<p class='flash-toast notice notice-msg'>Category has been updated <span  class='notice-cross-icon' aria-hidden='true'>&times;</span></p>".html_safe %>");
 <% end %>

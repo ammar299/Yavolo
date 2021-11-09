@@ -19,39 +19,39 @@ class Admin::CategoriesController < Admin::BaseController
       @category.build_picture
       @category.picture_attributes = image_url
       @category.save
-      else
-        @category = Category.new(category_params)
-        if @category.save
-          if params[:selected_cat_id].present?
-            flash[:selected_cat_id] = params[:selected_cat_id]
-            if params[:is_subcategory].present? # If its assigned as subcategory
-              parent = Category.find(params[:selected_cat_id].to_i)
-            else # If its assigned as sibling
-              parent = Category.find(params[:selected_cat_id].to_i).parent
-            end
-            @category.parent = parent
-            if @category.save
-              flash[:notice] = "Category has been saved"
-            end
+    else
+      @category = Category.new(category_params)
+      if @category.save
+        if params[:selected_cat_id].present?
+          flash[:selected_cat_id] = params[:selected_cat_id]
+          if params[:is_subcategory].present? # If its assigned as subcategory
+            parent = Category.find(params[:selected_cat_id].to_i)
+          else # If its assigned as sibling
+            parent = Category.find(params[:selected_cat_id].to_i).parent
+          end
+          @category.parent = parent
+          if @category.save
+            flash[:notice] = "Category has been saved"
           end
         end
       end
     end
+  end
 
   def update
     if params[:picture_id].present?
       image_url = upload_galery_image(params)
       @category.picture_attributes = image_url
-      @category.update(category_params)
-      if @category.baby_category?
-        flash[:notice] = "Category has been updated"
-        @category.descendants.map(&:destroy)
+      if @category.update(category_params)
+        if @category.baby_category?
+          @category.descendants.map(&:destroy)
+        end
       end
     else
-      @category.update(category_params)
-      if @category.baby_category?
-        flash[:notice] = "Category has been updated"
-        @category.descendants.map(&:destroy)
+      if @category.update(category_params)
+        if @category.baby_category?
+          @category.descendants.map(&:destroy)
+        end
       end
     end
   end
