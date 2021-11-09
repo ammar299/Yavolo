@@ -114,7 +114,7 @@ function submitDeliveryForm() {
       if (name_field.val() == '') {
         name_field.parents("div.form-group").addClass('error-field');
         name_field.parent().find('#delivery-option-name-error-label').html('<label id="delivery_option_name_-error" class="error" for="delivery_option_time_"></label>');
-        $('#delivery_option_name_-error').text('Delivery Option Name is Required');
+        $('#delivery_option_name_-error').text('Required');
       }
       $('#delivery-option-form input[type=checkbox]').each(function () {
         if (this.checked) {
@@ -122,12 +122,12 @@ function submitDeliveryForm() {
           if ($('.' + processing_time_klass).val() == '') {
             $('.' + processing_time_klass).parents("div.form-group").addClass('error-field');
             $('#' + processing_time_klass + '-error-label').html('<label id="'+ processing_time_klass +'-error-text" class="error" for="ship_processing_time_"></label>');
-            $('#' + processing_time_klass + '-error-text').text('Processing Time is Required');
+            $('#' + processing_time_klass + '-error-text').text('Required');
           }
           if ($('.' + delivery_time_klass).val() == '') {
             $('.' + delivery_time_klass).parents("div.form-group").addClass('error-field');
             $('#' + delivery_time_klass +'-error-label').html('<label id="'+ delivery_time_klass +'-error-text" class="error" for="ship_processing_time_"></label>');
-            $('#' + delivery_time_klass + '-error-text').text('Delivery Time is Required');
+            $('#' + delivery_time_klass + '-error-text').text('Required');
           }
         }
       });
@@ -149,7 +149,7 @@ function enableDeliveryOptionName() {
         $('#delivery_option_name_-error').text('');
       } else {
         $(this).parents("div.form-group").addClass('error-field');
-        $('#delivery_option_name_-error').text('Delivery Option Name is Required');
+        $('#delivery_option_name_-error').text('Required');
       }
     }
   });
@@ -163,9 +163,8 @@ function deliveryOptionDropdownValidation() {
       $(this).parents("div.form-group").removeClass('error-field');
       $('#' + klass + '-error-text').text('');
     } else if (($(this).val() == '') && ($(this).parent().find('#' + klass + '-error-label').length > 0)) {
-      error_text = klass.split('1').join('') == 'select-processing-ship-filed-'? 'Processing Time is Required' : 'Delivery Time is required'
       $(this).parents("div.form-group").addClass('error-field');
-      $('#' + klass + '-error-text').text(error_text);
+      $('#' + klass + '-error-text').text('Required');
     }
 	});
 }
