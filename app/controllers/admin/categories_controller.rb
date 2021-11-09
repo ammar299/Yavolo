@@ -14,10 +14,8 @@ class Admin::CategoriesController < Admin::BaseController
 
   def create
     if params[:picture_id].present?
-      image_url = upload_galery_image(params)
       @category = Category.new(category_params)
-      @category.build_picture
-      @category.picture_attributes = image_url
+      @category.picture = upload_galery_image(params)
       @category.save
     else
       @category = Category.new(category_params)
@@ -40,8 +38,7 @@ class Admin::CategoriesController < Admin::BaseController
 
   def update
     if params[:picture_id].present?
-      image_url = upload_galery_image(params)
-      @category.picture_attributes = image_url
+      @category.picture = upload_galery_image(params)
       if @category.update(category_params)
         if @category.baby_category?
           @category.descendants.map(&:destroy)
@@ -127,14 +124,11 @@ class Admin::CategoriesController < Admin::BaseController
 
   def upload_galery_image(params)
     picture_id = params[:picture_id].to_i
-    picture = Picture.find_by(id: picture_id)
-    path = Picture.find_by(id: picture_id).name_url
-    if Rails.env.production? 
-      image_url = {remote_name_url: path}
-    else
-      image_url = {remote_name_url: path}
-    end
-    image_url
+    picture = Picture.where(id: picture_id).first
+    new_picture = Picture.new
+    return nil if picture.blank?
+    CopyCarrierwaveFile::CopyFileService.new(picture, new_picture, :name).set_file
+    new_picture
   end
 
 end

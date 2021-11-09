@@ -80,3 +80,4 @@ gem "letter_opener", group: :development
 gem 'ransack'
 gem 'wicked'
 gem 'paypal-checkout-sdk'
+gem 'copy_carrierwave_file'
