@@ -134,6 +134,7 @@ Rails.application.routes.draw do
             post :manage_returns_and_terms
           end
           member do
+            patch :seller_login_setting_update
             patch :update_business_representative
             patch :update_company_detail
             patch :update_addresses

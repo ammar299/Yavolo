@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_05_121722) do
+ActiveRecord::Schema.define(version: 2021_11_08_132655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -162,6 +162,15 @@ ActiveRecord::Schema.define(version: 2021_11_05_121722) do
     t.integer "category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "category_linking_filters", force: :cascade do |t|
+    t.bigint "category_id"
+    t.bigint "filter_in_category_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_category_linking_filters_on_category_id"
+    t.index ["filter_in_category_id"], name: "index_category_linking_filters_on_filter_in_category_id"
   end
 
   create_table "checkout_details", force: :cascade do |t|
@@ -434,6 +443,9 @@ ActiveRecord::Schema.define(version: 2021_11_05_121722) do
     t.boolean "eligible_to_create_api", default: false
     t.boolean "holiday_mode", default: false
     t.boolean "is_locked", default: false
+    t.integer "timeout"
+    t.boolean "two_factor_auth", default: false
+    t.datetime "last_seen_at"
     t.index ["email"], name: "index_sellers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_sellers_on_reset_password_token", unique: true
   end

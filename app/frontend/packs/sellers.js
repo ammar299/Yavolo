@@ -6,7 +6,9 @@ $(document).ready(function(){
   addNewSellerFormValidation();
   newSellerFormDropdownValidation();
   validateEligibility();
+  loginSettingsForm();
   validateSellerSignInSignUp();
+  sellerTimeOutSlector()
   //Upload Sellers
   $(".upload-sellers-csv-btn").click(function () {
     $("#upload-sellers-csv-popup").modal("show");
@@ -208,6 +210,34 @@ $(document).ready(function(){
       },
     });
   
+  }
+
+  function loginSettingsForm() {
+     $('form#add_new_seller_profile_form').validate({
+      ignore: "", 
+      rules: {
+        "seller[email]": {
+          required: true
+        },
+        "seller[contact_number]": {
+          required: true
+        }
+      },
+      highlight: function(element) {
+        $(element).parents("div.form-group").addClass('error-field');
+      },
+      unhighlight: function(element) {
+        $(element).parents("div.form-group").removeClass('error-field');
+      },
+      messages: {
+        "seller[email]": {
+            required: "Email is required"
+        },
+        "seller[contact_number]": {
+          required: "Contact number is required"
+        }
+      }
+    });
   }
 
   $("#check-all-checkboxes").click(function () {
@@ -630,6 +660,20 @@ function validateSellerSignInSignUp() {
   });
 }
 
+function sellerTimeOutSlector() {
+  $('body').on('click', ".time-out-session", function () {
+    $("#seller_timeout").val().length > 1
+    if ($(this).is(":checked"))
+    {
+      $('.logout-time-dropdown').removeClass('d-none');
+      // $(".seller-selector").show()
+    } else {
+      $('.logout-time-dropdown').addClass('d-none');
+      // $(".seller-selector").hide()
+      $(".selector-value").val('')
+    }
+  })
+}
 
 function validateEligibility () {
   $('body').on('click', ".not-eligible-toast", function () {

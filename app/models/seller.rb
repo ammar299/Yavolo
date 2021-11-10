@@ -4,7 +4,7 @@ class Seller < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable, :omniauthable, omniauth_providers: [:google_oauth2 , :facebook]
   validates :email, confirmation: true
-  validates :contact_number, phone: {allow_blank: true}
+  # validates :contact_number, phone: {allow_blank: true}
   validates_acceptance_of :terms_and_conditions, on: :on_final_step?
   validates_acceptance_of :recieve_deals_via_email, on: :on_final_step?
   has_one :business_representative, dependent: :destroy
@@ -18,6 +18,21 @@ class Seller < ApplicationRecord
   has_many :csv_imports, as: :importer, dependent: :destroy
   has_one :paypal_detail,dependent: :destroy
 
+  enum timeout: {
+    "After 1 hour of no activity": 1,
+    "After 2 hour of no activity": 2,
+    "After 3 hour of no activity": 3,
+    "After 4 hour of no activity": 4,
+    "After 5 hour of no activity": 5,
+    "After 6 hour of no activity": 6,
+    "After 7 hour of no activity": 7,
+    "After 8 hour of no activity": 8,
+    "After 9 hour of no activity": 9,
+    "After 10 hour of no activity": 10,
+    "After 11 hour of no activity": 11,
+    "After 12 hour of no activity": 12,
+    "After 24 hour of no activity": 24,
+  }
   enum account_status: {
     pending: 0,
     approve: 1,

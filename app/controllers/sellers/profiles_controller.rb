@@ -1,15 +1,18 @@
 class Sellers::ProfilesController < Sellers::BaseController
   layout 'application', :only => [:new]
   layout 'sellers/seller', except: %[new]
-
-  before_action :set_seller, only: %i[new show edit update update_business_representative update_company_detail update_seller_logo remove_logo_image update_addresses holiday_mode confirm_reset_password_token reset_password_token]
+  before_action :seller_session_expire, :except=>[:new, :create]
+  before_action :set_seller, only: %i[new show edit update update_business_representative update_company_detail update_seller_logo remove_logo_image update_addresses holiday_mode confirm_reset_password_token reset_password_token seller_login_setting_update]
   before_action :set_delivery_template, only: %i[confirm_delete destroy_delivery_template]
   before_action :get_action_url, only: %i[show]
+  before_action :set_last_seen_at, if: proc { seller_signed_in? }
+
 
   def new
   end
 
   def show
+    @seller = current_seller
     @delivery_options = current_seller.delivery_options
     @remaining_addresses = Address.address_types.keys - @seller.addresses.collect(&:address_type)
     @remaining_addresses.each do |address_type| @seller.addresses.build address_type: address_type end if @remaining_addresses.present?
@@ -24,6 +27,33 @@ class Sellers::ProfilesController < Sellers::BaseController
     end
   end
 
+  def seller_login_setting_update
+    params[:seller][:two_factor_auth] == '1' ? params[:seller][:two_factor_auth] = true : params[:seller][:two_factor_auth] = false
+    if params[:seller][:current_password].blank? && params[:seller][:password].blank? && params[:seller][:password_confirmation].blank?
+      @seller = @seller.update(seller_params)
+      flash.now[:notice] = "Login details updated successfully"
+    elsif  params[:seller][:current_password].present? && params[:seller][:password].present? && params[:seller][:password_confirmation].present? && params[:seller][:remember_me] == "0"
+      if params[:seller][:password_confirmation] == params[:seller][:password] && @seller.valid_password?(params[:seller][:current_password])
+        @seller.update(seller_login_params)
+        flash.now[:notice] = "Login details updated successfully"
+        render js: "window.location = '#{new_seller_session_path}'"
+      else
+         flash.now[:notice] = "Password did not matched"
+      end
+    elsif params[:seller][:password_confirmation].present? && params[:seller][:password].present? && params[:seller][:current_password].present?
+      if params[:seller][:password_confirmation] == params[:seller][:password] && @seller.valid_password?(params[:seller][:current_password])
+        resource = current_seller
+        @seller.update(seller_login_params)
+        flash.now[:notice] = "Login details updated successfully"
+        resource.after_database_authentication
+        bypass_sign_in @seller, scope: :seller
+      else
+        flash.now[:notice] = "Password did not matched"
+      end
+    else
+      flash.now[:notice] = "Current Password and Confirm Password required"
+    end
+  end
 
   def update
     @seller.update(seller_params)
@@ -91,13 +121,17 @@ class Sellers::ProfilesController < Sellers::BaseController
 
   private
   def seller_params
-    params.require(:seller).permit(:first_name, :last_name, :email, :subscription_type,:account_status, :listing_status,:terms_and_conditions, :recieve_deals_via_email,
+    params.require(:seller).permit(:first_name, :last_name, :email, :subscription_type,:account_status, :listing_status,:terms_and_conditions, :recieve_deals_via_email, :contact_number, :remember_me, :timeout, :two_factor_auth,
       business_representative_attributes: [:id, :full_legal_name, :email, :job_title, :date_of_birth],
       bank_detail_attributes: [:id, :currency, :country, :sort_code, :account_number, :account_number_confirmation],
       company_detail_attributes: [:id, :name, :vat_number, :country, :legal_business_name, :companies_house_registration_number, :business_industry, :website_url, :amazon_url, :ebay_url, :doing_business_as],
         addresses_attributes: [:id, :address_line_1, :address_line_2, :city, :county, :country, :postal_code, :phone_number, :address_type],
         picture_attributes: ["name", "@original_filename", "@content_type", "@headers", "_destroy", "id"],
       )
+  end
+
+  def seller_login_params
+    params.require(:seller).permit( :email, :password, :confirmation_password, :contact_number, :remember_me, :timeout, :two_factor_auth)
   end
 
   def holiday_mode_params
@@ -120,5 +154,20 @@ class Sellers::ProfilesController < Sellers::BaseController
     @seller = current_seller
     @action_url = @seller&.paypal_detail&.seller_action_url
     @action_url = Sellers::PaypalIntegrationService.call(current_seller) if !@action_url.present?
+  end
+
+  def set_last_seen_at
+    current_seller.update_attribute(:last_seen_at, Time.current)
+  end
+
+  def seller_session_expire
+    if current_seller.timeout.present?
+      seller_time = Time.at(Time.current - current_seller.last_seen_at).utc.strftime("%M").to_i
+      seller_timeout = Seller.timeouts[current_seller.timeout] * 60
+      if seller_timeout <= seller_time
+        sign_out(current_seller)
+        redirect_to(:controller => 'sellers/auth/sessions', :action => 'new')
+      end
+    end
   end
 end

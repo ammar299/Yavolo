@@ -1,60 +1,83 @@
 <div class="tab-pane fade" id="login-settings" role="tabpanel" aria-labelledby="login-settings-tab">
   <h6>Login settings</h6>
-  <section class="login-settings yo-white-card box-border pb-0">
-    <div class="row">
-      <div class="col-lg-10">
-        <form>
-          <div class="form-group form-group-vertical form-group-vertical-responsive">
-            <label for="exampleInputEmail1">Automatic logout:</label>
-            <div class="d-inline-flex align-items-center mb-1">
-              <label class="switch">
-                <input type="checkbox">
-                <span class="slider round"></span>
-              </label>
-              <p class="my-0 mx-3">Enable</p>
+  <section class="login-settings yo-white-card box-border pb-0" id="seller-login-setting">
+   <%= simple_form_for @seller, :remote => true, html: { id: :add_new_seller_profile_form }, url: seller_login_setting_update_sellers_profile_path(@seller), method: :patch do |f| %>
+    <div id="login-updation">
+      <div class="row">
+        <div class="col-lg-10">
+
+            <div class="form-group form-group-vertical form-group-vertical-responsive">
+              <label for="exampleInputEmail1">Enable 2 step factor authentication:</label>
+              <div class="d-inline-flex align-items-center mb-1">
+                <label class="switch" for="two_factor_auth">
+                  
+                    <!-- <input type="checkbox" name="seller[two_factor_auth]" type="hidden" value="1" class="sellect-two-auth"> -->
+                    <%= f.check_box :two_factor_auth, checked: @seller.new_record? || f.object.two_factor_auth?, class: 'sellect-two-auth', id: 'two_factor_auth' %>
+                    <%#= f.check_box_tag :two_factor_auth,'1', checked: f.object.two_factor_auth?, class: 'sellect-two-auth', id: 'two_factor_auth' %>
+                    <span class="slider round"></span>
+                  
+                </label>
+              </div>
             </div>
-            <select class="form-control">
-              <option>ArvindPanchmatia@gmail.co.uk</option>
-            </select>
-          </div>
-        </form>
+            <div class="form-group form-group-vertical form-group-vertical-responsive">
+              <label for="exampleInputEmail1">Automatic logout:</label>
+              <div class="d-inline-flex align-items-center mb-1">
+                <label class="switch" for="seller_timeout">
+                  <%= f.check_box "check_box", checked: @seller.new_record? || f.object.timeout?, class: 'time-out-session', id: 'seller_timeout' %>
+                  <span class="slider round"></span>
+                </label>
+              </div>
+              <div class="column logout-time-dropdown  <%=f.object.timeout.blank? ? 'd-none' : ' '%>">
+                <p class="my-0 mx-3 seller-selector" >Enable</p>
+                <%= f.select(:timeout, Seller.timeouts.keys.to_a, {:include_blank => "Select"}, {:class => "form-control selector-value seller-selector"} ) %>
+              </div>
+            </div>    
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-8">
-        <form>
-          <div class="form-group form-group-vertical form-group-vertical-responsive">
-            <label for="exampleInputPassword1">Recovery email:</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-          </div>
-          <div class="form-group form-group-vertical form-group-vertical-responsive">
-            <label for="exampleInputPassword1">Recovery email:</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-          </div>
-          <div class="form-group form-group-vertical form-group-vertical-responsive">
-            <label for="exampleInputPassword1">Recovery email:</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-          </div>
-          <div class="form-group form-group-vertical form-group-vertical-responsive">
-            <label for="exampleInputPassword1">Recovery email:</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-          </div>
-          <div class="form-group form-group-vertical form-group-vertical-responsive">
-            <label for="exampleInputPassword1">Recovery email:</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-          </div>
-          <div class="form-group form-group-vertical align-items-center">
-            <label for="exampleInputPassword1">Recovery email:</label>
-            <div class="    ">
-              <label class="checkbox-blk pt-0 pb-0 pl-5">Enable
-                <input type="checkbox">
-                <span class="checkmark"></span>
-              </label>
+      <div class="row">
+        <div class="col-lg-8"> 
+            <div class="form-group form-group-vertical form-group-vertical-responsive">
+              <label for="exampleInputPassword1">Recovery email:</label>
+              <div style="flex: 1;">
+                <%= f.email_field :email, autofocus: true, autocomplete: "email",class: "form-control", placeholder: "Email Address" %>
+              </div>
+            </div>
+            <div class="form-group form-group-vertical form-group-vertical-responsive">
+              <label for="exampleInputPassword1">Recovery phone number:</label>
+              <div style="flex: 1;">
+                <%= f.text_field :contact_number, autofocus: true, autocomplete: "Enter New Password", class: "form-control", placeholder: "Enter New Password" %>
+              </div>
+            </div>
+            <div class="form-group form-group-vertical form-group-vertical-responsive">
+              <label for="exampleInputPassword1">Change Password:</label>
+              <%= f.password_field :current_password, :autocomplete => "off", class: "form-control", placeholder: "Enter current Password"  %>
+            </div>
+            <div class="form-group form-group-vertical form-group-vertical-responsive">
+              <label for="exampleInputPassword1"></label>
+              <%= f.password_field :password, :autocomplete => "off", autocomplete: "Enter New Password", class: "form-control", placeholder: "Enter new Password" %>
+            </div>
+            <div class="form-group form-group-vertical form-group-vertical-responsive">
+              <label for="exampleInputPassword1"></label>
+              <%= f.password_field :password_confirmation, :autocomplete => "off", autocomplete: "Enter New Password", class: "form-control", placeholder: "Confirm new Password" %>
+            </div>
+            <div class="form-group form-group-vertical align-items-center">
+              <label for="exampleInputPassword1">Remember me:</label>
+              <div class="    ">
+                <label class="checkbox-blk pt-0 pb-0 pl-5">keep me logged in
+                  <input name="seller[remember_me]" type="hidden" value="0" /><input
+                  type="checkbox"
+                  value="1"
+                  name="seller[remember_me]"
+                  id="user_remember_me"
+                  />
+                  <span class="checkmark"></span>
+                </label>
+              </div>
             </div>
           </div>
-          <a href="#" class="btn btn-radius px-4 btn-primary mb-3">Primary</a>
-        </form>
-      </div>
+        </div>
+      <%= f.submit "Save login settings", class: "btn btn-radius px-4 btn-primary mb-3", remote: true %> 
     </div>
+    <%end%>
   </section>
 </div>
