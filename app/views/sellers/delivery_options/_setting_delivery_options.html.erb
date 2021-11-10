@@ -7,33 +7,7 @@
             <div class="deliver-option-left d-flex align-items-center">
               <div class="checkbox-right-text">
                 <p class="mb-0"><%= delivery.name %></p>
-              </div>
-              <div>
-                <span class="red-color ">
-                  <ul>
-                    <% ship_location(delivery).each do |ship_location| %>
-                      <li><%= ship_location %></li>
-                    <% end %>
-                  </ul>
-                </span>
-              </div>
-              <div>
-                <span class="red-color ">
-                  <ul>
-                    <% listed_ship_processing_time(delivery.id).each do |processing_time| %>
-                      <li><%= processing_time %></li>
-                    <% end %>
-                  </ul>
-                </span>
-              </div>
-              <div>
-                <span class="red-color ">
-                  <ul>
-                    <% listed_ship_delivery_time(delivery.id).each do |delivery_time| %>
-                      <li><%= delivery_time %></li>
-                    <% end %>
-                  </ul>
-                </span>
+                <%= render 'shared/delivery_ship_locations_list', delivery: delivery %>
               </div>
             </div>
             <div class="deliver-option-left">

@@ -1,0 +1,4 @@
+<% delivery_ships = ship_location(delivery) %>
+<% delivery_ships.each_with_index do |ship_location, index| %>
+  <span class="red-color "><%= ship_location %></span><span><%= ',' if delivery_ships.count != (index + 1) %></span>
+<% end %>
