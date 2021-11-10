@@ -15,8 +15,7 @@ class Admin::CategoriesController < Admin::BaseController
   def create
     if params[:picture_id].present?
       @category = Category.new(category_params)
-      @category.picture = upload_galery_image(params)
-      @category.save
+      upload_galery_image(params)
     else
       @category = Category.new(category_params)
       if @category.save
@@ -38,7 +37,7 @@ class Admin::CategoriesController < Admin::BaseController
 
   def update
     if params[:picture_id].present?
-      @category.picture = upload_galery_image(params)
+      upload_galery_image(params)
       if @category.update(category_params)
         if @category.baby_category?
           @category.descendants.map(&:destroy)
@@ -125,10 +124,14 @@ class Admin::CategoriesController < Admin::BaseController
   def upload_galery_image(params)
     picture_id = params[:picture_id].to_i
     picture = Picture.where(id: picture_id).first
-    new_picture = Picture.new
-    return nil if picture.blank?
-    CopyCarrierwaveFile::CopyFileService.new(picture, new_picture, :name).set_file
-    new_picture
+    if picture.present?
+      if @category.picture.present?
+        @category.picture.update_attribute(:name, picture.name)
+      else
+        @category.build_picture
+        @category.picture.update_attribute(:name, picture.name)
+      end
+    end
   end
 
 end
