@@ -32,26 +32,29 @@ class Sellers::ProfilesController < Sellers::BaseController
     if params[:seller][:current_password].blank? && params[:seller][:password].blank? && params[:seller][:password_confirmation].blank?
       @seller = @seller.update(seller_params)
       flash.now[:notice] = "Login details updated successfully"
-    elsif  params[:seller][:current_password].present? && params[:seller][:password].present? && params[:seller][:password_confirmation].present? && params[:seller][:remember_me] == "0"
-      if params[:seller][:password_confirmation] == params[:seller][:password] && @seller.valid_password?(params[:seller][:current_password])
-        @seller.update(seller_login_params)
-        flash.now[:notice] = "Login details updated successfully"
-        render js: "window.location = '#{new_seller_session_path}'"
-      else
-         flash.now[:notice] = "Password did not matched"
-      end
-    elsif params[:seller][:password_confirmation].present? && params[:seller][:password].present? && params[:seller][:current_password].present?
-      if params[:seller][:password_confirmation] == params[:seller][:password] && @seller.valid_password?(params[:seller][:current_password])
-        resource = current_seller
-        @seller.update(seller_login_params)
-        flash.now[:notice] = "Login details updated successfully"
-        resource.after_database_authentication
-        bypass_sign_in @seller, scope: :seller
-      else
-        flash.now[:notice] = "Password did not matched"
+    elsif @seller.valid_password?(params[:seller][:current_password])
+      if  params[:seller][:current_password].present? && params[:seller][:password].present? && params[:seller][:password_confirmation].present? && params[:seller][:remember_me] == "0"
+        # if @seller.valid_password?(params[:seller][:current_password])
+        if params[:seller][:password_confirmation] == params[:seller][:password] && @seller.valid_password?(params[:seller][:current_password])
+          @seller.update(seller_login_params)
+          flash.now[:notice] = "Login details updated successfully"
+          render js: "window.location = '#{new_seller_session_path}'"
+        else
+           flash.now[:notice] = "Password did not matched"
+        end
+      elsif params[:seller][:password_confirmation].present? && params[:seller][:password].present? && params[:seller][:current_password].present?
+        if params[:seller][:password_confirmation] == params[:seller][:password] && @seller.valid_password?(params[:seller][:current_password])
+          resource = current_seller
+          @seller.update(seller_login_params)
+          flash.now[:notice] = "Login details updated successfully"
+          resource.after_database_authentication
+          bypass_sign_in @seller, scope: :seller
+        else
+          flash.now[:notice] = "Password did not matched"
+        end
       end
     else
-      flash.now[:notice] = "Current Password and Confirm Password required"
+      flash.now[:notice] = "Current Password not true"
     end
   end
 
@@ -121,7 +124,7 @@ class Sellers::ProfilesController < Sellers::BaseController
 
   private
   def seller_params
-    params.require(:seller).permit(:first_name, :last_name, :email, :subscription_type,:account_status, :listing_status,:terms_and_conditions, :recieve_deals_via_email, :contact_number, :remember_me, :timeout, :two_factor_auth,
+    params.require(:seller).permit(:first_name, :last_name, :email, :subscription_type,:account_status, :listing_status,:terms_and_conditions, :recieve_deals_via_email, :contact_number, :remember_me, :timeout, :two_factor_auth, :recovery_email,
       business_representative_attributes: [:id, :full_legal_name, :email, :job_title, :date_of_birth],
       bank_detail_attributes: [:id, :currency, :country, :sort_code, :account_number, :account_number_confirmation],
       company_detail_attributes: [:id, :name, :vat_number, :country, :legal_business_name, :companies_house_registration_number, :business_industry, :website_url, :amazon_url, :ebay_url, :doing_business_as],
@@ -131,7 +134,7 @@ class Sellers::ProfilesController < Sellers::BaseController
   end
 
   def seller_login_params
-    params.require(:seller).permit( :email, :password, :confirmation_password, :contact_number, :remember_me, :timeout, :two_factor_auth)
+    params.require(:seller).permit( :email, :password, :confirmation_password, :contact_number, :remember_me, :timeout, :two_factor_auth, :recovery_email)
   end
 
   def holiday_mode_params
