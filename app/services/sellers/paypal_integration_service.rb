@@ -1,7 +1,9 @@
 module Sellers
 
   class PaypalIntegrationService < ApplicationService
-    def initialize(seller:)
+    attr_reader :seller
+
+    def initialize(seller)
       @seller = seller
     end
 

@@ -8,7 +8,7 @@ class Sellers::PaypalIntegrationController < Sellers::BaseController
   def index
     @seller = current_seller
     @action_url = @seller&.paypal_detail&.seller_action_url
-    @action_url = Sellers::PaypalIntegrationService.call({seller: current_seller}) if !@action_url.present?
+    @action_url = Sellers::PaypalIntegrationService.call(current_seller) if !@action_url.present?
   end
 
   def check_onboarding_status
@@ -40,7 +40,7 @@ class Sellers::PaypalIntegrationController < Sellers::BaseController
   private
 
   def update_action_url
-    @action_url = Sellers::PaypalIntegrationService.call({seller: current_seller})
+    @action_url = Sellers::PaypalIntegrationService.call(current_seller)
   end
 
 end

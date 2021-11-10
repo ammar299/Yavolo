@@ -119,6 +119,6 @@ class Sellers::ProfilesController < Sellers::BaseController
   def get_action_url
     @seller = current_seller
     @action_url = @seller&.paypal_detail&.seller_action_url
-    @action_url = Sellers::PaypalIntegrationService.call({seller: current_seller}) if !@action_url.present?
+    @action_url = Sellers::PaypalIntegrationService.call(current_seller) if !@action_url.present?
   end
 end
