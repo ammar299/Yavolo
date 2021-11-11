@@ -36,6 +36,7 @@ require("packs/additional-methods");
 require("packs/profile");
 require("packs/sign-up-steps");
 require("packs/cart");
+require("packs/slick.min");
 $(document).ready(() => {
   $("body").on("focus", ".datepicker", function () {
     $(this)
