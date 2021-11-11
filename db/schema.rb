@@ -131,6 +131,22 @@ ActiveRecord::Schema.define(version: 2021_11_10_131710) do
     t.index ["seller_id"], name: "index_bank_details_on_seller_id"
   end
 
+  create_table "billing_addresses", force: :cascade do |t|
+    t.string "appartment"
+    t.string "address_line_1"
+    t.string "address_line_2"
+    t.string "city"
+    t.string "county"
+    t.string "state"
+    t.string "country"
+    t.string "postal_code"
+    t.string "phone_number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "order_id"
+    t.index ["order_id"], name: "index_billing_addresses_on_order_id"
+  end
+
   create_table "business_representatives", force: :cascade do |t|
     t.string "email"
     t.string "job_title"
@@ -199,24 +215,6 @@ ActiveRecord::Schema.define(version: 2021_11_10_131710) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "category_linking_filters", force: :cascade do |t|
-    t.bigint "category_id"
-    t.bigint "filter_in_category_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["category_id"], name: "index_category_linking_filters_on_category_id"
-    t.index ["filter_in_category_id"], name: "index_category_linking_filters_on_filter_in_category_id"
-  end
-
-  create_table "checkout_details", force: :cascade do |t|
-    t.string "name"
-    t.string "contact_number"
-    t.string "email"
-    t.string "company_name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "company_details", force: :cascade do |t|
     t.string "name"
     t.string "vat_number"
@@ -247,7 +245,7 @@ ActiveRecord::Schema.define(version: 2021_11_10_131710) do
   end
 
   create_table "delivery_option_ships", force: :cascade do |t|
-    t.float "price"
+    t.decimal "price", precision: 8, scale: 2
     t.bigint "delivery_option_id"
     t.bigint "ship_id"
     t.datetime "created_at", precision: 6, null: false
@@ -329,6 +327,18 @@ ActiveRecord::Schema.define(version: 2021_11_10_131710) do
     t.index ["product_id"], name: "index_google_shoppings_on_product_id"
   end
 
+  create_table "line_items", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "order_id"
+    t.bigint "product_id"
+    t.decimal "price"
+    t.string "added_on"
+    t.integer "quantity"
+    t.index ["order_id"], name: "index_line_items_on_order_id"
+    t.index ["product_id"], name: "index_line_items_on_product_id"
+  end
+
   create_table "linking_filters", force: :cascade do |t|
     t.integer "filter_in_category_id"
     t.integer "category_id"
@@ -346,6 +356,25 @@ ActiveRecord::Schema.define(version: 2021_11_10_131710) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["meta_able_type", "meta_able_id"], name: "index_meta_contents_on_meta_able"
+  end
+
+  create_table "order_details", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "contact_number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "order_id"
+    t.index ["order_id"], name: "index_order_details_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "order_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.decimal "sub_total"
+    t.integer "discount_percentage"
+    t.decimal "discounted_price"
   end
 
   create_table "paypal_details", force: :cascade do |t|
@@ -504,6 +533,22 @@ ActiveRecord::Schema.define(version: 2021_11_10_131710) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
+  end
+
+  create_table "shipping_addresses", force: :cascade do |t|
+    t.string "appartment"
+    t.string "address_line_1"
+    t.string "address_line_2"
+    t.string "city"
+    t.string "county"
+    t.string "state"
+    t.string "country"
+    t.string "postal_code"
+    t.string "phone_number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "order_id"
+    t.index ["order_id"], name: "index_shipping_addresses_on_order_id"
   end
 
   create_table "ships", force: :cascade do |t|

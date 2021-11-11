@@ -193,10 +193,13 @@ Rails.application.routes.draw do
 
   get 'store_front', to: "buyers/cart#store_front", as: :store_front
   post 'add_to_cart', to: "buyers/cart#add_to_cart", as: :add_to_cart
-  post 'update_product_quantity', to: "buyers/cart#update_product_quantity", as: :update_product_quantity
+  # post 'update_product_quantity', to: "buyers/cart#update_product_quantity", as: :update_product_quantity
   post 'update_product_quantity_by_number', to: "buyers/cart#update_product_quantity_by_number", as: :update_product_quantity_by_number
   get 'cart', to: "buyers/cart#cart", as: :cart
   delete 'remove_product_form_cart', to: 'buyers/cart#remove_product_form_cart', as: :remove_product_form_cart
+  
+  get 'checkout', to: 'buyers/checkout#new', as: :checkout
+  post 'create_checkout', to: 'buyers/checkout#create_checkout', as: :create_checkout
 
   resource :user, only: :update
   get :profile, to: 'users#show'

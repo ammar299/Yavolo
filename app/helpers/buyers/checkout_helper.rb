@@ -1,0 +1,2 @@
+module Buyers::CheckoutHelper
+end

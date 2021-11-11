@@ -13,6 +13,9 @@ class Product < ApplicationRecord
     has_one :assigned_category, dependent: :destroy
     has_one :category, through: :assigned_category, dependent: :destroy
 
+    # Product has many
+    has_many :line_items, dependent: :destroy
+
 
     has_many :pictures, as: :imageable, dependent: :destroy
     alias_attribute  :images, :pictures

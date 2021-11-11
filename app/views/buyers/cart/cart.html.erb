@@ -47,7 +47,7 @@
           <span>
             <strong>Sub Total</strong>
           </span>
-          <span>£555.98</span>
+          <span id="cart-sub-total"><%= get_price_in_pounds(@sub_total) %></span>
         </div>
         <div class="d-flex justify-content-between">
           <span>
@@ -60,12 +60,10 @@
           <span>
             <strong>Order Total</strong>
           </span>
-          <span>£555.98</span>
+          <span id="cart-total"><%= get_price_in_pounds(@total) %></span>
         </div>
         <hr>
-        <a href="#" class="btn btn-lg btn-radius px-4 btn-primary w-100 mb-2">
-          PROCEED TO CHECKOUT
-        </a>
+        <%= link_to "PROCEED TO CHECKOUT", checkout_path, class: "btn btn-lg btn-radius px-4 btn-primary w-100 mb-2" %>
       </div>
     </div>
   </div>

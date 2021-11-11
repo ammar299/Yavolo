@@ -1,1 +1,3 @@
 $(' #cart-item-<%= params[:product_quantity][:product_id] %> ').html("<%= j render('buyers/cart/cart_item', cart_item: @cart_item, product: @product ) %>")
+$('#cart-sub-total').html("<%= get_price_in_pounds(@sub_total) %>")
+$('#cart-total').html("<%= get_price_in_pounds(@total) %>")

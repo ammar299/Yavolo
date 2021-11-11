@@ -112,4 +112,8 @@ module ApplicationHelper
     'active' if set_filter_type_in_dropdown(params)==f_type
   end
 
+  def get_price_in_pounds(amount)
+    number_to_currency(amount, unit: "£", precision: 2)
+  end
+
 end
