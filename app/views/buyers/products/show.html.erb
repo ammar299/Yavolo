@@ -52,7 +52,7 @@
         <div class="col-xl-6">
           <div class="single-product single-pdp-pad">
             <a href="" class="decoration-none red-text"><span class="icon-Icon-awesome-heart heart-icomoon"></span></a>
-            <h4 class="black-text mt-0">Sony PlayStation 5 Console</h4>
+            <h4 class="black-text mt-0"><%= @product.title %></h4>
             <ul class="rating d-flex">
               <li class="mr-1 active"><span class="icon-star"></span></li>
               <li class="mr-1 active"><span class="icon-star"></span></li>
@@ -63,7 +63,7 @@
             </ul>
             <div class="d-flex align-items-center flex-wrap mt-3">
               <div class="pr-5">
-                <h3 class="black-text mb-0 mt-0">£499.99</h3>
+                <h3 class="black-text mb-0 mt-0">£<%= @product.price %></h3>
               </div>
               <div>
                                     <span><span class="icon-manage-Yavolo red-text font-20px"><span class="font-14px">
@@ -77,9 +77,9 @@
                 Quantity: <input type="number" value="1">
               </button>
               <div class="dropdown-menu p-3 mt-0" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item p-1" href="#"><span>1</span></a>
-                <a class="dropdown-item p-1" href="#"><span>2</span></a>
-                <a class="dropdown-item p-1" href="#"><span>3</span></a>
+                <% 1.step(@product.stock, 2).each do |stock_quantity| %>
+                  <a class="dropdown-item p-1" href="#"><span><%= stock_quantity %></span></a>
+                <% end %>
               </div>
             </div>
             <div>
@@ -106,7 +106,7 @@
                                     refund for peace of mind.</span>
             </div>
             <div class="d-flex justify-content-between align-items-center mb-4">
-              <span>Condition: New</span>
+              <span>Condition: <%= @product.condition.titleize %></span>
               <span>Sold by John Smith</span>
             </div>
             <div class="mb-2">
@@ -275,17 +275,7 @@
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
                      data-parent="#accordion">
                   <div class="card-body px-4">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                    richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
-                    dolor
-                    brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-                    tempor,
-                    sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
-                    shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson
-                    cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
-                    Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth
-                    nesciunt
-                    you probably haven't heard of them accusamus labore sustainable VHS.
+                    <%= @product.description.html_safe %>
                   </div>
                 </div>
               </div>
