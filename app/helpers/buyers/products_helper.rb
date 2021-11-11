@@ -1,0 +1,2 @@
+module Buyers::ProductsHelper
+end

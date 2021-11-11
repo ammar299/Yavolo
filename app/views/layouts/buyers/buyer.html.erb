@@ -5,31 +5,17 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application' %>
   </head>
 
   <body>
-    <div class="dashboard-page buyer-layout">
-      <%#= render 'layouts/sellers/seller_sidebar' %>
-      <%= link_to "Logout", destroy_buyer_session_path, data: { method: :delete } %>
-      <div class="rightside">
-        <% if notice.present? %>
-          <p class="flash-toast notice <%= notice.present? ? 'notice-msg' : ''%>">
-            <%= notice %>
-            <span  class="notice-cross-icon" aria-hidden="true">&times;</span>
-          </p>
-        <% end %>
-        <% if alert.present? %>
-          <p class="flash-toast alert <%= alert.present? ? 'alert-msg' : ''%>">
-            <%= alert %>
-            <span class="notice-cross-icon" aria-hidden="true">&times;</span>
-          </p>
-        <% end %>
-        <%= yield %>
-        <%= render 'layouts/sellers/footer' %>
-      </div>
+    <div class="buyer-layout">
+      <%= render 'layouts/buyers/buyer_sidebar' %>
+      <%= render 'shared/flash_messages' %>
+      <%= render 'layouts/buyers/buyer_header' %>
+      <%= yield %>
+      <%= render 'layouts/buyers/buyer_footer' %>
     </div>
   </body>
 </html>
