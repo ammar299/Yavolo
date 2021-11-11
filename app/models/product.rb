@@ -51,5 +51,12 @@ class Product < ApplicationRecord
     def self.owner_condition(owner)
         {owner_id: owner.id, owner_type: owner.class.name}
     end
+
+    def self.yavolo_percent(seller)
+        total_count = Product.where(owner_id: seller.id, owner_type: seller.class.name).count
+        yavolo_count = Product.where(owner_id: seller.id, owner_type: seller.class.name, yavolo_enabled: true).count
+        return 0 if total_count.zero?
+        ((yavolo_count.to_d/total_count.to_d)*100.0).to_i
+    end
     
 end
