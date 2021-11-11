@@ -16,7 +16,7 @@ class Admin::CarriersController < Admin::BaseController
 
   def update
     if @carrier.update(carrier_params)
-      redirect_to admin_delivery_options_path, flash: { notice: "Carrier has been updateds" }
+      redirect_to admin_delivery_options_path, flash: { notice: 'Carrier has been updated' }
     else
       render :edit
     end
@@ -30,6 +30,7 @@ class Admin::CarriersController < Admin::BaseController
   def delete_carriers
     Carrier.where(id: params['ids'].split(',')).destroy_all
     @carriers = Carrier.all
+    flash.now[:notice] = 'Carriers has been deleted'
   end
 
   private

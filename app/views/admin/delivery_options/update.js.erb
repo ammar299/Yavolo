@@ -4,3 +4,6 @@ $('#sellers-delivery-options-list').html("<%= j render(partial: 'shared/admin/se
 <% end %>
 $("#deliveryTemplateForm").modal('hide');
 $('#delivery-options-list').html("<%= j render(partial: 'delivery_options_list', locals: { delivery_options: @delivery_options }) %>");
+<% if notice.present? %>
+  $('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
+<% end %>

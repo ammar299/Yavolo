@@ -20,6 +20,7 @@ class Admin::DeliveryOptionsController < Admin::BaseController
       @delivery_option.save
       create_delivery_option_ships(@delivery_option)
       manage_delivery_options_list(@delivery_option)
+      flash.now[:notice] = 'Template has been created!'
     else
       persisted_delivery_ships
       flash.now[:notice] = 'Template already exists!'
@@ -36,6 +37,7 @@ class Admin::DeliveryOptionsController < Admin::BaseController
       @delivery_option.update(delivery_option_params)
       create_delivery_option_ships(@delivery_option)
       manage_delivery_options_list(@delivery_option)
+      flash.now[:notice] = 'Template has been updated!'
     else
       @delivery_option_name = params[:delivery_option][:name]
       persisted_delivery_ships
@@ -46,12 +48,13 @@ class Admin::DeliveryOptionsController < Admin::BaseController
 
   def destroy
     @delivery_option.destroy
-    redirect_to admin_delivery_options_path
+    redirect_to admin_delivery_options_path, flash: { notice: 'Template has been deleted successfully!' }
   end
 
   def delete_delivery_options
     DeliveryOption.where(id: params['ids'].split(',')).destroy_all
     @delivery_options = DeliveryOption.admin_delivery_option("Admin")
+    flash.now[:notice] = 'Templates has been deleted'
   end
 
   def delete_delivery_option
