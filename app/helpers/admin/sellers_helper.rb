@@ -14,14 +14,6 @@ module Admin::SellersHelper
     val
   end
 
-  def set_filter_type_in_dropdown(params)
-    val = "Search All"
-    if params[:filter_type].present?
-      val = params[:filter_type]
-    end
-    val
-  end
-
   def actions_to_show(seller)
     if seller.account_status == 'pending' || seller.account_status == 'rejected'
        return ['approve']

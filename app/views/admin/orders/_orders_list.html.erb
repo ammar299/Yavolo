@@ -1,0 +1,36 @@
+<% orders.each do |order| %>
+  <tr>
+    <td>
+      <label class="checkbox-blk">
+        <input type="checkbox">
+        <span class="checkmark"></span>
+      </label>
+    </td>
+    <td>
+      <a href="#"><u><%= order.id %></u></a>
+    </td>
+    <td>
+      Ahsan
+    </td>
+    <td>
+      Shop Name
+    </td>
+    <td>
+      21.20
+    </td>
+    <td class="text-center">
+      3
+    </td>
+    <td class="text-center">
+      <a href="" class="icon-manage-Yavolo red-text font-20px decoration-none"></a>
+    </td>
+    <td>Royal Mail</td>
+    <td><a href=""><u>#75757757</u></a></td>
+    <td>Pending</td>
+    <td class="text-center">
+      <div class="">
+        <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-1">View</a>
+      </div>
+    </td>
+  </tr>
+<% end %>
