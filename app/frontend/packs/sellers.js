@@ -41,13 +41,16 @@ $(document).ready(function(){
           required: true
         },
         "seller[company_detail_attributes][website_url]": {
-          required: true
+          required: true,
+          url_without_scheme: true
         },
         "seller[company_detail_attributes][amazon_url]": {
-          required: true
+          required: true,
+          url_without_scheme: true
         },
         "seller[company_detail_attributes][ebay_url]": {
-          required: true
+          required: true,
+          url_without_scheme: true
         },
         "seller[company_detail_attributes][vat_number]": {
           required: true
@@ -65,13 +68,15 @@ $(document).ready(function(){
           required: true
         },
         "seller[addresses_attributes][0][postal_code]": {
-          required: true
+          required: true,
+          postal_code_uk: true
         },
         "seller[addresses_attributes][0][country]": {
           required: true
         },
         "seller[addresses_attributes][0][phone_number]": {
-          required: true
+          required: true,
+          phone_number_uk: true
         },
         "seller[business_representative_attributes][full_legal_name]": {
           required: true
@@ -98,13 +103,15 @@ $(document).ready(function(){
           required: true
         },
         "seller[addresses_attributes][1][postal_code]": {
-          required: true
+          required: true,
+          postal_code_uk: true
         },
         "seller[addresses_attributes][1][country]": {
           required: true
         },
         "seller[addresses_attributes][1][phone_number]": {
-          required: true
+          required: true,
+          phone_number_uk: true
         },
         "seller[subscription_type]": {
           required: true
@@ -118,7 +125,7 @@ $(document).ready(function(){
       },
       messages: {
         "seller[email]": {
-            required: "Name is required"
+            required: "Email is required"
         },
         "seller[company_detail_attributes][name]": {
           required: "Company name is required"
@@ -209,7 +216,19 @@ $(document).ready(function(){
         }
       },
     });
-  
+    jQuery.validator.addMethod("url_without_scheme", function(value, element) {
+          return /^(www\.)[A-Za-z0-9_-]+\.+[A-Za-z0-9.\/%&=\?_:;-]+$/.test(value);
+        }, "Please enter a valid URL without http/https"
+    );
+
+    jQuery.validator.addMethod("postal_code_uk", function (value, element) {
+      return this.optional(element) || /^[A-Z]{1,2}[0-9]{1,2} [0-9][A-Z]{2}$/i.test(value);
+    }, "Please specify a valid UK postal code");
+
+    jQuery.validator.addMethod('phone_number_uk', function(value, element) {
+          return this.optional(element) || value.length > 9 && value.match(/^(\(?(0|\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
+        }, 'Please specify a valid UK phone number'
+    );
   }
 
   function loginSettingsForm() {
@@ -448,13 +467,16 @@ window.validateSellerEditForm = function() {
         required: true
       },
       "seller[company_detail_attributes][website_url]": {
-        required: true
+        required: true,
+        url_without_scheme: true
       },
       "seller[company_detail_attributes][amazon_url]": {
-        required: true
+        required: true,
+        url_without_scheme: true
       },
       "seller[company_detail_attributes][ebay_url]": {
-        required: true
+        required: true,
+        url_without_scheme: true
       },
       "seller[company_detail_attributes][vat_number]": {
         required: true
@@ -472,13 +494,15 @@ window.validateSellerEditForm = function() {
         required: true
       },
       "seller[addresses_attributes][0][postal_code]": {
-        required: true
+        required: true,
+        postal_code_uk: true
       },
       "seller[addresses_attributes][0][country]": {
         required: true
       },
       "seller[addresses_attributes][0][phone_number]": {
-        required: true
+        required: true,
+        phone_number_uk: true
       },
       "seller[business_representative_attributes][full_legal_name]": {
         required: true
@@ -505,13 +529,15 @@ window.validateSellerEditForm = function() {
         required: true
       },
       "seller[addresses_attributes][1][postal_code]": {
-        required: true
+        required: true,
+        postal_code_uk: true
       },
       "seller[addresses_attributes][1][country]": {
         required: true
       },
       "seller[addresses_attributes][1][phone_number]": {
-        required: true
+        required: true,
+        phone_number_uk: true
       },
       "seller[subscription_type]": {
         required: true
@@ -525,7 +551,7 @@ window.validateSellerEditForm = function() {
     },
     messages: {
       "seller[email]": {
-          required: "Name is required"
+          required: "Email is required"
       },
       "seller[company_detail_attributes][name]": {
         required: "Company name is required"
@@ -616,6 +642,19 @@ window.validateSellerEditForm = function() {
       }
     },
   });
+  jQuery.validator.addMethod("url_without_scheme", function(value, element) {
+        return /^(www\.)[A-Za-z0-9_-]+\.+[A-Za-z0-9.\/%&=\?_:;-]+$/.test(value);
+      }, "Please enter a valid URL without http/https"
+  );
+
+  jQuery.validator.addMethod("postal_code_uk", function (value, element) {
+    return this.optional(element) || /^[A-Z]{1,2}[0-9]{1,2} [0-9][A-Z]{2}$/i.test(value);
+  }, "Please specify a valid UK postal code");
+
+  jQuery.validator.addMethod('phone_number_uk', function(value, element) {
+        return this.optional(element) || value.length > 9 && value.match(/^(\(?(0|\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
+      }, 'Please specify a valid UK phone number'
+  );
 }
 
 

@@ -1,5 +1,7 @@
 <p>Hi</p>
 <p>You have been added as seller. Please proceed to your account with the below mentioned password.</p>
-<p>password: <%=@password%></p>
+<% unless @password.blank? %>
+  <p>password: <%= @password %></p>
+<% end %>
 <p>Thanks</p>
 <p>Yavolo Team</p>
