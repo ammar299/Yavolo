@@ -5,7 +5,8 @@
       $('#seller-row-<%= seller.id %>').remove();
       $("#total-sellers-per-page").html("<%= j render 'admin/sellers/total_sellers_per_page' %>");
     <% else %>
-      $('#seller-row-<%= seller.id %>').find(".account-status").text("<%= seller.account_status %>");
+    <% account_status = account_status_to_show(seller) %>
+      $('#seller-row-<%= seller.id %>').find(".account-status").text("<%= account_status.humanize %>");
       $('#seller-row-<%= seller.id %>').find('#select-<%= seller.id %>').prop('checked', false);
       $('#check-all-checkboxes').prop('checked', false);
       $("#seller-row-<%= seller.id %> #seller-action-btns").html("<%= j render 'admin/sellers/seller_actions', seller: seller %>");

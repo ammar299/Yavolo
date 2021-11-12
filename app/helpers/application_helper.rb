@@ -79,6 +79,10 @@ module ApplicationHelper
     end
   end
 
+  def eligible_for_seller_route(from_controller)
+    from_controller == "admin/sellers" ? true : false
+  end
+
   def create_update_seller_api_confirmation_path(form_controller, seller, seller_api, action)
     if form_controller == 'sellers/profiles' || form_controller == "sellers/connection_managers"
       confirm_update_sellers_connection_manager_path(seller_api_id: seller_api.id, param_to_update: action)

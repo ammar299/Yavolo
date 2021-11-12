@@ -103,9 +103,6 @@ class Seller < ApplicationRecord
 
 
   protected
-  def username
-    [first_name, last_name].join(' ')
-  end
 
   def password_required?
     return false if skip_password_validation
