@@ -26,6 +26,7 @@ require("packs/filter_groups");
 require("packs/products");
 require("packs/sellers");
 require("packs/success-meter");
+require("packs/orders");
 require("packs/date-picker");
 require("packs/all-page-events");
 require("@nathanvda/cocoon");

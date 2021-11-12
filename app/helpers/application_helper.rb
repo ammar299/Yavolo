@@ -116,4 +116,11 @@ module ApplicationHelper
     number_to_currency(amount, unit: "£", precision: 2)
   end
 
+  def set_filter_type_in_dropdown(params)
+    val = "Search All"
+    if params[:filter_type].present?
+      val = params[:filter_type]
+    end
+    val
+  end
 end
