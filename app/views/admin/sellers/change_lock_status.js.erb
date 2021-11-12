@@ -9,5 +9,6 @@ $('#<%=@seller.id%>-lock-status').text(text);
 <% display_class_include = @seller.is_locked == true ? 'd-block' : 'd-none' %>
 $('#seller-locked-text').removeClass("<%= display_class_remove %>");
 $('#seller-locked-text').addClass("<%= display_class_include %>");
+$('#seller-locked-text').html('<%= j render partial: "shared/sellers/seller_locked" %>');
 $('#seller-api-modal').modal('hide');
 $('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
