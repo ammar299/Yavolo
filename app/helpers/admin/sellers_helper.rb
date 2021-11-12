@@ -18,11 +18,19 @@ module Admin::SellersHelper
     if seller.account_status == 'pending' || seller.account_status == 'rejected'
        return ['approve']
     elsif seller.account_status == 'approve'
-      return ['activate','suspend']
+      return ['suspend']
     elsif seller.account_status == 'suspend'
       return ['activate']
       elsif seller.account_status == 'activate'
         return ['suspend']
+    end
+  end
+
+  def account_status_to_show(seller)
+    if seller.account_status == 'suspend'
+      return 'suspended'
+    else
+      seller.account_status == 'approve' || seller.account_status == 'activate' ? 'active' : seller.account_status
     end
   end
 

@@ -64,7 +64,7 @@ class Admin::SellersController < Admin::BaseController
       if params[:field_to_update].present?
         if params[:field_to_update] == 'delete'
           @seller.destroy
-          flash.now[:alert] = 'Seller deleted successfully!'
+          flash.now[:notice] = 'Seller deleted successfully!'
         else
           @previous = @seller.account_status
           @seller.update(account_status: params[:field_to_update])
@@ -82,7 +82,7 @@ class Admin::SellersController < Admin::BaseController
         if params[:field_to_update] == 'delete'
           @sellers = Seller.find(@seller_ids)
           Seller.where(id: @seller_ids).destroy_all
-          flash.now[:alert] = 'Sellers deleted successfully!'
+          flash.now[:notice] = 'Sellers deleted successfully!'
         else
           Seller.where(id: @seller_ids).update_all(account_status: params[:field_to_update])
           @sellers = Seller.find(@seller_ids)

@@ -3,8 +3,8 @@
     <td><%= seller_api.developer_name %></td>
     <td id="seller-api-developer-id"><%= seller_api.developer_id %></td>
     <td><%= seller_api.app_name %></td>
-    <td id="seller-api-status"><%= seller_api.status %></td>
-    <td id="seller-api-expiry-date"><%= seller_api.expiry_date ? seller_api.expiry_date.strftime("%d/%m/%Y") : '' %></td>
+    <td id="seller-api-status"><%= seller_api.status.capitalize %></td>
+    <td id="seller-api-expiry-date"><%= seller_api.expiry_date ? formatted_date(seller_api.expiry_date) : '' %></td>
     <td id="developer-api-token">
       <a href="javascript:void(0)" class="view-api-token">View</a>
       <span id="api-token" class="help-popup api-token d-none developer-api-token">

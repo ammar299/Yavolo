@@ -8,8 +8,8 @@ $(document).ready(function () {
     $(this).hide();
   });
 
-  $("body").on("click", ".seller-api-token", function () {
-    var text = $(this).text().trim();
+  $("body").on("click", ".seller-api-token, .icon-add-attachment", function () {
+    var text = $('.seller-api-token').text().trim();
     copyToClipboard(text);
   });
 

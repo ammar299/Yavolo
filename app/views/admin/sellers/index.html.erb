@@ -7,10 +7,15 @@
             <a class="btn btn-radius btn-sm px-3 btn-primary seller-search-dropdown" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <%= set_filter_type_in_dropdown(params) %> <i class="fa fa-angle-down ml-4" aria-hidden="true"></i>
             </a>
-            <div class="dropdown-menu" id="seller-serarch-by-toggle" aria-labelledby="dropdownMenuLink">
-              <%= link_to 'Search All', (admin_sellers_path(search_by: 'search_all')), class: 'dropdown-item' %>
-              <%= link_to 'Username', (admin_sellers_path(search_by: 'username')), class: 'dropdown-item' %>
-              <%= link_to 'Email', (admin_sellers_path(search_by: 'email')), class: 'dropdown-item' %>
+            <div class="dropdown-menu seller-listing-filters" id="seller-serarch-by-toggle" aria-labelledby="dropdownMenuLink">
+              <%= link_to (admin_sellers_path(search_by: 'search_all')), class: "dropdown-item #{set_filter_active('Search All')}" do %>
+              Search All
+              <i class="fa fa-check" aria-hidden="true"></i>
+              <% end %>
+              <%= link_to (admin_sellers_path(search_by: 'email')), class: "dropdown-item #{set_filter_active('Email')}" do %>
+              Email
+              <i class="fa fa-check" aria-hidden="true"></i>
+              <% end %>
             </div>
           </div>
           <%
@@ -41,28 +46,28 @@
           </div>
         </div>
           <div class="dropdown dropdown-filter  d-inline-flex" id="pages-id">
-            <a href="#" class="btn btn-sm btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Result Per Page <%= params[:per_page] %><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+            <a href="#" class="btn btn-sm btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Result Per Page: <%= "##{params[:per_page]}" if params[:per_page].present? %><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <%= form_tag(admin_filter_groups_path, method: :get) do %>
               <%= link_to (admin_sellers_path(per_page: '15'))  do %>
               <span class="<%= 'fa fa-check' if params[:per_page] == '15' %>" aria-hidden="true"></span>
-              Result per page 15
+              Result per page: #15
               <% end %>    
               <%= link_to (admin_sellers_path(per_page: '30'))  do %>
               <span class="<%= 'fa fa-check' if params[:per_page] == '30' %>" aria-hidden="true"></span>
-              Result per page 30
+              Result per page: #30
               <% end %>
               <%= link_to (admin_sellers_path(per_page: '60'))  do %>
               <span class="<%= 'fa fa-check' if params[:per_page] == '60' %>" aria-hidden="true"></span>
-              Result per page 60
+              Result per page: #60
               <% end %>
               <%= link_to (admin_sellers_path(per_page: '90'))  do %>
               <span class="<%= 'fa fa-check' if params[:per_page] == '90' %>" aria-hidden="true"></span>
-              Result per page 90
+              Result per page: #90
               <% end %>
               <%= link_to (admin_sellers_path(per_page: '180'))  do %>
               <span class="<%= 'fa fa-check' if params[:per_page] == '180' %>" aria-hidden="true"></span>
-              Result per page 180
+              Result per page: #180
               <% end %>
             </div>
           </div>
@@ -92,7 +97,6 @@
                 <span class="checkmark checkmark-white"></span>
               </label>
             </th>
-            <th>Username</th>
             <th>Email</th>
             <th>Seller Since</th>
             <th>Last sale</th>
@@ -115,13 +119,15 @@
                   </label>
                 </div>
               </td>
-              <td><%= seller.try(:first_name).to_s + " " + seller.try(:last_name).to_s  %></td>
               <td><span class="email-in-table"><%=seller.email %></span></td>
               <td><%=seller.created_at.strftime("%d/%m/%Y") %></td>
               <td>Show the last sale date</td>
               <td>Show the number of active listings</td>
               <td>Show the total sales</td>
-              <td class="account-status"><%= seller.account_status.humanize %></td>
+              <td class="account-status">
+                <% account_status = account_status_to_show(seller) %>
+                <%= account_status.humanize %>
+              </td>
               <td>show the health status</td>
               <td id="<%= seller.id %>-eligibility-status" class="">
                 <%= seller.eligible_to_create_api == true ? "Enabled" : "Disabled" %>

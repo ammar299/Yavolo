@@ -329,8 +329,11 @@ function sellerSearchByFilter() {
   var $sellerFilterTypeField = $("#seller-filter-type");
   $("#seller-serarch-by-toggle a").click(function (e) {
     var $currFilter = $(this).text().trim();
+    $('.seller-listing-filters a').removeClass('active');
+    $(this).addClass('active')
     e.preventDefault();
     $sellerDropDown.text($(this).text());
+    $sellerDropDown.append('<i class="fa fa-angle-down ml-4" aria-hidden="true"></i>')
     if ($currFilter === "Username") {
       $sellerSearchField.attr("name", "q[first_name_or_last_name_cont]");
       $sellerFilterTypeField.val("Username");
