@@ -2,7 +2,7 @@ class Admin::ProductsController < Admin::BaseController
   include SharedProductMethods
   def index
     @q = Product.ransack(params[:q])
-    @products = @q.result(distinct: true)
+    @products = @q.result(distinct: true).select('products.*, lower(products.title)')
     @products = @products.where(status: filter_by_statuses) if filter_by_statuses.present?
     @products = @products.where(yavolo_enabled: true) if params[:yavolo_enabled]=='1'
     @products = @products.page(params[:page]).per(params[:per_page].presence || 15)

@@ -262,6 +262,10 @@ function bindFilterByEvents(){
     console.log($(this).data('status'));
     if($(this).hasClass('active')){
       $(this).removeClass('active');
+
+      if($(this).data('status')=='yavolo_enabled')
+        $('.yp-yavolo_enabled').remove();
+
     }else{
       $(this).addClass('active');
     }

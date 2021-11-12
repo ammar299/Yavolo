@@ -34,4 +34,21 @@ module Admin::ProductHelper
     end
     val
   end
+
+  def set_product_sort_by_in_dropdown(params)
+    return 'Filter by' unless params.dig(:q, :s).present?
+    case params.dig(:q, :s)
+    when 'title asc'
+      'Product Title A-Z'
+    when 'title desc'
+      'Product Title Z-A'
+    when 'price asc'
+      'Price Low-High'
+    when 'price desc'
+      'Price High-Low'
+    else
+      'Filter by'
+    end
+  end
+
 end

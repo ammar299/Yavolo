@@ -1,4 +1,5 @@
 class Product < ApplicationRecord
+    include RansackObject
     extend FriendlyId
     friendly_id :title
     serialize :filter_in_category_ids, Array
