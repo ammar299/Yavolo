@@ -1,7 +1,7 @@
 var text = $('#<%=@seller.id%>-lock-status').text();
 text = text == 'Lock' ? 'Unlock' : 'Lock';
-<% class_to_remove = @seller.is_locked == true ? "btn-danger" : "btn-success" %>
-<% class_to_include = @seller.is_locked == true ? "btn-success" : "btn-danger" %>
+<% class_to_remove = @seller.is_locked == true ? "btn-danger" : "btn-secondary" %>
+<% class_to_include = @seller.is_locked == true ? "btn-secondary" : "btn-danger" %>
 $('#<%=@seller.id%>-lock-status').removeClass("<%= class_to_remove %>");
 $('#<%=@seller.id%>-lock-status').addClass("<%= class_to_include %>");
 $('#<%=@seller.id%>-lock-status').text(text);

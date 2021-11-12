@@ -120,7 +120,7 @@
                 </div>
               </td>
               <td><span class="email-in-table"><%=seller.email %></span></td>
-              <td><%=seller.created_at.strftime("%d/%m/%Y") %></td>
+              <td><%= date_format_UK(seller.created_at) %></td>
               <td>Show the last sale date</td>
               <td>Show the number of active listings</td>
               <td>Show the total sales</td>

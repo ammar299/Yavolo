@@ -300,7 +300,7 @@
                           <p class="mb-0">Condition: <%=product.condition %></p>
                         </td>
                         <td>
-                            <%=product.published_at.strftime("%d/%m/%Y") if product.published_at.present?%>
+                            <%= date_format_UK(product.published_at) if product.published_at.present?%>
                         </td>
                         <td class="stock-box"><%=product.stock.to_i %></td>
                         <td class="price-box"><%=number_to_currency((number_with_precision(product.price, :precision => 2) || 0), unit: '£') %></td>
