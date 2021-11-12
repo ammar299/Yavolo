@@ -13,7 +13,7 @@ $(document).ready(function(){
   $(".upload-sellers-csv-btn").click(function () {
     $("#upload-sellers-csv-popup").modal("show");
   });
-
+  uploadCsvDragDrop()
   function addNewSellerFormValidation() {
 
     $('form#add_new_seller_form').validate({
@@ -264,6 +264,7 @@ $(document).ready(function(){
       );
     }
   });
+
 });
 
 function validCsvFile(files) {
@@ -294,6 +295,7 @@ function uploadCSVFile(files) {
     success: function (res) {
       $("#upload-sellers-csv-popup").modal("hide");
       $("#upload-sellers-csv-success-popup").modal("show");
+      $('#csv_import_sellers_file').attr('disabled', false);
     },
     error: function (xhr) {
       document.getElementById("csv_import_file").value = "";
@@ -687,4 +689,36 @@ function validateEligibility () {
       $("#flash-msg").find("p").remove();
     }, 3000);
   })
+}
+
+function uploadCsvDragDrop(){
+  if(document.getElementById('upload-sellers-csv-popup'))
+    bindDragAndDropEvents('upload-sellers-csv-popup');
+
+}
+
+function bindDragAndDropEvents(dropAreaId){
+  let dropArea = document.getElementById(dropAreaId)
+  ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, preventDefaults, false)
+  })
+  dropArea.addEventListener('drop', fileDropHandler, false)
+}
+
+function fileDropHandler(e){
+  let dt = e.dataTransfer
+  let files = dt.files;
+  let fileValidator = validCsvFile(files);
+  if(fileValidator.isValid){
+    $('#upload-sellers-csv-popup .modal-body').find('.file-errors').remove();
+    uploadCSVFile(files);
+  }else{
+    $('#upload-sellers-csv-popup.modal-body').find('.file-errors').remove();
+    $('#upload-sellers-csv-popup .modal-body').append('<ul class="file-errors" style="color: red;">'+fileValidator.errors.map(e => '<li>'+e+'</li>').join("")+'</ul>')
+  }
+}
+
+function preventDefaults (e) {
+  e.preventDefault()
+  e.stopPropagation()
 }

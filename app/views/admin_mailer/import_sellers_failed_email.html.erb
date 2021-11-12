@@ -1,0 +1,9 @@
+<p>Hi</p>
+<%if @errors.present?%>
+  <p>Your sellers csv file has not imported completely. There are some errors occured while importing your CSV file.</p>
+  <p><%=@errors.html_safe%></p>
+<%else%>
+  <p>Your csv file has been imported successfully.</p>
+<%end%>
+<p>Thanks</p>
+<p>Yavolo Team</p>

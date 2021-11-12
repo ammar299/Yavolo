@@ -414,6 +414,7 @@ function uploadCSVFile(files){
     success: function(res){
       $('#upload-csv-popup').modal('hide');
       $('#upload-csv-success-popup').modal('show');
+      $('#csv_import_file').attr('disabled', false);
     },
     error: function(xhr){
       document.getElementById('csv_import_file').value = "";
