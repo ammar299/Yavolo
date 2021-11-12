@@ -783,3 +783,7 @@ label {
     z-index: 55555;
   }
 }
+
+.admin-header-right .bdr-left {
+	margin-right: 18px;
+}
