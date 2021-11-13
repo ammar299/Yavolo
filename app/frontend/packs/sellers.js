@@ -217,7 +217,7 @@ $(document).ready(function(){
       },
     });
     jQuery.validator.addMethod("url_without_scheme", function(value, element) {
-          return /^(www\.)[A-Za-z0-9_-]+\.+[A-Za-z0-9.\/%&=\?_:;-]+$/.test(value);
+        return /^(?:www\.)?[A-Za-z0-9_-]+\.+[A-Za-z0-9.\/%&=\?_:;-]+$/.test(value);
         }, "Please enter a valid URL without http/https"
     );
 
