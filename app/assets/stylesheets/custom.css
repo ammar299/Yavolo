@@ -763,7 +763,8 @@ label {
   overflow: hidden;
   right: 0;
   min-width: 5px;
-  border: 0 !important;
+  top: -1px !important;
+  border-top: 0 !important;
 }
 .dropdown-filter-custom .dropdown-menu .dropdown-item {
   font-size: 12px;

@@ -7,12 +7,17 @@ class Admin::PasswordsController < Devise::PasswordsController
   # end
 
   def create
-    self.resource = resource_class.send_reset_password_instructions(resource_params)
-    yield resource if block_given?
-    if successfully_sent?(resource)
-      respond_with({}, location: new_admin_password_path(reset_password: true))
+    
+    if Admin.find_by_email(params[:admin][:email]).present?
+      self.resource = resource_class.send_reset_password_instructions(resource_params)
+      yield resource if block_given?
+      if successfully_sent?(resource)
+        respond_with({}, location: new_admin_password_path(reset_password: true))
+      else
+        respond_with(resource)
+      end
     else
-      respond_with(resource)
+      redirect_to new_admin_password_path, flash: { notice: "This email is not present" }
     end
   end
 
