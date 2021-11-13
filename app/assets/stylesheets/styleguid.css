@@ -269,6 +269,7 @@ textarea.form-control {
 .form-control:focus {
     border-color: var(--dark-red);
     box-shadow: none;
+    color: var(--dark-red);
 }
 .error-field .form-control {
     border: 1px solid var(--red);

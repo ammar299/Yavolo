@@ -719,13 +719,14 @@ label {
     text-transform: inherit;
 }
 .dropdown-filter-custom {
-  border: 2px solid var(--dark-red); 
+  border: 2px solid var(--dark-red);
+  height: 35px;
 }
 .dropdown-filter-custom .btn {
   border: 0 !important;
   background-color: var(--dark-red) !important;
   color: #fff !important;
-  min-height: 31px;
+  min-height: 35px;
   display: flex;
   align-items: center;
   width: 122px;
@@ -733,6 +734,7 @@ label {
   justify-content: space-between;
   position: relative;
   left: -2px;
+  top: -2px;
 }
 .dropdown-filter-custom .show .btn {
   border-radius: 10px 10px 0 0 !important;
@@ -743,6 +745,8 @@ label {
   padding-top: 5px !important;
   padding-bottom: 5px !important;
   padding-left: 10px !important;
+  width: 192px !important;
+  max-width: 192px;
 }
 .dropdown-filter-custom .search-field svg {
   top: 8px !important;
