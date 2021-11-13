@@ -137,7 +137,7 @@ class Sellers::ProfilesController < Sellers::BaseController
       flash.now[:notice] = 'Return and Term has been updated successfully!'
     else
       current_seller.create_return_and_term(returns_and_terms_params)
-      flash.now[:success] = 'Return and Term has been created successfully!'
+      flash.now[:notice] = 'Return and Term has been created successfully!'
     end
   end
 
