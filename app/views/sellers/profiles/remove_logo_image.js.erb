@@ -6,7 +6,9 @@ $("#error-message").text('');
   $('.image-name').text('');
   $('.remove-image').text('');
   $(':input[type="submit"]').prop('disabled', true);
-  $('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
+  <% if @picture_present %>
+    $('#flash-msg').html('<%= j render partial: "shared/notice_banner"%>');
+  <% end %>
 <% else %>
   $('#error-message').html("<%= @seller.errors.full_messages.join('<br/>').html_safe %>");
 <% end %>

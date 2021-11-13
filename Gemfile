@@ -82,3 +82,4 @@ gem 'wicked'
 gem 'paypal-checkout-sdk'
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
+gem "mini_magick"

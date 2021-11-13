@@ -74,13 +74,20 @@ class Sellers::ProfilesController < Sellers::BaseController
   end
 
   def update_seller_logo
-    @seller.update(seller_params)
-    flash.now[:notice] = 'Seller Logo updated successfully!'
+    @image_valid = true
+    file_path = params[:seller][:picture_attributes][:name].tempfile.path
+    if Yavolo::ImageProcessing.image_dimensions_valid?(file_path:file_path, width: 500, height: 500)
+      @seller.update(seller_params)
+      flash.now[:notice] = 'Seller Logo updated successfully!'
+    else
+      @image_valid = false
+    end
   end
     
   def remove_logo_image
-    @seller.picture.destroy if @seller.picture.present?
-    flash.now[:alert] = 'Seller Logo removed successfully!'
+    @picture_present = @seller.picture.present?
+    @seller.picture.destroy if @picture_present
+    flash.now[:notice] = 'Seller Logo removed successfully!' if @picture_present
   end
 
   def update_addresses
