@@ -373,7 +373,7 @@ scrollbar-width: none;  /* Firefox */
   word-break: break-word;
   white-space: normal;
   font-size: 12px;
-  padding: 5px 12px 5px 18px !important;
+  padding: 5px 12px 5px 14px !important;
   justify-content: flex-start;
   transition: 0.3s linear;
   line-height: 13px;
@@ -383,6 +383,8 @@ scrollbar-width: none;  /* Firefox */
   right: 10px;
   transition: 0.3s linear;
 }
+.dropdown-filter.show .btn-link-dropdown-1 svg,
+.dropdown-filter-custom .show .btn svg,
 .dropdown-filter-field .dropdown.show .product-search-dropdown svg,
 .dropdown-filter.show .btn-link-dropdown svg {
   transform: rotate(180deg);
@@ -690,20 +692,19 @@ select.form-control {
 .datepicker table tr td span {
   color: var(--dark-red);
 }
-
 .btn-primary.disabled,
 .btn-primary:disabled {
   color: #fff;
   background-color: var(--dark-red);
   border-color: var(--dark-red);
 }
-.filter-tag{
+.filter-tag {
   background-color: var(--light-red) !important;
   color: var(--red) !important;
   border-radius: 12px;
   padding: 2px 12px;
 }
-.rm-filterby{
+.rm-filterby {
   padding-left: 15px;
   font-size: 12px;
   cursor: pointer;
@@ -717,7 +718,52 @@ select.form-control {
 label {
     text-transform: inherit;
 }
-
+.dropdown-filter-custom {
+  border: 2px solid var(--dark-red); 
+}
+.dropdown-filter-custom .btn {
+  border: 0 !important;
+  background-color: var(--dark-red) !important;
+  color: #fff !important;
+  min-height: 31px;
+  display: flex;
+  align-items: center;
+  width: 122px;
+  text-overflow: ellipsis;
+  justify-content: space-between;
+  position: relative;
+  left: -2px;
+}
+.dropdown-filter-custom .show .btn {
+  border-radius: 10px 10px 0 0 !important;
+  top: -2px;
+}
+.dropdown-filter-custom .input-btn-sm {
+  height: 31px !important;
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+  padding-left: 10px !important;
+}
+.dropdown-filter-custom .search-field svg {
+  top: 8px !important;
+}
+.dropdown-filter-custom .dropdown-menu {
+  padding-bottom: 5px !important;
+}
+.dropdown-filter-custom .dropdown-menu .dropdown-item,
+.dropdown-filter-custom .dropdown-menu {
+  margin: 0 !important;
+  color: #fff !important;
+  background: var(--dark-red) !important;
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
+  right: 0;
+  min-width: 5px;
+  border: 0 !important;
+}
+.dropdown-filter-custom .dropdown-menu .dropdown-item {
+  font-size: 12px;
+}
 @media only screen and (min-width: 1025px) {
   .admin-dashboard.no-header {
     padding-top: 0 !important;
@@ -736,4 +782,8 @@ label {
     top: 0px;
     z-index: 55555;
   }
+}
+
+.admin-header-right .bdr-left {
+	margin-right: 18px;
 }

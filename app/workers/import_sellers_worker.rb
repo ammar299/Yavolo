@@ -9,7 +9,7 @@ class ImportSellersWorker
       if importer.status
         AdminMailer.with(to: csv_import.importer.email).import_sellers_email.deliver_now
       else
-        AdminMailer.with(to: csv_import.importer.email, errors: importer.errors.uniq.join('<br>')).send_csv_import_failed_email.deliver_now
+        AdminMailer.with(to: csv_import.importer.email, errors: importer.errors.join('<br>')).import_sellers_failed_email.deliver_now
       end
   end
 

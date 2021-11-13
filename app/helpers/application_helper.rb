@@ -128,7 +128,11 @@ module ApplicationHelper
     val
   end
 
-  def formatted_date(date)
+  def date_format_US(date)
     date.strftime('%m/%d/%Y')
+  end
+
+  def date_format_UK(date)
+    date.strftime('%d/%m/%Y')
   end
 end

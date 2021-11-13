@@ -262,6 +262,10 @@ function bindFilterByEvents(){
     console.log($(this).data('status'));
     if($(this).hasClass('active')){
       $(this).removeClass('active');
+
+      if($(this).data('status')=='yavolo_enabled')
+        $('.yp-yavolo_enabled').remove();
+
     }else{
       $(this).addClass('active');
     }
@@ -414,6 +418,7 @@ function uploadCSVFile(files){
     success: function(res){
       $('#upload-csv-popup').modal('hide');
       $('#upload-csv-success-popup').modal('show');
+      $('#csv_import_file').attr('disabled', false);
     },
     error: function(xhr){
       document.getElementById('csv_import_file').value = "";

@@ -80,3 +80,5 @@ gem "letter_opener", group: :development
 gem 'ransack'
 gem 'wicked'
 gem 'paypal-checkout-sdk'
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'

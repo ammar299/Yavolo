@@ -4,7 +4,7 @@
     <div class="col-lg-12">
         <div class="all-products-header d-flex justify-content-between align-items-center mt-3">
             <div class="all-products-header-left d-flex flex-wrap">
-                <div class="dropdown-filter-field active mb-0">
+                <div class="dropdown-filter-field active my-1 dropdown-filter-custom">
                     <div class="dropdown">
                         <a class="btn btn-radius btn-sm px-3 btn-primary current-search-filter" href="#" role="button"
                             id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
@@ -38,6 +38,9 @@
                       <% if params[:yavolo_enabled].present? %>
                       <%=hidden_field_tag 'yavolo_enabled', params[:yavolo_enabled], class: 'yp-yavolo_enabled' %>
                       <% end %>
+                      <% if params[:per_page].present? %>
+                      <%=hidden_field_tag :per_page, params[:per_page] %>
+                      <% end %>
                       <% if params[:statuses].present? %>
                       <%=hidden_field_tag 'statuses', params[:statuses], class: 'yp-statuses' %>
                       <% end %>
@@ -48,7 +51,7 @@
                 </div>
                 <div class="dropdown dropdown-filter  d-inline-flex">
                     <a href="#"
-                        class="btn btn-sm btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center"
+                        class="btn btn-radius px-2 btn-primary btn-sm ml-1 my-1 btn-link-dropdown-1 d-inline-flex align-items-center"
                         id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">Actions <i class="fa fa-angle-down ml-3"
                             aria-hidden="true"></i></a>
@@ -70,37 +73,37 @@
                     </div>
                 </div>
                   <div class="dropdown dropdown-filter  d-inline-flex" id="pages-id">
-                    <a href="#" class="btn btn-sm btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Result Per Page <%= params[:per_page] %><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+                    <a href="#" class="btn btn-radius px-2 btn-primary btn-sm ml-1 my-1 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Results Per Page <%= params[:per_page] %><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                       <%= form_tag(admin_products_path, method: :get) do %>
                       <%= link_to (admin_products_path(per_page: '15'))  do %>
                       <span class="<%= 'fa fa-check' if params[:per_page] == '15' %>" aria-hidden="true"></span>
-                      Result per page 15
+                      Results per page: 15
                       <% end %>
                       <%= link_to (admin_products_path(per_page: '30'))  do %>
                       <span class="<%= 'fa fa-check' if params[:per_page] == '30' %>" aria-hidden="true"></span>
-                      Result per page 30
+                      Results per page: 30
                       <% end %>
                       <%= link_to (admin_products_path(per_page: '60'))  do %>
                       <span class="<%= 'fa fa-check' if params[:per_page] == '60' %>" aria-hidden="true"></span>
-                      Result per page 60
+                      Results per page: 60
                       <% end %>
                       <%= link_to (admin_products_path(per_page: '90'))  do %>
                       <span class="<%= 'fa fa-check' if params[:per_page] == '90' %>" aria-hidden="true"></span>
-                      Result per page 90
+                      Results per page: 90
                       <% end %>
                       <%= link_to (admin_products_path(per_page: '180'))  do %>
                       <span class="<%= 'fa fa-check' if params[:per_page] == '180' %>" aria-hidden="true"></span>
-                      Result per page 180
+                      Results per page: 180
                       <% end %>
                       <% end %>
                     </div>
                   </div>
               <div class="dropdown dropdown-filter  d-inline-flex">
                 <a href="#"
-                    class="btn btn-sm btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center"
+                    class="btn btn-radius px-2 btn-primary btn-sm ml-1 my-1 btn-link-dropdown-1 d-inline-flex align-items-center"
                     id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false"><%= set_product_filter_by_in_dropdown(params) %> <i class="fa fa-angle-down ml-3"
+                    aria-expanded="false"><%= set_product_sort_by_in_dropdown(params) %> <i class="fa fa-angle-down ml-3"
                         aria-hidden="true"></i></a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 
@@ -110,6 +113,9 @@
                   %>
                   <%=link_to '#', class: 'dropdown-item sortby-products', data: {sortby: 'title asc'} do %>
                     Product Title A-Z
+                    <% if params.dig(:q, :s).present? && params[:q][:s]=='title asc' %>
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    <% end %>
                   <% end %>
 
 
@@ -119,6 +125,9 @@
                   %>
                   <%=link_to '#', class: 'dropdown-item sortby-products',data: {sortby: 'title desc'} do %>
                     Product Title Z-A
+                    <% if params.dig(:q, :s).present? && params[:q][:s]=='title desc' %>
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    <% end %>
                   <% end %>
 
                   <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'price desc').permit!) : {s: 'price desc'} }
@@ -126,21 +135,36 @@
                     q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
                   %>
 
-                  <%=link_to 'Price High-Low','#', class: 'dropdown-item sortby-products', data: {sortby: 'price desc'}  %>
+                  <%=link_to '#', class: 'dropdown-item sortby-products', data: {sortby: 'price desc'}  do %>
+                    Price High-Low
+                    <% if params.dig(:q, :s).present? && params[:q][:s]=='price desc' %>
+                      <i class="fa fa-check" aria-hidden="true"></i>
+                    <% end %>
+                  <% end %>
 
                   <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'price asc').permit!) : {s: 'price asc'} }
                     q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
                     q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
                   %>
 
-                  <%=link_to 'Price Low-High','#', class: 'dropdown-item sortby-products', data: {sortby: 'price asc'}  %>
+                  <%=link_to '#', class: 'dropdown-item sortby-products', data: {sortby: 'price asc'} do %>
+                    Price Low-High
+                    <% if params.dig(:q, :s).present? && params[:q][:s]=='price asc' %>
+                      <i class="fa fa-check" aria-hidden="true"></i>
+                    <% end %>
+                  <% end %>
                   
                   <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'yavolo_enabled asc').permit!) : {s: 'yavolo_enabled asc'} }
                     q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
                     q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
                   %>
 
-                  <%=link_to 'Yavolo Enabled',admin_products_path(q_params), class: 'dropdown-item admin-filter-by', data: {status: 'yavolo_enabled' }  %>
+                  <%=link_to admin_products_path(q_params), class: "dropdown-item admin-filter-by #{ params['yavolo_enabled']=='1' ? 'active' : '' }", data: {status: 'yavolo_enabled' } do %>
+                    Yavolo Enabled
+                    <% if params['yavolo_enabled']=='1'%>
+                      <span class="fa fa-check" aria-hidden="true"></span>
+                    <% end %>
+                  <% end %>
 
                   <% q_params = {q: params.require(:q).permit! } if params[:q].present?
                     q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
@@ -150,7 +174,9 @@
 
                   <%= link_to admin_products_path(q_params),class: "dropdown-item admin-filter-by #{ params[:statuses].present? && params[:statuses].split(',').include?('draft') ? 'active' : '' }", data: {status: :draft } do %>
                     Draft
-                    <span class="<%= 'fa fa-check' if set_product_filter_by_in_dropdown(params) == 'Draft' %>" aria-hidden="true"></span>
+                    <% if params[:statuses].present? && params[:statuses].split(',').include?('draft')%>
+                    <span class="fa fa-check" aria-hidden="true"></span>
+                    <% end %>
                   <% end %>
                   <% q_params = {q: params.require(:q).permit! } if params[:q].present?
                     q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
@@ -159,7 +185,9 @@
                   %>
                   <%= link_to admin_products_path(q_params),class: "dropdown-item admin-filter-by #{ params[:statuses].present? && params[:statuses].split(',').include?('active') ? 'active' : '' }", data: {status: :active } do %>
                     Active
-                    <span class="<%= 'fa fa-check' if set_product_filter_by_in_dropdown(params) == 'Active' %>" aria-hidden="true"></span>
+                    <% if params[:statuses].present? && params[:statuses].split(',').include?('active')%>
+                    <span class="fa fa-check" aria-hidden="true"></span>
+                    <% end %>
                   <% end %>
 
                   <% q_params = {q: params.require(:q).permit! } if params[:q].present?
@@ -169,7 +197,9 @@
                   %>
                   <%= link_to admin_products_path(q_params),class: "dropdown-item admin-filter-by #{ params[:statuses].present? && params[:statuses].split(',').include?('inactive') ? 'active' : '' }", data: {status: :inactive } do %>
                     Inactive
-                    <span class="<%= 'fa fa-check' if set_product_filter_by_in_dropdown(params) == 'Inactive' %>" aria-hidden="true"></span>
+                    <% if params[:statuses].present? && params[:statuses].split(',').include?('inactive')%>
+                    <span class="fa fa-check" aria-hidden="true"></span>
+                    <% end %>
                   <% end %>
                   <% q_params = {q: params.require(:q).permit! } if params[:q].present?
                     q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
@@ -178,7 +208,9 @@
                   %>
                   <%= link_to admin_products_path(q_params),class: "dropdown-item admin-filter-by #{ params[:statuses].present? && params[:statuses].split(',').include?('pending') ? 'active' : '' }", data: {status: :pending } do %>
                     Pending
-                    <span class="<%= 'fa fa-check' if set_product_filter_by_in_dropdown(params) == 'Pending' %>" aria-hidden="true"></span>
+                    <% if params[:statuses].present? && params[:statuses].split(',').include?('pending')%>
+                    <span class="fa fa-check" aria-hidden="true"></span>
+                    <% end %>
                   <% end %>
                   <% q_params = {q: params.require(:q).permit! } if params[:q].present?
                     q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
@@ -187,7 +219,9 @@
                   %>
                   <%= link_to admin_products_path(q_params),class: "dropdown-item admin-filter-by #{ params[:statuses].present? && params[:statuses].split(',').include?('disapproved') ? 'active' : '' }", data: {status: :disapproved } do %>
                     Disapproved
-                    <span class="<%= 'fa fa-check' if set_product_filter_by_in_dropdown(params) == 'Disapproved' %>" aria-hidden="true"></span>
+                    <% if params[:statuses].present? && params[:statuses].split(',').include?('disapproved')%>
+                    <span class="fa fa-check" aria-hidden="true"></span>
+                    <% end %>
                   <% end %>
                 </div>
               </div>
@@ -266,7 +300,7 @@
                           <p class="mb-0">Condition: <%=product.condition %></p>
                         </td>
                         <td>
-                            <%=product.published_at.strftime("%d/%m/%Y") if product.published_at.present?%>
+                            <%= date_format_UK(product.published_at) if product.published_at.present?%>
                         </td>
                         <td class="stock-box"><%=product.stock.to_i %></td>
                         <td class="price-box"><%=number_to_currency((number_with_precision(product.price, :precision => 2) || 0), unit: '£') %></td>

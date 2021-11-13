@@ -9,12 +9,12 @@
       <div class="d-flex align-items-center" >
         <% display_class = @seller.is_locked == true ? 'd-block' : 'd-none' %>
         <p class="uppercase-text m-0 pr-3 <%= display_class %>" id="seller-locked-text">
-          <strong><%= "Seller Locked" if @seller.is_locked %></strong>
+          <%= render 'shared/sellers/seller_locked' %>
         </p>
         <% if current_admin.present? %>
           <%= link_to "Reset Password", confirm_reset_password_token_admin_seller_path(@seller, param_to_update: "lock"), class: "btn btn-sm btn-radius px-4 btn-primary mr-1", remote: true %>
           <% text = @seller.is_locked == true ? "Unlock" : "Lock" %>
-          <% class_to_include = @seller.is_locked == true ? "btn-success" : "btn-danger" %>
+          <% class_to_include = @seller.is_locked == true ? "btn-secondary" : "btn-danger" %>
           <%= link_to "#{text}", confirm_lock_status_admin_seller_path(@seller, param_to_update: "lock"), class: "btn btn-sm btn-radius px-4 mr-1 #{class_to_include} current-action", remote: true, id: "#{@seller.id}-lock-status" %>
           <%= link_to "Back", admin_sellers_path, class: "btn btn-sm btn-radius px-4 btn-primary mr-1" %>
         <% end %>

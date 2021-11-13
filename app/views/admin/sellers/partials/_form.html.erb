@@ -1,5 +1,5 @@
 <div class="add-new-seller">
-  <div class="container-fluid">
+<div class="">
     <div class="row">
       <div class="col-md-12">
         <%= simple_form_for @seller, url: url, html: { id: :add_new_seller_form } do |form| %>
@@ -35,7 +35,7 @@
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
               <%= cd.label :country, 'Country:' %>
-              <%= cd.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Select Country' }, required: true, class: 'form-control' %>
+              <%= cd.select :country, [['United Kingdom', 'United Kingdom']], { prompt: 'Select Country' }, required: true, class: 'form-control' %>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
               <%= cd.label :legal_business_name, 'Legal Business Name:' %>
@@ -64,7 +64,7 @@
             <div class="form-group form-group-vertical form-group-vertical-responsive">
               <%= cd.label :website_url, 'Business Website:' %>
               <div style="flex: 1">
-                <%= cd.url_field :website_url, placeholder: 'http://www.johnstons-Gymnasium.co.uk', class: 'form-control' %>
+                <%= cd.text_field :website_url, placeholder: 'http://www.johnstons-Gymnasium.co.uk', class: 'form-control' %>
               </div>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
@@ -133,7 +133,7 @@
               </div>
               <div class="form-group form-group-vertical form-group-vertical-responsive col-md-3">
               <div style="flex: 1">
-                <%= addr.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Select Country' }, class: 'form-control' %>
+                <%= addr.select :country, [['United Kingdom', 'United Kingdom']], { prompt: 'Select Country' }, class: 'form-control' %>
               </div>
               </div>
             </div>
@@ -162,7 +162,7 @@
             <div class="form-group form-group-vertical form-group-vertical-responsive">
               <%= br.label :job_title, 'Job Title:' %>
               <div style="flex: 1">
-                <%= br.text_field :job_title, placeholder: 'Director', class: 'form-control' %>
+                <%= br.text_field :job_title, placeholder: 'Job Title', class: 'form-control' %>
               </div>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">

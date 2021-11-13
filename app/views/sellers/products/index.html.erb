@@ -28,9 +28,9 @@
                 <div class="tab-pane fade show active" id="all-listings" role="tabpanel"
                     aria-labelledby="home-tab">
                     <div class="d-flex align-items-center mb-2">
-                        <div class="dropdown-filter-field active search-border mb-0">
+                        <div class="dropdown-filter-field active search-border my-1 dropdown-filter-custom">
                             <div class="dropdown">
-                                <a class="btn btn-radius px-2 btn-primary current-search-filter" href="#" role="button"
+                                <a class="btn btn-radius px-3 btn-primary current-search-filter btn-sm" href="#" role="button"
                                     id="dropdownMenuLink" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
                                     <%= set_filter_type_in_dropdown(params) %> <i class="fa fa-angle-down ml-2"
@@ -66,7 +66,7 @@
                         </div>
                         <div class="dropdown dropdown-filter mb-3 d-inline-flex">
                             <a href="#"
-                                class="btn btn-radius btn-sm px-2 btn-link btn-link-dropdown d-inline-flex align-items-center"
+                                class="btn btn-radius px-2 btn-primary btn-sm ml-1 my-1 btn-link-dropdown-1 d-inline-flex align-items-center"
                                 id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">Actions <i class="fas fa-ellipsis-h ml-3"
                                     aria-hidden="true"></i></a>
@@ -89,9 +89,9 @@
                         </div>
                         <div class="dropdown dropdown-filter mb-3 d-inline-flex">
                             <a href="#"
-                                class="sort-by-dropdown btn-sm btn btn-radius px-2 btn-link btn-link-dropdown d-inline-flex align-items-center"
+                                class="sort-by-dropdown btn btn-radius px-2 btn-primary btn-sm ml-1 my-1 btn-link-dropdown-1 d-inline-flex align-items-center"
                                 id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">Filter by <i class="fa fa-angle-down ml-3"
+                                aria-expanded="false"><%=set_product_sort_by_in_dropdown(params)%> <i class="fa fa-angle-down ml-3"
                                     aria-hidden="true"></i></a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'title asc').permit!) : {s: 'title asc'} }
@@ -99,7 +99,12 @@
                                     q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
                                     q_params.merge!(tab: params[:tab]) if params[:tab].present?
                                 %>
-                                <%=link_to 'Product Title A-Z',sellers_products_path(q_params)  %>
+                                <%=link_to sellers_products_path(q_params),class: 'dropdown-item' do  %>
+                                Product Title A-Z
+                                    <% if params.dig(:q, :s).present? && params[:q][:s]=='title asc' %>
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                    <% end %>
+                                <% end %>
 
                                 <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'title desc').permit!) : {s: 'title desc'} }
                                     q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
@@ -107,29 +112,44 @@
                                     q_params.merge!(tab: params[:tab]) if params[:tab].present?
                                 %>
 
-                                <%=link_to 'Product Title Z-A',sellers_products_path(q_params)  %>
+                                <%=link_to sellers_products_path(q_params),class: 'dropdown-item' do  %>
+                                Product Title Z-A
+                                    <% if params.dig(:q, :s).present? && params[:q][:s]=='title desc' %>
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                    <% end %>
+                                <% end %>
 
                                 <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'price desc').permit!) : {s: 'price desc'} }
                                     q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
                                     q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
                                     q_params.merge!(tab: params[:tab]) if params[:tab].present?
                                 %>
-                                <%=link_to 'Price High-Low',sellers_products_path(q_params)  %>
+                                <%=link_to sellers_products_path(q_params),class: 'dropdown-item' do  %>
+                                Price High-Low
+                                <% if params.dig(:q, :s).present? && params[:q][:s]=='price desc' %>
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                    <% end %>
+                                <% end %>
 
                                 <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'price asc').permit!) : {s: 'price asc'} }
                                     q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
                                     q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
                                     q_params.merge!(tab: params[:tab]) if params[:tab].present?
                                 %>
-                                <%=link_to 'Price Low-High',sellers_products_path(q_params)  %>
+                                <%=link_to sellers_products_path(q_params),class: 'dropdown-item' do  %>
+                                Price Low-High
+                                <% if params.dig(:q, :s).present? && params[:q][:s]=='price asc' %>
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                    <% end %>
+                                <% end %>
 
 
                             </div>
                         </div>
                         <div class="d-flex">
-                            <%= link_to "Export CSV", export_csv_sellers_products_path(:format => :csv), class: 'btn btn-radius px-2 btn-outline-primary btn-sm mr-1' %>
+                            <%= link_to "Export CSV", export_csv_sellers_products_path(:format => :csv), class: 'btn btn-sm btn-radius px-2 btn-primary mx-1' %>
                             <a href="#"
-                                class="btn btn-radius px-2 btn-outline-primary btn-sm mr-1 upload-csv-btn">Upload
+                                class="btn btn-sm btn-radius px-2 btn-primary mr-1 upload-csv-btn">Upload
                                 Product CSV</a>
                             <%=link_to 'Add Listing', new_sellers_product_path, class: 'btn btn-radius px-2 btn-primary btn-sm' %>
                         </div>
@@ -183,8 +203,8 @@
                                                     <%=product.title%>
                                                 </td>
                                                 <td>
-                                                    <p class="mb-0">SKU: <%=product.sku.truncate(15) %></p>
-                                                    <p class="mb-0">EAN: <%=product.ean.truncate(15) %></p>
+                                                    <p class="mb-0">SKU: <%=product.sku %></p>
+                                                    <p class="mb-0">EAN: <%=product.ean %></p>
                                                     <p class="mb-0">Brand: <%=product.brand %></p>
                                                     <p class="mb-0">Condition: <%=product.condition.to_s.titleize %></p>
                                                 </td>

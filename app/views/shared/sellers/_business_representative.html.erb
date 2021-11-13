@@ -21,7 +21,7 @@
         </tr>
         <tr>
           <td class="">Date of Birth:</td>
-          <td><%=h business_representative.date_of_birth.strftime("%m/%d/%Y") if business_representative.date_of_birth.present? %></td>
+          <td><%=h date_format_UK(business_representative.date_of_birth) if business_representative.date_of_birth.present? %></td>
         </tr>
         <tr>
           <td class="">Account Status:</td>
@@ -33,11 +33,11 @@
         </tr>
         <tr>
           <td class="">Account Created:</td>
-          <td><%=h @seller.created_at.strftime("%m/%d/%Y") if @seller.created_at.present? %></td>
+          <td><%= date_format_UK(@seller.created_at) if @seller.created_at.present? %></td>
         </tr>
         <tr>
           <td class="">Last logged in:</td>
-          <td><%=h @seller.last_sign_in_at.strftime("%m/%d/%Y") if @seller.last_sign_in_at.present? %></td>
+          <td><%= @seller.last_sign_in_at.present? ? date_format_UK(@seller.last_sign_in_at) : "haven't logged in yet" %></td>
         </tr>
         <tr>
           <td class="">Subscription type:</td>

@@ -1,9 +1,11 @@
 class Seller < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  validate :date_of_birth_is_valid_datetime
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable, :omniauthable, omniauth_providers: [:google_oauth2 , :facebook]
-  validates :email, confirmation: true
+  validates :email, confirmation: true, presence: true
+  validates :date_of_birth, presence: true
   # validates :contact_number, phone: {allow_blank: true}
   validates_acceptance_of :terms_and_conditions, on: :on_final_step?
   validates_acceptance_of :recieve_deals_via_email, on: :on_final_step?
@@ -73,12 +75,12 @@ class Seller < ApplicationRecord
   def self.to_csv
     #seller_api_name seller_api_token seller_api_status seller_api_seller_id
     #seller&.seller_api&.name , seller&.seller_api&.api_token , seller&.seller_api&.status , seller&.seller_api&.seller_id,
-
+    # picture_name picture_imageable_id picture_imageable_type after
+    # seller&.picture&.name,seller&.picture&.imageable_id,seller&.picture&.imageable_type,
     attributes = %w{id email first_name last_name surname gender date_of_birth contact_number provider uid account_status listing_status contact_email contact_name subscription_type company_detail_name
-      company_detail_vat_number company_detail_country company_detail_legal_business_name company_detail_companies_house_registration_number company_detail_business_industry company_detail_business_phone company_detail_seller_id company_detail_website_url
+      company_detail_vat_number company_detail_country company_detail_legal_business_name company_detail_companies_house_registration_number company_detail_business_industry company_detail_business_phone company_detail_website_url
       company_detail_amazon_url company_detail_ebay_url company_detail_doing_business_as  
-      business_representative_email business_representative_job_title business_representative_date_of_birth business_representative_contact_number business_representative_seller_id business_representative_full_legal_name
-      picture_name picture_imageable_id picture_imageable_type
+      business_representative_email business_representative_job_title business_representative_date_of_birth business_representative_contact_number business_representative_full_legal_name
 
       business_representative_address_line_1 business_representative_address_line_2 business_representative_address_city business_representative_address_county business_representative_address_state business_representative_address_country business_representative_address_postal_code business_representative_address_phone_number business_representative_address_type 
       business_address_line_1 business_address_line_2 business_address_city business_address_county business_address_state business_address_country business_address_postal_code business_address_phone_number business_address_type 
@@ -89,14 +91,28 @@ class Seller < ApplicationRecord
       csv << attributes
       all.each do |seller|        
         csv << [seller.id, seller.email, seller.first_name, seller.last_name, seller.surname, seller.gender, seller.date_of_birth, seller.contact_number, seller.provider, seller.uid, seller.account_status, seller.listing_status, seller.contact_email, seller.contact_name, seller.subscription_type,
-          seller&.company_detail&.name,  seller&.company_detail&.vat_number,seller&.company_detail&.country,  seller&.company_detail&.legal_business_name,  seller&.company_detail&.companies_house_registration_number,  seller&.company_detail&.business_industry,  seller&.company_detail&.business_phone,  seller&.company_detail&.seller_id,  seller&.company_detail&.website_url,  seller&.company_detail&.amazon_url,seller&.company_detail&.ebay_url,  seller&.company_detail&.doing_business_as,
-          seller&.business_representative&.email, seller&.business_representative&.job_title , seller&.business_representative&.date_of_birth, seller&.business_representative&.contact_number, seller&.business_representative&.seller_id, seller&.business_representative&.full_legal_name,
-          seller&.picture&.name,seller&.picture&.imageable_id,seller&.picture&.imageable_type,
+          seller&.company_detail&.name,  seller&.company_detail&.vat_number,seller&.company_detail&.country,  seller&.company_detail&.legal_business_name,  seller&.company_detail&.companies_house_registration_number,  seller&.company_detail&.business_industry,  seller&.company_detail&.business_phone, seller&.company_detail&.website_url,  seller&.company_detail&.amazon_url,seller&.company_detail&.ebay_url,  seller&.company_detail&.doing_business_as,
+          seller&.business_representative&.email, seller&.business_representative&.job_title , seller&.business_representative&.date_of_birth, seller&.business_representative&.contact_number, seller&.business_representative&.full_legal_name,
+          
           seller&.addresses[0]&.address_line_1, seller&.addresses[0]&.address_line_2, seller&.addresses[0]&.city , seller&.addresses[0]&.county , seller&.addresses[0]&.state , seller&.addresses[0]&.country , seller&.addresses[0]&.postal_code , seller&.addresses[0]&.phone_number , seller&.addresses[0]&.address_type,
           seller&.addresses[1]&.address_line_1, seller&.addresses[1]&.address_line_2, seller&.addresses[1]&.city , seller&.addresses[1]&.county , seller&.addresses[1]&.state , seller&.addresses[1]&.country , seller&.addresses[1]&.postal_code , seller&.addresses[1]&.phone_number , seller&.addresses[1]&.address_type,
           seller&.addresses[2]&.address_line_1, seller&.addresses[2]&.address_line_2, seller&.addresses[2]&.city , seller&.addresses[2]&.county , seller&.addresses[2]&.state , seller&.addresses[2]&.country , seller&.addresses[2]&.postal_code , seller&.addresses[2]&.phone_number , seller&.addresses[2]&.address_type,
           seller&.addresses[3]&.address_line_1, seller&.addresses[3]&.address_line_2, seller&.addresses[3]&.city , seller&.addresses[3]&.county , seller&.addresses[3]&.state , seller&.addresses[3]&.country , seller&.addresses[3]&.postal_code , seller&.addresses[3]&.phone_number , seller&.addresses[3]&.address_type,
         ]
+      end
+    end
+  end
+
+  def date_of_birth_is_valid_datetime
+    begin
+      date_of_birth.to_date
+    rescue
+      errors.add(:date_of_birth, "must be a date")
+    else
+      if date_of_birth > Time.now
+        errors.add(:date_of_birth, "date of birth cannot be in the future")
+      elsif date_of_birth < Time.now - 125.years
+        errors.add(:date_of_birth, "date of birth cannot be over 125 years ago")
       end
     end
   end

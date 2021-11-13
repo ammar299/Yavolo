@@ -16,7 +16,11 @@
             </div>
             <div>
               <%= link_to 'Edit Template', edit_admin_delivery_option_path(delivery,seller_id: @seller_id), class: 'btn btn-radius px-4 btn-primary btn-sm', data: { remote: true } %>
-              <%= link_to 'Remove Template', confirm_delete_admin_delivery_option_path(delivery, seller_id: @seller_id, path: 'seller'), remote: true, class: 'btn btn-radius px-4 btn-primary btn-sm' %>
+              <% if delivery.products.count < 1 %>
+                <%= link_to 'Remove Template', confirm_delete_admin_delivery_option_path(delivery, seller_id: @seller_id, path: 'seller', delete: true), remote: true, class: 'btn btn-radius px-4 btn-primary btn-sm' %>
+              <% else %>
+                <%= link_to 'Remove Template', confirm_delete_admin_delivery_option_path(delivery, seller_id: @seller_id, path: 'seller',delete: false), remote: true, class: 'btn btn-radius px-4 btn-primary btn-sm' %>
+              <% end %>
             </div>
           </div>
         </div>

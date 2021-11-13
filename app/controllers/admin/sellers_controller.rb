@@ -7,23 +7,24 @@ class Admin::SellersController < Admin::BaseController
     end
 
     def new
-        @seller = Seller.new
-        @seller.build_business_representative
-        @seller.build_company_detail
+      @seller = Seller.new
+      @seller.build_business_representative
+      @seller.build_company_detail
     end
 
     def show
-        @delivery_options =  @seller.delivery_options
-        @remaining_addresses = Address.address_types.keys - @seller.addresses.collect(&:address_type)
-        @remaining_addresses.each do |address_type| @seller.addresses.build address_type: address_type end if @remaining_addresses.present?
-        @seller_apis = @seller.seller_apis
-        @seller_id = params[:id]
+      @delivery_options =  @seller.delivery_options
+      @remaining_addresses = Address.address_types.keys - @seller.addresses.collect(&:address_type)
+      @remaining_addresses.each do |address_type| @seller.addresses.build address_type: address_type end if @remaining_addresses.present?
+      @seller_apis = @seller.seller_apis
+      @seller_id = params[:id]
     end
 
     def create
         @seller = Seller.new(seller_params)
         @seller.skip_password_validation = true
         if @seller.save
+          AdminMailer.with(to: @seller.email.to_s.downcase).send_account_creation_email.deliver_now
           redirect_to admin_sellers_path, flash: { notice: "Seller has been saved" }
         else
           render :new

@@ -1,12 +1,14 @@
 <% delivery_options.each do |delivery_option| %>
   <tr>
     <td>
+      <% if delivery_option.products.count < 1 %>
       <div class="checkbox-container delivery-options-checkbox-container">
         <label class="checkbox-blk">
           <input type="checkbox" id="<%= "select-#{delivery_option.id}" %>" value="<%= delivery_option.id %>">
           <span class="checkmark"></span>
         </label>
       </div>
+      <% end %>
     </td>
     <td><%= delivery_option.name %></td>
     <%# TODO: here change the delivery & processing time %>
@@ -16,7 +18,11 @@
         <%= link_to 'Edit', edit_sellers_delivery_option_path(delivery_option), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100', data: { remote: true } %>
       </div>
       <div class="text-center">
-        <%= link_to 'Delete', confirm_delete_sellers_delivery_option_path(delivery_option), remote: true, class: 'btn btn-sm btn-radius px-4 btn-secondary w-100' %>
+        <% if delivery_option.products.count < 1 %>
+          <%= link_to 'Delete', confirm_delete_sellers_delivery_option_path(delivery_option, delete: true), remote: true, class: 'btn btn-sm btn-radius px-4 btn-secondary w-100' %>
+        <% else %>
+          <%= link_to 'Delete', confirm_delete_sellers_delivery_option_path(delivery_option, delete: false), remote: true, class: 'btn btn-sm btn-radius px-4 btn-secondary w-100' %>
+        <% end %>
       </div>
     </td>
   </tr>

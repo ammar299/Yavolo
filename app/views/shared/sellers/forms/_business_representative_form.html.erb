@@ -28,29 +28,29 @@
   <div class="form-group form-group-vertical form-group-vertical-responsive">
     <%= br.label :date_of_birth, 'Date of Birth' %>
     <div style="flex: 1;">
-      <%= br.text_field :date_of_birth, placeholder: 'dd/mm/yyyy', value: br.object.date_of_birth.present? ? br.object.date_of_birth.strftime("%m/%d/%Y") : '', class: 'form-control datepicker', autocomplete: 'date_of_birth' %>
+      <%= br.text_field :date_of_birth, placeholder: 'dd/mm/yyyy', value: br.object.date_of_birth.present? ? date_format_UK(br.object.date_of_birth) : '', class: 'form-control datepicker', autocomplete: 'date_of_birth' %>
     </div>
   </div>
 <% end %>
 <div class="form-group form-group-vertical form-group-vertical-responsive">
   <%= form.label :account_status, 'Account Status' %>
   <div style="flex: 1;">
-    <%= form.select :account_status, options_for_select(Seller.account_statuses.map {|k, v| [k.humanize.capitalize, v]}), { prompt: 'Account Status' }, class: 'form-control' %>
+    <%= form.select :account_status, options_for_select(Seller.account_statuses.map {|k, v| [k.humanize.capitalize, k]}), { prompt: 'Account Status' }, class: 'form-control' %>
   </div>
 </div>
 <div class="form-group form-group-vertical form-group-vertical-responsive">
   <%= form.label :listing_status, 'Listing Status' %>
   <div style="flex: 1;">
-    <%= form.select :listing_status, options_for_select(Seller.listing_statuses.map {|k, v| [k.humanize.capitalize, v]}), { prompt: 'Listing Status' }, class: 'form-control' %>
+    <%= form.select :listing_status, options_for_select(Seller.listing_statuses.map {|k, v| [k.humanize.capitalize, k]}), { prompt: 'Listing Status' }, class: 'form-control' %>
   </div>
 </div>
 <div class="form-group form-group-vertical form-group-vertical-responsive">
   <label>Account Created</label>
-  <div class="mt-2"><%= @seller.created_at.strftime("%m/%d/%Y") if @seller.created_at.present?  %></div>
+  <div class="mt-2"><%= date_format_UK(@seller.created_at) if @seller.created_at.present?  %></div>
 </div>
 <div class="form-group form-group-vertical form-group-vertical-responsive">
   <label>Last Logged In</label>
-  <div class="mt-2"><%= @seller.last_sign_in_at.strftime("%m/%d/%Y") if @seller.last_sign_in_at.present? %></div>
+  <div class="mt-2"><%= date_format_UK(@seller.last_sign_in_at) if @seller.last_sign_in_at.present? %></div>
 </div>
 <div class="form-group form-group-vertical form-group-vertical-responsive">
   <label>Subscription Type</label>

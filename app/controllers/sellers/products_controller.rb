@@ -3,7 +3,7 @@ class Sellers::ProductsController < Sellers::BaseController
   def index
     @listing_by_status_with_count = Product.get_group_by_status_count(current_seller)
     @q = Product.ransack(params[:q])
-    query = @q.result(distinct: true).page(params[:page]).per(params[:per_page].presence || 15)
+    query = @q.result(distinct: true).select('products.*, lower(products.title)')
     if Product.statuses.keys.include?(params[:tab]) || params[:tab]=='all' || params[:tab]=='yavolo_enabled'
       @products = query.send("#{params[:tab]}_products", current_seller)
     else
