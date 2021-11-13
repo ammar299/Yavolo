@@ -4,35 +4,35 @@
     <table class="table">
       <tbody>
         <tr>
-          <td class="">User email:</td>
+          <td class="">User Email:</td>
           <td><%=h return_value(@seller.email) %></td>
         </tr>
         <tr>
-          <td class="">Full name:</td>
+          <td class="">Full Name:</td>
           <td><%=h return_value(business_representative.full_legal_name) %></td>
         </tr>
         <tr>
-          <td class="">Job title:</td>
+          <td class="">Job Title:</td>
           <td><%=h return_value(business_representative.job_title) %></td>
         </tr>
         <tr>
-          <td class="">Contact email:</td>
+          <td class="">Contact Email:</td>
           <td><%=h return_value(business_representative.email) %></td>
         </tr>
         <tr>
-          <td class="">Date of birth:</td>
+          <td class="">Date of Birth:</td>
           <td><%=h business_representative.date_of_birth.strftime("%m/%d/%Y") if business_representative.date_of_birth.present? %></td>
         </tr>
         <tr>
-          <td class="">Account status:</td>
+          <td class="">Account Status:</td>
           <td><%=h return_value(@seller.account_status) %></td>
         </tr>
         <tr>
-          <td class="">Listing status:</td>
+          <td class="">Listing Status:</td>
           <td><%=h return_value(@seller.listing_status).humanize %></td>
         </tr>
         <tr>
-          <td class="">Account created:</td>
+          <td class="">Account Created:</td>
           <td><%=h @seller.created_at.strftime("%m/%d/%Y") if @seller.created_at.present? %></td>
         </tr>
         <tr>

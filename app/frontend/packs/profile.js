@@ -174,7 +174,7 @@ function addNewSellerFormValidation() {
         required: "Job title is required",
       },
       "seller[business_representative_attributes][date_of_birth]": {
-        required: "Date of birth is required",
+        required: "Date of Birth is required",
       },
       "seller[addresses_attributes][1][address_line_1]": {
         required: "Address is required",
