@@ -109,43 +109,47 @@
           </tr>
         </thead>
         <tbody>
-          <% @sellers.each do |seller| %>
-            <tr id="seller-row-<%= seller.id %>">
-              <td>
-                <div class="multiple-update-sellers">
-                  <label class="checkbox-blk">
-                    <input type="checkbox" id="<%= "select-#{seller.id}" %>" value="<%= seller.id %>">
-                    <span class="checkmark"></span>
-                  </label>
-                </div>
-              </td>
-              <td><span class="email-in-table"><%=seller.email %></span></td>
-              <td><%= date_format_UK(seller.created_at) %></td>
-              <td>Show the last sale date</td>
-              <td>Show the number of active listings</td>
-              <td>Show the total sales</td>
-              <td class="account-status">
-                <% account_status = account_status_to_show(seller) %>
-                <%= account_status.humanize %>
-              </td>
-              <td>show the health status</td>
-              <td id="<%= seller.id %>-eligibility-status" class="">
-                <%= seller.eligible_to_create_api == true ? "Enabled" : "Disabled" %>
-              </td>
-              <td class="text-center actions">
-                <div class="all-seller-btn">
-                  <div id="seller-action-btns">
-                    <%= render 'admin/sellers/seller_actions', seller: seller %>
+          <% if @sellers.count > 0 %>
+            <% @sellers.each do |seller| %>
+              <tr id="seller-row-<%= seller.id %>">
+                <td>
+                  <div class="multiple-update-sellers">
+                    <label class="checkbox-blk">
+                      <input type="checkbox" id="<%= "select-#{seller.id}" %>" value="<%= seller.id %>">
+                      <span class="checkmark"></span>
+                    </label>
                   </div>
-                  <%= link_to 'Edit', admin_seller_path(seller), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1' %>
-                  <%= link_to "Delete", confirm_update_seller_admin_seller_path(seller, param_to_update: "delete"), remote: true, class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1 current-action', id: "#{seller.id}-delete" %>
-                  <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-1">Contact</a>
-                  <a href="#" class="btn btn-sm btn-radius px-4 btn-danger mb-1">View Products</a>
-                  <% text = seller.eligible_to_create_api == true ? "Disable API creation" : "Enable API creation" %>
-                  <%= link_to "#{text}", confirm_change_seller_api_eligibility_admin_seller_path(seller, param_to_update: "eligibility"), remote: true, class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1 current-action', id: "#{seller.id}-eligibility" %>
-                </div>
-              </td>
-            </tr>
+                </td>
+                <td><span class="email-in-table"><%=seller.email %></span></td>
+                <td><%= date_format_UK(seller.created_at) %></td>
+                <td>Show the last sale date</td>
+                <td>Show the number of active listings</td>
+                <td>Show the total sales</td>
+                <td class="account-status">
+                  <% account_status = account_status_to_show(seller) %>
+                  <%= account_status.humanize %>
+                </td>
+                <td>show the health status</td>
+                <td id="<%= seller.id %>-eligibility-status" class="">
+                  <%= seller.eligible_to_create_api == true ? "Enabled" : "Disabled" %>
+                </td>
+                <td class="text-center actions">
+                  <div class="all-seller-btn">
+                    <div id="seller-action-btns">
+                      <%= render 'admin/sellers/seller_actions', seller: seller %>
+                    </div>
+                    <%= link_to 'Edit', admin_seller_path(seller), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1' %>
+                    <%= link_to "Delete", confirm_update_seller_admin_seller_path(seller, param_to_update: "delete"), remote: true, class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1 current-action', id: "#{seller.id}-delete" %>
+                    <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-1">Contact</a>
+                    <a href="#" class="btn btn-sm btn-radius px-4 btn-danger mb-1">View Products</a>
+                    <% text = seller.eligible_to_create_api == true ? "Disable API creation" : "Enable API creation" %>
+                    <%= link_to "#{text}", confirm_change_seller_api_eligibility_admin_seller_path(seller, param_to_update: "eligibility"), remote: true, class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1 current-action', id: "#{seller.id}-eligibility" %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <p>No record found </p>
           <% end %>
         </tbody>
       </table>
