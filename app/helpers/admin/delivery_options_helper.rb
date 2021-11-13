@@ -29,11 +29,11 @@ module Admin::DeliveryOptionsHelper
   end
 
   def listed_ship_processing_time(delivery_option_id)
-    DeliveryOptionShip.where(delivery_option_id: delivery_option_id).pluck(:processing_time)&.map{|v| v.split('_').map(&:capitalize).join(' ')}
+    DeliveryOptionShip.where(delivery_option_id: delivery_option_id).pluck(:processing_time)&.map{ |v| v.split('_').map(&:capitalize).join(' ') if v.present? }
   end
 
   def listed_ship_delivery_time(delivery_option_id)
-    DeliveryOptionShip.where(delivery_option_id: delivery_option_id).pluck(:delivery_time)&.map{|v| v.split('_').map(&:capitalize).join(' ')}
+    DeliveryOptionShip.where(delivery_option_id: delivery_option_id).pluck(:delivery_time)&.map{ |v| v.split('_').map(&:capitalize).join(' ') if v.present? }
   end
 
   def checked_delivery_ship?(delivery_option, ship_id)
