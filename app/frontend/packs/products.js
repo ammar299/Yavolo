@@ -37,7 +37,7 @@ $(document).ready(function(){
       $('.bulk-actions a.dropdown-item').removeClass('active');
       $(this).addClass('active');
       let action = $('.bulk-actions a.dropdown-item.active').data('bulkaction');
-      if(['activate','yavolo_enabled','yavolo_disabled','delete'].includes(action)){
+      if(['activate','deactivate','yavolo_enabled','yavolo_disabled','delete'].includes(action)){
         $('#seller-products-confirm').modal('show');
       }else{
         $('#product-new-value').val('');
@@ -109,7 +109,7 @@ $(document).ready(function(){
   });
 
   productSearchByFilter();
-  // bindDragAndDropPhotosEvents();
+  bindDragAndDropPhotosEvents();
   if(document.getElementById('upload-csv-popup'))
     bindDragAndDropEvents('upload-csv-popup');
 
@@ -153,6 +153,7 @@ $(document).ready(function(){
 
   $(document).on('click','.img-del-icon', function(){
     if(confirm("Are you sure to delete this image?")){
+      const filename =  $(this).parents('.col-md-4').attr('data-file-name')
       if($(this).hasClass('new-obj')){
         $(this).parents('.col-md-4').remove();
       }else{
@@ -163,6 +164,7 @@ $(document).ready(function(){
       if(idx && $('#dupimg'+idx).length > 0){
         $('#dupimg'+idx).remove();
       }
+      removeProductFromFileList(filename)
     }
   });
 
@@ -433,7 +435,8 @@ function uploadCSVFile(files){
 function previewProductImages(files){
   let preveiwImagesTemplate = [];
   for(let i=0; i<files.length; i++ ){
-    preveiwImagesTemplate.push(imageTemplate(URL.createObjectURL(files[i])));
+    preveiwImagesTemplate.push(imageTemplate(URL.createObjectURL(files[i]),files[i].name));
+    
   }
   if($('.product-photos-grid').length > 0){
     $('.product-photos-grid').append(preveiwImagesTemplate.join(""));
@@ -441,6 +444,44 @@ function previewProductImages(files){
     $('.product-photos-section').show();
     $('#upload-images-popup').modal('hide');
   }
+  let a = FileListItems(files, oldFiles)
+  $("#product_pictures_attributes_0_name").prop("files",a)
+
+}
+
+var oldFiles = []
+
+function FileListItems(files,oldFiles) {
+  var b = new DataTransfer()
+  var unique_names = []
+  for (var i = 0, len = files.length; i<len; i++) {
+    if(!unique_names.includes(files[i].name)){
+      unique_names.push(files[i].name)
+      b.items.add(files[i])
+      oldFiles.push(files[i])
+    }
+  }
+
+  for (var i = 0 , len = (files.length+oldFiles.length); i<oldFiles.length; i++){
+    if(!unique_names.includes(oldFiles[i].name)){
+      unique_names.push(oldFiles[i].name)
+      b.items.add(oldFiles[i])
+    }
+  }
+  return b.files
+}
+
+function removeProductFromFileList(filename){
+  files = $("#product_pictures_attributes_0_name").prop("files")
+  oldFiles = []
+  let b = new DataTransfer()
+  for (var i = 0, len = files.length; i<len; i++) {
+    if(files[i].name != filename){
+      b.items.add(files[i])
+      oldFiles.push(files[i])
+    }
+  }
+  $("#product_pictures_attributes_0_name").prop("files",b.files)
 }
 
 function bindDragAndDropEvents(dropAreaId){
@@ -530,13 +571,13 @@ function unhighlight(e) {
 function handleDrop(e) {
   let dt = e.dataTransfer
   let files = dt.files
-
+  
   previewProductImages(files)
 }
 
-function imageTemplate(path){
+function imageTemplate(path,filename){
   let template = "";
-  template += '<div class="col-md-4 p-1">';
+  template += `<div class="col-md-4 p-1" data-file-name="${filename}">`;
   template +=  '<div class="grid-single-img">';
   template +=      '<span>';
   template +=          '<img src="'+path+'" alt="">';
@@ -711,6 +752,7 @@ function updateBulkProducts(action){
       updateProductsDom(res);
       showSuccessAlert('Products updated successfully');
       $('#product-new-value').val('');
+      $('.bulk-actions a.dropdown-item').removeClass('active');
     },
     error: function(xhr){
       showErrorsAlert(xhr.responseJSON.errors);
@@ -756,6 +798,9 @@ function updateProductsDom(res){
 
   if(action=='activate')
     $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('td.product-status').html('Active')
+
+  if(action == 'deactivate')
+    $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('td.product-status').html('Deactivate')
 
   if(action=='yavolo_enabled'){
     $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.enable-yavolo-btn').remove();

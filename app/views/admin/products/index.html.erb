@@ -58,9 +58,11 @@
                     <div class="dropdown-menu bulk-actions" aria-labelledby="dropdownMenuLink">
                         <a data-bulkaction="activate" class="dropdown-item" href="#">Activate <i
                                 class="fa fa-check" aria-hidden="true"></i></a>
-                        <a data-bulkaction="yavolo_enabled" class="dropdown-item" href="#">Yavolo Enabled<i
+                        <a data-bulkaction="deactivate" class="dropdown-item" href="#">Deactivate <i
                                 class="fa fa-check" aria-hidden="true"></i></a>
-                        <a data-bulkaction="yavolo_disabled" class="dropdown-item" href="#">Yavolo Disabled<i
+                        <a data-bulkaction="yavolo_enabled" class="dropdown-item" href="#">Yavolo Enable<i
+                                class="fa fa-check" aria-hidden="true"></i></a>
+                        <a data-bulkaction="yavolo_disabled" class="dropdown-item" href="#">Yavolo Disable<i
                                 class="fa fa-check" aria-hidden="true"></i></a>
                         <a data-bulkaction="delete" class="dropdown-item" href="#">Delete<i
                                 class="fa fa-check" aria-hidden="true"></i></a>
@@ -275,7 +277,8 @@
                                 <span class="checkmark"></span>
                             </label>
                         </td>
-                        <td class="product-status"><%=product.status.to_s.titleize%></td>
+                        <%# product.status.to_s.titleize %>
+                        <td class="product-status"><%= product.status == "active" ? "Active".to_s.titleize : "Deactivate".to_s.titleize %></td>
                         <td>
                             <div class="">
                                 <span class="imglist" width="100%">

@@ -2,7 +2,7 @@ module SharedProductMethods
   extend ActiveSupport::Concern
 
   def bulk_products_update
-    valid_actions =['activate','yavolo_enabled','yavolo_disabled','delete','update_price','update_stock','update_discount']
+    valid_actions =['activate','deactivate','yavolo_enabled','yavolo_disabled','delete','update_price','update_stock','update_discount']
     action = bulk_action_params[:action]
     product_ids = bulk_action_params[:product_ids]
     value = bulk_action_params[:value]
@@ -10,6 +10,7 @@ module SharedProductMethods
     if valid_actions.include?(action)
       update_hash = {}
       update_hash.merge!(status: :active) if action =='activate'
+      update_hash.merge!(status: :inactive) if action =='deactivate'
       update_hash.merge!(yavolo_enabled: true) if action =='yavolo_enabled'
       update_hash.merge!(yavolo_enabled: false) if action =='yavolo_disabled'
       update_hash.merge!(price: value) if action =='update_price'
