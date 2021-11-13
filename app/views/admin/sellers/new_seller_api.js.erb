@@ -1,4 +1,4 @@
-<% text = 'Authorize New Developer' %>
+<% text = 'Authorise New Developer' %>
 $("#seller-api-modal-title").html("<%= text %>");
 $("#seller-api-actions").html("<%= j render(partial: 'shared/sellers/forms/seller_api_form', locals: { url: create_seller_api_admin_seller_path, text: text }) %>");
 $('#seller-api-modal').modal('show');

@@ -1,8 +1,13 @@
 $("#error-message").text('');
 <% unless @seller.errors.count > 0 %>
-  $("#seller-logo").html("<%= j render 'shared/sellers/seller_logo', logo: @seller.picture %>");
-  $('#editTemplateForm').modal('hide');
-  $('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
+  <% if @image_valid %>
+    $('#editTemplateForm').modal('hide');
+    $("#seller-logo").html("<%= j render 'shared/sellers/seller_logo', logo: @seller.picture %>");
+    $('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
+  <% else %>
+    $('#error-message').html("Image dimensions less than 500 * 500 px")
+  <% end %>
+
 <% else %>
-  $('#error-message').html("<%= @seller.errors.full_messages.join('<br/>').html_safe %>");
+  $('#error-message').html("<%= @seller.errors.details[:"picture.name"].first[:error]&.gsub("Name:","") rescue "Something went wrong while uploading image" %>");
 <% end %>

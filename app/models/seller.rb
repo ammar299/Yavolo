@@ -5,7 +5,6 @@ class Seller < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable, :omniauthable, omniauth_providers: [:google_oauth2 , :facebook]
   validates :email, confirmation: true, presence: true
-  validates :date_of_birth, presence: true
   # validates :contact_number, phone: {allow_blank: true}
   validates_acceptance_of :terms_and_conditions, on: :on_final_step?
   validates_acceptance_of :recieve_deals_via_email, on: :on_final_step?
@@ -104,6 +103,7 @@ class Seller < ApplicationRecord
   end
 
   def date_of_birth_is_valid_datetime
+    return unless date_of_birth.present?
     begin
       date_of_birth.to_date
     rescue

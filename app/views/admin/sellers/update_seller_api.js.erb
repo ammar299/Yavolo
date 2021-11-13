@@ -1,7 +1,7 @@
 $('#seller-api-<%= @seller_api.id %>').find("#developer-api-token #api-token").text("<%= @seller_api.api_token %>");
 $('#seller-api-<%= @seller_api.id %>').find("#seller-api-expiry-date").text("<%= date_format_UK(@seller_api.expiry_date) %>");
 $('#seller-api-<%= @seller_api.id %>').find("#seller-api-developer-id").text("<%= @seller_api.developer_id %>");
-$('#seller-api-<%= @seller_api.id %>').find("#seller-api-status").text("<%= @seller_api.status %>");
+$('#seller-api-<%= @seller_api.id %>').find("#seller-api-status").text("<%= @seller_api.status.capitalize %>");
 $("#seller-api-<%= @seller_api.id %> #seller-api-action-btns").html("<%= j render 'shared/sellers/connection_manager_actions', seller_api: @seller_api %>");
 $('#seller-api-modal').modal('hide');
 $('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
