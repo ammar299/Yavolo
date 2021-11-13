@@ -25,6 +25,8 @@
       <div class="yo-white-card box-border seller-edit-card">
         <div id="seller-logo">
           <%= render 'shared/sellers/seller_logo', logo: @seller.picture %>
+          <p class="text-left">Image must be a .jpg, .gif or .png file smaller
+            than 10MB and at least 500px by 500px.</p>
         </div>
         <div class="text-center">
           <%= link_to "Update Image", create_url(params[:controller], "seller_logo", @seller.id), class: 'btn btn-sm btn-radius px-4 btn-primary mt-1', remote: true %>
