@@ -157,6 +157,9 @@
             <% end %>
           </tbody>
         </table>
+        <% if @filter_groups.count == 0 %>
+          <p class="text-center my-5">No Result Found</p>
+        <% end %>
       </div>
       <div class="row">
         <div class="col-md-4 mx-auto">

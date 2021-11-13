@@ -546,10 +546,6 @@ h1, h2, h3, h4, h5, h6 {
 	width: 100%;
 }
 
-.dashboard-page .leftside .sideheader {
-	padding: 32px 32px 15px 32px;
-	border-bottom: 1px solid #ffffff2e;
-}
 .dashboard-page .leftside .sideheader p {
 	color: #F9EDE1;
 }
@@ -966,7 +962,7 @@ h1, h2, h3, h4, h5, h6 {
 	justify-content: space-between;
 	flex-direction: column;
 	width: 100%;
-	min-height: 522px;
+	min-height: 508px;
 }
 .checkbox-right-text span {
 	font-size: 13px;
@@ -1281,13 +1277,6 @@ box-shadow: 1px 1px 5px #0000000A;
 }
 .ebay-forms input {
 width: 170px;
-}
-.yavolo-box-detail {
-display: flex;
-justify-content: space-between;
-flex-direction: column;
-width: 100%;
-min-height: 522px;
 }
 .checkbox-right-text span {
 font-size: 13px;
@@ -2038,7 +2027,7 @@ select {
 	z-index: 55556;
 }
 .dashboard-page .leftside .sideheader {
-	padding: 32px 32px 15px 32px;
+	padding: 32px 32px 15px 36px;
 	border-bottom: 1px solid #ffffff2e;
 	white-space: nowrap;
 }
