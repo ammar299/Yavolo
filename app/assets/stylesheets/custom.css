@@ -791,3 +791,6 @@ label {
 .admin-header-right .bdr-left {
 	margin-right: 18px;
 }
+.dropdown-filter.show .dropdown-menu a.dropdown-item.multiple-update-sellers {
+  padding-right: 5px !important;
+}
