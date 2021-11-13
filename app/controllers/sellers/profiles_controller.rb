@@ -64,6 +64,12 @@ class Sellers::ProfilesController < Sellers::BaseController
   end
 
   def update_business_representative
+    if seller_params[:listing_status] == 'in_active'
+      #change this seller's products status to inactive
+      @seller.products.where(status: :active).update(status: :inactive)
+    else
+      @seller.products.where(status: :inactive).update(status: :active)
+    end
     @seller.update(seller_params)
     flash.now[:notice] = 'Business Representative updated successfully!'
   end
@@ -98,6 +104,12 @@ class Sellers::ProfilesController < Sellers::BaseController
   end
 
   def holiday_mode
+    if holiday_mode_params[:holiday_mode] == 0 || holiday_mode_params[:holiday_mode] == "0"
+      #change this seller's products status to inactive
+      @seller.products.where(status: :active).update(status: :inactive)
+    else
+      @seller.products.where(status: :inactive).update(status: :active)
+    end
     @seller.update(holiday_mode_params)
     text = @seller.holiday_mode == true ? "Enabled holiday mode successfully" : "Disabled holiday mode successfully"
     flash.now[:notice] = "#{text}"
@@ -125,7 +137,7 @@ class Sellers::ProfilesController < Sellers::BaseController
       flash.now[:notice] = 'Return and Term has been updated successfully!'
     else
       current_seller.create_return_and_term(returns_and_terms_params)
-      flash.now[:success] = 'Return and Term has been created successfully!'
+      flash.now[:notice] = 'Return and Term has been created successfully!'
     end
   end
 

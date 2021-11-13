@@ -13,12 +13,20 @@ class Sellers::ProductsController < Sellers::BaseController
   end
 
   def new
-    if params[:dup_product_id].present?
-      @product = duplicate_product_new(params[:dup_product_id])
+    if current_seller.listing_status == 'in_active'
+      flash[:notice] = "You are not eligible to create product"
+      redirect_to sellers_products_path
+    elsif current_seller.holiday_mode == true
+      flash[:notice] = "Your account is on holiday mode"
+      redirect_to sellers_products_path
     else
-      @product = initialize_new_product
+      if params[:dup_product_id].present?
+        @product = duplicate_product_new(params[:dup_product_id])
+      else
+        @product = initialize_new_product
+      end
+      @delivery_options = current_seller.delivery_options
     end
-    @delivery_options = current_seller.delivery_options
   end
 
   def create

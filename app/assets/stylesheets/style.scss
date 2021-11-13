@@ -859,7 +859,7 @@ h1, h2, h3, h4, h5, h6 {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-	text-align: start;
+	text-align: center;
 }
 .sign-in form {
 	color: #640529;
@@ -875,7 +875,7 @@ h1, h2, h3, h4, h5, h6 {
 	height: 40px;
 	font-size: 14px ;
 	padding: 12px 14px;
-	color: #AAAAAA;
+	color: var(--dark-red);
 	margin-left: 0px;
 }
 .sign-in form .forgt-text {
@@ -1531,7 +1531,7 @@ border-radius: 10px;
     margin: 6px 0;
 	display: flex;
 	justify-content: center;
-	box-shadow: 1px 1px 3px #0000000A;
+	box-shadow: 2px 2px 4px #0000000A;
 }
 
 #update-seller-form{
@@ -1902,7 +1902,6 @@ select {
 	height: 40px;
 	font-size: 14px ;
 	padding: 12px 14px;
-	color: #AAAAAA;
 	
 }
 .sign-in form .forgt-text {
