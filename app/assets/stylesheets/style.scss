@@ -1534,7 +1534,13 @@ border-radius: 10px;
 	box-shadow: 1px 1px 3px #0000000A;
 }
 
-
+#update-seller-form{
+  .preview-img{
+    height: 100px;
+    width: 100px;
+    object-fit: contain;
+  }
+}
 
 
 @media (min-width: 768px) {
