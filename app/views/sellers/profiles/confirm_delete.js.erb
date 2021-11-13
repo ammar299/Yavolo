@@ -1,2 +1,6 @@
 $('.delete-modal-body').html("<%= j render(partial: 'delivery_option_confirmation_modal', locals: { delivery_option: @delivery_option }) %>");
 $('#delete-confirmation-modal').modal('show');
+<% if params[:delete] == "false" %>
+$('#delivery-option-text').text('Unable to remove template as still has products assigned');
+$('#confirmation-buttons').hide();
+<% end %>
