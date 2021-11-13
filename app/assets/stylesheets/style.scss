@@ -1136,6 +1136,7 @@ h1, h2, h3, h4, h5, h6 {
 	border: none;
 	font-size: 12px;
 	padding: 6px 4px;
+	min-width: 90px;
 }
 .seller-edit-card {
 	display: flex;
@@ -1727,7 +1728,7 @@ border-radius: 10px;
 }
 
 .seller-edit-card table {
-	word-break: break-all;
+	word-break: break-word;
 }
 
  /* ===============ckeditor settings============= */
