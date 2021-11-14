@@ -32,12 +32,15 @@ function addNewSellerFormValidation() {
       },
       "seller[company_detail_attributes][website_url]": {
         required: true,
+        url_without_scheme: true
       },
       "seller[company_detail_attributes][amazon_url]": {
         required: true,
+        url_without_scheme: true
       },
       "seller[company_detail_attributes][ebay_url]": {
         required: true,
+        url_without_scheme: true
       },
       "seller[company_detail_attributes][vat_number]": {
         required: true,
@@ -236,6 +239,10 @@ function addNewSellerFormValidation() {
       }
     },
   });
+  jQuery.validator.addMethod("url_without_scheme", function(value, element) {
+        return /^(?:www\.)?[A-Za-z0-9_-]+\.+[A-Za-z0-9.\/%&=\?_:;-]+$/.test(value);
+      }, "Please enter a valid URL without http/https"
+  );
 }
 function newSellerFormDropdownValidation() {
   $('body').on('change', '#seller_company_detail_attributes_country, #seller_addresses_attributes_0_country, #seller_addresses_attributes_1_country', '#seller_bank_detail_attributes_country', function () {
