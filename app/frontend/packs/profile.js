@@ -4,7 +4,7 @@ $(document).ready(function () {
   newSellerFormDropdownValidation();
 });
 function addNewSellerFormValidation() {
-  $("form#add_new_seller_profile_form").validate({
+  $("form.add_new_seller_profile_form").validate({
     ignore: "",
     rules: {
       "seller[email]": {
@@ -31,12 +31,15 @@ function addNewSellerFormValidation() {
       },
       "seller[company_detail_attributes][website_url]": {
         required: true,
+        url_without_scheme: true
       },
       "seller[company_detail_attributes][amazon_url]": {
         required: true,
+        url_without_scheme: true
       },
       "seller[company_detail_attributes][ebay_url]": {
         required: true,
+        url_without_scheme: true
       },
       "seller[company_detail_attributes][vat_number]": {
         required: true,
@@ -205,6 +208,10 @@ function addNewSellerFormValidation() {
       },
     },
   });
+  jQuery.validator.addMethod("url_without_scheme", function(value, element) {
+        return /^(?:www\.)?[A-Za-z0-9_-]+\.+[A-Za-z0-9.\/%&=\?_:;-]+$/.test(value);
+      }, "Please enter a valid URL without http/https"
+  );
 }
 
 function newSellerFormDropdownValidation() {
