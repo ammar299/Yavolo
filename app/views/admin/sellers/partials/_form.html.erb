@@ -37,7 +37,7 @@
             <div class="form-group form-group-vertical form-group-vertical-responsive">
               <%= cd.label :country, 'Country:' %>
               <div style="flex: 1">
-                <%= cd.select :country, [['United Kingdom', 'United Kingdom']], { prompt: 'Select Country' }, required: true, class: 'form-control' %>
+                <%= cd.select :country, options_for_select(countries_list, addr.object.country || default_country), { prompt: 'Select Country' }, required: true, class: 'form-control' %>
               </div>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
@@ -136,7 +136,7 @@
               </div>
               <div class="form-group form-group-vertical form-group-vertical-responsive col-md-3">
               <div style="flex: 1">
-                <%= addr.select :country, [['United Kingdom', 'United Kingdom']], { prompt: 'Select Country' }, class: 'form-control' %>
+                <%= addr.select :country, options_for_select(countries_list, addr.object.country || default_country), { prompt: 'Select Country' }, class: 'form-control' %>
               </div>
               </div>
             </div>
@@ -214,7 +214,7 @@
               </div>
               <div class="form-group form-group-vertical form-group-vertical-responsive col-md-3">
                 <div style="flex: 1">
-                  <%= addr.select :country, [['United Kingdom', 'United Kingdom'],['United States', 'United States']], { prompt: 'Select Country' }, class: 'form-control' %>
+                  <%= addr.select :country, options_for_select(countries_list, addr.object.country || default_country), { prompt: 'Select Country' }, class: 'form-control' %>
                 </div>
               </div>
             </div>

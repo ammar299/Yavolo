@@ -23,7 +23,7 @@
             <% has_error, msg = get_errors(form, "bank_detail.country") %>
             <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= cd.label :country, 'Country of Bank Account*' %>
-              <%= cd.select :country, [['United Kingdom', 'United Kingdom']], { prompt: 'Select Country' }, required: true, class: 'form-control' %>
+              <%= cd.select :country, options_for_select(countries_list, addr.object.country || default_country), { prompt: 'Select Country' }, required: true, class: 'form-control' %>
               <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
             <% has_error, msg = get_errors(form, "bank_detail.sort_code") %>
