@@ -254,14 +254,14 @@
                         <th>Image</th>
                         <th>product Name</th>
                         <th>Attribute</th>
-                        <th>Uploaded</th>
+                        <th>Seller</th>
                         <th>Stock</th>
                         <th>Price</th>
                         <th>30 Day Sales</th>
                         <th>30 Day Revenue</th>
                         <th>Yavolo Enabled</th>
                         <th>Yavolo Discount</th>
-                        <th>Assign</th>
+                        <th class="text-center">Assign</th>
                         <th class="text-center">Actions</th>
 
                     </tr>
@@ -304,8 +304,8 @@
                         </td>
                         <td class="stock-box"><%=product.stock.to_i %></td>
                         <td class="price-box"><%=number_to_currency((number_with_precision(product.price, :precision => 2) || 0), unit: '£') %></td>
-                        <td>300</td>
-                        <td>300</td>
+                        <td><%=number_to_currency((number_with_precision(300)), unit: '£') %></td>
+                        <td><%=number_to_currency((number_with_precision(300)), unit: '£') %></td>
                         <td>
                             <% if product.yavolo_enabled %>
                                 <div class="d-flex">
