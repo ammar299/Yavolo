@@ -28,7 +28,9 @@
                     </label>
                 </div>
                 <div class="deliver-option-left">
-                    <p class="mb-0"><%= d_option.products.count > 0  ? pluralize(d_option.products.count, 'Listing') : '0 Listing'  %></p>
+                    <p class="mb-0">
+                    <%= d_option.product_count > 1  ? pluralize(d_option.product_count, 'Listing') : "#{d_option.product_count} Listing"  %>
+                    </p>
                 </div>
             </div>
             <% end %>

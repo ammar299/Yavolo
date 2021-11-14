@@ -1,18 +1,21 @@
 <div id="<%= address.address_type %>">
-  <h5 class="text-center"><%= address.address_type.humanize %></h5>
+  <h5 class="text-center"><%= return_to_returns_address(address.address_type).humanize %></h5>
   <% if address.id.present? %>
     <table class="table mt-2">
       <tbody>
       <tr>
         <!--<td class="">Address Line 1:</td>-->
         <td>
-          <%= simple_format(address_format(address)) %>
+        <% formated_address = address_format(address) %>
+          <%= simple_format(formated_address) %>
         </td>
       </tr>
+      <% if formated_address.present? %>
       <tr>
         <td class="">Phone number:</td>
         <td><%= address.phone_number.present? ? address.phone_number : "" %></td>
       </tr>
+      <% end %>
       </tbody>
     </table>
   <% end %>

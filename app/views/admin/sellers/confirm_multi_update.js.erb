@@ -1,3 +1,11 @@
+var $selected_sellers = []
+$('.multiple-update-sellers input[type=checkbox]:checked').each(function () {
+$selected_sellers.push($(this).val())
+});
+if ($selected_sellers.length < 1) {
+  $('#flash-msg').html("<%= j render partial: 'shared/notice_banner', locals: {notice: 'You have not selected any sellers to update'}%>");
+}
+else {
 <% if params[:param_to_update].present? && params[:param_to_update] == 'approve' %>
   <% text = 'Are you sure you want to approve these sellers?' %>
 <% elsif params[:param_to_update].present? && params[:param_to_update] == 'suspend' %>
@@ -9,10 +17,7 @@
 <% end %>
 $('#seller-actions').html("<%= j render(partial: 'admin/sellers/update_multi_sellers_confirmation_modal', locals: { text: text }) %>");
 $('#confirm-seller-actions-modal').modal('show');
-var $selected_sellers = []
-$('.multiple-update-sellers input[type=checkbox]:checked').each(function () {
-$selected_sellers.push($(this).val())
-});
 var href_val = $('.confirmed-action').attr('href');
 href_val = href_val + "&ids=" + $selected_sellers.join(",")
 $('.confirmed-action').attr('href', href_val);
+}

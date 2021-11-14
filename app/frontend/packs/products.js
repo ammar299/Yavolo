@@ -1,5 +1,6 @@
 // load all products related js here
 $(document).ready(function(){
+  bindResultPerPageOption();
   bindAndSortByEvent();
   bindFilterByEvents();
   bindRemoveFilterBy();
@@ -37,7 +38,7 @@ $(document).ready(function(){
       $('.bulk-actions a.dropdown-item').removeClass('active');
       $(this).addClass('active');
       let action = $('.bulk-actions a.dropdown-item.active').data('bulkaction');
-      if(['activate','yavolo_enabled','yavolo_disabled','delete'].includes(action)){
+      if(['activate','deactivate','yavolo_enabled','yavolo_disabled','delete'].includes(action)){
         $('#seller-products-confirm').modal('show');
       }else{
         $('#product-new-value').val('');
@@ -109,7 +110,7 @@ $(document).ready(function(){
   });
 
   productSearchByFilter();
-  // bindDragAndDropPhotosEvents();
+  bindDragAndDropPhotosEvents();
   if(document.getElementById('upload-csv-popup'))
     bindDragAndDropEvents('upload-csv-popup');
 
@@ -153,6 +154,7 @@ $(document).ready(function(){
 
   $(document).on('click','.img-del-icon', function(){
     if(confirm("Are you sure to delete this image?")){
+      const filename =  $(this).parents('.col-md-4').attr('data-file-name')
       if($(this).hasClass('new-obj')){
         $(this).parents('.col-md-4').remove();
       }else{
@@ -163,6 +165,7 @@ $(document).ready(function(){
       if(idx && $('#dupimg'+idx).length > 0){
         $('#dupimg'+idx).remove();
       }
+      removeProductFromFileList(filename)
     }
   });
 
@@ -211,6 +214,18 @@ $(document).ready(function(){
 
 });
 
+function bindResultPerPageOption(){
+  $('.perpage-option').click(function(e){
+    e.preventDefault();
+    if($('#per_page').length > 0){
+      $('#per_page').val($(this).data('per-page'));
+    }else{
+      $('#product_search').append('<input type="hidden" name="per_page" id="per_page">')
+      $('#per_page').val($(this).data('per-page'));
+    }
+    $('form#product_search').submit();
+  })
+}
 function bindAndSortByEvent(){
   $('.sortby-products').click(function(e){
     e.preventDefault();
@@ -326,12 +341,12 @@ function updateFieldValue(pid,val,action){
 function bindAndLoadSellersSelectize(){
   $("#search_seller_select").selectize({
     valueField: "id",
-    labelField: "username",
-    searchField: "username",
+    labelField: "full_name",
+    searchField: "full_name",
     render: {
       option: function (item, escape) {
         return (
-          '<option value="'+item.id+'">'+item.username+'</option>'
+          '<option value="'+item.id+'">'+item.full_name+'</option>'
         );
       },
     },
@@ -344,8 +359,7 @@ function bindAndLoadSellersSelectize(){
         data: {
           "q[email_or_first_name_or_last_name_cont]": query,
           "q[s]": "first_name asc",
-          page_limit: 15,
-          apikey: "w82gs68n8m2gur98m6du5ugc",
+          page_limit: 15
         },
         error: function () {
           callback();
@@ -378,7 +392,7 @@ function renderCategoryFilterGroups(res){
       let FGroup = '';
       FGroup += '<div class="general-mrgn col-md-3 mt-0">'
       FGroup +=    '<label>'+res.data.filter_groups[i].filter_name+'</label>'
-      FGroup +=    '<select name="product[filter_in_category_ids][]" class="form-control filter-names" multiple required>'
+      FGroup +=    '<select name="product[filter_in_category_ids][]" class="form-control filter-names" multiple >'
       if(res.data.filter_groups[i].filter_in_categories.length > 0){
         for(let j=0; j < res.data.filter_groups[i].filter_in_categories.length; j++){
           let finId = res.data.filter_groups[i].filter_in_categories[j].id
@@ -433,7 +447,8 @@ function uploadCSVFile(files){
 function previewProductImages(files){
   let preveiwImagesTemplate = [];
   for(let i=0; i<files.length; i++ ){
-    preveiwImagesTemplate.push(imageTemplate(URL.createObjectURL(files[i])));
+    preveiwImagesTemplate.push(imageTemplate(URL.createObjectURL(files[i]),files[i].name));
+    
   }
   if($('.product-photos-grid').length > 0){
     $('.product-photos-grid').append(preveiwImagesTemplate.join(""));
@@ -441,6 +456,44 @@ function previewProductImages(files){
     $('.product-photos-section').show();
     $('#upload-images-popup').modal('hide');
   }
+  let a = FileListItems(files, oldFiles)
+  $("#product_pictures_attributes_0_name").prop("files",a)
+
+}
+
+var oldFiles = []
+
+function FileListItems(files,oldFiles) {
+  var b = new DataTransfer()
+  var unique_names = []
+  for (var i = 0, len = files.length; i<len; i++) {
+    if(!unique_names.includes(files[i].name)){
+      unique_names.push(files[i].name)
+      b.items.add(files[i])
+      oldFiles.push(files[i])
+    }
+  }
+
+  for (var i = 0 , len = (files.length+oldFiles.length); i<oldFiles.length; i++){
+    if(!unique_names.includes(oldFiles[i].name)){
+      unique_names.push(oldFiles[i].name)
+      b.items.add(oldFiles[i])
+    }
+  }
+  return b.files
+}
+
+function removeProductFromFileList(filename){
+  files = $("#product_pictures_attributes_0_name").prop("files")
+  oldFiles = []
+  let b = new DataTransfer()
+  for (var i = 0, len = files.length; i<len; i++) {
+    if(files[i].name != filename){
+      b.items.add(files[i])
+      oldFiles.push(files[i])
+    }
+  }
+  $("#product_pictures_attributes_0_name").prop("files",b.files)
 }
 
 function bindDragAndDropEvents(dropAreaId){
@@ -530,13 +583,13 @@ function unhighlight(e) {
 function handleDrop(e) {
   let dt = e.dataTransfer
   let files = dt.files
-
+  
   previewProductImages(files)
 }
 
-function imageTemplate(path){
+function imageTemplate(path,filename){
   let template = "";
-  template += '<div class="col-md-4 p-1">';
+  template += `<div class="col-md-4 p-1" data-file-name="${filename}">`;
   template +=  '<div class="grid-single-img">';
   template +=      '<span>';
   template +=          '<img src="'+path+'" alt="">';
@@ -624,6 +677,16 @@ function validProductForm(){
     $("#product_price").parents('.form-group').append('<small class="form-text">* Price can\'t be blank</small>')
   }
 
+  $("#product_ean").parents('.form-group').find('small').remove();
+  if($("#product_ean").val().length > 0){
+    $("#product_ean").parents('.form-group').removeClass('error-field')
+    $("#product_ean").parents('.form-group').find('small').remove();
+  }else{
+    has_errors.push(true)
+    $("#product_ean").parents('.form-group').addClass('error-field')
+    $("#product_ean").parents('.form-group').append('<small class="form-text">* Please enter a valid EAN.</small>')
+  }
+
   $("#product_stock").parents('.form-group').find('small').remove();
   if($("#product_stock").val().length > 0){
     $("#product_stock").parents('.form-group').removeClass('error-field')
@@ -673,12 +736,22 @@ function validProductForm(){
 
   $("#product_category").parents('.form-group').find('small').remove();
   if($("#product_category").val().length > 0){
-    $(".selectize-input.items.has-options").removeClass('custom-border')
+    $("#product_category").parents('.form-group').find(".selectize-input").removeClass('custom-border');
     $("#product_category").parents('.form-group').find('small').remove();
   }else{
     has_errors.push(true)
-    $(".selectize-input.items.has-options").addClass('custom-border')
+    $("#product_category").parents('.form-group').find(".selectize-input").addClass('custom-border');
     $("#product_category").parents('.form-group').append('<small class="form-text">* Category can\'t be blank</small>')
+  }
+
+  $("#search_seller_select").parents('.form-group').find('small').remove();
+  if($("#search_seller_select").val().length > 0){
+    $("#search_seller_select").parents('.form-group').find(".selectize-input").removeClass('custom-border');
+    $("#search_seller_select").parents('.form-group').find('small').remove();
+  }else{
+    has_errors.push(true)
+    $("#search_seller_select").parents('.form-group').find(".selectize-input").addClass('custom-border');
+    $("#search_seller_select").parents('.form-group').append('<small class="form-text mt-0">* Seller can\'t be blank</small>')
   }
 
   return !has_errors.includes(true)
@@ -711,6 +784,7 @@ function updateBulkProducts(action){
       updateProductsDom(res);
       showSuccessAlert('Products updated successfully');
       $('#product-new-value').val('');
+      $('.bulk-actions a.dropdown-item').removeClass('active');
     },
     error: function(xhr){
       showErrorsAlert(xhr.responseJSON.errors);
@@ -756,6 +830,9 @@ function updateProductsDom(res){
 
   if(action=='activate')
     $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('td.product-status').html('Active')
+
+  if(action=='deactivate')
+    $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('td.product-status').html('Inactive')
 
   if(action=='yavolo_enabled'){
     $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.enable-yavolo-btn').remove();

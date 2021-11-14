@@ -197,6 +197,7 @@ h4 {
     right: 0;
     transform: inherit !important;
     top: 35px !important;
+    min-width: 140px !important;
 }
 .dropdown-filter.show .dropdown-menu a {
     color: var(--dark-red);

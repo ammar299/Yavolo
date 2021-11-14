@@ -7,7 +7,7 @@
                     <% has_error, msg = get_errors(form, :price) %>
                     <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
                         <%= form.label :price, 'Price (Inc VAT if applicable)' %>
-                        <%= form.number_field :price, class: 'form-control', min: 0 %>
+                        <%= form.text_field :price, class: 'form-control', min: "0.00", step: "0.01" , placeholder: '0.00' %>
                         <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                     </div>
 
@@ -36,3 +36,11 @@
     </div>
     <%= render partial: "shared/products/yavolo_discount", locals: { form: form } %>
 </div>
+<script>
+$(document).ready(function(){
+    $("#product_price").inputmask('currency', {
+    prefix: '£',
+    rightAlign: false
+  });
+})
+</script>

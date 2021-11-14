@@ -82,7 +82,9 @@ $(document).ready(function(){
           required: true
         },
         "seller[business_representative_attributes][email]": {
-          required: true
+          required: true,
+          email: true,
+          regex: /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
         },
         "seller[business_representative_attributes][job_title]": {
           required: true
@@ -125,94 +127,94 @@ $(document).ready(function(){
       },
       messages: {
         "seller[email]": {
-            required: "Email is required"
+            required: "Required"
         },
         "seller[company_detail_attributes][name]": {
-          required: "Company name is required"
+          required: "Required"
         },
         "seller[company_detail_attributes][country]": {
-          required: "Country name is required"
+          required: "Required"
         },
         "seller[company_detail_attributes][legal_business_name]": {
-          required: "Legal business name is required"
+          required: "Required"
         },
         "seller[company_detail_attributes][companies_house_registration_number]": {
-          required: "Registration number is required"
+          required: "Required"
         },
         "seller[company_detail_attributes][doing_business_as]": {
-          required: "This field is required"
+          required: "Required"
         },
         "seller[company_detail_attributes][business_industry]": {
-          required: "Business industry is required"
+          required: "Required"
         },
         "seller[company_detail_attributes][website_url]": {
-          required: "Website URL is required"
+          required: "Required"
         },
         "seller[company_detail_attributes][amazon_url]": {
-          required: "Amazon URL is required"
+          required: "Required"
         },
         "seller[company_detail_attributes][ebay_url]": {
-          required: "ebay URL is required"
+          required: "Required"
         },
         "seller[company_detail_attributes][vat_number]": {
-          required: "VAT number is required"
+          required: "Required"
         },
         "seller[addresses_attributes][0][address_line_1]": {
-          required: "Address is required"
+          required: "Required"
         },
         "seller[addresses_attributes][0][address_line_2]": {
-          required: "Address is required"
+          required: "Required"
         },
         "seller[addresses_attributes][0][city]": {
-          required: "City is required"
+          required: "Required"
         },
         "seller[addresses_attributes][0][county]": {
-          required: "County is required"
+          required: "Required"
         },
         "seller[addresses_attributes][0][postal_code]": {
-          required: "Postal Code is required"
+          required: "Required"
         },
         "seller[addresses_attributes][0][country]": {
-          required: "Country name is required"
+          required: "Required"
         },
         "seller[addresses_attributes][0][phone_number]": {
-          required: "Phone number is required"
+          required: "Required"
         },
         "seller[business_representative_attributes][full_legal_name]": {
-          required: "Full legal name is required"
+          required: "Required"
         },
         "seller[business_representative_attributes][email]": {
-          required: "Email is required"
+          required: "Required"
         },
         "seller[business_representative_attributes][job_title]": {
-          required: "Job title is required"
+          required: "Required"
         },
         "seller[business_representative_attributes][date_of_birth]": {
-          required: "Date of Birth is required"
+          required: "Required"
         },
         "seller[addresses_attributes][1][address_line_1]": {
-          required: "Address is required"
+          required: "Required"
         },
         "seller[addresses_attributes][1][address_line_2]": {
-          required: "Address is required"
+          required: "Required"
         },
         "seller[addresses_attributes][1][city]": {
-          required: "City is required"
+          required: "Required"
         },
         "seller[addresses_attributes][1][county]": {
-          required: "County is required"
+          required: "Required"
         },
         "seller[addresses_attributes][1][postal_code]": {
-          required: "Postal code is required"
+          required: "Required"
         },
         "seller[addresses_attributes][1][country]": {
-          required: "Country name is required"
+          required: "Required"
         },
         "seller[addresses_attributes][1][phone_number]": {
-          required: "Phone number is required"
+          required: "Required"
         },
         "seller[subscription_type]": {
-          required: "Subscription type is required"
+          required: "Required"
         }
       },
     });
@@ -229,6 +231,25 @@ $(document).ready(function(){
           return this.optional(element) || value.length > 9 && value.match(/^(\(?(0|\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
         }, 'Please specify a valid UK phone number'
     );
+    jQuery.validator.addMethod(
+    /* The value you can use inside the email object in the validator. */
+    "regex",
+
+    /* The function that tests a given string against a given regEx. */
+    function(value, element, regexp)  {
+        /* Check if the value is truthy (avoid null.constructor) & if it's not a RegEx. (Edited: regex --> regexp)*/
+
+        if (regexp && regexp.constructor != RegExp) {
+           /* Create a new regular expression using the regex argument. */
+           regexp = new RegExp(regexp);
+        }
+
+        /* Check whether the argument is global and, if so set its last index to 0. */
+        else if (regexp.global) regexp.lastIndex = 0;
+
+        /* Return whether the element is optional or the result of the validation. */
+        return this.optional(element) || regexp.test(value);
+    });
   }
 
   function loginSettingsForm() {
@@ -508,7 +529,9 @@ window.validateSellerEditForm = function() {
         required: true
       },
       "seller[business_representative_attributes][email]": {
-        required: true
+        required: true,
+        email: true,
+        regex: /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
       },
       "seller[business_representative_attributes][job_title]": {
         required: true
@@ -655,6 +678,26 @@ window.validateSellerEditForm = function() {
         return this.optional(element) || value.length > 9 && value.match(/^(\(?(0|\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
       }, 'Please specify a valid UK phone number'
   );
+  jQuery.validator.addMethod(
+    /* The value you can use inside the email object in the validator. */
+    "regex",
+
+    /* The function that tests a given string against a given regEx. */
+    function(value, element, regexp)  {
+        /* Check if the value is truthy (avoid null.constructor) & if it's not a RegEx. (Edited: regex --> regexp)*/
+
+        if (regexp && regexp.constructor != RegExp) {
+           /* Create a new regular expression using the regex argument. */
+           regexp = new RegExp(regexp);
+        }
+
+        /* Check whether the argument is global and, if so set its last index to 0. */
+        else if (regexp.global) regexp.lastIndex = 0;
+
+        /* Return whether the element is optional or the result of the validation. */
+        return this.optional(element) || regexp.test(value);
+    },'Please Enter a valid Email'
+    );
 }
 
 

@@ -114,9 +114,11 @@ function addNewSellerFormValidation() {
       },
       "seller[bank_detail_attributes][sort_code]": {
         required: true,
+        exactlength: 6,
       },
       "seller[bank_detail_attributes][account_number]": {
         required: true,
+        exactlength: 8,
       },
       "seller[bank_detail_attributes][account_number_confirmation]": {
         required: true,
@@ -234,6 +236,7 @@ function addNewSellerFormValidation() {
       },
       "seller[bank_detail_attributes][account_number]": {
         required: "Account Number is required",
+
       },
       "seller[bank_detail_attributes][account_number_confirmation]": {
         required: "Confirm Account Number is required",
@@ -256,6 +259,9 @@ function addNewSellerFormValidation() {
         return this.optional(element) || value.length > 9 && value.match(/^(\(?(0|\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
       }, 'Please specify a valid UK phone number'
   );
+jQuery.validator.addMethod("exactlength", function(value, element, param) {
+ return this.optional(element) || value.length == param;
+}, $.validator.format("Please enter exactly {0} characters."));
 }
 function newSellerFormDropdownValidation() {
   $('body').on('change', '#seller_company_detail_attributes_country, #seller_addresses_attributes_0_country, #seller_addresses_attributes_1_country', '#seller_bank_detail_attributes_country', function () {

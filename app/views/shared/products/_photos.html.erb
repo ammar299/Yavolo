@@ -4,8 +4,7 @@
             <div class="add-photoo text-center <%= form.object.new_record? && params[:dup_product_id].blank? ? 'photos-uploader-section' : '' %>">
                 <div class="add-photo-inner">
                     <a href="" class="btn btn-radius px-4 btn-primary photo-btn grid-btn-top show-upload-images-popup"><%=form.object.new_record? && params[:dup_product_id].blank? ? 'Add Photos' : 'Edit Photos' %></a><br>
-                    <small class="red-color">Upload images to show your sensational in all its
-                        wonderful glory</small>
+                    <small class="red-color">Upload images to show your sensational product in all its wonderful glory.</small>
                 </div>
             </div>
         </div>
@@ -44,7 +43,7 @@
                 </div>
             </div>
         </div>
-        <h4 class="photo-text"><strong>Photos</strong> </h4>
+        <h4 class="photo-text">Photos</h4>
     </div>
 </div>
 <%= render partial: "shared/products/upload_images_popup", locals: { form: form } %>
