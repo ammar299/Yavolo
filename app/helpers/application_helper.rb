@@ -135,4 +135,20 @@ module ApplicationHelper
   def date_format_UK(date)
     date.strftime('%d/%m/%Y')
   end
+
+  def countries_list
+    COUNTRIES_HASH_LIST.map { |obj| [obj[:name]] }
+  end
+
+  def default_country
+    "United Kingdom"
+  end
+
+  def return_to_returns_address(address_type)
+    if address_type == 'return_address'
+      return 'returns_address'
+    else
+      return address_type
+    end
+  end
 end

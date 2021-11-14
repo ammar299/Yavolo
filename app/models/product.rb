@@ -21,16 +21,31 @@ class Product < ApplicationRecord
     has_many :pictures, as: :imageable, dependent: :destroy
     alias_attribute  :images, :pictures
 
-    belongs_to :owner, polymorphic: true
+    belongs_to :owner, polymorphic: true, optional: true
     belongs_to :delivery_option
 
     accepts_nested_attributes_for :seo_content, :ebay_detail, :google_shopping, :assigned_category
     accepts_nested_attributes_for :pictures, allow_destroy: true
 
+    validates :ean, presence: true
     # validates :sku, uniqueness: true, if: Proc.new{|p| p.sku.present? }
     validates :ean, uniqueness: true, if: Proc.new{|p| p.ean.present? }
     validates :yan, uniqueness: true, if: Proc.new{|p| p.yan.present? }
     validates :title, :condition, :description, :keywords, :price, :stock, presence: true
+    validate :validate_seller
+
+    def validate_seller
+        if owner_id.blank?
+            errors.add(:owner_id, "Seller can't be blank")
+        else
+            seller = Seller.where(id: owner_id).first
+            if seller.blank? 
+                errors.add(:owner_id, "Seller not found")
+            else
+                owner_type == 'Seller'
+            end
+        end
+    end
 
 
     scope :all_products, ->(owner) { where(owner_condition(owner)) }

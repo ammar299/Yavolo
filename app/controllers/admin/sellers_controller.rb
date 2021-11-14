@@ -210,7 +210,7 @@ class Admin::SellersController < Admin::BaseController
     def search
       @q = Seller.ransack(params[:q])
       @sellers = @q.result(distinct: true).order('created_at').page(params[:page]).per(params[:per_page].presence || 15)
-      render json: { sellers: @sellers.as_json(methods: :username) }, status: :ok
+      render json: { sellers: @sellers.as_json(methods: :full_name) }, status: :ok
     end
 
     private

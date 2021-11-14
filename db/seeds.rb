@@ -16,4 +16,4 @@ Ship.find_or_create_by(name: 'Islands')
 Ship.find_or_create_by(name: 'Ireland')
 Ship.find_or_create_by(name: 'Northen Ireland')
 
-Address.update_all("addressable_id=seller_id,addressable_type='Seller'")
+# Address.update_all("addressable_id=seller_id,addressable_type='Seller'")

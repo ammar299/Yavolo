@@ -1,3 +1,4 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.2.6/jquery.inputmask.bundle.min.js"></script>
 <div class="container-fluid">
     <div class="formme">
       <div class="file-errors mt-2"></div>
@@ -7,9 +8,6 @@
           <%=form.hidden_field :owner_type %>
           <%=form.hidden_field :namespace, value: 'sellers', id: 'namespace' %>
           <%= render "shared/products/photos", form: form %>
-          <%= render "shared/products/seo_content", form: form %>
-          <%= render "shared/products/google_shopping", form: form %>
-          <%= render "shared/products/ebay_details", form: form %>
           <%= render "shared/products/listing_details", form: form %>
           <%= render "shared/products/pricing_and_quantity", form: form %>
           <%= render "shared/products/delivery_details", form: form, new_delivery_option_url: new_sellers_delivery_option_path %>
@@ -28,14 +26,6 @@
             disEditor = newEditor;
         })
         .catch( error => {
-            console.error( error );
-        } );
-
-        ClassicEditor.create( document.querySelector( '#product_google_shopping_attributes_description' ) ).catch( error => {
-            console.error( error );
-        } );
-
-        ClassicEditor.create( document.querySelector( '#product_seo_content_attributes_description' ) ).catch( error => {
             console.error( error );
         } );
     })

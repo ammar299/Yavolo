@@ -1,4 +1,5 @@
 class Admin::ProductsController < Admin::BaseController
+  before_action :format_price_value, only: %i[create update]
   include SharedProductMethods
   def index
     @q = Product.ransack(params[:q])
@@ -14,30 +15,23 @@ class Admin::ProductsController < Admin::BaseController
     else
       @product = initialize_new_product
     end
-    @delivery_options = DeliveryOption.all
+    @delivery_options = admins_delivery_templates
   end
 
   def create
     @product = Product.new(product_params)
-    if !@product.active? && params[:commit]== 'Publish'
+    if !@product.active? && params[:commit]== 'APPROVE & PUBLISH'
       @product.status = 'active'
       @product.published_at = Time.zone.now
-    else
+    elsif params[:commit]== 'SAVE DRAFT'
       @product.status = 'draft'
     end
 
     if @product.save
-      if params[:seller_id].present?
-        @product.owner_id = params[:seller_id].to_i
-        @product.owner_type = 'Seller'
-        @product.save
-      end
       save_product_images_from_remote_urls(@product) if params[:dup_product_id].present?
-      redirect_to edit_admin_product_path(@product), notice: 'Product was successfully created.'
+      redirect_to admin_products_path, notice: 'Product was successfully created.'
     else
-      @delivery_options = DeliveryOption.all
-      @product.owner_id = owner_params[:owner_id]
-      @product.owner_type = owner_params[:owner_type]
+      @delivery_options = admins_delivery_templates
       render action: 'new', product_id: params[:product_id]
     end
 
@@ -49,12 +43,13 @@ class Admin::ProductsController < Admin::BaseController
     @product.build_seo_content if @product.seo_content.blank?
     @product.build_ebay_detail if @product.ebay_detail.blank?
     @product.build_google_shopping if @product.google_shopping.blank?
-    @delivery_options = DeliveryOption.all
+    @product.build_assigned_category if @product.assigned_category.blank?
+    @delivery_options = admin_and_current_product_sellers_delivery_templates
   end
 
   def update
     @product = Product.friendly.find(params[:id])
-    if !@product.active? && params[:commit]== 'PUBLISH'
+    if !@product.active? && params[:commit]== 'APPROVE & PUBLISH'
       @product.status = 'active'
       @product.published_at = Time.zone.now
     elsif params[:commit]== 'SAVE DRAFT'
@@ -62,18 +57,13 @@ class Admin::ProductsController < Admin::BaseController
     end
 
     if @product.update(product_params)
-      if params[:seller_id].present? 
-        @product.owner_id = params[:seller_id].to_i
-        @product.owner_type = 'Seller'
-        @product.save
-      end
       if images_to_delete_params.present?
         @product.pictures_attributes = images_to_delete_params
         @product.save
       end
-      redirect_to edit_admin_product_path(@product), notice: 'Product was successfully updated.'
+      redirect_to admin_products_path, notice: 'Product was successfully updated.'
     else
-      @delivery_options = DeliveryOption.all
+      @delivery_options = admin_and_current_product_sellers_delivery_templates
       render action: 'edit'
     end
 
@@ -145,18 +135,23 @@ class Admin::ProductsController < Admin::BaseController
     end
 
     def initialize_new_product
-      product = Product.new(owner_params)
+      product = Product.new
       product.build_seo_content
       product.build_ebay_detail
       product.build_google_shopping
       product.build_assigned_category
+      product.yavolo_enabled = true
       product
     end
 
     def save_product_images_from_remote_urls(product)
       if params[:product][:copy_images].present?
         images_urls = params[:product][:copy_images].map{ |e|
-          {remote_name_url: "#{ENV['HOST_URL']}#{e[:remote_name_url]}"}
+          if Rails.env.production?
+            {remote_name_url: "#{e[:remote_name_url]}"}
+          else
+            {remote_name_url: "#{ENV['HOST_URL']}#{e[:remote_name_url]}"}
+          end
         }
         product.pictures_attributes=images_urls
         product.save
@@ -165,5 +160,21 @@ class Admin::ProductsController < Admin::BaseController
 
     def filter_by_statuses
       Product.statuses.keys&params[:statuses].split(',') if params[:statuses].present?
+    end
+
+    def format_price_value
+      price = params[:product][:price].split('£').reject(&:blank?).join('').delete(',') if params[:product][:price].present?
+      params[:product][:price] = price if price.present?
+    end
+
+    def admins_delivery_templates
+      DeliveryOption.left_outer_joins(:products).select("delivery_options.*, COUNT(products.*) AS product_count")
+      .where(delivery_optionable_type: 'Admin').group(:id).order('product_count DESC')
+    end
+
+    def admin_and_current_product_sellers_delivery_templates
+      DeliveryOption.left_outer_joins(:products).select("delivery_options.*, COUNT(products.*) AS product_count")
+      .where("delivery_optionable_type = 'Admin' OR (delivery_optionable_id = ? AND delivery_optionable_type = ?)", @product.owner_id, @product.owner_type||'Admin' )
+      .group(:id).order('product_count DESC')
     end
 end
