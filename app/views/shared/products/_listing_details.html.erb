@@ -15,12 +15,15 @@
                     <% has_error, msg = get_errors(form, :condition) %>
                     <div class="form-group general-mrgn col-md-6 mt-0 <%= has_error ? 'error-field' : '' %>">
                         <%= form.label 'Condition*' %>
-                        <%= form.select :condition, Product.conditions.keys.map{|c| [c.titleize, c]}, { prompt: 'Select Condition' }, class: 'form-control' %>
+                        <%= form.select :condition, Product.conditions.keys.map{|c| [(c == 'brand_new' ? 'New' : c.titleize ), c]}, { prompt: 'Select Condition' }, class: 'form-control' %>
                         <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                     </div>
-                    <div class="form-group general-mrgn col-md-6 mt-0">
-                        <label for="exampleInputEmail1">Seller</label>
-                        <%= select_tag "seller_id",[], class: '', id: 'search_seller_select', name: 'seller_id' %>
+
+                    <% has_error, msg = get_errors(form, :owner_id) %>
+                    <div class="form-group general-mrgn col-md-6 mt-0 custom-selectize <%= has_error ? 'error-field' : '' %>">
+                        <label for="exampleInputEmail1">Seller*</label>
+                        <%= form.select :owner_id, [],{}, class: 'form-control', id: 'search_seller_select' %>
+                        <%="<small class='form-text'>#{form.object.errors.where(:owner_id).first.message}</small>".html_safe if has_error %>
                     </div>
                 </div>
 
@@ -92,9 +95,9 @@
     </div>
 </div>
 <script>
-<% if form.object.owner_type == 'Seller' %>
+<% if form.object.owner.present? && form.object.owner_type == 'Seller' %>
 $(document).ready(function(){
-    $("#search_seller_select")[0].selectize.addOption({username: "<%="#{form.object.owner.first_name} #{form.object.owner.last_name}" %>", id: "<%=form.object.owner_id%>" })
+    $("#search_seller_select")[0].selectize.addOption({full_name: "<%="#{form.object.owner.first_name} #{form.object.owner.last_name}" %>", id: "<%=form.object.owner_id%>" })
     $("#search_seller_select")[0].selectize.addItem("<%=form.object.owner_id%>")
 });
 <% end %>

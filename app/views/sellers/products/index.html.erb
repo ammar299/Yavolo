@@ -206,7 +206,7 @@
                                                     <p class="mb-0">SKU: <%=product.sku %></p>
                                                     <p class="mb-0">EAN: <%=product.ean %></p>
                                                     <p class="mb-0">Brand: <%=product.brand %></p>
-                                                    <p class="mb-0">Condition: <%=product.condition.to_s.titleize %></p>
+                                                    <p class="mb-0">Condition: <%=product.condition=='brand_new' ? 'New' : product.condition.titleize %></p>
                                                 </td>
                                                 <td>
                                                     <div class="form-group">

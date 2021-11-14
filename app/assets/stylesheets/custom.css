@@ -545,6 +545,7 @@ input::-webkit-inner-spin-button {
 .custom-border {
   border: 1px solid red !important;
 }
+.custom-selectize small.form-text,
 .product-bb-cat small.form-text {
   color: red !important;
 }
@@ -791,6 +792,16 @@ label {
 
 .admin-header-right .bdr-left {
 	margin-right: 18px;
+}
+#category-filter-section .selectize-control.form-control,
+.product-bb-cat .selectize-control.form-control,
+.custom-selectize .selectize-control.form-control{
+  border:none !important;
+  padding: 0 !important;
+}
+
+.error-field .selectize-input{
+  border: 1px solid var(--red) !important;
 }
 .dropdown-filter.show .dropdown-menu a.dropdown-item.multiple-update-sellers {
   padding-right: 5px !important;

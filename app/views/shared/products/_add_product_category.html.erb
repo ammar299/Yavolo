@@ -1,7 +1,9 @@
 <%= form.fields_for :assigned_category, @product.assigned_category do |ac| %>
-<div class="form-group general-mrgn mt-0 product-bb-cat">
+<% has_error, msg = get_errors(form, "assigned_category.category_id") %>
+<div class="form-group general-mrgn mt-0 product-bb-cat <%= has_error ? 'error-field' : '' %>">
     <label for="exampleInputEmail1">Category*</label>
     <%= ac.select :category_id, Category.baby_categories.map{|bc| [bc.category_name.titleize, bc.id]}, { prompt: 'Search for the best Yavolo category for your product' }, class: 'form-control', id: 'product_category' %>
+    <%="<small class='form-text'>#{form.object.errors.where("assigned_category.category_id").first.message}</small>".html_safe if has_error %>
 </div>
 <% end %>
 
