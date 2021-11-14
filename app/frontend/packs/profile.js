@@ -58,12 +58,14 @@ function addNewSellerFormValidation() {
       },
       "seller[addresses_attributes][0][postal_code]": {
         required: true,
+        postal_code_uk: true
       },
       "seller[addresses_attributes][0][country]": {
         required: true,
       },
       "seller[addresses_attributes][0][phone_number]": {
         required: true,
+        phone_number_uk: true
       },
       "seller[business_representative_attributes][full_legal_name]": {
         required: true,
@@ -91,12 +93,14 @@ function addNewSellerFormValidation() {
       },
       "seller[addresses_attributes][1][postal_code]": {
         required: true,
+        postal_code_uk: true
       },
       "seller[addresses_attributes][1][country]": {
         required: true,
       },
       "seller[addresses_attributes][1][phone_number]": {
         required: true,
+        phone_number_uk: true
       },
       "seller[subscription_type]": {
         required: true,
@@ -211,6 +215,15 @@ function addNewSellerFormValidation() {
   jQuery.validator.addMethod("url_without_scheme", function(value, element) {
         return /^(?:www\.)?[A-Za-z0-9_-]+\.+[A-Za-z0-9.\/%&=\?_:;-]+$/.test(value);
       }, "Please enter a valid URL without http/https"
+  );
+
+  jQuery.validator.addMethod("postal_code_uk", function (value, element) {
+    return this.optional(element) || /^[A-Z]{1,2}[0-9]{1,2} [0-9][A-Z]{2}$/i.test(value);
+  }, "Please specify a valid UK postal code");
+
+  jQuery.validator.addMethod('phone_number_uk', function(value, element) {
+        return this.optional(element) || value.length > 9 && value.match(/^(\(?(0|\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
+      }, 'Please specify a valid UK phone number'
   );
 }
 
