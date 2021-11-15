@@ -43,6 +43,10 @@ class Sellers::ProductsController < Sellers::BaseController
       save_product_images_from_remote_urls(@product) if params[:dup_product_id].present?
       redirect_to sellers_products_path, notice: 'Product was successfully created.'
     else
+      if params[:dup_product_id].present?
+        ref_product = Product.where(id: params[:dup_product_id]).first
+        @product.pictures = ref_product.pictures.dup if ref_product.present?
+      end
       @delivery_options = seller_and_admins_delivery_templates
       @product.owner_id = owner_params[:owner_id]
       @product.owner_type = owner_params[:owner_type]

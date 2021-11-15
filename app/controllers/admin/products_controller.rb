@@ -31,6 +31,10 @@ class Admin::ProductsController < Admin::BaseController
       save_product_images_from_remote_urls(@product) if params[:dup_product_id].present?
       redirect_to admin_products_path, notice: 'Product was successfully created.'
     else
+      if params[:dup_product_id].present?
+        ref_product = Product.where(id: params[:dup_product_id]).first
+        @product.pictures = ref_product.pictures.dup if ref_product.present?
+      end
       @delivery_options = admins_delivery_templates
       render action: 'new', product_id: params[:product_id]
     end
