@@ -33,42 +33,46 @@
             <% end %>
           </div>
         </div>
-        <div class="dropdown dropdown-filter d-inline-flex nowrap">
-          <a href="#" class="btn btn-radius px-2 btn-primary btn-sm ml-1 my-1 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions <i class="fa fa-angle-down ml-3" aria-hidden="true"></i>
-          </a>
-          <% statuses = multi_actions_to_show %>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <% statuses.each do |status_key, status_value| %>
-              <%= link_to status_key.humanize, (confirm_multi_update_admin_sellers_path(param_to_update: "#{status_key}")), remote: true, class: 'dropdown-item' %>
-            <% end %>
-            <%= link_to 'Delete', (confirm_multi_update_admin_sellers_path(param_to_update: "delete")), remote: true,class: 'dropdown-item' %>
-            <a class="dropdown-item multiple-update-sellers" href="#" id="send-password-reset-email-sellers">Send Password <br>Reset Email</a>
+        <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border">
+          <div class="dropdown">
+            <a href="#" class="btn btn-radius btn-sm px-3 btn-primary btn-link-dropdown-1 align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions <i class="fa fa-angle-down ml-3" aria-hidden="true"></i>
+            </a>
+            <% statuses = multi_actions_to_show %>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <% statuses.each do |status_key, status_value| %>
+                <%= link_to status_key.humanize, (confirm_multi_update_admin_sellers_path(param_to_update: "#{status_key}")), remote: true, class: 'dropdown-item' %>
+              <% end %>
+              <%= link_to 'Delete', (confirm_multi_update_admin_sellers_path(param_to_update: "delete")), remote: true,class: 'dropdown-item' %>
+              <a class="dropdown-item multiple-update-sellers" href="#" id="send-password-reset-email-sellers">Send Password </br>Reset Email</a>
+            </div>
           </div>
         </div>
-          <div class="dropdown dropdown-filter  d-inline-flex" id="pages-id">
-            <a href="#" class="btn btn-radius px-2 btn-primary btn-sm ml-1 my-1 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Result Per Page: <%= "##{params[:per_page]}" if params[:per_page].present? %><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <%= form_tag(admin_filter_groups_path, method: :get) do %>
-              <%= link_to (admin_sellers_path(per_page: '15'))  do %>
-              <span class="<%= 'fa fa-check' if params[:per_page] == '15' %>" aria-hidden="true"></span>
-              Result per page: #15
-              <% end %>    
-              <%= link_to (admin_sellers_path(per_page: '30'))  do %>
-              <span class="<%= 'fa fa-check' if params[:per_page] == '30' %>" aria-hidden="true"></span>
-              Result per page: #30
-              <% end %>
-              <%= link_to (admin_sellers_path(per_page: '60'))  do %>
-              <span class="<%= 'fa fa-check' if params[:per_page] == '60' %>" aria-hidden="true"></span>
-              Result per page: #60
-              <% end %>
-              <%= link_to (admin_sellers_path(per_page: '90'))  do %>
-              <span class="<%= 'fa fa-check' if params[:per_page] == '90' %>" aria-hidden="true"></span>
-              Result per page: #90
-              <% end %>
-              <%= link_to (admin_sellers_path(per_page: '180'))  do %>
-              <span class="<%= 'fa fa-check' if params[:per_page] == '180' %>" aria-hidden="true"></span>
-              Result per page: #180
-              <% end %>
+          <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border" id="pages-id">
+            <div class="dropdown">
+              <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Result Per Page: <%= "##{params[:per_page]}" if params[:per_page].present? %><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <%= form_tag(admin_filter_groups_path, method: :get) do %>
+                <%= link_to (admin_sellers_path(per_page: '15'))  do %>
+                <span class="<%= 'fa fa-check' if params[:per_page] == '15' %>" aria-hidden="true"></span>
+                Result per page: #15
+                <% end %>    
+                <%= link_to (admin_sellers_path(per_page: '30'))  do %>
+                <span class="<%= 'fa fa-check' if params[:per_page] == '30' %>" aria-hidden="true"></span>
+                Result per page: #30
+                <% end %>
+                <%= link_to (admin_sellers_path(per_page: '60'))  do %>
+                <span class="<%= 'fa fa-check' if params[:per_page] == '60' %>" aria-hidden="true"></span>
+                Result per page: #60
+                <% end %>
+                <%= link_to (admin_sellers_path(per_page: '90'))  do %>
+                <span class="<%= 'fa fa-check' if params[:per_page] == '90' %>" aria-hidden="true"></span>
+                Result per page: #90
+                <% end %>
+                <%= link_to (admin_sellers_path(per_page: '180'))  do %>
+                <span class="<%= 'fa fa-check' if params[:per_page] == '180' %>" aria-hidden="true"></span>
+                Result per page: #180
+                <% end %>
+              </div>
             </div>
           </div>
         <% end %>
@@ -109,53 +113,46 @@
           </tr>
         </thead>
         <tbody>
-          <% if @sellers.count > 0 %>
-            <% @sellers.each do |seller| %>
-              <tr id="seller-row-<%= seller.id %>">
-                <td>
-                  <div class="multiple-update-sellers">
-                    <label class="checkbox-blk">
-                      <input type="checkbox" id="<%= "select-#{seller.id}" %>" value="<%= seller.id %>">
-                      <span class="checkmark"></span>
-                    </label>
+          <% @sellers.each do |seller| %>
+            <tr id="seller-row-<%= seller.id %>">
+              <td>
+                <div class="multiple-update-sellers">
+                  <label class="checkbox-blk">
+                    <input type="checkbox" id="<%= "select-#{seller.id}" %>" value="<%= seller.id %>">
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+              </td>
+              <td><span class="email-in-table"><%=seller.email %></span></td>
+              <td><%= date_format_UK(seller.created_at) %></td>
+              <td>Show the last sale date</td>
+              <td>Show the number of active listings</td>
+              <td>Show the total sales</td>
+              <td class="account-status">
+                <% account_status = account_status_to_show(seller) %>
+                <%= account_status.humanize %>
+              </td>
+              <td>show the health status</td>
+              <td id="<%= seller.id %>-eligibility-status" class="">
+                <%= seller.eligible_to_create_api == true ? "Enabled" : "Disabled" %>
+              </td>
+              <td class="text-center actions">
+                <div class="all-seller-btn">
+                  <div id="seller-action-btns">
+                    <%= render 'admin/sellers/seller_actions', seller: seller %>
                   </div>
-                </td>
-                <td><span class="email-in-table"><%=seller.email %></span></td>
-                <td><%= date_format_UK(seller.created_at) %></td>
-                <td>Show the last sale date</td>
-                <td>Show the number of active listings</td>
-                <td>Show the total sales</td>
-                <td class="account-status">
-                  <% account_status = account_status_to_show(seller) %>
-                  <%= account_status.humanize %>
-                </td>
-                <td>show the health status</td>
-                <td id="<%= seller.id %>-eligibility-status" class="">
-                  <%= seller.eligible_to_create_api == true ? "Enabled" : "Disabled" %>
-                </td>
-                <td class="text-center actions">
-                  <div class="all-seller-btn">
-                    <div id="seller-action-btns">
-                      <%= render 'admin/sellers/seller_actions', seller: seller %>
-                    </div>
-                    <%= link_to 'Edit', admin_seller_path(seller), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1' %>
-                    <%= link_to "Delete", confirm_update_seller_admin_seller_path(seller, param_to_update: "delete"), remote: true, class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1 current-action', id: "#{seller.id}-delete" %>
-                    <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-1">Contact</a>
-                    <a href="#" class="btn btn-sm btn-radius px-4 btn-danger mb-1">View Products</a>
-                    <% text = seller.eligible_to_create_api == true ? "Disable API creation" : "Enable API creation" %>
-                    <%= link_to "#{text}", confirm_change_seller_api_eligibility_admin_seller_path(seller, param_to_update: "eligibility"), remote: true, class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1 current-action', id: "#{seller.id}-eligibility" %>
-                  </div>
-                </td>
-              </tr>
-            <% end %>
-          <% else %>
-            <p>No record found </p>
+                  <%= link_to 'Edit', admin_seller_path(seller), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1' %>
+                  <%= link_to "Delete", confirm_update_seller_admin_seller_path(seller, param_to_update: "delete"), remote: true, class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1 current-action', id: "#{seller.id}-delete" %>
+                  <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-1">Contact</a>
+                  <a href="#" class="btn btn-sm btn-radius px-4 btn-danger mb-1">View Products</a>
+                  <% text = seller.eligible_to_create_api == true ? "Disable API creation" : "Enable API creation" %>
+                  <%= link_to "#{text}", confirm_change_seller_api_eligibility_admin_seller_path(seller, param_to_update: "eligibility"), remote: true, class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1 current-action', id: "#{seller.id}-eligibility" %>
+                </div>
+              </td>
+            </tr>
           <% end %>
         </tbody>
       </table>
-      <% if @sellers.count == 0 %>
-        <p class="text-center my-5">No Result Found</p>
-      <% end %>
     </div>
     <div class="row">
       <div class="col-md-4 mx-auto">

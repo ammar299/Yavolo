@@ -9,69 +9,65 @@
             <i class="fa fa-search" aria-hidden="true"></i>
             <% end %>
           </div>
-          <div class="dropdown dropdown-filter d-inline-flex">
-            <a href="#"
-            class="btn btn-radius px-2 btn-primary btn-sm ml-1 my-1 btn-link-dropdown-1 d-inline-flex align-items-center"
-            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">Actions <i class="fa fa-angle-down ml-3"
-            aria-hidden="true"></i></a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <%= link_to 'Delete', confirm_multiple_deletion_admin_filter_groups_path, class: 'dropdown-item active', data: { remote: true } %>
-              <%= link_to 'Assign to Category', '#', class: 'dropdown-item disabled', id: 'assign-filter-group-category', data: { remote: true }%>
-              <div class="modal fade modal-xxl filter-group-modal pl-0 align-items-start" id="assignFilterGroupForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Assign Category</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">×</span>
-                    </button>
-                  </div>
-                  <div class="modal-body px-lg-4">
-                    <div id="assign-filter-group-category">
+          <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border">
+            <div class="dropdown">
+              <a href="#" class="btn btn-radius btn-sm px-3 btn-primary btn-link-dropdown-1 align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <%= link_to 'Delete', confirm_multiple_deletion_admin_filter_groups_path, class: 'dropdown-item active', data: { remote: true } %>
+                <%= link_to 'Assign to Category', '#', class: 'dropdown-item disabled', id: 'assign-filter-group-category', data: { remote: true }%>
+                <div class="modal fade modal-xxl filter-group-modal pl-0 align-items-start" id="assignFilterGroupForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Assign Category</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                      </div>
+                      <div class="modal-body px-lg-4">
+                        <div id="assign-filter-group-category"></div>
+                      </div>
                     </div>
                   </div>
                 </div>
+                <!-- <a class="dropdown-item" href="">Assign to category <i class="fa fa-check"
+                  aria-hidden="true"></i></a> -->
               </div>
             </div>
-              <!-- <a class="dropdown-item" href="">Assign to category <i class="fa fa-check"
-                aria-hidden="true"></i></a> -->
+          </div>
+          <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border" id="pages-id">
+            <div class="dropdown">
+              <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Result Per Page: <%= "##{params[:per_page]}" if params[:per_page].present? %><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <%= form_tag(admin_filter_groups_path, method: :get) do %>
+                <%= link_to (admin_filter_groups_path(per_page: '15'))  do %>
+                <span class="<%= 'fa fa-check' if params[:per_page] == '15' %>" aria-hidden="true"></span>
+                Result per page: #15
+                <% end %>
+                <%= link_to (admin_filter_groups_path(per_page: '30'))  do %>
+                <span class="<%= 'fa fa-check' if params[:per_page] == '30' %>" aria-hidden="true"></span>
+                Result per page: #30
+                <% end %>
+                <%= link_to (admin_filter_groups_path(per_page: '60'))  do %>
+                <span class="<%= 'fa fa-check' if params[:per_page] == '60' %>" aria-hidden="true"></span>
+                Result per page: #60
+                <% end %>
+                <%= link_to (admin_filter_groups_path(per_page: '90'))  do %>
+                <span class="<%= 'fa fa-check' if params[:per_page] == '90' %>" aria-hidden="true"></span>
+                Result per page: #90
+                <% end %>
+                <%= link_to (admin_filter_groups_path(per_page: '180'))  do %>
+                <span class="<%= 'fa fa-check' if params[:per_page] == '180' %>" aria-hidden="true"></span>
+                Result per page: #180
+                <% end %>
+                <% end %>
               </div>
             </div>
-              <div class="dropdown dropdown-filter  d-inline-flex" id="pages-id">
-                <a href="#" class="btn btn-radius px-2 btn-primary btn-sm ml-1 my-1 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Result Per Page <%= params[:per_page] %><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <%= form_tag(admin_filter_groups_path, method: :get) do %>
-                  <%= link_to (admin_filter_groups_path(per_page: '15'))  do %>
-                  <span class="<%= 'fa fa-check' if params[:per_page] == '15' %>" aria-hidden="true"></span>
-                  Result per page: #15
-                  <% end %>
-                  <%= link_to (admin_filter_groups_path(per_page: '30'))  do %>
-                  <span class="<%= 'fa fa-check' if params[:per_page] == '30' %>" aria-hidden="true"></span>
-                  Result per page: #30
-                  <% end %>
-                  <%= link_to (admin_filter_groups_path(per_page: '60'))  do %>
-                  <span class="<%= 'fa fa-check' if params[:per_page] == '60' %>" aria-hidden="true"></span>
-                  Result per page: #60
-                  <% end %>
-                  <%= link_to (admin_filter_groups_path(per_page: '90'))  do %>
-                  <span class="<%= 'fa fa-check' if params[:per_page] == '90' %>" aria-hidden="true"></span>
-                  Result per page: #90
-                  <% end %>
-                  <%= link_to (admin_filter_groups_path(per_page: '180'))  do %>
-                  <span class="<%= 'fa fa-check' if params[:per_page] == '180' %>" aria-hidden="true"></span>
-                  Result per page: #180
-                  <% end %>
-                  <% end %>
-                </div>
-              </div>
+          </div>
             
-            <div class="dropdown dropdown-filter  d-inline-flex">
-              <a href="#"
-              class="btn btn-radius px-2 btn-primary btn-sm ml-1 my-1 btn-link-dropdown-1 d-inline-flex align-items-center"
-              id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">Filter by <i class="fa fa-angle-down ml-3"
-              aria-hidden="true"></i></a>
+          <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border">
+            <div class="dropdown">
+              <a href="#" class="btn btn-radius btn-sm px-3 btn-primary btn-link-dropdown-1 align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <%= form_tag(admin_filter_groups_path, method: :get) do %>
                 <%= link_to admin_filter_groups_path(filter_type: 0),class: 'dropdown-item active' do %>
@@ -83,6 +79,8 @@
                 <% end%>
               </div>
             </div>
+          </div>
+
           </div>
           <%= link_to 'Add New Filter Group', new_admin_filter_group_path, class: 'btn btn-sm btn-radius px-4 btn-primary my-2', data: { remote: true } %>
           <div class="modal fade modal-xxl filter-group-modal pl-0 align-items-start" id="filterGroupForm" tabindex="-1" role="dialog"

@@ -49,12 +49,9 @@
                     <% end %>
                     </div>
                 </div>
-                <div class="dropdown dropdown-filter  d-inline-flex">
-                    <a href="#"
-                        class="btn btn-radius px-2 btn-primary btn-sm ml-1 my-1 btn-link-dropdown-1 d-inline-flex align-items-center"
-                        id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">Actions <i class="fa fa-angle-down ml-3"
-                            aria-hidden="true"></i></a>
+                <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border">
+                  <div class="dropdown">
+                    <a href="#" class="btn btn-radius btn-sm px-3 btn-primary btn-link-dropdown-1 align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
                     <div class="dropdown-menu bulk-actions" aria-labelledby="dropdownMenuLink">
                         <a data-bulkaction="activate" class="dropdown-item" href="#">Activate</a>
                         <a data-bulkaction="deactivate" class="dropdown-item" href="#">Deactivate</a>
@@ -65,9 +62,11 @@
                         <a data-bulkaction="update_stock" class="dropdown-item" href="#">Update Stock</a>
                         <a data-bulkaction="update_discount" class="dropdown-item" href="#">Update discount</a>
                     </div>
+                  </div>
                 </div>
-                  <div class="dropdown dropdown-filter  d-inline-flex" id="pages-id">
-                    <a href="#" class="btn btn-radius px-2 btn-primary btn-sm ml-1 my-1 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Results Per Page: <%= params[:per_page] %><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+                <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border" id="pages-id">
+                  <div class="dropdown">
+                    <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Results Per Page: <%= "##{params[:per_page]}" if params[:per_page].present? %><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                       <%= form_tag(admin_products_path, method: :get) do %>
                       <%= link_to "javascript:void(0);", data: { per_page: 15 }, class: 'perpage-option'  do %>
@@ -93,130 +92,128 @@
                       <% end %>
                     </div>
                   </div>
-              <div class="dropdown dropdown-filter  d-inline-flex">
-                <a href="#"
-                    class="btn btn-radius px-2 btn-primary btn-sm ml-1 my-1 btn-link-dropdown-1 d-inline-flex align-items-center"
-                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false"><%= set_product_sort_by_in_dropdown(params) %> <i class="fa fa-angle-down ml-3"
-                        aria-hidden="true"></i></a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                </div>
+              <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border">
+                <div class="dropdown">
+                  <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= set_product_sort_by_in_dropdown(params) %> <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 
-                  <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'title asc').permit!) : {s: 'title asc'} }
-                    q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
-                    q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
-                  %>
-                  <%=link_to '#', class: 'dropdown-item sortby-products', data: {sortby: 'title asc'} do %>
-                    Product Title A-Z
-                    <% if params.dig(:q, :s).present? && params[:q][:s]=='title asc' %>
-                    <i class="fa fa-check" aria-hidden="true"></i>
-                    <% end %>
-                  <% end %>
-
-
-                  <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'title desc').permit!) : {s: 'title desc'} }
-                    q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
-                    q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
-                  %>
-                  <%=link_to '#', class: 'dropdown-item sortby-products',data: {sortby: 'title desc'} do %>
-                    Product Title Z-A
-                    <% if params.dig(:q, :s).present? && params[:q][:s]=='title desc' %>
-                    <i class="fa fa-check" aria-hidden="true"></i>
-                    <% end %>
-                  <% end %>
-
-                  <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'price desc').permit!) : {s: 'price desc'} }
-                    q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
-                    q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
-                  %>
-
-                  <%=link_to '#', class: 'dropdown-item sortby-products', data: {sortby: 'price desc'}  do %>
-                    Price High-Low
-                    <% if params.dig(:q, :s).present? && params[:q][:s]=='price desc' %>
+                    <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'title asc').permit!) : {s: 'title asc'} }
+                      q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
+                      q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
+                    %>
+                    <%=link_to '#', class: 'dropdown-item sortby-products', data: {sortby: 'title asc'} do %>
+                      Product Title A-Z
+                      <% if params.dig(:q, :s).present? && params[:q][:s]=='title asc' %>
                       <i class="fa fa-check" aria-hidden="true"></i>
+                      <% end %>
                     <% end %>
-                  <% end %>
 
-                  <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'price asc').permit!) : {s: 'price asc'} }
-                    q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
-                    q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
-                  %>
-
-                  <%=link_to '#', class: 'dropdown-item sortby-products', data: {sortby: 'price asc'} do %>
-                    Price Low-High
-                    <% if params.dig(:q, :s).present? && params[:q][:s]=='price asc' %>
+                    <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'title desc').permit!) : {s: 'title desc'} }
+                      q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
+                      q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
+                    %>
+                    <%=link_to '#', class: 'dropdown-item sortby-products',data: {sortby: 'title desc'} do %>
+                      Product Title Z-A
+                      <% if params.dig(:q, :s).present? && params[:q][:s]=='title desc' %>
                       <i class="fa fa-check" aria-hidden="true"></i>
+                      <% end %>
                     <% end %>
-                  <% end %>
-                  
-                  <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'yavolo_enabled asc').permit!) : {s: 'yavolo_enabled asc'} }
-                    q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
-                    q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
-                  %>
 
-                  <%=link_to admin_products_path(q_params), class: "dropdown-item admin-filter-by #{ params['yavolo_enabled']=='1' ? 'active' : '' }", data: {status: 'yavolo_enabled' } do %>
-                    Yavolo Enabled
-                    <% if params['yavolo_enabled']=='1'%>
+                    <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'price desc').permit!) : {s: 'price desc'} }
+                      q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
+                      q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
+                    %>
+
+                    <%=link_to '#', class: 'dropdown-item sortby-products', data: {sortby: 'price desc'}  do %>
+                      Price High-Low
+                      <% if params.dig(:q, :s).present? && params[:q][:s]=='price desc' %>
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                      <% end %>
+                    <% end %>
+
+                    <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'price asc').permit!) : {s: 'price asc'} }
+                      q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
+                      q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
+                    %>
+
+                    <%=link_to '#', class: 'dropdown-item sortby-products', data: {sortby: 'price asc'} do %>
+                      Price Low-High
+                      <% if params.dig(:q, :s).present? && params[:q][:s]=='price asc' %>
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                      <% end %>
+                    <% end %>
+                    
+                    <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'yavolo_enabled asc').permit!) : {s: 'yavolo_enabled asc'} }
+                      q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
+                      q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
+                    %>
+
+                    <%=link_to admin_products_path(q_params), class: "dropdown-item admin-filter-by #{ params['yavolo_enabled']=='1' ? 'active' : '' }", data: {status: 'yavolo_enabled' } do %>
+                      Yavolo Enabled
+                      <% if params['yavolo_enabled']=='1'%>
+                        <span class="fa fa-check" aria-hidden="true"></span>
+                      <% end %>
+                    <% end %>
+
+                    <% q_params = {q: params.require(:q).permit! } if params[:q].present?
+                      q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
+                      q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
+                      q_params.merge!(filter_by: 0)
+                    %>
+
+                    <%= link_to admin_products_path(q_params),class: "dropdown-item admin-filter-by #{ params[:statuses].present? && params[:statuses].split(',').include?('draft') ? 'active' : '' }", data: {status: :draft } do %>
+                      Draft
+                      <% if params[:statuses].present? && params[:statuses].split(',').include?('draft')%>
                       <span class="fa fa-check" aria-hidden="true"></span>
+                      <% end %>
                     <% end %>
-                  <% end %>
+                    <% q_params = {q: params.require(:q).permit! } if params[:q].present?
+                      q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
+                      q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
+                      q_params.merge!(filter_by: 1)
+                    %>
+                    <%= link_to admin_products_path(q_params),class: "dropdown-item admin-filter-by #{ params[:statuses].present? && params[:statuses].split(',').include?('active') ? 'active' : '' }", data: {status: :active } do %>
+                      Active
+                      <% if params[:statuses].present? && params[:statuses].split(',').include?('active')%>
+                      <span class="fa fa-check" aria-hidden="true"></span>
+                      <% end %>
+                    <% end %>
 
-                  <% q_params = {q: params.require(:q).permit! } if params[:q].present?
-                    q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
-                    q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
-                    q_params.merge!(filter_by: 0)
-                  %>
-
-                  <%= link_to admin_products_path(q_params),class: "dropdown-item admin-filter-by #{ params[:statuses].present? && params[:statuses].split(',').include?('draft') ? 'active' : '' }", data: {status: :draft } do %>
-                    Draft
-                    <% if params[:statuses].present? && params[:statuses].split(',').include?('draft')%>
-                    <span class="fa fa-check" aria-hidden="true"></span>
+                    <% q_params = {q: params.require(:q).permit! } if params[:q].present?
+                      q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
+                      q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
+                      q_params.merge!(filter_by: 2)
+                    %>
+                    <%= link_to admin_products_path(q_params),class: "dropdown-item admin-filter-by #{ params[:statuses].present? && params[:statuses].split(',').include?('inactive') ? 'active' : '' }", data: {status: :inactive } do %>
+                      Inactive
+                      <% if params[:statuses].present? && params[:statuses].split(',').include?('inactive')%>
+                      <span class="fa fa-check" aria-hidden="true"></span>
+                      <% end %>
                     <% end %>
-                  <% end %>
-                  <% q_params = {q: params.require(:q).permit! } if params[:q].present?
-                    q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
-                    q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
-                    q_params.merge!(filter_by: 1)
-                  %>
-                  <%= link_to admin_products_path(q_params),class: "dropdown-item admin-filter-by #{ params[:statuses].present? && params[:statuses].split(',').include?('active') ? 'active' : '' }", data: {status: :active } do %>
-                    Active
-                    <% if params[:statuses].present? && params[:statuses].split(',').include?('active')%>
-                    <span class="fa fa-check" aria-hidden="true"></span>
+                    <% q_params = {q: params.require(:q).permit! } if params[:q].present?
+                      q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
+                      q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
+                      q_params.merge!(filter_by: 3)
+                    %>
+                    <%= link_to admin_products_path(q_params),class: "dropdown-item admin-filter-by #{ params[:statuses].present? && params[:statuses].split(',').include?('pending') ? 'active' : '' }", data: {status: :pending } do %>
+                      Pending
+                      <% if params[:statuses].present? && params[:statuses].split(',').include?('pending')%>
+                      <span class="fa fa-check" aria-hidden="true"></span>
+                      <% end %>
                     <% end %>
-                  <% end %>
-
-                  <% q_params = {q: params.require(:q).permit! } if params[:q].present?
-                    q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
-                    q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
-                    q_params.merge!(filter_by: 2)
-                  %>
-                  <%= link_to admin_products_path(q_params),class: "dropdown-item admin-filter-by #{ params[:statuses].present? && params[:statuses].split(',').include?('inactive') ? 'active' : '' }", data: {status: :inactive } do %>
-                    Inactive
-                    <% if params[:statuses].present? && params[:statuses].split(',').include?('inactive')%>
-                    <span class="fa fa-check" aria-hidden="true"></span>
+                    <% q_params = {q: params.require(:q).permit! } if params[:q].present?
+                      q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
+                      q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
+                      q_params.merge!(filter_by: 4)
+                    %>
+                    <%= link_to admin_products_path(q_params),class: "dropdown-item admin-filter-by #{ params[:statuses].present? && params[:statuses].split(',').include?('disapproved') ? 'active' : '' }", data: {status: :disapproved } do %>
+                      Disapproved
+                      <% if params[:statuses].present? && params[:statuses].split(',').include?('disapproved')%>
+                      <span class="fa fa-check" aria-hidden="true"></span>
+                      <% end %>
                     <% end %>
-                  <% end %>
-                  <% q_params = {q: params.require(:q).permit! } if params[:q].present?
-                    q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
-                    q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
-                    q_params.merge!(filter_by: 3)
-                  %>
-                  <%= link_to admin_products_path(q_params),class: "dropdown-item admin-filter-by #{ params[:statuses].present? && params[:statuses].split(',').include?('pending') ? 'active' : '' }", data: {status: :pending } do %>
-                    Pending
-                    <% if params[:statuses].present? && params[:statuses].split(',').include?('pending')%>
-                    <span class="fa fa-check" aria-hidden="true"></span>
-                    <% end %>
-                  <% end %>
-                  <% q_params = {q: params.require(:q).permit! } if params[:q].present?
-                    q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
-                    q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
-                    q_params.merge!(filter_by: 4)
-                  %>
-                  <%= link_to admin_products_path(q_params),class: "dropdown-item admin-filter-by #{ params[:statuses].present? && params[:statuses].split(',').include?('disapproved') ? 'active' : '' }", data: {status: :disapproved } do %>
-                    Disapproved
-                    <% if params[:statuses].present? && params[:statuses].split(',').include?('disapproved')%>
-                    <span class="fa fa-check" aria-hidden="true"></span>
-                    <% end %>
-                  <% end %>
+                  </div>
                 </div>
               </div>
             </div>

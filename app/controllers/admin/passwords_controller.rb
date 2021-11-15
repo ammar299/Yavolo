@@ -17,7 +17,7 @@ class Admin::PasswordsController < Devise::PasswordsController
         respond_with(resource)
       end
     else
-      redirect_to new_admin_password_path, flash: { notice: "This email is not present" }
+      redirect_to new_admin_password_path, flash: { notice: "Email does not exists" }
     end
   end
 
