@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    <% if is_eligible?(@seller) %>
+    <% if is_eligible?(@seller) && @seller.skip_success_hub_steps %>
       <%= render 'sellers/dashboard/stats' %>
     <% else %>
       <%= render 'sellers/dashboard/precondition_checkboxes' %>

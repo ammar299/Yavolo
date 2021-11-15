@@ -3,11 +3,6 @@
     <div class=" col-lg-4 col-md-6">
       <div>
         <h5>Let's Get Selling!</h5>
-        <label class="checkbox-blk">
-        <a href="<%= sellers_profile_path(@seller) %>">Brighten Up your business with a Logo*</a>
-          <input type="checkbox" <%= @seller.picture.present? ? 'checked': '' %> disabled>
-          <span class="checkmark"></span>
-        </label>
         <% invoice_address = @seller.addresses.select do |address| address.address_type == 'invoice_address' end %>
         <% return_address = @seller.addresses.select do |address| address.address_type == 'return_address' end %>
         <label class="checkbox-blk">
@@ -30,6 +25,11 @@
     <div class=" col-lg-4 col-md-6">
       <div>
         <h5 class="invisible">Let's Get Selling!</h5>
+        <label class="checkbox-blk">
+        <a href="<%= sellers_profile_path(@seller) %>">Brighten Up your business with a Logo*</a>
+          <input type="checkbox" <%= @seller.picture.present? ? 'checked': '' %> disabled>
+          <span class="checkmark"></span>
+        </label>
         <label class="checkbox-blk">
         <a href="<%= sellers_paypal_integration_index_path %>" >Link up your PayPal account</a>
           <input type="checkbox" <%= @seller&.paypal_detail&.integration_status? ? 'checked': '' %> disabled>
@@ -65,5 +65,10 @@
       </div>
     </div>
   </div>
+  <% if is_eligible?(current_seller) %>
+    <div class="text-right">
+      <%= link_to 'Skip', skip_success_hub_steps_sellers_profile_path(current_seller), class: '' %>
+    </div>
+  <% end %>
   <hr>
 </div>

@@ -2,7 +2,7 @@ class Sellers::ProfilesController < Sellers::BaseController
   layout 'application', :only => [:new]
   layout 'sellers/seller', except: %[new]
   before_action :seller_session_expire, :except=>[:new, :create]
-  before_action :set_seller, only: %i[new show edit update update_business_representative update_company_detail update_seller_logo remove_logo_image update_addresses holiday_mode confirm_reset_password_token reset_password_token seller_login_setting_update]
+  before_action :set_seller, only: %i[new show edit update update_business_representative update_company_detail update_seller_logo remove_logo_image update_addresses holiday_mode confirm_reset_password_token reset_password_token seller_login_setting_update skip_success_hub_steps get_invoice_address get_return_address]
   before_action :set_delivery_template, only: %i[confirm_delete destroy_delivery_template]
   before_action :get_action_url, only: %i[show]
   before_action :set_last_seen_at, if: proc { seller_signed_in? }
@@ -61,6 +61,16 @@ class Sellers::ProfilesController < Sellers::BaseController
   def update
     @seller.update(seller_params)
     redirect_to sellers_seller_authenticated_root_path, flash: { notice: "Seller updated successfully" }
+  end
+
+  def skip_success_hub_steps
+    return_address = get_return_address
+    invoice_address = get_invoice_address
+    if return_address.present? && invoice_address.present?
+      @seller.update(skip_success_hub_steps: true) if @seller.skip_success_hub_steps == false
+      flash[:notice] = "Steps skipped"
+    end
+    redirect_to sellers_seller_authenticated_root_path
   end
 
   def update_business_representative
@@ -150,6 +160,14 @@ class Sellers::ProfilesController < Sellers::BaseController
         addresses_attributes: [:id, :address_line_1, :address_line_2, :city, :county, :country, :postal_code, :phone_number, :address_type],
         picture_attributes: ["name", "@original_filename", "@content_type", "@headers", "_destroy", "id"],
       )
+  end
+
+  def get_return_address
+    @seller.addresses.select do |address| address.address_type == 'return_address' end
+  end
+
+  def get_invoice_address
+    @seller.addresses.select do |address| address.address_type == 'invoice_address' end
   end
 
   def seller_login_params

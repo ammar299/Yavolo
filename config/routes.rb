@@ -148,6 +148,7 @@ Rails.application.routes.draw do
             patch :holiday_mode
             get :confirm_reset_password_token
             patch :reset_password_token
+            get :skip_success_hub_steps
           end
           post :update_seller_api
           patch :update_seller_api
