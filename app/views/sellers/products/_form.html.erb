@@ -8,7 +8,7 @@
           <%=form.hidden_field :owner_type %>
           <%=form.hidden_field :namespace, value: 'sellers', id: 'namespace' %>
           <%= render "shared/products/photos", form: form %>
-          <%= render "shared/products/listing_details", form: form %>
+          <%= render "shared/products/listing_details", form: form, hide_seller_field: true %>
           <%= render "shared/products/pricing_and_quantity", form: form %>
           <%= render "shared/products/delivery_details", form: form, new_delivery_option_url: new_sellers_delivery_option_path %>
           <%= render "shared/products/product_actions_bar", form: form %>

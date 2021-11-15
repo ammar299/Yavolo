@@ -269,8 +269,7 @@
                                 <span class="checkmark"></span>
                             </label>
                         </td>
-                        <%# product.status.to_s.titleize %>
-                        <td class="product-status"><%= product.status == "active" ? "Active".to_s.titleize : "Deactivate".to_s.titleize %></td>
+                        <td class="product-status"><%= product.status.to_s.titleize %></td>
                         <td>
                             <div class="">
                                 <span class="imglist" width="100%">
@@ -290,7 +289,6 @@
                         <td>
                           <p class="mb-0">SKU: <%=product.sku %></p>
                           <p class="mb-0">EAN: <%=product.ean %></p>
-                          <p class="mb-0">YAN: <%=product.yan %></p>
                           <p class="mb-0">Brand: <%=product.brand %></p>
                           <p class="mb-0">Condition: <%=product.condition=='brand_new' ? 'New' : product.condition.titleize %></p>
                         </td>
