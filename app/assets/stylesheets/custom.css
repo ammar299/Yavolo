@@ -612,11 +612,15 @@ input::-webkit-inner-spin-button {
   text-transform: capitalize;
 }
 .csv-file-uploader-ammar {
-  display: flex;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
+    max-height: 350px;
+    overflow-y: auto;
+    margin-bottom: 20px;
 
 }
+
 .csv-file-uploader-ammar .imglist {
   height: 100px;
   width: 100px;
