@@ -4,7 +4,7 @@ $(document).ready(function () {
   newSellerFormDropdownValidation();
 });
 function addNewSellerFormValidation() {
-  $("form.add_new_seller_profile_form").validate({
+  $("form#add_new_seller_profile_form").validate({
     ignore: "",
     rules: {
       "seller[email]": {

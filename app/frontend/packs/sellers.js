@@ -253,10 +253,10 @@ $(document).ready(function(){
   }
 
   function loginSettingsForm() {
-     $('form#add_new_seller_profile_form').validate({
+     $('form#seller_profile_login_setting_form').validate({
       ignore: "", 
       rules: {
-        "seller[email]": {
+        "seller[recovery_email]": {
           required: true
         },
         "seller[contact_number]": {
@@ -270,8 +270,8 @@ $(document).ready(function(){
         $(element).parents("div.form-group").removeClass('error-field');
       },
       messages: {
-        "seller[email]": {
-            required: "Email is required"
+        "seller[recovery_email]": {
+            required: "Recovery Email is required"
         },
         "seller[contact_number]": {
           required: "Contact number is required"

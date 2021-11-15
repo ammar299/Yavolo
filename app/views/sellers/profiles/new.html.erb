@@ -4,7 +4,7 @@
       <div class="">
         <h3 class="text-center mb-5" style="color: #640529;">Register Your Business With Yavolo
         </h3>
-        <%= simple_form_for @seller, html: page_base_style, url: sellers_profile_path(@seller), method: :patch do |form| %>
+        <%= simple_form_for @seller, html: { id: :add_new_seller_profile_form }, url: sellers_profile_path(@seller), method: :patch do |form| %>
           <% if @seller.errors.any? %>
             <div class="error_messages">
               <h2><%= pluralize(@seller.errors.count, "error") %> prohibited this user from being saved:</h2>
