@@ -614,13 +614,16 @@ input::-webkit-inner-spin-button {
 .csv-file-uploader-ammar {
   display: flex;
   flex-wrap: wrap;
+    justify-content: space-around;
+
 }
 .csv-file-uploader-ammar .imglist {
   height: 100px;
   width: 100px;
   display: inline-flex;
   overflow: hidden;
-  margin: 5px;
+  margin: 10px;
+    outline: 1px solid #ccc;
 }
 .csv-file-uploader-ammar .category-image {
   border-style: solid;

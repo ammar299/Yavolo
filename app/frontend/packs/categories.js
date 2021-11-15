@@ -120,10 +120,14 @@ function addCustomImg() {
 function tempRemoveBtn(){
   $('body').on('click', '.temp-preview-button', function(){
     // $('.product-content-img').remove();
-    $('.product-content-img').attr('src',$(".product-content-img").data('currentsrc') )
-    $('#remove-picture').show();
-    if($('.product-content-img').attr('src')=='')
-      $('.product-content-img').addClass('d-none');
+    $('.product-content-img').attr('src',$(".product-content-img").attr('data-src') || "")
+
+    if($('.product-content-img').attr('src')){
+        $('#remove-picture').show();
+    } else {
+        $('#remove-picture').hide();
+        $('.product-content-img').addClass('d-none');
+    }
 
     $('.temp-preview-button').addClass('d-none');
     $('#category_picture_attributes_name').val("");

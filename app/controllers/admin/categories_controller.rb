@@ -13,24 +13,22 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def create
-    if params[:picture_id].present?
-      @category = Category.new(category_params)
-      upload_galery_image(params)
-    else
-      @category = Category.new(category_params)
-      if @category.save
-        if params[:selected_cat_id].present?
-          flash[:selected_cat_id] = params[:selected_cat_id]
-          if params[:is_subcategory].present? # If its assigned as subcategory
-            parent = Category.find(params[:selected_cat_id].to_i)
-          else # If its assigned as sibling
-            parent = Category.find(params[:selected_cat_id].to_i).parent
-          end
-          @category.parent = parent
-          if @category.save
-            flash[:notice] = "Category has been saved"
-          end
+    @category = Category.new(category_params)
+    if @category.save
+      if params[:selected_cat_id].present?
+        flash[:selected_cat_id] = params[:selected_cat_id]
+        if params[:is_subcategory].present? # If its assigned as subcategory
+          parent = Category.find(params[:selected_cat_id].to_i)
+        else # If its assigned as sibling
+          parent = Category.find(params[:selected_cat_id].to_i).parent
         end
+        @category.parent = parent
+        if @category.save
+          flash[:notice] = "Category has been saved"
+        end
+      end
+      if params[:picture_id].present?
+        upload_galery_image(params)
       end
     end
   end
