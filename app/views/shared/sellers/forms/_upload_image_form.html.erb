@@ -7,9 +7,9 @@
         <% if picture.present? && picture.name.url.present? %>
           <% url = picture.name.url %>
         <% else %>
-          <% url = 'Yavolo_Logo_WarmRed.png' %>
+          <% url = 'yavolo-smily.png' %>
         <% end %>
-        <%= image_tag url, class: 'preview-img mt-1' %>
+        <%= image_tag url, class: 'preview-img mt-1 opacity-50' %>
       </span>
     </div>
     <div class="csv-file-uploader border-none pt-2">
@@ -19,7 +19,7 @@
         <a href="#" class="btn btn-sm btn-radius px-4 btn-primary text-uppercase position-relative overflow-hidden">Browse files 
           <%= form.fields_for :picture, Picture.new do |picture| %>
             <% if picture.object.new_record? %>
-              <%= picture.file_field :name %>
+              <%= picture.file_field :name, accept: "image/*" %>
             <% end %>
           <% end %>
         </a>
@@ -43,10 +43,12 @@
     $('input[type="file"]').change(function(event){
       var input = $(event.currentTarget);
       var file = input[0].files[0];
+      debugger
       var reader = new FileReader();
       reader.onload = function(e){
           image_base64 = e.target.result;
           $('.preview-img').attr("src", image_base64);
+          $('.preview-img').removeClass('opacity-50');
           $('.image-name').text(file.name);
           $('.remove-image').text('remove image');
           $(':input[type="submit"]').prop('disabled', false);
@@ -54,7 +56,9 @@
       reader.readAsDataURL(file);
     });
     $('.remove-image').click(function() {
-          $('.preview-img').attr("src", "");
+          $('.preview-img').attr("src", "/assets/yavolo-smily.png");
+          $('.preview-img').addClass('opacity-50');
+          // $('.opacity-5').css('opacity','0.5');
           $('.image-name').text('');
           $('.remove-image').text('');
           $(':input[type="submit"]').prop('disabled', true);
