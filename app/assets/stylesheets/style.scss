@@ -1030,7 +1030,7 @@ h1, h2, h3, h4, h5, h6 {
 	top: 6px;
 	left: 6px;
 	cursor: pointer;
-	opacity: 0;
+	//opacity: 0;
 	-moz-transition: .3s linear;
   	-webkit-transition: .3s ease-out;
   	transition: .3s linear;
@@ -1344,7 +1344,7 @@ position: absolute;
 top: 6px;
 left: 6px;
 cursor: pointer;
-opacity: 0;
+//opacity: 0;
 -moz-transition: .3s linear;
 -webkit-transition: .3s ease-out;
 transition: .3s linear;
@@ -2728,6 +2728,10 @@ color: #A2697E;
 
 /* basket-dropdn */
 
+.photos-icon-help {
+  position: absolute;
+  left: -30px;
+}
 
 .search-field-flex form {
 	flex: 1;

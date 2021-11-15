@@ -154,8 +154,8 @@ $(document).ready(function(){
 
   // start img delete
   $(document).on('click','.img-del-icon', function(){
-    $(this).addClass('mark-as-delete');
-    $('#yes-no-product-delete-img-modal').modal('show');
+      $(this).addClass('mark-as-delete');
+      $('#yes-no-product-delete-img-modal').modal('show');
   });
 
   $('#yes-delete-img').click(function(){
@@ -217,13 +217,20 @@ $(document).ready(function(){
 });
 
 function removeImage(ele){
+  let count = 1;
   const filename =  ele.parents('.col-md-4').attr('data-file-name')
+  let total_remove = $('.product-photos-grid > .remove').length;
+  let current_stack = $('.product-photos-grid > .p-1').length;
   if(ele.hasClass('new-obj')){
     ele.parents('.col-md-4').remove();
+    total_remove = total_remove + count;
   }else{
     ele.parents('.p-img-container').hide();
+    ele.parents('.p-img-container').addClass('remove');
     ele.find("[type='checkbox']").prop('checked',true)
+    total_remove = total_remove + count;
   }
+  if (current_stack === total_remove) $('.photo-btn').text('Add Photos');
   let idx = ele.data('imgindex')+"";
   if(idx && $('#dupimg'+idx).length > 0){
     $('#dupimg'+idx).remove();
@@ -350,7 +357,7 @@ function updateFieldValue(pid,val,action){
     },
     error: function (xhr){
     },
-    success: function (res){ 
+    success: function (res){
     }
   });
 }
@@ -465,8 +472,14 @@ function previewProductImages(files){
   let preveiwImagesTemplate = [];
   for(let i=0; i<files.length; i++ ){
     preveiwImagesTemplate.push(imageTemplate(URL.createObjectURL(files[i]),files[i].name));
-    
+
   }
+
+  let current_files = $('.product-photos-grid > .p-1').length;
+  let new_files = files.length;
+  let total_images = current_files + new_files;
+  if(total_images >= 9) $('.photo-btn').text('Edit Photos');
+
   if($('.product-photos-grid').length > 0){
     $('.product-photos-grid').append(preveiwImagesTemplate.join(""));
     $('.add-edit-product-photos').removeClass('col-lg-12').addClass('col-lg-8');
@@ -601,7 +614,7 @@ function unhighlight(e) {
 function handleDrop(e) {
   let dt = e.dataTransfer
   let files = dt.files
-  
+
   previewProductImages(files)
 }
 

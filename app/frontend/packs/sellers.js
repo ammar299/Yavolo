@@ -224,7 +224,7 @@ $(document).ready(function(){
     );
 
     jQuery.validator.addMethod("postal_code_uk", function (value, element) {
-      return this.optional(element) || /^[A-Z]{1,2}[0-9]{1,2} [0-9][A-Z]{2}$/i.test(value);
+      return this.optional(element) || /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/.test(value);
     }, "Please specify a valid UK postal code");
 
     jQuery.validator.addMethod('phone_number_uk', function(value, element) {
@@ -671,7 +671,7 @@ window.validateSellerEditForm = function() {
   );
 
   jQuery.validator.addMethod("postal_code_uk", function (value, element) {
-    return this.optional(element) || /^[A-Z]{1,2}[0-9]{1,2} [0-9][A-Z]{2}$/i.test(value);
+      return this.optional(element) || /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/.test(value);
   }, "Please specify a valid UK postal code");
 
   jQuery.validator.addMethod('phone_number_uk', function(value, element) {
