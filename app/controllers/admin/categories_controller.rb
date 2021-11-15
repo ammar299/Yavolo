@@ -50,6 +50,7 @@ class Admin::CategoriesController < Admin::BaseController
         end
       end
     end
+    flash.now[:notice] = "Category has been updated"
   end
 
   def destroy

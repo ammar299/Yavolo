@@ -550,17 +550,16 @@ input::-webkit-inner-spin-button {
   color: red !important;
 }
 .admin-header-right .dropdown-profile {
-  background-color: var(--off-white);
-  border-color: var(--off-white);
-  border-radius: 15px;
-  min-width: 276px;
-  left: inherit;
-  transform: inherit;
-  right: 0;
-  top: 80px;
-  padding: 20px 30px !important;
+    background-color: var(--off-white);
+    border-color: var(--off-white);
+    border-radius: 15px;
+    min-width: 320px;
+    left: inherit;
+    transform: inherit;
+    right: 0;
+    top: 80px;
+    padding: 20px 30px !important;
 }
-
 /* yavolo icon css */
 .yo-opacity {
   opacity: 0.3;
@@ -805,4 +804,11 @@ label {
 }
 .dropdown-filter.show .dropdown-menu a.dropdown-item.multiple-update-sellers {
   padding-right: 5px !important;
+}
+
+.category-banner-image-error{
+    color: red;
+    font-size: 12px;
+    padding-top: 4px;
+    display: none
 }

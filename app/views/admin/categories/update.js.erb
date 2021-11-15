@@ -1,13 +1,16 @@
 <% if @category.errors.any? %>
-  <%
-    column = @category.errors.where(:category_name).last
-    has_error = column.present?
-    if has_error
-  %>
-    $('#category_category_name').parent().addClass('error-field')
-    $('#category_category_name').parent().find('small').remove();
-    $('#category_category_name').parent().append("<%="<small class='form-text'>#{column.full_message}</small>".html_safe %>")
-  <% end %>
+    <% if @category.errors['category_name'].present? %>
+      $('#category_category_name').parent().addClass('error-field')
+      $('#category_category_name').parent().find('small').remove();
+      $('#category_category_name').parent().append("<%="<small class='form-text'>#{@category.errors['category_name'].first}</small>".html_safe %>")
+    <% end %>
+    <% if @category.errors['picture.name'].present? %>
+      $('.category-banner-image-error').show()
+      $('.category-banner-image-error').html("<%="<small class='form-text'>#{@category.errors['picture.name'].first&.gsub("Name:","")}</small>".html_safe rescue "Something went wrong while uploading image" %>")
+      $('html, body').animate({
+          scrollTop: $('.category-banner-image-error').offset().top - 100
+      }, 1000);
+    <% end %>
 <% else %>
   <% if @category.baby_category? %>
       $(".sub-category-link").addClass('disabled');
@@ -16,6 +19,5 @@
   <% else %>
       $(".sub-category-link").removeClass('disabled');
   <% end %>
-  $('.main-page.container-fluid').find('.notice').remove();
-  $('.main-page.container-fluid').prepend("<%="<p class='flash-toast notice notice-msg'>Category has been updated <span  class='notice-cross-icon' aria-hidden='true'>&times;</span></p>".html_safe %>");
+  $('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
 <% end %>

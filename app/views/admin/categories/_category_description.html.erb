@@ -70,10 +70,11 @@
             </div>
             <div class="row search-field-flex">
               <div class="col-lg-8 mb-1">
+                <small class="category-banner-image-error"></small>
                 <div class="d-flex">
                   <%= f.fields_for :picture, Picture.new do |picture| %>
                     <div class="btn btn-sm btn-radius px-4 btn-secondary w-100 uploader-btn mr-2">
-                      <%= picture.file_field :name, name: "category[picture_attributes][name]", class: "btn btn-radius px-4 w-100 choose-single" %>
+                      <%= picture.file_field :name, name: "category[picture_attributes][name]", class: "btn btn-radius px-4 w-100 choose-single", accept:"image/*" %>
                       <%= f.hidden_field :name, name: "picture_id", id: 'picture-id-saved', class: 'choose-single' %>
                     </div>
                   <% end %>

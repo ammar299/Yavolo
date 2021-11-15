@@ -548,8 +548,9 @@ function validProductImages(files){
 }
 
 function bindDragAndDropPhotosEvents(){
-  let dropArea = document.getElementById('upload-images-popup')
-  ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+  let dropArea = document.getElementById('upload-images-popup');
+  if(!dropArea) return;
+  ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
     dropArea.addEventListener(eventName, preventDefaults, false)
   })
 
