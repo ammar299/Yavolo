@@ -8,7 +8,7 @@
           <td><%=h return_value(@seller.email) %></td>
         </tr>
         <tr>
-          <td class="">Full Name:</td>
+          <td class="">Full Legal Name:</td>
           <td><%=h return_value(business_representative.full_legal_name) %></td>
         </tr>
         <tr>
@@ -36,11 +36,11 @@
           <td><%= date_format_UK(@seller.created_at) if @seller.created_at.present? %></td>
         </tr>
         <tr>
-          <td class="">Last logged in:</td>
+          <td class="">Last Login On:</td>
           <td><%= @seller.last_sign_in_at.present? ? date_format_UK(@seller.last_sign_in_at) : "haven't logged in yet" %></td>
         </tr>
         <tr>
-          <td class="">Subscription type:</td>
+          <td class="">Subscription Type:</td>
           <td><%=h return_value(@seller.subscription_type) %></td>
         </tr>
       </tbody>

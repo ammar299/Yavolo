@@ -18,9 +18,6 @@
       <div class="main-content">
         <%= yield %>
       </div>
-      <% unless params[:controller] == 'admin/sessions' %>
-        <%= render 'layouts/footer' %>
-      <% end %>
     </div>
   </body>
 </html>
