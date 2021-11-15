@@ -40,28 +40,40 @@
 <script>
   $(document).ready(function(){
     $(':input[type="submit"]').prop('disabled', true);
-    $('input[type="file"]').change(function(event){
+    $('body').on('change', 'input[type="file"]', function(event){
       var input = $(event.currentTarget);
       var file = input[0].files[0];
-      debugger
-      var reader = new FileReader();
-      reader.onload = function(e){
+      var tenMbInBytes = 10000000;
+      if (file) {
+        if (file.size > tenMbInBytes) {
+          $('#flash-msg').html('<%= j render partial: "shared/notice_banner", locals: { notice: "File size should be less than 10MB" } %>');
+        }
+        else {
+        var reader = new FileReader();
+        reader.onload = function(e){
           image_base64 = e.target.result;
           $('.preview-img').attr("src", image_base64);
           $('.preview-img').removeClass('opacity-50');
           $('.image-name').text(file.name);
           $('.remove-image').text('remove image');
           $(':input[type="submit"]').prop('disabled', false);
-      };
-      reader.readAsDataURL(file);
+        };
+        reader.readAsDataURL(file);
+        }
+      } else {
+        $('.preview-img').attr("src", "/assets/yavolo-smily.png");
+        $('.preview-img').addClass('opacity-50');
+        $('.image-name').text('');
+        $('.remove-image').text('');
+        $(':input[type="submit"]').prop('disabled', true);
+      }
     });
     $('.remove-image').click(function() {
-          $('.preview-img').attr("src", "/assets/yavolo-smily.png");
-          $('.preview-img').addClass('opacity-50');
-          // $('.opacity-5').css('opacity','0.5');
-          $('.image-name').text('');
-          $('.remove-image').text('');
-          $(':input[type="submit"]').prop('disabled', true);
-    })
+        $('.preview-img').attr("src", "/assets/yavolo-smily.png");
+        $('.preview-img').addClass('opacity-50');
+        $('.image-name').text('');
+        $('.remove-image').text('');
+        $(':input[type="submit"]').prop('disabled', true);
+    });
   });
 </script>
