@@ -152,22 +152,24 @@ $(document).ready(function(){
   });
 
 
+  // start img delete
   $(document).on('click','.img-del-icon', function(){
-    if(confirm("Are you sure to delete this image?")){
-      const filename =  $(this).parents('.col-md-4').attr('data-file-name')
-      if($(this).hasClass('new-obj')){
-        $(this).parents('.col-md-4').remove();
-      }else{
-        $(this).parents('.p-img-container').hide();
-        $(this).find("[type='checkbox']").prop('checked',true)
-      }
-      let idx = $(this).data('imgindex')+"";
-      if(idx && $('#dupimg'+idx).length > 0){
-        $('#dupimg'+idx).remove();
-      }
-      removeProductFromFileList(filename)
+    $(this).addClass('mark-as-delete');
+    $('#yes-no-product-delete-img-modal').modal('show');
+  });
+
+  $('#yes-delete-img').click(function(){
+    if($('.mark-as-delete').length > 0){
+      removeImage($('.mark-as-delete'));
+      $('#yes-no-product-delete-img-modal').modal('hide');
     }
   });
+
+  $('#yes-no-product-delete-img-modal').on('hidden.bs.modal', function () {
+    $('.mark-as-delete').removeClass('mark-as-delete');
+  });
+  // end image delete
+
 
   $("#product_category").selectize({
     valueField: "id",
@@ -213,6 +215,21 @@ $(document).ready(function(){
     getFilterGroupsOfBabyCategory($('#product_id').val(), $('#product_category').val());
 
 });
+
+function removeImage(ele){
+  const filename =  ele.parents('.col-md-4').attr('data-file-name')
+  if(ele.hasClass('new-obj')){
+    ele.parents('.col-md-4').remove();
+  }else{
+    ele.parents('.p-img-container').hide();
+    ele.find("[type='checkbox']").prop('checked',true)
+  }
+  let idx = ele.data('imgindex')+"";
+  if(idx && $('#dupimg'+idx).length > 0){
+    $('#dupimg'+idx).remove();
+  }
+  removeProductFromFileList(filename)
+}
 
 function bindResultPerPageOption(){
   $('.perpage-option').click(function(e){

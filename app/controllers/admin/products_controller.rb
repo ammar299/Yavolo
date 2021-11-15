@@ -6,6 +6,7 @@ class Admin::ProductsController < Admin::BaseController
     @products = @q.result(distinct: true).select('products.*, lower(products.title)')
     @products = @products.where(status: filter_by_statuses) if filter_by_statuses.present?
     @products = @products.where(yavolo_enabled: true) if params[:yavolo_enabled]=='1'
+    @products = @products.order(created_at: :desc) if params.dig(:q, :s).blank?
     @products = @products.page(params[:page]).per(params[:per_page].presence || 15)
   end
 

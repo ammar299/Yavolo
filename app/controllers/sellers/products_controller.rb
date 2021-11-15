@@ -10,6 +10,7 @@ class Sellers::ProductsController < Sellers::BaseController
     else
       @products = query.where(owner_id: current_seller.id, owner_type: current_seller.class.name)
     end
+    @products = @products.order(created_at: :desc) if params.dig(:q, :s).blank?
     @products = @products.page(params[:page]).per(params[:per_page].presence || 15)
   end
 
