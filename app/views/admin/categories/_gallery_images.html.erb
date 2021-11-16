@@ -1,0 +1,9 @@
+<% @gallery_images.each do |pic| %>
+  <span class="imglist">
+    <a href="javascript:void(0)">
+      <% if pic&.name&.url.present? %>
+        <%= image_tag pic&.name&.url(:medium), class: 'selected-image category-image', id: 'single-image', data: {picid: pic.id} %>
+      <% end %>
+    </a>
+  </span>
+<% end %>

@@ -67,6 +67,7 @@ Rails.application.routes.draw do
             get :search_category
             delete :category_products_delete_multiple
             get :manage_category_linking_filter
+            get :gallery_images_with_pagination
           end
         end
 

@@ -5,6 +5,7 @@ class Admin::CategoriesController < Admin::BaseController
   def index
     @categories = Category.all
     @selected_cat_id = flash[:selected_cat_id].to_i if flash[:selected_cat_id].present?
+    @gallery_images = Picture.all.page(params[:page]).per(params[:per_page].presence || 15)
   end
 
   def new
@@ -66,6 +67,12 @@ class Admin::CategoriesController < Admin::BaseController
     @category_products = @category.products.ransack(params[:q])
     @category_products = @category_products.result(distinct: true)
     @category_products = @category_products.page(params[:page]).per(params[:per_page].presence || 15)
+  end
+
+  def gallery_images_with_pagination
+    @gallery_images = Picture.all.page(params[:page]).per(params[:per_page].presence || 15)
+    render json: { raw_html: render_to_string(partial: "gallery_images", formats: [:html]),
+                   pagination: view_context.link_to_next_page(@gallery_images,"next", remote: true, params: {controller: "/admin/categories", action: 'gallery_images_with_pagination'}) }
   end
 
   def remove_filter_group_association

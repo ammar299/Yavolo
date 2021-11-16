@@ -1,23 +1,18 @@
 <div class="modal fade" id="upload-images-popup" tabindex="-1" role="dialog" aria-labelledby="upload-images-popupLabel" aria-hidden="true">
-<div class="modal-dialog" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title" id="upload-images-popupLabel">Upload Image</h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">×</span>
-      </button>
-    </div>
-    <div class="modal-body px-lg-4 pt-0">
-      <div class="csv-file-uploader csv-file-uploader-ammar bg-white p-4 mb-4" >
-          <% Picture.all.each do |pic| %>
-            <span class="imglist">
-              <a href="javascript:void(0)">
-                <% if pic&.name&.url.present?%>
-                  <%=image_tag pic&.name&.url, class: 'selected-image category-image',id: 'single-image' ,data: { picid: pic.id }%>
-                <% end %>
-              </a>
-            </span>
-          <% end %>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="upload-images-popupLabel">Upload Image</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body px-lg-4 pt-0 csv-file-uploader-ammar-container" data-controller="infinite-scroll">
+        <div class="csv-file-uploader csv-file-uploader-ammar bg-white p-4 mb-4" data-infinite-scroll-target="entries" data-action="scroll->infinite-scroll#onScroll">
+          <%= render 'admin/categories/gallery_images' %>
+        </div>
+        <div data-target="infinite-scroll.pagination" class="d-none">
+          <%= link_to_next_page(@gallery_images,"next", remote: true, params: {controller: "/admin/categories", action: 'gallery_images_with_pagination'}) %>
         </div>
       </div>
     </div>
