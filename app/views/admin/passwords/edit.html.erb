@@ -1,25 +1,32 @@
-<h2>Change your password</h2>
-
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "sellers/auth/shared/error_messages", resource: resource %>
-  <%= f.hidden_field :reset_password_token %>
-
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-    <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
+<div class="container">
+  <div class="row">
+    <div class="col col-12 col-lg-6 col-md-8 mx-auto">
+      <div class="sign-in">
+        <h3 class="text-center mb-4" style="color: #640529; font-size: 48px">
+          Forgot your password
+        </h3>
+          <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+            <%= render "sellers/auth/shared/error_messages", resource: resource %>
+            <div class="form-group general-mrgn">
+              <label for="exampleInputEmail1">Email Address *</label>
+              <%= f.email_field :email, autofocus: true, class: "form-control" ,id:
+              "exampleInputEmail1",placeholder: "Email Address" %>
+            </div>
+            <div class="d-flex justify-content-between flex-wrap mb-0">
+              <div class="form-check mb-0 pl-0">
+                <%= link_to "Log in", new_session_path(resource_name) %>
+              </div>
+              <div>
+                <%= link_to "Sign up", new_registration_path(resource_name), class: "forgt-text" %>
+              </div>
+            </div>
+            <div class="actions">
+              <%= f.submit "Send me reset password instructions", class: "btn btn-primary btn-lg btn-block
+        general-mrgn"  %>
+            </div>
+          <% end %>
+          <%#= render "sellers/auth/shared/links" %>
+      </div>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
-<% end %>
-
-<%= render "sellers/auth/shared/links" %>
+</div>
