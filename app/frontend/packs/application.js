@@ -71,4 +71,34 @@ $(document).ready(() => {
   $(document).on('click','.notice-cross-icon', function(){
     $(this).parent().fadeOut("slow");
   });
+
+    var main = new Splide('#main-slider', {
+        type: 'slide',
+        rewind: true,
+        pagination: false,
+        arrows: true,
+    });
+
+    var thumbnails = new Splide('#thumbnail-slider', {
+        fixedWidth: 90,
+        fixedHeight: 80,
+        gap: 15,
+        rewind: true,
+        pagination: false,
+        containe: true,
+        isNavigation: true,
+        arrows: false,
+        breakpoints: {
+            767: {
+                fixedWidth: 60,
+                fixedHeight: 50,
+                gap: 5,
+            },
+
+        },
+    });
+
+    main.sync(thumbnails);
+    main.mount();
+    thumbnails.mount();
 });
