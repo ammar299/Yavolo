@@ -11,6 +11,9 @@ $('#deliveryTemplateForm').find('h5').text('Add New Template');
 <% if params[:add_new].present? %>
 $('#delivery-template-form #delivery-option-form').append("<input type='hidden' name='from' value='create_product'>")
 $('#delivery-template-form').show();
+$('html, body').animate({
+    scrollTop: $('#delivery-template-form').offset().top - 100
+}, 1000);
 <% elsif params[:from].present? %>
 $('#delivery-template-form').hide();
 $('#delivery-template-form').html("");

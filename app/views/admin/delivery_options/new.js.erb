@@ -11,6 +11,9 @@ $('#deliveryTemplateForm').modal('show');
 <% if params[:add_new].present? %>
 $('#delivery-template-form #delivery-option-form').append("<input type='hidden' name='from' value='create_product'>")
 $('#delivery-template-form').show();
+$('html, body').animate({
+    scrollTop: $('#delivery-template-form').offset().top - 100
+}, 1000);
 // TODO: removed jquery plugin right now using custom validation for this form
 // setFormValidation();
 <% if notice.present? %>
