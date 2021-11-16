@@ -1,0 +1,8 @@
+<%= form_tag sellers_two_auth_path, remote: true, method: :post do |f| %>
+  <%#= hidden_field_tag :otp_secret, @otp_secret  %>
+  <br />
+  <%#= image_tag @qr_code %>
+  <br />
+  <label for="exampleInputPassword1">Authenticator code:</label>
+  <%= f.email_field "Email", label: "Enter Email" %>
+<% end %>

@@ -80,4 +80,8 @@ gem "letter_opener", group: :development
 gem 'ransack'
 gem 'wicked'
 gem 'paypal-checkout-sdk'
+#2Factor-authentication
+gem 'rotp'
+gem 'rqrcode'
 gem "mini_magick"
+

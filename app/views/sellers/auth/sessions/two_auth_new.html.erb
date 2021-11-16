@@ -1,0 +1,24 @@
+<!-- <meta http-equiv="refresh" content="29"> -->
+<div class="container">
+  <div class="row">
+    <div class="col col-12 col-lg-6 col-md-8 mx-auto">
+      <div class="sign-in">
+        <h3 class="text-center mb-4" style="color: #640529; font-size: 48px">
+          Google 2FA
+        </h3>
+        <%= form_tag two_auth_create_path, id: 'two-auth-code', method: :post do %>
+          <%= hidden_field_tag :otp_secret, @otp_secret  %>
+          <%= hidden_field_tag :email, @current_seller.email %>
+          <br />
+          <div class= "google-2fa-auth-qr"> 
+            <%= image_tag @qr_code %>
+          </div>
+          <br />
+          <label for="exampleInputPassword1">Authenticator Code:</label>
+          <%= text_field_tag(:otp_attempt, nil, placeholder: 'Enter code', required: true) %>
+          <%= submit_tag 'Confirm', class: 'btn btn-primary btn-lg btn-block general-mrgn' %>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>

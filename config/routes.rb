@@ -114,9 +114,17 @@ Rails.application.routes.draw do
   end
 
 
+
   devise_scope :seller do
+    unauthenticated :seller do
+      get '/two_auth_new', :to => 'sellers/auth/sessions#two_auth_new'
+      post '/two_auth_create', :to => 'sellers/auth/sessions#two_auth_create'
+    end
+
     authenticated :seller do
       namespace :sellers do
+        # get "sessions/two_auth", :to => "sellers/sessions/registrations#two_auth", :as => "two_auth"
+
         resources :paypal_integration, only: %i[index]
         post :check_onboarding_status, :to => 'paypal_integration#check_onboarding_status'
         resources :delivery_options, except: %i[show] do
@@ -128,7 +136,9 @@ Rails.application.routes.draw do
             get :confirm_delete
           end
         end
-        namespace :auth do 
+        namespace :auth do
+          devise_scope :seller do
+          end
           resources :sign_up_steps
         end
         resources :profiles do
@@ -157,6 +167,7 @@ Rails.application.routes.draw do
         resource :connection_manager do
           get :confirm_update
         end
+        resources :otp_secret
         root to: 'dashboard#index', as: :seller_authenticated_root
 
         resources :products do

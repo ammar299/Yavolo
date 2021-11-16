@@ -11,7 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2021_11_15_184919) do
-
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -476,7 +475,19 @@ ActiveRecord::Schema.define(version: 2021_11_15_184919) do
     t.boolean "two_factor_auth", default: false
     t.datetime "last_seen_at"
     t.string "recovery_email"
+<<<<<<< HEAD
+<<<<<<< HEAD
+    t.string "otp_secret"
+    t.integer "last_otp_at"
+
+=======
     t.boolean "skip_success_hub_steps", default: false
+>>>>>>> 9d9a41bb0ea5b9346827022e9bc40068794b4052
+=======
+    t.string "otp_secret"
+    t.integer "last_otp_at"
+    t.boolean "skip_success_hub_steps", default: false
+>>>>>>> 8bdcd04f8dd7fbde5f813cc0d98cda30b1316a1f
     t.index ["email"], name: "index_sellers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_sellers_on_reset_password_token", unique: true
   end

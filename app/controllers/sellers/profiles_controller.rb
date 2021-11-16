@@ -52,9 +52,14 @@ class Sellers::ProfilesController < Sellers::BaseController
         else
           flash.now[:notice] = "Password did not matched"
         end
+      elsif params[:seller][:current_password].present? && params[:seller][:password].blank? && params[:seller][:password_confirmation].blank?
+        @seller.update(seller_login_params)
+        flash.now[:notice] = "Login details updated successfully"
+      else
+        flash.now[:notice] = "Password did not matched"
       end
     else
-      flash.now[:notice] = "Current Password not true"
+      flash.now[:notice] = "Password not true"
     end
   end
 

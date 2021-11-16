@@ -8,6 +8,8 @@ $(document).ready(function(){
   validateEligibility();
   loginSettingsForm();
   validateSellerSignInSignUp();
+  TwoFactorAuthEmail();
+  TwoFactorAuthForCode();
   sellerTimeOutSlector()
   //Upload Sellers
   $(".upload-sellers-csv-btn").click(function () {
@@ -219,7 +221,7 @@ $(document).ready(function(){
       },
     });
     jQuery.validator.addMethod("url_without_scheme", function(value, element) {
-        return /^(?:www\.)?[A-Za-z0-9_-]+\.+[A-Za-z0-9.\/%&=\?_:;-]+$/.test(value);
+          return /^(www\.)[A-Za-z0-9_-]+\.+[A-Za-z0-9.\/%&=\?_:;-]+$/.test(value);
         }, "Please enter a valid URL without http/https"
     );
 
@@ -253,10 +255,10 @@ $(document).ready(function(){
   }
 
   function loginSettingsForm() {
-     $('form#seller_profile_login_setting_form').validate({
+     $('form#add_new_seller_profile_form').validate({
       ignore: "", 
       rules: {
-        "seller[recovery_email]": {
+        "seller[email]": {
           required: true
         },
         "seller[contact_number]": {
@@ -270,8 +272,8 @@ $(document).ready(function(){
         $(element).parents("div.form-group").removeClass('error-field');
       },
       messages: {
-        "seller[recovery_email]": {
-            required: "Recovery Email is required"
+        "seller[email]": {
+            required: "Email is required"
         },
         "seller[contact_number]": {
           required: "Contact number is required"
@@ -666,13 +668,17 @@ window.validateSellerEditForm = function() {
     },
   });
   jQuery.validator.addMethod("url_without_scheme", function(value, element) {
-        return /^(?:www\.)?[A-Za-z0-9_-]+\.+[A-Za-z0-9.\/%&=\?_:;-]+$/.test(value);
+        return /^(www\.)[A-Za-z0-9_-]+\.+[A-Za-z0-9.\/%&=\?_:;-]+$/.test(value);
       }, "Please enter a valid URL without http/https"
   );
 
   jQuery.validator.addMethod("postal_code_uk", function (value, element) {
       return this.optional(element) || /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/.test(value);
   }, "Please specify a valid UK postal code");
+
+  jQuery.validator.addMethod("exactlength", function(value, element, param) {
+   return this.optional(element) || value.length == param;
+  }, $.validator.format("Please enter exactly {0} characters."));
 
   jQuery.validator.addMethod('phone_number_uk', function(value, element) {
         return this.optional(element) || value.length > 9 && value.match(/^(\(?(0|\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
@@ -804,3 +810,50 @@ function preventDefaults (e) {
   e.preventDefault()
   e.stopPropagation()
 }
+
+function TwoFactorAuthEmail() {
+  $('form#two-factor-email').validate({
+    ignore: "", 
+    rules: {
+      "email": {
+        required: true,
+        email: true,
+        regex: /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+      },
+    }, 
+    highlight: function(element) {
+      $(element).parents("div.form-group").addClass('error-field');
+    },
+    unhighlight: function(element) {
+      $(element).parents("div.form-group").removeClass('error-field');
+    },
+    messages: {
+      "email": {
+        required: "Required"
+      },
+    },
+  });
+}
+
+function TwoFactorAuthForCode() {
+  $('form#two-auth-code').validate({
+    ignore: "", 
+    rules: {
+      "otp_attempt": {
+        required: true,
+        exactlength: 6
+      },
+    }, 
+    highlight: function(element) {
+      $(element).parents("div.form-group").addClass('error-field');
+    },
+    unhighlight: function(element) {
+      $(element).parents("div.form-group").removeClass('error-field');
+    },
+    messages: {
+      "otp_attempt": {
+        required: "Required"
+      },
+    },
+  });
+} 
