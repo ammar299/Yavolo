@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.5.0/dist/js/splide.min.js"></script>
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application' %>
   </head>
@@ -17,5 +18,36 @@
       <%= yield %>
       <%= render 'layouts/buyers/buyer_footer' %>
     </div>
+  <script>
+      var main = new Splide('#main-slider', {
+          type: 'slide',
+          rewind: true,
+          pagination: false,
+          arrows: true,
+      });
+
+      var thumbnails = new Splide('#thumbnail-slider', {
+          fixedWidth: 90,
+          fixedHeight: 80,
+          gap: 15,
+          rewind: true,
+          pagination: false,
+          containe: true,
+          isNavigation: true,
+          arrows: false,
+          breakpoints: {
+              767: {
+                  fixedWidth: 60,
+                  fixedHeight: 50,
+                  gap: 5,
+              },
+
+          },
+      });
+
+      main.sync(thumbnails);
+      main.mount();
+      thumbnails.mount();
+  </script>
   </body>
 </html>

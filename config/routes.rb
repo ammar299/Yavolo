@@ -205,6 +205,7 @@ Rails.application.routes.draw do
     end
   end
 
+  put 'preview_listing', to: "sellers/products#preview_listing", as: :preview_listing
   get 'product/:id', to: "buyers/products#show", as: :product
   get 'store_front', to: "buyers/cart#store_front", as: :store_front
   post 'add_to_cart', to: "buyers/cart#add_to_cart", as: :add_to_cart

@@ -13,10 +13,19 @@
             <div id="main-slider" class="splide">
               <div class="splide__track">
                 <ul class="splide__list">
-                  <% @product.images.each do |image| %>
-                    <li class="splide__slide">
-                      <%= image_tag image.name.url %>
-                    </li>
+                  <% if params[:preview_listing] %>
+                    <% @product["images"].each do |image| %>
+                      <%# debugger %>
+                      <li class="splide__slide">
+                        <img src="<%= image %>">
+                      </li>
+                    <% end %>
+                  <% else %>
+                    <% @product.images.each do |image| %>
+                      <li class="splide__slide">
+                        <%= image_tag image.name.url %>
+                      </li>
+                    <% end %>
                   <% end %>
                 </ul>
               </div>
@@ -24,10 +33,18 @@
             <div id="thumbnail-slider" class="splide">
               <div class="splide__track">
                 <ul class="splide__list">
-                  <% @product.images.each do |image| %>
-                    <li class="splide__slide">
-                      <%= image_tag image.name.url %>
-                    </li>
+                  <% if params[:preview_listing] %>
+                    <% @product["images"].each do |image| %>
+                      <li class="splide__slide">
+                        <img src="<%= image %>">
+                      </li>
+                    <% end %>
+                  <% else %>
+                    <% @product.images.each do |image| %>
+                      <li class="splide__slide">
+                        <%= image_tag image.name.url %>
+                      </li>
+                    <% end %>
                   <% end %>
                 </ul>
               </div>
@@ -37,7 +54,7 @@
         <div class="col-xl-6">
           <div class="single-product single-pdp-pad">
             <a href="" class="decoration-none red-text"><span class="icon-Icon-awesome-heart heart-icomoon"></span></a>
-            <h4 class="black-text mt-0"><%= @product.title %></h4>
+            <h4 class="black-text mt-0"><%= @product["title"] %></h4>
             <ul class="rating d-flex">
               <li class="mr-1 active"><span class="icon-star"></span></li>
               <li class="mr-1 active"><span class="icon-star"></span></li>
@@ -48,7 +65,7 @@
             </ul>
             <div class="d-flex align-items-center flex-wrap mt-3">
               <div class="pr-5">
-                <h3 class="black-text mb-0 mt-0">£<%= @product.price %></h3>
+                <h3 class="black-text mb-0 mt-0">£<%= @product["price"] %></h3>
               </div>
               <div>
                                     <span><span class="icon-manage-Yavolo red-text font-20px"><span class="font-14px">
@@ -62,7 +79,8 @@
                 Quantity: <input type="number" value="1">
               </button>
               <div class="dropdown-menu p-3 mt-0" aria-labelledby="dropdownMenuButton">
-                <% 1.step(@product.stock, 2).each do |stock_quantity| %>
+                <% stock = @product["stock"].to_i %>
+                <% 1.step(stock, 2).each do |stock_quantity| %>
                   <a class="dropdown-item p-1" href="#"><span><%= stock_quantity %></span></a>
                 <% end %>
               </div>
@@ -91,7 +109,7 @@
                                     refund for peace of mind.</span>
             </div>
             <div class="d-flex justify-content-between align-items-center mb-4">
-              <span>Condition: <%= @product.condition.titleize %></span>
+              <span>Condition: <%= @product["condition"].titleize %></span>
               <span>Sold by John Smith</span>
             </div>
             <div class="mb-2">
@@ -260,7 +278,7 @@
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
                      data-parent="#accordion">
                   <div class="card-body px-4">
-                    <%= @product.description.html_safe %>
+                    <%= @product["description"].html_safe %>
                   </div>
                 </div>
               </div>
@@ -1525,4 +1543,4 @@
         dots[slideIndex - 1].className += " w3-opacity-off";
     }
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.5.0/dist/js/splide.min.js"></script>
+

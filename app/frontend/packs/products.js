@@ -858,6 +858,30 @@ function setSellerSearchMenuAndQueryName(){
   });
 }
 
+$(document).ready(function () {
+  $('body').on('click', '.preview_listing', function () {
+
+    let all_images = $('.product-photos-grid > .p-1 > .grid-single-img > span').children('img').map(function(){
+      return $(this).attr('src')
+    }).get()
+
+    $.ajax({
+      url: "/preview_listing",
+      data: {
+        title: $("#product_title").val(),
+        condition: $("#product_condition").val(),
+        description: $(".ck-content").html(),
+        price: $("#product_price").val().replace('£', ''),
+        stock: $("#product_stock").val(),
+        images: all_images
+      },
+      type: 'put',
+      success: function (response) {
+        window.open(window.location.protocol + "//" + window.location.host + "/product/" + response.product_name + "?preview_listing=true", '_blank').focus();
+      }
+    });
+  });
+});
 
 window.validateProductForm = function(custom_rules={}, custom_messages={}) {
 
