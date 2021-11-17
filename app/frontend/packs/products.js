@@ -1,5 +1,6 @@
 // load all products related js here
 $(document).ready(function(){
+  console.log('products.js loaded')
   bindResultPerPageOption();
   bindAndSortByEvent();
   bindFilterByEvents();
@@ -99,15 +100,15 @@ $(document).ready(function(){
   });
 
   // on product form submit event
-  $('#product_form').submit(function(e){
-    if(!validProductForm()){
-      e.preventDefault();
-      $([document.documentElement, document.body]).animate({
-        scrollTop: $("#listing-details").offset().top
-      }, 2000);
-      return;
-    }
-  });
+  // $('#product_form').submit(function(e){
+  //   if(!validProductForm()){
+  //     e.preventDefault();
+  //     $([document.documentElement, document.body]).animate({
+  //       scrollTop: $("#listing-details").offset().top
+  //     }, 2000);
+  //     return;
+  //   }
+  // });
 
   productSearchByFilter();
   bindDragAndDropPhotosEvents();
@@ -948,4 +949,163 @@ function setSellerSearchMenuAndQueryName(){
       filterType.val('Search All');
     }
   });
+}
+
+
+window.validateProductForm = function(custom_rules={}, custom_messages={}) {
+
+  jQuery.validator.addMethod("validPrice", function(value) {
+    let number = value.split('£')[value.split('£').length-1].split(',').join('')
+    return Number(number) >= 0 && Number(number) <= 999999.99
+  }, "Please enter a valid price value.");
+
+  jQuery.validator.addMethod("descriptionPresent", function(value) {
+    let content_length = disEditor.getData().trim().length;
+    return content_length > 0;
+  }, "Please add some description about your product.");
+
+  let rules = {
+    "product[title]": {
+      required: true
+    },
+    "product[ean]": {
+      required: true
+    },
+    "product[stock]": {
+      required: true
+    },
+    "product[condition]": {
+      required: true
+    },
+    "product[delivery_option_id]":{
+      required: true
+    }
+  };
+
+  let messages = {
+    "product[title]": {
+      required: "Title can\'t be blank"
+    },
+    "product[ean]": {
+      required: "EAN can\'t be blank"
+    },
+    "product[stock]": {
+      required: "Stock can\'t be blank"
+    },
+    "product[condition]": {
+      required: "Condition can\'t be blank"
+    },
+    "product[delivery_option_id]":{
+      required: "Please select a delivery option"
+    }
+  };
+
+  $('form#product_form').validate({
+    invalidHandler: function(event,validator){
+      if (!validator.numberOfInvalids())
+            return;
+
+      $('html, body').animate({
+          scrollTop: $('#listing-details').offset().top
+      }, 2000);
+    },
+    ignore: "#product_width,#product_depth,#product_height,.ck-hidden, .ignoreme, .ck",
+    rules: {...rules, ...custom_rules},
+    errorPlacement: function(error, element){
+      if (element.is(":radio")){
+        $('.d-option-id').show();
+      }else{
+        if(element.attr('name')=='product[description]'){
+          $(element).parents('.form-group').append(error);
+        }else if(element.attr('name')=='product[assigned_category_attributes][category_id]'){
+          $(element).parents('.form-group').append(error)
+        }else if( $('#namespace').val()=='admin' && element.attr('name')=='product[owner_id]' ){
+          $(element).parents('.form-group').append(error)
+        }else{
+          error.insertAfter( element );
+        }
+      }
+    },
+    highlight: function(element) {
+      if(element.name=="product[assigned_category_attributes][category_id]"){
+        $(element).parents('.form-group').find(".selectize-input").addClass('custom-border');
+      }else if(element.name=="product[keywords]"){
+        $(element).parents('.form-group').addClass('error-field')
+      }else if( element.name=="product[owner_id]" && $('#namespace').val()=='admin' ){
+        $(element).parents('.form-group').find(".selectize-input").addClass('custom-border');
+      }else{
+        $(element).parents("div.form-group").addClass('error-field');
+      }
+    },
+    unhighlight: function(element) {
+      if($(element).attr('name')=="product[keywords]"){
+        $(element).parents('.form-group').removeClass('error-field')
+      }else if($(element).attr('name')=="product[delivery_option_id]"){
+        $('.d-option-id').hide();
+      }else if($(element).attr('name')=="product[assigned_category_attributes][category_id]"){
+        $(element).parents('.form-group').find(".selectize-input").removeClass('custom-border');
+        $(element).parents('.form-group').find('label.error').remove();
+      }else if($(element).attr('name')=="product[owner_id]" && $('#namespace').val()=='admin'){
+        $(element).parents('.form-group').find(".selectize-input").removeClass('custom-border');
+        $(element).parents('.form-group').find('label.error').remove();
+      }else{
+        $(element).parents("div.form-group").removeClass('error-field');
+      }
+    },
+    messages: {...messages, ...custom_messages}
+  });
+
+  $('#product_keywords').change(function(){
+    $(this).valid();
+  })
+  $('#product_keywords').rules('add', {
+    required: true,
+    messages: {
+        required: "Keywords can\'t be blank"
+    }
+  });
+
+  $('#product_category').change(function(){
+    $(this).valid();
+  })
+  $('#product_category').rules('add', {
+    required: true,
+    messages: {
+        required: "Category can\'t be blank"
+    }
+  });
+
+  if($('#namespace').val()=='admin'){
+    $('#search_seller_select').rules('add', {
+      required: true,
+      messages: {
+          required: "Please select a seller."
+      }
+    });
+    $('#search_seller_select').change(function(){
+      $(this).valid();
+    });
+  }
+
+  $('#product_price').change(function(){
+    $(this).valid();
+  })
+  $('#product_price').rules('add', {
+    validPrice: true,
+    messages: {
+      validPrice: "Please enter a valid price value."
+    }
+  });
+
+
+  $('#product_description').change(function(){
+    $(this).valid();
+  })
+  $('#product_description').rules('add', {
+    descriptionPresent: true,
+    messages: {
+      descriptionPresent: "Please add some description about your product."
+    }
+  });
+
 }

@@ -33,6 +33,10 @@
         .create( document.querySelector( '#product_description' ) )
         .then(newEditor=>{
             disEditor = newEditor;
+            disEditor.model.document.on( 'change:data', () => {
+                $('#product_description').val(disEditor.getData().trim());
+                $('#product_description').trigger('change');
+            });
         })
         .catch( error => {
             console.error( error );
@@ -45,5 +49,6 @@
         ClassicEditor.create( document.querySelector( '#product_seo_content_attributes_description' ) ).catch( error => {
             console.error( error );
         } );
+        validateProductForm();
     })
 </script>

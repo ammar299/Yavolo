@@ -12,7 +12,7 @@
             </div>
             <hr>
             <% has_error, msg = get_errors(form, :delivery_option) %>
-            <div class="d-option-id" style="display:<%= has_error ? 'block' : 'none' %>; margin-bottom: 10px; color: red;">Delivery option must exist</div>
+            <div class="d-option-id" style="display:<%= has_error ? 'block' : 'none' %>; margin-bottom: 10px; color: red;">Please select a delivery option</div>
 
             <% @delivery_options.each do |d_option| %>
             <div class="delivery-option d-flex justify-content-between align-items-center box-border yo-white-card flex-wrap">
