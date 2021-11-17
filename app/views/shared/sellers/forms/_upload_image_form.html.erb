@@ -41,11 +41,13 @@
   $(document).ready(function(){
     $(':input[type="submit"]').prop('disabled', true);
     $('body').on('change', 'input[type="file"]', function(event){
+        event.preventDefault();
       var input = $(event.currentTarget);
       var file = input[0].files[0];
       var tenMbInBytes = 10000000;
       if (file) {
         if (file.size > tenMbInBytes) {
+            $('#admin-sellers-update-form').get(0).reset();
           $('#flash-msg').html('<%= j render partial: "shared/notice_banner", locals: { notice: "File size should be less than 10MB" } %>');
         }
         else {
@@ -53,14 +55,26 @@
         reader.onload = function(e){
           image_base64 = e.target.result;
           $('.preview-img').attr("src", image_base64);
-          $('.preview-img').removeClass('opacity-50');
-          $('.image-name').text(file.name);
-          $('.remove-image').text('remove image');
-          $(':input[type="submit"]').prop('disabled', false);
+          if ($('.preview-img')[0].naturalHeight > 500 || $('.preview-img')[0].naturalHeight > 500) {
+              $('#admin-sellers-update-form').get(0).reset();
+            $('.preview-img').attr("src", "/assets/yavolo-smily.png");
+            $('.preview-img').addClass('opacity-50');
+            $('.image-name').text('');
+            $('.remove-image').text('');
+            $(':input[type="submit"]').prop('disabled', true);
+            $('#flash-msg').html('<%= j render partial: "shared/notice_banner", locals: { notice: "File size should be less than 500px by 500px" } %>');
+          }
+          else {
+            $('.preview-img').removeClass('opacity-50');
+            $('.image-name').text(file.name);
+            $('.remove-image').text('remove image');
+            $(':input[type="submit"]').prop('disabled', false);
+          }
         };
         reader.readAsDataURL(file);
         }
       } else {
+          $('#admin-sellers-update-form').get(0).reset();
         $('.preview-img').attr("src", "/assets/yavolo-smily.png");
         $('.preview-img').addClass('opacity-50');
         $('.image-name').text('');
@@ -69,6 +83,7 @@
       }
     });
     $('.remove-image').click(function() {
+        $('#admin-sellers-update-form').get(0).reset();
         $('.preview-img').attr("src", "/assets/yavolo-smily.png");
         $('.preview-img').addClass('opacity-50');
         $('.image-name').text('');
