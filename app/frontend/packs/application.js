@@ -72,6 +72,11 @@ $(document).ready(() => {
     $(this).parent().fadeOut("slow");
   });
 
+    // Disable changing number type field by scrolling
+    $("input[type='number']").on('wheel', function () {
+        return false;
+    })
+
     var main = new Splide('#main-slider', {
         type: 'slide',
         rewind: true,

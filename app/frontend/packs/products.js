@@ -1,6 +1,5 @@
 // load all products related js here
 $(document).ready(function(){
-  console.log('products.js loaded')
   bindResultPerPageOption();
   bindAndSortByEvent();
   bindFilterByEvents();
@@ -98,17 +97,6 @@ $(document).ready(function(){
     if($(this).parents('.prod-table-row').find('.disable-yavolo-btn').length > 0 )
       $(this).parents('.prod-table-row').find('.disable-yavolo-btn').trigger('click');
   });
-
-  // on product form submit event
-  // $('#product_form').submit(function(e){
-  //   if(!validProductForm()){
-  //     e.preventDefault();
-  //     $([document.documentElement, document.body]).animate({
-  //       scrollTop: $("#listing-details").offset().top
-  //     }, 2000);
-  //     return;
-  //   }
-  // });
 
   productSearchByFilter();
   bindDragAndDropPhotosEvents();
@@ -215,7 +203,31 @@ $(document).ready(function(){
   if($('#product_category').val() && $('#product_category').val().length > 0)
     getFilterGroupsOfBabyCategory($('#product_id').val(), $('#product_category').val());
 
+  ClassicEditor
+      .create( document.querySelector( '#product_description' ) )
+      .then(newEditor=>{
+        product_description_editor = newEditor;
+        product_description_editor.model.document.on( 'change:data', () => {
+          $('#product_description').val(product_description_editor.getData().trim());
+          $('#product_description').trigger('change');
+        });
+      })
+      .catch( error => {
+        console.error( error );
+      } );
+
+  ClassicEditor.create( document.querySelector( '#product_google_shopping_attributes_description' ) ).catch( error => {
+    console.error( error );
+  } );
+
+  ClassicEditor.create( document.querySelector( '#product_seo_content_attributes_description' ) ).catch( error => {
+    console.error( error );
+  } );
+
+  validateProductForm();
 });
+
+let product_description_editor;
 
 function removeImage(ele){
   let count = 1;
@@ -685,111 +697,6 @@ function productSearchByFilter(){
   });
 }
 
-
-function validProductForm(){
-  let has_errors = []
-
-  $("#product_title").parents('.form-group').find('small').remove();
-  if($("#product_title").val().length > 0){
-    $("#product_title").parents('.form-group').removeClass('error-field')
-    $("#product_title").parents('.form-group').find('small').remove();
-  }else{
-    has_errors.push(true)
-    $("#product_title").parents('.form-group').addClass('error-field')
-    $("#product_title").parents('.form-group').append('<small class="form-text">Title can\'t be blank</small>')
-  }
-
-  $("#product_price").parents('.form-group').find('small').remove();
-  if($("#product_price").val().length > 0){
-    $("#product_price").parents('.form-group').removeClass('error-field')
-    $("#product_price").parents('.form-group').find('small').remove();
-  }else{
-    has_errors.push(true)
-    $("#product_price").parents('.form-group').addClass('error-field')
-    $("#product_price").parents('.form-group').append('<small class="form-text">* Price can\'t be blank</small>')
-  }
-
-  $("#product_ean").parents('.form-group').find('small').remove();
-  if($("#product_ean").val().length > 0){
-    $("#product_ean").parents('.form-group').removeClass('error-field')
-    $("#product_ean").parents('.form-group').find('small').remove();
-  }else{
-    has_errors.push(true)
-    $("#product_ean").parents('.form-group').addClass('error-field')
-    $("#product_ean").parents('.form-group').append('<small class="form-text">* Please enter a valid EAN.</small>')
-  }
-
-  $("#product_stock").parents('.form-group').find('small').remove();
-  if($("#product_stock").val().length > 0){
-    $("#product_stock").parents('.form-group').removeClass('error-field')
-    $("#product_stock").parents('.form-group').find('small').remove();
-  }else{
-    has_errors.push(true)
-    $("#product_stock").parents('.form-group').addClass('error-field')
-    $("#product_stock").parents('.form-group').append('<small class="form-text">* Stock can\'t be blank</small>')
-  }
-
-  if($("[name='product[delivery_option_id]']:checked").length > 0){
-    $('.d-option-id').hide();
-  }else{
-    has_errors.push(true)
-    $('.d-option-id').show();
-  }
-
-  $("#product_condition").parents('.form-group').find('small').remove();
-  if($('#product_condition').val().length > 0){
-    $("#product_condition").parents('.form-group').removeClass('error-field')
-    $("#product_condition").parents('.form-group').find('small').remove();
-  }else{
-    has_errors.push(true)
-    $("#product_condition").parents('.form-group').addClass('error-field')
-    $("#product_condition").parents('.form-group').append('<small class="form-text">* Condition can\'t be blank</small>')
-  }
-
-  $('#product_keywords').parents('.form-group').find('small').remove();
-  if($('#product_keywords').val().length > 0){
-    $('#product_keywords').parents('.form-group').removeClass('error-field')
-    $('#product_keywords').parents('.form-group').find('small').remove();
-  }else{
-    has_errors.push(true)
-    $('#product_keywords').parents('.form-group').addClass('error-field')
-    $('#product_keywords').parents('.form-group').append('<small class="form-text">* Keywords can\'t be blank</small>')
-  }
-
-  $('#product_description').parents('.form-group').find('small').remove();
-  if(disEditor.getData().length>0){
-    $('#product_description').parents('.form-group').removeClass('error-field')
-    $('#product_description').parents('.form-group').find('small').remove();
-  }else{
-    has_errors.push(true)
-    $('#product_description').parents('.form-group').addClass('error-field')
-    $('#product_description').parents('.form-group').append('<small class="form-text">* * Description can\'t be blank</small>')
-  }
-
-  $("#product_category").parents('.form-group').find('small').remove();
-  if($("#product_category").val().length > 0){
-    $("#product_category").parents('.form-group').find(".selectize-input").removeClass('custom-border');
-    $("#product_category").parents('.form-group').find('small').remove();
-  }else{
-    has_errors.push(true)
-    $("#product_category").parents('.form-group').find(".selectize-input").addClass('custom-border');
-    $("#product_category").parents('.form-group').append('<small class="form-text">* Category can\'t be blank</small>')
-  }
-
-  $("#search_seller_select").parents('.form-group').find('small').remove();
-  if($("#search_seller_select").val().length > 0){
-    $("#search_seller_select").parents('.form-group').find(".selectize-input").removeClass('custom-border');
-    $("#search_seller_select").parents('.form-group').find('small').remove();
-  }else{
-    has_errors.push(true)
-    $("#search_seller_select").parents('.form-group').find(".selectize-input").addClass('custom-border');
-    $("#search_seller_select").parents('.form-group').append('<small class="form-text mt-0">* Seller can\'t be blank</small>')
-  }
-
-  return !has_errors.includes(true)
-}
-
-
 function updateBulkProducts(action){
   let productIds = []
   $('.prod-table-row input[type=checkbox]:checked').each(function(){ productIds.push($(this).val()) })
@@ -960,7 +867,7 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
   }, "Please enter a valid price value.");
 
   jQuery.validator.addMethod("descriptionPresent", function(value) {
-    let content_length = disEditor.getData().trim().length;
+    let content_length = product_description_editor.getData().trim().length;
     return content_length > 0;
   }, "Please add some description about your product.");
 

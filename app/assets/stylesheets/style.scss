@@ -944,6 +944,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 .add-photo-inner .photo-btn {
 	width: 300px;
+    display: inline-flex;
+    justify-content: center;
 }
 .box-border {
 	padding: 20px;
@@ -2746,5 +2748,11 @@ color: #A2697E;
     width: 250px;
     display: block;
 }
+
+ input[type=number]::-webkit-inner-spin-button,
+ input[type=number]::-webkit-outer-spin-button {
+   -webkit-appearance: none;
+   margin: 0;
+ }
 
 /* ================== sprint-3 ================== */

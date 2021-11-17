@@ -25,30 +25,3 @@
 
 </div>
 <%= render 'shared/simple_confirm_modal', confirm_statement: 'Are you sure to delete this image?', id: 'yes-delete-img',path: '#', data: nil, modal_id: 'yes-no-product-delete-img-modal' %>
-<script>
-    let disEditor;
-    $(document).ready(function(){
-
-        ClassicEditor
-        .create( document.querySelector( '#product_description' ) )
-        .then(newEditor=>{
-            disEditor = newEditor;
-            disEditor.model.document.on( 'change:data', () => {
-                $('#product_description').val(disEditor.getData().trim());
-                $('#product_description').trigger('change');
-            });
-        })
-        .catch( error => {
-            console.error( error );
-        } );
-
-        ClassicEditor.create( document.querySelector( '#product_google_shopping_attributes_description' ) ).catch( error => {
-            console.error( error );
-        } );
-
-        ClassicEditor.create( document.querySelector( '#product_seo_content_attributes_description' ) ).catch( error => {
-            console.error( error );
-        } );
-        validateProductForm();
-    })
-</script>
