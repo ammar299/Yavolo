@@ -7,15 +7,25 @@ if ($selected_sellers.length < 1) {
 }
 else {
 <% if params[:param_to_update].present? && params[:param_to_update] == 'approve' %>
-  <% text = 'Are you sure you want to approve these sellers?' %>
+  <% text = "Are you sure you want to approve" %>
 <% elsif params[:param_to_update].present? && params[:param_to_update] == 'suspend' %>
-  <% text = 'Are you sure you want to suspend these sellers?' %>
+  <% text = "Are you sure you want to suspend" %>
 <% elsif params[:param_to_update].present? && params[:param_to_update] == 'activate' %>
-  <% text = 'Are you sure you want to activate these sellers?' %>
+  <% text = "Are you sure you want to activate" %>
 <% elsif params[:param_to_update].present? && params[:param_to_update] == 'delete' %>
-  <% text = 'Are you sure you want to delete these sellers?' %>
+  <% text = "Are you sure you want to delete" %>
 <% end %>
 $('#seller-actions').html("<%= j render(partial: 'admin/sellers/update_multi_sellers_confirmation_modal', locals: { text: text }) %>");
+
+    var this_or_these = '';
+    if ($selected_sellers.length < 2) {
+        this_or_these = 'this seller?'
+    }
+    else {
+        this_or_these = 'these sellers?'
+    }
+    $('#updateable-text').append(this_or_these);
+
 $('#confirm-seller-actions-modal').modal('show');
 var href_val = $('.confirmed-action').attr('href');
 href_val = href_val + "&ids=" + $selected_sellers.join(",")

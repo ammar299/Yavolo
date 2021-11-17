@@ -10,7 +10,7 @@ class AdminMailer < ApplicationMailer
   end
 
   def export_sellers_email(csv)
-    attachments["#{Date.today}-sellers.csv"] = {mime_type: 'text/csv', content: csv}
+    attachments["#{Date.today}-sample-sellers.csv"] = {mime_type: 'text/csv', content: csv}
     mail(to: "talha.waseem@phaedrasolutions.com", subject: 'Yavolo: CSV sellers data')
   end
 

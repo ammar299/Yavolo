@@ -7,14 +7,21 @@
             if params[:q].present?
               field_name = params[:q].keys.first
             else
-              field_name = "first_name_or_last_name_or_email_cont"
+              field_name = "email_cont"
             end
           %>
           <div class="search-field mb-0">
             <%= search_form_for @q, url: admin_sellers_path do |f| %>
               <input type="hidden" name="filter_type" id="seller-filter-type" value="<%= params[:filter_type] %>">
               <%= f.search_field field_name.to_sym, { class: 'input-btn-sm seller-search-field', placeholder: 'Search Sellers', value: "#{search_field_params(params)}" } %>
-              <i class="fa fa-search" aria-hidden="true"></i>
+
+              <% if params[:q].present? %>
+                <%= link_to admin_sellers_path, class: 'btn-sm' do %>
+                  <i class="icon-cross" aria-hidden="true"></i>
+                <% end %>
+              <% else %>
+                <i class="fa fa-search" aria-hidden="true"></i>
+              <% end %>
             <% end %>
           </div>
         </div>
@@ -98,6 +105,8 @@
           </tr>
         </thead>
         <tbody>
+        <%# @sellers.length = 0 %>
+        <% if @sellers.length > 0 %>
           <% @sellers.each do |seller| %>
             <tr id="seller-row-<%= seller.id %>">
               <td>
@@ -136,6 +145,11 @@
               </td>
             </tr>
           <% end %>
+          <% else %>
+        <tr>
+          <td colspan='10' class="text-center">No Record Found</td>
+        </tr>
+        <% end %>
         </tbody>
       </table>
     </div>
@@ -168,3 +182,12 @@
     </div>
   </div>
 </div>
+
+<script>
+  // this mini script is written to uncheck check all checkbox if any other checkbox is unchecked
+  $('body').on('click', '.multiple-update-sellers', function() {
+      if (!$(this).is(":checked") && $('#check-all-checkboxes').is(":checked")) {
+          $('#check-all-checkboxes').prop("checked", false);
+      }
+  })
+</script>
