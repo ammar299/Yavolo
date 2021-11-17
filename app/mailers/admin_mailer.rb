@@ -9,9 +9,9 @@ class AdminMailer < ApplicationMailer
     mail(to: params[:to], subject: 'Yavolo: CSV import is failed')
   end
 
-  def export_sellers_email(csv)
-    attachments["#{Date.today}-sample-sellers.csv"] = {mime_type: 'text/csv', content: csv}
-    mail(to: "talha.waseem@phaedrasolutions.com", subject: 'Yavolo: CSV sellers data')
+  def export_sellers_email(current_admin,csv)
+    attachments["#{Date.today}-export-sellers.csv"] = {mime_type: 'text/csv', content: csv}
+    mail(to: current_admin, subject: 'Yavolo: CSV sellers data')
   end
 
   def import_sellers_email

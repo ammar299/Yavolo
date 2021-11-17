@@ -174,17 +174,33 @@ class Admin::SellersController < Admin::BaseController
     text = @seller.holiday_mode == true ? 'Enabled holiday mode successfully' : 'Disabled holiday mode successfully'
     flash.now[:notice] = text.to_s
   end
-
+  
   def export_sellers
-    @all_sellers = Seller.all
-    respond_to do |format|
-      format.html
-      format.csv { send_data @all_sellers.to_csv, filename: "#{Date.today}-sample-sellers.csv" }
+    selected_sellers = get_sellers()
+    all_sellers = []
+    selected_sellers.each do |seller|
+      seller = Seller.find(seller)
+      all_sellers << seller
     end
-    if @all_sellers.size > 100
-      csv = @all_sellers.to_csv
-      AdminMailer.export_sellers_email(csv).deliver!
+    
+    if all_sellers.size > 0
+      respond_to do |format|
+        format.html
+        format.csv { send_data Seller.new.to_csv(all_sellers), filename: "#{Date.today}-export-sellers.csv" }
+      end
+      
+      csv = Seller.new.to_csv(all_sellers)
+      ExportSellerCsvViaEmailWorker.perform_async(current_admin.email, csv)
     end
+  end
+
+  def get_sellers
+    sellers = []
+    seller_ids = params[:sellers].split(",")
+    seller_ids.each do |seller|
+      sellers << seller.to_i
+    end
+    return sellers
   end
 
   def reset_password_token

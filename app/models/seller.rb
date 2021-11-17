@@ -71,7 +71,7 @@ class Seller < ApplicationRecord
     end
   end
 
-  def self.to_csv
+  def to_csv(all_sellers)
     attributes = %w{user_email user_first_name user_surname account_status listing_status subscription_type company_name
       company_legal_business_name company_doing_business_as company_companies_house_registration_number company_vat_number company_business_industry company_country company_website_url
       company_amazon_url company_ebay_url  
@@ -85,7 +85,7 @@ class Seller < ApplicationRecord
     
     CSV.generate(headers: true) do |csv|
       csv << attributes
-      all.each do |seller|        
+      all_sellers.each do |seller|        
         csv << [seller.email, seller.first_name, seller.last_name, seller.account_status, seller.listing_status, seller.subscription_type,
           seller&.company_detail&.name, seller&.company_detail&.legal_business_name, seller&.company_detail&.doing_business_as, seller&.company_detail&.companies_house_registration_number, seller&.company_detail&.vat_number, seller&.company_detail&.business_industry, seller&.company_detail&.country, seller&.company_detail&.website_url,  seller&.company_detail&.amazon_url,seller&.company_detail&.ebay_url,
           seller&.business_representative&.full_legal_name, seller&.business_representative&.email, seller&.business_representative&.job_title , seller&.business_representative&.date_of_birth,

@@ -46,6 +46,28 @@ $(document).ready(function(){
       }
     });
    
+    $(".export-csv-selected-sellers").click(function(){
+      var selected_sellers = []
+      $('.multiple-update-sellers input[type=checkbox]:checked').each(function () {
+      selected_sellers.push($(this).val())
+      });
+      if (selected_sellers.length < 1) {
+        $("#export-seller-failure").addClass("notice-msg")
+        setTimeout(() => { 
+            $("#export-seller-failure").removeClass("notice-msg")
+        }, 3000);
+        return false
+      }
+      else{
+        $(this).attr('href','/admin/export_sellers.csv?sellers='+selected_sellers)
+        $("#export-seller-sucsess").addClass("notice-msg")
+        setTimeout(() => { 
+            $("#export-seller-sucsess").removeClass("notice-msg")
+        }, 3000);
+      }
+
+
+    })
  });
 
 function toggleDashboardMenu(){
