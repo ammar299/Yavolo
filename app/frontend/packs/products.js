@@ -1,3 +1,5 @@
+import 'select2'
+import 'select2/dist/css/select2.css'
 // load all products related js here
 $(document).ready(function(){
   bindResultPerPageOption();
@@ -19,7 +21,7 @@ $(document).ready(function(){
     updateFieldValue($(this).data('pid'),$(this).val(),$(this).data('action'));
   });
 
-  bindAndLoadSellersSelectize()
+  bindAndLoadSellersSelect2()
   setSellerSearchMenuAndQueryName();
 
   // on bulk update click event
@@ -159,39 +161,8 @@ $(document).ready(function(){
   });
   // end image delete
 
-
-  $("#product_category").selectize({
-    valueField: "id",
-    labelField: "category_name",
-    searchField: "category_name",
-    render: {
-      option: function (item, escape) {
-        return (
-          '<option value="'+item.id+'">'+item.category_name+'</option>'
-        );
-      },
-    },
-    load: function (query, callback) {
-      if (!query.length) return callback();
-      $.ajax({
-        url: "/"+$('#namespace').val()+"/categories/search_category",
-        type: "GET",
-        dataType: "json",
-        data: {
-          q: query,
-          page_limit: 10,
-          apikey: "w82gs68n8m2gur98m6du5ugc",
-        },
-        error: function () {
-          callback();
-        },
-        success: function (res) {
-          callback(res.data);
-        },
-      });
-    },
-  });
-
+  bindAndLoadBabyCategoriesSelect2()
+  
   $('#product_category').change(function(){
     let productId = $('#product_id').val();
     let categoryId = $(this).val();
@@ -375,39 +346,67 @@ function updateFieldValue(pid,val,action){
   });
 }
 
-function bindAndLoadSellersSelectize(){
-  $("#search_seller_select").selectize({
-    valueField: "id",
-    labelField: "full_name",
-    searchField: "full_name",
-    render: {
-      option: function (item, escape) {
-        return (
-          '<option value="'+item.id+'">'+item.full_name+'</option>'
-        );
+function bindAndLoadBabyCategoriesSelect2(){
+  $('#product_category').select2({
+    theme: 'bootstrap4',
+    ajax: {
+      url: "/"+$('#namespace').val()+"/categories/search_category",
+      type: 'GET',
+      dataType: 'json',
+      delay: 250,
+      data: function (params) {
+        return {
+          q: params.term,
+          page: params.page || 1
+        };
       },
+      processResults: function (data, params) {
+        params.page = params.page || 10;
+        return {
+          results: $.map(data.categories,function(e){ return {id: e.id, text: e.category_name}}),
+          pagination: {
+            more: (params.page * 10) < data.total_count
+          }
+        };
+      },
+      cache: true
     },
-    load: function (query, callback) {
-      if (!query.length) return callback();
-      $.ajax({
-        url: "/"+$('#namespace').val()+"/sellers/search",
-        type: "GET",
-        dataType: "json",
-        data: {
-          "q[email_or_first_name_or_last_name_cont]": query,
-          "q[s]": "first_name asc",
-          page_limit: 15
-        },
-        error: function () {
-          callback();
-        },
-        success: function (res) {
-          callback(res.sellers);
-        },
-      });
-    },
+    placeholder: 'Search a baby category',
+    minimumInputLength: 2
   });
 }
+
+function bindAndLoadSellersSelect2(){
+  $('#search_seller_select').select2({
+    theme: 'bootstrap4',
+    ajax: {
+      url: "/"+$('#namespace').val()+"/sellers/search",
+      type: 'GET',
+      dataType: 'json',
+      delay: 250,
+      data: function (params) {
+        return {
+          "q[email_or_first_name_or_last_name_cont]": params.term,
+          "q[s]": "first_name asc",
+          page: params.page || 1
+        };
+      },
+      processResults: function (data, params) {
+        params.page = params.page || 10;
+        return {
+          results: $.map(data.sellers,function(e){ return {id: e.id, text: e.full_name}}),
+          pagination: {
+            more: (params.page * 10) < data.total_count
+          }
+        };
+      },
+      cache: true
+    },
+    placeholder: 'Search for a seller',
+    minimumInputLength: 2
+  });
+}
+
 
 function getFilterGroupsOfBabyCategory(productId, selectedCategoryId){
   $.ajax({
@@ -450,7 +449,7 @@ function renderCategoryFilterGroups(res){
     $('#category-filter-section').html("").html("No Filter Groups found")
     $('#category-filter-section').append("<input class='finids' type='hidden' name='product[filter_in_category_ids][]'>")
   }
-  $(".filter-names").selectize();
+  $(".filter-names").select2();
 }
 
 
@@ -959,11 +958,11 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
     },
     highlight: function(element) {
       if(element.name=="product[assigned_category_attributes][category_id]"){
-        $(element).parents('.form-group').find(".selectize-input").addClass('custom-border');
+        $(element).parents('.form-group').find(".select2-selection.select2-selection--single").addClass('custom-border');
       }else if(element.name=="product[keywords]"){
         $(element).parents('.form-group').addClass('error-field')
       }else if( element.name=="product[owner_id]" && $('#namespace').val()=='admin' ){
-        $(element).parents('.form-group').find(".selectize-input").addClass('custom-border');
+        $(element).parents('.form-group').find(".select2-selection.select2-selection--single").addClass('custom-border');
       }else{
         $(element).parents("div.form-group").addClass('error-field');
       }
@@ -974,10 +973,10 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
       }else if($(element).attr('name')=="product[delivery_option_id]"){
         $('.d-option-id').hide();
       }else if($(element).attr('name')=="product[assigned_category_attributes][category_id]"){
-        $(element).parents('.form-group').find(".selectize-input").removeClass('custom-border');
+        $(element).parents('.form-group').find(".select2-selection.select2-selection--single").removeClass('custom-border');
         $(element).parents('.form-group').find('label.error').remove();
       }else if($(element).attr('name')=="product[owner_id]" && $('#namespace').val()=='admin'){
-        $(element).parents('.form-group').find(".selectize-input").removeClass('custom-border');
+        $(element).parents('.form-group').find(".select2-selection.select2-selection--single").removeClass('custom-border');
         $(element).parents('.form-group').find('label.error').remove();
       }else{
         $(element).parents("div.form-group").removeClass('error-field');

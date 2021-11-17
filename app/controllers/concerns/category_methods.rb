@@ -2,8 +2,12 @@ module CategoryMethods
   extend ActiveSupport::Concern
 
   def search_category
-    @categories = Category.where("category_name LIKE ? AND baby_category = ?", "%#{params[:q]}%", true).limit(10)
-    render json: { data: @categories }
+    @categories = Category.where("category_name LIKE ? AND baby_category = ?", "%#{params[:q]}%", true)
+    @categories = @categories.page(params[:page]).per(params[:per_page].presence || 10)
+    render json: {
+      categories: @categories.as_json(only: [:id,:category_name]),
+      total_count: @categories.total_count
+    }, status: :ok
   end
 
   def get_filter_groups

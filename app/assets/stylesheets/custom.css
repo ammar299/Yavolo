@@ -821,6 +821,9 @@ label {
     padding-top: 4px;
     display: none
 }
+.select2-container--bootstrap4 .select2-selection{
+  border-radius: 12px !important;
+}
 .positionZero {
   left: 0 !important;
   top: 0 !important;
