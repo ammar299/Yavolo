@@ -82,3 +82,15 @@
 </div>
 <!-- Delivery Template Confirmation Deletion Modal -->
 <%= render 'shared/admin/confirmation_deletion_modal' %>
+<script>
+  $('body').on('click', '.delivery-options-checkbox-container', function() {
+      if (!$(this).is(":checked") && $('.delivery-options-select-all-container').find('input[type="checkbox"]').is(":checked")) {
+          $('.delivery-options-select-all-container').find('input[type="checkbox"]').prop("checked", false);
+      }
+  })
+  $('body').on('click', '.carriers-checkbox-container', function() {
+      if (!$(this).is(":checked") && $('.carriers-select-all-container').find('input[type="checkbox"]').is(":checked")) {
+          $('.carriers-select-all-container').find('input[type="checkbox"]').prop("checked", false);
+      }
+  })
+</script>

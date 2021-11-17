@@ -3,7 +3,7 @@ class Admin::DeliveryOptionsController < Admin::BaseController
   before_action :set_seller_id, only: %i[edit new]
 
   def index
-    @delivery_options = DeliveryOption.admin_delivery_option("Admin")
+    @delivery_options = DeliveryOption.order(created_at: :desc)
     @carriers = Carrier.all
   end
 
@@ -53,7 +53,7 @@ class Admin::DeliveryOptionsController < Admin::BaseController
 
   def delete_delivery_options
     DeliveryOption.where(id: params['ids'].split(',')).destroy_all
-    @delivery_options = DeliveryOption.admin_delivery_option("Admin")
+    @delivery_options = DeliveryOption.order(created_at: :desc)
     flash.now[:notice] = 'Templates has been deleted'
   end
 
@@ -65,10 +65,10 @@ class Admin::DeliveryOptionsController < Admin::BaseController
   def search_seller_delivery_options
     if params[:search].present?
       seller_id = Seller.find(params[:seller_id])
-      @delivery_options = DeliveryOption.where(delivery_optionable_type: "Seller", delivery_optionable_id: seller_id).global_search(params[:search])
+      @delivery_options = DeliveryOption.where(delivery_optionable_type: "Seller", delivery_optionable_id: seller_id).global_search(params[:search]).order(created_at: :desc)
     else 
       seller_id = Seller.find(params[:seller_id])
-      @delivery_options = DeliveryOption.where(delivery_optionable_type: "Seller", delivery_optionable_id: seller_id)
+      @delivery_options = DeliveryOption.where(delivery_optionable_type: "Seller", delivery_optionable_id: seller_id).order(created_at: :desc)
     end
   end
 
