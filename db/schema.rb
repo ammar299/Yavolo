@@ -210,7 +210,7 @@ ActiveRecord::Schema.define(version: 2021_11_15_184919) do
   end
 
   create_table "delivery_option_ships", force: :cascade do |t|
-    t.float "price"
+    t.decimal "price", precision: 8, scale: 2
     t.bigint "delivery_option_id"
     t.bigint "ship_id"
     t.datetime "created_at", precision: 6, null: false
@@ -376,7 +376,7 @@ ActiveRecord::Schema.define(version: 2021_11_15_184919) do
     t.string "handle"
     t.text "description"
     t.text "keywords"
-    t.string "sku", null: false
+    t.string "sku"
     t.string "ean"
     t.string "yan"
     t.string "brand"
@@ -476,9 +476,9 @@ ActiveRecord::Schema.define(version: 2021_11_15_184919) do
     t.boolean "two_factor_auth", default: false
     t.datetime "last_seen_at"
     t.string "recovery_email"
+    t.boolean "skip_success_hub_steps", default: false
     t.string "otp_secret"
     t.integer "last_otp_at"
-    t.boolean "skip_success_hub_steps", default: false
     t.index ["email"], name: "index_sellers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_sellers_on_reset_password_token", unique: true
   end

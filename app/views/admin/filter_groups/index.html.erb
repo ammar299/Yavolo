@@ -16,7 +16,7 @@
                 <%= link_to 'Delete', confirm_multiple_deletion_admin_filter_groups_path, class: 'dropdown-item active', data: { remote: true } %>
                 <%= link_to 'Assign to Category', '#', class: 'dropdown-item disabled', id: 'assign-filter-group-category', data: { remote: true }%>
                 <div class="modal fade modal-xxl filter-group-modal pl-0 align-items-start" id="assignFilterGroupForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
+                  <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Assign Category</h5>
@@ -85,7 +85,7 @@
           <%= link_to 'Add New Filter Group', new_admin_filter_group_path, class: 'btn btn-sm btn-radius px-4 btn-primary my-2', data: { remote: true } %>
           <div class="modal fade modal-xxl filter-group-modal pl-0 align-items-start" id="filterGroupForm" tabindex="-1" role="dialog"
           aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
+          <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <% if params[:action] == "assign_category" %>

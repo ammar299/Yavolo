@@ -858,7 +858,10 @@ label {
   left: 0 !important;
   top: 0 !important;
 }
-
+.confirmation-text {
+  text-align: center;
+  padding-bottom: 0 !important;
+}
 @media only screen and (min-width: 1025px) {
   .admin-dashboard.no-header {
     padding-top: 0 !important;
@@ -878,3 +881,9 @@ label {
     z-index: 55555;
   }
 }
+@media (min-width: 576px) {
+  .modal-dialog.modal-sm {
+    max-width: 400px !important;
+  }
+}
+
