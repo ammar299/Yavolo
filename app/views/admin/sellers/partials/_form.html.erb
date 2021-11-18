@@ -18,7 +18,9 @@
           <% end %>
           <!-- Seller Email -->
           <h4 class="mt-4 mb-4">User</h4>
-          
+          <% if params[:controller] == "admin/sellers" %>
+            <%= form.hidden_field :account_status, {value: 'activate'} %>
+          <% end %>
           <div class="form-group form-group-vertical form-group-vertical-responsive">
             <%= form.label :email, 'Email Address:' %>
             <div style="flex: 1">

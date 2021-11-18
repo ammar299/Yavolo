@@ -35,17 +35,6 @@ class Admin::SellersController < Admin::BaseController
     end
   end
 
-  def create
-    @seller = Seller.new(seller_params)
-    @seller.skip_password_validation = true
-    if @seller.save
-      AdminMailer.with(to: @seller.email.to_s.downcase).send_account_creation_email.deliver_now
-      redirect_to admin_sellers_path, flash: { notice: "Seller has been saved" }
-    else
-      render :new
-    end
-  end
-
   def edit; end
 
   def update_business_representative

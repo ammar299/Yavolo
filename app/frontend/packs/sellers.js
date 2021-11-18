@@ -229,11 +229,11 @@ $(document).ready(function(){
 
     jQuery.validator.addMethod("postal_code_uk", function (value, element) {
       return this.optional(element) || /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/.test(value);
-    }, "Please specify a valid UK postal code");
+    }, "Enter valid UK postal code");
 
     jQuery.validator.addMethod('phone_number_uk', function(value, element) {
           return this.optional(element) || value.length > 9 && value.match(/^(\(?(0|\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
-        }, 'Please specify a valid UK phone number'
+        }, 'Enter valid UK phone number'
     );
     jQuery.validator.addMethod(
     /* The value you can use inside the email object in the validator. */
@@ -302,7 +302,7 @@ $(document).ready(function(){
 
           /* Return whether the element is optional or the result of the validation. */
           return this.optional(element) || regexp.test(value);
-        },'Please Enter a valid Email'
+        },'Enter a valid Email'
     );
   }
 
@@ -764,20 +764,20 @@ window.validateSellerEditForm = function() {
   });
   jQuery.validator.addMethod("url_without_scheme", function(value, element) {
         return /^(www\.)[A-Za-z0-9_-]+\.+[A-Za-z0-9.\/%&=\?_:;-]+$/.test(value);
-      }, "Please enter a valid URL without http/https"
+      }, "Enter a valid URL without http/https"
   );
 
   jQuery.validator.addMethod("postal_code_uk", function (value, element) {
       return this.optional(element) || /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/.test(value);
-  }, "Please specify a valid UK postal code");
+  }, "Enter valid UK postal code");
 
   jQuery.validator.addMethod("exactlength", function(value, element, param) {
    return this.optional(element) || value.length == param;
-  }, $.validator.format("Please enter exactly {0} characters."));
+  }, $.validator.format("Enter exactly {0} characters."));
 
   jQuery.validator.addMethod('phone_number_uk', function(value, element) {
         return this.optional(element) || value.length > 9 && value.match(/^(\(?(0|\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
-      }, 'Please specify a valid UK phone number'
+      }, 'Enter valid UK phone number'
   );
   jQuery.validator.addMethod(
     /* The value you can use inside the email object in the validator. */
@@ -797,7 +797,7 @@ window.validateSellerEditForm = function() {
 
         /* Return whether the element is optional or the result of the validation. */
         return this.optional(element) || regexp.test(value);
-    },'Please Enter a valid Email'
+    },'Enter a valid Email'
     );
 }
 

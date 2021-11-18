@@ -257,11 +257,11 @@ function addNewSellerFormValidation() {
 
   jQuery.validator.addMethod("postal_code_uk", function (value, element) {
     return this.optional(element) || /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/.test(value);
-  }, "Please specify a valid UK postal code");
+  }, "Enter valid UK postal code");
 
   jQuery.validator.addMethod('phone_number_uk', function(value, element) {
         return this.optional(element) || value.length > 9 && value.match(/^(\(?(0|\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
-      }, 'Please specify a valid UK phone number'
+      }, 'Enter valid UK phone number'
   );
 jQuery.validator.addMethod("exactlength", function(value, element, param) {
  return this.optional(element) || value.length == param;
