@@ -1,9 +1,9 @@
 module Admins
   module Sellers
     class SubscriptionUpdaterService < ApplicationService
-      attr_reader  :seller, :status,:errors
+      attr_reader  :seller, :status, :errors
 
-      def initialize(seller:, status:)
+      def initialize(status,seller)
           @status = status
           @seller = seller
           @errors = []

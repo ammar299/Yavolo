@@ -1,9 +1,9 @@
 module Sellers
 
   class StripeDefaultSubscriptionCreatorService < ApplicationService
-    attr_reader :seller, :errors
-    def initialize(seller:)
-      @seller = seller
+    attr_reader :params, :errors
+    def initialize(params)
+      @params = params
       @errors = []
     end
 
@@ -20,10 +20,10 @@ module Sellers
     end
 
     def get_stripe_customer
-      if @seller&.stripe_customer.present?
-        @stripe_customer = @seller.stripe_customer.customer_id
+      if seller&.stripe_customer.present?
+        @stripe_customer = seller.stripe_customer.customer_id
       else
-        @stripe_customer = Sellers::StripeCustomerService.call({seller: current_seller})
+        @stripe_customer = Sellers::StripeCustomerService.call({seller: seller})
       end
     end
     
@@ -34,9 +34,9 @@ module Sellers
     end
 
     def get_start_date
-      if @seller.subscription_type == "monthly"
+      if seller.subscription_type == "monthly"
         @start_date = Time.current #1731016200
-      elsif @seller.subscription_type == "yearly"
+      elsif seller.subscription_type == "yearly"
         @start_date = Time.current+1.year
       end
       return @start_date
@@ -63,7 +63,7 @@ module Sellers
 
     def create_subscription_in_database
       if @subscription_schedule.present?
-        @seller&.create_seller_stripe_subscription(
+        seller&.create_seller_stripe_subscription(
           subscription_schedule_id: @subscription_schedule.id,
           subscription_stripe_id: @subscription_schedule.subscription,
           plan_name: @subscription_schedule.phases[0].items[0].plan,
@@ -79,7 +79,7 @@ module Sellers
     
     def update_current_subscription
       if @subscription_schedule.present?
-        @seller&.seller_stripe_subscription.update(
+        seller&.seller_stripe_subscription.update(
           subscription_schedule_id: @subscription_schedule.id,
           subscription_stripe_id: @subscription_schedule.subscription,
           plan_name: @subscription_schedule.phases[0].items[0].plan,
@@ -93,6 +93,12 @@ module Sellers
       end
     end
     
+    private
+
+    def seller
+      @seller ||= params[:seller]
+    end
+
   end
 
 end

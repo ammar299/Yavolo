@@ -4,7 +4,7 @@ class Sellers::ProfilesController < Sellers::BaseController
   before_action :seller_session_expire, :except=>[:new, :create]
   before_action :set_seller, only: %i[new show edit update update_business_representative update_company_detail update_seller_logo remove_logo_image update_addresses holiday_mode confirm_reset_password_token reset_password_token seller_login_setting_update skip_success_hub_steps get_invoice_address get_return_address]
   before_action :set_delivery_template, only: %i[confirm_delete destroy_delivery_template]
-  # before_action :get_action_url, only: %i[show]
+  before_action :get_action_url, only: %i[show]
   before_action :set_last_seen_at, if: proc { seller_signed_in? }
 
 

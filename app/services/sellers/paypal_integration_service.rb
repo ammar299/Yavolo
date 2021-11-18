@@ -1,9 +1,9 @@
 module Sellers
 
   class PaypalIntegrationService < ApplicationService
-    attr_reader :seller
-    def initialize(seller:)
-      @seller = seller
+    attr_reader :params
+    def initialize(params)
+      @params = params
     end
 
     def call(*args)
@@ -18,7 +18,7 @@ module Sellers
       request.content_type = "application/json"
       request["Authorization"] = "Bearer #{@access_token}"
       request.body = JSON.dump({
-        "tracking_id" => "#{@seller.paypal_detail.id}",
+        "tracking_id" => "#{seller.paypal_detail.id }",
         "operations" => [
           {
             "operation" => "API_INTEGRATION",
@@ -96,11 +96,15 @@ module Sellers
     private
 
     def create_seller_paypal_detail_entry
-      paypal_detail = @seller.create_paypal_detail(integration_status: false) if !@seller.paypal_detail.present?
+      paypal_detail = seller.create_paypal_detail(integration_status: false) if !seller.paypal_detail.present?
     end
 
     def update_return_url
-      paypal_detail = @seller.paypal_detail.update(seller_action_url: @action_url) if @seller.paypal_detail.present?
+      paypal_detail = seller.paypal_detail.update(seller_action_url: @action_url) if seller.paypal_detail.present?
+    end
+
+    def seller
+      @seller ||= params[:seller]
     end
 
   end

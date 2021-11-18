@@ -255,11 +255,12 @@ class Admin::SellersController < Admin::BaseController
   end
 
   def update_subscription_by_admin
-    begin
-      subscription = Admins::Sellers::SubscriptionUpdaterService.call({status: params[:subsciption_status], seller: @seller })
+    if params[:id].present?
+      @status = params[:subsciption_status]
+      subscription = Admins::Sellers::SubscriptionUpdaterService.call(@status, @seller )
       case subscription.status
       when "canceled"
-        flash.now[:notice] = "Subscription status canceled for seller: #{current_seller.email}"
+        flash.now[:notice] = "Subscription status canceled for seller: #{@seller.email}"
       when "12_month"
         flash.now[:notice] = "Subscription status changed to 12 month"
       when "24_month"
@@ -269,7 +270,7 @@ class Admin::SellersController < Admin::BaseController
       else
         flash.now[:notice] = "Got into some errors please try again later!!  Errors: #{subscription.errors[0]}"
       end
-    rescue
+    else
       flash.now[:notice] = "Please refresh page first !!"
     end
   end

@@ -11,7 +11,7 @@ class Sellers::SubscriptionsController < Sellers::BaseController
 
   def get_current_subscription
     @seller = current_seller
-    subscription = @seller.seller_stripe_subscription.reload
+    subscription = @seller.seller_stripe_subscription
     current_plan = @seller.get_current_plan(subscription.plan_name) if subscription.present?
     if subscription.present? && current_plan.present?
       return render json: {subscription: subscription, current_plan: current_plan, seller: @seller}, status: 200
