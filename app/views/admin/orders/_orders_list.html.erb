@@ -1,4 +1,6 @@
 <% orders.each do |order| %>
+  <% order_detail = order.order_detail %>
+  <% order_line_items = order.line_items %>
   <tr>
     <td>
       <label class="checkbox-blk">
@@ -7,19 +9,19 @@
       </label>
     </td>
     <td>
-      <a href="#"><u><%= order.id %></u></a>
+      <%= link_to order.id, admin_order_path(order) %>
     </td>
     <td>
-      Ahsan
+      <%= order_detail.name %>
     </td>
     <td>
       Shop Name
     </td>
     <td>
-      21.20
+      <%= "£#{order.sub_total}" %>
     </td>
     <td class="text-center">
-      3
+      <%= order_line_items.count %>
     </td>
     <td class="text-center">
       <a href="" class="icon-manage-Yavolo red-text font-20px decoration-none"></a>
@@ -29,7 +31,7 @@
     <td>Pending</td>
     <td class="text-center">
       <div class="">
-        <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-1">View</a>
+        <%= link_to 'View', admin_order_path(order), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1' %>
       </div>
     </td>
   </tr>
