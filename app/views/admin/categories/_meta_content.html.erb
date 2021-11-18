@@ -28,7 +28,7 @@
     $(".category-meta-tags").tagsinput('items')
     $(document).ready(function () {
 
-        ClassicEditor.create(document.querySelector('.meta-description')).catch(error => {
+        ClassicEditor.create(document.querySelector('.meta-description'),{toolbar: [ 'bold', 'italic', '|' ,'bulletedList', 'numberedList' ]}).catch(error => {
             console.error(error);
         });
     })

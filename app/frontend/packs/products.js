@@ -174,27 +174,31 @@ $(document).ready(function(){
   if($('#product_category').val() && $('#product_category').val().length > 0)
     getFilterGroupsOfBabyCategory($('#product_id').val(), $('#product_category').val());
 
-  ClassicEditor
-      .create( document.querySelector( '#product_description' ) )
-      .then(newEditor=>{
-        product_description_editor = newEditor;
-        product_description_editor.model.document.on( 'change:data', () => {
-          $('#product_description').val(product_description_editor.getData().trim());
-          $('#product_description').trigger('change');
-        });
-      })
-      .catch( error => {
-        console.error( error );
-      } );
+  if($( '#product_description' ).length){
+    ClassicEditor
+        .create( document.querySelector( '#product_description' ),{toolbar: [ 'bold', 'italic', '|' ,'bulletedList', 'numberedList' ]} )
+        .then(newEditor=>{
+          product_description_editor = newEditor;
+          product_description_editor.model.document.on( 'change:data', () => {
+            $('#product_description').val(product_description_editor.getData().trim());
+            $('#product_description').trigger('change');
+          });
+        })
+        .catch( error => {
+          console.error( error );
+        } );
+  }
 
-  ClassicEditor.create( document.querySelector( '#product_google_shopping_attributes_description' ) ).catch( error => {
-    console.error( error );
-  } );
-
-  ClassicEditor.create( document.querySelector( '#product_seo_content_attributes_description' ) ).catch( error => {
-    console.error( error );
-  } );
-
+  if($( '#product_google_shopping_attributes_description' ).length){
+    ClassicEditor.create( document.querySelector( '#product_google_shopping_attributes_description' ),{toolbar: [ 'bold', 'italic', '|' ,'bulletedList', 'numberedList' ]} ).catch( error => {
+      console.error( error );
+    } );
+  }
+  if($( '#product_seo_content_attributes_description' ).length) {
+    ClassicEditor.create( document.querySelector( '#product_seo_content_attributes_description' ), {toolbar: [ 'bold', 'italic', '|' ,'bulletedList', 'numberedList' ]} ).catch( error => {
+      console.error( error );
+    } );
+  }
   validateProductForm();
 });
 
