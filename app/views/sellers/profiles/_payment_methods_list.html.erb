@@ -1,0 +1,42 @@
+<div class="payment-method-inner " id="payments-cards">
+  <a href="#add-card" name=""class="btn btn-sm btn-radius px-4 btn-primary mb-3 add-card float-right" data-toggle="modal" data-target="#add-card">Add Card</a>
+  <h6 class="pt-3">Membership payment method</h6>
+  <% if payment_methods.present?%>
+    <% if payment_methods.count > 0 %>
+      <% payment_methods.each do |payment_method|%>
+        <div class="payment-method-card yo-white-card box-border p-0">
+          <table class="table m-0 subscription-table text-left">
+            <tr>
+              <td>
+                <p class="mb-1"><strong>Card number</strong> </p>
+                <p class="m-0">Ending in <%= payment_method.last_digits %></p>
+              </td>
+              <td>
+                <p class="mb-1"><strong>Name on card</strong> </p>
+                <p class="m-0"><%= payment_method.card_holder_name || payment_method.seller.email || "Not Given"%></p>
+              </td>
+              <td>
+                <p class="mb-1"><strong>Payment terms</strong> </p>
+                <p class="m-0">Monthly</p>
+              </td>
+              <td>
+                <p class="mb-1"><strong>System</strong> </p>
+                <p class="m-0">Stripe</p>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <a href="#" name="<%= sellers_payment_method_path(payment_method) %>"class="btn btn-sm btn-radius px-4 btn-primary mb-3 card-delete">Remove</a>
+        <%= render 'shared/simple_confirm_modal', confirm_statement: 'Are you sure you want to remove this card?', id: 'membership-card-remove',path: '#', data: "", modal_id: 'membership-card-remove-confirm' %>
+        
+        <%if payment_method.default_status == true %>
+          <a href="#default" name="" class="btn btn-sm btn-radius px-4 btn-primary mb-3 disabled">Prefered payment method</a>
+        <%else%>
+          <a href="#default" name="<%= sellers_set_default_card_path(payment_method) %>" class="btn btn-sm btn-radius px-4 btn-primary mb-3 set-default">Set as prefered payment method</a>
+        <%end%>
+        <%= render 'shared/simple_confirm_modal', confirm_statement: 'Are you sure you want set this card as default? All future subscriptions will be charge from this card', id: 'membership-card-set-default',path: '#default', data: "", modal_id: 'membership-card-set-default-confirm' %>
+      <%end%>
+    <%end%>
+  <%end%>
+</div>
+<%= render 'sellers/profiles/add_card'%>

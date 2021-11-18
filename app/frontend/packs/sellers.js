@@ -1,5 +1,6 @@
 $(document).ready(function(){
   console.log('sellers js is loaded');
+  stripeLoad();
   onBoardingApiScript();
   sellerOnBoarding();
   // sellerSearchByFilter();
@@ -330,6 +331,76 @@ $(document).ready(function(){
       );
     }
   });
+  $(document).on("click", ".add-card", function(e){
+    e.preventDefault();
+    stripeLoad();
+  })
+
+  $(document).on("click", ".card-delete", function(e){
+    e.preventDefault();
+    $('#membership-card-remove').attr('data',$(this).attr('name'))
+    $('#membership-card-remove-confirm').modal('show');
+  })
+
+  $(document).on("click", "#membership-card-remove", function(e){
+    e.preventDefault();
+    let url = $(this).attr("data")
+    $.ajax({
+      url: url,
+      type: "DELETE",
+    });
+
+  })
+
+  $(".modal").on('hide.bs.modal', function(){
+    $("div").removeClass("modal-backdrop");
+});
+  
+  $(document).on("click", ".set-default", function(e){
+    e.preventDefault();
+    $('#membership-card-set-default').attr('data',$(this).attr('name'))
+    $('#membership-card-set-default-confirm').modal('show');
+  })
+  
+  $(document).on("click", "#membership-card-set-default", function(e){
+    e.preventDefault();
+    let url = $(this).attr("data")
+    $('#membership-card-set-default-confirm').modal('hide');
+    $.ajax({
+      url: url,
+      type: "GET"
+    });
+
+  })
+
+  $(document).on("click", "#Manage-Subscription-tab", function(e){
+    e.preventDefault();
+    let url = "/sellers/get_current_subscription"
+    $.ajax({
+      url: url,
+      type: "GET",
+      error: function () {
+        location.reload();
+      },
+    });
+    
+  })
+
+  $(document).on("click", ".end-subscription", function(e){
+    e.preventDefault();
+    $('#stripe-subscription-end').attr('data',$(this).attr('name'))
+    $('#stripe-subscription-end-confirm').modal('show');
+  })
+  
+  $(document).on("click", "#stripe-subscription-end", function(e){
+    e.preventDefault();
+    let url = $(this).attr("data")
+    $.ajax({
+      url: url,
+      type: "DELETE",
+    });
+
+  })
 
 });
 
@@ -438,7 +509,6 @@ function sellerOnBoarding(){
       },
       error: function () {
         $("#paypal-integration-failure").addClass("notice-msg")
-        window.location.href = "https://"+host_url+"/sellers/paypal_integration";
       }
     });
   }
@@ -455,23 +525,22 @@ function onBoardingApiScript(){
       ref.parentNode.insertBefore(js, ref);
     }
   }(document, "script", "paypal-js"));
+  $(".CardField--ltr").css("top", "3px");
 }
 
 function notify(response,host_url){
   if (response.status == true){
     $("#paypal-integration-success").addClass("notice-msg")
     setTimeout(function(){
+      $("#paypal-integration-success").removeClass("notice-msg")
       window.location.href = "https://"+host_url+"/sellers";
-    }, 5000)
+    }, 3000)
   }
   else{
     $("#paypal-integration-failure").addClass("notice-msg")
-    setTimeout(function(){
-      window.location.href = "https://"+host_url+"/sellers/paypal_integration";
-    }, 5000);
-    
   }
 }
+
 function newSellerFormDropdownValidation() {
 	$('body').on('change', '#seller_company_detail_attributes_country, #seller_addresses_attributes_0_country, #seller_addresses_attributes_1_country', '#seller_subscription_type', function () {
     labelId = $(this).is("#seller_company_detail_attributes_country")? '#seller_company_detail_attributes_country-error' : $(this).is("#seller_addresses_attributes_0_country")?'#seller_addresses_attributes_0_country-error' : $(this).is("#seller_addresses_attributes_1_country")? '#seller_addresses_attributes_1_country-error' : '#seller_subscription_type-error'
@@ -487,6 +556,7 @@ function newSellerFormDropdownValidation() {
     }
 	});
 }
+
 
 window.validateSellerEditForm = function() {
   $('form#admin-sellers-update-form').validate({
@@ -732,7 +802,6 @@ window.validateSellerEditForm = function() {
     );
 }
 
-
 function validateSellerSignInSignUp() {
   $('form#new_seller').validate({
     ignore: "", 
@@ -905,3 +974,65 @@ function TwoFactorAuthForCode() {
     },
   });
 } 
+
+
+function stripeLoad(){
+  var stripe = Stripe('pk_test_51IfjFUFqSiWsjxhXbRrObdGnNbi0HGp64DKuqsivFjJN81Dip3ZpRAFUKGrOxhZkAoRZMbEOSLr7SAvvk6bmDvTu00eJrWMQB2');
+  var elements = stripe.elements();
+
+  var style = {
+    base: {
+      // Add your base input styles here. For example:
+      fontSize: '14px',
+      color: '#640529',
+      padding: '1em',
+    },
+    invalid: {
+      iconColor: 'red',
+      color: 'red',
+    },
+
+  };
+
+  // Create an instance of the card Element.
+  var card = elements.create('card', {style: style});
+  // Add an instance of the card Element into the `card-element` <div>.
+  card.mount('#card-element');
+
+  var form = document.getElementById('payment-form');
+  form.addEventListener('submit', function(event) {
+    $("#stripe-card-submit").prop('disabled',true)
+    event.preventDefault();
+    stripe.createToken(card).then(function(result) {
+      if (result.error) {
+        // Inform the customer that there was an error.
+        $("#stripe-card-submit").prop('disabled',false)
+        var errorElement = document.getElementById('card-errors');
+        errorElement.textContent = result.error.message;
+      } else {
+        // Send the token to your server.
+        stripeTokenHandler(result.token);
+      }
+    });
+  });
+
+};
+
+function stripeTokenHandler(token) {
+  // Insert the token ID into the form so it gets submitted to the server
+  var form = document.getElementById('payment-form');
+  var hiddenInput = document.createElement('input');
+  hiddenInput.setAttribute('type', 'hidden');
+  hiddenInput.setAttribute('name', 'stripeToken');
+  hiddenInput.setAttribute('value', token.id);
+  form.appendChild(hiddenInput);
+  var dataString = $("#payment-form").serialize();
+  $.ajax({
+    type: "POST",
+    url: "/sellers/payment_methods",
+    data: dataString
+  });
+  // Submit the form
+  // form.submit();
+}
+

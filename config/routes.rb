@@ -52,6 +52,8 @@ Rails.application.routes.draw do
           end
           post :update_seller_api
           patch :update_seller_api
+          post :update_subscription_by_admin
+          post :remove_seller_card
         end
 
         resources :categories do
@@ -113,6 +115,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :webhook do
+    post :check_onboarding_status_webhook, :to => 'paypal_integrations#check_onboarding_status_webhook'
+    post :subscription_start_webhook, :to => 'stripe_webhooks#subscription_start_webhook'
+  end
 
 
   devise_scope :seller do
@@ -123,10 +129,16 @@ Rails.application.routes.draw do
 
     authenticated :seller do
       namespace :sellers do
-        # get "sessions/two_auth", :to => "sellers/sessions/registrations#two_auth", :as => "two_auth"
-
-        resources :paypal_integration, only: %i[index]
-        post :check_onboarding_status, :to => 'paypal_integration#check_onboarding_status'
+        resources :payment_methods
+        get :set_default_card, :to => 'payment_methods#set_default_card'
+        get :link_with_stripe, :to => 'payment_methods#link_with_stripe'
+        resources :paypal_integrations, only: %i[index]
+        post :check_onboarding_status, :to => 'paypal_integrations#check_onboarding_status'
+        resources :subscriptions, except: %i[index create new update edit show]
+        get :create_stripe_subscription, :to => 'subscriptions#create_stripe_subscription'
+        get :get_current_subscription, :to => 'subscriptions#get_current_subscription'
+        # get :bank_details, :to => 'bank_accounts#bank_details'
+        # get :update_bank_account, :to => 'bank_accounts#update_bank_account'
         resources :delivery_options, except: %i[show] do
           collection do
             get    :confirm_multiple_deletion
@@ -195,6 +207,7 @@ Rails.application.routes.draw do
 
       end
     end
+    # post :check_onboarding_status_webhook, :to => 'sellers/paypal_integration#check_onboarding_status_webhook'
   end
 
   devise_scope :buyer do

@@ -1,5 +1,5 @@
 class Admin::SellersController < Admin::BaseController
-  before_action :set_seller, only: %i[show edit update update_business_representative update_company_detail update_addresses update_seller_logo remove_logo_image confirm_update_seller update_seller new_seller_api create_seller_api confirm_update_seller_api change_seller_api_eligibility holiday_mode change_lock_status  confirm_reset_password_token reset_password_token]
+  before_action :set_seller, only: %i[show edit update update_business_representative update_company_detail update_addresses update_seller_logo remove_logo_image confirm_update_seller update_seller new_seller_api create_seller_api confirm_update_seller_api change_seller_api_eligibility holiday_mode change_lock_status  confirm_reset_password_token reset_password_token update_subscription_by_admin]
 
   def index
     @q = Seller.ransack(params[:q])
@@ -30,6 +30,17 @@ class Admin::SellersController < Admin::BaseController
     if @seller.save
       AdminMailer.with(to: @seller.email.to_s.downcase).send_account_creation_email.deliver_now
       redirect_to admin_sellers_path, flash: { notice: 'Seller has been saved' }
+    else
+      render :new
+    end
+  end
+
+  def create
+    @seller = Seller.new(seller_params)
+    @seller.skip_password_validation = true
+    if @seller.save
+      AdminMailer.with(to: @seller.email.to_s.downcase).send_account_creation_email.deliver_now
+      redirect_to admin_sellers_path, flash: { notice: "Seller has been saved" }
     else
       render :new
     end
@@ -109,12 +120,19 @@ class Admin::SellersController < Admin::BaseController
     end
   end
 
-  def update
-    if @seller.update(seller_params)
-      redirect_to admin_sellers_path
+    def update
+      if @seller.update(seller_params)
+        redirect_to admin_sellers_path
       else
         render :edit
       end
+    end
+  def update
+    if @seller.update(seller_params)
+      redirect_to admin_sellers_path
+    else
+      render :edit
+    end
   end
 
   def new_seller_api
@@ -234,6 +252,37 @@ class Admin::SellersController < Admin::BaseController
       sellers: @sellers.as_json(only: [:id], methods: :full_name),
       total_count: @sellers.total_count
     }, status: :ok
+  end
+
+  def update_subscription_by_admin
+    begin
+      subscription = Admins::Sellers::SubscriptionUpdaterService.call({status: params[:subsciption_status], seller: @seller })
+      case subscription.status
+      when "canceled"
+        flash.now[:notice] = "Subscription status canceled for seller: #{current_seller.email}"
+      when "12_month"
+        flash.now[:notice] = "Subscription status changed to 12 month"
+      when "24_month"
+        flash.now[:notice] = "Subscription status changed to 24 month"
+      when "lifetime"
+        flash.now[:notice] = "Subscription status changed to lifetime"
+      else
+        flash.now[:notice] = "Got into some errors please try again later!!  Errors: #{subscription.errors[0]}"
+      end
+    rescue
+      flash.now[:notice] = "Please refresh page first !!"
+    end
+  end
+
+  def remove_seller_card
+    payment_method = SellerPaymentMethod.find(params[:id].to_i) if params[:id].to_i.present?
+    @seller = payment_method.seller
+    if payment_method.default_status == true
+      flash.now[:notice] =  'You cannot remove this card because it is selected as default card'
+    else
+      payment_method.detach_payment_method(params)
+      flash.now[:notice] =  'Card removed successfully!!'
+    end
   end
 
     private

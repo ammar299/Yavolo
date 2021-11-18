@@ -1,10 +1,40 @@
 <% if @seller&.paypal_detail&.integration_status?%>
-  <div dir="ltr"  trbidi="on" class="">
-  <p class="pt-3">Your PayPal account is already integrated with YAVOLO. Do you want to <a data-paypal-button="true" href="<%=@action_url%>&displayMode=minibrowser" class="btn btn-outline-primary" target="PPFrame">Update</a> PayPal Integration?</p>
+  <!-- 
+    <div dir="ltr"  trbidi="on" class="">
+      <p class="pt-3">Your PayPal account is already integrated with YAVOLO. Do you want to <a data-paypal-button="true" href="<%=@action_url%>&displayMode=minibrowser" class="btn btn-outline-primary" target="PPFrame">Update</a> PayPal Integration?</p>
+    </div>
+  -->
+  <div class="payment-method-inner ">
+    <h6 class="pt-3">Linked PayPal account</h6>
+    <div class="payment-method-card yo-white-card box-border p-0">
+      <table class="table m-0 subscription-table text-left">
+        <tr>
+          <td>
+            <p class="mb-1"><strong>Bank account number</strong> </p>
+            <p class="m-0">seller@gmail.com</p>
+          </td>
+          <td>
+            <p class="mb-1"><strong></strong> </p>
+            <p class="m-0"></p>
+          </td>
+          <td>
+            <p class="mb-1"><strong></strong> </p>
+            <p class="m-0"></p>
+          </td>
+          <td>
+            <p class="mb-1"><strong>System</strong> </p>
+            <p class="m-0">PayPal</p>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mb-3">Remove</a>
   </div>
 <%else%>
-  <div class="py-4" dir="ltr"  trbidi="on">
-    <a data-paypal-button="true" href="<%=@action_url%>&displayMode=minibrowser" class="btn btn-primary mt-4" target="PPFrame">Integrate with PayPal</a>
+  <div class="payment-method-inner ">
+    <h6 class="pt-3">Linked PayPal account</h6>
+      <div class="" dir="ltr"  trbidi="on">
+        <a data-paypal-button="true" href="<%=@action_url%>&displayMode=minibrowser" class="btn btn-sm btn-radius px-4 btn-primary my-3" target="PPFrame">Integrate with PayPal</a>
+      </div>
   </div>
 <%end%>
-<%= render 'sellers/paypal_integration/paypal_integration_toast' %>

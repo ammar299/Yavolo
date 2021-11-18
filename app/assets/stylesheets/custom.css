@@ -557,15 +557,15 @@ input::-webkit-inner-spin-button {
   color: red !important;
 }
 .admin-header-right .dropdown-profile {
-    background-color: var(--off-white);
-    border-color: var(--off-white);
-    border-radius: 15px;
-    min-width: 320px;
-    left: inherit;
-    transform: inherit;
-    right: 0;
-    top: 80px;
-    padding: 20px 30px !important;
+  background-color: var(--off-white);
+  border-color: var(--off-white);
+  border-radius: 15px;
+  min-width: 320px;
+  left: inherit;
+  transform: inherit;
+  right: 0;
+  top: 80px;
+  padding: 20px 30px !important;
 }
 /* yavolo icon css */
 .yo-opacity {
@@ -729,6 +729,12 @@ select.form-control {
   bottom: -32px;
   left: 30px;
 }
+
+/*css for payment method*/
+
+.ElementsApp .CardField {
+  padding-top: 4px;
+}
 label {
     text-transform: inherit;
 }
@@ -815,6 +821,30 @@ label {
   padding-right: 5px !important;
 }
 
+.admin-subscription-status-dropdown{
+  width: 175px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 5px;
+  font-size: 12px;
+}
+
+.hide_status{
+  display: none;
+}
+
+.end-subscription-modal .endsub-icon {
+	font-size: 45px;
+	padding-bottom: 20px;
+}
+.footer-upper-border{
+  border-top: none !important;
+}
+.end-subscription-link{
+  text-decoration: underline !important;
+}
 .category-banner-image-error{
     color: red;
     font-size: 12px;

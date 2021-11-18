@@ -1,0 +1,2 @@
+$('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
+$('#payments-cards').html("<%= j render(partial: 'sellers/profiles/payment_methods_list', locals: { payment_methods: @payment_methods }) %>")

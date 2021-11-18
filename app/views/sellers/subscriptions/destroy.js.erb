@@ -1,0 +1,5 @@
+$("#stripe-subscription-end-confirm").removeClass("show");
+$('body').removeClass('modal-open');
+$(".modal-backdrop").remove();
+$('#update-subscription-seller-side').html("<%= j render(partial: 'sellers/subscriptions/current_subscription', locals: { seller: @seller }) %>")
+$('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');

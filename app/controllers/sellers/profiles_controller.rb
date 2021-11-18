@@ -17,6 +17,7 @@ class Sellers::ProfilesController < Sellers::BaseController
     @remaining_addresses = Address.address_types.keys - @seller.addresses.collect(&:address_type)
     @remaining_addresses.each do |address_type| @seller.addresses.build address_type: address_type end if @remaining_addresses.present?
     @seller_apis = @seller.seller_apis
+    @payment_methods = @seller.seller_payment_methods if @seller.seller_payment_methods.present?
   end
 
   def search_delivery_options
@@ -198,7 +199,7 @@ class Sellers::ProfilesController < Sellers::BaseController
   def get_action_url
     @seller = current_seller
     @action_url = @seller&.paypal_detail&.seller_action_url
-    @action_url = Sellers::PaypalIntegrationService.call(current_seller) if !@action_url.present?
+    @action_url = Sellers::PaypalIntegrationService.call({seller: current_seller}) if !@action_url.present?
   end
 
   def set_last_seen_at

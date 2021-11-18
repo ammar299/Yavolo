@@ -36,6 +36,7 @@ require("packs/jquery.validate");
 require("packs/additional-methods");
 require("packs/profile");
 require("packs/sign-up-steps");
+require("packs/stripe");
 require("packs/cart");
 require("packs/slick.min");
 $(document).ready(() => {

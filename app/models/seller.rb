@@ -18,6 +18,10 @@ class Seller < ApplicationRecord
   has_one :bank_detail, dependent: :destroy
   has_many :csv_imports, as: :importer, dependent: :destroy
   has_one :paypal_detail,dependent: :destroy
+  has_one :stripe_customer,dependent: :destroy
+  has_one :seller_stripe_subscription,dependent: :destroy
+  has_many :seller_payment_methods,dependent: :destroy
+  # has_one :stripe_bank_detail,dependent: :destroy
 
   enum timeout: {
     "After 1 hour of no activity": 1,
@@ -99,6 +103,19 @@ class Seller < ApplicationRecord
     end
   end
 
+  def get_current_plan(plan_id)
+    current_plan_detail = Stripe::Price.retrieve(
+      plan_id,
+    )
+    product_detail = get_current_product(current_plan_detail)
+    return product_detail
+  end
+
+  def get_current_product(current_plan_detail)
+    product =Stripe::Product.retrieve(current_plan_detail.product)
+    return product
+  end
+
   def date_of_birth_is_valid_datetime
     return unless date_of_birth.present?
     begin
@@ -113,6 +130,7 @@ class Seller < ApplicationRecord
       end
     end
   end
+  
 
   def full_name
     "#{first_name} #{last_name}"

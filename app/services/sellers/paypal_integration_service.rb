@@ -2,8 +2,7 @@ module Sellers
 
   class PaypalIntegrationService < ApplicationService
     attr_reader :seller
-
-    def initialize(seller)
+    def initialize(seller:)
       @seller = seller
     end
 
@@ -39,7 +38,7 @@ module Sellers
         ],
       "partner_config_override": {
         "partner_logo_url": "#{ENV['DEFAULT_HOST_URL']}/assets/Yavolo_Logo_WarmRed.png",
-        "return_url": "https://#{ENV['DEFAULT_HOST_URL']}/sellers/paypal_integration",
+        "return_url": "https://#{ENV['DEFAULT_HOST_URL']}/sellers",
         "return_url_description": "the url to return the merchant after the paypal onboarding process.",
         "action_renewal_url": "https://testenterprises.com/renew-exprired-url",
         "show_add_credit_card": true
@@ -71,7 +70,6 @@ module Sellers
     end
 
     def self.get_token
-      # a = Kernel.system "curl -v https://api-m.sandbox.paypal.com/v1/oauth2/token \ -H 'Accept: application/json' \ -H 'Accept-Language: en_US' \ -u 'AR3QNZ-tIkvuLOnu4BeivkO1BKtiLXSMdBOqgL6vjHi5t7WPL9DxEXuJ18W3x8Mk-UMkhqZcT4dLVvzh:EPG4H5Dpb3l0Ud1B3CXk0zk7qdc5W00zxfnFITQm-5F-uk7TCZcvcGR5ObF8EYX_cbq7AVRTx1O4nhT8' \ -d 'grant_type=client_credentials'"
       uri = URI.parse("https://api-m.sandbox.paypal.com/v1/oauth2/token")
       request = Net::HTTP::Post.new(uri)
       request.basic_auth("#{ENV['PAYPAL_CLIENT_ID']}", "#{ENV['PAYPAL_CLIENT_SECRET']}")
