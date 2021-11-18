@@ -50,7 +50,7 @@ module Sellers
             if seller.valid?
               seller.save
               create_associate_seller_data(seller,row)
-              # AdminMailer.with(to: row["email"].to_s.downcase, password: password ).send_account_creation_email.deliver_now #send notification email to seller
+              AdminMailer.with(to: row["email"].to_s.downcase, password: password ).send_account_creation_email.deliver_now #send notification email to seller
             else
               @errors << "seller: #{row["user_email"]} "
               @errors << seller.errors.full_messages.join("<br>")

@@ -436,6 +436,51 @@ ActiveRecord::Schema.define(version: 2021_11_15_184919) do
     t.index ["seller_id"], name: "index_seller_apis_on_seller_id"
   end
 
+  create_table "seller_payment_methods", force: :cascade do |t|
+    t.string "stripe_token"
+    t.bigint "seller_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "last_digits"
+    t.string "card_holder_name"
+    t.string "payment_terms"
+    t.boolean "default_status"
+    t.string "card_id"
+    t.index ["seller_id"], name: "index_seller_payment_methods_on_seller_id"
+  end
+
+  create_table "seller_stripe_subscriptions", force: :cascade do |t|
+    t.string "subscription_stripe_id"
+    t.string "plan_name"
+    t.string "status"
+    t.string "product_id"
+    t.string "object"
+    t.string "application_fee_percent"
+    t.boolean "automatic_tax_status"
+    t.bigint "billing_cycle_anchor"
+    t.datetime "cancel_at"
+    t.boolean "cancel_at_period_end"
+    t.datetime "canceled_at"
+    t.string "collection_method"
+    t.datetime "current_period_end"
+    t.datetime "current_period_start"
+    t.string "customer"
+    t.string "default_payment_method"
+    t.float "default_tax_rates"
+    t.integer "recurring_interval_count"
+    t.string "recurring_interval"
+    t.string "recurring_usage_type"
+    t.string "tiers_mode"
+    t.string "type"
+    t.bigint "seller_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "subscription_schedule_id"
+    t.boolean "seller_requested_cancelation", default: false
+    t.string "status_set_by_admin"
+    t.index ["seller_id"], name: "index_seller_stripe_subscriptions_on_seller_id"
+  end
+
   create_table "sellers", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -525,6 +570,24 @@ ActiveRecord::Schema.define(version: 2021_11_15_184919) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "stripe_customers", force: :cascade do |t|
+    t.string "customer_id"
+    t.string "email"
+    t.bigint "seller_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["seller_id"], name: "index_stripe_customers_on_seller_id"
+  end
+
+  create_table "subscription_plans", force: :cascade do |t|
+    t.string "stripe_subscription_id"
+    t.string "name"
+    t.string "status"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -559,4 +622,7 @@ ActiveRecord::Schema.define(version: 2021_11_15_184919) do
   add_foreign_key "paypal_details", "sellers"
   add_foreign_key "return_and_terms", "sellers"
   add_foreign_key "seller_apis", "sellers"
+  add_foreign_key "seller_payment_methods", "sellers"
+  add_foreign_key "seller_stripe_subscriptions", "sellers"
+  add_foreign_key "stripe_customers", "sellers"
 end
