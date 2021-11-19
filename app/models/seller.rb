@@ -50,9 +50,10 @@ class Seller < ApplicationRecord
     in_active: 1,
   }
   enum subscription_type: {
-    monthly: 0,
-    yearly: 1,
-    lifetime: 2,
+    month_12: 0,
+    month_24: 1,
+    month_36: 2,
+    lifetime: 3,
   }
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP } 
   accepts_nested_attributes_for :business_representative

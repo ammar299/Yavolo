@@ -250,9 +250,11 @@ class Admin::SellersController < Admin::BaseController
       case subscription.status
       when "canceled"
         flash.now[:notice] = "Subscription status canceled for seller: #{@seller.email}"
-      when "12_month"
+      when "month_12"
         flash.now[:notice] = "Subscription status changed to 12 month"
-      when "24_month"
+      when "month_24"
+        flash.now[:notice] = "Subscription status changed to 24 month"
+      when "month_36"
         flash.now[:notice] = "Subscription status changed to 24 month"
       when "lifetime"
         flash.now[:notice] = "Subscription status changed to lifetime"

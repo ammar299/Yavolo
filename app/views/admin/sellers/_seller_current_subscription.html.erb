@@ -1,6 +1,6 @@
 <div id="current-sub-update-admin">
 <% if @seller.seller_stripe_subscription.present? && ( @seller.seller_stripe_subscription.status == 'active' || @seller.seller_stripe_subscription.status == 'not_started' ) %>
-  <span clas="hide_status"><%= @dropdown_status = @seller.seller_stripe_subscription.status_set_by_admin%></span>
+  <span clas="hide_status"><%= @dropdown_status = @seller.subscription_type%></span>
   <table class="table mt-2 subscription-table">
     <tbody>
       <tr>
@@ -23,9 +23,9 @@
         <td id="subscription-renewal-cost">Update Subscription:</td>
         <td>
           <select id="admin-subsciption-statuses-list" name="subsciption_status" class="form-control admin-subscription-status-dropdown">
-            <option value="asda" <%= @dropdown_status.nil? ? 'selected' : ''%> data-seller="<%= @seller.id%>">Select any</option>
-            <option value="12_month" <%= @dropdown_status == "12_month" ? 'selected' : ''%> data-seller="<%= @seller.id%>">12 month</option>
-            <option value="24_month" <%= @dropdown_status == "24_month" ? 'selected' : ''%> data-seller="<%= @seller.id %>">24 month</option>
+            <option value="month_12" <%= @dropdown_status == "month_12" ? 'selected' : ''%> data-seller="<%= @seller.id%>">12 month</option>
+            <option value="month_24" <%= @dropdown_status == "month_24" ? 'selected' : ''%> data-seller="<%= @seller.id %>">24 month</option>
+            <option value="month_36" <%= @dropdown_status == "month_36" ? 'selected' : ''%> data-seller="<%= @seller.id %>">36 month</option>
             <option value="lifetime" <%= @dropdown_status == "lifetime" ? 'selected' : ''%> data-seller="<%= @seller.id %>">Lifetime</option>
             <option value="cancel" <%= @dropdown_status == "cancel" ? 'selected' : ''%> data-seller="<%= @seller.id%>">Cancel</option>
           </select>
