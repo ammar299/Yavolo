@@ -42,7 +42,7 @@ class Webhook::StripeWebhooksController < ActionController::Base
     subscription_canceled_at = Time.at(params[:data][:object][:canceled_at]).to_datetime
     subscription = SellerStripeSubscription.where(subscription_schedule_id: subscription_id)
     if subscription.present?
-      subscription.status = subscription_updated_status
+      subscription.status = "canceled"  #subscription_updated_status
       subscription.canceled_at = subscription_canceled_at
       subscription.plan_name = subscription_plan_id
       subscription.save

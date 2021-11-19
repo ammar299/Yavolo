@@ -28,7 +28,7 @@ module Sellers
         csv = CSV.parse(csv_file_conent, :headers => true)
         csv_import.update({status: :importing})
         csv.each do |row|
-          seller_found = Seller.where(email: row["email"])&.first
+          seller_found = Seller.where(email: row["user_email"])&.first
           if !seller_found.present?
             password = Random.rand(11111111...99999999)
             uid = Random.rand(00000000...99999999)
@@ -50,13 +50,17 @@ module Sellers
             if seller.valid?
               seller.save
               create_associate_seller_data(seller,row)
-              AdminMailer.with(to: row["email"].to_s.downcase, password: password ).send_account_creation_email.deliver_now #send notification email to seller
             else
               @errors << "seller: #{row["user_email"]} "
               @errors << seller.errors.full_messages.join("<br>")
               @errors << "<hr>"
               puts "error occurred"
               next
+            end
+            begin
+              AdminMailer.with(to: row["user_email"].to_s.downcase, password: password ).send_account_creation_email.deliver_now #send notification email to seller
+            rescue
+              @errors << "email not valid: #{row["user_email"]}"
             end
           else
             puts "seller already exists or error found"

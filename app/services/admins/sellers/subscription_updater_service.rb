@@ -28,22 +28,19 @@ module Admins
           else
             cancel_subscription
           end
-        when "12_month"
-          @start_date = @seller.seller_stripe_subscription.schedule_date.to_datetime + 1.year
-          @status = "month_12"
+        when "month_12"
+          @start_date = Time.current + 1.year
           change_seller_subscription_status
-        when "24_month"
-          @start_date = @seller.seller_stripe_subscription.schedule_date.to_datetime + 2.year
-          @status = "month_24"
+        when "month_24"
+          @start_date = Time.current + 2.year
           change_seller_subscription_status
-        when "36_month"
-          @start_date = @seller.seller_stripe_subscription.schedule_date.to_datetime + 3.year
-          @status = "month_36"
+        when "month_36"
+          @start_date = Time.current + 3.year
           change_seller_subscription_status
         when "lifetime"
           change_seller_subscription_status
         else
-          errors = "Select appropriate option"
+          errors = "Select correct option"
         end
       end
 
@@ -70,14 +67,14 @@ module Admins
             },
           ],
         )
-        update_schedule_subscription(sub)
+        update_schedule_subscription_db(sub)
       end
 
       def cancel_schedule_subscription
         sub = Stripe::SubscriptionSchedule.cancel(
           get_subscription_id(),
         )
-        record =  update_current_subscription(sub) if sub.status == 'canceled'
+        record =  update_current_schedule_subscription(sub) if sub.status == 'canceled'
         @status = sub.status
       end
 
@@ -103,7 +100,7 @@ module Admins
         end
       end
 
-      def update_schedule_subscription(sub)
+      def update_schedule_subscription_db(sub)
         record = @seller&.seller_stripe_subscription.update(
           schedule_date: sub.phases[0].start_date
         )
@@ -120,7 +117,19 @@ module Admins
           subscription_schedule_id: sub.id,
           subscription_stripe_id: sub.subscription,
           status: sub.status,
-          cancel_at_period_end: sub.cancel_at_period_end,
+          cancel_at_period_end: sub.cancel_at_period_end || false,
+          canceled_at: Time.at(sub.canceled_at).to_datetime,
+
+        )
+        return true if record == true 
+        # CancelSubscriptionEmailWorker.perform_async(@seller.email)
+      end
+
+      def update_current_schedule_subscription(sub)
+        record = @seller&.seller_stripe_subscription.update(
+          subscription_schedule_id: sub.id,
+          subscription_stripe_id: sub.subscription,
+          status: sub.status,
           canceled_at: Time.at(sub.canceled_at).to_datetime,
 
         )

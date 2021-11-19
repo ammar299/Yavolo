@@ -37,11 +37,11 @@ module Sellers
       if @seller.provider == "admin" && (@seller.subscription_type == "month_12" || @seller.subscription_type == "month_24" || @seller.subscription_type == "month_36")
         case seller.subscription_type
         when "month_12"
-          @start_date = Time.current + 1.year #1731016200
+          @start_date = Time.current + 1.year
         when "month_24"
           @start_date = Time.current + 2.year
         when "month_36"
-          @start_date = Time.current + 2.year
+          @start_date = Time.current + 3.year
         end
       else
         @start_date = Time.current
@@ -50,10 +50,10 @@ module Sellers
     end
 
     def schedule_subscription_api
-      subsciption_type = get_start_date()
+      subsciption_start_date = get_start_date()
       @subscription_schedule = Stripe::SubscriptionSchedule.create({
         customer: @stripe_customer,
-        start_date: subsciption_type.to_i,
+        start_date: subsciption_start_date.to_i,
         end_behavior: 'release',
         phases: [
           {
