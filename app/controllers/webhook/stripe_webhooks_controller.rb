@@ -74,6 +74,7 @@ class Webhook::StripeWebhooksController < ActionController::Base
   private
 
   def update_status_subscription(subscription_id,subscription_updated_status)
+    standard_subscription_id = params[:data][:object][:subscription]
     subscription_plan_id = params[:data][:object][:phases][0][:items][0][:price]
     current_period_start = Time.at(params[:data][:object][:current_phase][:start_date]).to_datetime
     current_period_end = Time.at(params[:data][:object][:current_phase][:end_date]).to_datetime
@@ -82,6 +83,7 @@ class Webhook::StripeWebhooksController < ActionController::Base
     subscription.plan_name = subscription_plan_id
     subscription.current_period_start = current_period_start
     subscription.current_period_end = current_period_end
+    subscription.subscription_stripe_id = params[:data][:object][:subscription]
     subscription.save
   end
 

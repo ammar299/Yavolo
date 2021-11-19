@@ -247,6 +247,7 @@ class Admin::SellersController < Admin::BaseController
     if params[:id].present?
       @status = params[:subsciption_status]
       subscription = Admins::Sellers::SubscriptionUpdaterService.call(@status, @seller )
+      byebug
       case subscription.status
       when "canceled"
         flash.now[:notice] = "Subscription status canceled for seller: #{@seller.email}"

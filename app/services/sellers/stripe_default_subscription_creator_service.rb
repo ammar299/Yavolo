@@ -34,10 +34,17 @@ module Sellers
     end
 
     def get_start_date
-      if seller.subscription_type == "monthly"
-        @start_date = Time.current #1731016200
-      elsif seller.subscription_type == "yearly"
-        @start_date = Time.current+1.year
+      if @seller.provider == "admin" && (@seller.subscription_type == "month_12" || @seller.subscription_type == "month_24" || @seller.subscription_type == "month_36")
+        case seller.subscription_type
+        when "month_12"
+          @start_date = Time.current + 1.year #1731016200
+        when "month_24"
+          @start_date = Time.current + 2.year
+        when "month_36"
+          @start_date = Time.current + 2.year
+        end
+      else
+        @start_date = Time.current
       end
       return @start_date
     end
@@ -73,22 +80,7 @@ module Sellers
           current_period_start: @subscription_schedule.phases[0].end_date,
           customer: @subscription_schedule.customer,
           default_payment_method: @subscription_schedule.phases[0].default_payment_method,
-        )
-      end
-    end
-    
-    def update_current_subscription
-      if @subscription_schedule.present?
-        seller&.seller_stripe_subscription.update(
-          subscription_schedule_id: @subscription_schedule.id,
-          subscription_stripe_id: @subscription_schedule.subscription,
-          plan_name: @subscription_schedule.phases[0].items[0].plan,
-          status: @subscription_schedule.status,
-          canceled_at: @subscription_schedule.canceled_at,
-          current_period_end: @subscription_schedule.phases[0].start_date,
-          current_period_start: @subscription_schedule.phases[0].end_date,
-          customer: @subscription_schedule.customer,
-          default_payment_method: @subscription_schedule.phases[0].default_payment_method,
+          schedule_date: @subscription_schedule.phases[0].start_date
         )
       end
     end
