@@ -282,10 +282,10 @@
                             <%=product.title%>
                         </td>
                         <td>
-                          <p class="mb-0">SKU: <%=product.sku %></p>
-                          <p class="mb-0">EAN: <%=product.ean %></p>
-                          <p class="mb-0">Brand: <%=product.brand %></p>
-                          <p class="mb-0">Condition: <%=product.condition=='brand_new' ? 'New' : product.condition.titleize %></p>
+                          <p class="mb-0">SKU: <%= product.sku %></p>
+                          <p class="mb-0">EAN: <%= product.ean %></p>
+                          <p class="mb-0">Brand: <%= product.brand %></p>
+                          <p class="mb-0">Condition: <%= product.condition == 'brand_new' ? 'New' : product.try(:condition).try(:titleize) %></p>
                         </td>
                         <td>
                           <% if product.owner.class.name=='Seller' %>
