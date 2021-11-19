@@ -7,7 +7,6 @@
         <%= simple_form_for @seller, html: { id: :add_new_seller_profile_form }, url: sellers_profile_path(@seller), method: :patch do |form| %>
           <% if @seller.errors.any? %>
             <div class="error_messages">
-              <h2><%= pluralize(@seller.errors.count, "error") %> prohibited this user from being saved:</h2>
               <ul>
                 <% @seller.errors.full_messages.each do |msg| %>
                   <li><%= msg %></li>

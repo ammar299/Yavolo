@@ -820,7 +820,8 @@ function validateSellerSignInSignUp() {
         required: true
       },
       "seller[password_confirmation]": {
-        required: true
+        required: true,
+        equalTo: "#seller_password"
       },
     }, 
     highlight: function(element) {
@@ -843,7 +844,8 @@ function validateSellerSignInSignUp() {
         required: "Password is required"
       },
       "seller[password_confirmation]": {
-        required: "Password confirmation is required"
+        required: "Password confirmation is required",
+        equalTo: "Password does not match"
       },
     },
   });
