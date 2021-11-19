@@ -3,7 +3,7 @@
     <div class="col col-12 col-lg-6 col-md-8 mx-auto">
       <div class="sign-in">
         <h3 class="text-center mb-4" style="color: #640529; font-size: 48px">
-          Change your password
+          Change your Password
         </h3>
         <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
           <%= render "sellers/auth/shared/error_messages", resource: resource %>
