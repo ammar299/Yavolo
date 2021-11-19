@@ -22,14 +22,23 @@ class Sellers::DashboardController < Sellers::BaseController
       else
         return
       end
+    elsif !verify_seller_lock
+      redirect_to new_sellers_profile_path(id: @seller.id)
     else
-      unless @seller.company_detail.present? || @seller.business_representative.present? || @seller.addresses.where(address_type: 'business_address').first.present? || @seller.addresses.where(address_type: 'business_representative_address').first.present?
-        redirect_to new_sellers_profile_path(id: @seller.id)
-      end
+      return
     end
   end
 
   private
+
+
+  def verify_seller_lock
+    addresses = @seller.addresses
+    @seller.company_detail.present? ||
+    @seller.business_representative.present? ||
+    addresses.where(address_type: 'business_address').first.present? ||
+    addresses.where(address_type: 'business_representative_address').first.present?
+  end
 
   def get_action_url
     @seller = current_seller
