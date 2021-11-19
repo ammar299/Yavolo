@@ -3,7 +3,9 @@ class Admin::SellersController < Admin::BaseController
 
   def index
     @q = Seller.ransack(params[:q])
-    @sellers = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(params[:per_page].presence || 15)
+    @sellers = @q.result(distinct: true).order(created_at: :desc)
+    @total_count = @sellers.size
+    @sellers = @sellers.page(params[:page]).per(params[:per_page].presence || 15)
   end
 
   def new

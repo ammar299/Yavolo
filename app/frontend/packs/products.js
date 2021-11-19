@@ -905,6 +905,9 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
     "product[ean]": {
       required: true
     },
+    "product[price]": {
+      required: true
+    },
     "product[stock]": {
       required: true
     },
@@ -922,6 +925,9 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
     },
     "product[ean]": {
       required: "EAN can\'t be blank"
+    },
+    "product[price]": {
+      required: "Price can\'t be blank"
     },
     "product[stock]": {
       required: "Stock can\'t be blank"

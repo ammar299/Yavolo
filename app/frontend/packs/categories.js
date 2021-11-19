@@ -8,6 +8,7 @@ $(document).ready(function () {
      tempRemoveBtn();
     categoryInformResult();
     $('body').on('change', '.categories-checkbox-container .category-input', function () {
+        changeParentCategoriesFolderIcons($(this)[0])
         createNewCategory($(this)[0]);
         fetchCategoryDetails($(this)[0])
     });
@@ -15,6 +16,7 @@ $(document).ready(function () {
     if(selectedIdCategory.length){
         selectedIdCategory.prop('checked', true).trigger('change')
         selectedIdCategory.parents('ul').addClass('active')
+        selectedIdCategory.closest('ul.active').siblings('ul').addClass('active')
         selectedIdCategory.attr('data-selected', false)
     } else{
         $(".categories-tree-body ul:first-of-type li:first .category-input:first").prop('checked', true).trigger('change')
@@ -159,6 +161,16 @@ function fetchCategoryDetails(element) {
             validateCategoryForm();
         }
     })
+}
+
+function changeParentCategoriesFolderIcons(element) {
+    $(".categories-checkbox-container").removeClass("expanded")
+    let ancestorIds = $(element).attr('data-ancestor-ids');
+    if(!ancestorIds) return
+    ancestorIds = ancestorIds.split(",")
+    for(const id of ancestorIds){
+        $(`#product-category-${id}`).addClass("expanded")
+    }
 }
 
 function createNewCategory(element) {
