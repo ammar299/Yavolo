@@ -152,7 +152,7 @@ module ApplicationHelper
     end
   end
 
-  def status_true?
+  def multisteps_signup?
     params[:multistep] == "true"
   end
 end
