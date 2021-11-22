@@ -112,8 +112,6 @@ $(document).ready(function(){
       previewProductImages(e.target.files);
     }else{
       document.getElementById('product_pictures_attributes_0_name').value=''
-      $('.file-errors').html("")
-      $('.file-errors').html(imagesValidator.errors.map(e => '<li>'+e+'</li>').join(""))
       $('#upload-images-popup').modal('hide');
     }
   });
@@ -530,7 +528,7 @@ function FileListItems(files,oldFiles) {
 }
 
 function removeProductFromFileList(filename){
-  files = $("#product_pictures_attributes_0_name").prop("files")
+  var files = $("#product_pictures_attributes_0_name").prop("files")
   oldFiles = []
   let b = new DataTransfer()
   for (var i = 0, len = files.length; i<len; i++) {
@@ -565,32 +563,36 @@ function fileDropHandler(e){
 
 function validCsvFile(files){
   let allowedExtensions = /(\.csv)$/i;
-  let errors = [];
+  let has_error = [];
   if(!allowedExtensions.exec(files[0].name)) {
-    errors.push('Invalid file type, allowed type is .csv')
+    $('#flash-msg').html(displayNoticeMessage("Invalid file type, allowed type is .csv"))
+    has_error = true;
   }
   let size = (files[0].size/1024)/1024;
 
   if(size > 10){
-    errors.push('File size should be less than 10MB');
+    $('#flash-msg').html(displayNoticeMessage("File size should be less than 10MB"))
+    has_error = true;
   }
-  return { errors: errors , isValid: !(errors.length > 0) }
+  return { isValid: !has_error }
 }
 
 function validProductImages(files){
   let allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
-  let errors = [];
+  let has_error = false;
 
   for(let i=0; i< files.length; i++){
     if(!allowedExtensions.exec(files[i].name)) {
-      errors.push('Invalid file type, allowed type is jpg, jpeg and png')
+      $('#flash-msg').html(displayNoticeMessage("Invalid file type, allowed type is jpg, jpeg and png"))
+      has_error = true;
     }
     let size = (files[i].size/1024)/1024;
     if(size > 10){
-      errors.push('File size should be less than 10MB');
+      $('#flash-msg').html(displayNoticeMessage("File size should be less than 10MB"))
+      has_error = true;
     }
   }
-  return { errors: errors , isValid: !(errors.length > 0) }
+   return { isValid: !has_error }
 }
 
 function bindDragAndDropPhotosEvents(){
@@ -819,8 +821,11 @@ window.showSuccessAlert = function(msg){
 }
 window.showErrorsAlert = function(errors){
   $('.y-page-container').find('.alert').remove();
-  let alertErrors = '<div class="flash-toast alert alert-msg text-left"><ul>'+errors.map(e=>"<li>"+e+"</li>").join("")+'</ul><span class="notice-cross-icon" aria-hidden="true">&times;<span></div>';
+  let alertErrors = '<div class="flash-toast alert alert-msg text-left" id="product-flash-notice"><ul>'+errors.map(e=>"<li>"+e+"</li>").join("")+'</ul><span class="notice-cross-icon" aria-hidden="true">&times;<span></div>';
   $('.y-page-container').prepend(alertErrors);
+  setTimeout(function () {
+    $("#product-flash-notice").remove();
+  }, 3000);
 }
 
 function setSellerSearchMenuAndQueryName(){
@@ -905,6 +910,9 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
     "product[ean]": {
       required: true
     },
+    "product[price]": {
+      required: true
+    },
     "product[stock]": {
       required: true
     },
@@ -922,6 +930,9 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
     },
     "product[ean]": {
       required: "EAN can\'t be blank"
+    },
+    "product[price]": {
+      required: "Price can\'t be blank"
     },
     "product[stock]": {
       required: "Stock can\'t be blank"

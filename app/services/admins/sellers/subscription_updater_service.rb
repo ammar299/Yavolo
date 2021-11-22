@@ -131,6 +131,19 @@ module Admins
           subscription_schedule_id: sub.id,
           subscription_stripe_id: sub.subscription,
           status: sub.status,
+          cancel_at_period_end: sub.cancel_at_period_end || false,
+          canceled_at: Time.at(sub.canceled_at).to_datetime,
+
+        )
+        return true if record == true 
+        # CancelSubscriptionEmailWorker.perform_async(@seller.email)
+      end
+
+      def update_current_schedule_subscription(sub)
+        record = @seller&.seller_stripe_subscription.update(
+          subscription_schedule_id: sub.id,
+          subscription_stripe_id: sub.subscription,
+          status: sub.status,
           canceled_at: Time.at(sub.canceled_at).to_datetime,
 
         )

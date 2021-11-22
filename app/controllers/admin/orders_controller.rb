@@ -5,6 +5,7 @@ class Admin::OrdersController < Admin::BaseController
   def index
     @q = Order.ransack(params[:q])
     @orders = @q.result
+    @orders = @orders.order(sub_total: :desc) if params.dig(:q, :s) == "price"
     @orders = @orders.page(params[:page]).per(params[:per_page].presence || 10)
   end
 

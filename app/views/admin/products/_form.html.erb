@@ -6,7 +6,7 @@
         <h3 class="mt-4 mb-3">Create New Product</h3>
     <% end %>
     <div class="formme">
-    <div class="file-errors mt-2"></div>
+    <div class="file-errors mt-2 product-errors-style"></div>
     <%= simple_form_for @product, url: url, method: method, html: { id: 'product_form' } do |form| %>
         <%=form.hidden_field :owner_type, value: 'Seller' %>
         <%=hidden_field_tag :product_id, form.object.id || params[:dup_product_id] %>

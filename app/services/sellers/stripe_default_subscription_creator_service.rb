@@ -37,7 +37,7 @@ module Sellers
       if @seller.provider == "admin" && (@seller.subscription_type == "month_12" || @seller.subscription_type == "month_24" || @seller.subscription_type == "month_36")
         case seller.subscription_type
         when "month_12"
-          @start_date = Time.current + 3.minutes
+          @start_date = Time.current + 1.year
         when "month_24"
           @start_date = Time.current + 2.year
         when "month_36"

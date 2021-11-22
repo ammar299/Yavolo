@@ -8,6 +8,7 @@ class Sellers::Auth::RegistrationsController < Devise::RegistrationsController
     if params[:multistep].present? && params[:multistep] == "true"
       sellers_auth_sign_up_steps_path # or whatever path you want here
     else
+      SellerMailer.with(to: resource.email.downcase).send_account_creation_email.deliver_now
       new_sellers_profile_path(id: resource)
     end
   end

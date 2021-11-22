@@ -43,7 +43,14 @@
                       <%=hidden_field_tag 'statuses', params[:statuses], class: 'yp-statuses' %>
                       <% end %>
                       <%= f.search_field current_search_field_name.to_sym, { class: 'input-btn-sm seller-product-search-field', placeholder: 'Search Products', value: "#{search_field_query_param_val(params)}" } %>
-                      <i class="fa fa-search" aria-hidden="true"></i>
+                      <% if params[:q]['title_or_brand_or_sku_or_yan_or_ean_cont'].present? %>
+                        <%= link_to admin_products_path, class: 'btn-sm' do %>
+                          <i class="icon-cross" aria-hidden="true"></i>
+                      <% end %>
+                      <% else %>
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                      <% end %>
+
                     <% end %>
                     </div>
                 </div>
@@ -248,7 +255,6 @@
                         <th>Price</th>
                         <th>30 Day Sales</th>
                         <th>30 Day Revenue</th>
-                        <th>Yavolo Enabled</th>
                         <th>Yavolo Discount</th>
                         <th class="text-center">Assign</th>
                         <th class="text-center">Actions</th>
@@ -298,21 +304,6 @@
                         <td class="price-box"><%=number_to_currency((number_with_precision(product.price, :precision => 2) || 0), unit: '£') %></td>
                         <td><%=number_to_currency((number_with_precision(300, :precision => 2) || 0), unit: '£') %></td>
                         <td><%=number_to_currency((number_with_precision(300, :precision => 2) || 0), unit: '£') %></td>
-                        <td>
-                            <% if product.yavolo_enabled %>
-                                <div class="d-flex">
-                                    <div>
-                                        <span class="icon-manage-Yavolo font-20px light-red p-yavolo-enabled"></span>
-                                    </div>
-                                </div>
-                            <% else %>
-                                <div class="d-flex">
-                                    <div>
-                                        <span class="icon-manage-Yavolo font-20px light-red yo-opacity p-yavolo-disabled"></span>
-                                    </div>
-                                </div>
-                            <% end %>
-                        </td>
                         <td class="discount-box"><%= "#{product.discount}" %></td>
                         <td>
                             <div class="d-flex">
