@@ -10,7 +10,24 @@
               </div>
               <% has_error, msg = get_errors(form, :discount) %>
               <div class="form-group <%= has_error ? 'error-field' : '' %>">
-                <%= form.select :discount, [['2.5%','2.5'],['3.5%','3.5'],['4.5%','4.5']],{},class: "form-control select-input yavolo-box-top-select" %>
+                <div class="custome-input-dropdwsn">
+                  <div class="dropdown dropdown-filter mb-3 d-inline-flex">
+                    <a href="#" class="btn btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center w-100 justify-content-between" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="yavolo-discount-dropdown-title"><%= form.object.discount.present? ? "#{form.object.discount} %" : "2.5 %" %></span>
+                      <i class="fa fa-angle-down ml-3" aria-hidden="true"></i>
+                    </a>
+                    <div class="dropdown-menu custome-input-dropdwsn-menu yavolo-discount-dropdown" aria-labelledby="dropdownMenuLink">
+                      <a class="dropdown-item" href="#" data-value="2.5" >2.5% </a>
+                      <a class="dropdown-item" href="#" data-value="5">5% </a>
+                      <a class="dropdown-item" href="#" data-value="10">10% </a>
+                      <a class="dropdown-item" href="#" data-value="15">15% </a>
+                      <a class="dropdown-item" href="#" data-value="20">20% </a>
+                      <a class="dropdown-item custom-value" href="#">Custom </a>
+                      <a class="dropdown-item input-bgcustm d-none yavolo-discount-custom-input" href="#"><input type="number" value="2.5"> </a>
+                    </div>
+                  </div>
+                </div>
+                <%= form.hidden_field :discount,value: form.object.discount || 2.5, class: "yavolo-discount-hidden-input" %>
                 <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
               </div>
           </div>

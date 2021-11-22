@@ -2803,4 +2803,73 @@ color: #A2697E;
      }
    }
  }
+
+ /* custome-input-dropdwsn */
+ .custome-input-dropdwsn .dropdown-filter{
+   min-width: 100px;
+   margin-left: 5px;
+ }
+ .custome-input-dropdwsn .dropdown-filter.show .dropdown-menu {
+   top: 30px !important;
+ }
+ .custome-input-dropdwsn .dropdown-filter-custom a,
+ .custome-input-dropdwsn .dropdown-filter.show .dropdown-menu a {
+   padding: 5px 10px !important;
+ }
+ .custome-input-dropdwsn .btn-link-dropdown {
+   border: 1px solid var(--dark-red) !important;
+   font-size: 14px;
+   background-color: #fff !important;
+   padding: 9px 6px 6px 7px !important;
+
+ }
+ .custome-input-dropdwsn .btn-link-dropdown:focus {
+   /* border-bottom: 0 !important; */
+   background-color: transparent;
+ }
+ .custome-input-dropdwsn .btn-link:hover {
+   background-color: #fff !important;
+ }
+ .custome-input-dropdwsn .dropdown-menu {
+   border: 1px solid var(--dark-red) !important;
+   border-top: 0 !important;
+   border-radius: 0 0 12px 12px;
+   background-color: #fff !important;
+   word-break: break-word !important;
+   white-space: normal !important;
+   min-width: 40px !important;
+ }
+
+ .custome-input-dropdwsn .dropdown-menu.show.custome-input-dropdwsn-menu{
+   min-width: 40px !important;
+ }
+ .custome-input-dropdwsn .dropdown-item {
+   padding: 2px 9px !important;
+ }
+ .custome-input-dropdwsn .dropdown-item:hover,
+ .custome-input-dropdwsn .dropdown-item.active{
+   background-color: var(--light-red) !important;
+   border-radius: 17px;
+ }
+ .custome-input-dropdwsn .dropdown-item.input-bgcustm:hover {
+   background-color: white !important;
+ }
+ .custome-input-dropdwsn .input-bgcustm input {
+   width: 80px;
+   border: 2px solid var(--dark-red);
+   padding: 8px;
+   color: var(--dark-red);
+   border-radius: 8px;
+ }
+ .custome-input-dropdwsn .input-bgcustm input:focus {
+   outline: none;
+   box-shadow: none;
+ }
+ input::-webkit-outer-spin-button,
+ input::-webkit-inner-spin-button {
+   -webkit-appearance: none;
+   margin: 0;
+ }
+
+ /* custome-input-dropdwsn */
 /* ================== sprint-3 ================== */

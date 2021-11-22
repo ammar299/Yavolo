@@ -198,6 +198,35 @@ $(document).ready(function(){
     } );
   }
   validateProductForm();
+
+  $(".yavolo-discount-dropdown a:not(.custom-value):not(.yavolo-discount-custom-input)").click(function (e) {
+    e.preventDefault();
+    const value = $(this).attr('data-value')
+    const title = `${value} %` || "Custom"
+    $(".yavolo-discount-dropdown-title").html(title)
+    $(".yavolo-discount-hidden-input").val(value)
+    $(".yavolo-discount-custom-input").addClass("d-none")
+    $(".yavolo-discount-dropdown .custom-value").removeClass("active")
+  })
+
+  $(".yavolo-discount-dropdown .custom-value").click(function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $(".yavolo-discount-dropdown-title").html("Custom")
+    $(".yavolo-discount-custom-input").val("").removeClass("d-none")
+    $(this).addClass("active")
+  })
+
+  $(".yavolo-discount-custom-input").click(function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+  })
+
+  $(".yavolo-discount-custom-input input").change(function (e) {
+    const value = $(this).val()
+    if(!value) return
+    $(".yavolo-discount-hidden-input").val(value)
+  })
 });
 
 let product_description_editor;
