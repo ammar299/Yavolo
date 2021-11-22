@@ -530,7 +530,7 @@ function FileListItems(files,oldFiles) {
 }
 
 function removeProductFromFileList(filename){
-  files = $("#product_pictures_attributes_0_name").prop("files")
+  var files = $("#product_pictures_attributes_0_name").prop("files")
   oldFiles = []
   let b = new DataTransfer()
   for (var i = 0, len = files.length; i<len; i++) {

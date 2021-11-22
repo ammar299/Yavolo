@@ -5,20 +5,18 @@
         <h3 class="text-center mb-4" style="color: #640529; font-size: 48px">
           Change your password
         </h3>
-        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { id: :admin_change_password_form }, method: :put) do |f| %>
           <%= render "sellers/auth/shared/error_messages", resource: resource %>
           <%= f.hidden_field :reset_password_token %>
 
           <div class="form-group general-mrgn">
-            <%= f.label :password, "New password" %><br />
-            <% if @minimum_password_length %>
-              <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-            <% end %>
+            <%= f.label :password, "New password*" %><br />
+           
             <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "form-control" %>
           </div>
 
           <div class="form-group general-mrgn">
-            <%= f.label :password_confirmation, "Confirm new password" %><br />
+            <%= f.label :password_confirmation, "Confirm new password*" %><br />
             <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
           </div>
           <div class="d-flex justify-content-between flex-wrap mb-0">

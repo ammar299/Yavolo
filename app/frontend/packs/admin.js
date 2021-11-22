@@ -6,6 +6,7 @@ $(document).ready(function(){
     window.history.back();
   });
   validateAdminSignIn()
+  validateChangePasswordForm()
 
   $('#admin-subsciption-statuses-list').change(function(e){
     e.preventDefault();
@@ -168,6 +169,37 @@ function validateAdminSignIn() {
       },'Please Enter a valid Email'
   );
 }
+
+  function validateChangePasswordForm() {
+    $('form#admin_change_password_form').validate({
+      ignore: "", 
+      rules: {
+        "admin[password]": {
+          required: true,
+          minlength: 6
+        },
+        "admin[password_confirmation]": {
+          required: true,
+          equalTo: "#admin_password"
+        },
+      }, 
+      highlight: function(element) {
+        $(element).parents("div.form-group").addClass('error-field');
+      },
+      unhighlight: function(element) {
+        $(element).parents("div.form-group").removeClass('error-field');
+      },
+      messages: {
+        "admin[password]": {
+            required: "Password is required",
+        },
+        "admin[password_confirmation]": {
+          required: "Confirm password is required",
+          equalTo: "Password does not match"
+        }
+      }
+    });
+  }
 
 window.renderHistogram = function(){
   var x1 = [];
