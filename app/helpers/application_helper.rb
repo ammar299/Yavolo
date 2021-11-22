@@ -151,4 +151,8 @@ module ApplicationHelper
       return address_type
     end
   end
+
+  def status_true?
+    params[:multistep] == "true"
+  end
 end
