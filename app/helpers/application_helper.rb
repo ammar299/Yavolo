@@ -151,4 +151,8 @@ module ApplicationHelper
       return address_type
     end
   end
+
+  def multisteps_signup?
+    params[:multistep] == "true"
+  end
 end
