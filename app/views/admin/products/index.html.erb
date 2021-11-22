@@ -43,7 +43,7 @@
                       <%=hidden_field_tag 'statuses', params[:statuses], class: 'yp-statuses' %>
                       <% end %>
                       <%= f.search_field current_search_field_name.to_sym, { class: 'input-btn-sm seller-product-search-field', placeholder: 'Search Products', value: "#{search_field_query_param_val(params)}" } %>
-                      <% if params[:q]['title_or_brand_or_sku_or_yan_or_ean_cont'].present? %>
+                      <% if params[:q].present? && params[:q]['title_or_brand_or_sku_or_yan_or_ean_cont'].present? %>
                         <%= link_to admin_products_path, class: 'btn-sm' do %>
                           <i class="icon-cross" aria-hidden="true"></i>
                       <% end %>
