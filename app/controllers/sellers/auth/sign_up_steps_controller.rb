@@ -42,6 +42,9 @@ class Sellers::Auth::SignUpStepsController < Sellers::BaseController
   def update
     @seller = current_seller
     @seller.update(seller_params)
+    if @seller.wizard_steps_completed? && step == :final_step
+      SellerMailer.with(to: @seller.email.downcase).send_account_activation_email.deliver_now
+    end
     render_wizard @seller
   end
 
