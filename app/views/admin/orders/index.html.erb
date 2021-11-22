@@ -3,23 +3,31 @@
     <div class="d-flex align-items-center">
       <div class="dropdown-filter-field active my-1 dropdown-filter-custom">
         <div class="dropdown">
-          <a class="btn btn-radius px-2 btn-primary current-search-filter" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= set_filter_type_in_dropdown(params) %><i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
+          <a class="btn btn-radius px-2 btn-primary current-search-filter" href="#" role="button"
+             id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+             aria-expanded="false">
+            <%= set_filter_type_in_dropdown(params) %><i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
           </a>
           <div class="dropdown-menu admin-orders-filters" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item <%= set_filter_active('Search All') %>" href="#">Search All</a>
-            <a class="dropdown-item <%= set_filter_active('Product Title A-Z') %>" href="#">Product Title A-Z</a>
-            <a class="dropdown-item <%= set_filter_active('Product Title Z-A') %>" href="#">Product Title Z-A</a>
-            <a class="dropdown-item <%= set_filter_active('Order Number') %>" href="#">Order Number</a>
-            <a class="dropdown-item <%= set_filter_active('Tracking Number') %>" href="#">Tracking Number</a>
-            <a class="dropdown-item <%= set_filter_active('Seller Name') %>" href="#">Seller Name</a>
-            <a class="dropdown-item <%= set_filter_active('Customer Name') %>" href="#">Customer Name</a>
-            <a class="dropdown-item <%= set_filter_active('SKU') %>" href="#">SKU</a>
+            <a class="dropdown-item <%= set_filter_active('Search All') %>" href="#">Search All<i class="fa fa-check" aria-hidden="true"></i></a>
+            <a class="dropdown-item <%= set_filter_active('Product Title A-Z') %>" href="#">Product Title A-Z<i class="fa fa-check" aria-hidden="true"></i></a>
+            <a class="dropdown-item <%= set_filter_active('Product Title Z-A') %>" href="#">Product Title Z-A<i class="fa fa-check" aria-hidden="true"></i></a>
+            <a class="dropdown-item <%= set_filter_active('Order Number') %>" href="#">Order Number<i class="fa fa-check" aria-hidden="true"></i></a>
+            <a class="dropdown-item <%= set_filter_active('Tracking Number') %>" href="#">Tracking Number<i class="fa fa-check" aria-hidden="true"></i></a>
+            <a class="dropdown-item <%= set_filter_active('Seller Name') %>" href="#">Seller Name<i class="fa fa-check" aria-hidden="true"></i></a>
+            <a class="dropdown-item <%= set_filter_active('Customer Name') %>" href="#">Customer Name<i class="fa fa-check" aria-hidden="true"></i></a>
+            <a class="dropdown-item <%= set_filter_active('SKU') %>" href="#"><i class="fa fa-check" aria-hidden="true"></i>SKU</a>
           </div>
         </div>
 
-        <div class="search-field mb-0">
-          <input type="text" class="input-btn-sm" placeholder="Search Orders">
-          <i class="fa fa-search" aria-hidden="true"></i>
+        <div class="search-field mb-0 ">
+          <%= search_form_for @q, url: admin_orders_path do |f| %>
+            <% if params[:q].present? && params[:q].keys.include?('s') %>
+              <%= hidden_field_tag 'q[s]', params[:q][:s] %>
+            <% end %>
+            <%= f.search_field "search", { class: 'input-btn-sm', placeholder: 'Search Orders', value: "" } %>
+            <i class="fa fa-search" aria-hidden="true"></i>
+          <% end %>
         </div>
 
       </div>
@@ -65,11 +73,20 @@
       </div>
       <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border">
         <div class="dropdown">
-          <a href="#" class="btn btn-radius btn-sm px-3 btn-primary btn-link-dropdown-1 align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter By <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+          <a href="#" class="btn btn-radius btn-sm px-3 btn-primary btn-link-dropdown-1 align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= set_order_sort_by_in_dropdown(params) %>
+            <i class="fa fa-angle-down ml-3" aria-hidden="true"></i>
+          </a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item active" href="#">Price <i class="fa fa-check" aria-hidden="true"></i></a>
-            <a class="dropdown-item" href="#">Yavolo <i class="fa fa-check" aria-hidden="true"></i></a>
-            <a class="dropdown-item" href="#">Carrier<i class="fa fa-check" aria-hidden="true"></i></a>
+            <% {q: params[:q].present? ? (params.require(:q).merge(s: 'price').permit!) : {s: 'price'} } %>
+            <%= link_to '#', class: 'dropdown-item sortby-orders', data: {sortby: 'price'} do %>
+              Price
+              <% if params.dig(:q, :s).present? && params[:q][:s]=='price' %>
+                <i class="fa fa-check" aria-hidden="true"></i>
+              <% end %>
+            <% end %>
+            <a class="dropdown-item" href="#">Yavolo </a>
+            <a class="dropdown-item" href="#">Carrier </a>
           </div>
         </div>
       </div>

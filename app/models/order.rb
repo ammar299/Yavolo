@@ -1,4 +1,5 @@
 class Order < ApplicationRecord
+  include RansackObject
   has_many :line_items, dependent: :destroy
   has_one :order_detail, dependent: :destroy
   has_one :shipping_address, dependent: :destroy

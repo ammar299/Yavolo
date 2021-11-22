@@ -14,10 +14,12 @@
               <div class="splide__track">
                 <ul class="splide__list">
                   <% if params[:preview_listing] %>
-                    <% @product["images"].each do |image| %>
-                      <li class="splide__slide">
-                        <img src="<%= image %>">
-                      </li>
+                    <% unless @product["images"].blank? %>
+                      <% @product["images"].each do |image| %>
+                        <li class="splide__slide">
+                          <img src="<%= image %>">
+                        </li>
+                      <% end %>
                     <% end %>
                   <% else %>
                     <% @product.images.each do |image| %>
@@ -33,10 +35,12 @@
               <div class="splide__track">
                 <ul class="splide__list">
                   <% if params[:preview_listing] %>
-                    <% @product["images"].each do |image| %>
-                      <li class="splide__slide">
-                        <img src="<%= image %>">
-                      </li>
+                    <% unless @product["images"].blank? %>
+                      <% @product["images"].each do |image| %>
+                        <li class="splide__slide">
+                          <img src="<%= image %>">
+                        </li>
+                      <% end %>
                     <% end %>
                   <% else %>
                     <% @product.images.each do |image| %>
