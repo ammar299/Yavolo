@@ -77,5 +77,18 @@ $(document).ready(() => {
     $("input[type='number']").on('wheel', function () {
         return false;
     })
-
+    
 });
+
+window.displayNoticeMessage = (message) => {
+  message = `<div id="flash-msg">
+    <p class="flash-toast notice notice-msg">
+      ${message}
+      <span  class="notice-cross-icon" aria-hidden="true">&times;</span>
+    </p>
+  </div>`
+  setTimeout(function () {
+    $("#flash-msg").find("p").remove();
+  }, 3000);
+  return message;
+}

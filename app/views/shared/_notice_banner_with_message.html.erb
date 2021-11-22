@@ -1,0 +1,21 @@
+<div id="flash-msg">
+  <% if notice.present? %>
+    <p class="flash-toast notice <%= notice.present? ? 'notice-msg' : ''%>">
+      <%= notice %>
+      <span  class="notice-cross-icon" aria-hidden="true">&times;</span>
+    </p>
+  <% end %>
+  <% if alert.present? %>
+    <p class="flash-toast alert <%= alert.present? ? 'alert-msg' : ''%>">
+      <%= alert %>
+      <span class="notice-cross-icon" aria-hidden="true">&times;</span>
+    </p>
+  <% end %>
+</div>
+<script>
+  $(document).ready(function () {
+  setTimeout(function () {
+    $("#flash-msg").find("p").remove();
+  }, 3000);
+});
+</script>
