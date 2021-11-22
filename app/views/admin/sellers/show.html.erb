@@ -11,7 +11,7 @@
           <%= render 'shared/sellers/seller_locked' %>
         </p>
         <% if current_admin.present? %>
-          <% if @seller.account_status == 'activate' %>
+          <% if @seller.account_status == 'activate' || @seller.account_status == 'approve' %>
             <%= link_to "Reset Password", confirm_reset_password_token_admin_seller_path(@seller, param_to_update: "lock"), class: "btn btn-sm btn-radius px-4 btn-primary mr-1", remote: true %>
             <% text = @seller.is_locked == true ? "Unlock" : "Lock" %>
             <% class_to_include = @seller.is_locked == true ? "btn-secondary" : "btn-danger" %>
