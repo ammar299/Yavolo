@@ -821,8 +821,11 @@ window.showSuccessAlert = function(msg){
 }
 window.showErrorsAlert = function(errors){
   $('.y-page-container').find('.alert').remove();
-  let alertErrors = '<div class="flash-toast alert alert-msg text-left"><ul>'+errors.map(e=>"<li>"+e+"</li>").join("")+'</ul><span class="notice-cross-icon" aria-hidden="true">&times;<span></div>';
+  let alertErrors = '<div class="flash-toast alert alert-msg text-left" id="product-flash-notice"><ul>'+errors.map(e=>"<li>"+e+"</li>").join("")+'</ul><span class="notice-cross-icon" aria-hidden="true">&times;<span></div>';
   $('.y-page-container').prepend(alertErrors);
+  setTimeout(function () {
+    $("#product-flash-notice").remove();
+  }, 3000);
 }
 
 function setSellerSearchMenuAndQueryName(){
