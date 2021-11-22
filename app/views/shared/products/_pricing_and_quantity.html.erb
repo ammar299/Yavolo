@@ -42,5 +42,13 @@ $(document).ready(function(){
     prefix: '£',
     rightAlign: false
   });
+    const errorField = $(".error-field .form-text")[0]
+    if(errorField){
+        $('html, body').animate({
+          scrollTop: $(errorField).offset().top - 150
+      }, 2000);
+    }
+
+    
 })
 </script>
