@@ -71,6 +71,7 @@ module Admins
       end
 
       def cancel_schedule_subscription
+        
         sub = Stripe::SubscriptionSchedule.cancel(
           get_subscription_id(),
         )
@@ -79,15 +80,18 @@ module Admins
       end
 
       def release_schedule_subscription
-        release = Stripe::SubscriptionSchedule.release(
-          get_subscription_id(),
-        )
-        return release
+        begin
+          release = Stripe::SubscriptionSchedule.release(
+            get_subscription_id(),
+          )
+          return release
+        rescue
+          return true
+        end
       end
 
       def cancel_subscription
-        release = release_schedule_subscription()
-        if release.status =="released"
+        release_schedule_subscription if @seller.seller_stripe_subscription.cancel_at_period_end.nil? 
           @subscription_id = @seller.seller_stripe_subscription.subscription_stripe_id
           sub = Stripe::Subscription.update(
             @subscription_id,
@@ -96,8 +100,7 @@ module Admins
               }
             )
           record =  update_current_subscription(sub) if sub.status == 'active'
-          @status = sub.status
-        end
+          @status = "canceled" if record == true
       end
 
       def update_schedule_subscription_db(sub)
@@ -114,15 +117,13 @@ module Admins
 
       def update_current_subscription(sub)
         record = @seller&.seller_stripe_subscription.update(
-          subscription_schedule_id: sub.id,
-          subscription_stripe_id: sub.subscription,
+          subscription_stripe_id: sub.id,
           status: sub.status,
           cancel_at_period_end: sub.cancel_at_period_end || false,
           canceled_at: Time.at(sub.canceled_at).to_datetime,
 
         )
         return true if record == true 
-        # CancelSubscriptionEmailWorker.perform_async(@seller.email)
       end
 
       def update_current_schedule_subscription(sub)
@@ -134,7 +135,6 @@ module Admins
 
         )
         return true if record == true 
-        # CancelSubscriptionEmailWorker.perform_async(@seller.email)
       end
 
     end

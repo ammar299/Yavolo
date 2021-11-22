@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_19_090201) do
+ActiveRecord::Schema.define(version: 2021_11_22_074410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -479,6 +479,7 @@ ActiveRecord::Schema.define(version: 2021_11_19_090201) do
     t.boolean "seller_requested_cancelation", default: false
     t.string "status_set_by_admin"
     t.datetime "schedule_date"
+    t.string "plan_id"
     t.index ["seller_id"], name: "index_seller_stripe_subscriptions_on_seller_id"
   end
 
@@ -522,9 +523,9 @@ ActiveRecord::Schema.define(version: 2021_11_19_090201) do
     t.boolean "two_factor_auth", default: false
     t.datetime "last_seen_at"
     t.string "recovery_email"
-    t.boolean "skip_success_hub_steps", default: false
     t.string "otp_secret"
     t.integer "last_otp_at"
+    t.boolean "skip_success_hub_steps", default: false
     t.index ["email"], name: "index_sellers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_sellers_on_reset_password_token", unique: true
   end

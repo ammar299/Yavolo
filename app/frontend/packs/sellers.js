@@ -548,18 +548,18 @@ $(document).ready(function(){
 
   })
 
-  $(document).on("click", "#Manage-Subscription-tab", function(e){
-    e.preventDefault();
-    let url = "/sellers/get_current_subscription"
-    $.ajax({
-      url: url,
-      type: "GET",
-      error: function () {
-        location.reload();
-      },
-    });
+  // $(document).on("click", "#Manage-Subscription-tab", function(e){
+  //   e.preventDefault();
+  //   let url = "/sellers/get_current_subscription"
+  //   $.ajax({
+  //     url: url,
+  //     type: "GET",
+  //     error: function () {
+  //       location.reload();
+  //     },
+  //   });
     
-  })
+  // })
 
   $(document).on("click", ".end-subscription", function(e){
     e.preventDefault();

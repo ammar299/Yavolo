@@ -54,6 +54,7 @@ Rails.application.routes.draw do
           patch :update_seller_api
           post :update_subscription_by_admin
           post :remove_seller_card
+          post :renew_seller_subscription
         end
 
         resources :categories do

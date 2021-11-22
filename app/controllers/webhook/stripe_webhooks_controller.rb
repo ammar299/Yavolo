@@ -5,10 +5,13 @@ class Webhook::StripeWebhooksController < ActionController::Base
     webhook_type = params[:type]
     begin
       case webhook_type
+      when 'customer.subscription.created'
+        # create_customer_subscription(params)
       when 'subscription_schedule.aborted'
         
       when 'subscription_schedule.canceled'
-        cancel_subscription_webhook
+        cancel_params = params
+        cancel_subscription_webhook(cancel_params)
       when 'subscription_schedule.completed'
         # completed_subscription_webhook
       when 'subscription_schedule.created'
@@ -18,44 +21,47 @@ class Webhook::StripeWebhooksController < ActionController::Base
       when 'subscription_schedule.released'
 
       when 'subscription_schedule.updated'
-        updated_subscription_webhook
+        updated_subscription_webhook(params)
       else
           puts "Unhandled event type: #{webhook_type}"
       end
-      status 200
+
+      return :ok
     rescue JSON::ParserError => e
       # Invalid payload
-      status 400
-      return
+      return :status => 400
     rescue Stripe::SignatureVerificationError => e
       # Invalid signature
-      status 400
-      return
+      return :status => 400
     end
 
   end
+  private
+  def create_customer_subscription(params)
+  end
 
-  def cancel_subscription_webhook
-    subscription_id = params[:data][:object][:subscription]
-    subscription_updated_status = params[:data][:object][:status]
-    subscription_plan_id = params[:data][:object][:phases][0][:items][0][:price]
-    subscription_canceled_at = Time.at(params[:data][:object][:canceled_at]).to_datetime
-    subscription = SellerStripeSubscription.where(subscription_schedule_id: subscription_id)
+  def cancel_subscription_webhook(cancel_params)
+    subscription_id = cancel_params[:data][:object][:subscription]
+    subscription_schedule_id = cancel_params[:data][:object][:id]
+    subscription = SellerStripeSubscription.find_by(subscription_stripe_id: subscription_id)
+    subscription = SellerStripeSubscription.find_by(subscription_schedule_id: subscription_schedule_id) if !subscription.present?
     if subscription.present?
+      subscription_updated_status = cancel_params[:data][:object][:status]
+      subscription_plan_id = cancel_params[:data][:object][:phases][0][:items][0][:price]
+      subscription_canceled_at = Time.at(cancel_params[:data][:object][:canceled_at]).to_datetime
       subscription.status = "canceled"  #subscription_updated_status
       subscription.canceled_at = subscription_canceled_at
-      subscription.plan_name = subscription_plan_id
+      subscription.plan_id = subscription_plan_id
       subscription.save
     end
+    return true
   end
 
-  def updated_subscription_webhook
+  def updated_subscription_webhook(params)
     subscription_id = params[:data][:object][:id]
     subscription_updated_status = params[:data][:object][:status]
     if subscription_updated_status == "active"
       update_status_subscription(subscription_id,subscription_updated_status)
-    else
-
     end
   end
 
@@ -67,11 +73,9 @@ class Webhook::StripeWebhooksController < ActionController::Base
     subscription = SellerStripeSubscription.where(subscription_schedule_id: subscription_id)
     subscription.status = subscription_updated_status
     subscription.canceled_at = subscription_canceled_at
-    subscription.plan_name = subscription_plan_id
+    subscription.plan_id = subscription_plan_id
     subscription.save
   end
-
-  private
 
   def update_status_subscription(subscription_id,subscription_updated_status)
     standard_subscription_id = params[:data][:object][:subscription]
@@ -80,7 +84,7 @@ class Webhook::StripeWebhooksController < ActionController::Base
     current_period_end = Time.at(params[:data][:object][:current_phase][:end_date]).to_datetime
     subscription = SellerStripeSubscription.where(subscription_schedule_id: subscription_id).last
     subscription.status = subscription_updated_status
-    subscription.plan_name = subscription_plan_id
+    subscription.plan_id = subscription_plan_id
     subscription.current_period_start = current_period_start
     subscription.current_period_end = current_period_end
     subscription.subscription_stripe_id = params[:data][:object][:subscription]
