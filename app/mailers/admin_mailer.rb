@@ -32,4 +32,11 @@ class AdminMailer < ApplicationMailer
     return true
   end
 
+  def send_account_creation_email_admin_seller
+    @seller = Seller.find_by_email(params[:to])
+    @token = params[:token]
+    mail(to: params[:to], subject: 'Yavolo: Your seller account has been created.')
+    puts "---- Email Sent for send_account_creation_email_admin_seller ------"
+  end
+
 end

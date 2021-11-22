@@ -30,7 +30,13 @@ class Admin::SellersController < Admin::BaseController
     @seller = Seller.new(seller_params)
     @seller.skip_password_validation = true
     if @seller.save
-      AdminMailer.with(to: @seller.email.to_s.downcase).send_account_creation_email.deliver_now
+      raw, hashed = Devise.token_generator.generate(Seller, :reset_password_token)
+      @seller.reset_password_token = hashed
+      @seller.reset_password_sent_at = Time.now.utc
+      if @seller.save
+        AdminMailer.with(to: @seller.email.to_s.downcase,token: raw).send_account_creation_email_admin_seller.deliver_now
+      end
+
       redirect_to admin_sellers_path, flash: { notice: 'Seller has been saved' }
     else
       render :new
@@ -87,8 +93,11 @@ class Admin::SellersController < Admin::BaseController
         @seller.destroy
         flash.now[:notice] = 'Seller deleted successfully!'
       else
-        @previous = @seller.account_status
+        @previous_account_status = @seller.account_status
         @seller.update(account_status: params[:field_to_update])
+        if @seller.activate? && @previous_account_status != @seller.account_status
+          SellerMailer.with(to: @seller.email.downcase).send_account_activation_email.deliver_now
+        end
         flash.now[:notice] = 'Seller updated successfully!'
       end
     end
@@ -111,13 +120,6 @@ class Admin::SellersController < Admin::BaseController
     end
   end
 
-    def update
-      if @seller.update(seller_params)
-        redirect_to admin_sellers_path
-      else
-        render :edit
-      end
-    end
   def update
     if @seller.update(seller_params)
       redirect_to admin_sellers_path

@@ -137,6 +137,12 @@ class Seller < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  def wizard_steps_completed?
+    [self.company_detail.present?, self.addresses.where(address_type: 'business_address').first.present?,
+     self.business_representative.present?, self.addresses.where(address_type: 'business_representative_address').first.present?,
+     self.bank_detail.present?].all?(true)
+  end
+
 
   protected
 
