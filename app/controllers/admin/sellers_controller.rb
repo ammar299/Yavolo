@@ -281,6 +281,16 @@ class Admin::SellersController < Admin::BaseController
     end
   end
 
+  def renew_seller_subscription
+    @seller = Seller.find(params[:seller_id].to_i)
+    subscription = Admins::Sellers::SubscriptionRenewService.call(@seller)
+    if subscription.errors.present?
+      flash.now[:notice] = "Error occured: #{subscription.errors}"
+    else
+      flash.now[:notice] = "Subscription Renewed successfully !!"
+    end
+  end
+
     private
   def seller_params
     params.require(:seller).permit(:first_name, :last_name, :email, :subscription_type,:account_status, :listing_status,

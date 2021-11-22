@@ -1,59 +1,71 @@
 <div id="current-sub-update-admin">
-<% if @seller.seller_stripe_subscription.present? && ( @seller.seller_stripe_subscription.status == 'active' || @seller.seller_stripe_subscription.status == 'not_started' ) %>
-  <span clas="hide_status"><%= @dropdown_status = @seller.subscription_type%></span>
-  <table class="table mt-2 subscription-table">
-    <tbody>
-      <tr>
-        <td >Current Subscription:</td>
-        <td id="subscription-name">Pioneer Member</td>
-      </tr>
-      <tr>
-        <td id="subscription-expiry-date">Expires:</td>
-        <td>12/10/2022</td>
-      </tr>
-      <tr>
-        <td id="subscription-renewal-cost">Renewal Cost:</td>
-        <td>0.00</td>
-      </tr>
-      <tr>
-        <td id="subscription-renewal-cost">Renewal Date:</td>
-        <td>12/10/2022</td>
-      </tr>
-      <tr>
-        <td id="subscription-renewal-cost">Update Subscription:</td>
-        <td>
-          <select id="admin-subsciption-statuses-list" name="subsciption_status" class="form-control admin-subscription-status-dropdown">
-            <option value="month_12" <%= @dropdown_status == "month_12" ? 'selected' : ''%> data-seller="<%= @seller.id%>">12 month</option>
-            <option value="month_24" <%= @dropdown_status == "month_24" ? 'selected' : ''%> data-seller="<%= @seller.id %>">24 month</option>
-            <option value="month_36" <%= @dropdown_status == "month_36" ? 'selected' : ''%> data-seller="<%= @seller.id %>">36 month</option>
-            <option value="lifetime" <%= @dropdown_status == "lifetime" ? 'selected' : ''%> data-seller="<%= @seller.id %>">Lifetime</option>
-            <option value="cancel" <%= @dropdown_status == "cancel" ? 'selected' : ''%> data-seller="<%= @seller.id%>">Cancel</option>
-          </select>
-          <%= render 'shared/simple_confirm_modal', confirm_statement: 'Are you sure you want to perform this action?', id: 'stripe-subscription-cancel-by-admin',path: '#', data: "", modal_id: 'stripe-subscription-end-by-admin-confirm' %>
-        </td>
-      </tr>
-      
-      <tr>
-        <td id="subscription-commission">Commission:</td>
-        <td>14.5%</td>
-      </tr>
-      
-    </tbody>
-  </table>
-<%elsif @seller.seller_stripe_subscription.present? && @seller.seller_stripe_subscription.status == 'canceled' %>
-  <table class="table mt-2 subscription-table">
-    <tbody>
-      <tr>
-        <td >Subscription status</td>
-        <td >Canceled</td>
-      </tr>
-      <tr>
-        <td>Canceled at:</td>
-        <td><%= @seller.seller_stripe_subscription.canceled_at.strftime('%d/%m/%y %T') %></td>
-      </tr>
-    </tbody>
-  </table>
-<%else%>
-  <div><h6>Not subscribed yet.<h6></div>
-<%end%>
+  <% if @seller.seller_stripe_subscription.present? && ( @seller.seller_stripe_subscription.status == 'active' || @seller.seller_stripe_subscription.status == 'not_started' ) %>
+    <span class="hide_status"><%= @dropdown_status = @seller.subscription_type%></span>
+    <table class="table mt-2 subscription-table">
+      <tbody>
+           <tr>
+            <td >Current Subscription:</td>
+            <td id="subscription-name"><%=@seller.seller_stripe_subscription.plan_name%></td>
+          </tr>
+          <tr>
+            <td id="">Free till: </td>
+            <td><%=@seller.seller_stripe_subscription&.schedule_date&.strftime('%d/%m/%y %T')%></td>
+          </tr>
+          <tr>
+            <td id="subscription-expiry-date">Expires:</td>
+            <td><%=@seller.seller_stripe_subscription&.current_period_end&.strftime('%d/%m/%y %T')%></td>
+          </tr>
+          <tr>
+            <td id="subscription-renewal-cost">Renewal Cost:</td>
+            <td>0.00</td>
+          </tr>
+          <tr>
+            <td id="subscription-renewal-cost">Renewal Date:</td>
+            <td><%#@seller.seller_stripe_subscription&.updated_at&.strftime('%d/%m/%y %T')%></td>
+          </tr>
+          <tr>
+            <td id="subscription-renewal-cost">Update Subscription:</td>
+            <%if @seller.seller_stripe_subscription.cancel_at_period_end.nil? || @seller.seller_stripe_subscription.cancel_at_period_end == false%>
+            <td>
+              <select id="admin-subsciption-statuses-list" name="subsciption_status" class="form-control admin-subscription-status-dropdown">
+                <option value="month_12" <%= @dropdown_status == "month_12" ? 'selected' : ''%> data-seller="<%= @seller.id%>">12 month</option>
+                <option value="month_24" <%= @dropdown_status == "month_24" ? 'selected' : ''%> data-seller="<%= @seller.id %>">24 month</option>
+                <option value="month_36" <%= @dropdown_status == "month_36" ? 'selected' : ''%> data-seller="<%= @seller.id %>">36 month</option>
+                <option value="lifetime" <%= @dropdown_status == "lifetime" ? 'selected' : ''%> data-seller="<%= @seller.id %>">Lifetime</option>
+                <option value="cancel" <%= @dropdown_status == "cancel" ? 'selected' : ''%> data-seller="<%= @seller.id%>">Cancel</option>
+              </select>
+              <%= render 'shared/simple_confirm_modal', confirm_statement: 'Are you sure you want to perform this action?', id: 'stripe-subscription-cancel-by-admin',path: '#', data: "", modal_id: 'stripe-subscription-end-by-admin-confirm' %>
+            </td>
+            <%else%>
+            <td>
+              <a href="#" name="<%= admin_seller_renew_seller_subscription_path(@seller) %>" class="btn btn-sm btn-radius px-4 btn-primary mb-3 ml-3 renew-seller-subscription">Renew Subscription</a>
+              <%= render 'shared/simple_confirm_modal', confirm_statement: 'Are you sure you want to perform this action?', id: 'renew-seller-subscription-by-admin',path: '#', data: "", modal_id: 'renew-seller-subscription-confirm' %>
+            </td>
+            <%end%>
+          </tr>
+          
+          <tr>
+            <td id="subscription-commission">Commission:</td>
+            <td>14.5%</td>
+          </tr>
+      </tbody>
+    </table>
+  <%elsif @seller.seller_stripe_subscription.present? && @seller.seller_stripe_subscription.status == 'canceled' %>
+    <table class="table mt-2 subscription-table">
+      <tbody>
+        <tr>
+          <td >Subscription status</td>
+          <td >Canceled</td>
+        </tr>
+        <tr>
+          <td>Canceled at:</td>
+          <td><%= @seller.seller_stripe_subscription&.canceled_at&.strftime('%d/%m/%y %T') %></td>
+        </tr>
+      </tbody>
+    </table>
+    <a href="#" name="<%= admin_seller_renew_seller_subscription_path(@seller) %>" class="btn btn-sm btn-radius px-4 btn-primary mb-3 ml-3 renew-seller-subscription">Renew Subscription</a>
+    <%= render 'shared/simple_confirm_modal', confirm_statement: 'Are you sure you want to perform this action?', id: 'renew-seller-subscription-by-admin',path: '#', data: "", modal_id: 'renew-seller-subscription-confirm' %>
+  <%else%>
+    <div><h6>Not subscribed yet.<h6></div>
+  <%end%>
 </div>

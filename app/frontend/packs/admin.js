@@ -9,14 +9,14 @@ $(document).ready(function(){
   validateChangePasswordForm()
   validateResetPasswordForm()
 
-  $('#admin-subsciption-statuses-list').change(function(e){
+  $(document).on("change", "#admin-subsciption-statuses-list", function(e){
     e.preventDefault();
     $('#stripe-subscription-cancel-by-admin').attr('data',$(this).find(":selected").data("seller"))
     $(".confirmation-text").attr('name',$(this).find(":selected").val())
     $('#stripe-subscription-end-by-admin-confirm').modal('show');
   });
   
-  $('#stripe-subscription-cancel-by-admin').click(function(e){
+  $(document).on("click", "#stripe-subscription-cancel-by-admin", function(e){
     let seller = $(this).attr("data")
     let url = "/admin/sellers/"+seller+"/update_subscription_by_admin?id="+seller
     let selectedValue = $(".confirmation-text").attr("name")
@@ -44,6 +44,22 @@ $(document).ready(function(){
 
   })
 
+  $(document).on("click", ".renew-seller-subscription", function(e){
+    e.preventDefault();
+    $('#renew-seller-subscription-by-admin').attr('data',$(this).attr('name'))
+    $('#renew-seller-subscription-confirm').modal('show');
+  })
+
+  $(document).on("click", "#renew-seller-subscription-by-admin", function(e){
+    e.preventDefault();
+    let url = $(this).attr("data")
+    $.ajax({
+      url: url,
+      type: "POST",
+    });
+
+  })
+  
 
 });
 $(document).ready(function(){

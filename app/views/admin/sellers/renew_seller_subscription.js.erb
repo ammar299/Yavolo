@@ -1,0 +1,5 @@
+$("#renew-seller-subscription-confirm").removeClass("show");
+$('body').removeClass('modal-open');
+$(".modal-backdrop").remove();
+$('#current-sub-update-admin').html("<%= j render(partial: 'admin/sellers/seller_current_subscription', locals: { seller: @seller }) %>")
+$('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
