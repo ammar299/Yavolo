@@ -1,11 +1,9 @@
 class Sellers::ProfilesController < Sellers::BaseController
   layout 'application', :only => [:new]
   layout 'sellers/seller', except: %[new]
-  before_action :seller_session_expire, :except=>[:new, :create]
   before_action :set_seller, only: %i[new show edit update update_business_representative update_company_detail update_seller_logo remove_logo_image update_addresses holiday_mode confirm_reset_password_token reset_password_token seller_login_setting_update skip_success_hub_steps get_invoice_address get_return_address]
   before_action :set_delivery_template, only: %i[confirm_delete destroy_delivery_template]
   before_action :get_action_url, only: %i[show]
-  before_action :set_last_seen_at, if: proc { seller_signed_in? }
 
 
   def new
@@ -54,10 +52,11 @@ class Sellers::ProfilesController < Sellers::BaseController
           flash.now[:notice] = "Password did not matched"
         end
       elsif params[:seller][:current_password].present? && params[:seller][:password].blank? && params[:seller][:password_confirmation].blank?
-        @seller.update(seller_login_params)
+        @seller.update(seller_params)
         flash.now[:notice] = "Login details updated successfully"
       else
-        flash.now[:notice] = "Password did not matched"
+        @seller.update(seller_params)
+        flash.now[:notice] = "Login details updated successfully"
       end
     else
       flash.now[:notice] = "Password not true"
@@ -202,18 +201,4 @@ class Sellers::ProfilesController < Sellers::BaseController
     @action_url = Sellers::PaypalIntegrationService.call({seller: current_seller}) if !@action_url.present?
   end
 
-  def set_last_seen_at
-    current_seller.update_attribute(:last_seen_at, Time.current)
-  end
-
-  def seller_session_expire
-    if current_seller.timeout.present?
-      seller_time = Time.at(Time.current - current_seller.last_seen_at).utc.strftime("%M").to_i
-      seller_timeout = Seller.timeouts[current_seller.timeout] * 60
-      if seller_timeout <= seller_time
-        sign_out(current_seller)
-        redirect_to(:controller => 'sellers/auth/sessions', :action => 'new')
-      end
-    end
-  end
 end

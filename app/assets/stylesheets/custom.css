@@ -857,6 +857,7 @@ label {
 .positionZero {
   left: 0 !important;
   top: 0 !important;
+  width: auto !important;
 }
 .confirmation-text {
   text-align: center;

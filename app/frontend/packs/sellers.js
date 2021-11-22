@@ -260,13 +260,98 @@ $(document).ready(function(){
      $('form#add_new_seller_profile_form').validate({
       ignore: "", 
       rules: {
-        "seller[email]": {
+        "seller[company_detail_attributes][name]": {
+          required: true
+        },
+        "seller[company_detail_attributes][country]": {
+          required: true
+        },
+        "seller[company_detail_attributes][legal_business_name]": {
+          required: true
+        },
+        "seller[company_detail_attributes][companies_house_registration_number]": {
+          required: true
+        },
+        "seller[company_detail_attributes][doing_business_as]": {
+          required: true
+        },
+        "seller[company_detail_attributes][business_industry]": {
+          required: true
+        },
+        "seller[company_detail_attributes][website_url]": {
+          required: true,
+          url_without_scheme: true
+        },
+        "seller[company_detail_attributes][amazon_url]": {
+          required: true,
+          url_without_scheme: true
+        },
+        "seller[company_detail_attributes][ebay_url]": {
+          required: true,
+          url_without_scheme: true
+        },
+        "seller[company_detail_attributes][vat_number]": {
+          required: true
+        },
+        "seller[addresses_attributes][0][address_line_1]": {
+          required: true
+        },
+        "seller[addresses_attributes][0][address_line_2]": {
+          required: true
+        },
+        "seller[addresses_attributes][0][city]": {
+          required: true
+        },
+        "seller[addresses_attributes][0][county]": {
+          required: true
+        },
+        "seller[addresses_attributes][0][postal_code]": {
+          required: true,
+          postal_code_uk: true
+        },
+        "seller[addresses_attributes][0][country]": {
+          required: true
+        },
+        "seller[addresses_attributes][0][phone_number]": {
+          required: true,
+          phone_number_uk: true
+        },
+        "seller[business_representative_attributes][full_legal_name]": {
+          required: true
+        },
+        "seller[business_representative_attributes][email]": {
           required: true,
           email: true,
           regex: /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
         },
-        "seller[contact_number]": {
+        "seller[business_representative_attributes][job_title]": {
           required: true
+        },
+        "seller[business_representative_attributes][date_of_birth]": {
+          required: true
+        },
+        "seller[addresses_attributes][1][address_line_1]": {
+          required: true
+        },
+        "seller[addresses_attributes][1][address_line_2]": {
+          required: true
+        },
+        "seller[addresses_attributes][1][city]": {
+          required: true
+        },
+        "seller[addresses_attributes][1][county]": {
+          required: true
+        },
+        "seller[addresses_attributes][1][postal_code]": {
+          required: true,
+          postal_code_uk: true
+        },
+        "seller[addresses_attributes][1][country]": {
+          required: true
+        },
+        "seller[addresses_attributes][1][phone_number]": {
+          required: true,
+          phone_number_uk: true
         }
       },
       highlight: function(element) {
@@ -276,20 +361,112 @@ $(document).ready(function(){
         $(element).parents("div.form-group").removeClass('error-field');
       },
       messages: {
-        "seller[email]": {
-            required: "Email is required"
+        "seller[company_detail_attributes][name]": {
+          required: "Required"
         },
-        "seller[contact_number]": {
-          required: "Contact number is required"
+        "seller[company_detail_attributes][country]": {
+          required: "Required"
+        },
+        "seller[company_detail_attributes][legal_business_name]": {
+          required: "Required"
+        },
+        "seller[company_detail_attributes][companies_house_registration_number]": {
+          required: "Required"
+        },
+        "seller[company_detail_attributes][doing_business_as]": {
+          required: "Required"
+        },
+        "seller[company_detail_attributes][business_industry]": {
+          required: "Required"
+        },
+        "seller[company_detail_attributes][website_url]": {
+          required: "Required",
+          url_without_scheme: true
+        },
+        "seller[company_detail_attributes][amazon_url]": {
+          required: "Required",
+          url_without_scheme: true
+        },
+        "seller[company_detail_attributes][ebay_url]": {
+          required: "Required",
+          url_without_scheme: true
+        },
+        "seller[company_detail_attributes][vat_number]": {
+          required: "Required"
+        },
+        "seller[addresses_attributes][0][address_line_1]": {
+          required: "Required"
+        },
+        "seller[addresses_attributes][0][address_line_2]": {
+          required: "Required"
+        },
+        "seller[addresses_attributes][0][city]": {
+          required: "Required"
+        },
+        "seller[addresses_attributes][0][county]": {
+          required: "Required"
+        },
+        "seller[addresses_attributes][0][postal_code]": {
+          required: "Required"
+        },
+        "seller[addresses_attributes][0][country]": {
+          required: "Required"
+        },
+        "seller[addresses_attributes][0][phone_number]": {
+          required: "Required"
+        },
+        "seller[business_representative_attributes][full_legal_name]": {
+          required: "Required"
+        },
+        "seller[business_representative_attributes][email]": {
+          required: "Required"
+        },
+        "seller[business_representative_attributes][job_title]": {
+          required: "Required"
+        },
+        "seller[business_representative_attributes][date_of_birth]": {
+          required: "Required"
+        },
+        "seller[addresses_attributes][1][address_line_1]": {
+          required: "Required"
+        },
+        "seller[addresses_attributes][1][address_line_2]": {
+          required: "Required"
+        },
+        "seller[addresses_attributes][1][city]": {
+          required: "Required"
+        },
+        "seller[addresses_attributes][1][county]": {
+          required: "Required"
+        },
+        "seller[addresses_attributes][1][postal_code]": {
+          required: "Required"
+        },
+        "seller[addresses_attributes][1][country]": {
+          required: "Required"
+        },
+        "seller[addresses_attributes][1][phone_number]": {
+          required: "Required"
         }
       }
     });
-    jQuery.validator.addMethod(
-        /* The value you can use inside the email object in the validator. */
-        "regex",
+      jQuery.validator.addMethod("url_without_scheme", function(value, element) {
+        return /^(www\.)[A-Za-z0-9_-]+\.+[A-Za-z0-9.\/%&=\?_:;-]+$/.test(value);
+      }, "Please enter a valid URL without http/https"
+      );
+      jQuery.validator.addMethod("postal_code_uk", function (value, element) {
+        return this.optional(element) || /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/.test(value);
+      }, "Enter valid UK postal code");
+      jQuery.validator.addMethod('phone_number_uk', function(value, element) {
+            return this.optional(element) || value.length > 9 && value.match(/^(\(?(0|\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
+          }, 'Enter valid UK phone number'
+      );
+      jQuery.validator.addMethod(
+      /* The value you can use inside the email object in the validator. */
+      "regex",
 
-        /* The function that tests a given string against a given regEx. */
-        function(value, element, regexp)  {
+      /* The function that tests a given string against a given regEx. */
+      function(value, element, regexp)  {
           /* Check if the value is truthy (avoid null.constructor) & if it's not a RegEx. (Edited: regex --> regexp)*/
 
           if (regexp && regexp.constructor != RegExp) {
@@ -302,8 +479,7 @@ $(document).ready(function(){
 
           /* Return whether the element is optional or the result of the validation. */
           return this.optional(element) || regexp.test(value);
-        },'Enter a valid Email'
-    );
+      });
   }
 
   $("#check-all-checkboxes").click(function () {
@@ -820,7 +996,8 @@ function validateSellerSignInSignUp() {
         required: true
       },
       "seller[password_confirmation]": {
-        required: true
+        required: true,
+        equalTo: "#seller_password"
       },
     }, 
     highlight: function(element) {
@@ -843,7 +1020,8 @@ function validateSellerSignInSignUp() {
         required: "Password is required"
       },
       "seller[password_confirmation]": {
-        required: "Password confirmation is required"
+        required: "Password confirmation is required",
+        equalTo: "Password does not match"
       },
     },
   });

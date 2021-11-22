@@ -529,6 +529,10 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: center;
     margin-right: 10px;
 }
+
+.icon-right-pd::before {
+	color: #FF3E55;
+}
 .dashboard-page .leftside {
 	max-width: 280px;
 	background-color: #640529;
@@ -938,10 +942,20 @@ h1, h2, h3, h4, h5, h6 {
 	position: relative;
 }
 .photo-text {
-	position: absolute;
-	top: 20px;
-	left: 20px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  right: 24px;
+  padding-bottom: 1rem;
 }
+
+.product-photos-section{
+  background: white;
+  position: relative;
+  z-index: 1;
+}
+
 .add-photo-inner .photo-btn {
 	width: 300px;
     display: inline-flex;
@@ -1445,15 +1459,34 @@ border-radius: 10px;
 	padding: 10px;
 	margin-top: 6px;
 }
+.categories-tree-body{
+  overflow-x: auto;
+}
 .panel .panel-body .checkbox-blk {
 	font-size: 12px !important;
 }
 .panel .panel-body ul li ul {
 	margin-left: 40px;
+    min-width: 150px;
 }
-.panel .panel-body ul > li.active > .checkbox-blk .folder-icon {
-	content: url('../images/folder-open.svg');
+.panel .panel-body ul > li > .checkbox-blk{
+    .folder-closed{
+      display: inline;
+    }
+    .folder-open{
+      display: none;
+    }
 }
+
+ .panel .panel-body ul > li > .checkbox-blk.expanded{
+   .folder-closed{
+     display: none;
+   }
+   .folder-open{
+     display: inline;
+   }
+ }
+
 .checkbox-blk-box.checkbox-blk input:checked ~ .checkmark {
     background-color: transparent !important;
     border-color: var(--dark-red) !important;
@@ -1472,7 +1505,7 @@ border-radius: 10px;
     border-radius: 4px;
 }
 .product-content-img {
-	background-color: #FF3E55;
+	background-color: #0a0a0a;
 	width: 100%;
 	min-width: 280px;
 	height: 140px;
@@ -1486,9 +1519,13 @@ border-radius: 10px;
 
 /*/ ================Seller Success Hub ==============/*/
 .seller-success-hub .seller-center-heading h3 {
-    margin-top: 45px;
+
     color: #640529;
     font-size: 38px;    
+}
+
+.seller-success-hub .seller-center-heading p {
+	max-width: 500px;
 }
 .seller-success-hub .seller-center-heading .request-heading-text {
     color: #640529;
@@ -1507,6 +1544,7 @@ border-radius: 10px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	font-weight: 600;
 }
 
 .seller-order-board .detail {
@@ -1550,7 +1588,7 @@ border-radius: 10px;
 
 // ================Seller Success Hub ==============//
 .seller-success-hub .seller-center-heading h3 {
-    margin-top: 45px;
+
     color: #640529;
     font-size: 38px;    
 }
@@ -1610,10 +1648,13 @@ border-radius: 10px;
     text-decoration: none;
     opacity: 1;
     border-radius: 15px;
-    background: #FFD8DD;
+    background: #ffd8dd69;
     margin-bottom: 20px !important;
     padding: 8px 20px 6px 20px;
     width: 119px;
+}
+.seller-news .seller-news-inner .seller-news-detail .read-more a:hover {
+	background-color: #ff3e5538;
 }
 .seller-news .seller-news-inner ul li {
     font-size: 16px;

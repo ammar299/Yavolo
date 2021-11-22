@@ -21,8 +21,6 @@
                               class="fa fa-check" aria-hidden="true"></i></a>
                           <a class="dropdown-item <%=set_filter_active('SKU')%>" href="#">SKU <i
                               class="fa fa-check" aria-hidden="true"></i></a>
-                          <a class="dropdown-item <%=set_filter_active('YAN')%>" href="#">YAN <i
-                              class="fa fa-check" aria-hidden="true"></i></a>
                           <a class="dropdown-item <%=set_filter_active('EAN')%>" href="#">EAN <i
                               class="fa fa-check" aria-hidden="true"></i></a>
                         </div>
@@ -250,7 +248,6 @@
                         <th>Price</th>
                         <th>30 Day Sales</th>
                         <th>30 Day Revenue</th>
-                        <th>Yavolo Enabled</th>
                         <th>Yavolo Discount</th>
                         <th class="text-center">Assign</th>
                         <th class="text-center">Actions</th>
@@ -284,10 +281,10 @@
                             <%=product.title%>
                         </td>
                         <td>
-                          <p class="mb-0">SKU: <%=product.sku %></p>
-                          <p class="mb-0">EAN: <%=product.ean %></p>
-                          <p class="mb-0">Brand: <%=product.brand %></p>
-                          <p class="mb-0">Condition: <%=product.condition=='brand_new' ? 'New' : product.condition.titleize %></p>
+                          <p class="mb-0">SKU: <%= product.sku %></p>
+                          <p class="mb-0">EAN: <%= product.ean %></p>
+                          <p class="mb-0">Brand: <%= product.brand %></p>
+                          <p class="mb-0">Condition: <%= product.condition == 'brand_new' ? 'New' : product.try(:condition).try(:titleize) %></p>
                         </td>
                         <td>
                           <% if product.owner.class.name=='Seller' %>
@@ -300,21 +297,6 @@
                         <td class="price-box"><%=number_to_currency((number_with_precision(product.price, :precision => 2) || 0), unit: '£') %></td>
                         <td><%=number_to_currency((number_with_precision(300, :precision => 2) || 0), unit: '£') %></td>
                         <td><%=number_to_currency((number_with_precision(300, :precision => 2) || 0), unit: '£') %></td>
-                        <td>
-                            <% if product.yavolo_enabled %>
-                                <div class="d-flex">
-                                    <div>
-                                        <span class="icon-manage-Yavolo font-20px light-red p-yavolo-enabled"></span>
-                                    </div>
-                                </div>
-                            <% else %>
-                                <div class="d-flex">
-                                    <div>
-                                        <span class="icon-manage-Yavolo font-20px light-red yo-opacity p-yavolo-disabled"></span>
-                                    </div>
-                                </div>
-                            <% end %>
-                        </td>
                         <td class="discount-box"><%= "#{product.discount}" %></td>
                         <td>
                             <div class="d-flex">

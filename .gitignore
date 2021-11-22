@@ -44,3 +44,4 @@ yarn-debug.log*
 /public/uploads
 .generators
 .ruby-gemset
+dump.rdb

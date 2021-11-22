@@ -7,7 +7,7 @@
                       <%=(form.object.new_record? && params[:dup_product_id].blank?) || form.object.pictures.size < 9 ? 'Add Photos' : 'Edit Photos' %>
                     </a>
                   <br>
-                    <small class="red-color">Upload images to show your sensational products in all its wonderful glory.</small>
+                    <small class="red-color">Upload images to show your sensational product in all its wonderful glory.</small>
                 </div>
             </div>
         </div>
@@ -47,7 +47,10 @@
                 </div>
             </div>
         </div>
-        <h4 class="photo-text">Photos</h4>
+
+          <h4 class="photo-text">Photos</h4>
+
+
     </div>
 </div>
 <%= render partial: "shared/products/upload_images_popup", locals: { form: form } %>

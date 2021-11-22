@@ -1,105 +1,105 @@
 <div class="row">
-    <div class="col-md-12">
-        <div class="listing detail box-border yo-white-card" id="listing-details">
-            <h4>Listing Details</h4>
-            <hr>
-            <div>
-                <% has_error, msg = get_errors(form, :title) %>
-                <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
-                    <%= form.label :title, 'Title / H1 tag*' %>
-                    <%= form.text_field :title, class: 'form-control', placeholder: 'Include all those important keywords' %>
+<div class="col-md-12">
+    <div class="listing detail box-border yo-white-card" id="listing-details">
+        <h4>Listing Details</h4>
+        <hr>
+        <div>
+            <% has_error, msg = get_errors(form, :title) %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
+                <%= form.label :title, 'Title / H1 tag*' %>
+                <%= form.text_field :title, class: 'form-control', placeholder: 'Include all those important keywords' %>
+                <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+            </div>
+
+            <div class="row">
+                <% unless defined?(hide_seller_field) && hide_seller_field %>
+                    <% has_error, msg = get_errors(form, :owner_id) %>
+                    <div class="form-group general-mrgn col-md-6 mt-0 custom-selectize <%= has_error ? 'error-field' : '' %>">
+                        <label for="exampleInputEmail1">Seller*</label>
+                        <%= form.select :owner_id, [],{}, class: 'form-control', id: 'search_seller_select' %>
+                        <%="<small class='form-text'>#{form.object.errors.where(:owner_id).first.message}</small>".html_safe if has_error %>
+                    </div>
+                <% end %>
+                <% has_error, msg = get_errors(form, :condition) %>
+                <div class="form-group general-mrgn col-md-6 mt-0 <%= has_error ? 'error-field' : '' %>">
+                    <%= form.label 'Condition*' %>
+                    <%= form.select :condition, Product.conditions.keys.map{|c| [(c == 'brand_new' ? 'New' : c.titleize ), c]}, { prompt: 'Select Condition' }, class: 'form-control' %>
+                    <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+                </div>
+            </div>
+
+            <%= render "shared/products/add_product_category", form: form %>
+
+            <p class="mb-0">Product Spec</p>
+
+            <div class="ebay-forms d-flex justify-content-between flex-wrap align-items-center">
+
+                <% has_error, msg = get_errors(form, :width) %>
+                <div class="form-group general-mrgn mb-0 mt-2 <%= has_error ? 'error-field' : '' %>">
+                    <%= form.label 'Width' %>
+                    <%= form.number_field :width, class: 'form-control', min: 0 %>
                     <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                 </div>
 
-                <div class="row">
-                    <% unless defined?(hide_seller_field) && hide_seller_field %>
-                        <% has_error, msg = get_errors(form, :owner_id) %>
-                        <div class="form-group general-mrgn col-md-6 mt-0 custom-selectize <%= has_error ? 'error-field' : '' %>">
-                            <label for="exampleInputEmail1">Seller*</label>
-                            <%= form.select :owner_id, [],{}, class: 'form-control', id: 'search_seller_select' %>
-                            <%="<small class='form-text'>#{form.object.errors.where(:owner_id).first.message}</small>".html_safe if has_error %>
-                        </div>
-                    <% end %>
-                    <% has_error, msg = get_errors(form, :condition) %>
-                    <div class="form-group general-mrgn col-md-6 mt-0 <%= has_error ? 'error-field' : '' %>">
-                        <%= form.label 'Condition*' %>
-                        <%= form.select :condition, Product.conditions.keys.map{|c| [(c == 'brand_new' ? 'New' : c.titleize ), c]}, { prompt: 'Select Condition' }, class: 'form-control' %>
-                        <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
-                    </div>
-                </div>
-
-                <%= render "shared/products/add_product_category", form: form %>
-
-                <p class="mb-0">Product Spec</p>
-
-                <div class="ebay-forms d-flex justify-content-between flex-wrap align-items-center">
-
-                    <% has_error, msg = get_errors(form, :width) %>
-                    <div class="form-group general-mrgn mb-0 mt-2 <%= has_error ? 'error-field' : '' %>">
-                        <%= form.label 'Width' %>
-                        <%= form.number_field :width, class: 'form-control', min: 0 %>
-                        <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
-                    </div>
-
-                    <% has_error, msg = get_errors(form, :depth) %>
-                    <div class="form-group general-mrgn mb-0 mt-2 <%= has_error ? 'error-field' : '' %>">
-                        <%= form.label 'Depth' %>
-                        <%= form.number_field :depth, class: 'form-control', min: 0 %>
-                        <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
-                    </div>
-
-                    <% has_error, msg = get_errors(form, :height) %>
-                    <div class="form-group general-mrgn mb-0 mt-2 <%= has_error ? 'error-field' : '' %>">
-                        <%= form.label 'Height' %>
-                        <%= form.number_field :height, class: 'form-control', min: 0 %>
-                        <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
-                    </div>
-
-                    <% has_error, msg = get_errors(form, :colour) %>
-                    <div class="form-group general-mrgn mb-0 mt-2 <%= has_error ? 'error-field' : '' %>">
-                        <%= form.label 'Colour' %>
-                        <%= form.text_field :colour, class: 'form-control' %>
-                        <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
-                    </div>
-
-                    <% has_error, msg = get_errors(form, :material) %>
-                    <div class="form-group general-mrgn mb-0 mt-2 <%= has_error ? 'error-field' : '' %>">
-                        <%= form.label 'Material' %>
-                        <%= form.text_field :material, class: 'form-control' %>
-                        <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
-                    </div>
-
-                </div>
-
-                <% has_error, msg = get_errors(form, :brand) %>
-                <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
-                    <%= form.label 'Brand' %>
-                    <%= form.text_field :brand, class: 'form-control', placeholder: 'Who is the brains behind this sensational item?' %>
+                <% has_error, msg = get_errors(form, :depth) %>
+                <div class="form-group general-mrgn mb-0 mt-2 <%= has_error ? 'error-field' : '' %>">
+                    <%= form.label 'Depth' %>
+                    <%= form.number_field :depth, class: 'form-control', min: 0 %>
                     <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                 </div>
 
-                <% has_error, msg = get_errors(form, :keywords) %>
-                <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
-                    <%= form.label 'Keywords*' %>
-                    <%= form.text_field :keywords, class: 'form-control', placeholder: 'Help customers find your product by selecting relevant keywords for your product', data: {role: "tagsinput"}, id: 'product_keywords', size: "100" %>
+                <% has_error, msg = get_errors(form, :height) %>
+                <div class="form-group general-mrgn mb-0 mt-2 <%= has_error ? 'error-field' : '' %>">
+                    <%= form.label 'Height' %>
+                    <%= form.number_field :height, class: 'form-control', min: 0 %>
                     <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                 </div>
 
-                <% has_error, msg = get_errors(form, :description) %>
-                <div class="form-group <%= has_error ? 'error-field' : '' %>">
-                    <%= form.label 'Description*' %>
-                    <%= form.text_area :description, class: 'form-control', placeholder: 'Why should the world buy your amazing product?' %>
+                <% has_error, msg = get_errors(form, :colour) %>
+                <div class="form-group general-mrgn mb-0 mt-2 <%= has_error ? 'error-field' : '' %>">
+                    <%= form.label 'Colour' %>
+                    <%= form.text_field :colour, class: 'form-control' %>
                     <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                 </div>
+
+                <% has_error, msg = get_errors(form, :material) %>
+                <div class="form-group general-mrgn mb-0 mt-2 <%= has_error ? 'error-field' : '' %>">
+                    <%= form.label 'Material' %>
+                    <%= form.text_field :material, class: 'form-control' %>
+                    <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+                </div>
+
+            </div>
+
+            <% has_error, msg = get_errors(form, :brand) %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
+                <%= form.label 'Brand' %>
+                <%= form.text_field :brand, class: 'form-control', placeholder: 'Who is the brains behind this sensational item?' %>
+                <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+            </div>
+
+            <% has_error, msg = get_errors(form, :keywords) %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
+                <%= form.label 'Keywords*' %>
+                <%= form.text_field :keywords, class: 'form-control', placeholder: 'Help customers find your product by selecting relevant keywords for your product', data: {role: "tagsinput"}, id: 'product_keywords', size: "100" %>
+                <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+            </div>
+
+            <% has_error, msg = get_errors(form, :description) %>
+            <div class="form-group <%= has_error ? 'error-field' : '' %>">
+                <%= form.label 'Description*' %>
+                <%= form.text_area :description, class: 'form-control', placeholder: 'Why should the world buy your amazing product?' %>
+                <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
         </div>
     </div>
 </div>
+</div>
 <script>
 <% if form.object.owner.present? && form.object.owner_type == 'Seller' %>
 $(document).ready(function(){
-    var newOption = new Option("<%="#{form.object.owner.first_name} #{form.object.owner.last_name}" %>", "<%=form.object.owner_id%>", true, true);
-    $('#search_seller_select').append(newOption).trigger('change');
+var newOption = new Option("<%="#{form.object.owner.first_name} #{form.object.owner.last_name}" %>", "<%=form.object.owner_id%>", true, true);
+$('#search_seller_select').append(newOption).trigger('change');
 });
 <% end %>
 </script>

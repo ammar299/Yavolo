@@ -31,8 +31,7 @@
           <span class="checkmark"></span>
         </label>
         <label class="checkbox-blk">
-        <a href="<%= sellers_paypal_integrations_path %>" >Link up your PayPal account</a>
-          <input type="checkbox" <%= @seller&.paypal_detail&.integration_status? ? 'checked': '' %> disabled>
+          <a data-paypal-button="true" href="<%=@action_url%>&displayMode=minibrowser" id="link_paypal_account_from_seller_hub" target="PPFrame">Link up your PayPal account</a>          <input type="checkbox" <%= @seller&.paypal_detail&.integration_status? ? 'checked': '' %> disabled>
           <span class="checkmark"></span>
         </label>
         <label class="checkbox-blk">

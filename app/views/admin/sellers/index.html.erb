@@ -80,7 +80,7 @@
 <div class="row">
   <div class="col-md-12">
     <div class="mt-3" id="total-sellers-per-page">
-      <%= render partial: 'shared/result_of_pages', locals: {total_count: Seller.count, count: @sellers.count } %>
+      <%= render partial: 'shared/result_of_pages', locals: {total_count: @total_count, count: @sellers.count } %>
     </div>
     <h3 class="mt-4 mb-3">All Sellers</h3>
     <div class="Yavolo-table mt-4">

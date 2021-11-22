@@ -27,7 +27,7 @@
             </div>
           </div>
 
-          <div class="filter-type d-flex align-items-center flex-wrap">
+          <div class="filter-type align-items-center flex-wrap bundle-label-container <%= f.object.baby_category ? "d-flex" : "d-none" %> ">
             <div class="form-group form-group-vertical form-group-vertical-responsive">
               <%= f.label :baby_label ,'Bundle Label', class: "text-left pr-3" %>
             </div>
@@ -96,14 +96,14 @@
                 <label for="exampleInputPassword1" class="text-left pr-3"></label>
               </div>
               <div class="search-field-flex">
-                <div class="row">
+                
                   <div class="col-md-12 my-2 d-flex align-items-end flex-wrap">
 										<span>
                       <%= image_tag f.object.picture.name.url, class: "product-content-img existing-image", data: {src: f.object.picture.name.url} %>
 										</span>
                     <small class="mx-3 mt-2"><%= link_to "Remove Image", remove_image_admin_category_path(@category), class: "btn btn-sm btn-radius px-4 btn-secondary w-100 remove_category_image", id: 'remove-picture' %></small>
                   </div>
-                </div>
+                
               </div>
             </div>
           <% else %>
@@ -148,7 +148,19 @@
       $("#category_picture_attributes_gallery").click(function() { 
         $('#upload-images-popup').modal('show');
       });
-        ClassicEditor.create( document.querySelector( '#category_category_description' ) ).catch( error => {
+
+      $("#category_baby_category").change(function () {
+        if($(this).is(":checked")){
+            $(".bundle-label-container").removeClass("d-none").addClass("d-flex")
+            $("#baby-category-confirmation-modal").modal('show')
+            $(".bundling-categories-section").removeClass("d-none")
+        } else {
+            $(".bundle-label-container").addClass("d-none").removeClass("d-flex")
+            $(".bundling-categories-section").addClass("d-none")
+        }
+      });
+
+        ClassicEditor.create( document.querySelector( '#category_category_description' ),{toolbar: [ 'bold', 'italic', '|' ,'bulletedList', 'numberedList' ]} ).catch( error => {
             console.error( error );
         } );
     })
