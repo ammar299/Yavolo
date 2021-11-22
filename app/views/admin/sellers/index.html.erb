@@ -18,7 +18,7 @@
               <% if params[:q].present? %>
                 <%= link_to admin_sellers_path, class: 'btn-sm' do %>
                   <i class="icon-cross" aria-hidden="true"></i>
-                <% end %>
+              <% end %>
               <% else %>
                 <i class="fa fa-search" aria-hidden="true"></i>
               <% end %>
@@ -106,7 +106,7 @@
         </thead>
         <tbody>
         <%# @sellers.length = 0 %>
-        <% if @sellers.length > 0 %>
+        
           <% @sellers.each do |seller| %>
             <tr id="seller-row-<%= seller.id %>">
               <td>
@@ -145,13 +145,11 @@
               </td>
             </tr>
           <% end %>
-          <% else %>
-        <tr>
-          <td colspan='10' class="text-center">No Record Found</td>
-        </tr>
-        <% end %>
         </tbody>
       </table>
+      <% if @sellers.length == 0 %>
+          <p class="text-center my-5">No Result Found</p>
+      <% end %>
     </div>
     <div class="row">
       <div class="col-md-4 mx-auto">
