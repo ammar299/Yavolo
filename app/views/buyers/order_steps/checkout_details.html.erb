@@ -1,7 +1,6 @@
-<%= render 'shared/progress_bar', locals: { progress: "30" } %>
 <div class="container-fluid">
 	<!--<form action="<%= create_checkout_path %>" method="post">-->
-	<%= form_with model: @order, url: create_checkout_path, method: :post do |form| %>
+	<%= form_with model: @order, url: wizard_path do |form| %>
 		<div class="row mt-4">
 			<div class="col-lg-8">
 					<div class="your-detail-left yo-white-card box-border">
@@ -161,7 +160,7 @@
 							</div>
 							<div class="d-flex justify-content-between mb-2">
 									<span><strong>Sub Total</strong></span>
-									<span><%= get_price_in_pounds(@order_amount.present? ? @order_amount[:sub_total] : 0) %></span>
+									<span><%= get_price_in_pounds(@sub_total) %></span>
 							</div>
 							<div class="d-flex justify-content-between">
 									<span><strong>Delivery</strong></span>
@@ -170,7 +169,7 @@
 							<hr>
 							<div class="d-flex justify-content-between">
 									<span><strong>Order Total</strong></span>
-									<span><%= get_price_in_pounds(@order_amount.present? ? @order_amount[:total] : 0) %></span>
+									<span><%= get_price_in_pounds(@total) %></span>
 							</div>
 							<hr>
 							<div class="d-flex delivery-note align-items-center py-3">

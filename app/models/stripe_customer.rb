@@ -1,3 +1,3 @@
 class StripeCustomer < ApplicationRecord
-  belongs_to :seller
+  belongs_to :stripe_customerable, polymorphic: true
 end

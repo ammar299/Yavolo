@@ -1,16 +1,19 @@
-class Buyers::CartController < ApplicationController
+class Buyers::CartController < Buyers::BaseController
+  skip_before_action :authenticate_buyer!
   # around_action :sub_total, only: %i[cart]
 
   def cart
-    @cart = session[:_current_user_cart] ||= []
-    product_ids = @cart.map{ |item| item[:product_id] }
-    @products = Product.find(product_ids) rescue []
-    @sub_total = sub_total
-    @total = total
+    @cart = get_cart
+    product_ids = @cart.map { |item| item[:product_id] }
+    @products = Product.find(product_ids) || []
+    if !@cart.present?
+      flash[:notice] = I18n.t('flash_messages.no_products_are_added_to_card')
+    end
+    @order_amount = order_amount
+    @selected_payment_method = get_selected_payment_method
   end
 
-  def store_front
-  end
+  def store_front; end
 
   def add_to_cart
     product = add_to_cart_params
@@ -19,9 +22,9 @@ class Buyers::CartController < ApplicationController
     if !session[:_current_user_cart].present?
       cart.push({ product_id: product[:product_id], quantity: 1, added_on: DateTime.now() });
     else
-      cart = session[:_current_user_cart];
+      cart = session[:_current_user_cart]
       cart.each do |item|
-        if (item[:product_id] == product[:product_id])
+        if item[:product_id] == product[:product_id]
           item[:quantity] = item[:quantity] + 1
           found = true
         end
@@ -30,6 +33,7 @@ class Buyers::CartController < ApplicationController
         cart.push({ product_id: product[:product_id], quantity: 1, added_on: DateTime.now() });
       end
     end
+    flash[:notice] = I18n.t('flash_messages.product_added_to_cart')
     session[:_current_user_cart] = cart
   end
 
@@ -70,24 +74,24 @@ class Buyers::CartController < ApplicationController
     update_product_quantity_by_number = update_product_quantity_by_number_params
     # todo only update if the product status is active
     # add status: :active in find_by
-    @product = Product.find_by(id: update_product_quantity_by_number[:product_id]) rescue nil
+    @product = Product.find_by(id: update_product_quantity_by_number[:product_id]) || nil
     @cart = ''
     @cart_item = ''
     if @product.present?
       @cart = get_cart
       if update_product_quantity_by_number[:quantity].to_i < 1
         @cart.delete_if { |h| h[:product_id].to_i == @product.id }
+        flash.now[:notice] = I18n.t('flash_messages.all_products_removed_from_cart')
         render :remove_product_form_cart
       else
-        @cart.map { |h| 
+        @cart.map { |h|
           if h[:product_id].to_i == @product.id
             @cart_item = h
             h[:quantity] = update_product_quantity_by_number[:quantity].to_i
           end
         }
-        # session[:_current_user_cart] = @cart
-        @sub_total = sub_total
-        @total = total
+        @order_amount = order_amount
+        flash.now[:notice] = I18n.t('flash_messages.products_quantity_updated_successfully')
       end
     end
   end
@@ -96,43 +100,52 @@ class Buyers::CartController < ApplicationController
     remove_product_params = remove_product_from_cart_params
     # todo only update if the product status is active
     # add status: :active in find_by
-    @product = Product.find_by(id: remove_product_params[:product_id]) rescue nil
+    @product = Product.find_by(id: remove_product_params[:product_id]) || nil
     if @product.present?
       @cart = get_cart
       @cart.delete_if { |h| h[:product_id].to_i == @product.id }
-      @sub_total = sub_total
-      @total = total
+      @order_amount = order_amount
+      flash.now[:notice] = I18n.t('flash_messages.product_removed_successfully')
     end
+  end
+
+  def update_selected_payment_method
+    # session.delete(:_selected_payment_method) if params[:pay_with].present?
+    session[:_selected_payment_method] = params[:pay_with] if params[:pay_with].present?
   end
 
   private
 
+  def order_amount
+    { total: total, sub_total: sub_total }
+  end
+
   def sub_total
     cart = get_cart
-    @sub_total = 0;
+    @sub_total = 0
     cart.each do |item|
-      product = Product.find(item[:product_id].to_i) rescue nil
-        if product.present?
-          @sub_total = @sub_total + (item[:quantity].to_i * product.price.to_f)
-        end
+      product = Product.find(item[:product_id].to_i) || nil
+      @sub_total += (item[:quantity].to_i * product.price.to_f) if product.price.present?
     end
-    return @sub_total
+    @sub_total.to_f
   end
 
   def total
     cart = get_cart
-    @total = 0;
+    @total = 0
     cart.each do |item|
-      product = Product.find(item[:product_id].to_i) rescue nil
-        if product.present?
-          @total = @total + item[:quantity].to_i * product.price.to_f
-        end
+      product = Product.find(item[:product_id].to_i) || nil
+      @total += item[:quantity].to_i * product.price.to_f if product.present?
     end
-    return @total
+    @total.to_f
   end
 
   def get_cart
     @cart = session[:_current_user_cart] ||= []
+  end
+
+  def get_selected_payment_method
+    @selected_payment_method = session[:_selected_payment_method] ||= nil
   end
 
   def add_to_cart_params

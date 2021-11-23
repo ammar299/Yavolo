@@ -64,3 +64,7 @@ function cartChangeSubmit() {
     $(this).closest("form").find("#cart-change-form-submit").trigger("click");
   });
 }
+
+function SelectedPaymentMethod() {
+  
+}

@@ -65,18 +65,18 @@ $(document).ready(() => {
       });
   });
   // hide flash toasts
-  $(document).on('click','.notice-cross-icon', function(){
+  $(document).on("click", ".notice-cross-icon", function () {
     $(this).parent().fadeOut("slow");
   });
   // hide flash toasts
-  $(document).on('click','.notice-cross-icon', function(){
+  $(document).on("click", ".notice-cross-icon", function () {
     $(this).parent().fadeOut("slow");
   });
 
-    // Disable changing number type field by scrolling
-    $("input[type='number']").on('wheel', function () {
-        return false;
-    })
+  // Disable changing number type field by scrolling
+  $("input[type='number']").on('wheel', function () {
+      return false;
+  })
     
 });
 

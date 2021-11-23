@@ -1,0 +1,164 @@
+<div class="container">
+<% if @order.present? %>
+    <div class="row mt-4">
+      <div class="col-lg-8">
+        <div class="your-detail-left yo-white-card box-border">
+          <div class="row">
+            <% if @order.shipping_address.present? %>
+              <div class="col-lg-4 d-flex flex-column justify-content-between">
+                <div>
+                  <h6>Delivery Address</h6>
+                  <ul class="font-14px mb-3">
+                    <li class="black-text "><%= @order.shipping_address.appartment %></li>
+                    <li class="black-text "><%= @order.shipping_address.address_line_1 %></li>
+                    <li class="black-text "><%= @order.shipping_address.address_line_2 %></li>
+                    <li class="black-text "><%= @order.shipping_address.county %></li>
+                    <li class="black-text "><%= @order.shipping_address.city %></li>
+                    <li class="black-text "><%= @order.shipping_address.postal_code %></li>
+                    <li class="black-text "><%= @order.shipping_address.country %></li>
+                  </ul>
+                </div>
+                <a href="" class="red-text mm-text"><u>Change Delivery Address</u></a>
+              </div>
+              <% end %>
+              <% if @order.billing_address.present? %>
+              <div class="col-lg-4 d-flex flex-column justify-content-between">
+                <div>
+                  <h6>Billing Address</h6>
+                  <ul class="font-14px mb-3">
+                    <li class="black-text "><%= @order.billing_address.appartment %></li>
+                    <li class="black-text "><%= @order.billing_address.address_line_1 %></li>
+                    <li class="black-text "><%= @order.billing_address.address_line_2 %></li>
+                    <li class="black-text "><%= @order.billing_address.county %></li>
+                    <li class="black-text "><%= @order.billing_address.city %></li>
+                    <li class="black-text "><%= @order.billing_address.postal_code %></li>
+                    <li class="black-text "><%= @order.billing_address.country %></li>
+                  </ul>
+                </div>
+                <a href="" class="red-text mm-text"><u>Change Billing Address</u></a>
+              </div>
+              <% end %>
+              <div class="col-lg-4 d-flex flex-column justify-content-between">
+                <div>
+                  <h6>Payment Method</h6>
+                  <div class="d-flex">
+                    <div>
+                      <span class="pay-cards mr-2 pointer">
+                        <img src="images/Image-20.svg" alt="">
+                      </span>
+                    </div>
+                    <div class="d-flex flex-column black-text font-14px ">
+                      <span>Visa ...1234</span>
+                      <span>Exp: 01 / 2021</span>
+                    </div>
+                  </div>
+                </div>
+                <a href="" class="red-text mm-text"><u>Change Payment Method</u></a>
+              </div>
+          </div>
+        </div>
+        <div id="display-cart">
+          <% @products.each do |product| %>
+            <% @cart.each do |cart_item| %>
+              <% if product.id == cart_item[:product_id].to_i %>
+                <%= render 'buyers/checkout/product', cart_item: cart_item, product: product %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="your-detail-right yo-white-card box-border">
+            <h5 class="mb-3">Order Summary</h5>
+            <div class="item-basket">
+                <input type=checkbox id=sometoggler class=toggler />
+                <label for=sometoggler><span class="mm-text pointer">You have 2 items in your basket <i
+                    class="dropdown-toggle pl-2"></i> </span></label>
+                <div>
+                    <div class="d-flex justify-content-between flex-wrap mm-text mb-2">
+                        <span>Sony PlayStation 5 Console</span>
+                        <span>£499.99 <span class="font-10 pl-2">times-circle</span> </span>
+                    </div>
+                    <div class="d-flex justify-content-between mm-text mb-2">
+                        <span>PawHut 150CM Cat Tree Tower, <br> Wall-Mounted Cat <br> Shelf Perch & Plush Folding Cat Tree</span>
+                        <span>£55.99<span class="font-10 pl-2">times-circle</span> </span>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+                <span><strong>Sub Total</strong></span>
+                <span><%= get_price_in_pounds(@order_amount.present? ? @order_amount[:sub_total] : 0) %></span>
+            </div>
+            <div class="d-flex justify-content-between">
+                <span><strong>Delivery</strong></span>
+                <span>Free</span>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between">
+                <span><strong>Order Total</strong></span>
+                <span><%= get_price_in_pounds(@order_amount.present? ? @order_amount[:total] : 0) %></span>
+            </div>
+            <hr>
+            <div class="d-flex delivery-note align-items-center py-3">
+                <span class="icon-Secure-checkout icons-ico"></span>
+                <span class="in-text mm-text"><b>Secure Checkout</b> <br>
+                    Shopping with Yavolo is always safe and secure </span>
+            </div>
+            <div class="d-flex delivery-note align-items-center py-3">
+                <span class="icon-day-guarantee icons-ico"></span>
+                <span class="in-text mm-text"><b>30 Day Guarantee</b> <br>
+                    Returns are accepted up to 30 days as standard</span>
+            </div>
+            <!-- <a href="#" class="btn btn-lg btn-radius px-4 btn-primary w-100 "><span
+                    class="icon-Secure-checkout pr-2"></span> COMPLETE YOUR ORDER</a> -->
+                    <%= link_to create_payment_path, method: :post, class: 'btn btn-lg btn-radius px-4 btn-primary w-100' do %>
+                    <span class="icon-Secure-checkout pr-2"></span>
+                    COMPLETE YOUR ORDER
+                    <% end %>
+        </div>
+        <div class="your-detail-right yo-white-card box-border">
+            <div>
+                <h5 class="mb-3">Latest Reviews</h5>
+                <ul class="rating d-flex">
+                    <li class="mr-1 active"><span class="icon-star"></span></li>
+                    <li class="mr-1 active"><span class="icon-star"></span></li>
+                    <li class="mr-1 active"><span class="icon-star"></span></li>
+                    <li class="mr-1 active"><span class="icon-star"></span></li>
+                    <li class="mr-1"><span class="icon-star"></span></li>
+                </ul>
+                <p class="mm-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                    eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+            <div>
+
+                <ul class="rating d-flex">
+                    <li class="mr-1 active"><span class="icon-star"></span></li>
+                    <li class="mr-1 active"><span class="icon-star"></span></li>
+                    <li class="mr-1 active"><span class="icon-star"></span></li>
+                    <li class="mr-1 active"><span class="icon-star"></span></li>
+                    <li class="mr-1"><span class="icon-star"></span></li>
+                </ul>
+                <p class="mm-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                    eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+            <div>
+
+                <ul class="rating d-flex">
+                    <li class="mr-1 active"><span class="icon-star"></span></li>
+                    <li class="mr-1 active"><span class="icon-star"></span></li>
+                    <li class="mr-1 active"><span class="icon-star"></span></li>
+                    <li class="mr-1 active"><span class="icon-star"></span></li>
+                    <li class="mr-1"><span class="icon-star"></span></li>
+                </ul>
+                <p class="mm-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                    eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

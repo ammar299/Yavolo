@@ -117,7 +117,7 @@ module ApplicationHelper
   end
 
   def get_price_in_pounds(amount)
-    number_to_currency(amount, unit: "£", precision: 2)
+    amount.present? ? number_to_currency(amount, unit: "£", precision: 2) : 0
   end
 
   def set_filter_type_in_dropdown(params)

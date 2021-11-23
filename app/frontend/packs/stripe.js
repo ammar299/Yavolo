@@ -1,63 +1,76 @@
-// $(document).ready(function(){
-//   var stripe = Stripe('pk_test_51IfjFUFqSiWsjxhXbRrObdGnNbi0HGp64DKuqsivFjJN81Dip3ZpRAFUKGrOxhZkAoRZMbEOSLr7SAvvk6bmDvTu00eJrWMQB2');
-//   var elements = stripe.elements();
+$(document).ready(function () {
+  var stripe = Stripe(process.env.STRIPE_API_KEY);
+  const appearance = {
+    theme: "stripe",
+  };
 
-//   var style = {
-//     base: {
-//       // Add your base input styles here. For example:
-//       fontSize: '14px',
-//       color: '#640529',
-//       padding: '1em',
-//     },
-//     invalid: {
-//       iconColor: 'red',
-//       color: 'red',
-//     },
+  var cardElement = $("div").find("#card-element");
+  if (cardElement.length > 0) {
+    var elements = stripe.elements();
 
-//   };
+    var elementClasses = {
+      base: "form-control",
+      focus: "form-control",
+      empty: "form-control",
+      invalid: "form-control error-field",
+    };
 
-//   // Create an instance of the card Element.
-//   var card = elements.create('card', {style: style});
+    // Create an instance of the card Element.
+    var card = elements.create("card", {
+      classes: elementClasses,
+    });
+    card.mount("#card-element");
+  }
+  // var cardNumber = elements.create("cardNumber", {
+  //   classes: elementClasses,
+  // });
+  // cardNumber.mount("#card-number");
 
-//   // Add an instance of the card Element into the `card-element` <div>.
-//   card.mount('#card-element');
+  // var cardExpiry = elements.create("cardExpiry", {
+  //   classes: elementClasses,
+  // });
+  // cardExpiry.mount("#card-expiry");
 
+  // var cardCvc = elements.create("cardCvc", {
+  //   classes: elementClasses,
+  // });
+  // cardCvc.mount("#card-cvc");
 
-//   var form = document.getElementById('payment-form');
-//   form.addEventListener('submit', function(event) {
-//     $("#stripe-card-submit").prop('disabled',true)
-//     event.preventDefault();
-//     stripe.createToken(card).then(function(result) {
-//       if (result.error) {
-//         // Inform the customer that there was an error.
-//         $("#stripe-card-submit").prop('disabled',false)
-//         var errorElement = document.getElementById('card-errors');
-//         errorElement.textContent = result.error.message;
-        
-//       } else {
-//         // Send the token to your server.
-//         stripeTokenHandler(result.token);
-//       }
-//     });
-//   });
+  // Add an instance of the card Element into the card-element <div>.
+  // card.mount('#card-element');
+  // registerElements([cardNumber, cardExpiry, cardCvc], '#card-element');
 
-// });
+  var form = document.getElementById("payment-form");
+  if (form) {
+    form.addEventListener("submit", function (event) {
+      $("#stripe-card-submit").prop("disabled", true);
+      event.preventDefault();
+      stripe.createToken(card).then(function (result) {
+        if (result.error) {
+          // Inform the customer that there was an error.
+          $("#stripe-card-submit").prop("disabled", false);
+          var errorElement = document.getElementById("card-errors");
+          $(".stripe-card-validation").addClass("error-field");
+          errorElement.textContent = result.error.message;
+        } else {
+          $(".stripe-card-validation").removeClass("error-field");
+          $("#card-errors").removeClass("error");
+          // Send the token to your server.
+          stripeTokenHandler(result.token);
+        }
+      });
+    });
+  }
+});
+function stripeTokenHandler(token) {
+  // Insert the token ID into the form so it gets submitted to the server
+  var form = document.getElementById("payment-form");
+  var hiddenInput = document.createElement("input");
+  hiddenInput.setAttribute("type", "hidden");
+  hiddenInput.setAttribute("name", "stripeToken");
+  hiddenInput.setAttribute("value", token.id);
+  form.appendChild(hiddenInput);
 
-// function stripeTokenHandler(token) {
-
-//   // Insert the token ID into the form so it gets submitted to the server
-//   var form = document.getElementById('payment-form');
-//   var hiddenInput = document.createElement('input');
-//   hiddenInput.setAttribute('type', 'hidden');
-//   hiddenInput.setAttribute('name', 'stripeToken');
-//   hiddenInput.setAttribute('value', token.id);
-//   form.appendChild(hiddenInput);
-//   var dataString = $("#payment-form").serialize();
-//   $.ajax({
-//     type: "POST",
-//     url: "/sellers/payment_methods",
-//     data: dataString
-//   });
-//   // Submit the form
-//   // form.submit();
-// }
+  // Submit the form
+  form.submit();
+}

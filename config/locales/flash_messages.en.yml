@@ -1,0 +1,11 @@
+
+en:
+  flash_messages:
+    hello: "Hello world"
+    product_added_to_cart: "Product added to cart successfully."
+    no_products_are_added_to_card: "No products are added to cart yet."
+    all_products_removed_from_cart: "All Products are removed from the cart."
+    products_quantity_updated_successfully: "Product's quantity updated successfully."
+    product_removed_successfully: "Product removed successfully."
+    order_placed_successfully: "Order placed successfully."
+    something_went_wrong: "Something went wrong."

@@ -1,0 +1,156 @@
+<%= render 'shared/progress_bar', locals: { progress: "60" } %>
+<div class="container-fluid">
+  <div class="row mt-4">
+    <div class="col-lg-8">
+      <div class="your-detail-left yo-white-card box-border">
+        <h5>Payment Details</h5>
+        <hr>
+        <form action="<%= create_payment_method_path %>" id='payment-form' method='post'>
+        <div class="row m-3">
+        <input type="hidden" value="stripe">
+        <div id='card-element'></div>
+        </div>
+          <!-- <div class="row">
+            <div class="form-group col-md-6">
+              <label for="exampleInputEmail1">Card Number</label>
+              <div id="card-number"></div>
+              <input type="email" class="form-control" id="exampleInputEmail1"
+                     aria-describedby="emailHelp" placeholder="Input field">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-7 d-flex align-items-end flex-wrap">
+              <div class="form-group mr-2">
+                <label for="exampleInputEmail1">Expiry Date</label>
+                <div id="card-expiry" class=""></div>
+                <input type="email" class="form-control payment-input" id="exampleInputEmail1"
+                       aria-describedby="emailHelp" placeholder="MM">
+              </div>
+              <div class="form-group mr-5">
+                <label for="exampleInputEmail1"></label>
+                <input type="email" class="form-control payment-input" id="exampleInputEmail1"
+                       aria-describedby="emailHelp" placeholder="YYYY">
+              </div>
+              <div class="form-group search-field-flex">
+                <label for="exampleInputEmail1">Security Code</label>
+                <input type="number" class="form-control" id="exampleInputEmail1"
+                       aria-describedby="emailHelp" placeholder="Input field">
+              </div>
+            </div>
+          </div> -->
+          <div class='row m-3'>
+            <label class="checkbox-blk">Save card for later use
+              <input type="checkbox" name="save_card">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+            <input type="submit" value="REVIEW YOUR ORDER" class="btn btn-lg btn-radius px-4 btn-primary w-100" >
+            </div>
+          </div>
+
+        </form>
+        <div class="row">
+          <div class="col-lg-12">
+            <span class="heading-subtitle mb-0">OR</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <a href="" class="paypal-btn mt-4 pay-btn">BUY WITH
+              <span class="pl-3"><img src="images/PayPal-Logo.svg" alt=""></span></a>
+          </div>
+          <div class="col-lg-6">
+            <a href="" class="gpay-btn mt-4 pay-btn">BUY WITH
+              <span class="pl-3"><img src="images/g-pay.svg" alt=""></span></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="your-detail-right yo-white-card box-border">
+        <h5 class="mb-3">Order Summary</h5>
+        <div class="item-basket">
+          <input type="checkbox" id="sometoggler" class="toggler">
+          <label for="sometoggler"><span class="mm-text pointer">You have 2 items in your basket <i class="dropdown-toggle pl-2"></i> </span></label>
+          <div>
+            <div class="d-flex justify-content-between flex-wrap mm-text mb-2">
+              <span>Sony PlayStation 5 Console</span>
+              <span>£499.99 <span class="font-10 pl-2">times-circle</span> </span>
+            </div>
+            <div class="d-flex justify-content-between flex-wrap mm-text mb-2">
+              <span>PawHut 150CM Cat Tree Tower, Wall-Mounted Cat <br> Shelf Perch &amp; Plush Folding Cat Tree</span>
+              <span>£55.99<span class="font-10 pl-2">times-circle</span> </span>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between mb-2">
+          <span><strong>Sub Total</strong></span>
+          <span><%= get_price_in_pounds(@order_amount.present? ? @order_amount[:sub_total] : 0) %></span>
+        </div>
+        <div class="d-flex justify-content-between">
+          <span><strong>Delivery</strong></span>
+          <span>Free</span>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between">
+          <span><strong>Order Total</strong></span>
+          <span><%= get_price_in_pounds(@order_amount.present? ? @order_amount[:total] : 0) %></span>
+        </div>
+        <hr>
+        <div class="d-flex delivery-note align-items-center py-3">
+          <span class="icon-Secure-checkout icons-ico"></span>
+          <span class="in-text mm-text"><b>Secure Checkout</b> <br>
+                                    Shopping with Yavolo is always safe and secure </span>
+        </div>
+        <div class="d-flex delivery-note align-items-center py-3">
+          <span class="icon-day-guarantee icons-ico"></span>
+          <span class="in-text mm-text"><b>30 Day Guarantee</b> <br>
+                                    Returns are accepted up to 30 days as standard</span>
+        </div>
+
+      </div>
+      <div class="your-detail-right yo-white-card box-border">
+        <div>
+          <h5 class="mb-3">Latest Reviews</h5>
+          <ul class="rating d-flex">
+            <li class="mr-1 active"><span class="icon-star"></span></li>
+            <li class="mr-1 active"><span class="icon-star"></span></li>
+            <li class="mr-1 active"><span class="icon-star"></span></li>
+            <li class="mr-1 active"><span class="icon-star"></span></li>
+            <li class="mr-1"><span class="icon-star"></span></li>
+          </ul>
+          <p class="mm-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+        <div>
+
+          <ul class="rating d-flex">
+            <li class="mr-1 active"><span class="icon-star"></span></li>
+            <li class="mr-1 active"><span class="icon-star"></span></li>
+            <li class="mr-1 active"><span class="icon-star"></span></li>
+            <li class="mr-1 active"><span class="icon-star"></span></li>
+            <li class="mr-1"><span class="icon-star"></span></li>
+          </ul>
+          <p class="mm-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+        <div>
+
+          <ul class="rating d-flex">
+            <li class="mr-1 active"><span class="icon-star"></span></li>
+            <li class="mr-1 active"><span class="icon-star"></span></li>
+            <li class="mr-1 active"><span class="icon-star"></span></li>
+            <li class="mr-1 active"><span class="icon-star"></span></li>
+            <li class="mr-1"><span class="icon-star"></span></li>
+          </ul>
+          <p class="mm-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

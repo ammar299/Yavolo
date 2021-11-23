@@ -1,0 +1,94 @@
+<div class="asda" id="cart-item-<%= cart_item[:product_id] %>">
+  <div class="pdp-vertical-card pb-4">
+    <div class="row align-items-start">
+      <div class="col-lg-4 d-flex">
+        <div class="card-img p-3 yo-white-card">
+          <span>
+            <%= image_tag(product_cart_images(product), width: 200) %>
+          </span>
+        </div>
+      </div>
+      <div class="col-lg-8 d-flex">
+        <div class="card-content search-field-flex">
+          <div class="product-title d-flex justify-content-between">
+            <div class="title black-text">
+              <h5>
+                <%= product.title %>
+              </h5>
+            </div>
+            <div class="price black-text">
+                <h5>
+                  <%= number_to_currency(total_price(product, cart_item[:quantity].to_i), unit: "£" ) %>
+                </h5>
+            </div>
+          </div>
+          <ul class="rating d-flex mb-2">
+            <li class="mr-1 active">
+              <span class="icon-star"></span>
+            </li>
+            <li class="mr-1 active">
+              <span class="icon-star"></span>
+            </li>
+            <li class="mr-1 active">
+              <span class="icon-star"></span>
+            </li>
+            <li class="mr-1 active">
+              <span class="icon-star"></span>
+            </li>
+            <li class="mr-1">
+              <span class="icon-star"></span>
+            </li>
+            <li class="mr-1">
+              <span class="px-3 rateNo">(144)</span>
+            </li>
+          </ul>
+          <p class="font-14px mb-2">Sold by John Smith</p>
+          <p class="font-14px mb-0">Qty:
+            <%= cart_item[:quantity] %>
+          </p>
+          <div class="d-flex justify-content-between align-items-center">
+            <span>Free 1 day delivery (by 20th March)</span>
+            <span class="pdp-drop">
+              <div class="dropdown dropdown-filter mb-3 d-inline-flex">
+                <a href="jabascript:void(0)"
+                  class="btn btn-radius px-2 btn-link btn-link-dropdown d-inline-flex align-items-center"
+                  id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <%= form_with url: "/update_product_quantity_by_number_1", method: :post, local: false do |form| %>
+                  <input type="number" id="<%= "product-#{product.id}" %>" placeholder="<%= cart_item[:quantity] %>"
+                    value="<%= cart_item[:quantity] %>" class="pdp-drp-input item-quantity-input cart-item-quantity-input", 
+                    name="product_quantity[quantity]">
+                    <input type="hidden" name="product_quantity[product_id]" value="<%= product.id %>">
+                  <%= form.submit hidden: true, id: 'cart-change-form-submit'  %>
+                  <% end %>
+                  <i class="ml-3 dropdown-toggle d-flex" aria-hidden="true"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" x-placement="bottom-start"
+                  style="position: absolute; transform: translate3d(0px, 41px, 0px); top: 0px; left: 0px; will-change: transform;">
+                  <% (1..10).each do |index| %>
+                    <a class="dropdown-item <%= cart_item[:quantity].to_i == index ? " selected-quantity" : " "
+                    %>" href="<%= update_product_quantity_by_number_path(product_quantity: {product_id: product.id, quantity: index }) %>" data-remote="true" data-method="POST"><%= index %>
+                    <%# <i class="fa fa-check" aria-hidden="true"></i> %>
+                  </a>
+                  <% end %>
+                </div>
+              </div>
+            </span>
+          </div>
+          <div class="d-flex mb-2">
+            <a href="" class="mr-5 decoration-none">
+              <span class="red-text">
+                <span class="icon-Icon-awesome-heart pr-2"></span>
+                Save for later</span>
+            </a>
+            <%= link_to buyers_remove_product_form_cart_1_path(remove_product: {product_id: product.id}), method:
+              :delete, remote: true, class: 'decoration-none' do %>
+              <span class="icon-remove pr-2"></span>
+              Remove
+              <% end %>
+          </div>
+          <p>There’s 13 people viewing this product right now.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

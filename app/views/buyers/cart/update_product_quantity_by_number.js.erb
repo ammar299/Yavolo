@@ -1,3 +1,4 @@
 $(' #cart-item-<%= params[:product_quantity][:product_id] %> ').html("<%= j render('buyers/cart/cart_item', cart_item: @cart_item, product: @product ) %>")
-$('#cart-sub-total').html("<%= get_price_in_pounds(@sub_total) %>")
-$('#cart-total').html("<%= get_price_in_pounds(@total) %>")
+$('#cart-sub-total').html("<%= get_price_in_pounds(@order_amount[:sub_total]) %>")
+$('#cart-total').html("<%= get_price_in_pounds(@order_amount[:total]) %>")
+$('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');

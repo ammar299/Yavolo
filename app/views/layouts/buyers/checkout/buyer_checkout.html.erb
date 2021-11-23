@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Yavolo</title>
+    <title>Buyer</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.5.0/dist/js/splide.min.js"></script>
     <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= stylesheet_pack_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application' %>
     <script src="https://js.stripe.com/v3/"></script>
   </head>
+
   <body>
-    <div class="main-page">
-      <% unless params[:controller] == 'admin/sessions' || params[:controller] == 'admin/passwords'%>
-        <%= render 'layouts/header' %>
-      <% end %>
+    <div class="buyer-layout">
+      <%#= render 'layouts/buyers/buyer_sidebar' %>
       <%= render 'shared/flash_messages' %>
-      <div class="main-content">
-        <%= yield %>
-      </div>
+      <%= render 'layouts/buyers/checkout/header' %>
+      <%= yield %>
+      <%= render 'layouts/buyers/buyer_footer' %>
     </div>
   </body>
 </html>

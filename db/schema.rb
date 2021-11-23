@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_22_074410) do
+ActiveRecord::Schema.define(version: 2021_11_22_082305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -123,6 +123,18 @@ ActiveRecord::Schema.define(version: 2021_11_22_074410) do
     t.string "full_legal_name", default: ""
     t.index ["email"], name: "index_business_representatives_on_email"
     t.index ["seller_id"], name: "index_business_representatives_on_seller_id"
+  end
+
+  create_table "buyer_payment_methods", force: :cascade do |t|
+    t.string "stripe_token"
+    t.string "last_digits"
+    t.string "card_holder_name"
+    t.string "card_id"
+    t.bigint "buyer_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "brand"
+    t.index ["buyer_id"], name: "index_buyer_payment_methods_on_buyer_id"
   end
 
   create_table "buyers", force: :cascade do |t|
@@ -340,6 +352,20 @@ ActiveRecord::Schema.define(version: 2021_11_22_074410) do
     t.decimal "sub_total"
     t.integer "discount_percentage"
     t.decimal "discounted_price"
+    t.bigint "buyer_id"
+    t.index ["buyer_id"], name: "index_orders_on_buyer_id"
+  end
+
+  create_table "payment_modes", force: :cascade do |t|
+    t.integer "payment_through"
+    t.string "charge_id"
+    t.integer "amount"
+    t.string "return_url"
+    t.string "receipt_url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "order_id"
+    t.index ["order_id"], name: "index_payment_modes_on_order_id"
   end
 
   create_table "paypal_details", force: :cascade do |t|
@@ -575,10 +601,12 @@ ActiveRecord::Schema.define(version: 2021_11_22_074410) do
   create_table "stripe_customers", force: :cascade do |t|
     t.string "customer_id"
     t.string "email"
-    t.bigint "seller_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["seller_id"], name: "index_stripe_customers_on_seller_id"
+    t.bigint "stripe_customerable_id"
+    t.string "stripe_customerable_type"
+    t.index ["stripe_customerable_id"], name: "index_stripe_customers_on_stripe_customerable_id"
+    t.index ["stripe_customerable_type"], name: "index_stripe_customers_on_stripe_customerable_type"
   end
 
   create_table "subscription_plans", force: :cascade do |t|
@@ -626,5 +654,4 @@ ActiveRecord::Schema.define(version: 2021_11_22_074410) do
   add_foreign_key "seller_apis", "sellers"
   add_foreign_key "seller_payment_methods", "sellers"
   add_foreign_key "seller_stripe_subscriptions", "sellers"
-  add_foreign_key "stripe_customers", "sellers"
 end

@@ -1,5 +1,6 @@
 $(document).ready(function(){
   console.log('sellers js is loaded');
+  // stripeLoad();
   onBoardingApiScript();
   sellerOnBoarding();
   // sellerSearchByFilter();

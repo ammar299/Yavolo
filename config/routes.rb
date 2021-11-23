@@ -225,11 +225,22 @@ Rails.application.routes.draw do
   post 'add_to_cart', to: "buyers/cart#add_to_cart", as: :add_to_cart
   # post 'update_product_quantity', to: "buyers/cart#update_product_quantity", as: :update_product_quantity
   post 'update_product_quantity_by_number', to: "buyers/cart#update_product_quantity_by_number", as: :update_product_quantity_by_number
+  post 'update_selected_payment_method', to: "buyers/cart#update_selected_payment_method", as: :update_selected_payment_method
   get 'cart', to: "buyers/cart#cart", as: :cart
   delete 'remove_product_form_cart', to: 'buyers/cart#remove_product_form_cart', as: :remove_product_form_cart
   
   get 'checkout', to: 'buyers/checkout#new', as: :checkout
   post 'create_checkout', to: 'buyers/checkout#create_checkout', as: :create_checkout
+  get 'payment_method', to: 'buyers/checkout#payment_method', as: :payment_method
+  get 'review_order', to: 'buyers/checkout#review_order', as: :review_order
+  post 'create_payment_method', to: 'buyers/checkout#create_payment_method', as: :create_payment_method
+  post 'create_payment', to: 'buyers/checkout#create_payment', as: :create_payment
+
+  namespace :buyers, path: '/' do
+    resources :order_steps
+    delete 'remove_product_form_cart_1', to: 'order_steps#remove_product_form_cart', as: :remove_product_form_cart_1
+    post 'update_product_quantity_by_number_1', to: "order_steps#update_product_quantity_by_number", as: :update_product_quantity_by_number_1
+  end
 
   resource :user, only: :update
   get :profile, to: 'users#show'
