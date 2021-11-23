@@ -11,7 +11,7 @@
         <div id="seller-actions">
           <p class="pb-4 confirmation-text">Are you sure to perform this action?</p>
           <div class="form-group">
-            <input min="0" type="number" id="product-new-value" class="form-control" placeholder="Enter Value">
+            <input min="0" max="<%= MAX_STOCK_VALUE %>" type="number" id="product-new-value" class="form-control" placeholder="Enter Value">
           </div>
           <div class="carrier-btn text-right">
             <%= link_to "No", "javascript:void(0)",'data-dismiss': "modal", class: 'btn btn-sm btn-radius px-4 btn-primary mt-2' %>
