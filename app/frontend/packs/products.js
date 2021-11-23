@@ -402,8 +402,7 @@ function bindAndLoadBabyCategoriesSelect2(){
       },
       cache: true
     },
-    placeholder: 'Search a baby category',
-    minimumInputLength: 2
+    placeholder: 'Search a baby category'
   });
 }
 
@@ -433,8 +432,7 @@ function bindAndLoadSellersSelect2(){
       },
       cache: true
     },
-    placeholder: 'Search for a seller',
-    minimumInputLength: 2
+    placeholder: 'Search for a seller'
   });
 }
 
