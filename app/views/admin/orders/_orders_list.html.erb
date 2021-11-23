@@ -1,10 +1,10 @@
 <% orders.each do |order| %>
   <% order_detail = order.order_detail %>
   <% order_line_items = order.line_items %>
-  <tr>
+  <tr class="order-table-row" id="order-id-<%= order.id %>">
     <td>
       <label class="checkbox-blk">
-        <input type="checkbox">
+        <input type="checkbox" name="order_ids[]" class="order_ids" value="<%= order.id %>">
         <span class="checkmark"></span>
       </label>
     </td>

@@ -33,12 +33,12 @@
       </div>
       <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border">
         <div class="dropdown">
-          <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions <i class="fas fa-ellipsis-h ml-3" aria-hidden="true"></i></a>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item active" href="#">View <i class="fa fa-check" aria-hidden="true"></i></a>
-            <a class="dropdown-item" href="#">Cancel<i class="fa fa-check" aria-hidden="true"></i></a>
-            <a class="dropdown-item" href="#">Refund <i class="fa fa-check" aria-hidden="true"></i></a>
-            <a class="dropdown-item" href="#">Update Tracking<i class="fa fa-check" aria-hidden="true"></i></a>
+          <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+          <div class="dropdown-menu order-bulk-actions" aria-labelledby="dropdownMenuLink">
+            <a data-bulkaction="view" class="dropdown-item" href="#">View</a>
+            <a class="dropdown-item" href="#">Cancel</a>
+            <a class="dropdown-item" href="#">Refund</a>
+            <a class="dropdown-item" href="#">Update Tracking</a>
           </div>
         </div>
       </div>
@@ -101,13 +101,13 @@
         <%= render 'shared/result_of_pages', total_count: Order.count, count: @orders.count %>
       </div>
       <h3 class="mt-4 mb-3">All Orders</h3>
-      <div class="Yavolo-table mt-4">
+      <div class="Yavolo-table order-listing-table mt-4">
         <table class="table">
           <thead>
             <tr>
               <th>
                 <label class="checkbox-blk">
-                  <input type="checkbox">
+                  <input type="checkbox" class="order-mark-bulk-update">
                   <span class="checkmark checkmark-white"></span>
                 </label>
               </th>
@@ -138,3 +138,4 @@
     </div>
   </div>
 </div>
+<%= render 'simple_confirm_modal', confirm_statement: 'Are you sure to perform this bulk action?', id: 'yes-perform-action',path: '#', data: nil, modal_id: 'admin-orders-confirm' %>
