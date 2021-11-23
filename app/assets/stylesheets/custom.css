@@ -884,6 +884,11 @@ label {
   text-align: center;
   padding-bottom: 0 !important;
 }
+.delivery-detail-bt-title {
+  white-space: normal;
+  word-break: break-word;
+  padding-right: 20px;
+}
 @media only screen and (min-width: 1025px) {
   .admin-dashboard.no-header {
     padding-top: 0 !important;
