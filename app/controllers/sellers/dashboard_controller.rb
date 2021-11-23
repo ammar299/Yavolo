@@ -24,8 +24,6 @@ class Sellers::DashboardController < Sellers::BaseController
       end
     elsif !verify_seller_lock
       redirect_to new_sellers_profile_path(id: @seller.id)
-    else
-      return
     end
   end
 

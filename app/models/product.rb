@@ -32,6 +32,7 @@ class Product < ApplicationRecord
     validates :ean, uniqueness: true, if: Proc.new{|p| p.ean.present? }
     validates :yan, uniqueness: true, if: Proc.new{|p| p.yan.present? }
     validates :title, :condition, :description, :keywords, :price, :stock, presence: true
+    validates :discount, presence: true, inclusion: { in: 2.5..100, message: "value should be between 2.5 and 100" }
     validate :validate_seller
 
     def validate_seller

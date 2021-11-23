@@ -5,7 +5,6 @@ Rails.application.routes.draw do
 
   devise_scope :admin do
     authenticated :admin do
-      root 'admin/dashboard#index', as: :admins_dashboard
       namespace :admin do
         # root 'admin/dashboard#index', as: :admins_dashboard
         root 'dashboard#index', as: :dashboard
@@ -130,6 +129,8 @@ Rails.application.routes.draw do
 
     authenticated :seller do
       namespace :sellers do
+        root to: 'dashboard#index', as: :seller_authenticated_root
+
         resources :payment_methods
         get :set_default_card, :to => 'payment_methods#set_default_card'
         get :link_with_stripe, :to => 'payment_methods#link_with_stripe'
@@ -181,7 +182,6 @@ Rails.application.routes.draw do
           get :confirm_update
         end
         resources :otp_secret
-        root to: 'dashboard#index', as: :seller_authenticated_root
 
         resources :products do
           collection do
