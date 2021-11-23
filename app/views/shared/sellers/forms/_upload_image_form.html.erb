@@ -53,35 +53,42 @@
         else {
         var reader = new FileReader();
         reader.onload = function(e){
-          image_base64 = e.target.result;
+          let image_base64 = e.target.result;
           $('.preview-img').attr("src", image_base64);
-          if ($('.preview-img')[0].naturalHeight > 500 || $('.preview-img')[0].naturalHeight > 500) {
-              $('#admin-sellers-update-form').get(0).reset();
-            $('.preview-img').attr("src", "/assets/yavolo-smily.png");
-            $('.preview-img').addClass('opacity-50');
-            $('.image-name').text('');
-            $('.remove-image').text('');
-            $(':input[type="submit"]').prop('disabled', true);
-            $('#flash-msg').html('<%= j render partial: "shared/notice_banner", locals: { notice: "File size should be less than 500px by 500px" } %>');
-          }
-          else {
-            $('.preview-img').removeClass('opacity-50');
-            $('.image-name').text(file.name);
-            $('.remove-image').text('remove image');
-            $(':input[type="submit"]').prop('disabled', false);
-          }
+            let image = new Image();
+            image.src =  e.target.result;
+            //Validate the File Height and Width.
+            image.onload = function () {
+                const height = this.height;
+                const width = this.width;
+                if (height < 500 || width < 500) {
+                    showDefaultSellerPlaceholderImageUploadLogoModal();
+                    $('#flash-msg').html('<%= j render partial: "shared/notice_banner", locals: { notice: "File size should be greater than 500px by 500px" } %>');
+                }
+                else {
+                    $('.preview-img').removeClass('opacity-50');
+                    $('.image-name').text(file.name);
+                    $('.remove-image').text('remove image');
+                    $(':input[type="submit"]').prop('disabled', false);
+                }
+            };
+
         };
         reader.readAsDataURL(file);
         }
       } else {
-          $('#admin-sellers-update-form').get(0).reset();
+          showDefaultSellerPlaceholderImageUploadLogoModal();
+      }
+    });
+
+    function showDefaultSellerPlaceholderImageUploadLogoModal(){
+        $('#admin-sellers-update-form').get(0).reset();
         $('.preview-img').attr("src", "/assets/yavolo-smily.png");
         $('.preview-img').addClass('opacity-50');
         $('.image-name').text('');
         $('.remove-image').text('');
         $(':input[type="submit"]').prop('disabled', true);
-      }
-    });
+    }
     $('.remove-image').click(function() {
         $('#admin-sellers-update-form').get(0).reset();
         $('.preview-img').attr("src", "/assets/yavolo-smily.png");
