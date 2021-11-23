@@ -136,7 +136,6 @@ $(document).ready(function(){
     }else{
       document.getElementById('csv_import_file').value = "";
       $('#upload-csv-popup .modal-body').find('.file-errors').remove();
-      $('#upload-csv-popup .modal-body').append('<ul class="file-errors" style="color: red;">'+fileValidator.errors.map(e => '<li>'+e+'</li>').join("")+'</ul>')
     }
   });
 
@@ -584,13 +583,12 @@ function fileDropHandler(e){
     uploadCSVFile(files);
   }else{
     $('#upload-csv-popup .modal-body').find('.file-errors').remove();
-    $('#upload-csv-popup .modal-body').append('<ul class="file-errors" style="color: red;">'+fileValidator.errors.map(e => '<li>'+e+'</li>').join("")+'</ul>')
   }
 }
 
 function validCsvFile(files){
   let allowedExtensions = /(\.csv)$/i;
-  let has_error = [];
+  let has_error = false;
   if(!allowedExtensions.exec(files[0].name)) {
     $('#flash-msg').html(displayNoticeMessage("Invalid file type, allowed type is .csv"))
     has_error = true;
