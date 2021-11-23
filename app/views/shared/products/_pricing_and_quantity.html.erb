@@ -14,7 +14,7 @@
                     <% has_error, msg = get_errors(form, :stock) %>
                     <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
                         <%= form.label 'Quantity*' %>
-                        <%= form.number_field :stock, class: 'form-control', min: 0 %>
+                        <%= form.number_field :stock, class: 'form-control', min: 0, max: MAX_STOCK_VALUE %>
                         <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                     </div>
 
