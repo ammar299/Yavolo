@@ -937,13 +937,15 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
       required: true
     },
     "product[ean]": {
-      required: true
+      required: true,
+      maxlength: 12
     },
     "product[price]": {
       required: true
     },
     "product[stock]": {
-      required: true
+      required: true,
+      maxlength: 10
     },
     "product[condition]": {
       required: true
