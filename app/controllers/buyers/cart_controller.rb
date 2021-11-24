@@ -20,7 +20,7 @@ class Buyers::CartController < Buyers::BaseController
     cart = []
     found = false
     if !session[:_current_user_cart].present?
-      cart.push({ product_id: product[:product_id], quantity: 1, added_on: DateTime.now() });
+      cart.push({ product_id: product[:product_id], quantity: product[:quantity].present? ? product[:quantity] : 1, added_on: DateTime.now() });
     else
       cart = session[:_current_user_cart]
       cart.each do |item|
@@ -30,10 +30,11 @@ class Buyers::CartController < Buyers::BaseController
         end
       end
       if !found
-        cart.push({ product_id: product[:product_id], quantity: 1, added_on: DateTime.now() });
+        cart.push({ product_id: product[:product_id], quantity: product[:quantity].present? ? product[:quantity] : 1, added_on: DateTime.now() });
       end
     end
     flash[:notice] = I18n.t('flash_messages.product_added_to_cart')
+    redirect_back(fallback_location: request.referrer) if params[:page] == 'pdp'
     session[:_current_user_cart] = cart
   end
 
@@ -149,7 +150,7 @@ class Buyers::CartController < Buyers::BaseController
   end
 
   def add_to_cart_params
-    params.require(:product).permit(:product_id)
+    params.require(:product).permit(:product_id, :quantity)
   end
 
   def update_product_quantity_params

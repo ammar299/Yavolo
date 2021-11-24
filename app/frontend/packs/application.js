@@ -25,6 +25,7 @@ require("packs/delivery_options");
 require("packs/filter_groups");
 require("packs/products");
 require("packs/sellers");
+require("packs/buyers");
 require("packs/success-meter");
 require("packs/orders");
 require("packs/date-picker");

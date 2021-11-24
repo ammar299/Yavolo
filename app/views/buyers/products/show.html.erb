@@ -76,23 +76,27 @@
               </div>
             </div>
             <span class="font-14px black-text" style="opacity: 50%;">VAT Included</span>
-            <div class="dropdown quantity-dropdown text-center mt-3 mb-2 w-100">
-              <button class="btn dropdown-toggle btn-lg" type="button" id="dropdownMenuButton"
-                      data-toggle="dropdown" aria-expanded="false">
-                Quantity: <input type="number" value="1">
-              </button>
-              <div class="dropdown-menu p-3 mt-0" aria-labelledby="dropdownMenuButton">
-                <% stock = @product["stock"].to_i %>
-                <% 1.step(stock, 2).each do |stock_quantity| %>
-                  <a class="dropdown-item p-1" href="#"><span><%= stock_quantity %></span></a>
-                <% end %>
+            <%= form_tag(add_to_cart_path, method: :post) do %>
+              <div class="dropdown quantity-dropdown text-center mt-3 mb-2 w-100">
+                <button class="btn dropdown-toggle btn-lg" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-expanded="false">
+                  Quantity: <input class="update-product-quantity" type="number" value="1">
+                </button>
+                <div class="dropdown-menu p-3 mt-0" aria-labelledby="dropdownMenuButton">
+                  <% stock = @product["stock"].to_i %>
+                  <% 1.step(stock).each do |stock_quantity| %>
+                    <a class="dropdown-item p-1 click-product-quantity" href="javascript:void(0)" data-quantity="<%= stock_quantity %>"><span><%= stock_quantity %></span></a>
+                  <% end %>
+                </div>
               </div>
-            </div>
-            <div>
-              <a href="#" class="btn btn-lg btn-radius px-4 btn-primary w-100 mb-2">BUY IT NOW</a>
-              <a href="#" class="btn btn-lg btn-radius px-4 btn-outline-primary w-100 mb-2">ADD TO
-                BASKET</a>
-            </div>
+              <%= hidden_field_tag 'product[product_id]', @product.id %>
+              <%= hidden_field_tag 'product[quantity]', 1, class: "update-product-quantity" %>
+              <%= hidden_field_tag 'page', 'pdp' %>
+              <div>
+                <a href="#" class="btn btn-lg btn-radius px-4 btn-primary w-100 mb-2">BUY IT NOW</a>
+                <%= button_tag "ADD TO BASKET", class: "btn btn-lg btn-radius px-4 btn-outline-primary w-100 mb-2" %>
+              </div>
+            <% end %>
             <div class="text-center mb-3">
               <a href="" class="text-center"><u>View bundles that feature this product</u> </a>
             </div>
