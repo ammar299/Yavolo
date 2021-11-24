@@ -35,7 +35,7 @@
 <div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
   <%= form.label :account_status, 'Account Status:' %>
   <div style="flex: 1;">
-    <%= form.select :account_status, options_for_select(Seller.account_statuses.map {|k, v| [k.humanize.capitalize, k]}, form.object.account_status || "pending"), { prompt: 'Account Status' }, class: 'form-control' %>
+    <%= form.select :account_status, options_for_select(seller_account_statuses_for_dropdown(@seller), form.object.account_status), { include_blank: false }, class: 'form-control' %>
   </div>
 </div>
 <div class="form-group form-group-vertical form-group-vertical-responsive mb-1">

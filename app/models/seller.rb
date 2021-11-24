@@ -2,6 +2,7 @@ class Seller < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   validate :date_of_birth_is_valid_datetime
+  validate :status_change_is_valid
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable, :omniauthable, omniauth_providers: [:google_oauth2 , :facebook]
   validates :email, confirmation: true, presence: true
@@ -117,22 +118,6 @@ class Seller < ApplicationRecord
     return product
   end
 
-  def date_of_birth_is_valid_datetime
-    return unless date_of_birth.present?
-    begin
-      date_of_birth.to_date
-    rescue
-      errors.add(:date_of_birth, "must be a date")
-    else
-      if date_of_birth > Time.now
-        errors.add(:date_of_birth, "date of birth cannot be in the future")
-      elsif date_of_birth < Time.now - 125.years
-        errors.add(:date_of_birth, "date of birth cannot be over 125 years ago")
-      end
-    end
-  end
-  
-
   def full_name
     "#{first_name} #{last_name}"
   end
@@ -159,7 +144,32 @@ class Seller < ApplicationRecord
     return false if skip_password_validation
     super
   end
-  # Usage
-  # @seller.skip_password_validation = true
-  # @seller.save
+
+  private
+
+  def date_of_birth_is_valid_datetime
+    return unless date_of_birth.present?
+    begin
+      date_of_birth.to_date
+    rescue
+      errors.add(:date_of_birth, "must be a date")
+    else
+      if date_of_birth > Time.now
+        errors.add(:date_of_birth, "date of birth cannot be in the future")
+      elsif date_of_birth < Time.now - 125.years
+        errors.add(:date_of_birth, "date of birth cannot be over 125 years ago")
+      end
+    end
+  end
+
+  def status_change_is_valid
+    return unless account_status_changed?
+
+    if %w(approve activate).include?(account_status_was) && (self.rejected? || self.pending?)
+      errors.add(:account_status, "cannot be changed to #{self.account_status}")
+    elsif account_status_was != "pending" && self.rejected?
+      errors.add(:account_status, "cannot be changed to rejected")
+    end
+
+  end
 end

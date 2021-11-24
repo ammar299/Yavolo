@@ -57,4 +57,22 @@ module Admin::SellersHelper
     end
   end
 
+  def seller_account_statuses_for_dropdown(seller)
+    if seller.pending?
+      construct_dropdown_options_for_seller_account_statuses(%w(pending approve reject))
+    elsif seller.approve?
+      construct_dropdown_options_for_seller_account_statuses( %w(approve suspend))
+    elsif seller.rejected?
+      construct_dropdown_options_for_seller_account_statuses(%w(approve rejected))
+    elsif seller.activate? || seller.suspend?
+      construct_dropdown_options_for_seller_account_statuses(%w(activate suspend))
+    else
+      Seller.account_statuses.map {|k, v| [k.humanize.capitalize, k]}
+    end
+  end
+
+  def construct_dropdown_options_for_seller_account_statuses(valid_options)
+    Seller.account_statuses.select {|k, v| valid_options.include?(k) }.map {|k, v| [k.humanize.capitalize, k]}
+  end
+
 end

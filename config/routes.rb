@@ -4,10 +4,11 @@ Rails.application.routes.draw do
   devise_for :buyers, controllers: { registrations: 'buyers/auth/registrations', sessions: 'buyers/auth/sessions', passwords: 'buyers/auth/passwords' }
 
   devise_scope :admin do
-    authenticated :admin do
-      namespace :admin do
+
+    namespace :admin do
+      root 'dashboard#index', as: :dashboard
+      authenticated :admin do
         # root 'admin/dashboard#index', as: :admins_dashboard
-        root 'dashboard#index', as: :dashboard
 
         resources :orders, only: [:index, :show]
         resources :delivery_options, except: %i[show] do
