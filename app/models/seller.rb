@@ -143,6 +143,15 @@ class Seller < ApplicationRecord
      self.bank_detail.present?].all?(true)
   end
 
+  def send_account_status_changed_email_to_seller
+    return unless has_account_status_changed?
+    SellerAccountStatusChangeEmailWorker.perform_async(self.id)
+  end
+
+  def has_account_status_changed?
+    self.previous_changes.has_key?("account_status")
+  end
+
 
   protected
 

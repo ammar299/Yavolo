@@ -1,5 +1,6 @@
 class Admin::SellersController < Admin::BaseController
   before_action :set_seller, only: %i[show edit update update_business_representative update_company_detail update_addresses update_seller_logo remove_logo_image confirm_update_seller update_seller new_seller_api create_seller_api confirm_update_seller_api change_seller_api_eligibility holiday_mode change_lock_status  confirm_reset_password_token reset_password_token update_subscription_by_admin]
+  include SharedSellerMethods
 
   def index
     @q = Seller.ransack(params[:q])
@@ -45,59 +46,14 @@ class Admin::SellersController < Admin::BaseController
 
   def edit; end
 
-  def update_business_representative
-    if seller_params[:listing_status] == 'in_active'
-      # change this seller's products status to inactive
-      @seller.products.where(status: :active).update(status: :inactive)
-    else
-      @seller.products.where(status: :inactive).update(status: :active)
-    end
-    @seller.update(seller_params)
-    flash.now[:notice] = 'Business Representative updated successfully!'
-  end
-
-  def update_company_detail
-    @seller.update(seller_params)
-    flash.now[:notice] = 'Company Detail updated successfully!'
-  end
-
-  def update_seller_logo
-    @image_valid = true
-    file_path = params[:seller][:picture_attributes][:name].tempfile.path
-    if Yavolo::ImageProcessing.image_dimensions_valid?(file_path:file_path, width: 500, height: 500)
-      @seller.update(seller_params)
-      flash.now[:notice] = 'Seller Logo updated successfully!'
-    else
-      @image_valid = false
-      flash.now[:notice] = 'Image must be a .jpg, .gif or .png file smaller
-            than 10MB and at least 500px by 500px.'
-    end
-  end
-
-  def remove_logo_image
-    @picture_present = @seller.picture.present?
-    @seller.picture.destroy if @picture_present
-    flash.now[:notice] = 'Seller Logo removed successfully!' if @picture_present
-  end
-
-  def update_addresses
-    @seller.update(seller_params)
-    @address_type = params[:seller][:addresses_attributes]['0'][:address_type]
-    @address = @seller.addresses.where(address_type: @address_type).last
-    flash.now[:notice] = "#{@address_type.humanize} updated successfully!"
-  end
-
   def update_seller
     if params[:field_to_update].present?
       if params[:field_to_update] == 'delete'
         @seller.destroy
         flash.now[:notice] = 'Seller deleted successfully!'
       else
-        @previous_account_status = @seller.account_status
         @seller.update(account_status: params[:field_to_update])
-        if @seller.activate? && @previous_account_status != @seller.account_status
-          SellerMailer.with(to: @seller.email.downcase).send_account_activation_email.deliver_now
-        end
+        @seller.send_account_status_changed_email_to_seller
         flash.now[:notice] = 'Seller updated successfully!'
       end
     end

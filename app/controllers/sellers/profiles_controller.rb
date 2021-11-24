@@ -1,6 +1,8 @@
 class Sellers::ProfilesController < Sellers::BaseController
   layout 'application', :only => [:new]
   layout 'sellers/seller', except: %[new]
+  include SharedProductMethods
+
   before_action :set_seller, only: %i[new show edit update update_business_representative update_company_detail update_seller_logo remove_logo_image update_addresses holiday_mode confirm_reset_password_token reset_password_token seller_login_setting_update skip_success_hub_steps get_invoice_address get_return_address]
   before_action :set_delivery_template, only: %i[confirm_delete destroy_delivery_template]
   before_action :get_action_url, only: %i[show]
@@ -76,46 +78,6 @@ class Sellers::ProfilesController < Sellers::BaseController
       flash[:notice] = "Steps skipped"
     end
     redirect_to sellers_seller_authenticated_root_path
-  end
-
-  def update_business_representative
-    if seller_params[:listing_status] == 'in_active'
-      #change this seller's products status to inactive
-      @seller.products.where(status: :active).update(status: :inactive)
-    else
-      @seller.products.where(status: :inactive).update(status: :active)
-    end
-    @seller.update(seller_params)
-    flash.now[:notice] = 'Business Representative updated successfully!'
-  end
-
-  def update_company_detail
-    @seller.update(seller_params)
-    flash.now[:notice] = 'Company Detail updated successfully!'
-  end
-
-  def update_seller_logo
-    @image_valid = true
-    file_path = params[:seller][:picture_attributes][:name].tempfile.path
-    if Yavolo::ImageProcessing.image_dimensions_valid?(file_path:file_path, width: 500, height: 500)
-      @seller.update(seller_params)
-      flash.now[:notice] = 'Seller Logo updated successfully!'
-    else
-      @image_valid = false
-    end
-  end
-    
-  def remove_logo_image
-    @picture_present = @seller.picture.present?
-    @seller.picture.destroy if @picture_present
-    flash.now[:notice] = 'Seller Logo removed successfully!' if @picture_present
-  end
-
-  def update_addresses
-    @seller.update(seller_params)
-    @address_type = params[:seller][:addresses_attributes]["0"][:address_type]
-    @address = @seller.addresses.where(address_type: @address_type).last
-    flash.now[:notice] = "#{@address_type.humanize} updated successfully!"
   end
 
   def holiday_mode

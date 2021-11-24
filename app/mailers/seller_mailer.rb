@@ -10,4 +10,14 @@ class SellerMailer < ApplicationMailer
     puts "---- Email Sent for seller account activation ------"
   end
 
+  def send_account_rejected_email
+    mail(to: params[:to], subject: 'Yavolo: Your seller account has been rejected.')
+    puts "---- Email Sent for seller account rejection ------"
+  end
+
+  def send_account_suspend_email
+    mail(to: params[:to], subject: 'Yavolo: Your seller account has been suspended.')
+    puts "---- Email Sent for seller account suspension ------"
+  end
+
 end
