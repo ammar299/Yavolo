@@ -2,12 +2,14 @@ class Admin::FilterGroupsController < Admin::BaseController
   before_action :set_filter_group, only: [:show, :edit, :update, :destroy, :confirm_delete, :assign_category]
 
   def index
-    @filter_group_count = FilterGroup.count
+
     case params.present?
-    when params[:filter_type].present?  then @filter_groups =  FilterGroup.where(filter_group_type: params[:filter_type].to_i).includes(:filter_categories, :filter_in_categories).page(params[:page]).per(params[:per_page].presence || 15)
-    when params[:search].present?       then @filter_groups = FilterGroup.includes(:filter_categories, :filter_in_categories).search_by_name(params[:search]).page(params[:page]).per(params[:per_page].presence || 15)
-    else @filter_groups = FilterGroup.includes(:filter_categories, :filter_in_categories).page(params[:page]).per(params[:per_page].presence || 15)
+    when params[:filter_type].present?  then @filter_groups =  FilterGroup.where(filter_group_type: params[:filter_type].to_i).includes(:filter_categories, :filter_in_categories)
+    when params[:search].present?       then @filter_groups = FilterGroup.includes(:filter_categories, :filter_in_categories).search_by_name(params[:search])
+    else @filter_groups = FilterGroup.includes(:filter_categories, :filter_in_categories)
     end
+    @filter_group_count = @filter_groups.size
+    @filter_groups = @filter_groups.page(params[:page]).per(params[:per_page].presence || 15)
   end
 
   def new

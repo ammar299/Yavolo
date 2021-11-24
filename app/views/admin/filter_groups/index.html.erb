@@ -6,7 +6,13 @@
           <div class="search-field mb-0">
             <%= form_tag(admin_filter_groups_path, method: :get) do %>
               <%= text_field_tag(:search, params[:search], placeholder: "Search Filter By Name") %>
-            <i class="fa fa-search" aria-hidden="true"></i>
+              <% if params[:search].present? %>
+                <%= link_to do %>
+                  <i class="icon-cross" aria-hidden="true" style="top: 14px;font-size: 12px;"></i>
+                <% end %>
+              <% else %>
+                <i class="fa fa-search" aria-hidden="true"></i>
+              <% end %>
             <% end %>
           </div>
           <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border">
@@ -110,7 +116,7 @@
   <div class="row">
     <div class="col-lg-12">
       <div class="mt-3">
-        <%= render partial: 'shared/result_of_pages', locals: {total_count: FilterGroup.count, count: @filter_groups.count } %>
+        <%= render partial: 'shared/result_of_pages', locals: {total_count: @filter_group_count, count: @filter_groups.count } %>
       </div>
       <h3 class="mt-4 mb-3 font-weight-bold">Filter Groups</h3>
       <div class="Yavolo-table yavolo-center">

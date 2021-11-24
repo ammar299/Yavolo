@@ -18,7 +18,7 @@ class Seller < ApplicationRecord
   has_one :bank_detail, dependent: :destroy
   has_many :csv_imports, as: :importer, dependent: :destroy
   has_one :paypal_detail,dependent: :destroy
-  has_one :stripe_customer,dependent: :destroy
+  has_one :stripe_customer,as: :stripe_customerable,dependent: :destroy
   has_one :seller_stripe_subscription,dependent: :destroy
   has_many :seller_payment_methods,dependent: :destroy
   # has_one :stripe_bank_detail,dependent: :destroy

@@ -5,7 +5,12 @@
     <div class="d-flex align-items-center flex-wrap">
       <div class="search-field active mb-3 mr-2 search-field-flex">
         <input type="text" placeholder="Search" name="q[title_or_brand_or_sku_or_yan_or_ean_cont]" class="category-products-search-term input-btn-sm">
-        <i class="fa fa-search" aria-hidden="true"></i>
+
+          <%= link_to "/admin/categories/#{@category.id}/category_products_with_pagination", class: 'icon-cross-container d-none', remote: true do %>
+            <i class="icon-cross" aria-hidden="true" style="top: 14px;font-size: 12px;"></i>
+          <% end %>
+
+          <i class="fa fa-search icon-search-container" aria-hidden="true"></i>
       </div>
       
       <div class="dropdown-filter-field dropdown-filter-custom active mb-8 ml-2 mr-2 dropdown-filter-border" id="pages-id">
