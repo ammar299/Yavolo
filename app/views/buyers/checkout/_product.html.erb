@@ -28,15 +28,17 @@
           </ul>
           <p class="font-14px mb-2">Sold by John Smith</p>
           <p class="font-14px">Qty: <%= cart_item[:quantity] %></p>
-          <hr>
-          <h5 class="mb-2">Delivery Information</h5>
-          <p class="font-14px mb-2">FREE Standard Delivery</p>
-          <p class="font-14px">Your item will arrive on 31st October 2021</p>
-          <div class="d-flex delivery-note">
-            <span class="icon-stopwatch icons-ico"></span>
-            <span class="in-text mm-text">Order in the next 4 hours to have your
-                item <br> dispatched today</span>
-          </div>
+          <% unless params[:action] == "order_completed" %>
+            <hr>
+            <h5 class="mb-2">Delivery Information</h5>
+            <p class="font-14px mb-2">FREE Standard Delivery</p>
+            <p class="font-14px">Your item will arrive on 31st October 2021</p>
+            <div class="d-flex delivery-note">
+              <span class="icon-stopwatch icons-ico"></span>
+              <span class="in-text mm-text">Order in the next 4 hours to have your
+                  item <br> dispatched today</span>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>

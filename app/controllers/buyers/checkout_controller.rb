@@ -52,13 +52,19 @@ class Buyers::CheckoutController < Buyers::BaseController
       @order = Order.find(@order_id)
       @buyer = @order.buyer if @order.present?
       if @order.present? && @buyer.present?
-        Stripe::RetrieveCardFromToken.call(
+        card_details = Stripe::RetrieveCardFromToken.call(
           { stripe_token_id: params[:stripeToken], buyer: @buyer }
         )
         customer = Stripe::CustomerCreator.call(
           { stripe_token_id: params[:stripeToken], buyer: @buyer }
         )
+        if card_details.status
+          card = card_details.response.card
+          @payment_method = update_or_create_buyer_payment_method(@buyer, params[:stripeToken], card)
+          @order.update(buyer_payment_method_id: @payment_method.id)
+        end
         if customer.status
+          save_stripe_customer_detail(@buyer, customer.response)
           flash[:notice] = 'Card added successfully.'
           redirect_to review_order_path
         else
@@ -83,6 +89,19 @@ class Buyers::CheckoutController < Buyers::BaseController
     end
   end
 
+  def order_completed
+    @order = Order.find params[:order]
+    @line_items = @order.line_items.includes(:product)
+    product_ids = @order.line_items.map { |item| item[:product_id] }
+    @sub_total = 0
+    product_ids.each do |item|
+      product = Product.find(item.to_i) || nil
+      @sub_total += (product.price.to_f) if product.present?
+    end
+    @sub_total.to_f
+
+  end
+
   def create_payment
     @order_id = session_order_id
     if @order_id.present?
@@ -95,11 +114,12 @@ class Buyers::CheckoutController < Buyers::BaseController
           { stripe_token_id: payment_method.stripe_token, buyer: @buyer, order: @order, amount: @order_amount[:total] }
         )
         if payment.status
+          @order.update(buyer_payment_method_id: payment_method.id,sub_total: @order_amount[:sub_total],total: @order_amount[:total])
           session.delete(:_current_user_cart)
           session.delete(:_current_user_order_id)
           session.delete(:_selected_payment_method)
           flash[:notice] = I18n.t('flash_messages.order_placed_successfully')
-          redirect_to store_front_path
+          redirect_to order_completed_path(order: @order)
         else
           flash[:notice] = payment.errors
           render :review_order
@@ -146,6 +166,39 @@ class Buyers::CheckoutController < Buyers::BaseController
       @buyer.save
     end
     @buyer
+  end
+
+  def update_or_create_buyer_payment_method(buyer, stripe_token, card)
+    buyer_payment_method = buyer.buyer_payment_methods.where(stripe_token: stripe_token).last
+    if buyer_payment_method.present?
+      buyer_payment_method.update(
+        last_digits: card.last4,
+        card_holder_name: card.name,
+        card_id: card.id,
+        brand: card.brand,
+        exp_month: card.exp_month,
+        exp_year: card.exp_year
+      )
+    else
+      buyer_payment_method = buyer.buyer_payment_methods.create(
+        stripe_token: stripe_token,
+        last_digits: card.last4,
+        card_holder_name: card.name,
+        card_id: card.id,
+        brand: card.brand,
+        exp_month: card.exp_month,
+        exp_year: card.exp_year
+      )
+    end
+    buyer_payment_method
+  end
+
+  def save_stripe_customer_detail(buyer, customer)
+    if buyer.stripe_customer.present?
+      buyer.stripe_customer.update(customer_id: customer.id)
+    else
+      buyer.create_stripe_customer(customer_id: customer.id)
+    end
   end
 
   def session_order_id

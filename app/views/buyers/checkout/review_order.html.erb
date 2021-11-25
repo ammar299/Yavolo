@@ -44,12 +44,15 @@
                   <div class="d-flex">
                     <div>
                       <span class="pay-cards mr-2 pointer">
-                        <img src="images/Image-20.svg" alt="">
+                        <% if @order.buyer_payment_method.present? %>
+                          <% name = @order.buyer_payment_method.brand == 'Visa' ? 'visa-card' : 'master-card' %>
+                          <%= image_tag "#{name}.svg" %>
+                        <% end %>
                       </span>
                     </div>
                     <div class="d-flex flex-column black-text font-14px ">
-                      <span>Visa ...1234</span>
-                      <span>Exp: 01 / 2021</span>
+                      <span><%= @order.buyer_payment_method.brand %> ...<%= @order.buyer_payment_method.last_digits %></span>
+                      <span>Exp: <%= @order.buyer_payment_method.exp_month %> / <%= @order.buyer_payment_method.exp_year %></span>
                     </div>
                   </div>
                 </div>

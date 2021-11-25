@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_24_115218) do
+
+ActiveRecord::Schema.define(version: 2021_11_25_125308) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -145,6 +146,8 @@ ActiveRecord::Schema.define(version: 2021_11_24_115218) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "brand"
+    t.integer "exp_month"
+    t.integer "exp_year"
     t.index ["buyer_id"], name: "index_buyer_payment_methods_on_buyer_id"
   end
 
@@ -389,7 +392,10 @@ ActiveRecord::Schema.define(version: 2021_11_24_115218) do
     t.integer "discount_percentage"
     t.decimal "discounted_price"
     t.bigint "buyer_id"
+    t.bigint "buyer_payment_method_id"
+    t.float "total"
     t.index ["buyer_id"], name: "index_orders_on_buyer_id"
+    t.index ["buyer_payment_method_id"], name: "index_orders_on_buyer_payment_method_id"
   end
 
   create_table "payment_modes", force: :cascade do |t|

@@ -240,6 +240,7 @@ Rails.application.routes.draw do
   post 'create_checkout', to: 'buyers/checkout#create_checkout', as: :create_checkout
   get 'payment_method', to: 'buyers/checkout#payment_method', as: :payment_method
   get 'review_order', to: 'buyers/checkout#review_order', as: :review_order
+  get 'order_completed', to: 'buyers/checkout#order_completed', as: :order_completed
   post 'create_payment_method', to: 'buyers/checkout#create_payment_method', as: :create_payment_method
   post 'create_payment', to: 'buyers/checkout#create_payment', as: :create_payment
 
