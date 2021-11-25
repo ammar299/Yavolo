@@ -59,7 +59,43 @@ $(document).ready(function(){
     });
 
   })
+
+  $(document).on("click", "#verify-requirments-admin-for-seller", function(e){
+    e.preventDefault();
+    let seller = parseInt($(this).attr("name"))
+    $.ajax({
+      url: "/admin/sellers/"+seller+"/verify_seller_stripe_account",
+      type: "get",
+      data: {id:seller},
+      success: function(response){
+        if (response.link){
+        // window.open(response.link, "_blank");
+        window.location = response.link
+        }
+      },
+      error: function(){
+        displayNoticeMessage("Link Not Found.")
+      },
+    });
+    
+  })
   
+  $(document).on("click", ".payout-bank-account-remove-admin", function(e){
+    e.preventDefault();
+    $('#stripe-payout-bank-account-admin-end').attr('data',$(this).attr('name'))
+    $('#stripe-payout-bank-account-admin-confirm').modal('show');
+  })
+
+  $(document).on("click", "#stripe-payout-bank-account-admin-end", function(e){
+    e.preventDefault();
+    let seller = parseInt($(this).attr("data"))
+    $.ajax({
+      url: "/admin/sellers/"+seller+"/remove_payout_bank_account",
+      type: "DELETE",
+      data: {id:seller},
+    });
+
+  })
 
 });
 $(document).ready(function(){

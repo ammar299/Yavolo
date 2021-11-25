@@ -137,6 +137,14 @@ class Seller < ApplicationRecord
     self.previous_changes.has_key?("account_status")
   end
 
+  def get_seller_stripe_account
+    begin
+      Stripe::Account.retrieve(self.bank_detail.customer_stripe_account_id) if self.bank_detail.customer_stripe_account_id.present?
+    rescue StandardError => e
+      nil
+    end
+  end
+
   def update_seller_products_listing
     if self.suspend? || self.in_active?
       self.in_active!
@@ -180,4 +188,5 @@ class Seller < ApplicationRecord
     end
 
   end
+
 end

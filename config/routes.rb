@@ -55,6 +55,8 @@ Rails.application.routes.draw do
           post :update_subscription_by_admin
           post :remove_seller_card
           post :renew_seller_subscription
+          delete :remove_payout_bank_account
+          get :verify_seller_stripe_account
         end
 
         resources :categories do
@@ -133,8 +135,12 @@ Rails.application.routes.draw do
         root to: 'dashboard#index', as: :seller_authenticated_root
 
         resources :payment_methods
+        get :refresh_onboarding_link, :to => 'bank_accounts#refresh_onboarding_link'
+        get :check_onboarding_status, :to => 'bank_accounts#check_onboarding_status'
+        delete :remove_payout_bank_account, :to => 'bank_accounts#remove_payout_bank_account'
         get :set_default_card, :to => 'payment_methods#set_default_card'
         get :link_with_stripe, :to => 'payment_methods#link_with_stripe'
+        post :add_bank_details, to: 'bank_accounts#add_bank_details'
         resources :paypal_integrations, only: %i[index]
         post :check_onboarding_status, :to => 'paypal_integrations#check_onboarding_status'
         resources :subscriptions, except: %i[index create new update edit show]

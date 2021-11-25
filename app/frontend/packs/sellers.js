@@ -528,8 +528,8 @@ $(document).ready(function(){
 
   $(".modal").on('hide.bs.modal', function(){
     $("div").removeClass("modal-backdrop");
-});
-  
+  });
+
   $(document).on("click", ".set-default", function(e){
     e.preventDefault();
     $('#membership-card-set-default').attr('data',$(this).attr('name'))
@@ -547,19 +547,6 @@ $(document).ready(function(){
 
   })
 
-  // $(document).on("click", "#Manage-Subscription-tab", function(e){
-  //   e.preventDefault();
-  //   let url = "/sellers/get_current_subscription"
-  //   $.ajax({
-  //     url: url,
-  //     type: "GET",
-  //     error: function () {
-  //       location.reload();
-  //     },
-  //   });
-    
-  // })
-
   $(document).on("click", ".end-subscription", function(e){
     e.preventDefault();
     $('#stripe-subscription-end').attr('data',$(this).attr('name'))
@@ -574,6 +561,69 @@ $(document).ready(function(){
       type: "DELETE",
     });
 
+  })
+
+  $(document).on("click", "#verify-requirments", function(e){
+    e.preventDefault();
+    $.ajax({
+      url: '/sellers/refresh_onboarding_link',
+      type: "get",
+      success: function(response){
+        if (response.link){
+        // window.open(response.link, "_blank");
+        window.location = response.link
+        }
+      },
+      error: function(){
+        displayNoticeMessage("Link Not Found.")
+      },
+    });
+    
+  })
+
+  $(document).on("click", ".payout-bank-account-remove", function(e){
+    e.preventDefault();
+    $('#stripe-payout-bank-account-end').attr('data',$(this).attr('name'))
+    $('#stripe-payout-bank-account-confirm').modal('show');
+  })
+
+  $(document).on("click", "#stripe-payout-bank-account-end", function(e){
+    e.preventDefault();
+    let seller = $(this).attr("data")
+    $.ajax({
+      url: "/sellers/remove_payout_bank_account",
+      type: "DELETE",
+      data: {seller:seller},
+    });
+
+  })
+
+  $(document).on("click", ".submit-bank-account", function(e){
+    e.preventDefault();
+    let form = $("#bank-account-verification-form").serialize();
+    $("#bank-account-card-errors").html('')
+    $(this).prop('disabled',true)
+    $.ajax({
+      type: "POST",
+      url: "/sellers/add_bank_details",
+      data: form,
+      success: function(response){
+        if (response.result){
+          window.location = response.link
+        }
+        if (response.errors){
+          for(let i=0; i< response.errors.length; i++) {
+            $("#bank-account-card-errors").append('<li>'+response.errors[i]+'</li>')
+          }
+          $(".submit-bank-account").prop('disabled',false)
+        }
+        else{
+        }
+      },
+      error: function (error) {
+        $(".submit-bank-account").prop('disabled',false)
+      }
+    })
   })
 
 });
@@ -1211,4 +1261,3 @@ function stripeTokenHandler(token) {
   // Submit the form
   // form.submit();
 }
-
