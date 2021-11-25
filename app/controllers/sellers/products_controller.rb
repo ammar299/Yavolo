@@ -68,8 +68,7 @@ class Sellers::ProductsController < Sellers::BaseController
   def update
     @product = Product.friendly.find(params[:id])
     if !@product.active? && params[:commit]== 'APPROVE & PUBLISH'
-      @product.status = 'active'
-      @product.published_at = Time.zone.now
+      @product.status = 'pending'
     elsif params[:commit]== 'SAVE DRAFT'
       @product.status = 'draft'
     end

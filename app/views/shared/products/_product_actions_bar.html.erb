@@ -5,18 +5,13 @@
                 <a href="#" class="btn btn-sm btn-radius px-4 btn-outline-white mb-2 mt-2 back-btn-action">BACK</a>
             </div>
             <div class="footer-left">
-                <a href="javascript:void(0)" class="btn btn-sm btn-radius px-4 btn-outline-white mb-2 mt-2 preview_listing">PREVIEW LISTING</a>
-
-                <% if form.object.new_record? %>
-                <%= form.submit 'SAVE DRAFT', class: 'btn btn-sm btn-radius px-4 btn-outline-white mb-2 mt-2',data: { disable_with: false } %>
+                <% if form.object.persisted? %>
+                  <a href="javascript:void(0)" class="btn btn-sm btn-radius px-4 btn-outline-white mb-2 mt-2 preview_listing">PREVIEW LISTING</a>
                 <% end %>
-
-                <% if form.object.new_record? %>
-                  <%= form.submit 'APPROVE & PUBLISH', class: 'btn btn-sm btn-radius px-4 btn-outline-white mb-2 mt-2', data: { disable_with: false } %>
-                <% else %>
-                  <%= form.submit 'UPDATE', class: 'btn btn-sm btn-radius px-4 btn-outline-white mb-2 mt-2', data: { disable_with: false } %>
+                <% if form.object.new_record? || form.object.draft? %>
+                  <%= form.submit 'SAVE DRAFT', class: 'btn btn-sm btn-radius px-4 btn-outline-white mb-2 mt-2',data: { disable_with: false } %>
                 <% end %>
-
+                <%= yield if block_given? %>
             </div>
         </div>
     </div>
