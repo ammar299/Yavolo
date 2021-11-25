@@ -65,6 +65,8 @@
 }
 .bootstrap-tagsinput .badge {
   margin: 0px 3px;
+  white-space: normal;
+  word-break: break-all;
 }
 
 .page-item.active .page-link {
