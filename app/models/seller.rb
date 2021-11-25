@@ -3,7 +3,7 @@ class Seller < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   validate :date_of_birth_is_valid_datetime
   validate :status_change_is_valid
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :lockable,
          :recoverable, :rememberable, :validatable, :trackable, :omniauthable, omniauth_providers: [:google_oauth2 , :facebook]
   validates :email, confirmation: true, presence: true
   # validates :contact_number, phone: {allow_blank: true}
