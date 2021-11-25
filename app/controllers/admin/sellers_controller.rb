@@ -54,6 +54,7 @@ class Admin::SellersController < Admin::BaseController
       else
         @seller.update(account_status: params[:field_to_update])
         @seller.send_account_status_changed_email_to_seller
+        @seller.update_seller_products_listing
         flash.now[:notice] = 'Seller updated successfully!'
       end
     end
@@ -71,6 +72,10 @@ class Admin::SellersController < Admin::BaseController
       else
         Seller.where(id: @seller_ids).update_all(account_status: params[:field_to_update])
         @sellers = Seller.find(@seller_ids)
+        @sellers.each do |seller|
+          seller.send_account_status_changed_email_to_seller
+          seller.update_seller_products_listing
+        end
         flash.now[:notice] = 'Sellers updated successfully!'
       end
     end

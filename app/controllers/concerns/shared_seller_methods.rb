@@ -2,14 +2,9 @@ module SharedSellerMethods
   extend ActiveSupport::Concern
 
   def update_business_representative
-    if seller_params[:listing_status] == 'in_active'
-      # change this seller's products status to inactive
-      @seller.products.where(status: :active).update(status: :inactive)
-    else
-      @seller.products.where(status: :inactive).update(status: :active)
-    end
     @seller.update(seller_params)
     @seller.send_account_status_changed_email_to_seller
+    @seller.update_seller_products_listing
     flash.now[:notice] = 'Business Representative updated successfully!'
   end
 

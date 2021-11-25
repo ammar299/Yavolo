@@ -5,7 +5,9 @@ class Sellers::Auth::SessionsController < Devise::SessionsController
 
   def create
     @seller = Seller.find_by_email params[:seller][:email]
-    if @seller.present? && @seller.two_factor_auth == true
+    if @seller.present? && @seller.rejected?
+      redirect_to new_seller_session_path, notice: "Your account has been rejected"
+    elsif @seller.present? && @seller.two_factor_auth == true
       if @seller.valid_password?(params[:seller][:password])
         session[:emai] = params[:seller][:email]
         redirect_to two_auth_new_path and return

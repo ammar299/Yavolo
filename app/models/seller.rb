@@ -137,6 +137,14 @@ class Seller < ApplicationRecord
     self.previous_changes.has_key?("account_status")
   end
 
+  def update_seller_products_listing
+    if self.suspend? || self.in_active?
+      self.in_active!
+      self.products.where(status: :active).update_all(status: :inactive)
+    elsif self.active?
+      self.products.where(status: :inactive).update_all(status: :active)
+    end
+  end
 
   protected
 

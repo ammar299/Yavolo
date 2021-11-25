@@ -10,7 +10,10 @@ class Sellers::BaseController < ApplicationController
   end
 
   def seller_session_expire
-    if current_seller.timeout.present?
+    if current_seller.rejected?
+      sign_out(current_seller)
+      redirect_to new_seller_session_path, notice: "Your account has been rejected"
+    elsif current_seller.timeout.present?
       seller_time = Time.at(Time.current - current_seller.last_seen_at).utc.strftime("%M").to_i
       seller_timeout = Seller.timeouts[current_seller.timeout] * 60
       if seller_timeout <= seller_time
