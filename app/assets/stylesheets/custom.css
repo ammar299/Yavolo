@@ -109,6 +109,10 @@
 #filter_in_categories .links a {
   text-decoration: none !important;
 }
+#filter_in_categories .filter-in-category-sort-order-wrapper .error{
+    bottom: 40px;
+}
+
 .filter_in_categories.remove_fields,
 #filter_in_categories .links {
   position: absolute;

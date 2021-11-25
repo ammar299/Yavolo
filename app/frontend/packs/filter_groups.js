@@ -53,8 +53,8 @@ function assignFilterGroupCategory(){
 	    selected_options.push($(this).val())
 	  });
 
-	  if (selected_options.length == 1) {
-	    url = '/admin/filter_groups/assign_category?id=' + selected_options
+	  if (selected_options.length > 0) {
+	    const url = '/admin/filter_groups/assign_category?id=' + selected_options
 	    $.ajax({
 	      url: url,
 	      type: 'GET'

@@ -9,7 +9,7 @@ class Admin::FilterGroupsController < Admin::BaseController
     else @filter_groups = FilterGroup.includes(:filter_categories, :filter_in_categories)
     end
     @filter_group_count = @filter_groups.size
-    @filter_groups = @filter_groups.page(params[:page]).per(params[:per_page].presence || 15)
+    @filter_groups = @filter_groups.order(created_at: :desc).page(params[:page]).per(params[:per_page].presence || 15)
   end
 
   def new
@@ -50,17 +50,20 @@ class Admin::FilterGroupsController < Admin::BaseController
   end
 
   def create_assign_category
-    @filter_group = FilterGroup.find_by(id: params[:filter_group_id])
-    if @filter_group.update(filter_group_params)
-      redirect_to admin_filter_groups_path, flash: { notice: "Category has been assigned" }
-    else
-      redirect_to admin_filter_groups_path, flash: { alert: "Category can't assigned" }
+    @filter_groups = FilterGroup.where(id: params[:filter_group_ids].split(","))
+    @categories = Category.where(id: params[:category])
+    @filter_groups.each do |filter_group|
+      @categories.each do |category|
+        unless filter_group.filter_categories.exists?(category: category)
+          filter_group.filter_categories.create(category: category)
+        end
+      end
     end
+    redirect_to admin_filter_groups_path, flash: { notice: "Categories has been assigned" }
   end
 
   def assign_category
-    ids_of_category = FilterGroup.find_by(id: params[:id]).category_ids
-    @categories = Category.where.not(id: [ids_of_category])
+    @filter_group_ids = params[:id]
   end
 
   def delete_filter_groups
