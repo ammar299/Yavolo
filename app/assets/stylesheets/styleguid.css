@@ -542,6 +542,7 @@ textarea.form-control {
 .Yavolo-table table tbody tr td {
     background-color: #ffff;
     line-height: 16px;
+    color: var(--dark-red);
 }
 .Yavolo-table table tbody tr td:first-child {
     border-radius: 8px 0px 0px 8px;

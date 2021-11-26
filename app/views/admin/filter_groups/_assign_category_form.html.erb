@@ -1,18 +1,14 @@
-<%= simple_form_for filter_group, url: url, method: method do |f| %>
-  <%= f.error_notification %>
-  <%= hidden_field_tag :filter_group_id, '', value: filter_group.id %>
-  <h6><strong>Add Categories Which Show Filter Group</strong></h6>
-  <%= f.fields_for :filter_categories do |filter_category| %>
-  <%= render 'filter_category_fields', :f => filter_category %>
-  <% end %>
-  <div class="state-content links">
-    <%= link_to_add_association f, :filter_categories do  %>
-    <span> <i class="pl-3 pluse-btn">+</i></span>
-    <% end %>
-  </div>
-
-
+<%= form_tag url, method: method do %>
+  <%= hidden_field_tag :filter_group_ids, @filter_group_ids %>
+  <%= select_tag :category, options_from_collection_for_select(Category.all,:id, "category_name"),multiple:true,prompt: 'Select category', class: 'form-control assign-category-bulk-select-tag' %>
   <div class="text-center">
-    <%= f.submit 'Save Filter', class: "btn btn-radius px-4 btn-primary"%>
+    <%= submit_tag 'Save Filter', class: "btn btn-radius px-4 btn-primary"%>
   </div>
 <% end %>
+
+<script>
+  $(document).ready(function () {
+    $(".assign-category-bulk-select-tag").selectize({
+    });
+  })
+</script>

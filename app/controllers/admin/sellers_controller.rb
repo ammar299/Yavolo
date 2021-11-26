@@ -1,5 +1,5 @@
 class Admin::SellersController < Admin::BaseController
-  before_action :set_seller, only: %i[show edit update update_business_representative update_company_detail update_addresses update_seller_logo remove_logo_image confirm_update_seller update_seller new_seller_api create_seller_api confirm_update_seller_api change_seller_api_eligibility holiday_mode change_lock_status  confirm_reset_password_token reset_password_token update_subscription_by_admin]
+  before_action :set_seller, only: %i[show edit update update_business_representative update_company_detail update_addresses update_seller_logo remove_logo_image confirm_update_seller update_seller new_seller_api create_seller_api confirm_update_seller_api change_seller_api_eligibility holiday_mode change_lock_status  confirm_reset_password_token reset_password_token update_subscription_by_admin remove_payout_bank_account verify_seller_stripe_account]
   include SharedSellerMethods
 
   def index
@@ -249,6 +249,25 @@ class Admin::SellersController < Admin::BaseController
       flash.now[:notice] = "Error occured: #{subscription.errors}"
     else
       flash.now[:notice] = "Subscription Renewed successfully !!"
+    end
+  end
+
+  def remove_payout_bank_account
+    begin
+      bank_account = @seller&.bank_detail
+      @seller.bank_detail.remove_bank_account if bank_account.present?
+      flash.now[:notice] = "Bank account for payouts removed"
+    rescue => e
+      flash.now[:notice] = "Error occured: #{e.message}"
+    end
+  end
+
+  def verify_seller_stripe_account
+    begin
+      link = @seller.bank_detail.get_refresh_onboarding_link if @seller.bank_detail.customer_stripe_account_id.present?
+      render json: {link: link}, status: :ok
+    rescue => e
+      render json: {link: ""}, status: :bad_request
     end
   end
 

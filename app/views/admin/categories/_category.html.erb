@@ -2,7 +2,7 @@
   <input type="radio" class="category-input" name="<%= category.id %>" data-baby-category="<%= category.baby_category %>" data-selected = "<%= category.id == @selected_cat_id %>" data-ancestor-ids="<%= category.ancestor_ids.join(",") %>">
   <%= image_tag("folder.svg", width: "28", class: "mr-2 ml-1 folder-closed") %>
   <%= image_tag("folder-open.svg", width: "28", class: "mr-2 ml-1 folder-open") %>
-  <%= category.category_name %>
+  <span class="product-category-name-category-tree"><%= category.category_name %></span>
   <span class="checkmark"></span>
 </label>
 

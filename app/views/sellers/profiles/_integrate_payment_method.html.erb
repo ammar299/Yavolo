@@ -1,32 +1,9 @@
 <div class="tab-pane fade" id="integrate-payment-method" role="tabpanel" aria-labelledby="integrate-payment-method-tab">
   <section class="payment-method">
     <h5>Payment Methods</h5>
+    
     <div class="payment-method-inner">
-      <h6 class="pt-3">Back account for payout</h6>
-      <div class="payment-method-card yo-white-card box-border p-0">
-      
-        <table class="table m-0 subscription-table text-left">
-          <tr>
-            <td>
-              <p class="mb-1"><strong>Bank account number</strong> </p>
-              <p class="m-0">User Email</p>
-            </td>
-            <td>
-              <p class="mb-1"><strong>Account holder name</strong> </p>
-              <p class="m-0">User Email</p>
-            </td>
-            <td>
-              <p class="mb-1"><strong>Payment terms</strong> </p>
-              <p class="m-0">User Email</p>
-            </td>
-            <td>
-              <p class="mb-1"><strong>System</strong> </p>
-              <p class="m-0">User Email</p>
-            </td>
-          </tr>
-        </table>
-      </div>
-      <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mb-3">Remove</a>
+      <%= render 'sellers/bank_accounts/bank_account_for_payouts'%>
     </div>
     <div id="payment-methods-list-render-by-js">
       <%= render 'payment_methods_list', payment_methods: @payment_methods %>

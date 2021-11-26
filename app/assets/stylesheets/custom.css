@@ -109,6 +109,10 @@
 #filter_in_categories .links a {
   text-decoration: none !important;
 }
+#filter_in_categories .filter-in-category-sort-order-wrapper .error{
+    bottom: 40px;
+}
+
 .filter_in_categories.remove_fields,
 #filter_in_categories .links {
   position: absolute;
@@ -789,7 +793,7 @@ label {
   border-top: 0 !important;
 }
 .dropdown-filter-custom .dropdown-menu a {
-  font-size: 12px;
+  font-size: 11px;
   color: #fff !important;
 }
 .dropdown-filter-border {
@@ -886,6 +890,10 @@ label {
   text-align: center;
   padding-bottom: 0 !important;
 }
+.badge-secondary{
+  background-color: var(--red);
+}
+
 .delivery-detail-bt-title {
   white-space: normal;
   word-break: break-word;

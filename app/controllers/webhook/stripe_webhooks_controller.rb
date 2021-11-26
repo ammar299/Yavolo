@@ -22,6 +22,8 @@ class Webhook::StripeWebhooksController < ActionController::Base
 
       when 'subscription_schedule.updated'
         updated_subscription_webhook(params)
+      when 'account.updated'
+        account_updated(params)
       else
           puts "Unhandled event type: #{webhook_type}"
       end
@@ -36,7 +38,19 @@ class Webhook::StripeWebhooksController < ActionController::Base
     end
 
   end
+
   private
+  def account_updated(params)
+    begin
+      bank_detail = BankDetail.find_by(customer_stripe_account_id: params[:data][:object][:id].to_i)
+      if bank_detail.present?
+        bank_detail.account_verification_status = params[:data][:object][:payouts_enabled]
+        bank_detail.save
+      end
+    rescue
+    end
+  end
+
   def create_customer_subscription(params)
   end
 

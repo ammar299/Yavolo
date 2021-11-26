@@ -29,9 +29,14 @@ class Admin::ProductsController < Admin::BaseController
       @product.status = 'draft'
     end
 
+    if @product.seo_content.title.present? || @product.seo_content.description.present?
+      @product.check_for_seo_content_uniqueness = true
+    end
+
     if @product.save
+      messages = @product.seo_content.assign_meta_title_and_description
       save_product_images_from_remote_urls(@product) if params[:dup_product_id].present?
-      redirect_to admin_products_path, notice: 'Product was successfully created.'
+      redirect_to admin_products_path, notice: messages.join(". ")
     else
       if params[:dup_product_id].present?
         ref_product = Product.where(id: params[:dup_product_id]).first
@@ -132,7 +137,7 @@ class Admin::ProductsController < Admin::BaseController
       ex_product = Product.friendly.find_by(id: pid)
       product = ex_product.present? ? ex_product.dup : initialize_new_product
       return product if ex_product.blank?
-      ex_product.seo_content.present? ? product.seo_content = ex_product.seo_content.dup : product.build_seo_content
+      product.seo_content = product.build_seo_content
       ex_product.ebay_detail.present? ? product.ebay_detail = ex_product.ebay_detail.dup : product.build_ebay_detail
       ex_product.google_shopping.present? ? product.google_shopping = ex_product.google_shopping.dup : product.build_google_shopping
       ex_product.assigned_category.present? ? product.assigned_category = ex_product.assigned_category.dup : product.build_assigned_category

@@ -10,25 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_22_082305) do
+ActiveRecord::Schema.define(version: 2021_11_25_125308) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
-
-  create_table "active_admin_comments", force: :cascade do |t|
-    t.string "namespace"
-    t.text "body"
-    t.string "resource_type"
-    t.bigint "resource_id"
-    t.string "author_type"
-    t.bigint "author_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author"
-    t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
-    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
-  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -76,27 +62,6 @@ ActiveRecord::Schema.define(version: 2021_11_22_082305) do
     t.index ["addressable_type"], name: "index_addresses_on_addressable_type"
   end
 
-  create_table "admin_users", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string "current_sign_in_ip"
-    t.string "last_sign_in_ip"
-    t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string "unconfirmed_email"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_admin_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
-  end
-
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -128,6 +93,17 @@ ActiveRecord::Schema.define(version: 2021_11_22_082305) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "seller_id"
+    t.string "account_holder_name"
+    t.string "account_holder_type"
+    t.string "customer_stripe_account_id"
+    t.string "account_verification_status"
+    t.string "requirements"
+    t.string "available_payout_methods"
+    t.string "bank_name"
+    t.string "last4"
+    t.string "fingerprint"
+    t.string "onboarding_link"
+    t.string "stripe_account_type"
     t.index ["seller_id"], name: "index_bank_details_on_seller_id"
   end
 
@@ -169,6 +145,8 @@ ActiveRecord::Schema.define(version: 2021_11_22_082305) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "brand"
+    t.integer "exp_month"
+    t.integer "exp_year"
     t.index ["buyer_id"], name: "index_buyer_payment_methods_on_buyer_id"
   end
 
@@ -388,7 +366,10 @@ ActiveRecord::Schema.define(version: 2021_11_22_082305) do
     t.integer "discount_percentage"
     t.decimal "discounted_price"
     t.bigint "buyer_id"
+    t.bigint "buyer_payment_method_id"
+    t.float "total"
     t.index ["buyer_id"], name: "index_orders_on_buyer_id"
+    t.index ["buyer_payment_method_id"], name: "index_orders_on_buyer_payment_method_id"
   end
 
   create_table "payment_modes", force: :cascade do |t|
@@ -587,6 +568,9 @@ ActiveRecord::Schema.define(version: 2021_11_22_082305) do
     t.boolean "skip_success_hub_steps", default: false
     t.string "otp_secret"
     t.integer "last_otp_at"
+    t.integer "failed_attempts", default: 0
+    t.string "unlock_token"
+    t.datetime "locked_at"
     t.index ["email"], name: "index_sellers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_sellers_on_reset_password_token", unique: true
   end

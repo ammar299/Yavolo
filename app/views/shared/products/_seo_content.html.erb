@@ -26,7 +26,7 @@
                 <% has_error, msg = get_errors(form, "seo_content.description") %>
                 <div class="form-group <%= has_error ? 'error-field' : '' %>">
                     <%= seo_data.label 'Meta Description' %>
-                    <%= seo_data.text_area :description, class: 'form-control', placeholder: "Enter Description" %>
+                    <%= seo_data.text_area :description, class: 'form-control', placeholder: "Enter Description", maxlength: SeoContent::MAX_SEO_CONTENT_DESCRIPTION_LENGTH %>
                     <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                 </div>
             <% end %>

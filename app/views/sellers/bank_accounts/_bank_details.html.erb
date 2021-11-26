@@ -1,0 +1,50 @@
+<div class="modal fade align-items-start" id="add-bank-account" tabindex="-1" role="dialog" aria-labelledby="add-bank-account" aria-hidden="true">  
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title capitalize-text">Add bank account for payouts</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body px-lg-3">
+        <form action="#" data-remote="true" id="bank-account-verification-form">
+
+          <div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
+            <label>Country *</label>
+            <select name="address[country]" class="country form-control">
+              <option value="GB" <%current_seller&.bank_detail&.country == "United Kingdom"? "selected": "" %> >United Kingdom(GB)</option>
+            </select>
+          </div>
+
+          <div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
+            <label>Currency *</label>
+            <select name="currency" class="currency form-control">
+              <option value="GBP" selected >GBP</option>
+            </select>
+          </div>
+
+          <div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
+            <label>Sort Number *</label>
+            <input type="number" name="routing_number" placeholder="Sort Number *" class="form-control routing-number"  value="<%= current_seller&.bank_detail&.sort_code%>">
+          </div>
+
+          <div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
+            <label>Account Number *</label>
+            <input type="text" name="account_number" placeholder="Account Number *" class="form-control account-number"  value="<%= current_seller&.bank_detail&.account_number%>">
+          </div>
+
+          <div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
+            <label>Account Holder Name</label>
+            <input  type="text" name="account_holder_name" placeholder="Account Holder Name" class="form-control name">
+          </div>
+
+          <div id="bank-account-card-errors" class="mb-4 error" role="alert"></div>
+          <div class="text-center">
+            <input type="submit" class="btn btn-sm btn-radius px-4 btn-primary mb-3 submit-bank-account" value="Connect">
+          </div>
+        </form>        
+      </div>
+    </div>
+  </div>
+</div>

@@ -88,6 +88,7 @@ window.displayNoticeMessage = (message) => {
       <span  class="notice-cross-icon" aria-hidden="true">&times;</span>
     </p>
   </div>`
+  $('#flash-msg').html(message);
   setTimeout(function () {
     $("#flash-msg").find("p").remove();
   }, 3000);

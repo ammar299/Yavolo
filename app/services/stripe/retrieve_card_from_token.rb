@@ -4,18 +4,19 @@ require 'stripe'
 module Stripe
   # This service is used to retrieve card info form stripe
   class RetrieveCardFromToken < ApplicationService
-    attr_reader :status, :errors, :params
+    attr_reader :status, :errors, :params, :response
 
     def initialize(params)
       super()
       @params = params
       @status = true
       @errors = []
+      @response = nil
     end
 
     def call
       begin
-        save_card_details
+        @response = retrieve_card(stripe_token_id)
       rescue StandardError => e
         @status = false
         @errors << e.message
@@ -26,27 +27,7 @@ module Stripe
     private
 
     def save_card_details
-      card_details = retrieve_card(stripe_token_id)
-      if card_details.present?
-        if buyer.buyer_payment_methods.where(stripe_token: stripe_token_id).present?
-          buyer.buyer_payment_methods.where(
-            stripe_token: stripe_token_id
-          ).update(
-            last_digits: card_details.card.last4,
-            card_holder_name: card_details.card.name,
-            card_id: card_details.card.id,
-            brand: card_details.card.brand
-          )
-        else
-          buyer.buyer_payment_methods.create(
-            stripe_token: stripe_token_id,
-            last_digits: card_details.card.last4,
-            card_holder_name: card_details.card.name,
-            card_id: card_details.card.id,
-            brand: card_details.card.brand
-          )
-        end
-      end
+      retrieve_card(stripe_token_id)
     end
 
     def retrieve_card(stripe_token_id)

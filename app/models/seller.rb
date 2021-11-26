@@ -3,7 +3,7 @@ class Seller < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   validate :date_of_birth_is_valid_datetime
   validate :status_change_is_valid
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :lockable,
          :recoverable, :rememberable, :validatable, :trackable, :omniauthable, omniauth_providers: [:google_oauth2 , :facebook]
   validates :email, confirmation: true, presence: true
   # validates :contact_number, phone: {allow_blank: true}
@@ -137,6 +137,14 @@ class Seller < ApplicationRecord
     self.previous_changes.has_key?("account_status")
   end
 
+  def get_seller_stripe_account
+    begin
+      Stripe::Account.retrieve(self.bank_detail.customer_stripe_account_id) if self.bank_detail.customer_stripe_account_id.present?
+    rescue StandardError => e
+      nil
+    end
+  end
+
   def update_seller_products_listing
     if self.suspend? || self.in_active?
       self.in_active!
@@ -180,4 +188,5 @@ class Seller < ApplicationRecord
     end
 
   end
+
 end

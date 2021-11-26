@@ -2,18 +2,19 @@ require 'stripe'
 module Stripe
   # This service is to create a stripe customer from token
   class CustomerCreator < ApplicationService
-    attr_reader :status, :errors, :params
+    attr_reader :status, :errors, :params, :response
 
     def initialize(params)
       super()
       @params = params
       @status = true
       @errors = []
+      @response = nil
     end
 
     def call
       begin
-        create_or_update_customer_on_stripe
+        @response = create_or_update_customer_on_stripe
       rescue StandardError => e
         @status = false
         @errors << e.message
@@ -36,9 +37,9 @@ module Stripe
     end
 
     def create_customer
-      customer = Stripe::Customer.create({ email: buyer.email, source: stripe_token_id })
-      save_customer_detail(customer) if customer.present?
-      customer
+      Stripe::Customer.create({ email: buyer.email, source: stripe_token_id })
+      # save_customer_detail(customer) if customer.present?
+      # customer
     end
 
     def save_customer_detail(customer)

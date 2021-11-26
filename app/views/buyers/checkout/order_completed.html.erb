@@ -1,0 +1,192 @@
+<div class="main-content">
+  <div class="container">
+    <% if @order.present? %>
+    <h3 class="mt-5 text-center">Thank You For Your Order</h3>
+    
+      <div class="row mt-5">
+        <div class="col-lg-8">
+          <div class="your-detail-left yo-white-card box-border">
+            <h5>Order Number: YAVO-<%=@order.id%></h5>
+            <hr>
+            <p>Your order will now be processed and dispatched. You should receive an email confirmation shortly. </p>
+            <p> Please make note of your order number for reference. </p>
+            <hr>
+            <div class="row">
+              <% if @order.shipping_address.present? %>
+              <div class="col-lg-6 d-flex flex-column justify-content-between">
+                <div>
+                  <h6>Shipping Address</h6>
+                  <ul class="font-14px mb-3">     
+                    <li class=""> Mr <%=@order.order_detail.name%></li>
+                    <li class=""> <%=@order.shipping_address.appartment%></li>
+                    <li class=""> <%=@order.shipping_address.address_line_1%></li>
+                    <li class=""> <%=@order.shipping_address.address_line_2%></li>
+                    <li class=""> <%=@order.shipping_address.city%></li>
+                    <li class=""> <%=@order.shipping_address.postal_code%></li>
+                  </ul>
+                </div>
+              </div>
+              <% end %>
+              <div class="col-lg-6 d-flex flex-column justify-content-between">
+                  <div>
+                    <h6>Payment Method</h6>
+                    <div class="d-flex">
+                        <div>
+                            <span class="pay-cards pointer">
+                            <% if @order.buyer_payment_method.present? %>
+                              <% name = @order.buyer_payment_method.brand == 'Visa' ? 'visa-card' : 'master-card' %>
+                              <%= image_tag "#{name}.svg" %>
+                            <% end %>
+                            </span>
+                        </div>
+                        <div class="d-flex flex-column pl-3">
+                            <span>**** **** **** <%= @order.buyer.buyer_payment_methods.first.last_digits %></span>
+                            <span>Exp: <%= @order.buyer_payment_method.exp_month %> / <%= @order.buyer_payment_method.exp_year %></span>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <div class="row">
+              <% if @order.billing_address.present? %>
+              <div class="col-lg-6 d-flex flex-column justify-content-between">
+                <div>
+                  <h6>Billing Address</h6>
+                  <ul class="font-14px mb-3">     
+                  <li class=""> Mr <%=@order.order_detail.name%></li>
+                  <li class=""> <%=@order.billing_address.appartment%></li>
+                  <li class=""> <%=@order.billing_address.address_line_1%></li>
+                  <li class=""> <%=@order.billing_address.address_line_2%></li>
+                  <li class=""> <%=@order.billing_address.city%></li>
+                  <li class=""> <%=@order.billing_address.postal_code%></li>
+                  </ul>
+                </div>
+              </div>
+              <% end %>
+                <div class="col-lg-6 d-flex flex-column justify-content-between">
+                    <div>
+                        <h6>Shipping Information</h6>
+                        <div class="d-flex delivery-note align-items-center mt-3 mb-0">
+                            <span class="icon-orders--delivery"></span>
+                            <span class="in-text">FREE 1-Day Delivery <br />Get it tomorrow</span>
+                        </div>
+                        <div class="d-flex delivery-note align-items-center">
+                            <span class="icon-orders--delivery invisible"></span>
+                            <a href="" class="rose-dust"><u>Track your order here</u></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="yo-white-card box-border">
+              <h5>Register for Yavolo</h5>
+              <hr>
+              <p>Create an account with Yavolo or login below</p>
+              <a href="#" class="btn btn-radius px-5 btn-primary mr-2 mb-1">REGISTER NOW</a>
+              <a href="#" class="btn btn-radius px-5 btn-outline-primary mb-1">LOGIN</a>
+          </div>
+          </div>
+          <div class="col-lg-4">
+              <div class="your-detail-right yo-white-card box-border">
+                  <h5 class="mb-3">Order Summary</h5>
+                  <hr>
+                  <% @line_items.each do |line_item| %>
+                      <div class="pdp-vertical-card mb-3">
+                          <div class="row align-items-start">
+                              <div class="col-lg-4 d-flex">
+                                  <div class="card-img p-3 yo-white-card">
+                                      <span>
+                                          <%= image_tag(product_cart_images(line_item.product), width: 100) %>
+                                      </span>
+                                  </div>
+                              </div>
+                              <div class="col-lg-8 d-flex">
+                                  <div class="card-content search-field-flex">
+                                      <div class="product-title d-flex justify-content-between">
+                                          <div class="title black-text">
+                                              <h5><%= line_item.product.title %> </h5>
+                                          </div>
+                                          <div class="price black-text">
+                                              <h5><%= line_item.product.price.to_f  %></h5>
+                                          </div>
+                                      </div>
+                                      <ul class="rating d-flex mb-1">
+                                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                                          <li class="mr-1"><span class="icon-star"></span></li>
+                                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                                      </ul>
+                                        <p class="font-14px mb-1">Sold by John Smith</p>
+                                        <p class="font-14px mb-1">Qty: <%= line_item.quantity %></p>
+                                  </div>
+                              </div>
+                          </div> 
+                      </div>
+                    <% end %>
+                  <div class="d-flex justify-content-between mb-2">
+                      <span><strong>Sub Total</strong></span>
+                      <span>£<%= @order.total %></span>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                      <span><strong>Delivery</strong></span>
+                      <span>Free</span>
+                  </div>
+                  <hr>
+                  <div class="d-flex justify-content-between">
+                      <span><strong>Order Total</strong></span>
+                      <span>£<%= @order.sub_total.to_f %></span>
+                  </div>
+              </div>
+              <div class="yo-white-card box-border">
+                  <h5>Where next?</h5>
+                  <hr>
+                  <a href="/store_front" class="rose-dust"><u>Back to shop</u> </a><br>
+                  <a href="" class="rose-dust"><u>Account sign up / login</u> </a>
+              </div>
+              <div class="your-detail-right yo-white-card box-border">
+                  <div>
+                      <h5 class="mb-3">Latest Reviews</h5>
+                      <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                      </ul>
+                      <p class="mm-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                          tempor incididunt ut labore et dolore magna aliqua.</p>
+                  </div>
+                  <div>
+                      
+                      <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                      </ul>
+                      <p class="mm-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                          tempor incididunt ut labore et dolore magna aliqua.</p>
+                  </div>
+                  <div>
+                      
+                      <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                      </ul>
+                      <p class="mm-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                          tempor incididunt ut labore et dolore magna aliqua.</p>
+                  </div>
+
+              </div>
+              
+          </div>
+      </div>
+      <% end %>
+  </div>
+</div>

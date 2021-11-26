@@ -590,13 +590,13 @@ function validCsvFile(files){
   let allowedExtensions = /(\.csv)$/i;
   let has_error = false;
   if(!allowedExtensions.exec(files[0].name)) {
-    $('#flash-msg').html(displayNoticeMessage("Invalid file type, allowed type is .csv"))
+    displayNoticeMessage("Invalid file type, allowed type is .csv")
     has_error = true;
   }
   let size = (files[0].size/1024)/1024;
 
   if(size > 10){
-    $('#flash-msg').html(displayNoticeMessage("File size should be less than 10MB"))
+   displayNoticeMessage("File size should be less than 10MB")
     has_error = true;
   }
   return { isValid: !has_error }
@@ -608,12 +608,12 @@ function validProductImages(files){
 
   for(let i=0; i< files.length; i++){
     if(!allowedExtensions.exec(files[i].name)) {
-      $('#flash-msg').html(displayNoticeMessage("Invalid file type, allowed type is jpg, jpeg and png"))
+      displayNoticeMessage("Invalid file type, allowed type is jpg, jpeg and png")
       has_error = true;
     }
     let size = (files[i].size/1024)/1024;
     if(size > 10){
-      $('#flash-msg').html(displayNoticeMessage("File size should be less than 10MB"))
+      displayNoticeMessage("File size should be less than 10MB")
       has_error = true;
     }
   }
