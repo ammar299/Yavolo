@@ -83,8 +83,9 @@ window.FilterGroupFormValidation = function(){
 	$('form#filter_group_new_form').validate({
 		ignore: "",
 	  rules: {
-      "delivery_option[name]": {
-        required: true
+      "filter_group[name]": {
+        required: true,
+				maxlength: 20
       },
       "filter_group[filter_group_type]": {
       	required: true
