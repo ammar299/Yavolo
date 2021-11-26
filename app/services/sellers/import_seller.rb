@@ -11,12 +11,7 @@ module Sellers
 
 
     def call
-      begin
-        import_sellers_from_csv
-      rescue StandardError => e
-        @status = false
-        @errors << e.message
-      end
+      import_sellers_from_csv
       self
     end
 
@@ -30,46 +25,53 @@ module Sellers
         csv.each do |row|
           seller_found = Seller.where(email: row["user_email"])&.first
           if !seller_found.present?
-            password = Random.rand(11111111...99999999)
-            uid = Random.rand(00000000...99999999)
-            seller = Seller.new(
-              email: row["user_email"],
-              password: "#{password}",
-              first_name: row["user_first_name"],
-              last_name: row["user_surname"],
-              surname: row["user_surname"],
-              date_of_birth: row["business_representative_date_of_birth"],
-              contact_number: row["business_representative_address_phone_number"],
-              provider: "admin",
-              uid: uid,
-              account_status: account_status_rephrase(row),
-              listing_status: listing_status_rephrase(row),
-              subscription_type: row["subscription_type"]
-            )
-
-            if seller.valid?
-              seller.save
-              create_associate_seller_data(seller,row)
-            else
-              @errors << "seller: #{row["user_email"]} "
-              @errors << seller.errors.full_messages.join("<br>")
-              @errors << "<hr>"
-              puts "error occurred"
-              next
-            end
             begin
-              AdminMailer.with(to: row["user_email"].to_s.downcase, password: password ).send_account_creation_email.deliver_now #send notification email to seller
-            rescue
-              @errors << "email not valid: #{row["user_email"]}"
+              seller = create_seller_instance(row)
+              if seller.valid?
+                seller.save
+                create_associate_seller_data(seller,row)
+                AdminMailer.with(to: row["user_email"].to_s.downcase, password: password ).send_account_creation_email.deliver_now #send notification email to seller
+              else
+                format_error_messages(row, "", seller)
+                next
+              end
+            rescue  StandardError => e
+              @status = false
+              format_error_messages(row, e, seller)
             end
           else
             puts "seller already exists or error found"
           end
-
         end
         @errors.present? ? csv_import.update(status: :failed, import_errors: @errors.uniq.join(', ') ) : csv_import.update({status: :imported})
         @errors.present? ? @status = false : @status = true
         self
+      end
+
+      def create_seller_instance(row)
+        password = Random.rand(11111111...99999999)
+        uid = Random.rand(00000000...99999999)
+        Seller.new(
+          email: row["user_email"],
+          password: "#{password}",
+          first_name: row["user_first_name"],
+          last_name: row["user_surname"],
+          surname: row["user_surname"],
+          date_of_birth: row["business_representative_date_of_birth"],
+          contact_number: row["business_representative_address_phone_number"],
+          provider: "admin",
+          uid: uid,
+          account_status: account_status_rephrase(row),
+          listing_status: listing_status_rephrase(row),
+          subscription_type: row["subscription_type"]
+        )
+      end
+
+      def format_error_messages(row, e, seller)
+        @errors << "seller: #{row["user_email"]} "
+        @errors << seller.errors.full_messages.join("<br>") if seller.present?
+        @errors << "<hr>" if seller.present?
+        @errors << e.message unless seller.present?
       end
 
       def account_status_rephrase(row)
