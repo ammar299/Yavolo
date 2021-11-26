@@ -97,6 +97,12 @@ $(document).ready(function(){
 
   })
 
+  $(document).on("click", "#contact-seller-modal-trigger", function(e){
+    e.preventDefault();    
+    $('#contact-seller-modal').modal('show');
+
+  })
+
 });
 $(document).ready(function(){
   toggleDashboardMenu();

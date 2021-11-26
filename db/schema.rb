@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_25_125308) do
+ActiveRecord::Schema.define(version: 2021_11_26_094742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -121,6 +121,19 @@ ActiveRecord::Schema.define(version: 2021_11_25_125308) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "order_id"
     t.index ["order_id"], name: "index_billing_addresses_on_order_id"
+  end
+
+  create_table "billing_listing_stripes", force: :cascade do |t|
+    t.string "invoice_id"
+    t.float "total"
+    t.string "description"
+    t.datetime "date_generated"
+    t.datetime "due_date"
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "seller_id"
+    t.index ["seller_id"], name: "index_billing_listing_stripes_on_seller_id"
   end
 
   create_table "business_representatives", force: :cascade do |t|
@@ -565,9 +578,9 @@ ActiveRecord::Schema.define(version: 2021_11_25_125308) do
     t.boolean "two_factor_auth", default: false
     t.datetime "last_seen_at"
     t.string "recovery_email"
-    t.boolean "skip_success_hub_steps", default: false
     t.string "otp_secret"
     t.integer "last_otp_at"
+    t.boolean "skip_success_hub_steps", default: false
     t.integer "failed_attempts", default: 0
     t.string "unlock_token"
     t.datetime "locked_at"
@@ -666,6 +679,7 @@ ActiveRecord::Schema.define(version: 2021_11_25_125308) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "billing_listing_stripes", "sellers"
   add_foreign_key "delivery_option_ships", "delivery_options"
   add_foreign_key "delivery_option_ships", "ships"
   add_foreign_key "paypal_details", "sellers"

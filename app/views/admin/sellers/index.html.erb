@@ -137,7 +137,7 @@
                   </div>
                   <%= link_to 'Edit', admin_seller_path(seller), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1' %>
                   <%= link_to "Delete", confirm_update_seller_admin_seller_path(seller, param_to_update: "delete"), remote: true, class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1 current-action', id: "#{seller.id}-delete" %>
-                  <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary mb-1">Contact</a>
+                  <a href="#" id="contact-seller-modal-trigger" data="<%= seller.id%>" class="btn btn-sm btn-radius px-4 btn-secondary mb-1">Contact</a>
                   <a href="#" class="btn btn-sm btn-radius px-4 btn-danger mb-1">View Products</a>
                   <% text = seller.eligible_to_create_api == true ? "Disable API creation" : "Enable API creation" %>
                   <%= link_to "#{text}", confirm_change_seller_api_eligibility_admin_seller_path(seller, param_to_update: "eligibility"), remote: true, class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1 current-action', id: "#{seller.id}-eligibility" %>
@@ -181,6 +181,8 @@
   </div>
 </div>
 <%= render 'shared/all_rounder_toast'%>
+<!-- Contact Seller Modal -->
+<%= render 'shared/admin/sellers/contact_seller'%>
 <script>
   // this mini script is written to uncheck check all checkbox if any other checkbox is unchecked
   $('body').on('click', '.multiple-update-sellers', function() {
