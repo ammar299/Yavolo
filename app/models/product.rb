@@ -4,6 +4,8 @@ class Product < ApplicationRecord
     friendly_id :title
     serialize :filter_in_category_ids, Array
 
+    attr_accessor :check_for_seo_content_uniqueness
+
     enum condition: { brand_new: 0, refurbished: 1 }
     enum status: { draft: 0, active: 1, inactive: 2, pending: 3, disapproved: 4 }
     enum discount_unit:{ percentage: 0, amount: 1 }
@@ -76,5 +78,4 @@ class Product < ApplicationRecord
         return 0 if total_count.zero?
         ((yavolo_count.to_d/total_count.to_d)*100.0).to_i
     end
-    
 end

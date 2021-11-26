@@ -13,7 +13,7 @@
     <% end %>
 <% else %>
   $(".product-catagory").replaceWith("<%= j render "admin/categories/category_description" %>")
-
+  $("#product-category-<%= @category.id %> .product-category-name-category-tree").html("<%= @category.category_name %>")
   <% if @category.baby_category? %>
       $(".sub-category-link").addClass('disabled');
       // Remove all children from left category tree
