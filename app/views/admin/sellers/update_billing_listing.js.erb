@@ -1,0 +1,5 @@
+<%# $("#membership-card-remove-confirm-admin").removeClass("show");
+$('body').removeClass('modal-open');
+$(".modal-backdrop").remove(); %>
+$('#billing-listing-div').html("<%= j render(partial: 'admin/sellers/billing_listing', locals: { seller: @seller }) %>")
+$('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');

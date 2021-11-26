@@ -57,6 +57,7 @@ Rails.application.routes.draw do
           post :renew_seller_subscription
           delete :remove_payout_bank_account
           get :verify_seller_stripe_account
+          get :update_billing_listing
         end
 
         resources :categories do

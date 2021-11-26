@@ -22,6 +22,7 @@ class Seller < ApplicationRecord
   has_one :stripe_customer,as: :stripe_customerable,dependent: :destroy
   has_one :seller_stripe_subscription,dependent: :destroy
   has_many :seller_payment_methods,dependent: :destroy
+  has_many :billing_listing_stripe,dependent: :destroy
   # has_one :stripe_bank_detail,dependent: :destroy
 
   enum timeout: {

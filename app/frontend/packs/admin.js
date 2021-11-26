@@ -104,6 +104,7 @@ $(document).ready(function(){
   })
 
 });
+
 $(document).ready(function(){
   toggleDashboardMenu();
     var hasClass = false;

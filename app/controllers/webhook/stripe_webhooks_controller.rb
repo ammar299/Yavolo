@@ -24,6 +24,8 @@ class Webhook::StripeWebhooksController < ActionController::Base
         updated_subscription_webhook(params)
       when 'account.updated'
         account_updated(params)
+      when check_invoice_status[check_invoice_status.index(webhook_type)]
+        update_invoice(params)
       else
           puts "Unhandled event type: #{webhook_type}"
       end
@@ -40,6 +42,55 @@ class Webhook::StripeWebhooksController < ActionController::Base
   end
 
   private
+  def check_invoice_status
+    ['invoice.created','invoice.updated','invoice.deleted','invoice.finalization_failed',
+      'invoice.finalized','invoice.marked_uncollectible','invoice.paid','invoice.payment_action_required',
+        'invoice.payment_failed','invoice.payment_succeeded','invoice.sent','invoice.upcoming','invoice.voided']
+  end
+
+  def update_invoice(params)
+    bill = BillingListingStripe.where(invoice_id: params["data"]["object"]["id"])&.last
+    if bill.present?
+      bill.update(update_invoice_paranms(params))
+    else
+      customer = StripeCustomer.where(customer_id: params["data"]["object"]["customer"])&.last
+      invoice  = customer.try(:stripe_customerable).try(:billing_listing_stripe).create(create_invoice_params(params)) if customer.present?
+      pay_invoice(params)
+    end
+  end
+
+  def pay_invoice(params)
+    begin
+      Stripe::Invoice.pay(params["data"]["object"]["id"])
+    rescue
+    end
+  end
+
+  def create_invoice_params(params)
+    {
+      invoice_id: params["data"]["object"]["id"],
+      total: params["data"]["object"]["total"].to_f,
+      description: params["data"]["object"]["lines"]["data"][0]["description"],
+      date_generated: date(params["data"]["object"]["created"]),
+      due_date: date(params["data"]["object"]["due_date"]),
+      status:  params["data"]["object"]["status"]
+    }
+  end
+
+  def update_invoice_paranms(params)
+    {
+      status: params["data"]["object"]["status"]
+    } 
+  end
+
+  def date(date)
+    begin
+      Time.at(date)
+    rescue
+      nil
+    end
+  end
+
   def account_updated(params)
     begin
       bank_detail = BankDetail.find_by(customer_stripe_account_id: params[:data][:object][:id].to_i)

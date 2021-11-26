@@ -16,6 +16,7 @@ class Admin::SellersController < Admin::BaseController
   end
 
   def show
+    @invoices = @seller.billing_listing_stripe 
     @delivery_options =  @seller.delivery_options
     @remaining_addresses = Address.address_types.keys - @seller.addresses.collect(&:address_type)
     if @remaining_addresses.present?
