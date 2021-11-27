@@ -2,6 +2,8 @@ class Buyers::CartController < Buyers::BaseController
   skip_before_action :authenticate_buyer!
   # around_action :sub_total, only: %i[cart]
 
+  layout 'buyers/buyer'
+
   def cart
     @cart = get_cart
     product_ids = @cart.map { |item| item[:product_id] }
@@ -25,7 +27,7 @@ class Buyers::CartController < Buyers::BaseController
       cart = session[:_current_user_cart]
       cart.each do |item|
         if item[:product_id] == product[:product_id]
-          item[:quantity] = item[:quantity] + 1
+          item[:quantity] = product[:quantity].present? ? product[:quantity].to_i : item[:quantity].to_i + 1
           found = true
         end
       end
@@ -33,8 +35,7 @@ class Buyers::CartController < Buyers::BaseController
         cart.push({ product_id: product[:product_id], quantity: product[:quantity].present? ? product[:quantity] : 1, added_on: DateTime.now() });
       end
     end
-    flash[:notice] = I18n.t('flash_messages.product_added_to_cart')
-    redirect_back(fallback_location: request.referrer) if params[:page] == 'pdp'
+    flash.now[:notice] = I18n.t('flash_messages.product_added_to_cart')
     session[:_current_user_cart] = cart
   end
 

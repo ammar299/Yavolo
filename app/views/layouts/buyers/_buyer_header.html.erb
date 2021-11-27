@@ -15,8 +15,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <div class="form-inline">
-            <input class="form-control mr-sm-2" type="search"
-                   placeholder="Search for products or brands" aria-label="Search">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search for products or brands" aria-label="Search">
             <a href="#"><i class="fas fa-search"></i></a>
           </div>
           <ul class="navbar-nav navbar-nav-icons ml-auto">
@@ -27,7 +26,9 @@
               <a class="nav-link" href="#"><i class="icon-navigation-user"></i></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#"><i class="icon-navigation-product"></i></a>
+              <div id="header_cart" class="pdp-register-drpdwn">
+                <%= render 'buyers/cart/header_cart' %>
+              </div>
             </li>
           </ul>
         </div>

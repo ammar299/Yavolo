@@ -905,7 +905,6 @@ $(document).ready(function () {
         condition: $("#product_condition").val(),
         description: $(".ck-content").html(),
         price: $("#product_price").val().replace('£', ''),
-        stock: $("#product_stock").val(),
         images: all_images
       },
       type: 'put',

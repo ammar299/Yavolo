@@ -10,7 +10,7 @@
 .main-header .navbar img {
   width: 160px;
 }
-.main-header a {
+.main-header a.nav-link {
   color: var(--off-white) !important;
 }
 .main-header .form-inline {
@@ -41,7 +41,7 @@
   font-size: 14px;
   color: var(--dark-red) !important;
 }
-.main-header .navbar-nav-icons li a {
+.main-header .navbar-nav-icons li a.nav-link {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,7 +67,7 @@
   white-space: nowrap;
 }
 .main-header .inner-menu a:hover,
-.main-header .navbar-nav-icons li a:hover {
+.main-header .navbar-nav-icons li a.nav-link:hover {
   border-color: #EC505A;
   color: #EC505A !important;
 }
@@ -867,6 +867,22 @@
     justify-content: flex-start;
   }
 }
+
+.cart-header-notification {
+  color: var(--off-white);
+  font-size: 12px;
+  background-color: var(--red);
+  width: 16px;
+  height: 16px;
+  display: flex;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: -6px;
+}
+
 /* single-product-slider */
 
 /* ================== sprint-3 ================== */

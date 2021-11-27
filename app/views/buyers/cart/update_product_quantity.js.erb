@@ -1,1 +1,2 @@
 $("#cart-item-<%= @product.id %>").html("<%= j render('buyers/cart/cart_item', cart_item: @cart_item, product: @product) %>")
+$("#header_cart").html("<%= j render('buyers/cart/header_cart' ) %>");

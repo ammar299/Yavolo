@@ -20,4 +20,18 @@ module Buyers::CartHelper
     end
   end
 
+  def find_cart_product(product_id)
+    Product.find(product_id)
+  end
+
+  def cart_sub_total
+    cart = session[:_current_user_cart]
+    sub_total = 0
+    cart.each do |item|
+      product = Product.find(item[:product_id].to_i)
+      sub_total += (item[:quantity].to_i * product.price.to_f) if product.price.present?
+    end
+    sub_total.to_f
+  end
+
 end

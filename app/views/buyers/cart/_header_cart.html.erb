@@ -1,0 +1,41 @@
+<div class="dropdown dropdown-filter register-drp mb-3 d-inline-flex justify-content-center">
+  <a class="nav-link" href="#" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="icon-navigation-product"></i>
+  </a>
+  <% if session[:_current_user_cart].present? %>
+    <span class="cart-header-notification"><%= session[:_current_user_cart].size %></span>
+  <% end %>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+    <% if session[:_current_user_cart].present? %>
+      <% session[:_current_user_cart].each do |line_items| %>
+        <% product = find_cart_product(line_items[:product_id]) %>
+        <div class="mb-1 d-flex pdp-cart-brdr">
+          <div class="p-2 yo-white-card pdp-register-drp-img mr-2 cart-image-section">
+            <span>
+              <%= image_tag product.pictures.first&.name&.url.present? ? product.pictures.first&.name&.url : "default.jpeg" %>
+            </span>
+          </div>
+          <div class="d-flex justify-content-between flex-column dark-red-text cart-text-section">
+            <div>
+              <h6 class="mm-text"> <%= product.title %></h6>
+            </div>
+            <div class="d-flex justify-content-between">
+              <span class="font-14px">Qty:<%= line_items[:quantity] %></span>
+              <span class="font-14px">£<%= line_items[:quantity].to_i * product.price.to_f %></span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <div class="mb-1 pdp-cart-brdr">
+        <div class="d-flex justify-content-between dark-red-text">
+          <span class="font-14px"><b>Subtotal</b> </span>
+          <span class="font-14px">£<%= cart_sub_total %></span>
+        </div>
+      </div>
+      <%= link_to "PROCEED TO CHECKOUT", checkout_path, class: "btn btn-sm btn-radius px-4 btn-primary justify-content-center mb-1" %>
+      <%= link_to "VIEW BASKET", cart_path, class: "btn btn-sm btn-radius px-4 btn-outline-primary justify-content-center mb-1" %>
+    <% else %>
+      <span>There is no product in the cart yet.</span>
+    <% end %>
+  </div>
+</div>
