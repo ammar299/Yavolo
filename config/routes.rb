@@ -245,6 +245,9 @@ Rails.application.routes.draw do
   post 'create_payment_method', to: 'buyers/checkout#create_payment_method', as: :create_payment_method
   post 'create_payment', to: 'buyers/checkout#create_payment', as: :create_payment
 
+  post :create_paypal_order, to: 'buyers/checkout#create_paypal_order'
+  post :capture_paypal_order, to: 'buyers/checkout#capture_paypal_order'
+
   namespace :buyers, path: '/' do
     resources :order_steps
     delete 'remove_product_form_cart_1', to: 'order_steps#remove_product_form_cart', as: :remove_product_form_cart_1

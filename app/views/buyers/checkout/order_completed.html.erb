@@ -40,7 +40,7 @@
                             </span>
                         </div>
                         <div class="d-flex flex-column pl-3">
-                            <span>**** **** **** <%= @order.buyer.buyer_payment_methods.first.last_digits %></span>
+                            <span>**** **** **** <%= @order.buyer_payment_method.last_digits %></span>
                             <span>Exp: <%= @order.buyer_payment_method.exp_month %> / <%= @order.buyer_payment_method.exp_year %></span>
                         </div>
                     </div>

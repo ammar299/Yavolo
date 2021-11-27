@@ -99,7 +99,6 @@ class Buyers::CheckoutController < Buyers::BaseController
       @sub_total += (product.price.to_f) if product.present?
     end
     @sub_total.to_f
-
   end
 
   def create_payment
@@ -111,7 +110,7 @@ class Buyers::CheckoutController < Buyers::BaseController
         @order_amount = order_amount
         payment_method = @buyer.buyer_payment_methods.last
         payment = Stripe::ChargeCreator.call(
-          { stripe_token_id: payment_method.stripe_token, buyer: @buyer, order: @order, amount: @order_amount[:total] }
+          { stripe_token_id: payment_method.token, buyer: @buyer, order: @order, amount: @order_amount[:total] }
         )
         if payment.status
           @order.update(buyer_payment_method_id: payment_method.id,sub_total: @order_amount[:sub_total],total: @order_amount[:total])
@@ -128,6 +127,74 @@ class Buyers::CheckoutController < Buyers::BaseController
     end
   end
 
+  def create_paypal_order
+    # PAYPAL CREATE ORDER
+    @order = Order.find(session_order_id) rescue nil
+    if !@order.present?
+      @order = Order.new
+    end
+    if @order.order_type != 'paid_order'
+      paypal_order_creator = Paypal::PaypalOrderCreator.call({ debug: true, amount: order_amount[:total] })
+      if paypal_order_creator.status
+        @buyer = @order.buyer
+        if @buyer.present?
+          @payment_method = @buyer.buyer_payment_methods.create(
+            payment_method_type: :paypal,
+            token: paypal_order_creator.paypal_response.result.id
+          )
+        else
+          @payment_method = BuyerPaymentMethod.create(
+            payment_method_type: :paypal,
+            token: paypal_order_creator.paypal_response.result.id
+          )
+        end
+        @order.update(buyer_payment_method_id: @payment_method.id) if @order.id.present?
+        @order = Order.create(buyer_payment_method_id: @payment_method.id) if !@order.id.present?
+        session[:_current_user_order_id] = @order.id
+        puts paypal_order_creator
+        render json: { token: paypal_order_creator.paypal_response.result.id }, status: :ok
+      end
+    end
+  end
+
+  def capture_paypal_order
+    # PAYPAL CAPTURE ORDER
+    @order_id = session_order_id
+    if @order_id.present?
+      @order = Order.find(@order_id)
+      @buyer = @order.buyer if @order.present?
+      if @order.present? && @order.order_type != 'paid_order'
+        @order_amount = order_amount
+        paypal_order_capturor = Paypal::PaypalOrderCapturor.call({ order_id: params[:order_id], debug: true })
+        if paypal_order_capturor.status
+          payer_info = paypal_order_capturor.paypal_response.first.result.payer
+          if session_selected_payment_method.present? && session_selected_payment_method == 'paypal' && !@order.order_detail.present?
+            billing_address = payer_info.address
+            @order.create_order_detail(
+              name: payer_info.name.given_name,
+              email: payer_info.email_address,
+              contact_number: payer_info.try(:phone).try(:phone_number).try(:national_number) || nil
+            )
+            shipping_address = paypal_order_capturor.paypal_response.first.result.purchase_units.first.shipping.address
+            create_shipping_address(@order, shipping_address)
+            create_billing_address(@order, billing_address)
+          end
+          if !@buyer.present?
+            @buyer = find_or_create_buyer(payer_info.email_address)
+            @order.buyer_payment_method.update(buyer_id: @buyer.id)
+          end
+          update_order_to_paid(@order, @order_amount[:total], @order_amount[:sub_total])
+          create_payment_mode_paypal(@order, paypal_order_capturor.paypal_response)
+          puts paypal_order_capturor.paypal_response
+          session.delete(:_current_user_cart)
+          session.delete(:_current_user_order_id)
+          session.delete(:_selected_payment_method)
+          render json: { status: paypal_order_capturor.paypal_response[0].result.status, order: @order }, status: :ok
+        end
+      end
+    end
+  end
+
   private
 
   def get_cart
@@ -136,6 +203,51 @@ class Buyers::CheckoutController < Buyers::BaseController
 
   def order_amount
     { total: total, sub_total: sub_total }
+  end
+
+  def session_selected_payment_method
+    session[:_selected_payment_method] || nil
+  end
+
+  def create_shipping_address(order, shipping_address)
+    order.create_shipping_address(
+      address_line_1: shipping_address.address_line_1,
+      address_line_2: shipping_address.address_line_2,
+      city: shipping_address.admin_area_2,
+      county: shipping_address.admin_area_1,
+      country: shipping_address.country_code,
+      postal_code: shipping_address.postal_code
+    )
+  end
+
+  def create_billing_address(order, billing_address)
+    order.create_billing_address(
+      address_line_1: billing_address.address_line_1,
+      address_line_2: billing_address.address_line_2,
+      city: billing_address.admin_area_2,
+      county: billing_address.admin_area_1,
+      country: billing_address.country_code,
+      postal_code: billing_address.postal_code
+    )
+  end
+
+  def update_order_to_paid(order, total, sub_total)
+    order.update(
+      sub_total: sub_total,
+      total: total,
+      order_type: :paid_order
+    )
+  end
+
+  def create_payment_mode_paypal(order, paypal_response)
+    links = paypal_response.first.result.purchase_units.first.payments.captures.first
+    order.create_payment_mode(
+      payment_through: 'paypal',
+      charge_id: paypal_response.result.id,
+      amount: @order_amount[:total],
+      return_url: links[1].href,
+      receipt_url: links[0].href
+    )
   end
 
   def sub_total
@@ -161,7 +273,7 @@ class Buyers::CheckoutController < Buyers::BaseController
   def find_or_create_buyer(email)
     @buyer = Buyer.find_by(email: email)
     if @buyer.nil?
-      @buyer = Buyer.new({ email: order_params[:order_detail_attributes][:email] })
+      @buyer = Buyer.new({ email: email })
       @buyer.skip_password_validation = true
       @buyer.save
     end
@@ -169,7 +281,7 @@ class Buyers::CheckoutController < Buyers::BaseController
   end
 
   def update_or_create_buyer_payment_method(buyer, stripe_token, card)
-    buyer_payment_method = buyer.buyer_payment_methods.where(stripe_token: stripe_token).last
+    buyer_payment_method = buyer.buyer_payment_methods.where(token: stripe_token).last
     if buyer_payment_method.present?
       buyer_payment_method.update(
         last_digits: card.last4,
@@ -181,7 +293,8 @@ class Buyers::CheckoutController < Buyers::BaseController
       )
     else
       buyer_payment_method = buyer.buyer_payment_methods.create(
-        stripe_token: stripe_token,
+        payment_method_type: :stripe,
+        token: stripe_token,
         last_digits: card.last4,
         card_holder_name: card.name,
         card_id: card.id,
@@ -202,7 +315,7 @@ class Buyers::CheckoutController < Buyers::BaseController
   end
 
   def session_order_id
-    session[:_current_user_order_id] ||= nil
+    session[:_current_user_order_id] || nil
   end
 
   def line_items_params

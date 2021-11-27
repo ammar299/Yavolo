@@ -77,7 +77,7 @@ module Stripe
     end
 
     def card_id
-      payment_method = buyer.buyer_payment_methods.where(stripe_token: stripe_token_id).last
+      payment_method = buyer.buyer_payment_methods.where(token: stripe_token_id).last
       payment_method.card_id
     end
 

@@ -71,7 +71,14 @@
               <span id="cart-total"><%= get_price_in_pounds(@order_amount.present? ? @order_amount[:total] : 0) %></span>
             </div>
             <hr>
-            <%= link_to "PROCEED TO CHECKOUT", checkout_path, class: "btn btn-lg btn-radius px-4 btn-primary w-100 mb-2" %>
+            <div id="checkout-buttons">
+            <div id="proceed" style="display: none;">
+              <%= link_to "PROCEED TO CHECKOUT", checkout_path, class: "btn btn-lg btn-radius px-4 btn-primary w-100 mb-2" %>
+            </div>
+              <div id="paypal-button" style="display: none;">
+                <%= render 'shared/checkout/paypal_express_checkout_button' %>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -82,3 +89,46 @@
     <% end %>
   </div>
 </div>
+<%=%>
+
+<script>
+$(document).ready(function() {
+  $('input[type=radio]').each(function () {
+    if (this.value == 'visa-card' && this.checked) {
+      hideAllPaymentButtons();
+      onThisPaymentButton('proceed');
+    }
+    else if (this.value == 'paypal' && this.checked) {
+      hideAllPaymentButtons();
+      onThisPaymentButton('paypal-button');
+    }
+    else if (this.value == 'g-pay' && this.checked) {
+      hideAllPaymentButtons();
+      onThisPaymentButton('proceed');
+    }
+  });
+});
+$('body').on('change', 'input[type=radio][name="pay_with"]', function() {
+  if (this.value == 'visa-card') {
+    hideAllPaymentButtons();
+    onThisPaymentButton('proceed');
+  }
+  else if (this.value == 'paypal') {
+    hideAllPaymentButtons();
+    onThisPaymentButton('paypal-button');
+  }
+  else if (this.value == 'g-pay' && this.checked) {
+      hideAllPaymentButtons();
+      onThisPaymentButton('proceed');
+  }
+});
+
+function hideAllPaymentButtons() {
+  $('#proceed').hide();
+  $('#paypal-button').hide();
+}
+
+function onThisPaymentButton(id) {
+  $(`#${id}`).show();
+}
+</script>

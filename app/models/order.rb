@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-  belongs_to :buyer
+  belongs_to :buyer, optional: true
   include RansackObject
   has_many :line_items, dependent: :destroy
   has_one :order_detail, dependent: :destroy
