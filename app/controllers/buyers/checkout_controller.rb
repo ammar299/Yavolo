@@ -183,8 +183,8 @@ class Buyers::CheckoutController < Buyers::BaseController
             @buyer = find_or_create_buyer(payer_info.email_address)
             @order.buyer_payment_method.update(buyer_id: @buyer.id)
           end
-          update_order_to_paid(@order, @order_amount[:total], @order_amount[:sub_total])
-          create_payment_mode_paypal(@order, paypal_order_capturor.paypal_response)
+          @order = update_order_to_paid(@order, @order_amount[:total], @order_amount[:sub_total])
+          create_payment_mode_paypal(@order, paypal_order_capturor.paypal_response, @order_amount)
           puts paypal_order_capturor.paypal_response
           session.delete(:_current_user_cart)
           session.delete(:_current_user_order_id)
@@ -237,14 +237,15 @@ class Buyers::CheckoutController < Buyers::BaseController
       total: total,
       order_type: :paid_order
     )
+    order
   end
 
-  def create_payment_mode_paypal(order, paypal_response)
-    links = paypal_response.first.result.purchase_units.first.payments.captures.first
+  def create_payment_mode_paypal(order, paypal_response, order_amount)
+    links = paypal_response.first.result.purchase_units.first.payments.captures.first.links
     order.create_payment_mode(
       payment_through: 'paypal',
-      charge_id: paypal_response.result.id,
-      amount: @order_amount[:total],
+      charge_id: paypal_response.first.result.id,
+      amount: order_amount[:total],
       return_url: links[1].href,
       receipt_url: links[0].href
     )

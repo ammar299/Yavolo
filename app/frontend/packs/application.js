@@ -40,6 +40,7 @@ require("packs/sign-up-steps");
 require("packs/stripe");
 require("packs/cart");
 require("packs/slick.min");
+require("packs/checkout");
 $(document).ready(() => {
   $("body").on("focus", ".datepicker", function () {
     $(this)
