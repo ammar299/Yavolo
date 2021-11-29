@@ -7,6 +7,7 @@ module Sellers
         @params = params
         @status = true
         @errors = []
+        @dob_errors = []
     end
 
 
@@ -27,8 +28,10 @@ module Sellers
           if !seller_found.present?
             begin
               seller = create_seller_instance(row)
+              date_of_birth_is_valid_datetime(row)
               if seller.valid?
                 seller.save
+                seller.update_seller_products_listing
                 create_associate_seller_data(seller,row)
                 AdminMailer.with(to: row["user_email"].to_s.downcase, password: password ).send_account_creation_email.deliver_now #send notification email to seller
               else
@@ -67,8 +70,26 @@ module Sellers
         )
       end
 
+      def date_of_birth_is_valid_datetime(row)
+        @dob_errors = []
+        begin
+          dob = Date.strptime(row["business_representative_date_of_birth"], '%d/%m/%y')
+          if dob > Time.now
+            @dob_errors << "date of birth cannot be in the future"
+          end
+        rescue
+          @dob_errors << "#{row["business_representative_date_of_birth"]} must be a valid date. Valid format is dd/mm/yyyy"
+        end
+      end
+
+
       def format_error_messages(row, e, seller)
         @errors << "seller: #{row["user_email"]} "
+        if @dob_errors.present?
+          @dob_errors.each do |err|
+            @errors << "#{err}" 
+          end
+        end
         @errors << seller.errors.full_messages.join("<br>") if seller.present?
         @errors << "<hr>" if seller.present?
         @errors << e.message unless seller.present?
