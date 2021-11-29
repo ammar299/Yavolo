@@ -151,9 +151,9 @@ class Admin::SellersController < Admin::BaseController
   def export_sellers
     all_sellers = []
     get_sellers.each do |seller|
-      begin
-        seller = Seller.find(seller.id || seller)
-      rescue
+      if params[:all] == "true"
+        seller = Seller.find(seller.id)
+      else
         seller = Seller.find(seller)
       end
       all_sellers << seller

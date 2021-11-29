@@ -158,22 +158,6 @@ $(document).ready(function(){
       }
     })
 
-    $(".export-csv-selected-products").click(function(event){
-      var selected_products = []
-      $('.multiple-products input[type=checkbox]:checked').each(function () {
-      selected_products.push($(this).val())
-      });
-      if (selected_products.length < 1) {
-          $('.multiple-products input[type=checkbox]').each(function() {
-            selected_products.push($(this).val())
-          });
-        $(this).attr('href','/admin/products/export_csv.csv?products='+selected_products);
-      }
-      else{
-        $(this).attr('href','/admin/products/export_csv.csv?products='+selected_products);
-      }
-    })
-
  });
 
 function toggleDashboardMenu(){
