@@ -2,6 +2,7 @@ class Sellers::ProductsController < Sellers::BaseController
   before_action :format_price_value, only: %i[create update]
   include SharedProductMethods
   def index
+    parse_sort_param_to_array
     @listing_by_status_with_count = Product.get_group_by_status_count(current_seller)
     @q = Product.ransack(params[:q])
     query = @q.result(distinct: true).select('products.*, lower(products.title)')
@@ -10,6 +11,7 @@ class Sellers::ProductsController < Sellers::BaseController
     else
       @products = query.where(owner_id: current_seller.id, owner_type: current_seller.class.name)
     end
+    @products = @products.where(yavolo_enabled: true) if params[:yavolo_enabled]=='1'
     @products = @products.order(created_at: :desc) if params.dig(:q, :s).blank?
     @products = @products.page(params[:page]).per(params[:per_page].presence || 15)
   end

@@ -51,4 +51,19 @@ module Admin::ProductHelper
     end
   end
 
+  def product_sort_param_query_merge_filter(filter)
+    q_params = {q: params[:q].present? ? (params.require(:q).merge(s: filter).permit!) : {s: filter} }
+    q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
+    q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
+    q_params
+  end
+
+  def product_statuses_param_query_merge_filter(filter)
+    q_params = {q: params.require(:q).permit! } if params[:q].present?
+    q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
+    q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
+    q_params.merge!(filter_by: filter)
+    q_params
+  end
+
 end

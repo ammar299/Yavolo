@@ -1,0 +1,6 @@
+<%=link_to '#', class: 'dropdown-item sortby-products', data: {sortby: filter} do %>
+  <%= title %>
+  <% if params.dig(:q, :s).present? && params[:q][:s].include?(filter) %>
+    <i class="fa fa-check" aria-hidden="true"></i>
+  <% end %>
+<% end %>

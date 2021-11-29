@@ -57,7 +57,7 @@
                                 <input type="hidden" name="filter_type" id="product-filter-type" value="<%= params[:filter_type] %>">
                                 <input type="hidden" name="csfname" id="csfn" value="<%= current_search_field_name %>">
                                 <% if params[:q].present? && params[:q].keys.include?('s') %>
-                                <%=hidden_field_tag 'q[s]', params[:q][:s] %>
+                                <%=hidden_field_tag 'q[s]', params[:q][:s].to_json %>
                                 <% end %>
                                 <%= f.search_field current_search_field_name.to_sym, { class: 'input-btn-sm seller-product-search-field', placeholder: 'Search Products', value: "#{search_field_query_param_val(params)}" } %>
                                 <i class="fa fa-search" aria-hidden="true"></i>
@@ -94,54 +94,11 @@
                                 aria-expanded="false"><%=set_product_sort_by_in_dropdown(params)%> <i class="fa fa-angle-down ml-3"
                                     aria-hidden="true"></i></a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'title asc').permit!) : {s: 'title asc'} }
-                                    q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
-                                    q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
-                                    q_params.merge!(tab: params[:tab]) if params[:tab].present?
-                                %>
-                                <%=link_to sellers_products_path(q_params),class: 'dropdown-item' do  %>
-                                Product Title A-Z
-                                    <% if params.dig(:q, :s).present? && params[:q][:s]=='title asc' %>
-                                    <i class="fa fa-check" aria-hidden="true"></i>
-                                    <% end %>
-                                <% end %>
-
-                                <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'title desc').permit!) : {s: 'title desc'} }
-                                    q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
-                                    q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
-                                    q_params.merge!(tab: params[:tab]) if params[:tab].present?
-                                %>
-
-                                <%=link_to sellers_products_path(q_params),class: 'dropdown-item' do  %>
-                                Product Title Z-A
-                                    <% if params.dig(:q, :s).present? && params[:q][:s]=='title desc' %>
-                                    <i class="fa fa-check" aria-hidden="true"></i>
-                                    <% end %>
-                                <% end %>
-
-                                <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'price desc').permit!) : {s: 'price desc'} }
-                                    q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
-                                    q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
-                                    q_params.merge!(tab: params[:tab]) if params[:tab].present?
-                                %>
-                                <%=link_to sellers_products_path(q_params),class: 'dropdown-item' do  %>
-                                Price High-Low
-                                <% if params.dig(:q, :s).present? && params[:q][:s]=='price desc' %>
-                                    <i class="fa fa-check" aria-hidden="true"></i>
-                                    <% end %>
-                                <% end %>
-
-                                <% q_params = {q: params[:q].present? ? (params.require(:q).merge(s: 'price asc').permit!) : {s: 'price asc'} }
-                                    q_params.merge!(filter_type: params[:filter_type]) if params[:filter_type].present?
-                                    q_params.merge!(csfname: params[:csfname]) if params[:csfname].present?
-                                    q_params.merge!(tab: params[:tab]) if params[:tab].present?
-                                %>
-                                <%=link_to sellers_products_path(q_params),class: 'dropdown-item' do  %>
-                                Price Low-High
-                                <% if params.dig(:q, :s).present? && params[:q][:s]=='price asc' %>
-                                    <i class="fa fa-check" aria-hidden="true"></i>
-                                    <% end %>
-                                <% end %>
+                              <%= render 'shared/products/sort_by_title_price_dropdown_item', filter: 'title asc', title: 'Product Title A-Z' %>
+                              <%= render 'shared/products/sort_by_title_price_dropdown_item', filter: 'title desc', title: 'Product Title Z-A' %>
+                              <%= render 'shared/products/sort_by_title_price_dropdown_item', filter: 'price desc', title: 'Price High-Low' %>
+                              <%= render 'shared/products/sort_by_title_price_dropdown_item', filter: 'price asc', title: 'Price Low-High' %>
+                              <%= render 'shared/products/sort_by_yavolo_enabled_dropdown_item' %>
                             </div>
                         </div>
                         <div class="d-flex">
@@ -151,6 +108,10 @@
                                 Product CSV</a>
                             <%=link_to 'Add Listing', new_sellers_product_path, class: 'btn btn-radius px-2 btn-primary btn-sm' %>
                         </div>
+                    </div>
+                    <div class="filter-by-tags d-flex justify-content-start mt-2">
+                      <%=print_filter_by_status_tags.to_s.html_safe %>
+                      <%=print_filter_by_sort_tags.to_s.html_safe %>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
