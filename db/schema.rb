@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_26_094742) do
+ActiveRecord::Schema.define(version: 2021_11_29_102855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -161,6 +161,7 @@ ActiveRecord::Schema.define(version: 2021_11_26_094742) do
     t.integer "exp_month"
     t.integer "exp_year"
     t.integer "payment_method_type"
+    t.boolean "is_card_saved", default: false
     t.index ["buyer_id"], name: "index_buyer_payment_methods_on_buyer_id"
   end
 
@@ -579,9 +580,9 @@ ActiveRecord::Schema.define(version: 2021_11_26_094742) do
     t.boolean "two_factor_auth", default: false
     t.datetime "last_seen_at"
     t.string "recovery_email"
-    t.boolean "skip_success_hub_steps", default: false
     t.string "otp_secret"
     t.integer "last_otp_at"
+    t.boolean "skip_success_hub_steps", default: false
     t.integer "failed_attempts", default: 0
     t.string "unlock_token"
     t.datetime "locked_at"

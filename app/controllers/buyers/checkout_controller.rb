@@ -59,8 +59,12 @@ class Buyers::CheckoutController < Buyers::BaseController
           { stripe_token_id: params[:stripeToken], buyer: @buyer }
         )
         if card_details.status
+          @save_card = false
+          if params[:is_card_saved].present? && params[:is_card_saved] == 'on'
+            @save_card = true
+          end
           card = card_details.response.card
-          @payment_method = update_or_create_buyer_payment_method(@buyer, params[:stripeToken], card)
+          @payment_method = update_or_create_buyer_payment_method(@buyer, params[:stripeToken], card, @save_card)
           @order.update(buyer_payment_method_id: @payment_method.id)
         end
         if customer.status
@@ -281,7 +285,7 @@ class Buyers::CheckoutController < Buyers::BaseController
     @buyer
   end
 
-  def update_or_create_buyer_payment_method(buyer, stripe_token, card)
+  def update_or_create_buyer_payment_method(buyer, stripe_token, card, is_card_saved)
     buyer_payment_method = buyer.buyer_payment_methods.where(token: stripe_token).last
     if buyer_payment_method.present?
       buyer_payment_method.update(
@@ -290,7 +294,8 @@ class Buyers::CheckoutController < Buyers::BaseController
         card_id: card.id,
         brand: card.brand,
         exp_month: card.exp_month,
-        exp_year: card.exp_year
+        exp_year: card.exp_year,
+        is_card_saved: is_card_saved
       )
     else
       buyer_payment_method = buyer.buyer_payment_methods.create(
@@ -301,7 +306,8 @@ class Buyers::CheckoutController < Buyers::BaseController
         card_id: card.id,
         brand: card.brand,
         exp_month: card.exp_month,
-        exp_year: card.exp_year
+        exp_year: card.exp_year,
+        is_card_saved: is_card_saved
       )
     end
     buyer_payment_method

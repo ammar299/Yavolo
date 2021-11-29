@@ -2,7 +2,6 @@ $(document).ready(() => {
   console.log("checkout js is loaded");
   checkoutDetailsFormValidation();
 });
-checkout_details_form;
 
 function checkoutDetailsFormValidation() {
   $("form#checkout_details_form").validate({
@@ -40,26 +39,22 @@ function checkoutDetailsFormValidation() {
       },
       billing_address_is_shipping_address: {},
       "order[shipping_address_attributes][appartment]": {
-        required: true,
+        requiredIfChecked: true,
       },
       "order[shipping_address_attributes][postal_code]": {
-        required: true,
+        requiredIfChecked: true,
         postal_code_uk: true,
       },
       "order[shipping_address_attributes][address_line_1]": {
-        required: true,
         requiredIfChecked: true,
       },
       "order[shipping_address_attributes][address_line_2]": {
-        required: true,
         requiredIfChecked: true,
       },
       "order[shipping_address_attributes][city]": {
-        required: true,
         requiredIfChecked: true,
       },
       "order[shipping_address_attributes][country]": {
-        required: true,
         requiredIfChecked: true,
       },
     },
@@ -176,12 +171,12 @@ function checkoutDetailsFormValidation() {
     "requiredIfChecked",
     function (val, ele, arg) {
       if (
-        !$("#billing_address_is_shipping_address").is(":checked") &&
+        $("#billing_address_is_shipping_address").is(":checked") &&
         $.trim(val) == ""
       ) {
-        return false;
+        return true;
       }
-      return true;
+      return false;
     },
     "This field is required if checkbox is unchecked..."
   );
