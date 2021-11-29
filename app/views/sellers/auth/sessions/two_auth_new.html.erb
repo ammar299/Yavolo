@@ -10,7 +10,7 @@
           <%= hidden_field_tag :otp_secret, @otp_secret  %>
           <%= hidden_field_tag :email, @current_seller.email %>
           <br />
-          <div class= "google-2fa-auth-qr"> 
+          <div class= "google-2fa-auth-qr text-center"> 
             <%= image_tag @qr_code %>
           </div>
           <br />

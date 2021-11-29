@@ -10,10 +10,7 @@
               <label for="exampleInputEmail1">Enable 2 step factor authentication:</label>
               <div class="d-inline-flex align-items-center mb-1">
                 <label class="switch" for="two_factor_auth">
-                  
-                    <!-- <input type="checkbox" name="seller[two_factor_auth]" type="hidden" value="1" class="sellect-two-auth"> -->
                     <%= f.check_box :two_factor_auth, checked: @seller.new_record? || f.object.two_factor_auth?, class: 'sellect-two-auth', id: 'two_factor_auth' %>
-                    <%#= f.check_box_tag :two_factor_auth,'1', checked: f.object.two_factor_auth?, class: 'sellect-two-auth', id: 'two_factor_auth' %>
                     <span class="slider round"></span>
                   
                 </label>
@@ -27,7 +24,7 @@
                   <span class="slider round"></span>
                 </label>
               </div>
-              <div class="column logout-time-dropdown  <%=f.object.timeout.blank? ? 'd-none' : ' '%>">
+              <div class="column logout-time-dropdown  <%=f.object.timeout.blank? ? 'd-none' : ' '%> d-flex align-items-center">
                 <p class="my-0 mx-3 seller-selector" >Enable</p>
                 <%= f.select(:timeout, Seller.timeouts.keys.to_a, {:include_blank => "Select"}, {:class => "form-control selector-value seller-selector"} ) %>
               </div>
