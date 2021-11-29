@@ -50,7 +50,8 @@ module Admins
           status: sub.status,
           cancel_at_period_end: false,
           current_period_end: sub.current_period_end,
-          current_period_start: sub.current_period_start
+          current_period_start: sub.current_period_start,
+          seller_requested_cancelation: false
         )
         
         return true if record == true 
