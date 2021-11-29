@@ -267,46 +267,86 @@ function bindResultPerPageOption(){
 function bindAndSortByEvent(){
   $('.sortby-products').click(function(e){
     e.preventDefault();
-    if($('#q_s').length > 0){
-      $('#q_s').val($(this).data('sortby'));
-    }else{
+
+    if($('#q_s').length === 0){
       $('#product_search').append('<input type="hidden" name="q[s]" id="q_s">')
-      $('#q_s').val($(this).data('sortby'));
+    }
+    assignValueToProductSortFilterInput($(this).data('sortby'))
+    $('form#product_search').submit();
+  });
+}
+
+function assignValueToProductSortFilterInput(currentValue){
+  const title_asc = "title asc";
+  const title_desc = "title desc";
+  const price_desc = "price desc";
+  const price_asc = "price asc";
+  const inputVal = $('#q_s').val()
+  let valueArray = []
+  try {
+    valueArray = JSON.parse(inputVal.split(","))
+  } catch (e) {
+  }
+
+  if(currentValue === title_asc && valueArray.includes(title_desc)){
+    valueArray = valueArray.filter(i=> i !== title_desc || i.strip == "")
+  } else if(currentValue === title_desc && valueArray.includes(title_asc)) {
+    valueArray = valueArray.filter(i=> i !== title_asc || i.strip == "")
+  } else if(currentValue === price_desc && valueArray.includes(price_asc)) {
+    valueArray = valueArray.filter(i=> i !== price_asc || i.strip == "")
+  } else if(currentValue === price_asc && valueArray.includes(price_desc)) {
+    valueArray = valueArray.filter(i=> i !== price_desc || i.strip == "")
+  }
+  valueArray.push(currentValue)
+  $('#q_s').val(JSON.stringify(valueArray));
+}
+
+
+function bindRemoveFilterBy(){
+  $(document).on('click','.rm-filterby',function(){
+    let removedFilter = $(this).data('yfilter');
+
+    bindRemoveFilterByStatusesForProduct(removedFilter)
+    bindRemoveFilterBySortOrderForProduct(removedFilter)
+
+    if (removedFilter=='yavolo_enabled'){
+      $('#product_search').find('input.yp-yavolo_enabled').remove();
     }
     $('form#product_search').submit();
   });
 }
 
-function bindRemoveFilterBy(){
-  $(document).on('click','.rm-filterby',function(){
-    let removedFilter = $(this).data('yfilter');
-    let statuses = [];
-    if($('input.yp-statuses').length > 0 && $('input.yp-statuses').val().length > 0){
-      $('input.yp-statuses').val().split(',').forEach(function(status){
-        if(status!=removedFilter){
-          statuses.push(status)
-        }
-      });
-    }
+function bindRemoveFilterBySortOrderForProduct(removedFilter) {
+  const inputVal = $('#q_s').val()
+  let valueArray = []
+  try {
+    valueArray = JSON.parse(inputVal.split(","))
+  } catch (e) {
+  }
+  valueArray = valueArray.filter(i=> i !== removedFilter)
+  $('#q_s').val(JSON.stringify(valueArray));
+}
 
-    if (removedFilter=='yavolo_enabled'){
-      $('#product_search').find('input.yp-yavolo_enabled').remove();
-    }
-
-    if(statuses.length > 0){
-      if($('#product_search').find('input.yp-statuses').length > 0){
-        $('#product_search').find('input.yp-statuses').val(statuses.join(','));
-      }else{
-        $('#product_search').append('<input type="hidden" name="statuses" class="yp-statuses">')
-        $('#product_search').find('input.yp-statuses').val(statuses.join(','));
+function bindRemoveFilterByStatusesForProduct(removedFilter){
+  let statuses = [];
+  if($('input.yp-statuses').length > 0 && $('input.yp-statuses').val().length > 0){
+    $('input.yp-statuses').val().split(',').forEach(function(status){
+      if(status!=removedFilter){
+        statuses.push(status)
       }
+    });
+  }
+  if(statuses.length > 0){
+    if($('#product_search').find('input.yp-statuses').length > 0){
+      $('#product_search').find('input.yp-statuses').val(statuses.join(','));
     }else{
       $('#product_search').append('<input type="hidden" name="statuses" class="yp-statuses">')
-      $('#product_search').find('input.yp-statuses').val('');
+      $('#product_search').find('input.yp-statuses').val(statuses.join(','));
     }
-    console.log(statuses);
-    $('form#product_search').submit();
-  });
+  }else{
+    $('#product_search').append('<input type="hidden" name="statuses" class="yp-statuses">')
+    $('#product_search').find('input.yp-statuses').val('');
+  }
 }
 
 function bindFilterByEvents(){

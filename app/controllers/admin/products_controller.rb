@@ -2,6 +2,7 @@ class Admin::ProductsController < Admin::BaseController
   before_action :format_price_value, only: %i[create update]
   include SharedProductMethods
   def index
+    parse_sort_param_to_array
     @q = Product.ransack(params[:q])
     @products = @q.result(distinct: true).select('products.*, lower(products.title)')
     @products = @products.where(status: filter_by_statuses) if filter_by_statuses.present?
@@ -187,5 +188,12 @@ class Admin::ProductsController < Admin::BaseController
       DeliveryOption.left_outer_joins(:products).select("delivery_options.*, COUNT(products.*) AS product_count")
       .where("delivery_optionable_type = 'Admin' OR (delivery_optionable_id = ? AND delivery_optionable_type = ?)", @product.owner_id, @product.owner_type||'Admin' )
       .group(:id).order('product_count DESC')
+    end
+
+    def parse_sort_param_to_array
+      return unless  params[:q].present? && params[:q][:s].present?
+      parsed_sort_params = JSON.parse(params[:q][:s])
+      parsed_sort_params = parsed_sort_params.reject { |c| c.empty? }.uniq
+      params[:q][:s] = parsed_sort_params
     end
 end

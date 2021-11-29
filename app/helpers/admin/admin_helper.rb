@@ -14,6 +14,15 @@ module Admin::AdminHelper
     tags_template.join('')
   end
 
+  def print_filter_by_sort_tags
+    return unless params[:q].present? && params[:q][:s].present?
+    tags_template = []
+    params[:q][:s].each do |status|
+      tags_template << "<div class='mr-2 filter-tag'>#{status.titleize}<span data-yfilter=\"#{status}\"  class=\"rm-filterby icon-cross\"></span></div>"
+    end
+    tags_template.join('')
+  end
+
   def admin_heading(params)
     params[:controller] == 'admin/dashboard' && params[:action] == 'index'
   end
