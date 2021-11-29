@@ -27,7 +27,8 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="all-listings" role="tabpanel"
                     aria-labelledby="home-tab">
-                    <div class="d-flex align-items-center mb-2">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap mb-2">
+                    <div class="d-flex">
                         <div class="dropdown-filter-field active search-border my-1 dropdown-filter-custom">
                             <div class="dropdown">
                                 <a class="btn btn-radius px-3 btn-primary current-search-filter btn-sm" href="#" role="button"
@@ -44,8 +45,6 @@
                                     <a class="dropdown-item <%=set_filter_active('Brand')%>" href="#">Brand <i
                                         class="fa fa-check" aria-hidden="true"></i></a>
                                     <a class="dropdown-item <%=set_filter_active('SKU')%>" href="#">SKU <i
-                                        class="fa fa-check" aria-hidden="true"></i></a>
-                                    <a class="dropdown-item <%=set_filter_active('YAN')%>" href="#">YAN <i
                                         class="fa fa-check" aria-hidden="true"></i></a>
                                     <a class="dropdown-item <%=set_filter_active('EAN')%>" href="#">EAN <i
                                         class="fa fa-check" aria-hidden="true"></i></a>
@@ -100,6 +99,7 @@
                               <%= render 'shared/products/sort_by_title_price_dropdown_item', filter: 'price asc', title: 'Price Low-High' %>
                               <%= render 'shared/products/sort_by_yavolo_enabled_dropdown_item' %>
                             </div>
+                        </div>
                         </div>
                         <div class="d-flex">
                             <%#= link_to "Export CSV", export_csv_sellers_products_path(:format => :csv), class: 'btn btn-sm btn-radius px-2 btn-primary mx-1' %>
