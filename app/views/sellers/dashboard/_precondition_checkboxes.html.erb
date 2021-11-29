@@ -26,11 +26,6 @@
       <div>
         <h5 class="invisible">Let's Get Selling!</h5>
         <label class="checkbox-blk">
-        <a href="<%= sellers_profile_path(@seller) %>">Brighten Up your business with a Logo*</a>
-          <input type="checkbox" <%= @seller.picture.present? ? 'checked': '' %> disabled>
-          <span class="checkmark"></span>
-        </label>
-        <label class="checkbox-blk">
           <a data-paypal-button="true" href="<%=@action_url%>&displayMode=minibrowser" id="link_paypal_account_from_seller_hub" target="PPFrame">Link up your PayPal account</a>          <input type="checkbox" <%= @seller&.paypal_detail&.integration_status? ? 'checked': '' %> disabled>
           <span class="checkmark"></span>
         </label>
@@ -59,6 +54,11 @@
         </label>
         <label class="checkbox-blk"><a href="#">Review your login settings</a>
           <input type="checkbox">
+          <span class="checkmark"></span>
+        </label>
+        <label class="checkbox-blk">
+        <a href="<%= sellers_profile_path(@seller) %>">Brighten Up your business with a Logo*</a>
+          <input type="checkbox" <%= @seller.picture.present? ? 'checked': '' %> disabled>
           <span class="checkmark"></span>
         </label>
       </div>
