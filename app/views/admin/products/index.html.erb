@@ -152,14 +152,14 @@
                         <th>product Name</th>
                         <th>Attribute</th>
                         <th>Seller</th>
-                        <th>Stock</th>
-                        <th>Price</th>
-                        <th>30 Day Sales</th>
-                        <th>30 Day Revenue</th>
-                        <th>Yavolo Discount</th>
+                        <th class="text-center">Stock</th>
+                        <th class="text-center">Price</th>
+                        <th class="text-center">30 Day Sales</th>
+                        <th class="text-center">30 Day Revenue</th>
+                        <th class="text-center">Yavolo Enabled</th>
+                        <th class="text-center"> Yavolo Discount</th>
                         <th class="text-center">Assign</th>
-                        <th class="text-center">Actions</th>
-
+                        <th class="text-center" width="5%">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -201,11 +201,12 @@
                             Admin
                           <% end %>
                         </td>
-                        <td class="stock-box"><%=product.stock.to_i %></td>
-                        <td class="price-box"><%=number_to_currency((number_with_precision(product.price, :precision => 2) || 0), unit: '£') %></td>
+                        <td class="stock-box text-center"><%=product.stock.to_i %></td>
+                        <td class="text-center price-box"><%=number_to_currency((number_with_precision(product.price, :precision => 2) || 0), unit: '£') %></td>
                         <td><%=number_to_currency((number_with_precision(300, :precision => 2) || 0), unit: '£') %></td>
                         <td><%=number_to_currency((number_with_precision(300, :precision => 2) || 0), unit: '£') %></td>
-                        <td class="discount-box"><%= "#{product.discount}" %></td>
+                        <td class="text-center"<a href="" class="decoration-none"><span class="icon-manage-Yavolo font-20px"></span></a></td>
+                        <td class="discount-box text-center"><%= "#{product.discount}" %></td>
                         <td>
                             <div class="d-flex">
                                 <span class="icon-star pr-1 font-20px pr-2"></span>

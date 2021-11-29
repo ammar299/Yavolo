@@ -65,6 +65,7 @@ Rails.application.routes.draw do
             get :category_details
             get :category_products_with_pagination
             delete :remove_filter_group_association
+            get :confirm_remove_filter_group_association
             delete :remove_image
             put :add_filter_group_association
             get :get_filter_groups

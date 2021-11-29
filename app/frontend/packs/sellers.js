@@ -56,7 +56,7 @@ $(document).ready(function(){
           url_without_scheme: true
         },
         "seller[company_detail_attributes][vat_number]": {
-          required: true
+          required: true,
         },
         "seller[addresses_attributes][0][address_line_1]": {
           required: true
@@ -290,7 +290,7 @@ $(document).ready(function(){
           url_without_scheme: true
         },
         "seller[company_detail_attributes][vat_number]": {
-          required: true
+          required: true,
         },
         "seller[addresses_attributes][0][address_line_1]": {
           required: true
@@ -822,7 +822,7 @@ window.validateSellerEditForm = function() {
         url_without_scheme: true
       },
       "seller[company_detail_attributes][vat_number]": {
-        required: true
+        required: true,
       },
       "seller[addresses_attributes][0][address_line_1]": {
         required: true
