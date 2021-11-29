@@ -14,6 +14,15 @@ class Admin::OrdersController < Admin::BaseController
     @order_line_items = @order.line_items
     @order_shipping_address = @order.shipping_address
     @order_billing_address = @order.billing_address
+    respond_to do |format|
+      format.html
+      format.pdf {
+        render pdf: "Order_#{@order.id}",
+               template: 'admin/orders/download_order.pdf.erb',
+               layout: false,
+               disposition: 'attachment'
+      }
+    end
   end
 
   private
