@@ -22,13 +22,14 @@ module Products
 
     private
       def generate_csv
-        headers = get_csv_headers
+        headers = get_csv_headers 
         @csv_file = CSV.generate(headers: true) do |csv|
-                      csv << headers
-                      Product.where(owner_id: owner.id, owner_type: owner.class.name).find_each do |product|
-                        csv << get_columns_values(product)
-                      end
-                    end
+          csv << headers
+          @products = owner
+          @products.each do |product|
+            csv << get_columns_values(product)   
+          end
+        end
       end
 
       def get_csv_headers
@@ -36,7 +37,7 @@ module Products
           "title", "condition", "width", "depth", "height", "colour", "material", "brand", "keywords", "description", "price", "stock", "sku", "ean", "discount", "yavolo_enabled", "delivery_option_id",
           "seo_title", "seo_url", "seo_description", "seo_keywords",
           "ebay_lifetime_sales", "ebay_thirty_day_sales", "ebay_price", "ebay_thirty_day_revenue", "ebay_mpn_number",
-          "google_title", "google_price", "google_category", "google_campaign_category", "google_description", "google_exclude_from_google_feed","images"
+          "google_title", "google_price", "google_category", "google_campaign_category", "google_description", "google_exclude_from_google_feed","images","seller"
         ]
       end
 
@@ -52,6 +53,7 @@ module Products
         ginfo = product.google_shopping
         values << [ginfo.title, ginfo.price, ginfo.category, ginfo.campaign_category, ginfo.description,ginfo.exclude_from_google_feed ] if ginfo.present?
         values << product.pictures.map{|p| p.name.url}.join("|")
+        values << seller_name(product)
         values.flatten
       end
 
@@ -59,6 +61,13 @@ module Products
         @owner ||= params[:owner]
       end
 
+      def seller_name(product)
+        if product.owner_type == "Seller"
+          "#{product.owner.first_name} #{product.owner.last_name}"
+        else
+          "Admin"
+        end
+      end
 
   end
 end

@@ -29,8 +29,8 @@ module Products
         csv.each do |row|
           if have_required_fields?(row)
             product = Product.new(get_params(row))
-            product.owner_id = csv_import.importer_id
-            product.owner_type = csv_import.importer_type
+            product.owner_id = product_owner_id(row)
+            product.owner_type = product_owner_type(row)
             product.status = 'draft'
             product.filter_in_category_ids = []
             product.delivery_option_id = get_default_delivery_option_id
@@ -47,6 +47,27 @@ module Products
         @errors.present? ? csv_import.update(status: :failed, import_errors: @errors.uniq.join(', ') ) : csv_import.update({status: :imported})
         @errors.present? ? @status = false : @status = true
         self
+      end
+
+      def product_owner_id(row)
+        if row["seller"] != "Admin"
+          owner = Seller.where("CONCAT_WS(' ', first_name, last_name) LIKE ?", row["seller"]).first
+          if owner.present?
+            return owner.id 
+          else
+            return nil
+          end
+        else
+          return 1
+        end
+      end
+
+      def product_owner_type(row)
+        if row["seller"] != "Admin"
+          return "Seller" 
+        else
+          return "Admin"
+        end
       end
 
       def csv_import

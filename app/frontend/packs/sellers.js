@@ -479,6 +479,7 @@ $(document).ready(function(){
           /* Return whether the element is optional or the result of the validation. */
           return this.optional(element) || regexp.test(value);
       });
+
   }
 
   $("#check-all-checkboxes").click(function () {
@@ -626,6 +627,20 @@ $(document).ready(function(){
     })
   })
 
+  $(".export-csv-selected-products").click(function(event){
+    var selected_products = []
+    $('.multiple-products input[type=checkbox]:checked').each(function () {
+    selected_products.push($(this).val())
+    });
+    if (selected_products.length < 1) {
+      $('.multiple-products input[type=checkbox]').each(function() {
+        selected_products.push($(this).val())
+      });
+    }
+    else{
+      $(this).attr('href','/sellers/products/export_csv.csv?products='+selected_products);
+    }
+  })
 });
 
 function validCsvFile(files) {

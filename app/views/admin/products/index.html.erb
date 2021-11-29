@@ -122,7 +122,10 @@
             </div>
             <div class="all-products-header-right d-flex justify-content-between">
                 <a href="#" class="btn btn-sm btn-radius px-2 btn-primary mr-1 upload-csv-btn">Upload CSV</a>
-                <%= link_to "Export CSV", export_csv_admin_products_path(:format => :csv), class: 'btn btn-sm btn-radius px-2 btn-primary mr-1' %>
+                 <%= link_to 'Export CSV', export_csv_admin_products_path(format: "csv", product: "") ,class: 'btn btn-radius px-4 btn-primary btn-sm mr-1 my-1 export-csv-selected-products' %>
+
+                <%#= link_to "Export CSV", export_csv_admin_products_path(:format => :csv), class: 'btn btn-sm btn-radius px-2 btn-primary mr-1' %>
+
                 <%=link_to 'Create New Product', new_admin_product_path, class: 'btn btn-sm btn-radius px-2 btn-primary' %>
             </div>
         </div>
@@ -166,10 +169,12 @@
                   <% @products.each do |product| %>
                     <tr class="prod-table-row" id="prod-id-<%=product.id%>">
                         <td>
+                          <div class="multiple-products">
                             <label class="checkbox-blk">
                                 <input type="checkbox" name="product_ids[]" class="product_ids" value="<%=product.id%>">
                                 <span class="checkmark"></span>
                             </label>
+                          </div>
                         </td>
                         <td class="product-status"><%= product.status.to_s.titleize %></td>
                         <td>

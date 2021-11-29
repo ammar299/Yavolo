@@ -103,11 +103,17 @@ class Sellers::ProductsController < Sellers::BaseController
   end
 
   def export_csv
-    if current_seller.products.count > 50
-      ExportCsvWorker.perform_async(current_seller.id, current_seller.class.name)
-      redirect_to sellers_products_path, notice: 'Products export is started, You will receive a file when its completed.'
+    products = get_products()
+    all_products = []
+    products.each do |product|
+      product = Product.find(product)
+      all_products << product
+    end
+    if all_products.count > 50
+      ExportCsvWorker.perform_async(current_admin.id, current_admin.class.name)
+      redirect_to admin_products_path, notice: 'Products export is started, You will receive a file when its completed.'
     else
-      exporter = Products::Exporter.call({ owner: current_seller })
+      exporter = Products::Exporter.call({ owner: all_products })
       if exporter.status
         respond_to do |format|
           format.csv { send_data exporter.csv_file, filename: "products_#{Time.zone.now.to_i}.csv" }
@@ -117,6 +123,16 @@ class Sellers::ProductsController < Sellers::BaseController
       end
     end
   end
+
+  def get_products
+    products = []
+    product_ids = params[:products].split(",")
+    product_ids.each do |product|
+      products << product.to_i
+    end
+    return products
+  end
+
 
   def update_field
     permitted_params = params.require(:product).permit(:id,:value,:action)
