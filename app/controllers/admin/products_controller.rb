@@ -111,6 +111,11 @@ class Admin::ProductsController < Admin::BaseController
     end
   end
 
+  def preview_listing
+    session[:preview_listing] = { product: params }
+    render json: { product_name: params[:title].parameterize }, status: :ok
+  end
+
   private
     def current_user
       current_admin

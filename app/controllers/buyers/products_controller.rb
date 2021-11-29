@@ -3,10 +3,10 @@ class Buyers::ProductsController < ApplicationController
   layout 'buyers/buyer'
 
   def show
+    @product = Product.find_by_handle(params[:id])
     if params[:preview_listing]
-      @product = session[:preview_listing][:product]
-    else
-      @product = Product.find_by_handle(params[:id])
+      terms_and_returns = @product.owner_type == "Seller" ? @product.owner&.return_and_term&.instructions : ""
+      @product = session[:preview_listing][:product].merge("terms_and_returns" => terms_and_returns)
     end
   end
 end

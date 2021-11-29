@@ -87,7 +87,7 @@
                   <% end %>
                 </div>
               </div>
-              <%= hidden_field_tag 'product[product_id]', @product.id %>
+              <%= hidden_field_tag 'product[product_id]', @product["id"] %>
               <%= hidden_field_tag 'page', 'pdp' %>
               <div>
                 <a href="#" class="btn btn-lg btn-radius px-4 btn-primary w-100 mb-2">BUY IT NOW</a>
@@ -328,7 +328,11 @@
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
                      data-parent="#accordion">
                   <div class="card-body px-4">
-                    <%= @product.owner_type == "Seller" ? @product.owner&.return_and_term&.instructions : "" %>
+                    <% if params[:preview_listing] %>
+                      <%= @product["terms_and_returns"].html_safe %>
+                    <% else %>
+                      <%= @product.owner_type == "Seller" ? @product.owner&.return_and_term&.instructions : "" %>
+                    <% end %>
                   </div>
                 </div>
               </div>

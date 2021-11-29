@@ -939,8 +939,9 @@ $(document).ready(function () {
     }).get()
 
     $.ajax({
-      url: "/preview_listing",
+      url: "/" + $('#namespace').val() + "/preview_listing",
       data: {
+        id: $("#product_id").val(),
         title: $("#product_title").val(),
         condition: $("#product_condition").val(),
         description: $(".ck-content").html(),
