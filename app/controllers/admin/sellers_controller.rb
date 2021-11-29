@@ -149,10 +149,13 @@ class Admin::SellersController < Admin::BaseController
   end
   
   def export_sellers
-    selected_sellers = get_sellers()
     all_sellers = []
-    selected_sellers.each do |seller|
-      seller = Seller.find(seller)
+    get_sellers.each do |seller|
+      begin
+        seller = Seller.find(seller.id || seller)
+      rescue
+        seller = Seller.find(seller)
+      end
       all_sellers << seller
     end
     
@@ -161,7 +164,6 @@ class Admin::SellersController < Admin::BaseController
         format.html
         format.csv { send_data Seller.new.to_csv(all_sellers), filename: "#{Date.today}-export-sellers.csv" }
       end
-      
       csv = Seller.new.to_csv(all_sellers)
       ExportSellerCsvViaEmailWorker.perform_async(current_admin.email, csv)
     end
@@ -169,11 +171,16 @@ class Admin::SellersController < Admin::BaseController
 
   def get_sellers
     sellers = []
-    seller_ids = params[:sellers].split(",")
-    seller_ids.each do |seller|
-      sellers << seller.to_i
+    if params[:all] == "true"
+      Seller.all.each do |seller|
+        sellers << seller.id.to_i
+      end
+    else
+      seller_ids = params[:sellers].split(",") if params[:sellers].present?
+      seller_ids.each do |seller|
+        sellers << seller.to_i
+      end
     end
-    return sellers
   end
 
   def reset_password_token

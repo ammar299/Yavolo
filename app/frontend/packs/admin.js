@@ -144,27 +144,18 @@ $(document).ready(function(){
       }
     });
    
-    $(".export-csv-selected-sellers").click(function(){
+    $(document).on("click", ".export-csv-selected-sellers", function(e){
       var selected_sellers = []
       $('.multiple-update-sellers input[type=checkbox]:checked').each(function () {
       selected_sellers.push($(this).val())
       });
+
       if (selected_sellers.length < 1) {
-        $("#export-seller-failure").addClass("notice-msg")
-        setTimeout(() => { 
-            $("#export-seller-failure").removeClass("notice-msg")
-        }, 3000);
-        return false
+        $(this).attr('href','/admin/export_sellers.csv?sellers='+selected_sellers+'&all=true')
       }
       else{
-        $(this).attr('href','/admin/export_sellers.csv?sellers='+selected_sellers)
-        $("#export-seller-sucsess").addClass("notice-msg")
-        setTimeout(() => { 
-            $("#export-seller-sucsess").removeClass("notice-msg")
-        }, 3000);
+        $(this).attr('href','/admin/export_sellers.csv?sellers='+selected_sellers+'&all=false')
       }
-
-
     })
 
     $(".export-csv-selected-products").click(function(event){
