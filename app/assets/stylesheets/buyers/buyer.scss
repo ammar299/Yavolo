@@ -93,8 +93,7 @@
   background-color: #fff;
   border-radius: 50%;
   margin-bottom: 10px;
-  // Getting error in SCSS so commented below line as designer told to fix it later!
-  //box-shadow: rgb(0 0 0 / 4%) 0px 0px 5px 4px;
+  box-shadow: 1px 1px 5px #0000000A;
 }
 .heading-subtitle {
   display: flex;
