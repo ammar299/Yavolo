@@ -5,7 +5,7 @@ class Sellers::PaymentMethodsController < Sellers::BaseController
     if params[:stripeToken].present?
       @seller =  current_seller
       stripe_token = params[:stripeToken]
-      card = @seller.seller_payment_methods.where(token: stripe_token)
+      card = @seller.seller_payment_methods.where(stripe_token: stripe_token)
       stripe_customer if !@seller.stripe_customer.present?
       if !card.present?
         token = Sellers::StripeApiCallsService.retrieve_token(stripe_token)
@@ -54,7 +54,7 @@ class Sellers::PaymentMethodsController < Sellers::BaseController
 
   def save_card_in_db(token)
     current_seller.seller_payment_methods.create(
-      token: token.id,
+      stripe_token: token.id,
       last_digits: token.card.last4,
       card_holder_name: token.card.name,
       card_id: token.card.id,
