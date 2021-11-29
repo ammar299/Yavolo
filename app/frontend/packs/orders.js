@@ -24,6 +24,7 @@ $(document).ready(function () {
     $('#yes-perform-action').click(function (e) {
         e.preventDefault();
         $('#admin-orders-confirm').modal('hide');
+        if($('.order-bulk-actions').length == 0) return;
         updateBulkOrders($('.order-bulk-actions a.dropdown-item.active').data('bulkaction'));
         $('.order-bulk-actions a.dropdown-item').removeClass('active');
     })

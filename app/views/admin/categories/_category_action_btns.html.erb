@@ -1,6 +1,7 @@
 <div class="d-flex flex-wrap justify-content-between mb-4 mt-5">
   <h4 class="m-0">Categories</h4>
   <div>
+    <%= link_to 'Back', admin_products_path, class: 'btn btn-sm btn-radius px-4 btn-primary my-2 ' %>
     <%= link_to 'Delete', "#", class: 'btn btn-sm btn-radius px-4 btn-primary my-2 delete-category-action-btn' %>
     <%= link_to 'Create New Sub Category', new_admin_category_path(is_subcategory: true), class: 'btn btn-sm btn-radius px-4 btn-primary my-2 sub-category-link disabled', data: {remote: true} %>
     <%= link_to 'Create New Category', new_admin_category_path, class: 'btn btn-sm btn-radius px-4 btn-primary my-2 category-link', data: {remote: true} %>

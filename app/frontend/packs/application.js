@@ -18,7 +18,9 @@ Rails.start();
 ActiveStorage.start();
 import "controllers";
 require("jquery");
+
 require("@nathanvda/cocoon");
+require("packs/jquery.inputmask.bundle.min")
 require("packs/admin");
 require("packs/categories");
 require("packs/delivery_options");
@@ -30,7 +32,6 @@ require("packs/success-meter");
 require("packs/orders");
 require("packs/date-picker");
 require("packs/all-page-events");
-require("@nathanvda/cocoon");
 const ClassicEditor = require("@ckeditor/ckeditor5-build-classic");
 require("packs/jquery.validate");
 require("packs/selectize.min");

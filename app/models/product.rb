@@ -33,9 +33,9 @@ class Product < ApplicationRecord
     # validates :sku, uniqueness: true, if: Proc.new{|p| p.sku.present? }
     validates :ean, uniqueness: true, if: Proc.new{|p| p.ean.present? }
     validates :yan, uniqueness: true, if: Proc.new{|p| p.yan.present? }
-    validates :title, :condition, :description, :keywords, :price, presence: true
+    validates :title, :condition, :description, :keywords, presence: true
     validates :discount, presence: true, inclusion: { in: 2.5..100, message: "value should be between 2.5 and 100" }
-    validates :stock, presence: true, inclusion: { in: 0..MAX_STOCK_VALUE, message: "value should be between 0 and #{MAX_STOCK_VALUE}" }
+    validates :stock,:price, presence: true, inclusion: { in: 0..MAX_STOCK_VALUE, message: "value should be between 0 and #{MAX_STOCK_VALUE}" }
     validate :validate_seller
 
     def validate_seller

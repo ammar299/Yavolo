@@ -38,7 +38,7 @@
                   <div class="col-md-4 pl-md-0">
                     <div class="form-group form-group-vertical flex-wrap">
                       <b><label for="ship_price" class="text-left pr-3 w-100">Price</label></b>
-                      <%= text_field_tag 'ship_price[]', @ship_prices.present? ? @ship_prices[index] : (b.value == 1? "#{get_price_in_pounds(0.00)}" : "#{get_price_in_pounds(delivery_ship_price(@delivery_option.id, b.value))}"), readonly: (b.value == 1), class: 'form-control W-100' %>
+                      <%= text_field_tag 'ship_price[]', @ship_prices.present? ? @ship_prices[index] : (b.value == 1? "#{0.00}" : "#{delivery_ship_price(@delivery_option.id, b.value)}"), readonly: (b.value == 1), class: 'form-control W-100 delivery-option-price' %>
                     </div>
                   </div>
                   <div class="col-md-4 pl-md-0">
@@ -71,3 +71,13 @@
     </div>
   <% end %>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $(".delivery-option-price").inputmask('currency', {
+            prefix: '£',
+            rightAlign: false
+        });
+    })
+
+</script>
