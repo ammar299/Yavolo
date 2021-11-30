@@ -328,11 +328,12 @@
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
                      data-parent="#accordion">
                   <div class="card-body px-4">
-                    <% if params[:preview_listing] %>
-                      <%= @product["terms_and_returns"].present? ? @product["terms_and_returns"].try(:html_safe) : "" %>
-                    <% else %>
-                      <%= @product.owner_type == "Seller" ? @product.owner&.return_and_term&.instructions.html_safe : "" %>
-                    <% end %>
+                    <%# if params[:preview_listing] %>
+                      <%#= @product["terms_and_returns"].present? ? @product["terms_and_returns"].try(:html_safe) : "" %>
+                    <%# else %>
+                      <%#= @product.owner_type == "Seller" ? @product.owner&.return_and_term&.instructions.html_safe : "" %>
+                    <%# end %>
+                    <%= @product.try(:owner).try(:return_and_term).try(:instructions).try(:html_safe) %>
                   </div>
                 </div>
               </div>
