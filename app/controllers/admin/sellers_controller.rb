@@ -38,7 +38,6 @@ class Admin::SellersController < Admin::BaseController
       if @seller.save
         AdminMailer.with(to: @seller.email.to_s.downcase,token: raw).send_account_creation_email_admin_seller.deliver_now
       end
-
       redirect_to admin_sellers_path, flash: { notice: 'Seller has been saved' }
     else
       render :new
@@ -132,6 +131,11 @@ class Admin::SellersController < Admin::BaseController
   def change_lock_status
     bool = @seller.is_locked == true ? false : true
     @seller.update(is_locked: bool)
+    if @seller.is_locked == true
+      SellerMailer.with(to: @seller.email.downcase).send_account_lock_email.deliver_now
+    else
+      SellerMailer.with(to: @seller.email.downcase).send_account_unlock_email.deliver_now
+    end
     text = bool == false ? 'Unlocked seller successfully!' : 'Locked seller successfully!'
     flash.now[:notice] = text.to_s
   end
