@@ -29,6 +29,8 @@ class SellerMailer < ApplicationMailer
   def send_account_unlock_email
     mail(to: params[:to], subject: 'Yavolo: Your seller account has been unlocked.')
     puts "---- Email Sent for seller account unlocked ------"
+  end
+
 
   def send_holiday_mode_email(seller)
     @seller_holiday_mode = seller.holiday_mode ? 'enabled' : 'disabled'
