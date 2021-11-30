@@ -68,6 +68,8 @@ class Seller < ApplicationRecord
 
   has_many :products, as: :owner, dependent: :destroy
 
+  scope :available_sellers_for_product, -> { where(account_status: ['approve', 'suspend']) }
+
   def self.create_from_provider_data(provider_data)
     where(email: provider_data.info.email, uid: provider_data.uid).first_or_create do |user|
       user.email = provider_data.info.email
