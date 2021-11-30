@@ -33,15 +33,12 @@ function addNewSellerFormValidation() {
         required: true,
       },
       "seller[company_detail_attributes][website_url]": {
-        required: true,
         url_without_scheme: true
       },
       "seller[company_detail_attributes][amazon_url]": {
-        required: true,
         url_without_scheme: true
       },
       "seller[company_detail_attributes][ebay_url]": {
-        required: true,
         url_without_scheme: true
       },
       "seller[company_detail_attributes][vat_number]": {
@@ -122,10 +119,11 @@ function addNewSellerFormValidation() {
       },
       "seller[bank_detail_attributes][account_number]": {
         required: true,
-        exactlength: 8,
+        exactlength: 8
       },
       "seller[bank_detail_attributes][account_number_confirmation]": {
         required: true,
+        equalTo: "#seller_bank_detail_attributes_account_number"
       },
       "seller[terms_and_conditions]": {
         required: true,
@@ -159,15 +157,6 @@ function addNewSellerFormValidation() {
       },
       "seller[company_detail_attributes][business_industry]": {
         required: "Business industry is required",
-      },
-      "seller[company_detail_attributes][website_url]": {
-        required: "Website URL is required",
-      },
-      "seller[company_detail_attributes][amazon_url]": {
-        required: "Amazon URL is required",
-      },
-      "seller[company_detail_attributes][ebay_url]": {
-        required: "ebay URL is required",
       },
       "seller[company_detail_attributes][vat_number]": {
         required: "VAT number is required",
@@ -244,16 +233,13 @@ function addNewSellerFormValidation() {
       },
       "seller[bank_detail_attributes][account_number_confirmation]": {
         required: "Confirm Account Number is required",
+        equalTo: "Confirm Account number should match Account number"
       },
       "seller[terms_and_conditions]": {
         required: "Please accept term & condtions",
       }
     },
   });
-  jQuery.validator.addMethod("url_without_scheme", function(value, element) {
-        return /^(?:www\.)?[A-Za-z0-9_-]+\.+[A-Za-z0-9.\/%&=\?_:;-]+$/.test(value);
-      }, "Please enter a valid URL without http/https"
-  );
 
   jQuery.validator.addMethod("postal_code_uk", function (value, element) {
     return this.optional(element) || /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/.test(value);

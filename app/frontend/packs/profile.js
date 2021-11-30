@@ -216,10 +216,6 @@ function addNewSellerFormValidation() {
       },
     },
   });
-  jQuery.validator.addMethod("url_without_scheme", function(value, element) {
-        return /^(?:www\.)?[A-Za-z0-9_-]+\.+[A-Za-z0-9.\/%&=\?_:;-]+$/.test(value);
-      }, "Please enter a valid URL without http/https"
-  );
 
   jQuery.validator.addMethod("postal_code_uk", function (value, element) {
     return this.optional(element) || /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/.test(value);

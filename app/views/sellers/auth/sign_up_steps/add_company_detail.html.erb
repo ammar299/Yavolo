@@ -52,20 +52,20 @@
             </div>
             <% has_error, msg = get_errors(form, "company_detail.website_url") %>
             <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
-              <%= cd.label :website_url, 'Business Website URL*' %>
-              <%= cd.text_field :website_url, required: true, class: 'form-control' %>
+              <%= cd.label :website_url, 'Business Website URL' %>
+              <%= cd.text_field :website_url, class: 'form-control' %>
               <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
             <% has_error, msg = get_errors(form, "company_detail.ebay_url") %>
             <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
-              <%= cd.label :ebay_url, 'eBay URL*' %>
-              <%= cd.text_field :ebay_url, required: true, class: 'form-control' %>
+              <%= cd.label :ebay_url, 'eBay URL' %>
+              <%= cd.text_field :ebay_url, class: 'form-control' %>
               <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
             <% has_error, msg = get_errors(form, "company_detail.amazon_url") %>
             <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
-              <%= cd.label :amazon_url, 'Amazon URL*' %>
-              <%= cd.text_field :amazon_url, required: true, class: 'form-control' %>
+              <%= cd.label :amazon_url, 'Amazon URL' %>
+              <%= cd.text_field :amazon_url, class: 'form-control' %>
               <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
             <%= cd.submit "Continue", class: 'btn btn-primary btn-lg btn-block mb-4' %>

@@ -77,7 +77,7 @@
             <% business_representative_address = @seller.addresses.build(address_type: 'business_representative_address') %>
           <% end %>
           <!-- Registered Business Address / Address with type business_address -->
-          <h5 class="mt-4 mb-4">Registerd Business Address*</h5>
+          <h5 class="mt-4 mb-4">Registered Business Address*</h5>
           <div class="pl-3">
             <%= form.simple_fields_for :addresses, (business_address) do |addr| %>
               <!--<div class="form-group general-mrgn">-->
@@ -94,17 +94,14 @@
                 <%= addr.label :city, 'City*' %>
                 <%= addr.text_field :city, placeholder: 'City', class: 'form-control' %>
               </div>
-              <div class="form-group general-mrgn">
-                <%= addr.label :county, 'County*' %>
-                <%= addr.text_field :county, placeholder: 'County', class: 'form-control' %>
-              </div>
+
               <div class="form-group general-mrgn">
                 <%= addr.label :postal_code, 'Post Code*' %>
                 <%= addr.text_field :postal_code, placeholder: 'Post Code', class: 'form-control' %>
               </div>
               <div class="form-group general-mrgn">
                 <%= addr.label :country, 'Country*' %>
-                <%= addr.select :country, options_for_select(countries_list, addr.object.country || default_country), { prompt: 'Select Country' }, required: true, class: 'form-control' %>
+                <%= addr.select :country, options_for_select(countries_list, addr.object.country || default_country), { include_blank: false }, class: 'form-control' %>
               </div>
               <div class="form-group general-mrgn">
                 <%= addr.label :phone_number, 'Business Phone Number*' %>

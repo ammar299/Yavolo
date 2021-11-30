@@ -35,16 +35,10 @@
               <%= b_addr.text_field :city, required: true, class: 'form-control' %>
               <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
-            <% has_error, msg = get_errors(form, "addresses.county") %>
-            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
-              <%= b_addr.label :county, 'County*' %>
-              <%= b_addr.text_field :county, required: true, class: 'form-control' %>
-              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
-            </div>
             <% has_error, msg = get_errors(form, "addresses.country") %>
             <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= b_addr.label :country, 'Country*' %>
-              <%= b_addr.select :country, options_for_select(countries_list, b_addr.object.country || default_country), { prompt: 'Select Country' }, required: true, class: 'form-control' %>
+              <%= b_addr.select :country, options_for_select(countries_list, b_addr.object.country || default_country), { include_blank: false }, class: 'form-control' %>
               <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
             <% has_error, msg = get_errors(form, "addresses.postal_code") %>
