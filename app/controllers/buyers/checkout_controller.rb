@@ -185,6 +185,7 @@ class Buyers::CheckoutController < Buyers::BaseController
           end
           if !@buyer.present?
             @buyer = find_or_create_buyer(payer_info.email_address)
+            @order.update(buyer_id: @buyer.id)
             @order.buyer_payment_method.update(buyer_id: @buyer.id)
           end
           @order = update_order_to_paid(@order, @order_amount[:total], @order_amount[:sub_total])
