@@ -90,6 +90,7 @@ class Sellers::ProfilesController < Sellers::BaseController
     @seller.update(holiday_mode_params)
     text = @seller.holiday_mode == true ? "Enabled holiday mode successfully" : "Disabled holiday mode successfully"
     flash.now[:notice] = "#{text}"
+    SellerMailer.with(to: @seller.email.downcase).send_holiday_mode_email(@seller).deliver_now
   end
 
   def reset_password_token

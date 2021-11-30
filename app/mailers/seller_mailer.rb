@@ -20,4 +20,10 @@ class SellerMailer < ApplicationMailer
     puts "---- Email Sent for seller account suspension ------"
   end
 
+  def send_holiday_mode_email(seller)
+    @seller_holiday_mode = seller.holiday_mode ? 'enabled' : 'disabled'
+    mail(to: params[:to], subject: 'Yavolo: Holiday Mode')
+    puts "---- Email Sent for Seller Holiday Mode status ------"
+  end
+
 end
