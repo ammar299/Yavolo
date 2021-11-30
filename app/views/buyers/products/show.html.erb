@@ -282,7 +282,7 @@
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
                      data-parent="#accordion">
                   <div class="card-body px-4">
-                    <%= @product["description"].present? ? @product["description"].html_safe : "" %>
+                    <%= @product["description"].present? ? @product["description"].try(:html_safe) : "" %>
                   </div>
                 </div>
               </div>
@@ -329,7 +329,7 @@
                      data-parent="#accordion">
                   <div class="card-body px-4">
                     <% if params[:preview_listing] %>
-                      <%= @product["terms_and_returns"].present? ? @product["terms_and_returns"].html_safe : "" %>
+                      <%= @product["terms_and_returns"].present? ? @product["terms_and_returns"].try(:html_safe) : "" %>
                     <% else %>
                       <%= @product.owner_type == "Seller" ? @product.owner&.return_and_term&.instructions.html_safe : "" %>
                     <% end %>
