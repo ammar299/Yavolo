@@ -44,6 +44,7 @@ module Sellers
             end
           else
             puts "seller already exists or error found"
+            @errors << "Seller: #{row["user_email"]} already exists"
           end
         end
         @errors.present? ? csv_import.update(status: :failed, import_errors: @errors.uniq.join(', ') ) : csv_import.update({status: :imported})
@@ -73,9 +74,14 @@ module Sellers
       def date_of_birth_is_valid_datetime(row)
         @dob_errors = []
         begin
-          dob = Date.strptime(row["business_representative_date_of_birth"], '%d/%m/%y')
+          dob = Date.strptime(row["business_representative_date_of_birth"], '%d/%m/%Y')
+          diff = Time.now.year - dob.year
           if dob > Time.now
-            @dob_errors << "date of birth cannot be in the future"
+            row["business_representative_date_of_birth"] = nil
+            @dob_errors << "Date of birth cannot be in the future"
+          elsif diff < 18
+            row["business_representative_date_of_birth"] = nil
+            @dob_errors << "Date of birth cannot be less than 18 year"
           end
         rescue
           @dob_errors << "#{row["business_representative_date_of_birth"]} must be a valid date. Valid format is dd/mm/yyyy"
