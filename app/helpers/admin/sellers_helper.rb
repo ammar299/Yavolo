@@ -59,7 +59,7 @@ module Admin::SellersHelper
 
   def seller_account_statuses_for_dropdown(seller)
     if seller.pending?
-      construct_dropdown_options_for_seller_account_statuses(%w(pending approve reject))
+      construct_dropdown_options_for_seller_account_statuses(%w(pending approve rejected))
     elsif seller.approve?
       construct_dropdown_options_for_seller_account_statuses( %w(approve suspend))
     elsif seller.rejected?

@@ -149,11 +149,18 @@ class Seller < ApplicationRecord
   end
 
   def update_seller_products_listing
-    if self.suspend? || self.in_active?
-      self.in_active!
-      self.products.where(status: :active).update_all(status: :inactive)
-    elsif self.active?
-      self.products.where(status: :inactive).update_all(status: :active)
+    if has_account_status_changed?
+      if self.suspend? || self.pending?
+        self.in_active!
+        de_active_all_products
+      elsif self.activate? || self.approve?
+        self.active!
+        active_all_products
+      end
+    elsif self.in_active? #if listing status has changed
+      de_active_all_products
+    elsif self.active? #if listing status has changed
+      active_all_products
     end
   end
 
@@ -165,6 +172,14 @@ class Seller < ApplicationRecord
   end
 
   private
+
+  def active_all_products
+    self.products.where(status: :inactive).update_all(status: :active)
+  end
+
+  def de_active_all_products
+    self.products.where(status: :active).update_all(status: :inactive)
+  end
 
   def date_of_birth_is_valid_datetime
     return unless date_of_birth.present?
