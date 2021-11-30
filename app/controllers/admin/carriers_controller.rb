@@ -10,6 +10,7 @@ class Admin::CarriersController < Admin::BaseController
     if @carrier.save
       redirect_to admin_delivery_options_path, flash: { notice: "Carrier has been saved" }
     else
+      flash.now[:notice] =  @carrier.errors.full_messages.join('')
       render :new
     end
   end
@@ -18,6 +19,7 @@ class Admin::CarriersController < Admin::BaseController
     if @carrier.update(carrier_params)
       redirect_to admin_delivery_options_path, flash: { notice: 'Carrier has been updated' }
     else
+      flash.now[:notice] =  @carrier.errors.full_messages.join('')
       render :edit
     end
   end
