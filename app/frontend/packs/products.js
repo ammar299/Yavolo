@@ -216,6 +216,11 @@ $(document).ready(function(){
     $(this).addClass("active")
   })
 
+  $("customInputValue").attr({
+    "max" : 100,
+    "min" : 2.5
+ });
+
   $(".yavolo-discount-custom-input").click(function (e) {
     e.preventDefault();
     e.stopPropagation();
