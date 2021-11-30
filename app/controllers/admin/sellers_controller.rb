@@ -16,7 +16,7 @@ class Admin::SellersController < Admin::BaseController
   end
 
   def show
-    @invoices = @seller.billing_listing_stripe 
+    @invoices = @seller.billing_listing_stripe.order('date_generated DESC')
     @delivery_options =  @seller.delivery_options
     @remaining_addresses = Address.address_types.keys - @seller.addresses.collect(&:address_type)
     if @remaining_addresses.present?
@@ -218,20 +218,15 @@ class Admin::SellersController < Admin::BaseController
   end
 
   def update_subscription_by_admin
+    
     if params[:id].present?
       @status = params[:subsciption_status]
       subscription = Admins::Sellers::SubscriptionUpdaterService.call(@status, @seller )
       case subscription.status
-      when "canceled"
+      when "canceled" 
         flash.now[:notice] = "Subscription status canceled for seller: #{@seller.email}"
-      when "month_12"
-        flash.now[:notice] = "Subscription status changed to 12 month"
-      when "month_24"
-        flash.now[:notice] = "Subscription status changed to 24 month"
-      when "month_36"
-        flash.now[:notice] = "Subscription status changed to 24 month"
-      when "lifetime"
-        flash.now[:notice] = "Subscription status changed to lifetime"
+      when  "month_12" , "month_24" , "month_36","lifetime"
+        flash.now[:notice] = "Subscription status changed to #{subscription.status}"
       else
         flash.now[:notice] = "Got into some errors please try again later!!  Errors: #{subscription.errors[0]}"
       end
@@ -257,6 +252,7 @@ class Admin::SellersController < Admin::BaseController
     if subscription.errors.present?
       flash.now[:notice] = "Error occured: #{subscription.errors}"
     else
+      UpdateSubscriptionEmailWorker.perform_async(@seller.email,"renew_subscription")
       flash.now[:notice] = "Subscription Renewed successfully !!"
     end
   end

@@ -29,12 +29,12 @@ module Sellers
     
     def get_stripe_default_plan
       @default_plan = Stripe::Price.retrieve(
-        'price_1JwNfWFqSiWsjxhXYj4fvz6f',
+        'price_1K1QWhFqSiWsjxhXvi9luwKW',
       )
     end
 
     def get_start_date
-      if @seller.provider == "admin" && (@seller.subscription_type == "month_12" || @seller.subscription_type == "month_24" || @seller.subscription_type == "month_36")
+      if @seller.provider == "admin" && (@seller.subscription_type == "month_12" || @seller.subscription_type == "month_24" || @seller.subscription_type == "month_36" || @seller.subscription_type == "lifetime")
         case seller.subscription_type
         when "month_12"
           @start_date = Time.current + 1.year
@@ -42,6 +42,8 @@ module Sellers
           @start_date = Time.current + 2.year
         when "month_36"
           @start_date = Time.current + 3.year
+        when "lifetime"
+          @start_date = Time.current + 10.year
         end
       else
         @start_date = Time.current

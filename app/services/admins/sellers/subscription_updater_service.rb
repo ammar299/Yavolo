@@ -9,7 +9,6 @@ module Admins
           @errors = []
       end
 
-
       def call
         begin
           check_request_status
@@ -38,6 +37,7 @@ module Admins
           @start_date = Time.current + 3.year
           change_seller_subscription_status
         when "lifetime"
+          @start_date = Time.current + 10.year
           change_seller_subscription_status
         else
           errors = "Select correct option"
@@ -59,7 +59,7 @@ module Admins
             {
           items: [
             {
-              price: sub_id.plan_name,
+              price: sub_id.plan_id,
               quantity: 1,
             },
           ],
@@ -105,7 +105,7 @@ module Admins
 
       def update_schedule_subscription_db(sub)
         record = @seller&.seller_stripe_subscription.update(
-          schedule_date: sub.phases[0].start_date
+          schedule_date: Time.at(sub.phases[0].start_date)
         )
         return true if record == true 
       end
@@ -120,9 +120,10 @@ module Admins
           subscription_stripe_id: sub.id,
           status: sub.status,
           cancel_at_period_end: sub.cancel_at_period_end || false,
-          canceled_at: Time.at(sub.canceled_at).to_datetime,
-
+          canceled_at: Time.at(sub.canceled_at),
+          seller_requested_cancelation: false
         )
+        UpdateSubscriptionEmailWorker.perform_async(@seller.email,"canceled_at_time_end")
         return true if record == true 
       end
 
@@ -131,22 +132,10 @@ module Admins
           subscription_schedule_id: sub.id,
           subscription_stripe_id: sub.subscription,
           status: sub.status,
-          cancel_at_period_end: sub.cancel_at_period_end || false,
-          canceled_at: Time.at(sub.canceled_at).to_datetime,
-
+          canceled_at: Time.at(sub.canceled_at),
+          seller_requested_cancelation: false
         )
-        return true if record == true 
-        # CancelSubscriptionEmailWorker.perform_async(@seller.email)
-      end
-
-      def update_current_schedule_subscription(sub)
-        record = @seller&.seller_stripe_subscription.update(
-          subscription_schedule_id: sub.id,
-          subscription_stripe_id: sub.subscription,
-          status: sub.status,
-          canceled_at: Time.at(sub.canceled_at).to_datetime,
-
-        )
+        UpdateSubscriptionEmailWorker.perform_async(@seller.email,"canceled_immediateley")
         return true if record == true 
       end
 

@@ -5,27 +5,27 @@
     <%else%>
       <table class="table mt-2 subscription-table">
         <tbody>
-        <%if @seller.seller_stripe_subscription.status == 'not_started'%>
+        <%if @seller&.seller_stripe_subscription&.status == 'not_started'%>
           <tr>
             <td >Current Subscription:</td>
-            <td id="subscription-name"><%=@seller.seller_stripe_subscription.plan_name%></td>
+            <td id="subscription-name"><%=@seller&.seller_stripe_subscription&.plan_name%></td>
           </tr>
           <tr>
             <td id="">Free till: </td>
-            <td><%=@seller.seller_stripe_subscription&.schedule_date&.strftime('%d/%m/%y %T')%></td>
+            <td><%=@seller&.seller_stripe_subscription&.schedule_date&.strftime('%d/%m/%y %T')%></td>
           </tr>
           <tr>
             <td id="subscription-commission">Commission:</td>
             <td>14.5%</td>
           </tr>
-        <%elsif @seller.seller_stripe_subscription.status == 'active'%>
+        <%elsif @seller&.seller_stripe_subscription&.status == 'active'%>
           <tr>
             <td >Current Subscription:</td>
             <td id="subscription-name"><%=@seller.seller_stripe_subscription.plan_name%></td>
           </tr>
           <tr>
             <td id="subscription-expiry-date">Expires:</td>
-            <td><%=@seller.seller_stripe_subscription&.current_period_end&.strftime('%d/%m/%y %T')%></td>
+            <td><%=@seller&.seller_stripe_subscription&.current_period_end&.strftime('%d/%m/%y %T')%></td>
           </tr>
           <tr>
             <td id="subscription-renewal-cost">Renewal Cost:</td>
@@ -33,7 +33,7 @@
           </tr>
           <tr>
             <td id="subscription-renewal-cost">Renewal Date:</td>
-            <td><%=@seller.seller_stripe_subscription.updated_at.strftime('%d/%m/%y %T')%></td>
+            <td><%=@seller&.seller_stripe_subscription&.updated_at&.strftime('%d/%m/%y %T')%></td>
           </tr>
         
           <tr>
@@ -55,7 +55,7 @@
         </tr>
         <tr>
           <td>Canceled at:</td>
-          <td><%= @seller.seller_stripe_subscription&.canceled_at&.strftime('%d/%m/%y %T') %></td>
+          <td><%= @seller&.seller_stripe_subscription&.canceled_at&.strftime('%d/%m/%y %T') %></td>
         </tr>
       </tbody>
     </table>
