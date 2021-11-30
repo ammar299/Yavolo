@@ -15,5 +15,6 @@ updatedProductIds.forEach(function(pid){
     $('#prod-id-'+pid).find('.row-actions').prepend(disableBtn);
   }
 });
+$(".seller-listing-tab-items").html("<%= j render "sellers/products/listing_tab_items" %>")
 <% end %>
 $("#customConfirmModal").modal('hide');

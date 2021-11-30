@@ -34,6 +34,7 @@ module SharedProductMethods
     if params[:product][:ids].present?
       if current_user.class.name == 'Seller'
         @products = Product.where(id: params[:product][:ids], yavolo_enabled: false, owner_id: current_user.id, owner_type: current_user.class.name).update(yavolo_enabled: true)
+        @listing_by_status_with_count = Product.get_group_by_status_count(current_seller)
       else
         @products = Product.where(id: params[:product][:ids], yavolo_enabled: false).update(yavolo_enabled: true)
       end
@@ -44,6 +45,7 @@ module SharedProductMethods
     if params[:product][:ids].present?
       if current_user.class.name == 'Seller'
         @products = Product.where(id: params[:product][:ids], yavolo_enabled: true, owner_id: current_user.id, owner_type: current_user.class.name).update(yavolo_enabled: false)
+        @listing_by_status_with_count = Product.get_group_by_status_count(current_seller)
       else
         @products = Product.where(id: params[:product][:ids], yavolo_enabled: true).update(yavolo_enabled: false)
       end
