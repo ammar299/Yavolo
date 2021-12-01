@@ -21,7 +21,7 @@ module Buyers::CartHelper
   end
 
   def find_cart_product(product_id)
-    Product.find(product_id)
+    Product.find(product_id) rescue nil
   end
 
   def cart_sub_total

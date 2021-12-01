@@ -9,22 +9,24 @@
     <% if session[:_current_user_cart].present? %>
       <% session[:_current_user_cart].each do |line_items| %>
         <% product = find_cart_product(line_items[:product_id]) %>
-        <div class="mb-1 d-flex pdp-cart-brdr">
-          <div class="p-2 yo-white-card pdp-register-drp-img mr-2 cart-image-section">
-            <span>
-              <%= image_tag product.pictures.first&.name&.url.present? ? product.pictures.first&.name&.url : "default.jpg" %>
-            </span>
-          </div>
-          <div class="d-flex justify-content-between flex-column dark-red-text cart-text-section">
-            <div>
-              <h6 class="mm-text"> <%= product.title %></h6>
+        <% if product.present? %>
+          <div class="mb-1 d-flex pdp-cart-brdr">
+            <div class="p-2 yo-white-card pdp-register-drp-img mr-2 cart-image-section">
+              <span>
+                <%= image_tag product.pictures.first&.name&.url.present? ? product.pictures.first&.name&.url : "default.jpg" %>
+              </span>
             </div>
-            <div class="d-flex justify-content-between">
-              <span class="font-14px">Qty:<%= line_items[:quantity] %></span>
-              <span class="font-14px">£<%= line_items[:quantity].to_i * product.price.to_f %></span>
+            <div class="d-flex justify-content-between flex-column dark-red-text cart-text-section">
+              <div>
+                <h6 class="mm-text"> <%= product.title %></h6>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span class="font-14px">Qty:<%= line_items[:quantity] %></span>
+                <span class="font-14px">£<%= line_items[:quantity].to_i * product.price.to_f %></span>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
       <div class="mb-1 pdp-cart-brdr">
         <div class="d-flex justify-content-between dark-red-text">
