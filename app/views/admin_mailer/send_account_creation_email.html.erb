@@ -2,7 +2,7 @@
 <p>We’re so excited for you to be a part of our bundle-powered launch.</p>
 <p>Please proceed to below link to add your own password.</p>
 <% unless @token.blank? %>
-  <p><%= link_to 'Change password', edit_seller_password_url(@seller, reset_password_token: @token) %></p>
+  <p><%= link_to 'Add password', edit_seller_password_url(@seller, reset_password_token: @token) %></p>
 <% end %>
 <p>Thanks</p>
 <p>Yavolo Team</p>
