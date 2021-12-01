@@ -43,18 +43,6 @@ $(document).ready(function(){
         "seller[company_detail_attributes][business_industry]": {
           required: true
         },
-        "seller[company_detail_attributes][website_url]": {
-          required: true,
-          url_without_scheme: true
-        },
-        "seller[company_detail_attributes][amazon_url]": {
-          required: true,
-          url_without_scheme: true
-        },
-        "seller[company_detail_attributes][ebay_url]": {
-          required: true,
-          url_without_scheme: true
-        },
         "seller[company_detail_attributes][vat_number]": {
           required: true,
         },
@@ -148,15 +136,6 @@ $(document).ready(function(){
           required: "Required"
         },
         "seller[company_detail_attributes][business_industry]": {
-          required: "Required"
-        },
-        "seller[company_detail_attributes][website_url]": {
-          required: "Required"
-        },
-        "seller[company_detail_attributes][amazon_url]": {
-          required: "Required"
-        },
-        "seller[company_detail_attributes][ebay_url]": {
           required: "Required"
         },
         "seller[company_detail_attributes][vat_number]": {
@@ -1004,7 +983,6 @@ window.validateSellerEditForm = function() {
 
 function validateSellerSignInSignUp() {
   $('form#new_seller').validate({
-    ignore: "", 
     rules: {
       "seller[first_name]": {
         required: true

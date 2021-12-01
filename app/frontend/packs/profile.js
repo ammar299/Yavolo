@@ -32,15 +32,12 @@ function addNewSellerFormValidation() {
         required: true,
       },
       "seller[company_detail_attributes][website_url]": {
-        required: true,
         url_without_scheme: true
       },
       "seller[company_detail_attributes][amazon_url]": {
-        required: true,
         url_without_scheme: true
       },
       "seller[company_detail_attributes][ebay_url]": {
-        required: true,
         url_without_scheme: true
       },
       "seller[company_detail_attributes][vat_number]": {
@@ -141,15 +138,6 @@ function addNewSellerFormValidation() {
       },
       "seller[company_detail_attributes][business_industry]": {
         required: "Business industry is required",
-      },
-      "seller[company_detail_attributes][website_url]": {
-        required: "Website URL is required",
-      },
-      "seller[company_detail_attributes][amazon_url]": {
-        required: "Amazon URL is required",
-      },
-      "seller[company_detail_attributes][ebay_url]": {
-        required: "ebay URL is required",
       },
       "seller[company_detail_attributes][vat_number]": {
         required: "VAT number is required",

@@ -4,7 +4,7 @@
             <div class="add-photoo text-center <%= form.object.new_record? && params[:dup_product_id].blank? ? 'photos-uploader-section' : '' %>">
                 <div class="add-photo-inner">
                     <a href="" class="btn btn-radius px-4 btn-primary photo-btn grid-btn-top show-upload-images-popup">
-                      <%=(form.object.new_record? && params[:dup_product_id].blank?) || form.object.pictures.size < 9 ? 'Add Photos' : 'Edit Photos' %>
+                      <%=(form.object.new_record? && params[:dup_product_id].blank?) || form.object.pictures.size < 1 ? 'Add Photos' : 'Edit Photos' %>
                     </a>
                   <br>
                     <small class="red-color">Upload images to show your sensational product in all its wonderful glory.</small>
