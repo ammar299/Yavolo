@@ -115,6 +115,10 @@ module Sellers
           status = 'suspend'
         when 'active','activate'
           status = 'activate'
+        when 'approve','approved'
+          status = 'approve'
+        when 'reject','rejected'
+          status = 'approve'
         else
           status = 'pending'
         end
