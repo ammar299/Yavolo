@@ -14,7 +14,7 @@
             <div class="row">
                 <% unless defined?(hide_seller_field) && hide_seller_field %>
                     <% has_error, msg = get_errors(form, :owner_id) %>
-                    <div class="form-group general-mrgn col-md-6 mt-0 custom-selectize <%= has_error ? 'error-field' : '' %>">
+                    <div class="form-group general-mrgn col-md-12 mt-0 custom-selectize <%= has_error ? 'error-field' : '' %>">
                         <label for="exampleInputEmail1">Seller*</label>
                         <%= form.select :owner_id, [],{}, class: 'form-control', id: 'search_seller_select' %>
                         <%="<small class='form-text'>#{form.object.errors.where(:owner_id).first.message}</small>".html_safe if has_error %>
