@@ -4,8 +4,8 @@ class Sellers::Auth::SessionsController < Devise::SessionsController
 
   def create
     @seller = Seller.find_by_email params[:seller][:email]
-    if @seller.present? && (@seller.rejected? || @seller.is_locked?)
-      message = "Your account has been #{@seller.rejected? ? "rejected" : "locked"}"
+    if @seller.present? && @seller.rejected? 
+      message = "Your account has been rejected"
       redirect_to new_seller_session_path, notice: message
     elsif @seller.present? && @seller.two_factor_auth == true
       if @seller.valid_password?(params[:seller][:password])
