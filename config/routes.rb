@@ -28,7 +28,9 @@ Rails.application.routes.draw do
           collection do
             get :update_multiple
             get :confirm_multi_update
+            get :confirm_send_password_reset_email
             get :search
+            post :send_password_reset_emails
           end
           member do
             patch :update_business_representative

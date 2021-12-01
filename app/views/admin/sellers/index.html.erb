@@ -35,7 +35,7 @@
                 <%= link_to status_key.humanize, (confirm_multi_update_admin_sellers_path(param_to_update: "#{status_key}")), remote: true, class: 'dropdown-item' %>
               <% end %>
               <%= link_to 'Delete', (confirm_multi_update_admin_sellers_path(param_to_update: "delete")), remote: true,class: 'dropdown-item' %>
-              <a class="dropdown-item multiple-update-sellers" href="#" id="send-password-reset-email-sellers">Send Password </br>Reset Email</a>
+              <%= link_to 'Send Password </br>Reset Email'.html_safe, confirm_send_password_reset_email_admin_sellers_path, remote: true,class: 'dropdown-item', id:"send-password-reset-email-sellers"  %>
             </div>
           </div>
         </div>

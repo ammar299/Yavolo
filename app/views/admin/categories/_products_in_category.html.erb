@@ -69,18 +69,18 @@
       </tr>
       </thead>
       <tbody class="category-products-container">
-      <% @category_products.each do |p| %>
-        <%= render 'product_in_category', product: p %>
-      <% end %>
+      <%= render( :partial => "product_in_category", :collection => @category_products, :as => :product) || render("no_product_in_category") %>
 
       </tbody>
     </table>
-    <div class="row">
-      <div class="col-md-6 mx-auto">
-        <div class="pager-middle text-center d-flex justify-content-center mb-4 mt-5" id="category_paginator">
-          <%= paginate @category_products, remote: true, params: {controller: "/admin/categories", action: 'category_products_with_pagination'} %>
+    <% if @category_products.present? %>
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="pager-middle text-center d-flex justify-content-center mb-4 mt-5" id="category_paginator">
+            <%= paginate @category_products, remote: true, params: {controller: "/admin/categories", action: 'category_products_with_pagination'} %>
+          </div>
         </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>

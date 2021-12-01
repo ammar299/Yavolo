@@ -970,3 +970,14 @@ label {
 }
 
 /*pdp-register-drpdwn  */
+.barometer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+.barometer .container {
+  zoom: 0.6;
+  display: inline-block;
+  width: 355px;
+}
