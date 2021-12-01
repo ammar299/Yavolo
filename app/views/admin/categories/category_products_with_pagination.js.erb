@@ -1,5 +1,7 @@
 $(".category-products-container").html("<%= j render( :partial => "product_in_category", :collection => @category_products, :as => :product) || render("no_product_in_category") %>")
-$("#category_paginator").html("<%= j (paginate @category_products, remote: true, params: {controller: "/admin/categories", action: 'category_products_with_pagination'})  %>");
+if($("#category_paginator").length){
+    $("#category_paginator").html("<%= j (paginate @category_products, remote: true, params: {controller: "/admin/categories", action: 'category_products_with_pagination'})  %>");
+}
 <% if params[:q].present? && params[:q][:title_or_brand_or_sku_or_yan_or_ean_cont].present? %>
   $(".icon-cross-container").removeClass("d-none")
   $(".icon-search-container").addClass("d-none")

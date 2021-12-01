@@ -62,6 +62,16 @@ class Admin::SellersController < Admin::BaseController
 
   def confirm_multi_update; end
 
+  def confirm_send_password_reset_email; end
+
+  def send_password_reset_emails
+    if params[:ids].present?
+      seller_ids = params[:ids].split(',')
+      SendSellersPasswordResetEmailsWorker.perform_async(seller_ids)
+    end
+    flash.now[:notice] = 'Reset emails sent successfully!'
+  end
+
   def update_multiple
     if params[:field_to_update].present? && params[:ids].present?
       @seller_ids = params[:ids].split(',')

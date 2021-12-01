@@ -1,7 +1,10 @@
+<% url = local_assigns.has_key?(:url) ? url : update_multiple_admin_sellers_path(field_to_update: params[:param_to_update]) %>
+<% method = local_assigns.has_key?(:method) ? method : :get %>
+
 <p class="pb-4 confirmation-text" id="updateable-text"> <%= text.present? ? text : 'Are you sure you want to perform this action on seller?' %> </p>
 <div class="carrier-btn text-right">
   <div class="btn btn-sm btn-radius px-4 btn-primary mt-2" data-dismiss="modal">
     No
   </div>
-  <%= link_to 'Yes', update_multiple_admin_sellers_path(field_to_update: params[:param_to_update]), remote: true, method: :get, class: 'btn btn-sm btn-radius px-4 btn-primary mt-2 ml-2 confirmed-action' %>
+  <%= link_to 'Yes',url, remote: true, method: method, class: 'btn btn-sm btn-radius px-4 btn-primary mt-2 ml-2 confirmed-action' %>
 </div>
