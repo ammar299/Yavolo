@@ -118,7 +118,7 @@ module Sellers
         when 'approve','approved'
           status = 'approve'
         when 'reject','rejected'
-          status = 'approve'
+          status = 'rejected'
         else
           status = 'pending'
         end
