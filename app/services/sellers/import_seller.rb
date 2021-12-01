@@ -27,13 +27,21 @@ module Sellers
           seller_found = Seller.where(email: row["user_email"])&.first
           if !seller_found.present?
             begin
-              seller = create_seller_instance(row)
+              password = Random.rand(11111111...99999999)
+              uid = Random.rand(00000000...99999999)
+              seller = create_seller_instance(row,password,uid)
               date_of_birth_is_valid_datetime(row)
               if seller.valid?
                 seller.save
                 seller.update_seller_products_listing
                 create_associate_seller_data(seller,row)
-                AdminMailer.with(to: row["user_email"].to_s.downcase, password: password ).send_account_creation_email.deliver_now #send notification email to seller
+                seller.skip_password_validation = true
+                raw, hashed = Devise.token_generator.generate(Seller, :reset_password_token)
+                seller.reset_password_token = hashed
+                seller.reset_password_sent_at = Time.now.utc
+                if seller.save
+                  AdminMailer.with(to: row["user_email"].to_s.downcase, token: raw,seller: seller ).send_account_creation_email.deliver_now #send notification email to seller
+                end
               else
                 format_error_messages(row, "", seller)
                 next
@@ -52,9 +60,7 @@ module Sellers
         self
       end
 
-      def create_seller_instance(row)
-        password = Random.rand(11111111...99999999)
-        uid = Random.rand(00000000...99999999)
+      def create_seller_instance(row,password,uid)
         Seller.new(
           email: row["user_email"],
           password: "#{password}",
