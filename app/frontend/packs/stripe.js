@@ -4,48 +4,70 @@ $(document).ready(function () {
     theme: "stripe",
   };
 
-  var cardElement = $("div").find("#card-element");
+  // var cardElement = $("div").find("#card-element");
+  // if (cardElement.length > 0) {
+  var elements = stripe.elements();
+
+  var elementClasses = {
+    base: "form-control",
+    focus: "form-control",
+    empty: "form-control",
+    invalid: "form-control error-field",
+  };
+
+  //   // Create an instance of the card Element.
+  //   var card = elements.create("card", {
+  //     classes: elementClasses,
+  //   });
+  //   card.mount("#card-element");
+  // }
+  var cardElement = $("div").find("#stripe-card-elements");
   if (cardElement.length > 0) {
-    var elements = stripe.elements();
-
-    var elementClasses = {
-      base: "form-control",
-      focus: "form-control",
-      empty: "form-control",
-      invalid: "form-control error-field",
-    };
-
-    // Create an instance of the card Element.
-    var card = elements.create("card", {
-      classes: elementClasses,
+    var cardNumber = elements.create("cardNumber", {
+      classes: {
+        base: "form-control",
+        focus: "form-control",
+        empty: "form-control",
+        invalid: "form-control error-field",
+      },
+      showIcon: true,
     });
-    card.mount("#card-element");
+    cardNumber.mount("#card-number");
+
+    var cardExpiry = elements.create("cardExpiry", {
+      classes: {
+        base: "form-control payment-input",
+        focus: "form-control payment-input",
+        empty: "form-control payment-input",
+        invalid: "form-control payment-input error-field",
+      },
+      showIcon: true,
+    });
+    cardExpiry.mount("#card-expiry");
+
+    var cardCvc = elements.create("cardCvc", {
+      classes: {
+        base: "form-control",
+        focus: "form-control",
+        empty: "form-control",
+        invalid: "form-control error-field",
+      },
+      showIcon: true,
+    });
+    cardCvc.mount("#card-cvc");
   }
-  // var cardNumber = elements.create("cardNumber", {
-  //   classes: elementClasses,
-  // });
-  // cardNumber.mount("#card-number");
-
-  // var cardExpiry = elements.create("cardExpiry", {
-  //   classes: elementClasses,
-  // });
-  // cardExpiry.mount("#card-expiry");
-
-  // var cardCvc = elements.create("cardCvc", {
-  //   classes: elementClasses,
-  // });
-  // cardCvc.mount("#card-cvc");
-
   // Add an instance of the card Element into the card-element <div>.
   // card.mount('#card-element');
-  // registerElements([cardNumber, cardExpiry, cardCvc], '#card-element');
+  // registerElements([cardNumber, cardExpiry, cardCvc], "#card-element");
 
   var form = document.getElementById("payment-form");
   if (form) {
     form.addEventListener("submit", function (event) {
       $("#stripe-card-submit").prop("disabled", true);
       event.preventDefault();
-      stripe.createToken(card).then(function (result) {
+      debugger;
+      stripe.createToken(cardNumber).then(function (result) {
+        debugger;
         if (result.error) {
           // Inform the customer that there was an error.
           $("#stripe-card-submit").prop("disabled", false);

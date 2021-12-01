@@ -1,43 +1,44 @@
 <%= render 'shared/progress_bar', locals: { progress: "60" } %>
-<div class="container-fluid">
+<div class="container">
   <div class="row mt-4">
     <div class="col-lg-8">
       <div class="your-detail-left yo-white-card box-border">
         <h5>Payment Details</h5>
         <hr>
         <form action="<%= create_payment_method_path %>" id='payment-form' method='post'>
-        <div class="row m-3">
+        <div class="row m-3" id="stripe-card-elements">
         <input type="hidden" value="stripe">
-        <div id='card-element'></div>
+        <!-- <div id='card-element'></div> -->
         </div>
-          <!-- <div class="row">
+           <div class="row">
             <div class="form-group col-md-6">
               <label for="exampleInputEmail1">Card Number</label>
-              <div id="card-number"></div>
-              <input type="email" class="form-control" id="exampleInputEmail1"
-                     aria-describedby="emailHelp" placeholder="Input field">
+              <div id="card-number" class="form-control input-center"></div>
+              <!-- <input type="text" class="form-control" id="exampleInputEmail1"
+                     aria-describedby="emailHelp" placeholder="Input field"> -->
             </div>
           </div>
           <div class="row">
             <div class="col-lg-7 d-flex align-items-end flex-wrap">
-              <div class="form-group mr-2">
-                <label for="exampleInputEmail1">Expiry Date</label>
-                <div id="card-expiry" class=""></div>
-                <input type="email" class="form-control payment-input" id="exampleInputEmail1"
-                       aria-describedby="emailHelp" placeholder="MM">
-              </div>
               <div class="form-group mr-5">
+                <label for="exampleInputEmail1">Expiry Date</label>
+                <div id="card-expiry" class="form-control payment-input"></div>
+                <!-- <input type="text" class="form-control payment-input" id="exampleInputEmail1"
+                       aria-describedby="emailHelp" placeholder="MM"> -->
+              </div>
+              <!-- <div class="form-group mr-5">
                 <label for="exampleInputEmail1"></label>
                 <input type="email" class="form-control payment-input" id="exampleInputEmail1"
                        aria-describedby="emailHelp" placeholder="YYYY">
-              </div>
+              </div> -->
               <div class="form-group search-field-flex">
                 <label for="exampleInputEmail1">Security Code</label>
-                <input type="number" class="form-control" id="exampleInputEmail1"
-                       aria-describedby="emailHelp" placeholder="Input field">
+                <div id="card-cvc" class="form-control input-center"></div>
+                <!-- <input type="number" class="form-control" id="exampleInputEmail1"
+                       aria-describedby="emailHelp" placeholder="Input field"> -->
               </div>
             </div>
-          </div> -->
+          </div> 
           <div class='row m-3'>
             <label class="checkbox-blk">Save card for later use
               <input type="checkbox" name="is_card_saved">

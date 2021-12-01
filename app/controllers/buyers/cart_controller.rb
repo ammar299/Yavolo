@@ -7,7 +7,7 @@ class Buyers::CartController < Buyers::BaseController
   def cart
     @cart = get_cart
     product_ids = @cart.map { |item| item[:product_id] }
-    @products = Product.find(product_ids) || []
+    @products = Product.find(product_ids) rescue []
     if !@cart.present?
       flash[:notice] = I18n.t('flash_messages.no_products_are_added_to_card')
     end

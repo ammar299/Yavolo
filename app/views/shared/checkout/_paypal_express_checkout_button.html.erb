@@ -4,32 +4,36 @@
 <script src="https://www.paypal.com/sdk/js?client-id=AenJ4UBmKO1vWeAZmWu5soCq5-0ag8fFFicIUcPgPvrX9huey9Fz-s9K3JsQVxdpO6ctzOFvPeClpcVN&disable-funding=credit,card&currency=GBP"></script>
 
 <script>
+
+$(document).ready(function() {
     // Render the PayPal button into #paypal-button-container
 
-    paypal.Buttons({
-        // Set up the transaction
-        createOrder: async () => {
-            const response = await fetch('/create_paypal_order', {method: 'POST'});
-            const responseData = await response.json();
-            return responseData.token;
-        },
-        // Finalize the transaction
-        onApprove: async (data) => {
-            const response = await fetch('/capture_paypal_order', {
-                method: 'POST',
-                headers: {
-                'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({order_id: data.orderID})
-            });
-            const responseData = await response.json();
-            if (responseData.status === 'COMPLETED') {
-                // alert('COMPLETED');
-                // REDIRECT TO SUCCESS PAGE
-                window.location.replace(`/order_completed?order=${responseData.order.id}`);
-            }
-        }
-    }).render('#paypal-button-container');
+  paypal.Buttons({
+      // Set up the transaction
+      createOrder: async () => {
+          const response = await fetch('/create_paypal_order', {method: 'POST'});
+          const responseData = await response.json();
+          return responseData.token;
+      },
+      // Finalize the transaction
+      onApprove: async (data) => {
+          const response = await fetch('/capture_paypal_order', {
+              method: 'POST',
+              headers: {
+              'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({order_id: data.orderID})
+          });
+          const responseData = await response.json();
+          if (responseData.status === 'COMPLETED') {
+              // alert('COMPLETED');
+              // REDIRECT TO SUCCESS PAGE
+              window.location.replace(`/order_completed?order=${responseData.order.id}`);
+          }
+      }
+  }).render('#paypal-button-container');
+
+    })
 
     // var FUNDING_SOURCES = [
     // paypal.FUNDING.PAYPAL,

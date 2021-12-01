@@ -86,7 +86,7 @@ class Buyers::CheckoutController < Buyers::BaseController
       @cart = get_cart
       @order_amount = order_amount
       product_ids = @cart.map { |item| item[:product_id] }
-      @products = Product.find(product_ids) || []
+      @products = Product.find(product_ids) rescue []
     else
       flash[:notice] = I18n.t('flash_messages.no_products_are_added_to_card')
       redirect_to store_front_path
