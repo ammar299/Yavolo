@@ -62,7 +62,7 @@ class Admin::ProductsController < Admin::BaseController
   def update
     @product = Product.friendly.find(params[:id])
     if !@product.active? && params[:commit]== 'APPROVE & PUBLISH'
-      @product.status = 'active'
+      @product.status = @product.owner_type == "Seller" && @product.owner.in_active? ? 'inactive' : 'active'
       @product.published_at = Time.zone.now
     elsif params[:commit]== 'SAVE DRAFT'
       @product.status = 'draft'
