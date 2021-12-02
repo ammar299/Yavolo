@@ -30,3 +30,46 @@ PAYMENT_TYPES = [
 
 MAX_STOCK_VALUE = 9999999
 MAX_INTEGER_VALUE = 2147483647
+
+ACTION_NAME_WITH_ACTION_STATUS = [
+  {
+    'action_name': 'verify',
+    'action_performed': 'verified'
+  },
+  {
+    'action_name': 'create',
+    'action_performed': 'created'
+  },
+  {
+    'action_name': 'delete',
+    'action_performed': 'deleted'
+  },
+  {
+    'action_name': 'update',
+    'action_performed': 'updated'
+  },
+  {
+    'action_name': 'activate',
+    'action_performed': 'activated'
+  },
+  {
+    'action_name': 'active',
+    'action_performed': 'activated'
+  },
+  {
+    'action_name': 'in_active',
+    'action_performed': 'in_activated'
+  },
+  {
+    'action_name': 'approve',
+    'action_performed': 'approved'
+  },
+  {
+    'action_name': 'suspend',
+    'action_performed': 'suspended'
+  },
+  { 
+    'action_name': 'pending',
+    'action_performed': 'pending'
+   }
+].freeze

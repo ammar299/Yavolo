@@ -123,7 +123,7 @@
               <td>Show the total sales</td>
               <td class="account-status">
                 <% account_status = account_status_to_show(seller) %>
-                <%= account_status.humanize %>
+                <%= action_performed_value(account_status).humanize %>
               </td>
               <td>Show the health status</td>
               

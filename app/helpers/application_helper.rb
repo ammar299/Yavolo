@@ -79,7 +79,7 @@ module ApplicationHelper
     end
   end
 
-  def eligible_for_seller_route(from_controller)
+  def admin_seller_route?(from_controller)
     from_controller == "admin/sellers" ? true : false
   end
 
@@ -154,5 +154,10 @@ module ApplicationHelper
 
   def multisteps_signup?
     params[:multistep] == "true"
+  end
+
+  def action_performed_value(action_name)
+    action_hash = ACTION_NAME_WITH_ACTION_STATUS.select { |h| h[:action_name] == action_name }.last
+    action_hash.present? ? action_hash[:action_performed] : action_name
   end
 end

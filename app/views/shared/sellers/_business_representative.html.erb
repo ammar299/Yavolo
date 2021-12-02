@@ -25,11 +25,11 @@
         </tr>
         <tr>
           <td class="">Account Status:</td>
-          <td><%=h return_value(@seller.account_status) %></td>
+          <td><%= action_performed_value(return_value(@seller.account_status)).humanize %></td>
         </tr>
         <tr>
           <td class="">Listing Status:</td>
-          <td><%=h return_value(@seller.listing_status).humanize %></td>
+          <td><%= action_performed_value(return_value(@seller.listing_status)).humanize %></td>
         </tr>
         <tr>
           <td class="">Account Created:</td>

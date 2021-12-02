@@ -33,17 +33,26 @@
   </div>
 <% end %>
 <div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
+  <% if admin_seller_route?(params[:controller]) %>
   <%= form.label :account_status, 'Account Status:' %>
   <div style="flex: 1;">
     <%= form.select :account_status, options_for_select(seller_account_statuses_for_dropdown(@seller), form.object.account_status), { include_blank: false }, class: 'form-control' %>
   </div>
+  <% else %>
+    <label>Account Status:</label>
+    <div class="mt-2"><%= action_performed_value(@seller.account_status).humanize %></div>
+  <% end %>
 </div>
 <div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
+<% if admin_seller_route?(params[:controller]) %>
   <%= form.label :listing_status, 'Listing Status:' %>
   <div style="flex: 1;">
-  <%# values =  %>
     <%= form.select :listing_status, options_for_select(Seller.listing_statuses.map {|k, v| [k.humanize.capitalize, k]}, form.object.listing_status || "active"), { prompt: 'Listing Status' }, class: 'form-control' %>
   </div>
+  <% else %>
+    <label>Listing Status:</label>
+  <div class="mt-2"><%= action_performed_value(@seller.listing_status).humanize %></div>
+  <% end %>
 </div>
 <div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
   <label>Account Created On:</label>
@@ -55,5 +64,5 @@
 </div>
 <div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
   <label>Subscription Type:</label>
-  <div class="mt-2"><%= @seller.subscription_type %></div>
+  <div class="mt-2"><%= @seller.subscription_type.humanize %></div>
 </div>
