@@ -65,9 +65,7 @@ $(document).ready(function () {
     form.addEventListener("submit", function (event) {
       $("#stripe-card-submit").prop("disabled", true);
       event.preventDefault();
-      debugger;
       stripe.createToken(cardNumber).then(function (result) {
-        debugger;
         if (result.error) {
           // Inform the customer that there was an error.
           $("#stripe-card-submit").prop("disabled", false);

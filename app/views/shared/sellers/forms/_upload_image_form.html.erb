@@ -11,6 +11,7 @@
         <% end %>
         <%= image_tag url, class: 'preview-img mt-1 opacity-50' %>
       </span>
+      <input type="hidden" name="" id="preview-img-url" value="">
     </div>
     <div class="csv-file-uploader border-none pt-2">
       <p class="text-center">Image must be a .jpg,.gif or .png file smaller <br>
@@ -39,6 +40,9 @@
 </div>
 <script>
   $(document).ready(function(){
+
+    var yavoloSmilyUrl = $('.preview-img').attr("src");
+    $('#preview-img-url').val(yavoloSmilyUrl);
     $(':input[type="submit"]').prop('disabled', true);
     $('body').on('change', 'input[type="file"]', function(event){
         event.preventDefault();
@@ -83,7 +87,7 @@
 
     function showDefaultSellerPlaceholderImageUploadLogoModal(){
         $('#admin-sellers-update-form').get(0).reset();
-        $('.preview-img').attr("src", "/assets/yavolo-smily.png");
+        $('.preview-img').attr("src", yavoloSmilyUrl);
         $('.preview-img').addClass('opacity-50');
         $('.image-name').text('');
         $('.remove-image').text('');
@@ -91,7 +95,7 @@
     }
     $('.remove-image').click(function() {
         $('#admin-sellers-update-form').get(0).reset();
-        $('.preview-img').attr("src", "/assets/yavolo-smily.png");
+        $('.preview-img').attr("src", yavoloSmilyUrl);
         $('.preview-img').addClass('opacity-50');
         $('.image-name').text('');
         $('.remove-image').text('');

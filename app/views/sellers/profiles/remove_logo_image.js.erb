@@ -2,7 +2,8 @@ $("#error-message").text('');
 <% unless @seller.errors.count > 0 %>
   $("#seller-logo").html("<%= j render 'shared/sellers/seller_logo', logo: '' %>");
   //$('#edit-seller-form').modal('hide');
-  $('.preview-img').attr("src", "/assets/yavolo-smily.png");
+  var yavoloSmilyUrl = $('#preview-img-url').val();
+  $('.preview-img').attr('src', yavoloSmilyUrl);
   $('.image-name').text('');
   $('.remove-image').text('');
   $(':input[type="submit"]').prop('disabled', true);
