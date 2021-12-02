@@ -1,13 +1,11 @@
 $(document).ready(function () {
-  $("body").on("click", ".submit-checkout-details", function (e) {
-    e.preventDefault();
-    // $("#stripe-card-submit").prop('disabled', false);
+  if (window.location.pathname.includes("payment_method")) {
     loadStripeForCheckoutForm();
-  });
+  }
 });
 
 function loadStripeForCheckoutForm() {
-  // var stripe = Stripe(process.env.STRIPE_API_KEY);
+  var stripe = Stripe(process.env.STRIPE_API_KEY);
   var elements = stripe.elements();
 
   var cardElement = $("div").find("#stripe-card-elements");

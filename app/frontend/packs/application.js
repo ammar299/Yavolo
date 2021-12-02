@@ -20,7 +20,7 @@ import "controllers";
 require("jquery");
 
 require("@nathanvda/cocoon");
-require("packs/jquery.inputmask.bundle.min")
+require("packs/jquery.inputmask.bundle.min");
 require("packs/admin");
 require("packs/categories");
 require("packs/delivery_options");
@@ -43,7 +43,6 @@ require("packs/cart");
 require("packs/slick.min");
 require("packs/checkout");
 $(document).ready(() => {
-  var stripe = Stripe(process.env.STRIPE_API_KEY);
   $("body").on("focus", ".datepicker", function () {
     $(this)
       .datepicker({
@@ -78,10 +77,9 @@ $(document).ready(() => {
   });
 
   // Disable changing number type field by scrolling
-  $("input[type='number']").on('wheel', function () {
-      return false;
-  })
-    
+  $("input[type='number']").on("wheel", function () {
+    return false;
+  });
 });
 
 window.displayNoticeMessage = (message) => {
@@ -90,15 +88,21 @@ window.displayNoticeMessage = (message) => {
       ${message}
       <span  class="notice-cross-icon" aria-hidden="true">&times;</span>
     </p>
-  </div>`
-  $('#flash-msg').html(message);
+  </div>`;
+  $("#flash-msg").html(message);
   setTimeout(function () {
     $("#flash-msg").find("p").remove();
   }, 3000);
   return message;
-}
+};
 
-jQuery.validator.addMethod("url_without_scheme", function(value, element) {
-        return this.optional(element) || /^(?:www\.)?[A-Za-z0-9_-]+\.+[A-Za-z0-9.\/%&=\?_:;-]+$/.test(value);
-    }, "Please enter a valid URL without http/https"
+jQuery.validator.addMethod(
+  "url_without_scheme",
+  function (value, element) {
+    return (
+      this.optional(element) ||
+      /^(?:www\.)?[A-Za-z0-9_-]+\.+[A-Za-z0-9.\/%&=\?_:;-]+$/.test(value)
+    );
+  },
+  "Please enter a valid URL without http/https"
 );

@@ -213,9 +213,16 @@ $(document).ready(function () {
       "Enter valid UK postal code"
     );
 
-    jQuery.validator.addMethod('phone_number_uk', function(value, element) {
-          return this.optional(element) || value.length > 9 && value.match(/^(\(?(\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
-        }, 'Enter valid UK phone number(e.g +447911123456)'
+    jQuery.validator.addMethod(
+      "phone_number_uk",
+      function (value, element) {
+        return (
+          this.optional(element) ||
+          (value.length > 9 &&
+            value.match(/^(\(?(\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/))
+        );
+      },
+      "Enter valid UK phone number(e.g +447911123456)"
     );
     jQuery.validator.addMethod(
       /* The value you can use inside the email object in the validator. */
@@ -419,14 +426,28 @@ $(document).ready(function () {
         },
       },
     });
-      jQuery.validator.addMethod("postal_code_uk", function (value, element) {
-        return this.optional(element) || /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/.test(value);
-      }, "Enter valid UK postal code");
-      jQuery.validator.addMethod('phone_number_uk', function(value, element) {
-            return this.optional(element) || value.length > 9 && value.match(/^(\(?(\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
-          }, 'Enter valid UK phone number(e.g +447911123456)'
-      );
-      jQuery.validator.addMethod(
+    jQuery.validator.addMethod(
+      "postal_code_uk",
+      function (value, element) {
+        return (
+          this.optional(element) ||
+          /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/.test(value)
+        );
+      },
+      "Enter valid UK postal code"
+    );
+    jQuery.validator.addMethod(
+      "phone_number_uk",
+      function (value, element) {
+        return (
+          this.optional(element) ||
+          (value.length > 9 &&
+            value.match(/^(\(?(\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/))
+        );
+      },
+      "Enter valid UK phone number(e.g +447911123456)"
+    );
+    jQuery.validator.addMethod(
       /* The value you can use inside the email object in the validator. */
       "regex",
 
@@ -462,13 +483,13 @@ $(document).ready(function () {
       $("input:checkbox").not(this).prop("checked", false);
     }
   });
-  
-  $(".multiple-products input").click(function(){
-    if(!$(this).is(":checked")){
-      $("#check-all-checkboxes").prop('checked',false)
+
+  $(".multiple-products input").click(function () {
+    if (!$(this).is(":checked")) {
+      $("#check-all-checkboxes").prop("checked", false);
     }
   });
-  
+
   $("#csv_import_sellers_file").change(function (e) {
     let files = e.target.files;
     let fileValidator = validCsvFile(files);
@@ -1008,9 +1029,16 @@ window.validateSellerEditForm = function () {
     $.validator.format("Enter exactly {0} characters.")
   );
 
-  jQuery.validator.addMethod('phone_number_uk', function(value, element) {
-        return this.optional(element) || value.length > 9 && value.match(/^(\(?(\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
-      }, 'Enter valid UK phone number(e.g +447911123456)'
+  jQuery.validator.addMethod(
+    "phone_number_uk",
+    function (value, element) {
+      return (
+        this.optional(element) ||
+        (value.length > 9 &&
+          value.match(/^(\(?(\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/))
+      );
+    },
+    "Enter valid UK phone number(e.g +447911123456)"
   );
   jQuery.validator.addMethod(
     /* The value you can use inside the email object in the validator. */
@@ -1212,7 +1240,9 @@ function TwoFactorAuthForCode() {
 }
 
 function stripeLoad() {
-  // var stripe = Stripe('pk_test_51IfjFUFqSiWsjxhXbRrObdGnNbi0HGp64DKuqsivFjJN81Dip3ZpRAFUKGrOxhZkAoRZMbEOSLr7SAvvk6bmDvTu00eJrWMQB2');
+  var stripe = Stripe(
+    "pk_test_51IfjFUFqSiWsjxhXbRrObdGnNbi0HGp64DKuqsivFjJN81Dip3ZpRAFUKGrOxhZkAoRZMbEOSLr7SAvvk6bmDvTu00eJrWMQB2"
+  );
   var elements = stripe.elements();
 
   var style = {
