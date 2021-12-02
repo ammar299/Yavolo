@@ -75,4 +75,13 @@ module Admin::SellersHelper
     Seller.account_statuses.select {|k, v| valid_options.include?(k) }.map {|k, v| [k.humanize.capitalize, k]}
   end
 
+  def seller_card_holder_detail(payment_method)
+    seller = payment_method.seller
+    seller_name = payment_method.card_holder_name
+    unless payment_method.card_holder_name.present?
+      seller_name = seller.try(:first_name).to_s + " " + seller.try(:last_name).to_s
+    end
+    seller_name
+  end
+
 end

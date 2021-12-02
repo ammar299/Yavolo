@@ -13,7 +13,7 @@
                 </td>
                 <td>
                   <p class="mb-1"><strong>Name on card</strong> </p>
-                  <p class="m-0"><%= payment_method.card_holder_name || payment_method.seller.first_name+ " " + payment_method.seller.last_name %></p>
+                  <p class="m-0"><%= seller_card_holder_detail(payment_method) %></p>
                 </td>
                 <td>
                   <p class="mb-1"><strong>Payment terms</strong> </p>
