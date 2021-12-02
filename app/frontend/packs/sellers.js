@@ -206,8 +206,8 @@ $(document).ready(function(){
     }, "Enter valid UK postal code");
 
     jQuery.validator.addMethod('phone_number_uk', function(value, element) {
-          return this.optional(element) || value.length > 9 && value.match(/^(\(?(0|\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
-        }, 'Enter valid UK phone number'
+          return this.optional(element) || value.length > 9 && value.match(/^(\(?(\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
+        }, 'Enter valid UK phone number(e.g +447911123456)'
     );
     jQuery.validator.addMethod(
     /* The value you can use inside the email object in the validator. */
@@ -413,8 +413,8 @@ $(document).ready(function(){
         return this.optional(element) || /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/.test(value);
       }, "Enter valid UK postal code");
       jQuery.validator.addMethod('phone_number_uk', function(value, element) {
-            return this.optional(element) || value.length > 9 && value.match(/^(\(?(0|\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
-          }, 'Enter valid UK phone number'
+            return this.optional(element) || value.length > 9 && value.match(/^(\(?(\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
+          }, 'Enter valid UK phone number(e.g +447911123456)'
       );
       jQuery.validator.addMethod(
       /* The value you can use inside the email object in the validator. */
@@ -956,8 +956,8 @@ window.validateSellerEditForm = function() {
   }, $.validator.format("Enter exactly {0} characters."));
 
   jQuery.validator.addMethod('phone_number_uk', function(value, element) {
-        return this.optional(element) || value.length > 9 && value.match(/^(\(?(0|\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
-      }, 'Enter valid UK phone number'
+        return this.optional(element) || value.length > 9 && value.match(/^(\(?(\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
+      }, 'Enter valid UK phone number(e.g +447911123456)'
   );
   jQuery.validator.addMethod(
     /* The value you can use inside the email object in the validator. */

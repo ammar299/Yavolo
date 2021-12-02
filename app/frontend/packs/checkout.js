@@ -133,10 +133,10 @@ function checkoutDetailsFormValidation() {
       return (
         this.optional(element) ||
         (value.length > 9 &&
-          value.match(/^(\(?(0|\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/))
+          value.match(/^(\(?(\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/))
       );
     },
-    "Please specify a valid UK phone number"
+    "Please specify a valid uk phone number (e.g +447911123456)"
   );
   jQuery.validator.addMethod(
     /* The value you can use inside the email object in the validator. */

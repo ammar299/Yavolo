@@ -210,8 +210,8 @@ function addNewSellerFormValidation() {
   }, "Please specify a valid UK postal code");
 
   jQuery.validator.addMethod('phone_number_uk', function(value, element) {
-        return this.optional(element) || value.length > 9 && value.match(/^(\(?(0|\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
-      }, 'Please specify a valid UK phone number'
+        return this.optional(element) || value.length > 9 && value.match(/^(\(?(\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
+      }, 'Please specify a valid UK phone number(e.g +447911123456)'
   );
   jQuery.validator.addMethod(
       /* The value you can use inside the email object in the validator. */
