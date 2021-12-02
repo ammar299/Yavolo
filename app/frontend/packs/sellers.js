@@ -1240,9 +1240,7 @@ function TwoFactorAuthForCode() {
 }
 
 function stripeLoad() {
-  var stripe = Stripe(
-    "pk_test_51IfjFUFqSiWsjxhXbRrObdGnNbi0HGp64DKuqsivFjJN81Dip3ZpRAFUKGrOxhZkAoRZMbEOSLr7SAvvk6bmDvTu00eJrWMQB2"
-  );
+  var stripe = Stripe('pk_test_51IfjFUFqSiWsjxhXbRrObdGnNbi0HGp64DKuqsivFjJN81Dip3ZpRAFUKGrOxhZkAoRZMbEOSLr7SAvvk6bmDvTu00eJrWMQB2');
   var elements = stripe.elements();
 
   var style = {

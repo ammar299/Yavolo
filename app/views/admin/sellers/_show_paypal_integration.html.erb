@@ -3,8 +3,8 @@
       <table class="table m-0 subscription-table text-left">
         <tr>
           <td>
-            <p class="mb-1"><strong>Bank account number</strong> </p>
-            <p class="m-0">seller@gmail.com</p>
+            <p class="mb-1"><strong>PayPal ID</strong> </p>
+            <p class="m-0"><%= @seller&.paypal_detail&.seller_merchant_id_in_paypal || "seller@gmail.com" %></p>
           </td>
           <td>
             <p class="mb-1"><strong></strong> </p>
