@@ -1,5 +1,6 @@
 class Admin::SellersController < Admin::BaseController
   before_action :set_seller, only: %i[show edit update update_business_representative update_company_detail update_addresses update_seller_logo remove_logo_image confirm_update_seller update_seller new_seller_api create_seller_api confirm_update_seller_api change_seller_api_eligibility holiday_mode change_lock_status  confirm_reset_password_token reset_password_token update_subscription_by_admin remove_payout_bank_account verify_seller_stripe_account]
+  before_action :is_seller_locked?, only: %i[show]
   include SharedSellerMethods
 
   def index
@@ -312,5 +313,12 @@ class Admin::SellersController < Admin::BaseController
 
   def set_seller
     @seller = Seller.includes([ :business_representative, :company_detail, :addresses ]).find(params[:id])
+  end
+
+  def is_seller_locked?
+    if @seller.locked_at.present?
+      @seller.is_locked = true
+      @seller.save
+    end
   end
 end

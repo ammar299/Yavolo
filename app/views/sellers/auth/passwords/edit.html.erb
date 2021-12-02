@@ -21,7 +21,7 @@
             <%= f.label :password_confirmation, "Confirm new password" %><br />
             <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
           </div>
-        
+           <input type="hidden" id="seller-id" name="seller_id" value="<%= params[:format] %>">
           <div class="actions">
             <%= f.submit "Change my password", class: "btn btn-primary btn-lg btn-block
         general-mrgn" %>
