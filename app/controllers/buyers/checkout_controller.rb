@@ -100,7 +100,7 @@ class Buyers::CheckoutController < Buyers::BaseController
     @sub_total = 0
     product_ids.each do |item|
       product = Product.find(item.to_i) || nil
-      @sub_total += (product.price.to_f) if product.present?
+      @sub_total += (product.price ? product.price.to_f : 0) if product.present?
     end
     @sub_total.to_f
   end
@@ -261,7 +261,7 @@ class Buyers::CheckoutController < Buyers::BaseController
     @sub_total = 0
     cart.each do |item|
       product = Product.find(item[:product_id].to_i) rescue nil
-      @sub_total += (item[:quantity].to_i * product.price.to_f) if product.present?
+      @sub_total += (item[:quantity].to_i * product.price ? product.price.to_f : 0) if product.present?
     end
     @sub_total.to_f
   end
@@ -271,7 +271,7 @@ class Buyers::CheckoutController < Buyers::BaseController
     @total = 0
     cart.each do |item|
       product = Product.find(item[:product_id].to_i) rescue nil
-      @total += item[:quantity].to_i * product.price.to_f if product.present?
+      @total += item[:quantity].to_i * (product.price ? product.price.to_f : 0) if product.present?
     end
     @total.to_f
   end

@@ -1,26 +1,15 @@
 $(document).ready(function () {
-  var stripe = Stripe(process.env.STRIPE_API_KEY);
-  const appearance = {
-    theme: "stripe",
-  };
+  $("body").on("click", ".submit-checkout-details", function (e) {
+    e.preventDefault();
+    // $("#stripe-card-submit").prop('disabled', false);
+    loadStripeForCheckoutForm();
+  });
+});
 
-  // var cardElement = $("div").find("#card-element");
-  // if (cardElement.length > 0) {
+function loadStripeForCheckoutForm() {
+  // var stripe = Stripe(process.env.STRIPE_API_KEY);
   var elements = stripe.elements();
 
-  var elementClasses = {
-    base: "form-control",
-    focus: "form-control",
-    empty: "form-control",
-    invalid: "form-control error-field",
-  };
-
-  //   // Create an instance of the card Element.
-  //   var card = elements.create("card", {
-  //     classes: elementClasses,
-  //   });
-  //   card.mount("#card-element");
-  // }
   var cardElement = $("div").find("#stripe-card-elements");
   if (cardElement.length > 0) {
     var cardNumber = elements.create("cardNumber", {
@@ -56,9 +45,6 @@ $(document).ready(function () {
     });
     cardCvc.mount("#card-cvc");
   }
-  // Add an instance of the card Element into the card-element <div>.
-  // card.mount('#card-element');
-  // registerElements([cardNumber, cardExpiry, cardCvc], "#card-element");
 
   var form = document.getElementById("payment-form");
   if (form) {
@@ -81,7 +67,8 @@ $(document).ready(function () {
       });
     });
   }
-});
+}
+
 function stripeTokenHandler(token) {
   // Insert the token ID into the form so it gets submitted to the server
   var form = document.getElementById("payment-form");

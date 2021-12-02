@@ -43,6 +43,7 @@ require("packs/cart");
 require("packs/slick.min");
 require("packs/checkout");
 $(document).ready(() => {
+  var stripe = Stripe(process.env.STRIPE_API_KEY);
   $("body").on("focus", ".datepicker", function () {
     $(this)
       .datepicker({

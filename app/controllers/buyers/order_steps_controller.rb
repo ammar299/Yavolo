@@ -101,7 +101,7 @@ class Buyers::OrderStepsController < ApplicationController
     cart.each do |item|
       product = Product.find(item[:product_id].to_i) rescue nil
         if product.present?
-          @sub_total = @sub_total + (item[:quantity].to_i * product.price.to_f)
+          @sub_total = @sub_total + (item[:quantity].to_i * product.price ? product.price.to_f : 0)
         end
     end
     return @sub_total
@@ -113,7 +113,7 @@ class Buyers::OrderStepsController < ApplicationController
     cart.each do |item|
       product = Product.find(item[:product_id].to_i) rescue nil
         if product.present?
-          @total = @total + item[:quantity].to_i * product.price.to_f
+          @total = @total + item[:quantity].to_i * product.price ? product.price.to_f : 0
         end
     end
     return @total

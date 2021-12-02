@@ -6,10 +6,16 @@ class Buyers::CartController < Buyers::BaseController
 
   def cart
     @cart = get_cart
-    product_ids = @cart.map { |item| item[:product_id] }
-    @products = Product.find(product_ids) rescue []
     if !@cart.present?
       flash[:notice] = I18n.t('flash_messages.no_products_are_added_to_card')
+      return
+    end
+
+    @products = []
+    @cart.each do |cart_item|
+      product = Product.find_by(id: cart_item[:product_id])
+      @cart.delete_if { |h| h[:product_id].to_i == cart_item[:product_id] } if product.blank?
+      @products.push(product) if product.present?
     end
     @order_amount = order_amount
     @selected_payment_method = get_selected_payment_method
@@ -38,39 +44,6 @@ class Buyers::CartController < Buyers::BaseController
     flash.now[:notice] = I18n.t('flash_messages.product_added_to_cart')
     session[:_current_user_cart] = cart
   end
-
-  # def update_product_quantity
-  #   product_params = update_product_quantity_params
-  #   # todo only update if the product status is active
-  #   # add status: :active in find_by
-  #   @product = Product.find_by(id: product_params[:product_id])
-  #   @cart_item = ''
-  #   if @product.present?
-  #     @cart = get_cart
-  #     @cart.each do |item|
-  #       if item[:product_id].to_i == @product.id
-  #         @cart_item = item
-  #         if product_params[:action] == 'increase' && @product.stock >= (item[:quantity]+1)
-  #           item[:quantity] = item[:quantity] + 1
-  #         else # else if the coming param is decrease
-  #           if (item[:quantity] - 1) < 1
-  #             # remove this item from session[:_current_user_cart]
-  #             @cart.delete_if { |h| h[:product_id].to_i == @product.id }
-  #           else
-  #             item[:quantity] = item[:quantity] - 1
-  #           end
-  #         # else
-  #           # show notice something went wrong
-  #           # break
-  #         end
-  #       end
-  #     end
-  #     session[:_current_user_cart] = @cart
-  #   else
-  #     # show notice something went wrong
-  #     return
-  #   end
-  # end
 
   def update_product_quantity_by_number
     update_product_quantity_by_number = update_product_quantity_by_number_params
@@ -126,8 +99,8 @@ class Buyers::CartController < Buyers::BaseController
     cart = get_cart
     @sub_total = 0
     cart.each do |item|
-      product = Product.find(item[:product_id].to_i) || nil
-      @sub_total += (item[:quantity].to_i * product.price.to_f) if product.price.present?
+      product = Product.find(item[:product_id].to_i) rescue nil
+      @sub_total += (item[:quantity].to_i * product.price ? product.price.to_f : 0) if product.present?
     end
     @sub_total.to_f
   end
@@ -136,8 +109,8 @@ class Buyers::CartController < Buyers::BaseController
     cart = get_cart
     @total = 0
     cart.each do |item|
-      product = Product.find(item[:product_id].to_i) || nil
-      @total += item[:quantity].to_i * product.price.to_f if product.present?
+      product = Product.find(item[:product_id].to_i) rescue nil
+      @total += item[:quantity].to_i * (product.price ? product.price.to_f : 0) if product.present?
     end
     @total.to_f
   end

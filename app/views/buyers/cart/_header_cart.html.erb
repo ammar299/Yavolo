@@ -22,7 +22,7 @@
               </div>
               <div class="d-flex justify-content-between">
                 <span class="font-14px">Qty:<%= line_items[:quantity] %></span>
-                <span class="font-14px">£<%= line_items[:quantity].to_i * product.price.to_f %></span>
+                <span class="font-14px">£<%= line_items[:quantity].to_i * (product.price ? product.price.to_f : 0) %></span>
               </div>
             </div>
           </div>

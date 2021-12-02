@@ -28,6 +28,6 @@ $('#seller-actions').html("<%= j render(partial: 'admin/sellers/update_multi_sel
 
 $('#confirm-seller-actions-modal').modal('show');
 var href_val = $('.confirmed-action').attr('href');
-href_val = href_val + "?ids=" + $selected_sellers.join(",")
+href_val = href_val + "&ids=" + $selected_sellers.join(",")
 $('.confirmed-action').attr('href', href_val);
 }

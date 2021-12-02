@@ -29,7 +29,7 @@ module Buyers::CartHelper
     sub_total = 0
     cart.each do |item|
       product = Product.find(item[:product_id].to_i) rescue nil
-      sub_total += (item[:quantity].to_i * product.price.to_f) if product.present? && product.price.present?
+      sub_total += (item[:quantity].to_i * product.price ? product.price.to_f : 0) if product.present?
     end
     sub_total.to_f
   end
