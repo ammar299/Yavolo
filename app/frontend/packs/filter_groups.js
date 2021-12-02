@@ -13,7 +13,6 @@ $(document).ready(function(){
 		}
 	});
 
-
   $('body').on('change', 'input[type=checkbox]', function(){
     if($('input[type=checkbox]:checked').length == 0){
       $('#assign-filter-group-category').addClass("disabled");
@@ -85,7 +84,7 @@ window.FilterGroupFormValidation = function(){
 	  rules: {
       "filter_group[name]": {
         required: true,
-				maxlength: 20
+				maxlength: 40
       },
       "filter_group[filter_group_type]": {
       	required: true

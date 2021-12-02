@@ -1,5 +1,5 @@
 <section class="overview pt-4 pb-4 admin-delivery-options">
-  <div class="container-fluid">
+  <div class="container-fluid y-page-container">
     <div class="row">
       <div class="col-md-12">
         <h3 class="mt-4 mb-3">Delivery Settings</h3>
@@ -18,21 +18,23 @@
               Delivery Templates
             </h5>
           </div>
-          <div class="overview-right">
-            <div class="dropdown dropdown-filter mb-3 d-inline-flex">
-              <a href="#" class="btn btn-sm btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <%= link_to 'Delete', confirm_multiple_deletion_sellers_delivery_options_path , class: 'dropdown-item active', data: { remote: true } %>
+          <div class="overview-right d-flex">
+            <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border">
+              <div class="dropdown">
+                <a href="#" class="btn btn-radius btn-sm mr-1 px-3 btn-primary btn-link-dropdown-1 align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <%= link_to 'Delete', confirm_multiple_deletion_sellers_delivery_options_path , class: 'dropdown-item active', data: { remote: true } %>
+                </div>
               </div>
             </div>
-            <%= link_to 'Add New Template', new_sellers_delivery_option_path, class: 'btn btn-radius px-4 btn-primary btn-sm', data: { remote: true } %>
+            <%= link_to 'Add New Template', new_sellers_delivery_option_path, class: 'btn my-1 btn-radius px-4 btn-primary btn-sm', data: { remote: true } %>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-<div class="container-fluid">
+<div class="container-fluid y-page-container">
   <div class="row">
     <div class="col-lg-12">
       <div class="Yavolo-table mt-1 yavolo-center">

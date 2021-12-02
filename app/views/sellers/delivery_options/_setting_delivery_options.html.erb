@@ -5,9 +5,12 @@
         <div class="delivery-detail">
           <div class="delivery-option d-flex justify-content-between align-items-center box-border yo-white-card flex-wrap">
             <div class="deliver-option-left d-flex align-items-center">
-              <div class="checkbox-right-text">
-                <p class="mb-0"><%= delivery.name %></p>
-                <%= render 'shared/delivery_ship_locations_list', delivery: delivery %>
+              <div class="checkbox-blk radiobox-blk mb-0">
+                <span class="checkmark checkbox-mrgn"></span>
+                <div class="checkbox-right-text">
+                  <p class="mb-0 delivery-detail-bt-title"><%= delivery.name %></p>
+                  <%= render 'shared/delivery_ship_locations_list', delivery: delivery %>
+                </div>
               </div>
             </div>
             <div class="deliver-option-left">

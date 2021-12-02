@@ -6,4 +6,5 @@
 <% text = 'Are you sure you want to disable api this developer?' %>
 <% end %>
 $("#connection-manager-actions").html("<%= j render(partial: 'sellers/connection_managers/confirmation_buttons', locals: { text: text, seller_api: params[:seller_api_id] } ) %>");
+$('#connection-manager-modal-container').addClass("modal-sm");
 $('#connection-manager-modal').modal('show');

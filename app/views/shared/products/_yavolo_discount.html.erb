@@ -2,7 +2,7 @@
   <div class="yavolo-box-detail yo-white-card box-border">
       <div class="yavolo-box-top">
           <h4>Yavolo</h4>
-          <hr>
+          
           <div class="d-flex justify-content-between">
               <div class="yavolo-box-top-detail">
                   <h6 class="font-weight-bold">Yavolo discount  <span class="icon-help"></span></h6>
@@ -12,7 +12,7 @@
               <div class="form-group <%= has_error ? 'error-field' : '' %>">
                 <div class="custome-input-dropdwsn">
                   <div class="dropdown dropdown-filter mb-3 d-inline-flex">
-                    <a href="#" class="btn btn-radius px-3 btn-link btn-link-dropdown d-inline-flex alvn-items-center w-100 justify-content-between" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a href="#" class="btn btn-radius form-control px-3 btn-link btn-link-dropdown d-inline-flex alvn-items-center w-100 justify-content-between" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <span class="yavolo-discount-dropdown-title"><%= form.object.discount.present? ? "#{form.object.discount} %" : "2.5 %" %></span>
                       <i class="fa fa-angle-down ml-3" aria-hidden="true"></i>
                     </a>
@@ -33,11 +33,11 @@
           </div>
       </div>
       <div class="yavolo-box-bottom d-flex">
-          <label class="checkbox-blk">Bundle with Yavolo </a>
+          <label class="checkbox-blk ">Bundle with Yavolo </a>
               <%= form.check_box :yavolo_enabled %>
               <span class="checkmark"></span>
           </label>
-          <a href="javascript:void(0);" style="text-decoration: none;"><span class="icon-manage-Yavolo pl-3">
+          <a href="javascript:void(0);" style="text-decoration: none;"><span class="icon-manage-Yavolo red-text pl-3">
           </span></a>
       </div>
   </div>
