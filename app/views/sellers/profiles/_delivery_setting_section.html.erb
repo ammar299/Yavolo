@@ -10,10 +10,13 @@
           <a class="dropdown-item" href="#">Delivery Name</a>
         </div>
       </div>
-      <%= form_tag(search_delivery_options_sellers_profile_path, method: :get, remote: true) do %>
+      <%= form_tag(search_delivery_options_sellers_profile_path, method: :get, remote: true, class:"search-delivery-options-form flex-1") do %>
         <div class="search-field mb-0">
-          <input type="text" name="search" placeholder="Search Delivery Templates">
-          <i class="fa fa-search accounts-delivery-search" aria-hidden="true"></i>
+          <input type="text" name="search" placeholder="Search Delivery Templates" class="search-input">
+            <%= link_to search_delivery_options_sellers_profile_path, method: :get, remote: true, class: 'cross-icon',style:'display:none;' do %>
+              <i class="icon-cross mm-text pt-1" aria-hidden="true"></i>
+            <% end %>
+            <i class="fa fa-search search-icon" aria-hidden="true"></i>
         </div>
       <% end %>
     </div>

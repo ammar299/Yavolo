@@ -803,6 +803,9 @@ function updateBulkProducts(action){
     error: function(xhr){
       showErrorsAlert(xhr.responseJSON.errors);
       $('#product-new-value').val('');
+    },
+    complete: function () {
+      $(".mark-bulk-update").prop('checked', false)
     }
   })
 }

@@ -1,1 +1,9 @@
 $('#setting-delivery-options').html("<%= j render(partial: 'sellers/delivery_options/setting_delivery_options', locals: { delivery_options: @delivery_options}) %>");
+<% if params[:search].present? %>
+  $(".search-delivery-options-form .cross-icon").show()
+  $(".search-delivery-options-form .search-icon").hide()
+<% else %>
+  $(".search-delivery-options-form .cross-icon").hide()
+  $(".search-delivery-options-form .search-icon").show()
+  $(".search-delivery-options-form .search-input").val('')
+<% end %>

@@ -27,7 +27,9 @@
     <%= javascript_pack_tag 'tagsinput' %>
     <script>
       $(document).ready(function(){
-        $("#product_keywords").tagsinput('input').addClass('ignoreme');
+          if($("#product_keywords").tagsinput('input')){
+              $("#product_keywords").tagsinput('input').addClass('ignoreme');
+          }
       });
   </script>
   </body>

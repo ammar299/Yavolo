@@ -738,3 +738,8 @@ textarea.form-control {
     color: #fff;
 }
 /*CARDS*/
+
+
+.flex-1{
+    flex: 1 !important;
+}
