@@ -88,7 +88,15 @@ window.FilterGroupFormValidation = function(){
       },
       "filter_group[filter_group_type]": {
       	required: true
-      }
+      },
+			"filter_group[filter_in_categories_attributes][0][filter_name]": {
+				required: true,
+				maxlength: 25
+			},
+			"filter_group[filter_in_categories_attributes][0][sort_order]": {
+				required: true,
+				max: 2147483646
+			}
     },
     errorPlacement: function (error, element) {
 	    error.insertAfter(element);
@@ -99,12 +107,33 @@ window.FilterGroupFormValidation = function(){
     unhighlight: function(element) {
       $(element).closest('div').removeClass('error-field');
     },
-
 	  messages: {
       "filter_group[name]": {
-        required: "Filter group name required"
+        required: "Filter group name required",
+				maxlength: "Name is too long"
        },
+			 "filter_group[filter_in_categories_attributes][0][filter_name]": {
+				maxlength: "Name is too long"
+			},
+			"filter_group[filter_in_categories_attributes][0][sort_order]": {
+				max: "Value should be less than 2147483646"
+			}
      }
 	});
 }
+
+$(document).on('cocoon:after-insert', "#filter_in_categories",function(e, insertedItem, originalEvent) {
+	$(insertedItem).find(".filter-name").rules("add",{
+		maxlength: 30,
+		messages:{
+			maxlength: "Name is too long"
+		}
+	}),
+	$(insertedItem).find(".filter-sort-order").rules("add",{
+		max: 2147483646,
+		messages:{
+			max: "Value should be less than 2147483646"
+		}
+	})
+})
 

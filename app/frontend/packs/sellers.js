@@ -455,6 +455,20 @@ $(document).ready(function () {
     }
   });
 
+  $("#check-all-checkboxes").click(function () {
+    if ($(this).is(":checked")) {
+      $("input:checkbox").not(this).prop("checked", true);
+    } else {
+      $("input:checkbox").not(this).prop("checked", false);
+    }
+  });
+  
+  $(".multiple-products input").click(function(){
+    if(!$(this).is(":checked")){
+      $("#check-all-checkboxes").prop('checked',false)
+    }
+  });
+  
   $("#csv_import_sellers_file").change(function (e) {
     let files = e.target.files;
     let fileValidator = validCsvFile(files);

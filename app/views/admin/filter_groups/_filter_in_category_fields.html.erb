@@ -6,14 +6,14 @@
           <div class="col-lg-5 p-0 form-group-vertical align-items-center flex-lg-nowrap flex-wrap">
              <%= f.label :filter_name, "Filter Name" %>
               <div style="flex: 1;position: relative;">
-                <%= f.text_field :filter_name, required: true, class: 'form-control' %>
+                <%= f.text_field :filter_name, required: true, class: 'form-control filter-name' %>
               </div>
           </div>
           <div class="col-lg-3 p-0 form-group-vertical align-items-center flex-lg-nowrap flex-wrap filter-in-category-sort-order-wrapper">
             <div class="d-flex px-3 tab-100">
               <%= f.label :sort_order, "Sort Order" , class: 'text-left pr-3 min-100'%>
               <div style="flex: 1;position: relative;">
-                <%= f.number_field :sort_order, min: 0,max: MAX_INTEGER_VALUE, required: true, class: 'form-control w-20 px-2' %>
+                <%= f.number_field :sort_order, required: true, class: 'form-control w-20 px-2 filter-sort-order' %>
               </div>
             </div>
           </div>

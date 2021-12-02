@@ -21,7 +21,7 @@ module SharedProductMethods
       result = Product.where(id: product_ids).where(owner_conditions).destroy_all if action=='delete'
       result_errors = result.map{|p| p.errors.full_messages}.flatten
       if result_errors.present?
-        render json: { errors: result_errors }, status: :unprocessable_entity
+        render json: { errors: result_errors.uniq }, status: :unprocessable_entity
       else
         render json: { notice: 'updated', update_ids: result.map(&:id), value: value, action: action }, status: :ok
       end

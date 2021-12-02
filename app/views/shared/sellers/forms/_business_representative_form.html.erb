@@ -51,7 +51,7 @@
   </div>
   <% else %>
     <label>Listing Status:</label>
-  <div class="mt-2"><%= action_performed_value(@seller.listing_status).humanize %></div>
+  <div class="mt-2"><%= @seller.listing_status.humanize %></div>
   <% end %>
 </div>
 <div class="form-group form-group-vertical form-group-vertical-responsive mb-1">

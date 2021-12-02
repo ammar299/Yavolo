@@ -784,6 +784,7 @@ function updateBulkProducts(action){
   if(action =='update_price' || action =='update_stock' || action =='update_discount'){
     if($('#product-new-value').val().length > 0){
       dataParams.value = $('#product-new-value').val()
+      $("input:checkbox").not(this).prop("checked", false);
     }else{
       showErrorsAlert(['Error: param value is missing.']);
       return false;
@@ -796,7 +797,7 @@ function updateBulkProducts(action){
     data: { 'product': dataParams },//$('#products-bulk-form').serialize(),
     success: function(res){
       updateProductsDom(res);
-      showSuccessAlert('Products updated successfully');
+      displayNoticeMessage('Products updated successfully');
       $('#product-new-value').val('');
       $('.bulk-actions a.dropdown-item').removeClass('active');
     },
