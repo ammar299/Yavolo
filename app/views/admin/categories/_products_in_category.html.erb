@@ -21,23 +21,23 @@
             <%= form_tag(admin_products_path, method: :get) do %>
             <%= link_to "javascript:void(0);", data: { per_page: 15 }, class: 'perpage-option'  do %>
             <span class="<%= 'fa fa-check' if params[:per_page] == '15' %>" aria-hidden="true"></span>
-            Result Per Page: #15
+            Result Per Page: 15
             <% end %>
             <%= link_to "javascript:void(0);", data: { per_page: 30 }, class: 'perpage-option'  do %>
             <span class="<%= 'fa fa-check' if params[:per_page] == '30' %>" aria-hidden="true"></span>
-            Result Per Page: #30
+            Result Per Page: 30
             <% end %>
             <%= link_to "javascript:void(0);", data: { per_page: 60 }, class: 'perpage-option'  do %>
             <span class="<%= 'fa fa-check' if params[:per_page] == '60' %>" aria-hidden="true"></span>
-            Result Per Page: #60
+            Result Per Page: 60
             <% end %>
             <%= link_to "javascript:void(0);", data: { per_page: 90 }, class: 'perpage-option'  do %>
             <span class="<%= 'fa fa-check' if params[:per_page] == '90' %>" aria-hidden="true"></span>
-            Result Per Page: #90
+            Result Per Page: 90
             <% end %>
             <%= link_to "javascript:void(0);", data: { per_page: 180 }, class: 'perpage-option'  do %>
             <span class="<%= 'fa fa-check' if params[:per_page] == '180' %>" aria-hidden="true"></span>
-            Result Per Page: #180
+            Result Per Page: 180
             <% end %>
             <% end %>
           </div>
