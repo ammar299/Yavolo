@@ -1,12 +1,14 @@
 module Products
   class Importer < ApplicationService
     require 'csv'
-    attr_reader :status, :errors, :params
+    attr_reader :status, :errors, :title_list, :existing_product_list, :params
 
     def initialize(params)
         @params = params
         @status = true
         @errors = []
+        @title_list = []
+        @existing_product_list = []
     end
 
     def call
@@ -28,7 +30,13 @@ module Products
         csv_import.update({status: :importing})
         csv.each do |row|
           if have_required_fields?(row)
-            product = Product.new(get_params(row))
+            params = get_params(row)
+            seo_content = SeoContent.find_by(title: params[:seo_content_attributes][:title], description: params[:seo_content_attributes][:description])
+            if seo_content.present?
+              @existing_product_list << params[:title]
+              next
+            end
+            product = Product.new(params)
             product.owner_id = product_owner_id(row)
             product.owner_type = product_owner_type(row)
             product.status = 'draft'
@@ -38,14 +46,18 @@ module Products
               product.save
             else
               @errors << "#{product.title}: #{product.errors.full_messages.join("<br>")}"
+              @title_list << product.title
             end
           else
             @errors << "Required columns are missing"
+            @title_list << product.title
             next
           end
         end
-        @errors.present? ? csv_import.update(status: :failed, import_errors: @errors.uniq.join(', ') ) : csv_import.update({status: :imported})
-        @errors.present? ? @status = false : @status = true
+        # TODO: 'remove naseer work after testing' csv upload email work
+        # @errors.present? ? csv_import.update(status: :failed, import_errors: @errors.uniq.join(', ') ) : csv_import.update({status: :imported})
+        # @errors.present? ? @status = false : @status = true
+        csv_import.update(import_errors: @errors.uniq.join(', '), title_list: @title_list, existing_product_list: @existing_product_list )
         self
       end
 
@@ -128,6 +140,9 @@ module Products
       def get_params(row)
         product_params = { product: { seo_content_attributes: {}, ebay_detail_attributes: {}, google_shopping_attributes: {} } }
         params_hash = row.to_hash
+        params_hash['condition'] = 'brand_new' if params_hash['condition'] == 'new' || params_hash['condition'] == 'New'
+        params_hash['seo_title'] = params_hash['title'] if params_hash['seo_title'].blank?
+        params_hash['seo_description'] = params_hash['description'] if params_hash['seo_description'].blank?
         params_hash.keys.each do |key|
           field_mapping = field_mappings[key]
           if field_mapping.present?
