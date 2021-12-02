@@ -29,7 +29,7 @@
         </tr>
         <tr>
           <td class="">Listing Status:</td>
-          <td><%= return_value(@seller.listing_status).humanize %></td>
+          <td><%= seller_listing_status_to_show(@seller.listing_status) %></td>
         </tr>
         <tr>
           <td class="">Account Created:</td>

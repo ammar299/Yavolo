@@ -204,7 +204,7 @@ function validateResetPasswordForm() {
     },
     messages: {
       "admin[email]": {
-          required: "Email is required"
+          required: "email is required"
       }
     }
   });
@@ -231,7 +231,7 @@ function validateAdminSignIn() {
     },
     messages: {
       "admin[email]": {
-          required: "Email is required"
+          required: "email is required"
       },
       "admin[password]": {
         required: "Password is required"

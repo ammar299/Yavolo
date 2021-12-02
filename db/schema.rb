@@ -582,6 +582,7 @@ ActiveRecord::Schema.define(version: 2021_12_02_103921) do
     t.boolean "two_factor_auth", default: false
     t.datetime "last_seen_at"
     t.string "recovery_email"
+    t.boolean "skip_success_hub_steps", default: false
     t.string "otp_secret"
     t.integer "last_otp_at"
     t.boolean "skip_success_hub_steps", default: false

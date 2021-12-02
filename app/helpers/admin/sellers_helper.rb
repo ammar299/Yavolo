@@ -34,6 +34,17 @@ module Admin::SellersHelper
     end
   end
 
+  def seller_listing_status_to_show(listing_status)
+    case listing_status
+    when 'in_active'
+      'Inactive'
+    when 'active'
+      'Active'
+    else
+      ''
+    end
+  end
+
   def multi_actions_to_show
     Seller.account_statuses.select {|status| status != "pending" && status != "rejected" }
   end
