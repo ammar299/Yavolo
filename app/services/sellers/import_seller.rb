@@ -164,7 +164,7 @@ module Sellers
           vat_number: row["company_vat_number"],
           country: row["company_country"],
           legal_business_name: row["company_legal_business_name"],
-          companies_house_registration_number: row["company_companies_house_registration_number"],
+          companies_house_registration_number: validate_house_registration_number(row),
           business_industry: row["company_business_industry"],
           website_url: row["company_website_url"],
           amazon_url: row["company_amazon_url"],
@@ -172,7 +172,7 @@ module Sellers
           doing_business_as: row["company_doing_business_as"]
         )
       end
-
+      
       def create_business_representative_address(seller,row)
 
         data = seller.addresses.create(
@@ -264,6 +264,18 @@ module Sellers
 
       def phone_number(field, row)
         row["#{field}"] || row["business_address_phone_number"]
+      end
+
+      def validate_house_registration_number(row)
+        pattern =/^(?:([A-Z]\w|[0-9]{2})[0-9]{6})$/
+        if row["company_companies_house_registration_number"].present?
+          if row["company_companies_house_registration_number"].match?(pattern)
+            return row["company_companies_house_registration_number"]
+          else
+            @errors << "For seller: #{row["user_email"]} Company house registration number #{row["company_companies_house_registration_number"]} is invalid. Valid format is: 12345678 or AB345678"
+            return false
+          end
+        end
       end
   end
 end

@@ -1,4 +1,5 @@
 class Seller < ApplicationRecord
+  include Admin::SellersHelper
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   # validate :date_of_birth_is_valid_datetime
@@ -95,7 +96,7 @@ class Seller < ApplicationRecord
     CSV.generate(headers: true) do |csv|
       csv << attributes
       all_sellers.each do |seller|        
-        csv << [seller&.email, seller&.first_name, seller&.last_name, seller&.account_status&.capitalize, listing_status_rephrase(seller), seller&.subscription_type,seller&.uid,
+        csv << [seller&.email, seller&.first_name, seller&.last_name, seller&.account_status&.capitalize, seller_listing_status_to_show(seller.listing_status), seller&.subscription_type,
           seller&.company_detail&.name, seller&.company_detail&.legal_business_name, seller&.company_detail&.doing_business_as, seller&.company_detail&.companies_house_registration_number, seller&.company_detail&.vat_number, seller&.company_detail&.business_industry, seller&.company_detail&.country, seller&.company_detail&.website_url,  seller&.company_detail&.amazon_url,seller&.company_detail&.ebay_url,
           seller&.business_representative&.full_legal_name, seller&.business_representative&.email, seller&.business_representative&.job_title , seller&.business_representative&.date_of_birth,
           
@@ -104,16 +105,6 @@ class Seller < ApplicationRecord
           seller&.addresses[2]&.address_line_1, seller&.addresses[2]&.address_line_2, seller&.addresses[2]&.city , seller&.addresses[2]&.county , seller&.addresses[2]&.country , seller&.addresses[2]&.postal_code , seller&.addresses[2]&.phone_number ,
           seller&.addresses[3]&.address_line_1, seller&.addresses[3]&.address_line_2, seller&.addresses[3]&.city , seller&.addresses[3]&.county , seller&.addresses[3]&.country , seller&.addresses[3]&.postal_code , seller&.addresses[3]&.phone_number ,
         ]
-      end
-    end
-  end
-
-  def listing_status_rephrase(seller)
-    if seller&.listing_status.present?
-      if seller&.listing_status == "active"
-        status = "Active"
-      else
-        status = "Inactive"
       end
     end
   end
