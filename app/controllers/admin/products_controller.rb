@@ -97,24 +97,24 @@ class Admin::ProductsController < Admin::BaseController
 
   def export_csv
     product_ids = get_products()
-    all_products = []
-    product_ids.each do |product|
-      product = Product.find(product)
-      all_products << product
-    end
-    if all_products.count > 50
+    # all_products = []
+    # product_ids.each do |product|
+    #   product = Product.find(product)
+    #   all_products << product
+    # end
+    # if all_products.count > 50
       ExportCsvWorker.perform_async(current_admin.id, current_admin.class.name,product_ids)
       redirect_to admin_products_path, notice: 'Products export is started, You will receive a file when its completed.'
-    else
-      exporter = Products::Exporter.call({ owner: all_products })
-      if exporter.status
-        respond_to do |format|
-          format.csv { send_data exporter.csv_file, filename: "products_#{Time.zone.now.to_i}.csv" }
-        end
-      else
-        render json: { error: exporter.errors.first.to_s }
-      end
-    end
+    # else
+    #   exporter = Products::Exporter.call({ owner: all_products })
+    #   if exporter.status
+    #     respond_to do |format|
+    #       format.csv { send_data exporter.csv_file, filename: "products_#{Time.zone.now.to_i}.csv" }
+    #     end
+    #   else
+    #     render json: { error: exporter.errors.first.to_s }
+    #   end
+    # end
   end
 
   def get_products

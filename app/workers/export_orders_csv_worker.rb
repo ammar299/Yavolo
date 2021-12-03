@@ -8,7 +8,7 @@ class ExportOrdersCsvWorker
     orders = Order.where(id: [all_orders])
     exporter = Orders::Exporter.call({ owner: orders })
     if exporter.status
-      CsvMailer.with( to: owner.email, csv: exporter.csv_file ).send_exported_csv_file_email.deliver_now
+      CsvMailer.with( to: owner.email, csv: exporter.csv_file ).send_order_exported_csv_email.deliver_now
     end
   end
 end

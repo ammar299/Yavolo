@@ -27,24 +27,24 @@ class Admin::OrdersController < Admin::BaseController
 
   def export_orders
     order_ids = get_orders()
-    all_orders = []
-    order_ids.each do |order|
-      order = Order.find(order)
-      all_orders << order
-    end
-    if all_orders.count > 50
+    # all_orders = []
+    # order_ids.each do |order|
+    #   order = Order.find(order)
+    #   all_orders << order
+    # end
+    # if all_orders.count > 50
       ExportOrdersCsvWorker.perform_async(current_admin.id, current_admin.class.name, order_ids )
       redirect_to admin_orders_path, notice: 'Orders export started, You will receive a file when its completed.'
-    else
-      exporter = Orders::Exporter.call({ owner: all_orders })
-      if exporter.status
-        respond_to do |format|
-          format.csv { send_data exporter.csv_file, filename: "orders_#{Time.zone.now.to_i}.csv" }
-        end
-      else
-        render json: { error: exporter.errors.first.to_s }
-      end
-    end
+    # else
+    #   exporter = Orders::Exporter.call({ owner: all_orders })
+    #   if exporter.status
+    #     respond_to do |format|
+    #       format.csv { send_data exporter.csv_file, filename: "orders_#{Time.zone.now.to_i}.csv" }
+    #     end
+    #   else
+    #     render json: { error: exporter.errors.first.to_s }
+    #   end
+    # end
   end
 
   def get_orders

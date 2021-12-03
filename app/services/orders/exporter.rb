@@ -61,12 +61,11 @@ module Orders
       end
 
       def order_customer(order)
-        
-        order&.order_detail&.name&.present? ? order.order_detail.name : 'Yavolo customer'
+        order.order_detail.name rescue nil
       end
 
       def order_seller_name(order)
-        order.line_items.first.product.owner.full_name rescue 'John Doee'
+        order.line_items.first.product.owner.full_name rescue nil
       end
 
   end

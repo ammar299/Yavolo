@@ -158,7 +158,7 @@ $(document).ready(function(){
       }
     })
 
-    $(".export-csv-selected-products").click(function(event){
+    $(".admin-export-csv-selected-products").click(function(event){
       var selected_products = []
       $('.multiple-products input[type=checkbox]:checked').each(function () {
       selected_products.push($(this).val())

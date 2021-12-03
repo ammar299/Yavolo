@@ -3,4 +3,9 @@ class CsvMailer < ApplicationMailer
     attachments["products_#{Time.zone.now.to_i}.csv"] = {mime_type: 'text/csv', content: params[:csv]}
     mail(to: params[:to], subject: 'Yavolo: CSV exported successfully')
   end
+
+  def send_order_exported_csv_email
+    attachments["Order#{Time.zone.now.to_i}.csv"] = {mime_type: 'text/csv', content: params[:csv]}
+    mail(to: params[:to], subject: 'Yavolo: CSV exported successfully')
+  end
 end
