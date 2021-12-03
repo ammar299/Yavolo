@@ -27,7 +27,7 @@
           <%= render 'shared/sellers/seller_logo', logo: @seller.picture %>
         </div>
         <div class="text-center">
-          <%= link_to "Update Image", create_url(params[:controller], "seller_logo", @seller.id), class: 'btn btn-sm btn-radius px-4 btn-primary mt-1', remote: true %>
+          <%= link_to "#{seller_logo_text(@seller)}", create_url(params[:controller], "seller_logo", @seller.id), class: 'btn btn-sm btn-radius px-4 btn-primary mt-1', id: 'add-or-update-logo-btn', remote: true %>
           <%= link_to "Remove Image", create_url(params[:controller], "remove_seller_logo", @seller.id), class: 'btn btn-sm btn-radius px-4 btn-primary mt-1', remote: true, method: :delete %>
         </div>
       </div>

@@ -45,6 +45,7 @@ $(document).ready(function () {
         },
         "seller[company_detail_attributes][vat_number]": {
           required: true,
+          VAT_number_validation: true,
         },
         "seller[addresses_attributes][0][address_line_1]": {
           required: true,
@@ -279,6 +280,7 @@ $(document).ready(function () {
         },
         "seller[company_detail_attributes][vat_number]": {
           required: true,
+          VAT_number_validation: true,
         },
         "seller[addresses_attributes][0][address_line_1]": {
           required: true,
@@ -851,6 +853,7 @@ window.validateSellerEditForm = function () {
       },
       "seller[company_detail_attributes][vat_number]": {
         required: true,
+        VAT_number_validation: true,
       },
       "seller[addresses_attributes][0][address_line_1]": {
         required: true,

@@ -95,4 +95,8 @@ module Admin::SellersHelper
     seller_name
   end
 
+  def seller_logo_text(seller)
+    seller.picture.present? ? 'Update Image' : 'Add Image'
+  end
+
 end

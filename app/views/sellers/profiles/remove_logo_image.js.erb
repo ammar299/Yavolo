@@ -1,5 +1,6 @@
 $("#error-message").text('');
 <% unless @seller.errors.count > 0 %>
+  $('#add-or-update-logo-btn').text('Add Image');
   $("#seller-logo").html("<%= j render 'shared/sellers/seller_logo', logo: '' %>");
   //$('#edit-seller-form').modal('hide');
   var yavoloSmilyUrl = $('#preview-img-url').val();

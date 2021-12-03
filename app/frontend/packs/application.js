@@ -101,8 +101,18 @@ jQuery.validator.addMethod(
   function (value, element) {
     return (
       this.optional(element) ||
-      /^(?:www\.)?[A-Za-z0-9_-]+\.+[A-Za-z0-9.\/%&=\?_:;-]+$/.test(value)
+      /^[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/.test(value)
     );
   },
   "Please enter a valid URL without http/https"
+);
+jQuery.validator.addMethod(
+    "VAT_number_validation",
+    function (value, element) {
+        return (
+            this.optional(element) ||
+            /^GB(?:\d{3} ?\d{4} ?\d{2}(?:\d{3})?|[A-Z]{2}\d{3})$/.test(value)
+        );
+    },
+    "Please enter a valid URL without VAT number"
 );

@@ -10,6 +10,7 @@
           <% url = 'yavolo-smily.png' %>
         <% end %>
         <%= image_tag url, class: 'preview-img mt-1 opacity-50' %>
+        <%= image_tag 'yavolo-smily.png', class: 'yavolo-smily-img' %>
       </span>
       <input type="hidden" name="" id="preview-img-url" value="">
     </div>
@@ -40,8 +41,8 @@
 </div>
 <script>
   $(document).ready(function(){
-
-    var yavoloSmilyUrl = $('.preview-img').attr("src");
+      $('.yavolo-smily-img').hide();
+    var yavoloSmilyUrl = $('.yavolo-smily-img').attr("src");
     $('#preview-img-url').val(yavoloSmilyUrl);
     $(':input[type="submit"]').prop('disabled', true);
     $('body').on('change', 'input[type="file"]', function(event){

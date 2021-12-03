@@ -68,8 +68,16 @@ ACTION_NAME_WITH_ACTION_STATUS = [
     'action_name': 'suspend',
     'action_performed': 'suspended'
   },
-  { 
+  {
     'action_name': 'pending',
     'action_performed': 'pending'
-   }
+  },
+  {
+    'action_name': 'enable',
+    'action_performed': 'enabled'
+  },
+  {
+    'action_name': 'disable',
+    'action_performed': 'disabled'
+  }
 ].freeze
