@@ -954,6 +954,7 @@ $(document).ready(function () {
         title: $("#product_title").val(),
         condition: $("#product_condition").val(),
         description: $(".ck-content").html(),
+        price: $("#product_price").val().replace('£', ''),
         width: $("#product_width").val(),
         depth: $("#product_depth").val(),
         height: $("#product_height").val(),
