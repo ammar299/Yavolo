@@ -28,9 +28,8 @@ module Sellers
           if !seller_found.present?
             begin
               password = Random.rand(11111111...99999999)
-              uid = Random.rand(00000000...99999999)
+              uid = (('A'..'Z').to_a.sample(2) + (0..9).to_a.sample(6) ).join
               seller = create_seller_instance(row,password,uid)
-              # date_of_birth_is_valid_datetime(row)
               if seller.valid?
                 seller.save
                 seller.update_seller_products_listing
@@ -47,7 +46,6 @@ module Sellers
                 next
               end
             rescue  StandardError => e
-              # @status = false
               format_error_messages(row, e, seller)
             end
           else
@@ -110,7 +108,7 @@ module Sellers
 
       def account_status_rephrase(row)
         status = row["account_status"]
-        case status
+        case status.downcase
         when 'suspended','suspend'
           status = 'suspend'
         when 'active','activate'
@@ -127,7 +125,7 @@ module Sellers
 
       def listing_status_rephrase(row)
         status = row["listing_status"]
-        case status
+        case status.downcase
         when 'active'
           status = 'active'
         else
