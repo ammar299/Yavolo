@@ -38,10 +38,10 @@ module Products
             product.delivery_option_id = get_default_delivery_option_id
             seo_content = SeoContent.find_by(title: params[:seo_content_attributes][:title], description: params[:seo_content_attributes][:description])
             if product.valid?
-              seo_content.present? ? @errors << "#{product.title}: Meta title or Meta Description are same" : product.save
+              seo_content.present? ? @errors << "#{product.title}: Meta title and Meta Description already taken" : product.save
             else
               if seo_content.present?
-                @errors << "#{product.title}: #{product.errors.full_messages.join(', ')}, Meta title or Meta Description are same"
+                @errors << "#{product.title}: #{product.errors.full_messages.join(', ')}, Meta title and Meta Description already taken"
               else
                 @errors << "#{product.title}: #{product.errors.full_messages.join("<br>")}"
               end
