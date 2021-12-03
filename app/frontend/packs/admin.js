@@ -173,6 +173,22 @@ $(document).ready(function(){
         $(this).attr('href','/admin/products/export_csv.csv?products='+selected_products);
       }
     })
+
+    $(".admin-orders-export").click(function(event){
+      var selected_orders = []
+      $('.multiple-orders input[type=checkbox]:checked').each(function () {
+        selected_orders.push($(this).val())
+      });
+      if (selected_orders.length < 1) {
+        $('.multiple-orders input[type=checkbox]').each(function() {
+          selected_orders.push($(this).val())
+        });
+        $(this).attr('href','/admin/orders/export_orders.csv?orders='+selected_orders);
+      }
+      else{
+        $(this).attr('href','/admin/orders/export_orders.csv?orders='+selected_orders);
+      }
+    })
     
  });
 

@@ -633,11 +633,9 @@ $(document).ready(function () {
       $(".multiple-products input[type=checkbox]").each(function () {
         selected_products.push($(this).val());
       });
+      $(this).attr("href","/sellers/products/export_csv.csv?products=" + selected_products);
     } else {
-      $(this).attr(
-        "href",
-        "/sellers/products/export_csv.csv?products=" + selected_products
-      );
+      $(this).attr("href","/sellers/products/export_csv.csv?products=" + selected_products);
     }
   });
 });

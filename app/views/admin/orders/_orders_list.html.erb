@@ -3,10 +3,12 @@
   <% order_line_items = order.line_items %>
   <tr class="order-table-row" id="order-id-<%= order.id %>">
     <td>
-      <label class="checkbox-blk">
-        <input type="checkbox" name="order_ids[]" class="order_ids" value="<%= order.id %>">
-        <span class="checkmark"></span>
-      </label>
+      <div class="multiple-orders">
+        <label class="checkbox-blk">
+          <input type="checkbox" name="order_ids[]" class="order_ids" value="<%= order.id %>">
+          <span class="checkmark"></span>
+        </label>
+      </div>
     </td>
     <td>
       <%= link_to order.id, admin_order_path(order) %>
@@ -15,10 +17,11 @@
       <%= order_detail.name %>
     </td>
     <td>
-      Shop Name
+      <%= order_seller_name(order_line_items) %>
     </td>
     <td>
-      <%= "£#{order.sub_total}" %>
+      <%= get_price_in_pounds(order.sub_total? ? order.sub_total : 0) %>
+      <%#= "£#{order.sub_total}" %>
     </td>
     <td class="text-center">
       <%= order_line_items.count %>
@@ -28,7 +31,7 @@
     </td>
     <td>Royal Mail</td>
     <td><a href=""><u>#75757757</u></a></td>
-    <td>Pending</td>
+    <td><%= order.order_type %></td>
     <td class="text-center">
       <div class="">
         <%= link_to 'View', admin_order_path(order), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-1' %>

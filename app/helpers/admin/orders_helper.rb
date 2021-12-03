@@ -9,4 +9,9 @@ module Admin::OrdersHelper
       'Filter by'
     end
   end
+
+  def order_seller_name(order_line_items)
+    order_line_items.first.product.owner.full_name if order_line_items&.first&.product&.owner&.full_name.present?
+  end
+  
 end

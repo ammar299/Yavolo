@@ -10,7 +10,11 @@ Rails.application.routes.draw do
       authenticated :admin do
         # root 'admin/dashboard#index', as: :admins_dashboard
 
-        resources :orders, only: [:index, :show]
+        resources :orders, only: [:index, :show] do 
+          collection do
+            get :export_orders
+          end
+        end
         resources :delivery_options, except: %i[show] do
           collection do
             get    :confirm_multiple_deletion
