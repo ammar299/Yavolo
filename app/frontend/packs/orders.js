@@ -1,6 +1,7 @@
 $(document).ready(function () {
     setOrderSearchMenuAndQueryName();
     bindWithSortByEvent();
+    bindResultPerPageOption();
 
     $('.order-mark-bulk-update').change(function () {
         $('.order-table-row').find('input:checkbox').prop('checked', $(this).is(':checked'));
@@ -55,11 +56,41 @@ $(document).ready(function () {
 });
 
 function setOrderSearchMenuAndQueryName() {
-    $('.admin-orders-filters a').click(function () {
+    $('.cls-admin-orders-filters a').click(function (e) {
+        e.preventDefault();
         let currentFilter = $(this).text().trim();
-        $('.admin-orders-filters a').removeClass('active');
-        $(this).addClass('active')
-        $('.current-search-filter').html(currentFilter);
+        let searchField = $('.admin-order-search-field');
+        let filterType = $('#order-filter-type');
+        $('.cls-admin-orders-filters a').removeClass('active');
+        $(this).addClass('active');
+        $("input[name='q[s]']").remove();
+        $('.current-search-filter').html(currentFilter + ' <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>');
+        if (currentFilter === 'Product Title A-Z') {
+            searchField.attr('name', 'q[line_items_product_title_cont]');
+            $('#csfn').val('line_items_product_title_cont');
+            filterType.val('Product Title A-Z');
+            $('#order_search').append('<input type="hidden" name="q[s]" id="q_s">')
+            $('#q_s').val('line_items_product_title asc');
+        } else if (currentFilter === 'Product Title Z-A') {
+            searchField.attr('name', 'q[line_items_product_title_cont]');
+            $('#csfn').val('line_items_product_title_cont');
+            filterType.val('Product Title Z-A');
+            $('#order_search').append('<input type="hidden" name="q[s]" id="q_s">')
+            $('#q_s').val('line_items_product_title desc');
+        } else if (currentFilter === 'Customer Name') {
+            searchField.attr('name', 'q[order_detail_name_cont]');
+            $('#csfn').val('order_detail_name_cont');
+            filterType.val('Customer Name');
+        } else if (currentFilter === 'SKU') {
+            searchField.attr('name', 'q[line_items_product_sku_cont]');
+            $('#csfn').val('line_items_product_sku_cont');
+            filterType.val('SKU');
+        } else {
+            $('.current-search-filter').text('Search All');
+            searchField.attr('name', 'q[line_items_product_title_or_order_detail_customer_name_cont_or_line_items_product_sku_cont]');
+            $('#csfn').val('line_items_product_title_or_order_detail_customer_name_cont_or_line_items_product_sku_cont');
+            filterType.val('Search All');
+        }
     });
 }
 
@@ -70,4 +101,17 @@ function bindWithSortByEvent() {
         $('#q_s').val($(this).data('sortby'));
         $('form#order_search').submit();
     });
+}
+
+function bindResultPerPageOption(){
+    $('.perpage-option').click(function(e){
+        e.preventDefault();
+        if($('#per_page').length > 0){
+            $('#per_page').val($(this).data('per-page'));
+        }else{
+            $('#order_search').append('<input type="hidden" name="per_page" id="per_page">')
+            $('#per_page').val($(this).data('per-page'));
+        }
+        $('form#order_search').submit();
+    })
 }

@@ -3,11 +3,11 @@
     <div class="d-flex align-items-center">
       <div class="dropdown-filter-field active my-1 dropdown-filter-custom">
         <div class="dropdown">
-          <a class="btn btn-radius px-2 btn-primary current-search-filter" href="#" role="button"
+          <a class="btn btn-radius btn-sm px-2 btn-primary current-search-filter" href="#" role="button"
              id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <%= set_filter_type_in_dropdown(params) %><i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
           </a>
-          <div class="dropdown-menu admin-orders-filters" aria-labelledby="dropdownMenuLink">
+          <div class="dropdown-menu seller-products-filters cls-admin-orders-filters" aria-labelledby="dropdownMenuLink">
             <a class="dropdown-item <%= set_filter_active('Search All') %>" href="#">Search All<i class="fa fa-check" aria-hidden="true"></i></a>
             <a class="dropdown-item <%= set_filter_active('Product Title A-Z') %>" href="#">Product Title A-Z<i class="fa fa-check" aria-hidden="true"></i></a>
             <a class="dropdown-item <%= set_filter_active('Product Title Z-A') %>" href="#">Product Title Z-A<i class="fa fa-check" aria-hidden="true"></i></a>
@@ -21,18 +21,30 @@
 
         <div class="search-field mb-0 ">
           <%= search_form_for @q, url: admin_orders_path do |f| %>
+            <input type="hidden" name="filter_type" id="order-filter-type" value="<%= params[:filter_type] %>">
+            <input type="hidden" name="csfname" id="csfn" value="<%= order_current_search_field_name %>">
             <% if params[:q].present? && params[:q].keys.include?('s') %>
               <%= hidden_field_tag 'q[s]', params[:q][:s] %>
             <% end %>
-            <%= f.search_field "search", { class: 'input-btn-sm', placeholder: 'Search Orders', value: "" } %>
-            <i class="fa fa-search" aria-hidden="true"></i>
+            <% if params[:per_page].present? %>
+              <%= hidden_field_tag :per_page, params[:per_page] %>
+            <% end %>
+            <%= f.search_field order_current_search_field_name.to_sym, { class: 'input-btn-sm admin-order-search-field', placeholder: 'Search Orders', value: "#{order_search_field_query_param_val(params)}" } %>
+            <% if params[:q].present? && params[:q]['line_items_product_title_or_order_detail_customer_name_cont_or_line_items_product_sku_cont'].present? %>
+              <%= link_to admin_orders_path, class: 'btn-sm' do %>
+                <i class="icon-cross" aria-hidden="true"></i>
+              <% end %>
+            <% else %>
+              <i class="fa fa-search" aria-hidden="true"></i>
+            <% end %>
           <% end %>
         </div>
 
       </div>
       <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border">
         <div class="dropdown">
-          <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+          <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions
+            <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
           <div class="dropdown-menu order-bulk-actions" aria-labelledby="dropdownMenuLink">
             <a data-bulkaction="view" class="dropdown-item" href="#">View</a>
             <a class="dropdown-item" href="#">Cancel</a>
@@ -43,28 +55,30 @@
       </div>
       <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border">
         <div class="dropdown">
-          <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Result Per Page: <%= params[:per_page].present? ? params[:per_page] : '15' %><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+          <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Result
+            Per Page: <%= params[:per_page].present? ? params[:per_page] : '15' %>
+            <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <%= form_tag(admin_orders_path, method: :get) do %>
-              <%= link_to (admin_orders_path(per_page: '15'))  do %>
-              <span class="<%= 'fa fa-check' if params[:per_page] == '15' %>" aria-hidden="true"></span>
-              Result Per Page: 15
+              <%= link_to "javascript:void(0);", data: { per_page: 15 }, class: 'perpage-option' do %>
+                <span class="<%= 'fa fa-check' if params[:per_page] == '15' %>" aria-hidden="true"></span>
+                Result Per Page: #15
               <% end %>
-              <%= link_to (admin_orders_path(per_page: '30'))  do %>
-              <span class="<%= 'fa fa-check' if params[:per_page] == '30' %>" aria-hidden="true"></span>
-              Result Per Page: 30
+              <%= link_to "javascript:void(0);", data: { per_page: 30 }, class: 'perpage-option' do %>
+                <span class="<%= 'fa fa-check' if params[:per_page] == '30' %>" aria-hidden="true"></span>
+                Result Per Page: #30
               <% end %>
-              <%= link_to (admin_orders_path(per_page: '60'))  do %>
-              <span class="<%= 'fa fa-check' if params[:per_page] == '60' %>" aria-hidden="true"></span>
-              Result Per Page: 60
+              <%= link_to "javascript:void(0);", data: { per_page: 60 }, class: 'perpage-option' do %>
+                <span class="<%= 'fa fa-check' if params[:per_page] == '60' %>" aria-hidden="true"></span>
+                Result Per Page: #60
               <% end %>
-              <%= link_to (admin_orders_path(per_page: '90'))  do %>
-              <span class="<%= 'fa fa-check' if params[:per_page] == '90' %>" aria-hidden="true"></span>
-              Result Per Page: 90
+              <%= link_to "javascript:void(0);", data: { per_page: 90 }, class: 'perpage-option' do %>
+                <span class="<%= 'fa fa-check' if params[:per_page] == '90' %>" aria-hidden="true"></span>
+                Result Per Page: #90
               <% end %>
-              <%= link_to (admin_orders_path(per_page: '180'))  do %>
-              <span class="<%= 'fa fa-check' if params[:per_page] == '180' %>" aria-hidden="true"></span>
-              Result Per Page: 180
+              <%= link_to "javascript:void(0);", data: { per_page: 180 }, class: 'perpage-option' do %>
+                <span class="<%= 'fa fa-check' if params[:per_page] == '180' %>" aria-hidden="true"></span>
+                Result Per Page: #180
               <% end %>
             <% end %>
           </div>
@@ -77,10 +91,10 @@
             <i class="fa fa-angle-down ml-3" aria-hidden="true"></i>
           </a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <% {q: params[:q].present? ? (params.require(:q).merge(s: 'price').permit!) : {s: 'price'} } %>
-            <%= link_to '#', class: 'dropdown-item sortby-orders', data: {sortby: 'price'} do %>
+            <% { q: params[:q].present? ? (params.require(:q).merge(s: 'price').permit!) : { s: 'price' } } %>
+            <%= link_to '#', class: 'dropdown-item sortby-orders', data: { sortby: 'price' } do %>
               Price
-              <% if params.dig(:q, :s).present? && params[:q][:s]=='price' %>
+              <% if params.dig(:q, :s).present? && params[:q][:s] == 'price' %>
                 <i class="fa fa-check" aria-hidden="true"></i>
               <% end %>
             <% end %>
@@ -103,27 +117,27 @@
       <div class="Yavolo-table order-listing-table mt-4">
         <table class="table">
           <thead>
-            <tr>
-              <th>
-                <label class="checkbox-blk">
-                  <input type="checkbox" class="order-mark-bulk-update">
-                  <span class="checkmark checkmark-white"></span>
-                </label>
-              </th>
-              <th>Order Number</th>
-              <th>Customer</th>
-              <th>Seller</th>
-              <th>Total</th>
-              <th class="text-center">Items(s)</th>
-              <th class="text-center">Yavolo</th>
-              <th>Carrier</th>
-              <th>tracking NO.</th>
-              <th>status</th>
-              <th class="text-center" width="10%">Action</th>
-            </tr>
+          <tr>
+            <th>
+              <label class="checkbox-blk">
+                <input type="checkbox" class="order-mark-bulk-update">
+                <span class="checkmark checkmark-white"></span>
+              </label>
+            </th>
+            <th>Order Number</th>
+            <th>Customer</th>
+            <th>Seller</th>
+            <th>Total</th>
+            <th class="text-center">Items(s)</th>
+            <th class="text-center">Yavolo</th>
+            <th>Carrier</th>
+            <th>tracking NO.</th>
+            <th>status</th>
+            <th class="text-center" width="10%">Action</th>
+          </tr>
           </thead>
           <tbody>
-            <%= render 'orders_list', orders: @orders %>
+          <%= render 'orders_list', orders: @orders %>
           </tbody>
         </table>
       </div>
@@ -137,4 +151,4 @@
     </div>
   </div>
 </div>
-<%= render 'simple_confirm_modal', confirm_statement: 'Are you sure to perform this bulk action?', id: 'yes-perform-action',path: '#', data: nil, modal_id: 'admin-orders-confirm' %>
+<%= render 'simple_confirm_modal', confirm_statement: 'Are you sure to perform this bulk action?', id: 'yes-perform-action', path: '#', data: nil, modal_id: 'admin-orders-confirm' %>
