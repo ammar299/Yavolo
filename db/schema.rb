@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_02_103921) do
+ActiveRecord::Schema.define(version: 2021_12_03_091317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -247,7 +247,6 @@ ActiveRecord::Schema.define(version: 2021_12_02_103921) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "title_list"
-    t.text "existing_product_list"
     t.index ["importer_type", "importer_id"], name: "index_csv_imports_on_importer_type_and_importer_id"
   end
 
@@ -582,9 +581,9 @@ ActiveRecord::Schema.define(version: 2021_12_02_103921) do
     t.boolean "two_factor_auth", default: false
     t.datetime "last_seen_at"
     t.string "recovery_email"
-    t.boolean "skip_success_hub_steps", default: false
     t.string "otp_secret"
     t.integer "last_otp_at"
+    t.boolean "skip_success_hub_steps", default: false
     t.integer "failed_attempts", default: 0
     t.string "unlock_token"
     t.datetime "locked_at"
@@ -650,6 +649,15 @@ ActiveRecord::Schema.define(version: 2021_12_02_103921) do
     t.string "name"
     t.string "status"
     t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.string "subscription_name"
+    t.string "subscription_types"
+    t.float "price"
+    t.float "commission_excluding_vat"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

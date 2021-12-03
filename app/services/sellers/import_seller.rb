@@ -267,6 +267,7 @@ module Sellers
       end
 
       def validate_house_registration_number(row)
+        #valid pattern are: AB123456, 11123456, A9123456  length must be 8
         pattern =/^(?:([A-Z]\w|[0-9]{2})[0-9]{6})$/
         if row["company_companies_house_registration_number"].present?
           if row["company_companies_house_registration_number"].match?(pattern)

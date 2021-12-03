@@ -25,6 +25,7 @@ function addNewSellerFormValidation() {
       "seller[company_detail_attributes][companies_house_registration_number]":
         {
           required: true,
+          companies_house_registration: true
         },
       "seller[company_detail_attributes][doing_business_as]": {
         required: true,

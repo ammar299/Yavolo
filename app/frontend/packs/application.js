@@ -106,6 +106,7 @@ jQuery.validator.addMethod(
   },
   "Please enter a valid URL without http/https"
 );
+
 jQuery.validator.addMethod(
     "VAT_number_validation",
     function (value, element) {
@@ -114,5 +115,16 @@ jQuery.validator.addMethod(
             /^GB(?:\d{3} ?\d{4} ?\d{2}(?:\d{3})?|[A-Z]{2}\d{3})$/.test(value)
         );
     },
-    "Please enter a valid URL without VAT number"
+    "Please enter a valid VAT number"
+);
+
+jQuery.validator.addMethod(
+  "companies_house_registration",
+  function (value, element) {
+      return (
+          this.optional(element) ||
+          /^(?:([A-Z]\w|[0-9]{2})[0-9]{6})$/.test(value)
+      );
+  },
+  "Please enter a valid House Registration Number (e.g AB123456, 99123456, C1234567)"
 );
