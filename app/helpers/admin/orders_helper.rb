@@ -11,7 +11,7 @@ module Admin::OrdersHelper
   end
 
   def order_seller_name(order_line_items)
-    order_line_items.first.product.owner.full_name if order_line_items&.first&.product&.owner&.full_name.present?
+    order_line_items.first.product.owner.full_name rescue ""
   end
   
 end

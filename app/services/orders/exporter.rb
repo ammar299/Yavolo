@@ -66,7 +66,7 @@ module Orders
       end
 
       def order_seller_name(order)
-        order&.line_items&.first&.product&.owner&.full_name&.present? ? order.line_items.first.product.owner.full_name : 'john doe'
+        order.line_items.first.product.owner.full_name rescue 'John Doee'
       end
 
   end
