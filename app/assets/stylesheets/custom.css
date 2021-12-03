@@ -776,6 +776,14 @@ label {
   width: 185px !important;
   max-width: 185px;
 }
+.dropdown-filter-custom .delivery-template-search-field {
+  height: 31px !important;
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+  padding-left: 10px !important;
+  width: 235px !important;
+  max-width: 235px !important;
+}
 .dropdown-filter-custom .search-field svg {
   top: 8px !important;
 }
