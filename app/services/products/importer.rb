@@ -31,21 +31,25 @@ module Products
         csv.each do |row|
           if have_required_fields?(row)
             params = get_params(row)
-            seo_content = SeoContent.find_by(title: params[:seo_content_attributes][:title], description: params[:seo_content_attributes][:description])
-            if seo_content.present?
-              @existing_product_list << params[:title]
-              next
-            end
             product = Product.new(params)
             product.owner_id = product_owner_id(row)
             product.owner_type = product_owner_type(row)
             product.status = 'draft'
             product.filter_in_category_ids = []
             product.delivery_option_id = get_default_delivery_option_id
+            seo_content = SeoContent.find_by(title: params[:seo_content_attributes][:title], description: params[:seo_content_attributes][:description])
             if product.valid?
-              product.save
+              if seo_content.present?
+                @errors << "#{product.title}: Meta title or Meta Description are same"
+              else
+                product.save
+              end
             else
-              @errors << "#{product.title}: #{product.errors.full_messages.join("<br>")}"
+              if seo_content.present?
+                @errors << "#{product.title}: #{product.errors.full_messages.join(', ')}, Meta title or Meta Description are same"
+              else
+                @errors << "#{product.title}: #{product.errors.full_messages.join("<br>")}"
+              end
               @title_list << product.title
             end
           else

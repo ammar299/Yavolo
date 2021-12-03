@@ -6,7 +6,7 @@ class ImportCsvWorker
     return if csv_import.blank?
     importer = Products::Importer.call({csv_import: csv_import})
     if importer.status
-      AdminMailer.with(to: csv_import.importer.email).send_csv_import_success_email(importer.existing_product_list).deliver_now
+      AdminMailer.with(to: csv_import.importer.email).send_csv_import_success_email.deliver_now
     else
       AdminMailer.with(to: csv_import.importer.email, errors: importer.errors.uniq.join('<br>')).send_csv_import_failed_email(importer.title_list).deliver_now
     end

@@ -7,8 +7,9 @@ class AdminMailer < ApplicationMailer
   #   mail(to: params[:to], subject: 'Yavolo: CSV imported successfully')
   # end
 
-  def send_csv_import_success_email(existing_product_list)
-    @existing_product_list = existing_product_list.join('<br>')
+  def send_csv_import_success_email
+    # TODO: 'remove khawar work after testing' remove exisiting_product_list from seo_content
+    # @existing_product_list = existing_product_list.join('<br>')
     mail(to: params[:to], subject: 'Yavolo: CSV imported successfully')
   end
 
