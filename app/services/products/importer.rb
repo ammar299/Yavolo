@@ -1,14 +1,13 @@
 module Products
   class Importer < ApplicationService
     require 'csv'
-    attr_reader :status, :errors, :title_list, :existing_product_list, :params
+    attr_reader :status, :errors, :title_list, :params
 
     def initialize(params)
         @params = params
         @status = true
         @errors = []
         @title_list = []
-        @existing_product_list = []
     end
 
     def call
@@ -39,11 +38,7 @@ module Products
             product.delivery_option_id = get_default_delivery_option_id
             seo_content = SeoContent.find_by(title: params[:seo_content_attributes][:title], description: params[:seo_content_attributes][:description])
             if product.valid?
-              if seo_content.present?
-                @errors << "#{product.title}: Meta title or Meta Description are same"
-              else
-                product.save
-              end
+              seo_content.present? ? @errors << "#{product.title}: Meta title or Meta Description are same" : product.save
             else
               if seo_content.present?
                 @errors << "#{product.title}: #{product.errors.full_messages.join(', ')}, Meta title or Meta Description are same"
@@ -58,10 +53,8 @@ module Products
             next
           end
         end
-        @errors.present? ? csv_import.update(status: :failed, import_errors: @errors.uniq.join(', '), title_list: @title_list) : csv_import.update({status: :imported, existing_product_list: @existing_product_list})
+        @errors.present? ? csv_import.update(status: :failed, import_errors: @errors.uniq.join(', '), title_list: @title_list) : csv_import.update({status: :imported})
         @errors.present? ? @status = false : @status = true
-        # TODO: 'remove khawar work after testing' csv upload email work
-        # csv_import.update(import_errors: @errors.uniq.join(', '), title_list: @title_list, existing_product_list: @existing_product_list )
         self
       end
 
