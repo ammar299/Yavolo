@@ -882,6 +882,23 @@
   right: -6px;
 }
 
+.pdp-specification-table {
+  border: 1px solid var(--dark-red);
+}
+.pdp-specification-table table td {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--dark-red);
+  border: 0;
+  padding: 0.75rem 1.5rem;
+}
+.pdp-specification-table .table-striped tbody tr:nth-of-type(even) {
+  background-color: var(--off-white);
+}
+.pdp-specification-table .table-striped tbody tr:nth-of-type(odd) {
+  background-color: transparent;
+}
+
 /* single-product-slider */
 
 /* ================== sprint-3 ================== */

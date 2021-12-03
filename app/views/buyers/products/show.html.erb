@@ -299,18 +299,31 @@
                 </div>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
                      data-parent="#accordion">
-                  <div class="card-body px-4">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                    richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
-                    dolor
-                    brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-                    tempor,
-                    sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
-                    shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson
-                    cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
-                    Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth
-                    nesciunt
-                    you probably haven't heard of them accusamus labore sustainable VHS.
+                  <div class="card-body p-0 mt-3 pdp-specification-table">
+                    <table class="table table-striped mb-0">
+                      <tbody>
+                      <tr>
+                        <td width="25%"><strong>Width</strong></td>
+                        <td><%= @product["width"] %></td>
+                      </tr>
+                      <tr>
+                        <td><strong>Depth</strong></td>
+                        <td><%= @product["depth"] %></td>
+                      </tr>
+                      <tr>
+                        <td><strong>Height</strong></td>
+                        <td><%= @product["height"] %></td>
+                      </tr>
+                      <tr>
+                        <td><strong>Colour</strong></td>
+                        <td><%= @product["colour"] %></td>
+                      </tr>
+                      <tr>
+                        <td><strong>Material</strong></td>
+                        <td><%= @product["material"] %></td>
+                      </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
