@@ -1,5 +1,9 @@
 <p>Hi</p>
 <p>Sorry! Your csv file has not imported successfully. There are some errors occured while importing your CSV file.</p>
 <p><%=@errors.html_safe%></p>
+<% if @list.present? %>
+  <p>The list of product which are not created because of some issues.</p>
+  <p><%= @list.html_safe%></p>
+<% end %>
 <p>Thanks</p>
 <p>Yavolo Team</p>

@@ -54,10 +54,10 @@ module Products
             next
           end
         end
-        # TODO: 'remove naseer work after testing' csv upload email work
-        # @errors.present? ? csv_import.update(status: :failed, import_errors: @errors.uniq.join(', ') ) : csv_import.update({status: :imported})
-        # @errors.present? ? @status = false : @status = true
-        csv_import.update(import_errors: @errors.uniq.join(', '), title_list: @title_list, existing_product_list: @existing_product_list )
+        @errors.present? ? csv_import.update(status: :failed, import_errors: @errors.uniq.join(', '), title_list: @title_list) : csv_import.update({status: :imported, existing_product_list: @existing_product_list})
+        @errors.present? ? @status = false : @status = true
+        # TODO: 'remove khawar work after testing' csv upload email work
+        # csv_import.update(import_errors: @errors.uniq.join(', '), title_list: @title_list, existing_product_list: @existing_product_list )
         self
       end
 

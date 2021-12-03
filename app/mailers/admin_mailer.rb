@@ -1,18 +1,20 @@
 class AdminMailer < ApplicationMailer
 
-  def send_csv_import_email(errors, list, existing_product_list)
-    @errors = errors.join('<br>')
-    @list = list.join('<br>')
+  # def send_csv_import_email(errors, list, existing_product_list)
+  #   @errors = errors.join('<br>')
+  #   @list = list.join('<br>')
+  #   @existing_product_list = existing_product_list.join('<br>')
+  #   mail(to: params[:to], subject: 'Yavolo: CSV imported successfully')
+  # end
+
+  def send_csv_import_success_email(existing_product_list)
     @existing_product_list = existing_product_list.join('<br>')
     mail(to: params[:to], subject: 'Yavolo: CSV imported successfully')
   end
 
-  def send_csv_import_success_email
-    mail(to: params[:to], subject: 'Yavolo: CSV imported successfully')
-  end
-
-  def send_csv_import_failed_email
+  def send_csv_import_failed_email(list)
     @errors = params[:errors]
+    @list = list.join('<br>')
     mail(to: params[:to], subject: 'Yavolo: CSV import is failed')
   end
 
