@@ -14,34 +14,33 @@
               </div>
             </div>
             <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-              <div class="form-group general-mrgn">
-                <label for="exampleInputEmail1">Email Address *</label>
-                <%= f.email_field :email, autofocus: true, class: "form-control",placeholder: "Email address" %>
+              <div class="form-group general-mrgn form-group-vertical">
+                <label for="exampleInputEmail1" class= "login-page-label">Username *</label>
+                <%= f.email_field :email, autofocus: true, class: "form-control ",placeholder: "Email address" %>
               </div>
-              <div class="form-group general-mrgn">
-                <label for="exampleInputPassword1">Password *</label>
+              <div class="form-group general-mrgn form-group-vertical">
+                <label for="exampleInputPassword1" class= "login-page-label">Password *</label>
                 <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder:"Password" %>
               </div>
               <div class="d-flex justify-content-between flex-wrap mb-0">
-                <div class="form-check mb-0">
-                  <label class="check-container checkbox-blk"
-                  >Stay signed in
+              <!--  <div class="form-check mb-0">
+                  <label class="check-container checkbox-blk">Stay signed in
                     <input name="admin[remember_me]" type="hidden" value="0" /><input
-                  type="checkbox"
-                  value="1"
-                  name="admin[remember_me]"
-                  id="admin_remember_me"
-                  />
-                      <span class="checkmark"></span>
-                    </label>
-                  </div>
-                  <div>
+                    type="checkbox"
+                    value="1"
+                    name="admin[remember_me]"
+                    id="admin_remember_me"
+                    />
+                    <span class="checkmark"></span>
+                  </label>
+                </div> -->
+              <div>
                   </div>
                 </div>
                 <%= f.submit "Login", class: "btn btn-primary btn-lg btn-block
             general-mrgn" %>
                 <div class="text-center">
-                  <%= link_to "Forgotten your password?",
+                  <%= link_to "Forgot my password",
               new_password_path(resource_name) , class: "forgt-text" %>
                 </div>
               <% end %>

@@ -992,3 +992,13 @@ label {
   display: inline-block;
   width: 355px;
 }
+
+.form-group-vertical .login-page-label {
+ min-width: 100px !important;
+ max-width: 120px !important;
+}
+
+.form-group-vertical .forgot-password-label {
+  min-width: 125px !important;
+  max-width: 125px !important;
+}
