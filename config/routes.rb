@@ -189,6 +189,7 @@ Rails.application.routes.draw do
             get :confirm_reset_password_token
             patch :reset_password_token
             get :skip_success_hub_steps
+            get :reviewed_login_screen
           end
           post :update_seller_api
           patch :update_seller_api

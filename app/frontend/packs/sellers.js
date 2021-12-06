@@ -10,6 +10,7 @@ $(document).ready(function () {
   TwoFactorAuthEmail();
   TwoFactorAuthForCode();
   sellerTimeOutSlector();
+  // reviewedLoginScreen();
   //Upload Sellers
   $(".upload-sellers-csv-btn").click(function () {
     $("#upload-sellers-csv-popup").modal("show");
@@ -1241,6 +1242,15 @@ function TwoFactorAuthForCode() {
       },
     },
   });
+}
+
+window.reviewedLoginScreen = function(seller) {
+  if (!seller?.reviewed_login_screen) {
+    $.ajax({
+      type: "GET",
+      url: "/sellers/profiles/1/reviewed_login_screen",
+    });
+  }
 }
 
 function stripeLoad() {

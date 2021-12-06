@@ -108,7 +108,8 @@ module ApplicationHelper
   end
 
   def current_search_field_name
-    valid_field_names = ['title_cont','brand_cont','sku_cont','yan_cont','ean_cont','title_or_brand_or_sku_or_yan_or_ean_cont']
+    valid_field_names = ['title_cont','brand_cont','sku_cont','yan_cont','ean_cont',
+'title_or_brand_or_sku_or_yan_or_ean_cont']
     valid_field_names.include?(params[:csfname]) ? params[:csfname] : 'title_or_brand_or_sku_or_yan_or_ean_cont'
   end
 
@@ -159,5 +160,10 @@ module ApplicationHelper
   def action_performed_value(action_name)
     action_hash = ACTION_NAME_WITH_ACTION_STATUS.select { |h| h[:action_name] == action_name }.last
     action_hash.present? ? action_hash[:action_performed] : action_name
+  end
+  
+  def authorise_developer_by_seller_or_admin
+    ((current_seller.present? && current_seller.eligible_to_create_api) ||
+        (current_admin.present? && admin_seller_route?(params[:controller])))
   end
 end

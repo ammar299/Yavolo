@@ -959,6 +959,19 @@ label {
     padding-bottom: 10px;
     margin-bottom: 10px !important;
 }
+.custome-input-dropdwsn .dropdown-menu,
+.custome-input-dropdwsn .btn-link-dropdown {
+    border: 2px solid var(--dark-red) !important;
+}
+.custome-input-dropdwsn .dropdown-menu {
+    border-top: 0 !important;
+}
+
+.product-listing-input-fields {
+    width: 125px !important;
+    display: flex;
+    max-width: inherit !important;
+}
 
 .pdp-register-drpdwn .btn-primary {
     background-color: var(--dark-red) !important;

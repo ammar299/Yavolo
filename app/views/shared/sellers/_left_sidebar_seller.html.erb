@@ -1,7 +1,7 @@
 <ul class="nav nav-tabs seller-edit-nav" id="myTab" role="tablist">
   <% class_name = is_eligible?(current_seller) ? "" : "not-eligible-toast" %>
   <li class="nav-item">
-    <a class="nav-link active <%= class_name %>" id="Seller-About-tab" data-toggle="tab" href="#Seller-About-Page" role="tab" aria-controls="Seller-About-Page" aria-selected="true">
+    <a class="nav-link active" id="Seller-About-tab" data-toggle="tab" href="#Seller-About-Page" role="tab" aria-controls="Seller-About-Page" aria-selected="true">
       About You
     </a>
   </li>
@@ -20,12 +20,12 @@
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link  <%= class_name %>" id="return-term-tab" data-toggle="tab" href="#return-term" role="tab" aria-controls="return-term" aria-selected="false">
+    <a class="nav-link" id="return-term-tab" data-toggle="tab" href="#return-term" role="tab" aria-controls="return-term" aria-selected="false">
       Return & Terms
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link  <%= class_name %>" id="login-settings-tab" data-toggle="tab" href="<%= is_eligible?(current_seller) ? '#login-settings' : '' %>" role="tab" aria-controls="login-settings" aria-selected="false">
+    <a class="nav-link" id="login-settings-tab" data-toggle="tab" href="#login-settings" role="tab" aria-controls="login-settings" aria-selected="false" onclick="reviewedLoginScreen(<%= current_seller.to_json %>); return true;">
       Login Settings
     </a>
   </li>
