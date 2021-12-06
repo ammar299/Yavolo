@@ -16,23 +16,23 @@
       
       <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 mx-1 dropdown-filter-border" id="pages-id">
         <div class="dropdown">
-          <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" style="min-width: 140px" id="params-per-page" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Result Per Page: <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+          <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" style="min-width: 140px" id="params-per-page" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Results Per Page: <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <%= link_to (category_products_with_pagination_admin_category_path(per_page: '15')), remote: true  do %>
             <span class="option-dropdown-mark" aria-hidden="true"></span>
-            Result Per Page: 15
+            Results Per Page: 15
             <% end %>
             <%= link_to (category_products_with_pagination_admin_category_path(per_page: '30')), remote: true  do %>
-            Result Per Page: 30
+            Results Per Page: 30
             <% end %>
             <%= link_to (category_products_with_pagination_admin_category_path(per_page: '60')), remote: true  do %>
-            Result Per Page: 60
+            Results Per Page: 60
             <% end %>
             <%= link_to (category_products_with_pagination_admin_category_path(per_page: '90')), remote: true  do %>
-            Result Per Page: 90
+            Results Per Page: 90
             <% end %>
             <%= link_to (category_products_with_pagination_admin_category_path(per_page: '180')), remote: true  do %>
-            Result Per Page: 180
+            Results Per Page: 180
             <% end %>
           </div>
         </div>
