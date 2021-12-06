@@ -55,27 +55,27 @@
       </div>
       <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border">
         <div class="dropdown">
-          <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Result Per Page: <%= "#{params[:per_page]}" if params[:per_page].present? %><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+          <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Results Per Page: <%= "#{params[:per_page]}" if params[:per_page].present? %><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <%= link_to "javascript:void(0);", data: { per_page: 15 }, class: 'perpage-option' do %>
             <span class="<%= 'fa fa-check' if params[:per_page] == '15' %>" aria-hidden="true"></span>
-            Result Per Page: 15
+            Results Per Page: 15
             <% end %>
             <%= link_to "javascript:void(0);", data: { per_page: 30 }, class: 'perpage-option' do %>
               <span class="<%= 'fa fa-check' if params[:per_page] == '30' %>" aria-hidden="true"></span>
-              Result Per Page: 30
+              Results Per Page: 30
             <% end %>
             <%= link_to "javascript:void(0);", data: { per_page: 60 }, class: 'perpage-option' do %>
               <span class="<%= 'fa fa-check' if params[:per_page] == '60' %>" aria-hidden="true"></span>
-              Result Per Page: 60
+              Results Per Page: 60
             <% end %>
             <%= link_to "javascript:void(0);", data: { per_page: 90 }, class: 'perpage-option' do %>
               <span class="<%= 'fa fa-check' if params[:per_page] == '90' %>" aria-hidden="true"></span>
-              Result Per Page: 90
+              Results Per Page: 90
             <% end %>
             <%= link_to "javascript:void(0);", data: { per_page: 180 }, class: 'perpage-option' do %>
               <span class="<%= 'fa fa-check' if params[:per_page] == '180' %>" aria-hidden="true"></span>
-              Result Per Page: 180
+              Results Per Page: 180
             <% end %>
             
           </div>

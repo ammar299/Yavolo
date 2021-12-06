@@ -12,12 +12,12 @@
         </div>
     </div>
     <div class="row ac-setting-tabs">
-        <div class="col-md-3">
+        <div class="col-md-2">
             <ul class="nav nav-tabs seller-listing-tab-items" id="myTab" role="tablist">
                 <%= render 'sellers/products/listing_tab_items' %>
             </ul>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-10">
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="all-listings" role="tabpanel"
                     aria-labelledby="home-tab">
@@ -164,34 +164,26 @@
                                                     <p class="mb-0">Condition: <%=product.condition=='brand_new' ? 'New' : product.condition.titleize %></p>
                                                 </td>
                                                 <td>
-                                                    <div class="form-group">
-                                                        <%=number_field_tag 'product_stock', product.stock.to_i, class: 'form-control px-2 w-20 stock-field editable', data: {pid: product.id, action: 'update_stock'}  %>
+                                                    <div class="form-group mb-0">
+                                                        <%=number_field_tag 'product_stock', product.stock.to_i, class: 'form-control px-2 w-20 stock-field editable product-listing-input-fields', data: {pid: product.id, action: 'update_stock'}  %>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                <div class="form-group">
-                                                        <%=number_field_tag 'product_price',(number_with_precision(product.price, :precision => 2) || 0), class: 'form-control px-2 w-20 price-field editable', data: {pid: product.id, action: 'update_price'} %>
+                                                <div class="form-group mb-0">
+                                                        <%=number_field_tag 'product_price',(number_with_precision(product.price, :precision => 2) || 0), class: 'form-control px-2 w-20 price-field editable product-listing-input-fields', data: {pid: product.id, action: 'update_price'} %>
                                                     </div>
                                                 </td>
 
-                                                <td>
+                                                <td class="text-center">
                                                     <% if product.yavolo_enabled %>
-                                                        <div class="d-flex">
-                                                            <div>
-                                                                <span class="icon-manage-Yavolo font-20px light-red p-yavolo-enabled"></span>
-                                                            </div>
-                                                        </div>
+                                                        <span class="icon-manage-Yavolo font-20px light-red p-yavolo-enabled"></span>
                                                     <% else %>
-                                                        <div class="d-flex">
-                                                            <div>
-                                                                <span class="icon-manage-Yavolo font-20px light-red yo-opacity p-yavolo-disabled"></span>
-                                                            </div>
-                                                        </div>
+                                                        <span class="icon-manage-Yavolo font-20px light-red yo-opacity p-yavolo-disabled"></span>
                                                     <% end %>
                                                 </td>
                                                 <td>
-                                                <div class="form-group">
-                                                        <%=number_field_tag 'product_discount', product.discount.to_d, class: 'form-control px-2 w-20 discount-field editable', data: {pid: product.id, action: 'update_discount'} %>
+                                                <div class="form-group mb-0">
+                                                        <%=number_field_tag 'product_discount', product.discount.to_d, class: 'form-control px-2 w-30 discount-field editable', data: {pid: product.id, action: 'update_discount'} %>
                                                     </div>
                                                 </td>
                                                 <td>

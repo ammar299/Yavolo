@@ -1,5 +1,7 @@
 class Admin::SellersController < Admin::BaseController
-  before_action :set_seller, only: %i[show edit update update_business_representative update_company_detail update_addresses update_seller_logo remove_logo_image confirm_update_seller update_seller new_seller_api create_seller_api confirm_update_seller_api change_seller_api_eligibility holiday_mode change_lock_status  confirm_reset_password_token reset_password_token update_subscription_by_admin remove_payout_bank_account verify_seller_stripe_account]
+  before_action :set_seller,
+                except: %i[index new create send_password_reset_emails update_multiple export_sellers get_sellers
+                           import_sellers search]
   before_action :is_seller_locked?, only: %i[show]
   include SharedSellerMethods
 
@@ -37,7 +39,8 @@ class Admin::SellersController < Admin::BaseController
       @seller.reset_password_token = hashed
       @seller.reset_password_sent_at = Time.now.utc
       if @seller.save
-        AdminMailer.with(to: @seller.email.to_s.downcase,token: raw).send_account_creation_email_admin_seller.deliver_now
+        AdminMailer.with(to: @seller.email.to_s.downcase,
+                         token: raw).send_account_creation_email_admin_seller.deliver_now
       end
       redirect_to admin_sellers_path, flash: { notice: 'Seller has been saved' }
     else

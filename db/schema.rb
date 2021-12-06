@@ -581,6 +581,7 @@ ActiveRecord::Schema.define(version: 2021_12_06_121259) do
     t.integer "failed_attempts", default: 0
     t.string "unlock_token"
     t.datetime "locked_at"
+    t.boolean "reviewed_login_screen", default: false
     t.index ["email"], name: "index_sellers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_sellers_on_reset_password_token", unique: true
   end

@@ -3,7 +3,7 @@ class Sellers::ProfilesController < Sellers::BaseController
   layout 'sellers/seller', except: %[new]
   include SharedSellerMethods
 
-  before_action :set_seller, only: %i[new show edit update update_business_representative update_company_detail update_seller_logo remove_logo_image update_addresses holiday_mode confirm_reset_password_token reset_password_token seller_login_setting_update skip_success_hub_steps get_invoice_address get_return_address]
+  before_action :set_seller, except: %i[search_delivery_options destroy_delivery_template manage_returns_and_terms]
   before_action :set_delivery_template, only: %i[confirm_delete destroy_delivery_template]
   before_action :get_action_url, only: %i[show]
 
@@ -73,11 +73,14 @@ class Sellers::ProfilesController < Sellers::BaseController
   def skip_success_hub_steps
     return_address = get_return_address
     invoice_address = get_invoice_address
-    if return_address.present? && invoice_address.present?
-      @seller.update(skip_success_hub_steps: true) if @seller.skip_success_hub_steps == false
-      flash[:notice] = "Steps skipped"
+    if return_address.present? && invoice_address.present? && @seller.bank_detail.present? && @seller&.paypal_detail&.integration_status? && @seller.products.count > 0
+      @seller.update(skip_success_hub_steps: params[:skip_success_steps])
     end
     redirect_to sellers_seller_authenticated_root_path
+  end
+
+  def reviewed_login_screen
+    @seller.update(reviewed_login_screen: true) unless @seller.reviewed_login_screen
   end
 
   def holiday_mode

@@ -908,6 +908,8 @@ label {
   white-space: normal;
   word-break: break-word;
   padding-right: 20px;
+  max-width: 300px;
+  min-width: 300px;
 }
 @media only screen and (min-width: 1025px) {
   .admin-dashboard.no-header {
@@ -959,6 +961,19 @@ label {
     padding-bottom: 10px;
     margin-bottom: 10px !important;
 }
+.custome-input-dropdwsn .dropdown-menu,
+.custome-input-dropdwsn .btn-link-dropdown {
+    border: 2px solid var(--dark-red) !important;
+}
+.custome-input-dropdwsn .dropdown-menu {
+    border-top: 0 !important;
+}
+
+.product-listing-input-fields {
+    width: 125px !important;
+    display: flex;
+    max-width: inherit !important;
+}
 
 .pdp-register-drpdwn .btn-primary {
     background-color: var(--dark-red) !important;
@@ -1001,4 +1016,7 @@ label {
 .form-group-vertical .forgot-password-label {
   min-width: 125px !important;
   max-width: 125px !important;
+}
+.seller-account-delivery-setting {
+width: 75%;
 }
