@@ -235,21 +235,23 @@ class Admin::SellersController < Admin::BaseController
   end
 
   def update_subscription_by_admin
-    
     if params[:id].present?
-      @status = params[:subsciption_status]
-      subscription = Admins::Sellers::SubscriptionUpdaterService.call(@status, @seller )
+      @subsciption_status = params[:subsciption_status]
+      @enforce_status = params[:enforce_status]
+      subscription = Admins::Sellers::SubscriptionUpdaterService.call(@subsciption_status,@enforce_status, @seller )
+      notice = "Incorrect action performed, #{subscription.errors[0]}."
       case subscription.status
       when "canceled" 
-        flash.now[:notice] = "Subscription status canceled for seller: #{@seller.email}"
+        notice = "Subscription status canceled for seller: #{@seller.email}."
+      when "after-next-payment-taken"
+        notice = "Subscription set to cancel after next payment taken."
+      when "already-set-to-cancel"
+        notice = "Subscription already set to cancel after next payment taken."
       when  "month_12" , "month_24" , "month_36","lifetime"
-        flash.now[:notice] = "Subscription status changed to #{subscription.status}"
-      else
-        flash.now[:notice] = "Got into some errors please try again later!!  Errors: #{subscription.errors[0]}"
+        notice = "Subscription status changed to #{subscription.status}."        
       end
-    else
-      flash.now[:notice] = "Please refresh page first !!"
     end
+    flash.now[:notice] = notice
   end
 
   def remove_seller_card
@@ -265,12 +267,18 @@ class Admin::SellersController < Admin::BaseController
 
   def renew_seller_subscription
     @seller = Seller.find(params[:seller_id].to_i)
-    subscription = Admins::Sellers::SubscriptionRenewService.call(@seller)
-    if subscription.errors.present?
-      flash.now[:notice] = "Error occured: #{subscription.errors}"
+    if @seller&.seller_stripe_subscription&.cancel_after_next_payment_taken == false
+      subscription = Admins::Sellers::SubscriptionRenewService.call(@seller)
+      if subscription.errors.present?
+        flash.now[:notice] = "Renew process failed: #{subscription.errors}"
+      else
+        UpdateSubscriptionEmailWorker.perform_async(@seller.email,"renew_subscription")
+        flash.now[:notice] = "Subscription renewed successfully."
+      end
     else
-      UpdateSubscriptionEmailWorker.perform_async(@seller.email,"renew_subscription")
-      flash.now[:notice] = "Subscription Renewed successfully !!"
+      Admins::Sellers::DeleteSpecificWrokerService.call(@seller)
+      @seller&.seller_stripe_subscription&.update(cancel_after_next_payment_taken: false)
+      flash.now[:notice] = "Subscription renewed successfully.."
     end
   end
 

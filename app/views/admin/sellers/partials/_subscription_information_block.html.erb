@@ -1,0 +1,33 @@
+<div class="">
+  <table class="table mt-2 subscription-table">
+    <tbody>
+      <tr>
+        <td >Current Subscription:</td>
+        <td id="subscription-name"><%= plan_name%></td>
+      </tr>
+      <tr>
+        <td id="">Free till: </td>
+        <td><%=free_till%></td>
+      </tr>
+      <tr>
+        <td id="subscription-expiry-date">Expires:</td>
+        <td><%=expiry_date%></td>
+      </tr>
+      <tr>
+        <td id="subscription-renewal-cost">Renewal Cost:</td>
+        <td><%=renewal_cost%></td>
+      </tr>
+      <tr>
+        <td id="subscription-renewal-date">Renewal Date:</td>
+        <td><%=renewal_date%></td>
+      </tr>
+      <tr>
+        <%= render 'admin/sellers/partials/cancel_subscription_dropdowns'%> 
+      </tr>
+      <tr>
+        <td id="subscription-commission">Commission:</td>
+        <td>14.5%</td>
+      </tr>
+    </tbody> 
+  </table>
+</div>

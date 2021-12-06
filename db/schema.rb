@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_03_091317) do
+ActiveRecord::Schema.define(version: 2021_12_05_131417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -512,24 +512,14 @@ ActiveRecord::Schema.define(version: 2021_12_03_091317) do
     t.string "plan_name"
     t.string "status"
     t.string "product_id"
-    t.string "object"
-    t.string "application_fee_percent"
-    t.boolean "automatic_tax_status"
-    t.bigint "billing_cycle_anchor"
     t.datetime "cancel_at"
     t.boolean "cancel_at_period_end"
     t.datetime "canceled_at"
-    t.string "collection_method"
     t.datetime "current_period_end"
     t.datetime "current_period_start"
     t.string "customer"
-    t.string "default_payment_method"
-    t.float "default_tax_rates"
     t.integer "recurring_interval_count"
     t.string "recurring_interval"
-    t.string "recurring_usage_type"
-    t.string "tiers_mode"
-    t.string "type"
     t.bigint "seller_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -538,6 +528,9 @@ ActiveRecord::Schema.define(version: 2021_12_03_091317) do
     t.string "status_set_by_admin"
     t.datetime "schedule_date"
     t.string "plan_id"
+    t.boolean "cancel_after_next_payment_taken", default: false
+    t.string "subscription_data"
+    t.string "associated_worker"
     t.index ["seller_id"], name: "index_seller_stripe_subscriptions_on_seller_id"
   end
 

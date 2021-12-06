@@ -3,8 +3,9 @@ module Admins
     class SubscriptionUpdaterService < ApplicationService
       attr_reader  :seller, :status, :errors
 
-      def initialize(status,seller)
-          @status = status
+      def initialize(subscription_status,enforce_status,seller)
+          @status = subscription_status
+          @enforce_status = enforce_status
           @seller = seller
           @errors = []
       end
@@ -22,11 +23,7 @@ module Admins
       def check_request_status
         case @status
         when "cancel"
-          if @seller.seller_stripe_subscription.status == "not_started"
-            cancel_schedule_subscription
-          else
-            cancel_subscription
-          end
+          check_cancelation_process
         when "month_12"
           @start_date = Time.current + 1.year
           change_seller_subscription_status
@@ -42,6 +39,62 @@ module Admins
         else
           errors = "Select correct option"
         end
+      end
+
+      def check_cancelation_process
+        if @seller&.seller_stripe_subscription&.status == "not_started"
+          cancel_schedule_subscription
+          set_cancel_status(false)
+        elsif @seller&.seller_stripe_subscription&.status == "active" && @enforce_status == "next-payment-taken"
+          @status = "already-set-to-cancel"
+          if @seller&.seller_stripe_subscription&.cancel_after_next_payment_taken == false
+            cancel_after_next_payment_subscription            
+          end
+        elsif @seller&.seller_stripe_subscription&.status == "active" && @enforce_status == "current-subscriptions-end"
+          cancel_subscription
+          set_cancel_status(false)
+        end
+      end
+
+      def cancel_after_next_payment_subscription
+        begin
+          set_cancel_status(true)
+          Admins::Sellers::DeleteSpecificWrokerService.call(@seller)
+          worker = CancelSubscriptionAfterPaymentTakenWorker.perform_at(run_at, @seller.id)
+          update_worker(worker)
+          @status = "after-next-payment-taken"
+        rescue => e
+          set_cancel_status(false)
+          @errors << e.message
+        end
+      end
+
+      def update_worker(worker)
+        @seller&.seller_stripe_subscription&.update(associated_worker: worker)
+      end
+
+      def set_cancel_status(status)
+        @seller&.seller_stripe_subscription&.update(cancel_after_next_payment_taken: status)
+      end
+
+      def run_at
+        begin
+          Time.at(retrieve_scheduled_subscription&.current_phase&.end_date) + 2.hours
+        rescue
+          Time.at(retrieve_released_subscription.current_period_end) + 2.hours
+        end
+      end
+
+      def retrieve_released_subscription
+        Stripe::Subscription.retrieve(
+          @seller&.seller_stripe_subscription&.subscription_stripe_id,
+        )
+      end
+
+      def retrieve_scheduled_subscription
+        Stripe::SubscriptionSchedule.retrieve(
+          get_subscription_id,
+        )
       end
 
       def change_seller_subscription_status
@@ -71,9 +124,8 @@ module Admins
       end
 
       def cancel_schedule_subscription
-        
         sub = Stripe::SubscriptionSchedule.cancel(
-          get_subscription_id(),
+          get_subscription_id,
         )
         record =  update_current_schedule_subscription(sub) if sub.status == 'canceled'
         @status = sub.status
@@ -82,7 +134,7 @@ module Admins
       def release_schedule_subscription
         begin
           release = Stripe::SubscriptionSchedule.release(
-            get_subscription_id(),
+            get_subscription_id,
           )
           return release
         rescue
@@ -111,8 +163,7 @@ module Admins
       end
 
       def get_subscription_id
-        @subscription_id = @seller.seller_stripe_subscription.subscription_schedule_id
-        return @subscription_id
+        @seller&.seller_stripe_subscription&.subscription_schedule_id
       end
 
       def update_current_subscription(sub)

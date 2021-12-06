@@ -1,0 +1,30 @@
+<td id="subscription-renewal-cost">Update Subscription:</td>
+  <%if cancel_at_period_end_nil_or_false? && !cancel_after_next_payment_taken?%>
+    <td class="d-flex">
+      <select id="admin-subsciption-statuses-list" name="subsciption_status" class="form-control admin-subscription-status-dropdown mr-5">
+        <%if subsciption_status == 'not_started'%>
+          <option value="month_12" <%= selected_or_not("month_12")%> >12 month</option>
+          <option value="month_24" <%= selected_or_not("month_24")%> >24 month</option>
+          <option value="month_36" <%= selected_or_not("month_36")%> >36 month</option>
+          <option value="lifetime" <%= selected_or_not("lifetime")%> >Lifetime</option>
+          <option value="cancel" <%= selected_or_not("cancel")%> >Cancel</option>
+        <%else%>
+          <option value="" >select</option>
+          <option value="cancel" id="show-other-option-tag" <%= selected_or_not("cancel") %> data-seller="<%= @seller.id%>">Cancel</option>
+        <%end%>
+      </select>
+      <div class="d-flex align-items-center enforce-subscription-dropdown invisible">
+        <label class="mb-0 mr-3">Enforce Subscription Change:</label>
+        <select id="enforce-dropdown" name="enforce_status" class="form-control">
+          <option value="">select</option>
+          <option value="next-payment-taken" <%= enforce_sub_dropdown("next-payment-taken")%> data-seller="<%= @seller.id%>">When next payment taken</option>
+          <option value="current-subscriptions-end" <%= enforce_sub_dropdown("current-subscriptions-end")%> data-seller="<%= @seller.id %>">When current subscriptions end</option>
+        </select>
+      </div>
+    </td>
+  <%else%>
+  <td>
+    <a href="#" name="<%= subscription_renew_path%>" class="btn btn-sm btn-radius px-4 btn-primary mb-3 renew-seller-subscription">Renew Subscription</a>
+    <%= render 'shared/simple_confirm_modal', confirm_statement: 'Are you sure you want to perform this action?', id: 'renew-seller-subscription-by-admin',path: '#', data: "", modal_id: 'renew-seller-subscription-confirm' %>
+  </td>
+  <%end%>

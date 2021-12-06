@@ -1211,6 +1211,8 @@ h6 {
 .subscription-table tbody td {
   border: none;
   font-size: 12px;
+  vertical-align: middle;
+  color: var(--dark-red);
 }
 .select-width {
   width: 150px;

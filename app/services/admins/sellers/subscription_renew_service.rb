@@ -41,22 +41,23 @@ module Admins
               cancel_at_period_end: false,
             }
           )
-        record =  update_current_subscription(sub) if sub.status == 'active'
+        update_current_subscription(sub) if sub.status == 'active'
       end
 
       def update_current_subscription(sub)
-        record = @seller&.seller_stripe_subscription.update(
-          subscription_schedule_id: sub.id,
-          status: sub.status,
-          cancel_at_period_end: false,
-          current_period_end: sub.current_period_end,
-          current_period_start: sub.current_period_start,
-          seller_requested_cancelation: false
-        )
-        
-        return true if record == true 
+        record = @seller&.seller_stripe_subscription.update(update_params(sub))
       end
 
+      def update_params(sub)
+        {
+          subscription_stripe_id: sub.id,
+          status: sub.status,
+          cancel_at_period_end: false,
+          current_period_end: Time.at(sub.current_period_end),
+          current_period_start: Time.at(sub.current_period_start),
+          seller_requested_cancelation: false
+        }
+      end
     end
   end
 end
