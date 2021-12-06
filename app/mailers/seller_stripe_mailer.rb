@@ -5,7 +5,8 @@ class SellerStripeMailer < ApplicationMailer
     mail(to: seller_email, subject: 'Cancel Subscription Request')
   end
 
-  def send_cancel_subscription_notification_to_admin(seller_email)
+  def send_cancel_subscription_notification_to_admin(seller_email,reason)
+    @reason = reason
     @seller_email = seller_email
     admins = Admin.all
     admins.each do |admin|

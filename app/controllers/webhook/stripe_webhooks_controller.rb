@@ -8,10 +8,11 @@ class Webhook::StripeWebhooksController < ActionController::Base
       when 'customer.subscription.created'
         # create_customer_subscription(params)
       when 'subscription_schedule.aborted'
-        
+
+      when 'customer.subscription.deleted'
+        cancel_current_subscription_webhook(params)
       when 'subscription_schedule.canceled'
-        cancel_params = params
-        cancel_subscription_webhook(cancel_params)
+        cancel_subscription_webhook(params)
       when 'subscription_schedule.completed'
         # completed_subscription_webhook
       when 'subscription_schedule.created'
@@ -154,6 +155,20 @@ class Webhook::StripeWebhooksController < ActionController::Base
     subscription.current_period_end = current_period_end
     subscription.subscription_stripe_id = params[:data][:object][:subscription]
     subscription.save
+  end
+
+  def cancel_current_subscription_webhook(params)
+    subscription_id = params[:data][:object][:id]
+    subscription = SellerStripeSubscription.where(subscription_stripe_id: subscription_id)&.last&.update(update_params(params))
+  end
+
+  def update_params(params)
+    {
+      status: params[:data][:object][:status],
+      current_period_end: Time.at(params[:data][:object][:current_period_start]),
+      current_period_start: Time.at(params[:data][:object][:current_period_end]),
+      cancel_at_period_end: params[:data][:object][:cancel_at_period_end]
+    }
   end
 
 end

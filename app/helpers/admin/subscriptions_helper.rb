@@ -4,12 +4,22 @@ module Admin::SubscriptionsHelper
     seller_subscription&.plan_name || "Default"
   end
 
-  def free_till
-    seller_subscription&.schedule_date&.strftime('%d/%m/%y %T')
+  def subscription_name
+    if @seller.provider == "admin" && @seller.subscription_type == "month_12"
+      value = "12 Month"
+    elsif @seller.provider == "admin" && @seller.subscription_type == "month_24"
+      value = "24 Month"
+    elsif @seller.provider == "admin" && @seller.subscription_type == "month_36"
+      value = "36 Month"
+    elsif @seller.provider == "admin" && @seller.subscription_type == "lifetime"
+      value = "Pioneer"
+    else
+      value = "Standard"
+    end
   end
 
   def expiry_date
-    seller_subscription&.current_period_end&.strftime('%d/%m/%y %T')
+    seller_subscription&.current_period_end&.strftime('%d/%m/%y %T') || seller_subscription&.schedule_date&.strftime('%d/%m/%y %T') || ""
   end
 
   def renewal_cost
@@ -17,10 +27,6 @@ module Admin::SubscriptionsHelper
     if @seller.provider != "admin"
     val = "£29.00"
     end
-  end
-
-  def renewal_date
-    seller_subscription&.updated_at&.strftime('%d/%m/%y %T')
   end
 
   def cancel_at_period_end_nil_or_false?
@@ -79,9 +85,16 @@ module Admin::SubscriptionsHelper
   end
 
   def canceled_at
-    seller_subscription.canceled_at&.strftime('%d/%m/%y %T') 
+    seller_subscription&.canceled_at&.strftime('%d/%m/%y %T') 
   end
 
+  def seller_requested_cancelation?
+    @seller.seller_stripe_subscription.seller_requested_cancelation
+  end
+
+  def is_eligible_for_save?
+    (seller_subscription.present? && cancel_at_period_end_nil_or_false? && !cancel_after_next_payment_taken? && !subscription_canceled?)
+  end
   def seller_subscription
     @seller&.seller_stripe_subscription&.reload
   end

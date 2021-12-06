@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-between">
   <h5>Subscription</h5>
   <div class="">
-  <%if seller_subscription.present? && cancel_at_period_end_nil_or_false? && !cancel_after_next_payment_taken?%>
+  <%if is_eligible_for_save?%>
     <a href="#" name="<%=@seller.id%>" class="btn btn-sm px-4 btn-primary mb-3 ml-3 save-seller-subscription">Save</a>
     <%= render 'shared/simple_confirm_modal', confirm_statement: 'Are you sure you want to save changes?', id: 'save-seller-subscription-by-admin',path: '#', data: "", modal_id: 'save-seller-subscription-confirm' %>
   <%end%>

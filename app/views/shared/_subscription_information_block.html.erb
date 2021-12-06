@@ -3,11 +3,7 @@
     <tbody>
       <tr>
         <td >Current Subscription:</td>
-        <td id="subscription-name"><%= plan_name%></td>
-      </tr>
-      <tr>
-        <td id="">Free till: </td>
-        <td><%=free_till%></td>
+        <td id="subscription-name"><%= subscription_name%></td>
       </tr>
       <tr>
         <td id="subscription-expiry-date">Expires:</td>
@@ -19,7 +15,7 @@
       </tr>
       <tr>
         <td id="subscription-renewal-date">Renewal Date:</td>
-        <td><%=renewal_date%></td>
+        <td><%=expiry_date%></td>
       </tr>
       <tr>
         <%= render 'admin/sellers/partials/cancel_subscription_dropdowns'%> 

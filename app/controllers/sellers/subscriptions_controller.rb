@@ -1,12 +1,17 @@
 class Sellers::SubscriptionsController < Sellers::BaseController
   def index; end
 
-  def destroy
-    subscription = SellerStripeSubscription.find(params[:id].to_i)
-    CancelSubscriptionEmailWorker.perform_async(current_seller.email)
-    current_seller.seller_stripe_subscription.update(seller_requested_cancelation: true)
-    @seller = current_seller
-    flash.now[:notice] = 'Subscription cancelation process started. You will be notified once completed'
+  def remove_subscription
+    notice = 'Subscription cancelation process failed.Try again later.'
+    subscription = SellerStripeSubscription.find(params[:format].to_i)
+    subscription.reason = params[:reason]
+    if subscription.save
+      CancelSubscriptionEmailWorker.perform_async(current_seller.email,params[:reason])
+      current_seller.seller_stripe_subscription.update(seller_requested_cancelation: true)
+      @seller = current_seller
+      notice = 'Subscription cancelation process started. You will be notified once completed'
+    end
+    flash.now[:notice] = notice 
   end
 
   def get_current_subscription
