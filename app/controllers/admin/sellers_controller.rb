@@ -283,6 +283,7 @@ class Admin::SellersController < Admin::BaseController
       @seller&.seller_stripe_subscription&.update(cancel_after_next_payment_taken: false)
       flash.now[:notice] = "Subscription renewed successfully.."
     end
+
   end
 
   def remove_payout_bank_account

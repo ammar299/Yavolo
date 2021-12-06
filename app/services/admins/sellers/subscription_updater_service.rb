@@ -79,9 +79,9 @@ module Admins
 
       def run_at
         begin
-          Time.at(retrieve_scheduled_subscription&.current_phase&.end_date) + 2.hours
+          date_parser(retrieve_scheduled_subscription&.current_phase&.end_date) + 2.hours
         rescue
-          Time.at(retrieve_released_subscription.current_period_end) + 2.hours
+          date_parser(retrieve_released_subscription.current_period_end) + 2.hours
         end
       end
 
@@ -157,7 +157,7 @@ module Admins
 
       def update_schedule_subscription_db(sub)
         record = @seller&.seller_stripe_subscription.update(
-          schedule_date: Time.at(sub.phases[0].start_date)
+          schedule_date: date_parser(sub.phases[0].start_date)
         )
         return true if record == true 
       end
@@ -171,7 +171,7 @@ module Admins
           subscription_stripe_id: sub.id,
           status: sub.status,
           cancel_at_period_end: sub.cancel_at_period_end || false,
-          canceled_at: Time.at(sub.canceled_at),
+          canceled_at: date_parser(sub.canceled_at),
           seller_requested_cancelation: false
         )
         UpdateSubscriptionEmailWorker.perform_async(@seller.email,"canceled_at_time_end")
@@ -183,13 +183,20 @@ module Admins
           subscription_schedule_id: sub.id,
           subscription_stripe_id: sub.subscription,
           status: sub.status,
-          canceled_at: Time.at(sub.canceled_at),
+          canceled_at: date_parser(sub.canceled_at),
           seller_requested_cancelation: false
         )
         UpdateSubscriptionEmailWorker.perform_async(@seller.email,"canceled_immediateley")
         return true if record == true 
       end
 
+      def date_parser(date)
+        begin 
+          Time.at(date)
+        rescue
+          nil
+        end
+      end
     end
   end
 end

@@ -3446,5 +3446,14 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+.form-control.reason-input-field{
+  border: 1px solid var(--dark-red) !important;
+  color: var(--dark-red);
+  border-radius: 5px !important;
+}
+
+.reason-dropdown{
+  flex: 1;
+}
 /* custome-input-dropdwsn */
 /* ================== sprint-3 ================== */

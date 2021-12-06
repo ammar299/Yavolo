@@ -24,8 +24,7 @@ module Admins
         @subscription = @seller.seller_stripe_subscription
         if @subscription.present? && @subscription.cancel_at_period_end == true
           renew_seller_subscription
-        elsif @subscription.present? && @subscription.status == "canceled" && (@subscription.cancel_at_period_end.nil? || !@subscription.subscription_stripe_id.present?)
-          @seller.seller_stripe_subscription.destroy
+        elsif @subscription.present? && @subscription.status == "canceled"
           @subscribe = Admins::Sellers::SubscriptionNewCreatorService.call({seller: @seller})
           if @subscribe.errors.present?
             @errors << @subscribe.errors
@@ -53,10 +52,18 @@ module Admins
           subscription_stripe_id: sub.id,
           status: sub.status,
           cancel_at_period_end: false,
-          current_period_end: Time.at(sub.current_period_end),
-          current_period_start: Time.at(sub.current_period_start),
+          current_period_end: date_parser(sub.current_period_end),
+          current_period_start: date_parser(sub.current_period_start),
           seller_requested_cancelation: false
         }
+      end
+
+      def date_parser(date)
+        begin 
+          Time.at(date)
+        rescue
+          nil
+        end
       end
     end
   end

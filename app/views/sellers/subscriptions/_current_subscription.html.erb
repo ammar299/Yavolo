@@ -1,52 +1,14 @@
 <div id="update-subscription-seller-side">
-  <% if @seller.seller_stripe_subscription.present? &&(@seller.seller_stripe_subscription.status == 'not_started' || @seller.seller_stripe_subscription.status == 'active') %>
-    <%if @seller.seller_stripe_subscription.seller_requested_cancelation == true %>
+  <% if subscription_status_active_or_not_started? %>
+    <%if seller_requested_cancelation? %>
       <div><h6>You have applied for cancelation of subscription<h6></div>
     <%else%>
-      <table class="table mt-2 subscription-table">
-        <tbody>
-        <%if @seller&.seller_stripe_subscription&.status == 'not_started'%>
-          <tr>
-            <td >Current Subscription:</td>
-            <td id="subscription-name"><%=@seller&.seller_stripe_subscription&.plan_name%></td>
-          </tr>
-          <tr>
-            <td id="">Free till: </td>
-            <td><%=@seller&.seller_stripe_subscription&.schedule_date&.strftime('%d/%m/%y %T')%></td>
-          </tr>
-          <tr>
-            <td id="subscription-commission">Commission:</td>
-            <td>14.5%</td>
-          </tr>
-        <%elsif @seller&.seller_stripe_subscription&.status == 'active'%>
-          <tr>
-            <td >Current Subscription:</td>
-            <td id="subscription-name"><%=@seller.seller_stripe_subscription.plan_name%></td>
-          </tr>
-          <tr>
-            <td id="subscription-expiry-date">Expires:</td>
-            <td><%=@seller&.seller_stripe_subscription&.current_period_end&.strftime('%d/%m/%y %T')%></td>
-          </tr>
-          <tr>
-            <td id="subscription-renewal-cost">Renewal Cost:</td>
-            <td>0.00</td>
-          </tr>
-          <tr>
-            <td id="subscription-renewal-cost">Renewal Date:</td>
-            <td><%=@seller&.seller_stripe_subscription&.updated_at&.strftime('%d/%m/%y %T')%></td>
-          </tr>
-        
-          <tr>
-            <td id="subscription-commission">Commission:</td>
-            <td>14.5%</td>
-          </tr>
-        <%end%>
-        </tbody>
-      </table>
-      <a href="#" name="<%= sellers_subscription_path(@seller.seller_stripe_subscription) %>" class="btn btn-sm btn-radius px-4 btn-primary mb-3 ml-3 end-subscription">End Subscription</a>
-      <%= render 'shared/subscription_end_modal', confirm_statement: 'Are you sure you want to pass up all the great benefits of Yavolo?', id: 'stripe-subscription-end',path: '#', data: "", modal_id: 'stripe-subscription-end-confirm' %>
+      <%= render 'sellers/subscriptions/information_block'%>
+      <a href="#" name="" class="btn btn-sm btn-radius px-4 btn-primary mb-3 ml-3 end-subscription">End Subscription</a>
+      <%= render 'shared/sellers/subscription_end_modal', confirm_statement: 'Are you sure you want to pass up all the great benefits of Yavolo?', id: 'stripe-subscription-end',path: '#', data: "", modal_id: 'stripe-subscription-end-confirm' %>
+      <%= render 'shared/sellers/end_subscription_reason_popup', confirm_statement: "We're sorry to hear you're ending your subscription with yavolo.", id: 'stripe-subscription-reason-end',path: '#', data: sellers_remove_subscription_path(@seller.seller_stripe_subscription), modal_id: 'stripe-subscription-end-reason-confirm' %>
     <%end%>
-  <%elsif @seller.seller_stripe_subscription.present? && @seller.seller_stripe_subscription.status == 'canceled' %>
+  <%elsif subscription_canceled? %>
     <table class="table mt-2 subscription-table">
       <tbody>
         <tr>
@@ -55,7 +17,7 @@
         </tr>
         <tr>
           <td>Canceled at:</td>
-          <td><%= @seller&.seller_stripe_subscription&.canceled_at&.strftime('%d/%m/%y %T') %></td>
+          <td><%= canceled_at %></td>
         </tr>
       </tbody>
     </table>

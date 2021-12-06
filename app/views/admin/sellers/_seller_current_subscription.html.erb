@@ -1,9 +1,9 @@
 <div id="current-sub-update-admin">
   <form id="admin-subscription-form" >
     <% if subscription_status_active_or_not_started? %>
-    <%= render 'admin/sellers/partials/subscription_information_block'%>
+    <%= render 'shared/subscription_information_block'%>
     <%elsif subscription_canceled? %>
-      <%= render 'admin/sellers/partials/display_on_subscription_canceled'%>
+      <%= render 'shared/display_on_subscription_canceled'%>
     <%else%>
       <div><h6>Not subscribed yet.<h6></div>
     <%end%>

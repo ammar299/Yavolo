@@ -69,10 +69,18 @@ class CancelSubscriptionAfterPaymentTakenWorker
       subscription_stripe_id: sub.id,
       status: sub.status,
       cancel_at_period_end: sub.cancel_at_period_end || false,
-      canceled_at: Time.at(sub.canceled_at),
+      canceled_at: date_parser(sub.canceled_at),
       seller_requested_cancelation: false,
       subscription_data: sub
     }
+  end
+
+  def date_parser(date)
+    begin 
+      Time.at(date)
+    rescue
+      nil
+    end
   end
 
 end

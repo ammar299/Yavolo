@@ -153,6 +153,7 @@ Rails.application.routes.draw do
         post :check_onboarding_status, :to => 'paypal_integrations#check_onboarding_status'
         resources :subscriptions, except: %i[index create new update edit show]
         get :create_stripe_subscription, :to => 'subscriptions#create_stripe_subscription'
+        get :remove_subscription, :to => 'subscriptions#remove_subscription'
         get :get_current_subscription, :to => 'subscriptions#get_current_subscription'
         # get :bank_details, :to => 'bank_accounts#bank_details'
         # get :update_bank_account, :to => 'bank_accounts#update_bank_account'
