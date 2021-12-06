@@ -982,6 +982,10 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
     return content_length > 0;
   }, "Please add some description about your product.");
 
+  jQuery.validator.addMethod('productEan', function(value, element) {
+    return this.optional(element) || /^(\d{12})?$/.test(value);
+  }, 'Please Enter a valid EAN');
+
   let rules = {
     "product[title]": {
       required: true
@@ -1133,4 +1137,13 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
     }
   });
 
+  $('#product_ean').change(function() {
+    $(this).valid();
+  })
+  $('#product_ean').rules('add', {
+    productEan: true,
+    messages: {
+      productEan: 'Please Enter a valid EAN.'
+    }
+  });
 }
