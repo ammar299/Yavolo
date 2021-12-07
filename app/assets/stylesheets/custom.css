@@ -1036,3 +1036,10 @@ width: 75%;
 .seller-subscription-td-width {
   width: 20%;
 }
+.flex1 {
+  flex: 1;
+}
+
+.seller-account-phone-no {
+  width: 40%;
+}
