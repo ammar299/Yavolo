@@ -1,0 +1,21 @@
+<div class="modal fade yavolos--back-button-modal" id="yavoloBundleBackButton" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-controller="yavolos--back-button-modal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Continue without creating Yavolo?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+      </div>
+      <div class="modal-body px-4">
+        <div class="d-flex justify-content-between align-items-center flex-wrap">
+          <a class="decoration-none" href="#" data-dismiss="modal">Return to edit</a>
+          <%=link_to "Continue", admin_yavolos_manual_bundles_path, class: "btn btn-radius px-4 btn-primary listing-btn" %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1031,7 +1031,7 @@ width: 75%;
 
 .yo-white-card label {
   font-weight: 600;
-} 
+}
 
 .seller-subscription-td-width {
   width: 20%;
@@ -1043,3 +1043,77 @@ width: 75%;
 .seller-account-phone-no {
   width: 40%;
 }
+
+/* edite yavolo listings */
+.product-bg-title {
+    background-color: var(--dark-red);
+    width: 36px;
+    height: 36px;
+    color: var(--off-white);
+    font-size: 16px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    left: -22px;
+    top: 2px;
+}
+.product-bg-title-bordr {
+    border-bottom: 2px solid var(--dark-red);
+    margin-left: 22px;
+}
+.yo-price-inpt {
+    width: 100%;
+    height: 36px;
+    color: var(--dark-red);
+    border: 1px solid #D6D6D6 !important;
+    border-radius: 12px;
+    padding: 3px ;
+}
+.yo-price-inpt:focus {
+    border: 1px solid var(--dark-red) !important;
+    border-color: var(--dark-red) !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.yo-price-inpt:disabled{
+    background: lightgray;
+}
+
+.label-custm-min label {
+    min-width: 86px !important;
+    font-size: 12px !important;
+    font-weight: bold;
+    width: auto;
+}
+.form-control::placeholder {
+    color:#D6D6D6;
+    opacity: 1; /* Firefox */
+}
+.label-custm-min .form-control {
+    padding: 5px !important;
+    max-width: 65px !important;
+    color: var(--dark-red);
+    font-size: 12px;
+    height: 33px;
+}
+.label-custm-min .form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #D6D6D6 !important;
+}
+
+.yavolos-bundle-products-container{
+    overflow-y: auto;
+    max-height: 1300px;
+    width: 100%;
+}
+
+.yavolos--summary .label-custm-min .form-control{
+    background: lightgray;
+}
+
+.yavolos--summary .label-custm-min .form-control:focus {
+    background: white;
+}
+/* edite yavolo listings */

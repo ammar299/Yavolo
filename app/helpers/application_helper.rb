@@ -121,6 +121,10 @@ module ApplicationHelper
     amount.present? ? number_to_currency(amount, unit: "£", precision: 2) : 0
   end
 
+  def format_to_percentage(number)
+    number.present? ? number_to_percentage(number,precision:8, scale: 2, strip_insignificant_zeros: true) : number_to_percentage(0,precision:0)
+  end
+
   def set_filter_type_in_dropdown(params)
     val = "Search All"
     if params[:filter_type].present?
@@ -161,7 +165,11 @@ module ApplicationHelper
     action_hash = ACTION_NAME_WITH_ACTION_STATUS.select { |h| h[:action_name] == action_name }.last
     action_hash.present? ? action_hash[:action_performed] : action_name
   end
-  
+
+  def titleize(str)
+    str.to_s.titleize
+  end
+
   def authorise_developer_by_seller_or_admin
     ((current_seller.present? && current_seller.eligible_to_create_api) ||
         (current_admin.present? && admin_seller_route?(params[:controller])))
