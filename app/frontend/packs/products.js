@@ -999,7 +999,7 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
   }, "Please add some description about your product.");
 
   jQuery.validator.addMethod('productEan', function(value, element) {
-    return this.optional(element) || /^(\d{12})?$/.test(value);
+    return this.optional(element) || /^(\d{13})?$/.test(value);
   }, 'Please Enter a valid EAN');
 
   let rules = {
@@ -1008,7 +1008,7 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
     },
     "product[ean]": {
       required: true,
-      maxlength: 12
+      maxlength: 13
     },
     "product[price]": {
       required: true

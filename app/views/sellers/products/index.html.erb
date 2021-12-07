@@ -46,20 +46,20 @@
                             </div>
                             <div class="search-field mb-0">
                                 <%= search_form_for @q, url: sellers_products_path do |f| %>
-                                <%= hidden_field_tag :tab, params[:tab].to_s ||'all'%>
+                                    <%= hidden_field_tag :tab, params[:tab].to_s ||'all' %>
                                 <input type="hidden" name="filter_type" id="product-filter-type" value="<%= params[:filter_type] %>">
                                 <input type="hidden" name="csfname" id="csfn" value="<%= current_search_field_name %>">
-                                <% if params[:q].present? && params[:q].keys.include?('s') %>
-                                <%=hidden_field_tag 'q[s]', params[:q][:s].to_json %>
-                                <% end %>
-                                <%= f.search_field current_search_field_name.to_sym, { class: 'input-btn-sm seller-product-search-field', placeholder: 'Search Products', value: "#{search_field_query_param_val(params)}" } %>
-                                <% if params[:q].present? && params[:q]['title_or_brand_or_sku_or_yan_or_ean_cont'].present? %>
-                                  <%= link_to sellers_products_path, class: 'btn-sm' do %>
-                                    <i class="icon-cross" aria-hidden="true"></i>
-                                  <% end %>
-                                <% else %>
-                                  <i class="fa fa-search" aria-hidden="true"></i>
-                                <% end %>
+                                    <% if params[:q].present? && params[:q].keys.include?('s') %>
+                                        <%= hidden_field_tag 'q[s]', params[:q][:s].to_json %>
+                                    <% end %>
+                                    <%= f.search_field current_search_field_name.to_sym, { class: 'input-btn-sm seller-product-search-field', placeholder: 'Search Products', value: "#{search_field_query_param_val(params)}" } %>
+                                    <% if params[:q].present? %>
+                                        <%= link_to sellers_products_path(filter_type: params[:filter_type], tab: (params[:tab].present? ? params[:tab] : 'all')), class: 'btn-sm' do %>
+                                            <i class="icon-cross" aria-hidden="true"></i>
+                                        <% end %>
+                                    <% else %>
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    <% end %>
                                 <% end %>
                             </div>
                         </div>
@@ -203,6 +203,9 @@
                                         <% end %>
                                     </tbody>
                                 </table>
+                                <% if @products.count == 0 %>
+                                    <p class="text-center my-5">No Record Found</p>
+                                <% end %>
                             </div>
                         </div>
                     </div>
