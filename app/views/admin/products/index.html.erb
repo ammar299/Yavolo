@@ -98,7 +98,7 @@
                     </div>
                   </div>
                 </div>
-              <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border">
+              <div class="dropdown-filter-field dropdown-filter-custom active mr-2 mb-8 my-1 ml-2 dropdown-filter-border">
                 <div class="dropdown">
                   <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center filter-by-dropdown" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= set_product_sort_by_in_dropdown(params) %> <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -195,7 +195,7 @@
                         </td>
                         <td>
                           <p class="mb-0">SKU: <%= product.sku %></p>
-                          <p class="mb-0">EAN: <%= product.ean %></p>
+                          <p class="mb-0">YAN: <%= product.ean %></p>
                           <p class="mb-0">Brand: <%= product.brand %></p>
                           <p class="mb-0">Condition: <%= product.condition == 'brand_new' ? 'New' : product.try(:condition).try(:titleize) %></p>
                         </td>
@@ -208,11 +208,11 @@
                         </td>
                         <td class="stock-box text-center"><%=product.stock.to_i %></td>
                         <td class="text-center price-box"><%=number_to_currency((number_with_precision(product.price, :precision => 2) || 0), unit: '£') %></td>
-                        <td><%=number_to_currency((number_with_precision(300, :precision => 2) || 0), unit: '£') %></td>
-                        <td><%=number_to_currency((number_with_precision(300, :precision => 2) || 0), unit: '£') %></td>
+                        <td class="text-center"><%=number_to_currency((number_with_precision(300, :precision => 2) || 0), unit: '£') %></td>
+                        <td class="text-center"><%=number_to_currency((number_with_precision(300, :precision => 2) || 0), unit: '£') %></td>
                         <td class="text-center"<a href="" class="decoration-none"><span class="icon-manage-Yavolo red-text font-20px"></span></a></td>
                         <td class="discount-box text-center"><%= "#{product.discount}" %></td>
-                        <td>
+                        <td class="text-center">
                             <div class="d-flex">
                                 <span class="icon-star pr-1 font-20px red-text pr-2"></span>
                                 <span class="icon-Yavolo-selling-fast-icon pr-2 red-text font-20px"></span>
