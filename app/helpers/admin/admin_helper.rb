@@ -18,9 +18,22 @@ module Admin::AdminHelper
     return unless params[:q].present? && params[:q][:s].present?
     tags_template = []
     params[:q][:s].each do |status|
-      tags_template << "<div class='mr-2 filter-tag'>#{status.titleize}<span data-yfilter=\"#{status}\"  class=\"rm-filterby icon-cross\"></span></div>"
+      tags_template << "<div class='mr-2 filter-tag'>#{sort_filter_tags_titles(status)}<span data-yfilter=\"#{status}\"  class=\"rm-filterby icon-cross\"></span></div>"
     end
     tags_template.join('')
+  end
+
+  def sort_filter_tags_titles(status)
+    case status.titleize
+    when "Title Asc"
+      "Product Title A-Z"
+    when "Title Desc"
+      "Product Title Z-A"
+    when "Price Desc"
+      "Price High-Low"
+    when "Price Asc"
+      "Price Low-High"
+    end
   end
 
   def admin_heading(params)
