@@ -752,7 +752,7 @@ label {
 }
 .dropdown-filter-custom .dropdown {
   left: -2px;
-  top: -2px;
+  top: -1px;
 }
 .dropdown-filter-custom .btn {
   border: 0 !important;
