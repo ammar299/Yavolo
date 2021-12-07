@@ -107,7 +107,7 @@ class Webhook::StripeWebhooksController < ActionController::Base
     if subscription.present?
       subscription_updated_status = cancel_params[:data][:object][:status]
       subscription_plan_id = cancel_params[:data][:object][:phases][0][:items][0][:price]
-      subscription_canceled_at = date_parser(cancel_params[:data][:object][:canceled_at]).to_datetime
+      subscription_canceled_at = date_parser(cancel_params[:data][:object][:canceled_at])
       subscription.status = "canceled"  #subscription_updated_status
       subscription.canceled_at = subscription_canceled_at
       subscription.plan_id = subscription_plan_id
@@ -128,7 +128,7 @@ class Webhook::StripeWebhooksController < ActionController::Base
     subscription_id = params[:data][:object][:id]
     subscription_updated_status = params[:data][:object][:status]
     subscription_plan_id = params[:data][:object][:phases][0][:items][0][:price]
-    subscription_canceled_at = date_parser(params[:data][:object][:canceled_at]).to_datetime
+    subscription_canceled_at = date_parser(params[:data][:object][:canceled_at])
     subscription = SellerStripeSubscription.where(subscription_schedule_id: subscription_id)
     subscription.status = subscription_updated_status
     subscription.canceled_at = subscription_canceled_at
@@ -139,8 +139,8 @@ class Webhook::StripeWebhooksController < ActionController::Base
   def update_status_subscription(subscription_id,subscription_updated_status)
     standard_subscription_id = params[:data][:object][:subscription]
     subscription_plan_id = params[:data][:object][:phases][0][:items][0][:price]
-    current_period_start = date_parser(params[:data][:object][:current_phase][:start_date]).to_datetime
-    current_period_end = date_parser(params[:data][:object][:current_phase][:end_date]).to_datetime
+    current_period_start = date_parser(params[:data][:object][:current_phase][:start_date])
+    current_period_end = date_parser(params[:data][:object][:current_phase][:end_date])
     subscription = SellerStripeSubscription.where(subscription_schedule_id: subscription_id).last
     subscription.status = subscription_updated_status
     subscription.plan_id = subscription_plan_id
