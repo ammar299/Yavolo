@@ -1,6 +1,7 @@
 module Admins
   module Sellers
     class SubscriptionRenewService < ApplicationService
+      include Admin::SubscriptionsHelper
       attr_reader  :seller, :status, :errors
 
       def initialize(seller)
@@ -56,14 +57,6 @@ module Admins
           current_period_start: date_parser(sub.current_period_start),
           seller_requested_cancelation: false
         }
-      end
-
-      def date_parser(date)
-        begin 
-          Time.at(date)
-        rescue
-          nil
-        end
       end
     end
   end

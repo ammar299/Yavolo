@@ -166,4 +166,5 @@ module ApplicationHelper
     ((current_seller.present? && current_seller.eligible_to_create_api) ||
         (current_admin.present? && admin_seller_route?(params[:controller])))
   end
+
 end

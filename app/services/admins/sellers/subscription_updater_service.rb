@@ -1,6 +1,7 @@
 module Admins
   module Sellers
     class SubscriptionUpdaterService < ApplicationService
+      include Admin::SubscriptionsHelper
       attr_reader  :seller, :status, :errors
 
       def initialize(subscription_status,enforce_status,seller)
@@ -188,14 +189,6 @@ module Admins
         )
         UpdateSubscriptionEmailWorker.perform_async(@seller.email,"canceled_immediateley")
         true if record == true 
-      end
-
-      def date_parser(date)
-        begin 
-          Time.at(date)
-        rescue
-          nil
-        end
       end
     end
   end

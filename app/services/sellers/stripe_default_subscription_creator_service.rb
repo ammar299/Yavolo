@@ -1,6 +1,7 @@
 module Sellers
 
   class StripeDefaultSubscriptionCreatorService < ApplicationService
+    include Admin::SubscriptionsHelper
     attr_reader :params, :errors
     def initialize(params)
       @params = params
@@ -104,15 +105,6 @@ module Sellers
     end
     
     private
-
-
-    def date_parser(date)
-      begin 
-        Time.at(date)
-      rescue
-        nil
-      end
-    end
 
     def seller
       @seller ||= params[:seller]

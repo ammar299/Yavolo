@@ -75,12 +75,4 @@ class CancelSubscriptionAfterPaymentTakenWorker
     }
   end
 
-  def date_parser(date)
-    begin 
-      Time.at(date)
-    rescue
-      nil
-    end
-  end
-
 end
