@@ -1,6 +1,6 @@
 <td id="subscription-renewal-cost">Update Subscription:</td>
   <%if cancel_at_period_end_nil_or_false? && !cancel_after_next_payment_taken?%>
-    <td class="d-flex">
+    <td class="d-flex check-data-type" data-type="<%= subscription_name %>">
       <select id="admin-subsciption-statuses-list" name="subsciption_status" class="form-control admin-subscription-status-dropdown mr-5">
         <%if subsciption_status == 'not_started'%>
           <option value="month_12" <%= selected_or_not("month_12")%> >12 month</option>
