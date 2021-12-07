@@ -13,6 +13,10 @@ $(document).ready(function(){
   removePayoutBankAccountHandler()
   contactSellerPopup()
   // verifyBankAccountForPayoutHanlder()
+  $(document).on("change",".admin-subscription-status-dropdown, #enforce-dropdown",function () {
+    hideShowDropdown()
+  });
+
 });
 
 $(document).ready(function(){
@@ -307,7 +311,7 @@ function dropdownHandler(){
     if (option=="cancel")
     { 
       $("#enforce-dropdown").val("current-subscriptions-end").change();
-      $(".enforce-subscription-dropdown").removeClass("invisible")
+      hideShowDropdown()
     }
     else{
       $("#enforce-dropdown").val("").change();
@@ -425,4 +429,11 @@ function verifyBankAccountForPayoutHanlder(){
     });
     
   })
+}
+
+function hideShowDropdown(){
+  $(".enforce-subscription-dropdown").removeClass("invisible")
+  if ($("check-data-type").attr("data-type") !== "Standard"){
+    $(".enforce-subscription-dropdown").addClass("invisible")
+  }
 }
