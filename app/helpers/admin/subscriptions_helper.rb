@@ -96,7 +96,7 @@ module Admin::SubscriptionsHelper
   def is_eligible_for_save?
     (seller_subscription.present? && cancel_at_period_end_nil_or_false? && !cancel_after_next_payment_taken? && !subscription_canceled?)
   end
-
+  
   def seller_subscription
     @seller&.seller_stripe_subscription&.reload
   end

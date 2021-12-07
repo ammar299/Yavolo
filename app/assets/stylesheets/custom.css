@@ -384,7 +384,7 @@ scrollbar-width: none;  /* Firefox */
   font-size: 12px;
   padding: 5px 12px 5px 14px !important;
   justify-content: flex-start;
-  transition: 0.3s linear;
+  /* transition: 0.3s linear; */
   line-height: 13px;
   width: 100%;
   display: flex;
@@ -393,7 +393,7 @@ scrollbar-width: none;  /* Firefox */
 .dropdown-filter .dropdown-menu a svg {
   position: absolute;
   right: 10px;
-  transition: 0.3s linear;
+  /* transition: 0.3s linear; */
 }
 .dropdown-filter-custom .dropdown-menu a svg {
   width: 12px !important;
@@ -750,6 +750,10 @@ label {
   border: 2px solid var(--dark-red);
   height: 35px;
 }
+.dropdown-filter-custom .dropdown {
+  left: -2px;
+  top: -1px;
+}
 .dropdown-filter-custom .btn {
   border: 0 !important;
   background-color: var(--dark-red) !important;
@@ -761,8 +765,7 @@ label {
   text-overflow: ellipsis;
   justify-content: space-between;
   position: relative;
-  left: -2px;
-  top: -2px;
+  /* min-width: 140px; */
 }
 .dropdown-filter-custom .show .btn {
   border-radius: 10px 10px 0 0 !important;
@@ -801,6 +804,7 @@ label {
   min-width: 5px;
   top: -1px !important;
   border-top: 0 !important;
+  will-change: inherit !important;
 }
 .dropdown-filter-custom .dropdown-menu a {
   font-size: 11px;
@@ -1019,4 +1023,16 @@ label {
 }
 .seller-account-delivery-setting {
 width: 75%;
+}
+
+.filter-by-dropdown {
+  min-width: 130px;
+}
+
+.yo-white-card label {
+  font-weight: 600;
+} 
+
+.seller-subscription-td-width {
+  width: 20%;
 }

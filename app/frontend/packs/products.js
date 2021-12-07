@@ -6,6 +6,7 @@ $(document).ready(function(){
   bindAndSortByEvent();
   bindFilterByEvents();
   bindRemoveFilterBy();
+  divAdjusterWidth();
   let updatedProductIds = [];
   let productErrors = [];
   $(document).on({
@@ -151,25 +152,22 @@ $(document).ready(function(){
     }
   })
 
+  
+
   $('#yes-delete-img').click(function(){
+
     if($('.mark-as-delete').length > 0){
       removeImage($('.mark-as-delete'));
+      // divAdjusterWidth();
       $('#yes-no-product-delete-img-modal').modal('hide');
-    }
-    if(window.location.pathname.split("/").pop() == 'new'){
-      if($('.grid-single-img').length < 1 ){
-        $('.add-edit-product-photos').removeClass('col-lg-8').addClass('col-lg-12');
-      }
-    }
-    else {
-      if($('.grid-single-img').length < 2 ){
-        $('.add-edit-product-photos').removeClass('col-lg-8').addClass('col-lg-12');
-      }
     }
   });
 
   $('#yes-no-product-delete-img-modal').on('hidden.bs.modal', function () {
+
     $('.mark-as-delete').removeClass('mark-as-delete');
+    
+    divAdjusterWidth();
   });
   // end image delete
 
@@ -999,7 +997,7 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
   }, "Please add some description about your product.");
 
   jQuery.validator.addMethod('productEan', function(value, element) {
-    return this.optional(element) || /^(\d{12})?$/.test(value);
+    return this.optional(element) || /^(\d{13})?$/.test(value);
   }, 'Please Enter a valid EAN');
 
   let rules = {
@@ -1008,7 +1006,7 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
     },
     "product[ean]": {
       required: true,
-      maxlength: 12
+      maxlength: 13
     },
     "product[price]": {
       required: true
@@ -1163,3 +1161,13 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
     }
   });
 }
+
+
+
+function divAdjusterWidth(){
+    if(window.location.pathname.split("/").pop() == 'new' || window.location.pathname.split("/").pop() == 'edit'){
+      if($('.grid-single-img').length == $('.remove').length ){
+        $('.add-edit-product-photos').removeClass('col-lg-8').addClass('col-lg-12');
+      }
+    }
+  }

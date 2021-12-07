@@ -228,7 +228,7 @@
             </div>
           <% end %>
           <!-- Seller Fields -->
-          <div class="form-group form-group-vertical form-group-vertical-responsive">
+          <div class="form-group form-group-vertical form-group-vertical-responsive mt-3">
             <%= form.label :subscription_type, 'Subscription Type:' %>
             <div style="flex: 1">
               <%= form.select(:subscription_type, Seller.subscription_types.collect {|sub| [sub[0].capitalize, sub[0]]}, {:include_blank => "Select"}, {:class => "form-control"} ) %>
