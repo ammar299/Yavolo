@@ -1020,3 +1020,7 @@ label {
 .seller-account-delivery-setting {
 width: 75%;
 }
+
+.filter-by-dropdown {
+  min-width: 130px;
+}
