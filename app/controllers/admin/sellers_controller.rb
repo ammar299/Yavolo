@@ -33,6 +33,7 @@ class Admin::SellersController < Admin::BaseController
 
   def create
     @seller = Seller.new(seller_params)
+    @seller.provider = "admin"
     @seller.skip_password_validation = true
     if @seller.save
       raw, hashed = Devise.token_generator.generate(Seller, :reset_password_token)
