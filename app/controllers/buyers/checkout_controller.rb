@@ -100,7 +100,7 @@ class Buyers::CheckoutController < Buyers::BaseController
     @sub_total = 0
     product_ids.each do |item|
       product = Product.find(item.to_i) || nil
-      @sub_total += (product.price ? product.price.to_f : 0) if product.present?
+      @sub_total += item[:quantity].to_i * (product.price ? product.price.to_f : 0) if product.present?
     end
     @sub_total.to_f
   end
@@ -129,6 +129,20 @@ class Buyers::CheckoutController < Buyers::BaseController
         end
       end
     end
+  end
+
+  def create_google_payment
+    byebug
+    intent = Stripe::PaymentIntent.create({
+                                              amount: 1999,
+                                              currency: 'gbp',
+                                          })
+    # This API endpoint renders back JSON with the client_secret for the payment
+    # intent so that the payment can be confirmed on the front end. Once payment
+    # is successful, fulfillment is done in the /webhook handler below.
+    {
+        clientSecret: intent.client_secret,
+    }.to_json
   end
 
   def create_paypal_order
@@ -261,7 +275,7 @@ class Buyers::CheckoutController < Buyers::BaseController
     @sub_total = 0
     cart.each do |item|
       product = Product.find(item[:product_id].to_i) rescue nil
-      @sub_total += (item[:quantity].to_i * product.price ? product.price.to_f : 0) if product.present?
+      @sub_total += item[:quantity].to_i * (product.price ? product.price.to_f : 0) if product.present?
     end
     @sub_total.to_f
   end
