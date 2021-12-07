@@ -26,17 +26,17 @@
       <div>
         <h5 class="invisible">Let's Get Selling!</h5>
         <label class="checkbox-blk">
-          <a data-paypal-button="true" href="<%=@action_url%>&displayMode=minibrowser" id="link_paypal_account_from_seller_hub" target="PPFrame">Link up your PayPal account</a>          <input type="checkbox" <%= @seller&.paypal_detail&.integration_status? ? 'checked': '' %> disabled>
+          <a data-paypal-button="true" href="<%=@action_url%>&displayMode=minibrowser" id="link_paypal_account_from_seller_hub" target="PPFrame">Link up your PayPal account*</a>          <input type="checkbox" <%= @seller&.paypal_detail&.integration_status? ? 'checked': '' %> disabled>
           <span class="checkmark"></span>
         </label>
         <label class="checkbox-blk">
-        <a href="<%= sellers_profile_path(@seller) %>">Select your deposit schedule</a>
+        <a href="#">Select your deposit schedule*</a>
           <input type="checkbox">
           <span class="checkmark"></span>
         </label>
         <label class="checkbox-blk">
-        <a href="<%= sellers_profile_path(@seller) %>">Add your first sensational product</a>
-          <input type="checkbox">
+        <a href="<%= new_sellers_product_path %>">Add your first sensational product*</a>
+          <input type="checkbox" <%= @seller.products.count > 1 ? 'checked': '' %> disabled>
           <span class="checkmark"></span>
         </label>
       </div>
@@ -48,26 +48,21 @@
           <input type="checkbox">
           <span class="checkmark"></span>
         </label>
-        <label class="checkbox-blk"><a href="#">Complete return and terms</a>
-          <input type="checkbox">
+        <label class="checkbox-blk"><a href="<%= sellers_profile_path(@seller) %>">Complete return and terms</a>
+          <input type="checkbox" <%= @seller.return_and_term.present? ? 'checked': '' %> disabled>
           <span class="checkmark"></span>
         </label>
-        <label class="checkbox-blk"><a href="#">Review your login settings</a>
-          <input type="checkbox">
+        <label class="checkbox-blk"><a href="<%= sellers_profile_path(@seller) %>">Review your login settings</a>
+          <input type="checkbox"  <%= @seller.reviewed_login_screen ? 'checked': '' %> disabled>
           <span class="checkmark"></span>
         </label>
         <label class="checkbox-blk">
-        <a href="<%= sellers_profile_path(@seller) %>">Brighten Up your business with a Logo*</a>
+        <a href="<%= sellers_profile_path(@seller) %>">Brighten Up your business with a Logo</a>
           <input type="checkbox" <%= @seller.picture.present? ? 'checked': '' %> disabled>
           <span class="checkmark"></span>
         </label>
       </div>
     </div>
   </div>
-  <% if is_eligible?(current_seller) %>
-    <div class="text-right">
-      <%= link_to 'Skip', skip_success_hub_steps_sellers_profile_path(current_seller), class: '' %>
-    </div>
-  <% end %>
   <hr>
 </div>

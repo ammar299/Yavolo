@@ -79,23 +79,40 @@ module Sellers
     def create_subscription_in_database
       get_product_name
       if @subscription_schedule.present?
-        seller&.create_seller_stripe_subscription(
-          subscription_schedule_id: @subscription_schedule.id,
-          subscription_stripe_id: @subscription_schedule.subscription,
-          plan_id: @subscription_schedule.phases[0].items[0].plan,
-          status: @subscription_schedule.status,
-          canceled_at: @subscription_schedule.canceled_at,
-          current_period_end: @subscription_schedule.phases[0].start_date,
-          current_period_start: @subscription_schedule.phases[0].end_date,
-          customer: @subscription_schedule.customer,
-          default_payment_method: @subscription_schedule.phases[0].default_payment_method,
-          schedule_date: Time.at(@subscription_schedule.phases[0].start_date),
-          plan_name: @default_product.name
-        )
+        if seller&.seller_stripe_subscription.present?
+          seller&.seller_stripe_subscription.update(subscription_params)
+        else
+          seller&.create_seller_stripe_subscription(subscription_params)
+        end
       end
+    end
+
+    def subscription_params
+      {
+        subscription_schedule_id: @subscription_schedule.id,
+        subscription_stripe_id: @subscription_schedule.subscription,
+        plan_id: @subscription_schedule.phases[0].items[0].plan,
+        status: @subscription_schedule.status,
+        canceled_at: date_parser(@subscription_schedule.canceled_at),
+        current_period_end: date_parser(@subscription_schedule.phases[0].end_date),
+        current_period_start: date_parser(@subscription_schedule.phases[0].start_date),
+        customer: @subscription_schedule.customer,
+        schedule_date: date_parser(@subscription_schedule.phases[0].start_date),
+        plan_name: @default_product.name,
+        subscription_data: @subscription_schedule
+      }
     end
     
     private
+
+
+    def date_parser(date)
+      begin 
+        Time.at(date)
+      rescue
+        nil
+      end
+    end
 
     def seller
       @seller ||= params[:seller]

@@ -1,108 +1,18 @@
 // load all admin related js or import admin controllers js
 $(document).ready(function(){
   console.log('Admin Js is loaded')
-
   $('.back-btn-action').click(function(){
     window.history.back();
   });
   validateAdminSignIn()
   validateChangePasswordForm()
   validateResetPasswordForm()
-
-  $(document).on("change", "#admin-subsciption-statuses-list", function(e){
-    e.preventDefault();
-    $('#stripe-subscription-cancel-by-admin').attr('data',$(this).find(":selected").data("seller"))
-    $(".confirmation-text").attr('name',$(this).find(":selected").val())
-    $('#stripe-subscription-end-by-admin-confirm').modal('show');
-  });
-  
-  $(document).on("click", "#stripe-subscription-cancel-by-admin", function(e){
-    let seller = $(this).attr("data")
-    let url = "/admin/sellers/"+seller+"/update_subscription_by_admin?id="+seller
-    let selectedValue = $(".confirmation-text").attr("name")
-    $('#stripe-subscription-end-by-admin-confirm').modal('hide');
-    $.ajax({
-      url: url,
-      type: "POST",
-      data: {subsciption_status: selectedValue},
-    });
-  })
-
-  $(document).on("click", ".card-delete-by-admin", function(e){
-    e.preventDefault();
-    $('#membership-card-remove-admin').attr('data',$(this).attr('name'))
-    $('#membership-card-remove-confirm-admin').modal('show');
-  })
-
-  $(document).on("click", "#membership-card-remove-admin", function(e){
-    e.preventDefault();
-    let url = $(this).attr("data")
-    $.ajax({
-      url: url,
-      type: "POST",
-    });
-
-  })
-
-  $(document).on("click", ".renew-seller-subscription", function(e){
-    e.preventDefault();
-    $('#renew-seller-subscription-by-admin').attr('data',$(this).attr('name'))
-    $('#renew-seller-subscription-confirm').modal('show');
-  })
-
-  $(document).on("click", "#renew-seller-subscription-by-admin", function(e){
-    e.preventDefault();
-    let url = $(this).attr("data")
-    $.ajax({
-      url: url,
-      type: "POST",
-    });
-
-  })
-
-  $(document).on("click", "#verify-requirments-admin-for-seller", function(e){
-    e.preventDefault();
-    let seller = parseInt($(this).attr("name"))
-    $.ajax({
-      url: "/admin/sellers/"+seller+"/verify_seller_stripe_account",
-      type: "get",
-      data: {id:seller},
-      success: function(response){
-        if (response.link){
-        // window.open(response.link, "_blank");
-        window.location = response.link
-        }
-      },
-      error: function(){
-        displayNoticeMessage("Link Not Found.")
-      },
-    });
-    
-  })
-  
-  $(document).on("click", ".payout-bank-account-remove-admin", function(e){
-    e.preventDefault();
-    $('#stripe-payout-bank-account-admin-end').attr('data',$(this).attr('name'))
-    $('#stripe-payout-bank-account-admin-confirm').modal('show');
-  })
-
-  $(document).on("click", "#stripe-payout-bank-account-admin-end", function(e){
-    e.preventDefault();
-    let seller = parseInt($(this).attr("data"))
-    $.ajax({
-      url: "/admin/sellers/"+seller+"/remove_payout_bank_account",
-      type: "DELETE",
-      data: {id:seller},
-    });
-
-  })
-
-  $(document).on("click", "#contact-seller-modal-trigger", function(e){
-    e.preventDefault();    
-    $('#contact-seller-modal').modal('show');
-
-  })
-
+  adminManageSubscription()
+  cardRemoveHandler()
+  renewSubscriptionHandler()
+  removePayoutBankAccountHandler()
+  contactSellerPopup()
+  // verifyBankAccountForPayoutHanlder()
 });
 
 $(document).ready(function(){
@@ -220,7 +130,7 @@ function validateResetPasswordForm() {
     },
     messages: {
       "admin[email]": {
-          required: "email is required"
+          required: "Email is required"
       }
     }
   });
@@ -247,7 +157,7 @@ function validateAdminSignIn() {
     },
     messages: {
       "admin[email]": {
-          required: "email is required"
+          required: "Email is required"
       },
       "admin[password]": {
         required: "Password is required"
@@ -374,3 +284,145 @@ window.renderHistogram = function(){
   Plotly.newPlot('myDiv', data, layout);
 }
 
+function check_form_data(formData,empty_form){
+  for (let i = 0; i< formData.length;i++){
+    if (formData[i].value == ''){
+      empty_form.push(true)
+    }else{
+      empty_form.push(false)
+    }
+  }
+  return empty_form
+}
+
+function adminManageSubscription(){
+  dropdownHandler()
+  saveSellerSubscriptionForm()
+}
+
+function dropdownHandler(){
+  $("body").on("change", ".admin-subscription-status-dropdown", function(e){
+    e.preventDefault();
+    let option = $(this).find(":selected").val()
+    if (option=="cancel")
+    { 
+      $("#enforce-dropdown").val("current-subscriptions-end").change();
+      $(".enforce-subscription-dropdown").removeClass("invisible")
+    }
+    else{
+      $("#enforce-dropdown").val("").change();
+      $(".enforce-subscription-dropdown").addClass("invisible")
+    }
+  });
+}
+
+function saveSellerSubscriptionForm(){
+  $(document).on("click", ".save-seller-subscription", function(e){
+    e.preventDefault();
+    $('#save-seller-subscription-by-admin').attr('data',$(this).attr('name'))
+    $('#save-seller-subscription-confirm').modal('show');
+  })
+
+  $(document).on("click", "#save-seller-subscription-by-admin", function(e){
+    e.preventDefault();
+    let seller = $(this).attr("data")
+    let formData = $("#admin-subscription-form").serializeArray()
+    let empty_form = []
+    empty_form = check_form_data(formData,empty_form)
+    if (empty_form.includes(false) && $("#admin-subsciption-statuses-list").find(":selected").val() !== ""){
+      $.ajax({
+        url: "/admin/sellers/"+seller+"/update_subscription_by_admin?id="+seller,
+        type: "POST",
+        data: formData
+      });
+    }
+    else{
+      $('#save-seller-subscription-confirm').modal('hide');
+      displayNoticeMessage("Please make any change to save.")
+    }
+
+  })
+}
+
+function cardRemoveHandler(){
+  $(document).on("click", ".card-delete-by-admin", function(e){
+    e.preventDefault();
+    $('#membership-card-remove-admin').attr('data',$(this).attr('name'))
+    $('#membership-card-remove-confirm-admin').modal('show');
+  })
+
+  $(document).on("click", "#membership-card-remove-admin", function(e){
+    e.preventDefault();
+    let url = $(this).attr("data")
+    $.ajax({
+      url: url,
+      type: "POST",
+    });
+
+  })
+}
+
+function renewSubscriptionHandler(){
+  $(document).on("click", ".renew-seller-subscription", function(e){
+    e.preventDefault();
+    $('#renew-seller-subscription-by-admin').attr('data',$(this).attr('name'))
+    $('#renew-seller-subscription-confirm').modal('show');
+  })
+
+  $(document).on("click", "#renew-seller-subscription-by-admin", function(e){
+    e.preventDefault();
+    let url = $(this).attr("data")
+    $.ajax({
+      url: url,
+      type: "POST",
+    });
+
+  })
+}
+
+function removePayoutBankAccountHandler(){
+  $(document).on("click", ".payout-bank-account-remove-admin", function(e){
+    e.preventDefault();
+    $('#stripe-payout-bank-account-admin-end').attr('data',$(this).attr('name'))
+    $('#stripe-payout-bank-account-admin-confirm').modal('show');
+  })
+
+  $(document).on("click", "#stripe-payout-bank-account-admin-end", function(e){
+    e.preventDefault();
+    let seller = parseInt($(this).attr("data"))
+    $.ajax({
+      url: "/admin/sellers/"+seller+"/remove_payout_bank_account",
+      type: "DELETE",
+      data: {id:seller},
+    });
+  })
+}
+
+function contactSellerPopup(){
+  $(document).on("click", "#contact-seller-modal-trigger", function(e){
+    e.preventDefault();    
+    $('#contact-seller-modal').modal('show');
+
+  })
+}
+
+function verifyBankAccountForPayoutHanlder(){
+  $(document).on("click", "#verify-requirments-admin-for-seller", function(e){
+    e.preventDefault();
+    let seller = parseInt($(this).attr("name"))
+    $.ajax({
+      url: "/admin/sellers/"+seller+"/verify_seller_stripe_account",
+      type: "get",
+      data: {id:seller},
+      success: function(response){
+        if (response.link){
+        window.location = response.link
+        }
+      },
+      error: function(){
+        displayNoticeMessage("Link Not Found.")
+      },
+    });
+    
+  })
+}

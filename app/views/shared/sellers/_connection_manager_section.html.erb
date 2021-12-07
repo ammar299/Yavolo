@@ -12,8 +12,8 @@
         </h5>
       </div>
       <div>
-        <% if (current_seller.present? && current_seller.eligible_to_create_api) || (current_admin.present? && admin_seller_route?(params[:controller])) %>
-          <%= link_to 'Authorize New Developer', seller_api_url(params[:controller], @seller), class: 'btn btn-sm btn-radius px-4 btn-primary mb-1', remote: true %>
+        <% if authorise_developer_by_seller_or_admin %>
+          <%= link_to 'Authorise New Developer', seller_api_url(params[:controller], @seller), class: 'btn btn-sm btn-radius px-4 btn-primary mb-1', remote: true %>
         <% end %>
       </div>
     </div>

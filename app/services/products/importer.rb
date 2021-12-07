@@ -8,6 +8,7 @@ module Products
         @status = true
         @errors = []
         @title_list = []
+        @product_status = []
     end
 
     def call
@@ -33,7 +34,7 @@ module Products
             product = Product.new(params)
             product.owner_id = product_owner_id(row)
             product.owner_type = product_owner_type(row)
-            product.status = 'draft'
+            product.status = product_type
             product.filter_in_category_ids = []
             product.delivery_option_id = get_default_delivery_option_id
             seo_content = SeoContent.find_by(title: params[:seo_content_attributes][:title], description: params[:seo_content_attributes][:description])
@@ -194,6 +195,14 @@ module Products
 
       def importer
         @importer ||= csv_import.importer
+      end
+
+      def product_type
+        if params[:product_status] == 'draft'
+          return 'draft'
+        else
+          return 'pending'
+        end
       end
 
   end

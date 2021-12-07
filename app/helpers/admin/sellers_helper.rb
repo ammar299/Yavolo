@@ -52,12 +52,12 @@ module Admin::SellersHelper
   def is_eligible?(seller)
     invoice_address = seller.addresses.select do |address| address.address_type == 'invoice_address' end
     return_address = seller.addresses.select do |address| address.address_type == 'return_address' end
-    
-    if invoice_address.present? && return_address.present?
-      return true
-    else
-      return false
-    end
+
+    # (return_address.present? && invoice_address.present? && seller.bank_detail.present? && seller&.paypal_detail&.integration_status? && seller.products.count > 0)
+  end
+
+  def show_or_skip_success_steps
+    current_seller.skip_success_hub_steps ? 'Show steps' : 'Skip steps'
   end
 
   def connection_manager_actions_to_show(seller_api)

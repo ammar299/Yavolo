@@ -1,5 +1,7 @@
 class Admin::SellersController < Admin::BaseController
-  before_action :set_seller, only: %i[show edit update update_business_representative update_company_detail update_addresses update_seller_logo remove_logo_image confirm_update_seller update_seller new_seller_api create_seller_api confirm_update_seller_api change_seller_api_eligibility holiday_mode change_lock_status  confirm_reset_password_token reset_password_token update_subscription_by_admin remove_payout_bank_account verify_seller_stripe_account]
+  before_action :set_seller,
+                except: %i[index new create send_password_reset_emails update_multiple export_sellers get_sellers
+                           import_sellers search renew_seller_subscription]
   before_action :is_seller_locked?, only: %i[show]
   include SharedSellerMethods
 
@@ -37,7 +39,8 @@ class Admin::SellersController < Admin::BaseController
       @seller.reset_password_token = hashed
       @seller.reset_password_sent_at = Time.now.utc
       if @seller.save
-        AdminMailer.with(to: @seller.email.to_s.downcase,token: raw).send_account_creation_email_admin_seller.deliver_now
+        AdminMailer.with(to: @seller.email.to_s.downcase,
+                         token: raw).send_account_creation_email_admin_seller.deliver_now
       end
       redirect_to admin_sellers_path, flash: { notice: 'Seller has been saved' }
     else
@@ -235,21 +238,23 @@ class Admin::SellersController < Admin::BaseController
   end
 
   def update_subscription_by_admin
-    
     if params[:id].present?
-      @status = params[:subsciption_status]
-      subscription = Admins::Sellers::SubscriptionUpdaterService.call(@status, @seller )
+      @subsciption_status = params[:subsciption_status]
+      @enforce_status = params[:enforce_status]
+      subscription = Admins::Sellers::SubscriptionUpdaterService.call(@subsciption_status,@enforce_status, @seller )
+      notice = "Incorrect action performed, #{subscription.errors[0]}."
       case subscription.status
       when "canceled" 
-        flash.now[:notice] = "Subscription status canceled for seller: #{@seller.email}"
+        notice = "Subscription status canceled for seller: #{@seller.email}."
+      when "after-next-payment-taken"
+        notice = "Subscription set to cancel after next payment taken."
+      when "already-set-to-cancel"
+        notice = "Subscription already set to cancel after next payment taken."
       when  "month_12" , "month_24" , "month_36","lifetime"
-        flash.now[:notice] = "Subscription status changed to #{subscription.status}"
-      else
-        flash.now[:notice] = "Got into some errors please try again later!!  Errors: #{subscription.errors[0]}"
+        notice = "Subscription status changed to #{subscription.status}."        
       end
-    else
-      flash.now[:notice] = "Please refresh page first !!"
     end
+    flash.now[:notice] = notice
   end
 
   def remove_seller_card
@@ -265,13 +270,20 @@ class Admin::SellersController < Admin::BaseController
 
   def renew_seller_subscription
     @seller = Seller.find(params[:seller_id].to_i)
-    subscription = Admins::Sellers::SubscriptionRenewService.call(@seller)
-    if subscription.errors.present?
-      flash.now[:notice] = "Error occured: #{subscription.errors}"
+    if @seller&.seller_stripe_subscription&.cancel_after_next_payment_taken == false
+      subscription = Admins::Sellers::SubscriptionRenewService.call(@seller)
+      if subscription.errors.present?
+        flash.now[:notice] = "Renew process failed: #{subscription.errors}"
+      else
+        UpdateSubscriptionEmailWorker.perform_async(@seller.email,"renew_subscription")
+        flash.now[:notice] = "Subscription renewed successfully."
+      end
     else
-      UpdateSubscriptionEmailWorker.perform_async(@seller.email,"renew_subscription")
-      flash.now[:notice] = "Subscription Renewed successfully !!"
+      Admins::Sellers::DeleteSpecificWrokerService.call(@seller)
+      @seller&.seller_stripe_subscription&.update(cancel_after_next_payment_taken: false)
+      flash.now[:notice] = "Subscription renewed successfully.."
     end
+
   end
 
   def remove_payout_bank_account

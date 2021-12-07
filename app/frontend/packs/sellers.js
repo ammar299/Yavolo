@@ -10,6 +10,8 @@ $(document).ready(function () {
   TwoFactorAuthEmail();
   TwoFactorAuthForCode();
   sellerTimeOutSlector();
+  endSubscriptionHanlder()
+  // reviewedLoginScreen();
   //Upload Sellers
   $(".upload-sellers-csv-btn").click(function () {
     $("#upload-sellers-csv-popup").modal("show");
@@ -548,21 +550,6 @@ $(document).ready(function () {
     $.ajax({
       url: url,
       type: "GET",
-    });
-  });
-
-  $(document).on("click", ".end-subscription", function (e) {
-    e.preventDefault();
-    $("#stripe-subscription-end").attr("data", $(this).attr("name"));
-    $("#stripe-subscription-end-confirm").modal("show");
-  });
-
-  $(document).on("click", "#stripe-subscription-end", function (e) {
-    e.preventDefault();
-    let url = $(this).attr("data");
-    $.ajax({
-      url: url,
-      type: "DELETE",
     });
   });
 
@@ -1243,6 +1230,15 @@ function TwoFactorAuthForCode() {
   });
 }
 
+window.reviewedLoginScreen = function(seller) {
+  if (!seller?.reviewed_login_screen) {
+    $.ajax({
+      type: "GET",
+      url: "/sellers/profiles/1/reviewed_login_screen",
+    });
+  }
+}
+
 function stripeLoad() {
   var stripe = Stripe('pk_test_51IfjFUFqSiWsjxhXbRrObdGnNbi0HGp64DKuqsivFjJN81Dip3ZpRAFUKGrOxhZkAoRZMbEOSLr7SAvvk6bmDvTu00eJrWMQB2');
   var elements = stripe.elements();
@@ -1299,4 +1295,79 @@ function stripeTokenHandler(token) {
   });
   // Submit the form
   // form.submit();
+}
+
+function endSubscriptionHanlder(){
+  initialDecisionModule()
+  reasonModule()
+}
+
+function initialDecisionModule(){
+  $(document).on("click", ".end-subscription", function (e) {
+    e.preventDefault();
+    $("#stripe-subscription-end").attr("data", $(this).attr("name"));
+    $("#stripe-subscription-end-confirm").modal("show");
+  });
+
+}
+
+function reasonModule(){
+  reasonSelection()
+  $(document).on("click", ".end-subscription-link", function (e) {
+    e.preventDefault();
+    $("#stripe-subscription-end-confirm").modal("hide");
+    $("#stripe-subscription-end-reason-confirm").modal("show");
+  });
+
+  $(document).on("click", ".end-subscription-link", function (e) {
+    e.preventDefault();
+    $("#stripe-subscription-end-confirm").modal("hide");
+    $("#stripe-subscription-end-reason-confirm").modal("show");
+  });
+
+  $(document).on("click", "#stripe-subscription-reason-end", function (e) {
+    e.preventDefault();
+    let url = $(this).attr("data");
+    let reason = $(".append-reason").text()
+    if (reason == "Other"){
+      reason = $(".reason-input-field").val()
+      if (reason == "")
+      {
+        displayNoticeMessage("Reason is required")
+        return false
+      }
+      unsubscribeSeller(url,reason)
+    }
+    else{
+      unsubscribeSeller(url,reason)
+    }
+
+  });
+
+}
+
+function unsubscribeSeller(url,reason){
+  $.ajax({
+    url: url,
+    type: "get",
+    data: {reason: reason},
+  });
+}
+
+function reasonSelection(){
+  $(".reason-input").hide()
+  $(".select-reason:first-child").find(".fa-check").removeClass("invisible")
+
+  $(document).on("click", ".select-reason", function (e) {
+    e.preventDefault();
+    $(".select-reason").find('.fa-check').each(function() {
+      $(this).addClass("invisible")
+    });
+
+    $(".append-reason").html($(this).text())
+    $(this).find('.fa-check').removeClass("invisible")
+    $(".reason-input").hide()
+    if ($(this).text()== "Other")
+      $(".reason-input").show()
+  });
 }

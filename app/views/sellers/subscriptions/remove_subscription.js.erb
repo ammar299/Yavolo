@@ -1,4 +1,4 @@
-$("#stripe-subscription-end-confirm").removeClass("show");
+$("#stripe-subscription-end-reason-confirm").removeClass("show");
 $('body').removeClass('modal-open');
 $(".modal-backdrop").remove();
 $('#update-subscription-seller-side').html("<%= j render(partial: 'sellers/subscriptions/current_subscription', locals: { seller: @seller }) %>")

@@ -2,8 +2,8 @@
   <h5>Products in Category</h5>
   <%= form_tag("/admin/categories/#{@category.id}/category_products_with_pagination",id: "product-in-category-form",method: :get, local: false, remote: true, class: "category-products-form")  do |f|%>
     <input type="hidden" name="page" class="page-number">
-    <div class="d-flex align-items-center flex-wrap">
-      <div class="search-field active mb-3 mr-2 search-field-flex">
+    <div class="d-flex align-items-center flex-wrap mb-2">
+      <div class="search-field active my-1 search-field-flex">
       
         <input type="text" placeholder="Search" name="q[title_or_brand_or_sku_or_yan_or_ean_cont]" class="category-products-search-term input-btn-sm">
 
@@ -14,42 +14,37 @@
           <i class="fa fa-search icon-search-container" aria-hidden="true"></i>
       </div>
       
-      <div class="dropdown-filter-field dropdown-filter-custom active mb-8 ml-2 mr-2 dropdown-filter-border" id="pages-id">
+      <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 mx-1 dropdown-filter-border" id="pages-id">
         <div class="dropdown">
-          <a href="#" class="btn btn-radius btn-sm px-4 btn-primary btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Results Per Page: <%= "#{params[:per_page]}" if params[:per_page].present? %><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+          <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" style="min-width: 140px" id="params-per-page" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Results Per Page: <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <%= form_tag(admin_products_path, method: :get) do %>
-            <%= link_to "javascript:void(0);", data: { per_page: 15 }, class: 'perpage-option'  do %>
-            <span class="<%= 'fa fa-check' if params[:per_page] == '15' %>" aria-hidden="true"></span>
-            Result Per Page: 15
+            <%= link_to (category_products_with_pagination_admin_category_path(per_page: '15')), remote: true  do %>
+            <span class="option-dropdown-mark" aria-hidden="true"></span>
+            Results Per Page: 15
             <% end %>
-            <%= link_to "javascript:void(0);", data: { per_page: 30 }, class: 'perpage-option'  do %>
-            <span class="<%= 'fa fa-check' if params[:per_page] == '30' %>" aria-hidden="true"></span>
-            Result Per Page: 30
+            <%= link_to (category_products_with_pagination_admin_category_path(per_page: '30')), remote: true  do %>
+            Results Per Page: 30
             <% end %>
-            <%= link_to "javascript:void(0);", data: { per_page: 60 }, class: 'perpage-option'  do %>
-            <span class="<%= 'fa fa-check' if params[:per_page] == '60' %>" aria-hidden="true"></span>
-            Result Per Page: 60
+            <%= link_to (category_products_with_pagination_admin_category_path(per_page: '60')), remote: true  do %>
+            Results Per Page: 60
             <% end %>
-            <%= link_to "javascript:void(0);", data: { per_page: 90 }, class: 'perpage-option'  do %>
-            <span class="<%= 'fa fa-check' if params[:per_page] == '90' %>" aria-hidden="true"></span>
-            Result Per Page: 90
+            <%= link_to (category_products_with_pagination_admin_category_path(per_page: '90')), remote: true  do %>
+            Results Per Page: 90
             <% end %>
-            <%= link_to "javascript:void(0);", data: { per_page: 180 }, class: 'perpage-option'  do %>
-            <span class="<%= 'fa fa-check' if params[:per_page] == '180' %>" aria-hidden="true"></span>
-            Result Per Page: 180
-            <% end %>
+            <%= link_to (category_products_with_pagination_admin_category_path(per_page: '180')), remote: true  do %>
+            Results Per Page: 180
             <% end %>
           </div>
         </div>
       </div>
 
       <div class="">
-        <%= link_to 'Remove from Category', category_products_delete_multiple_admin_categories_path(@category), class: 'btn btn-radius btn-sm px-4 btn-primary mb-3 remove-category-products-btn' %>
+        <%= link_to 'Remove from Category', category_products_delete_multiple_admin_categories_path(@category), class: 'btn btn-radius btn-sm px-4 btn-primary my-1 remove-category-products-btn' %>
       </div>
     </div>
     <%= submit_tag "+", class: "pl-3 pluse-btn submit-category-products-form-btn d-none" %>
   <% end %>
+
   <div class="Yavolo-table">
     <table class="table">
       <thead>

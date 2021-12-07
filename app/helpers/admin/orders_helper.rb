@@ -28,4 +28,14 @@ module Admin::OrdersHelper
     order_line_items.first.product.owner.full_name rescue ""
   end
   
+  def order_status(order)
+    if order.order_type == "paid_order"
+      return "Paid order"
+    elsif order.order_type == "abundent_checkout"
+      return "Abundent checkout"
+    else
+      return nil
+    end
+  end
+      
 end

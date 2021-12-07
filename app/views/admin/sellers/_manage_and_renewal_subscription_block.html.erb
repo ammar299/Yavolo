@@ -1,0 +1,18 @@
+<div class="d-flex justify-content-between">
+  <h5>Subscription</h5>
+  <div class="">
+  <%if is_eligible_for_save?%>
+    <a href="#" name="<%=@seller.id%>" class="btn btn-sm px-4 btn-primary mb-3 ml-3 save-seller-subscription">Save</a>
+    <%= render 'shared/simple_confirm_modal', confirm_statement: 'Are you sure you want to save changes?', id: 'save-seller-subscription-by-admin',path: '#', data: "", modal_id: 'save-seller-subscription-confirm' %>
+  <%end%>
+  </div>
+</div>
+<div class="subscription-inner">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="yo-white-card  pr-2">
+        <%= render 'seller_current_subscription', seller: @seller%>
+      </div>
+    </div>
+  </div>
+</div>

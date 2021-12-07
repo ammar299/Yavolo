@@ -41,33 +41,33 @@
         </div>
           <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border" id="pages-id">
             <div class="dropdown">
-              <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Result Per Page: <%= "#{params[:per_page]}" if params[:per_page].present? %><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+              <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Results Per Page: <%= "#{params[:per_page]}" if params[:per_page].present? %><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <%= form_tag(admin_filter_groups_path, method: :get) do %>
+                
                 <%= link_to (admin_sellers_path(per_page: '15'))  do %>
                 <span class="<%= 'fa fa-check' if params[:per_page] == '15' %>" aria-hidden="true"></span>
-                Result Per Page: 15
+                Results Per Page: 15
                 <% end %>    
                 <%= link_to (admin_sellers_path(per_page: '30'))  do %>
                 <span class="<%= 'fa fa-check' if params[:per_page] == '30' %>" aria-hidden="true"></span>
-                Result Per Page: 30
+                Results Per Page: 30
                 <% end %>
                 <%= link_to (admin_sellers_path(per_page: '60'))  do %>
                 <span class="<%= 'fa fa-check' if params[:per_page] == '60' %>" aria-hidden="true"></span>
-                Result Per Page: 60
+                Results Per Page: 60
                 <% end %>
                 <%= link_to (admin_sellers_path(per_page: '90'))  do %>
                 <span class="<%= 'fa fa-check' if params[:per_page] == '90' %>" aria-hidden="true"></span>
-                Result Per Page: 90
+                Results Per Page: 90
                 <% end %>
                 <%= link_to (admin_sellers_path(per_page: '180'))  do %>
                 <span class="<%= 'fa fa-check' if params[:per_page] == '180' %>" aria-hidden="true"></span>
-                Result Per Page: 180
+                Results Per Page: 180
                 <% end %>
               </div>
             </div>
           </div>
-        <% end %>
+        
       </div>
       <div class="all-products-header-right d-flex justify-content-between flex-wrap">
         <a href="#" class="btn btn-radius px-4 btn-primary btn-sm mr-1 upload-sellers-csv-btn my-1">Upload CSV</a>

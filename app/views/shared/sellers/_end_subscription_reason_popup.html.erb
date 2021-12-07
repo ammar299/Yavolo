@@ -1,0 +1,38 @@
+
+<div class="modal fade" id="<%=modal_id%>" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body px-lg-4  py-0">
+        <div class="end-subscription-modal text-center">
+          <div class="mb-3">
+            <span class="icon-end-subscription red-text endsub-icon"> 
+            </span>
+          </div>
+          <h5>End Subscription</h5>
+          <p><%=confirm_statement%></p>
+          <div class="d-flex align-items-center form-group-vertical-responsive">
+            <label id="reason-input-field_label" for="" class="pr-2">Please provide a reason for your cancellation:</label>
+            <%= render 'shared/sellers/reason_dropdown_block'%>
+          </div>
+           <br>
+           <div class="row">
+              <div class="col-lg-6"></div>
+              <div class="reason-input col-lg-6 mb-3">
+                <input type="text" class="form-control reason-input-field" placeholder="Please provide reason" required>
+              </div>
+            </div>
+          <%= link_to "END SUBSCRIPTION",path||"#", data: data||{}, id: id, class: 'mb-3 btn btn-sm btn-radius px-4 btn-primary mb-3'  %> <br>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center footer-upper-border">
+      </div>
+    </div>
+  </div>
+</div>

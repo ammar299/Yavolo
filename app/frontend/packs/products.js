@@ -139,17 +139,32 @@ $(document).ready(function(){
     }
   });
 
-
   // start img delete
   $(document).on('click','.img-del-icon', function(){
       $(this).addClass('mark-as-delete');
       $('#yes-no-product-delete-img-modal').modal('show');
   });
 
+  $('.grid-single-img').click(function(){ 
+    if($('.grid-single-img').length < 1){
+      $('.add-edit-product-photos').removeClass('col-lg-8').addClass('col-lg-12');
+    }
+  })
+
   $('#yes-delete-img').click(function(){
     if($('.mark-as-delete').length > 0){
       removeImage($('.mark-as-delete'));
       $('#yes-no-product-delete-img-modal').modal('hide');
+    }
+    if(window.location.pathname.split("/").pop() == 'new'){
+      if($('.grid-single-img').length < 1 ){
+        $('.add-edit-product-photos').removeClass('col-lg-8').addClass('col-lg-12');
+      }
+    }
+    else {
+      if($('.grid-single-img').length < 2 ){
+        $('.add-edit-product-photos').removeClass('col-lg-8').addClass('col-lg-12');
+      }
     }
   });
 
@@ -532,6 +547,7 @@ function uploadCSVFile(files){
   let url = 'YOUR URL HERE'
   let formData = new FormData()
   formData.append('csv_import[file]', files[0])
+  formData.append('product_status', location.search.substr(1).split("&")[0].split("=")[1])
   $.ajax({
     url: "/"+$('#namespace').val()+"/products/upload_csv",
     type: "POST",
@@ -982,6 +998,10 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
     return content_length > 0;
   }, "Please add some description about your product.");
 
+  jQuery.validator.addMethod('productEan', function(value, element) {
+    return this.optional(element) || /^(\d{12})?$/.test(value);
+  }, 'Please Enter a valid EAN');
+
   let rules = {
     "product[title]": {
       required: true
@@ -1133,4 +1153,13 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
     }
   });
 
+  $('#product_ean').change(function() {
+    $(this).valid();
+  })
+  $('#product_ean').rules('add', {
+    productEan: true,
+    messages: {
+      productEan: 'Please Enter a valid EAN.'
+    }
+  });
 }

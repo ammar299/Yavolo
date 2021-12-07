@@ -101,9 +101,9 @@ module Sellers
         business_profile: { mcc: MCC, product_description: PRODUCT_DESCRIPTION },
         individual: {
           address: address_params,
-          dob: dob_params, 
-          email: seller.email, 
-          first_name: seller.first_name || "#{seller.email.split("@")[0] || "yavolo's seller"}", 
+          dob: dob_params,
+          email: seller.email,
+          first_name: seller.first_name || "#{seller.email.split("@")[0] || "yavolo's seller"}",
           id_number: account_number,
           last_name: seller.last_name || "#{seller.email.split("@")[0] || "yavolo's seller"}",
           phone: phone_number

@@ -946,7 +946,7 @@ h6 {
   position: absolute;
   top: 20px;
   left: 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
   right: 24px;
   padding-bottom: 1rem;
 }
@@ -1211,6 +1211,8 @@ h6 {
 .subscription-table tbody td {
   border: none;
   font-size: 12px;
+  vertical-align: middle;
+  color: var(--dark-red);
 }
 .select-width {
   width: 150px;
@@ -3444,5 +3446,14 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+.form-control.reason-input-field{
+  border: 1px solid var(--dark-red) !important;
+  color: var(--dark-red);
+  border-radius: 5px !important;
+}
+
+.reason-dropdown{
+  flex: 1;
+}
 /* custome-input-dropdwsn */
 /* ================== sprint-3 ================== */

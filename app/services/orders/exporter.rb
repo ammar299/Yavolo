@@ -1,5 +1,6 @@
 module Orders
   class Exporter < ApplicationService
+    include Admin::OrdersHelper
     require 'csv'
     attr_reader :status, :errors, :params, :csv_file
 
@@ -48,7 +49,7 @@ module Orders
         values << "Image"
         values << "Royal Mail"
         values << "#75757757"
-        values << order.order_type
+        values << order_status(order)
         values.flatten
       end
 
