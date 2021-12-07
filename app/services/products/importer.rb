@@ -60,23 +60,25 @@ module Products
       end
 
       def product_owner_id(row)
-        if row["seller"] != "Admin"
+        if csv_import.importer_type == 'Seller'
+          owner = csv_import.importer         
+          owner.id
+        else
           owner = Seller.where("CONCAT_WS(' ', first_name, last_name) LIKE ?", row["seller"]).first
           if owner.present?
-            return owner.id 
+            owner.id
           else
-            return nil
+            csv_import.importer.id
           end
-        else
-          return 1
         end
       end
 
       def product_owner_type(row)
-        if row["seller"] != "Admin"
+        if csv_import.importer_type == 'Seller'
           return "Seller" 
         else
-          return "Admin"
+          owner = Seller.where("CONCAT_WS(' ', first_name, last_name) LIKE ?", row["seller"]).first
+          owner.present? ? "Seller" : "Admin"
         end
       end
 
@@ -200,7 +202,9 @@ module Products
       def product_type
         if params[:product_status] == 'draft'
           return 'draft'
-        else
+        elsif params[:product_status] == 'active'
+          return 'active'
+        else 
           return 'pending'
         end
       end
