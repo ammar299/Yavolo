@@ -1157,7 +1157,7 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
   $('#product_ean').rules('add', {
     productEan: true,
     messages: {
-      productEan: 'Please Enter a valid EAN.'
+      productEan: 'Please Enter a valid EAN without decimal.'
     }
   });
 }
