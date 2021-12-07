@@ -101,4 +101,12 @@ module Admin::SubscriptionsHelper
     @seller&.seller_stripe_subscription&.reload
   end
 
+  def date_parser(date)
+    begin 
+      Time.at(date)
+    rescue
+      nil
+    end
+  end
+
 end

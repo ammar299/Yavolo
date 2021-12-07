@@ -433,7 +433,7 @@ function verifyBankAccountForPayoutHanlder(){
 
 function hideShowDropdown(){
   $(".enforce-subscription-dropdown").removeClass("invisible")
-  if ($("check-data-type").attr("data-type") !== "Standard"){
+  if ($(".check-data-type").attr("data-type") !== "Standard"){
     $(".enforce-subscription-dropdown").addClass("invisible")
   }
 }

@@ -2,6 +2,7 @@ module Admins
   module Sellers
 
     class SubscriptionNewCreatorService < ApplicationService
+      include Admin::SubscriptionsHelper
       attr_reader :params, :errors
       def initialize(params)
         @params = params
@@ -94,14 +95,6 @@ module Admins
             plan_name: @default_product.name,
             subscription_data: @subscription_schedule
           )
-        end
-      end
-
-      def date_parser(date)
-        begin 
-          Time.at(date)
-        rescue
-          nil
         end
       end
       
