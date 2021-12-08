@@ -180,13 +180,7 @@
                         <td>
                             <div class="">
                                 <span class="imglist" width="100%">
-                                <% if product.pictures.present?%>
-                                  <% if product.pictures.first&.name&.url.present? %>
-                                    <%=image_tag product.pictures.first&.name&.url(:thumb) %>
-                                  <% end %>
-                                  <% else %>
-                                    <%= image_tag 'default.jpg'%>
-                                <% end %> 
+                                  <%= product_thumbnail_image_for_table_row(product) %>
                                 </span>
                             </div>
                         </td>
