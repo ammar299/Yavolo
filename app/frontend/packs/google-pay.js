@@ -9,13 +9,15 @@ function googlePayPayment() {
   // 1. Initialize Stripe
   const stripe = Stripe(process.env.STRIPE_PUBLISHABLE_KEY);
 
+  const cart_total = Number($('#cart-total').text().slice(1));
+
   // 2. Create a payment request object
   var paymentRequest = stripe.paymentRequest({
     country: 'GB',
     currency: 'gbp',
     total: {
-      label: 'Demo total',
-      amount: 1999,
+      label: 'Total',
+      amount: Math.round(cart_total*100),
     },
     requestPayerName: true,
     requestPayerEmail: true,
