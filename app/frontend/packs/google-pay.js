@@ -7,7 +7,7 @@ $(document).ready(function () {
 
 function googlePayPayment() {
   // 1. Initialize Stripe
-  const stripe = Stripe(process.env.STRIPE_PUBLISHABLE_KEY);
+  const stripe = Stripe('pk_test_51IfjFUFqSiWsjxhXbRrObdGnNbi0HGp64DKuqsivFjJN81Dip3ZpRAFUKGrOxhZkAoRZMbEOSLr7SAvvk6bmDvTu00eJrWMQB2');
 
   const cart_total = Number($('#cart-total').text().slice(1));
 
