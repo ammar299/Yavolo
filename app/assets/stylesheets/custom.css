@@ -1116,4 +1116,8 @@ width: 75%;
 .yavolos--summary .label-custm-min .form-control:focus {
     background: white;
 }
+
+.boldheadings {
+  font-weight: bold;
+} 
 /* edite yavolo listings */
