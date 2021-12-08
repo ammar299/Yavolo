@@ -761,7 +761,7 @@ label {
   min-height: 35px;
   display: flex;
   align-items: center;
-  width: 122px;
+  width: 135px;
   text-overflow: ellipsis;
   justify-content: space-between;
   position: relative;
@@ -1120,4 +1120,27 @@ width: 75%;
 .boldheadings {
   font-weight: bold;
 } 
+.cross-input-btn .search-input {
+  width: 100% !important;
+  max-width: inherit !important;
+}
+
+.dropdown-filter-custom a.cross-btn-center {
+  display: inline-flex !important;
+  width: auto !important;
+  position: absolute;
+  right: 0;
+  padding: 10px !important;
+  top: -1px;
+  bottom: 0;
+  align-items: center;
+  justify-content: center;
+  height: auto !important;
+}
+.cross-btn-center:hover {
+  text-decoration: none !important;
+}
+.cross-btn-center .icon-cross {
+  position: sticky;
+}
 /* edite yavolo listings */

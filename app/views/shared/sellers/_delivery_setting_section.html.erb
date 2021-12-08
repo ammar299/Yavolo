@@ -1,9 +1,8 @@
-<div class="tab-pane fade" id="Delivery-Settings" role="tabpanel"
-                                        aria-labelledby="Delivery-Settings-tab">
-  <div class="d-flex justify-content-between flex-wrap">
-    <div class="dropdown-filter-field active search-field-flex">
+<div class="tab-pane fade" id="Delivery-Settings" role="tabpanel" aria-labelledby="Delivery-Settings-tab">
+  <div class="d-flex justify-content-between flex-wrap align-items-center">
+    <div class="dropdown-filter-field active my-1 dropdown-filter-custom seller-account-delivery-setting cross-input-btn">
       <div class="dropdown">
-        <a class="btn btn-radius px-4 btn-primary" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="btn btn-radius px-2 btn-primary current-search-filter" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Search All <i class="fa fa-angle-down ml-4" aria-hidden="true"></i>
         </a>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -21,10 +20,10 @@
       <% end %>
     </div>
     <div>
-      <%= link_to 'Create New Template', new_admin_delivery_option_path(seller_id: @seller.id ), class: 'btn btn-radius px-4 btn-primary ml-5 mb-3', data: { remote: true } %>
+      <%= link_to 'Create New Template', new_admin_delivery_option_path(seller_id: @seller.id ), class: 'btn btn-sm btn-radius px-4 btn-primary', data: { remote: true } %>
     </div>
   </div>
-  <h5 class="mb-3">Delivery Templates</h5>
+  <h5 class="mb-3 mt-3">Delivery Templates</h5>
   <div id="setting-delivery-options">
     <%= render 'shared/admin/sellers/delivery_options_list', delivery_options: @delivery_options %>
   </div>
