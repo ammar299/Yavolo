@@ -153,13 +153,13 @@ class Buyers::CheckoutController < Buyers::BaseController
     @order = Order.find(session_order_id) rescue nil
     response = params
     if @order.present? && @order.order_type != 'paid_order'
-    # if @order.present?
       @buyer = @order.buyer
       @order_amount = order_amount
       if session_selected_payment_method.present? && session_selected_payment_method == 'g-pay'
         buyer_details = params[:buyerDetails]
         payment_method = buyer_details[:paymentMethod]
         buyer_billing_address = payment_method[:billing_details][:address]
+        buyer_shipping_address = buyer_details[:shippingDetails]
         unless @order.order_detail.present?
           @order.create_order_detail(
             name: buyer_details[:buyerName],
@@ -168,12 +168,10 @@ class Buyers::CheckoutController < Buyers::BaseController
           )
         end
         unless @order.shipping_address.present?
-          shipping_address = create_address_from_gpay(buyer_billing_address)
-          create_gpay_shipping_address(@order, shipping_address)
+          create_gpay_shipping_address(@order, buyer_shipping_address)
         end
         unless @order.billing_address.present?
-          billing_address = create_address_from_gpay(buyer_billing_address)
-          create_gpay_billing_address(@order, billing_address)
+          create_gpay_billing_address(@order, buyer_billing_address)
         end
         @order = update_order_to_paid(@order, @order_amount[:total], @order_amount[:sub_total])
         create_gpay_payment_mode(@order, response, @order_amount)
@@ -279,6 +277,17 @@ class Buyers::CheckoutController < Buyers::BaseController
     }
   end
 
+  def create_shipping_address_from_gpay(address)
+    {
+      address_line_1: address[:addressLine][0] || '',
+      address_line_2: address[:addressLine][1] || address[:addressLine][0],
+      city: address[:city],
+      county: address[:region],
+      country: address[:country],
+      postal_code: address[:postalCode]
+    }
+  end
+
   def address_params(address)
     {
       address_line_1: address.address_line_1,
@@ -291,7 +300,7 @@ class Buyers::CheckoutController < Buyers::BaseController
   end
 
   def create_gpay_shipping_address(order, shipping_address)
-    order.create_shipping_address(create_address_from_gpay(shipping_address))
+    order.create_shipping_address(create_shipping_address_from_gpay(shipping_address))
   end
 
   def create_gpay_billing_address(order, billing_address)

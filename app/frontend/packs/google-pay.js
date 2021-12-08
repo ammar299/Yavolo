@@ -22,6 +22,13 @@ function googlePayPayment() {
     requestPayerName: true,
     requestPayerEmail: true,
     requestPayerPhone: true,
+    requestShipping: true,
+    shippingOptions: [{
+      id: 'basic-free-shipping',
+      label: 'Free Shipping',
+      detail: 'Standard shipping via Post (Free Shipping)',
+      amount: 0,
+    }]
   });
 
   // 3. Create a PaymentRequestButton element
@@ -48,7 +55,8 @@ function googlePayPayment() {
       buyerName: e.payerName,
       buyerEmail: e.payerEmail,
       buyerPhone: e.payerPhone,
-      paymentMethod: e.paymentMethod
+      paymentMethod: e.paymentMethod,
+      shippingDetails: e.shippingAddress
     }
 
     // Make a call to the server to create a new
@@ -147,7 +155,7 @@ function googlePayPayment() {
     if (confirmationResponse) {
       // alert('COMPLETED');
       // REDIRECT TO SUCCESS PAGE
-      window.location.replace(`/order_completed?order=${confirmationResponse.order.id}`);
+      // window.location.replace(`/order_completed?order=${confirmationResponse.order.id}`);
     }
   });
 }
