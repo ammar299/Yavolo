@@ -1,5 +1,5 @@
 <%= render 'shared/progress_bar', locals: { progress: "30" } %>
-<div class="container-fluid">
+<div class="container">
 	<!--<form action="<%= create_checkout_path %>" method="post">-->
 	<%= form_with model: @order, url: create_checkout_path, method: :post, html: {id: 'checkout_details_form'} do |form| %>
 		<div class="row mt-4">
