@@ -75,7 +75,7 @@ module Admin::ProductHelper
   end
 
   def product_default_image
-    image_tag 'default.jpg'
+    image_tag 'default.jpg', class: "w-100"
   end
 
   def get_discount_value_product(product)
