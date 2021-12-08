@@ -7,8 +7,10 @@ $(document).ready(function(){
   bindFilterByEvents();
   bindRemoveFilterBy();
   divAdjusterWidth();
+  disableEnterOnProductCreate();
   let updatedProductIds = [];
   let productErrors = [];
+
   $(document).on({
     mouseenter: function () {
       $(this).parents('.prod-table-row').find('.yavolo-btn').removeClass('btn-danger');
@@ -247,6 +249,15 @@ $(document).ready(function(){
 });
 
 let product_description_editor;
+function disableEnterOnProductCreate(){
+  $('#product_form').on('keyup keypress', function(e) {
+    var keyCode = e.keyCode || e.which;
+    if (keyCode === 13) { 
+      e.preventDefault();
+      return false;
+    }
+  });
+}
 
 function removeImage(ele){
   let count = 1;

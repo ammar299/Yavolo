@@ -19,7 +19,11 @@ module Admin::SubscriptionsHelper
   end
 
   def expiry_date
-    seller_subscription&.schedule_date&.strftime('%d/%m/%y %T') || seller_subscription&.current_period_end&.strftime('%d/%m/%y %T') || ""
+    value = seller_subscription&.schedule_date&.strftime('%d/%m/%y %T') || seller_subscription&.current_period_end&.strftime('%d/%m/%y %T') || ""
+    if subscription_name == "Standard"
+      value = seller_subscription&.current_period_end&.strftime('%d/%m/%y %T') || seller_subscription&.schedule_date&.strftime('%d/%m/%y %T') || ""
+    end
+    value
   end
 
   def renewal_cost
