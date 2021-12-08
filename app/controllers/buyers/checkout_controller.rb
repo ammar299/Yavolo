@@ -93,12 +93,8 @@ class Buyers::CheckoutController < Buyers::BaseController
     @order = Order.find params[:order]
     @line_items = @order.line_items.includes(:product)
     product_ids = @order.line_items.map { |item| item[:product_id] }
-    @sub_total = 0
-    product_ids.each do |item|
-      product = Product.find(item.to_i) || nil
-      @sub_total += item[:quantity].to_i * (product.price ? product.price.to_f : 0) if product.present?
-    end
-    @sub_total.to_f
+    @order_amount = order_amount
+    @sub_total = @order_amount[:sub_total]
   end
 
   def create_payment
