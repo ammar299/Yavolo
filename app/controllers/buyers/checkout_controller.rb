@@ -159,38 +159,21 @@ class Buyers::CheckoutController < Buyers::BaseController
       if session_selected_payment_method.present? && session_selected_payment_method == 'g-pay'
         buyer_details = params[:buyerDetails]
         payment_method = buyer_details[:paymentMethod]
-        billing_address = payment_method[:billing_details][:address]
+        buyer_billing_address = payment_method[:billing_details][:address]
         unless @order.order_detail.present?
-          order_detail_info = {
+          @order.create_order_detail(
             name: buyer_details[:buyerName],
             email: buyer_details[:buyerEmail],
             contact_number: buyer_details[:buyerPhone] || nil
-          }
-          @order.create_order_detail(
-              order_detail_info
           )
         end
         unless @order.shipping_address.present?
-          shipping_address = {
-            address_line_1: billing_address[:line1],
-            address_line_2: billing_address[:line2],
-            city: billing_address[:city],
-            county: billing_address[:state],
-            country: billing_address[:country],
-            postal_code: billing_address[:postal_code]
-          }
+          shipping_address = create_address_from_gpay(buyer_billing_address)
           create_gpay_shipping_address(@order, shipping_address)
         end
         unless @order.billing_address.present?
-          shipping_address = {
-            address_line_1: billing_address[:line1],
-            address_line_2: billing_address[:line2],
-            city: billing_address[:city],
-            county: billing_address[:state],
-            country: billing_address[:country],
-            postal_code: billing_address[:postal_code]
-          }
-          create_gpay_billing_address(@order, shipping_address)
+          billing_address = create_address_from_gpay(buyer_billing_address)
+          create_gpay_billing_address(@order, billing_address)
         end
         @order = update_order_to_paid(@order, @order_amount[:total], @order_amount[:sub_total])
         create_gpay_payment_mode(@order, response, @order_amount)
@@ -285,48 +268,42 @@ class Buyers::CheckoutController < Buyers::BaseController
     session[:_selected_payment_method] || nil
   end
 
+  def create_address_from_gpay(address)
+    {
+      address_line_1: address[:line1],
+      address_line_2: address[:line2],
+      city: address[:city],
+      county: address[:state],
+      country: address[:country],
+      postal_code: address[:postal_code]
+    }
+  end
+
+  def address_params(address)
+    {
+      address_line_1: address.address_line_1,
+      address_line_2: address.address_line_2,
+      city: address.admin_area_2,
+      county: address.admin_area_1,
+      country: address.country_code,
+      postal_code: address.postal_code
+    }
+  end
+
   def create_gpay_shipping_address(order, shipping_address)
-    order.create_shipping_address(
-      address_line_1: shipping_address[:address_line_1],
-      address_line_2: shipping_address[:address_line_2],
-      city: shipping_address[:admin_area_2],
-      county: shipping_address[:admin_area_1],
-      country: shipping_address[:country_code],
-      postal_code: shipping_address[:postal_code]
-    )
+    order.create_shipping_address(create_address_from_gpay(shipping_address))
   end
 
   def create_gpay_billing_address(order, billing_address)
-    order.create_billing_address(
-      address_line_1: billing_address[:address_line_1],
-      address_line_2: billing_address[:address_line_2],
-      city: billing_address[:admin_area_2],
-      county: billing_address[:admin_area_1],
-      country: billing_address[:country_code],
-      postal_code: billing_address[:postal_code]
-    )
+    order.create_billing_address(create_address_from_gpay(billing_address))
   end
 
   def create_shipping_address(order, shipping_address)
-    order.create_shipping_address(
-      address_line_1: shipping_address.address_line_1,
-      address_line_2: shipping_address.address_line_2,
-      city: shipping_address.admin_area_2,
-      county: shipping_address.admin_area_1,
-      country: shipping_address.country_code,
-      postal_code: shipping_address.postal_code
-    )
+    order.create_shipping_address(address_params(shipping_address))
   end
 
   def create_billing_address(order, billing_address)
-    order.create_billing_address(
-      address_line_1: billing_address.address_line_1,
-      address_line_2: billing_address.address_line_2,
-      city: billing_address.admin_area_2,
-      county: billing_address.admin_area_1,
-      country: billing_address.country_code,
-      postal_code: billing_address.postal_code
-    )
+    order.create_billing_address(address_params(billing_address))
   end
 
   def update_order_to_paid(order, total, sub_total)
