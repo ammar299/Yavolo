@@ -5,7 +5,7 @@ class PaymentMode < ApplicationRecord
   enum payment_through: {
     stripe: 0,
     paypal: 1,
-    google_paypal: 2,
+    google_pay: 2,
     apple_pay: 3
   }
 end
