@@ -155,7 +155,7 @@ function googlePayPayment() {
     if (confirmationResponse) {
       // alert('COMPLETED');
       // REDIRECT TO SUCCESS PAGE
-      // window.location.replace(`/order_completed?order=${confirmationResponse.order.id}`);
+      window.location.replace(`/order_completed?order=${confirmationResponse.order.id}`);
     }
   });
 }
