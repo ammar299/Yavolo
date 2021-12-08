@@ -13,19 +13,16 @@ class Sellers::ProfilesController < Sellers::BaseController
 
   def show
     @seller = current_seller
-    @delivery_options = current_seller.delivery_options
+    @q = current_seller.delivery_options.ransack(params[:q])
+    if params[:q].present? && params[:q][:name_or_ships_name_cont].present?
+      @delivery_options = @q.result.includes(:ships)
+    else
+      @delivery_options = @q.result
+    end
     @remaining_addresses = Address.address_types.keys - @seller.addresses.collect(&:address_type)
     @remaining_addresses.each do |address_type| @seller.addresses.build address_type: address_type end if @remaining_addresses.present?
     @seller_apis = @seller.seller_apis
     @payment_methods = @seller.seller_payment_methods if @seller.seller_payment_methods.present?
-  end
-
-  def search_delivery_options
-    if params[:search].present?
-      @delivery_options = current_seller.delivery_options.global_search(params[:search])
-    else 
-      @delivery_options = current_seller.delivery_options
-    end
   end
 
   def seller_login_setting_update

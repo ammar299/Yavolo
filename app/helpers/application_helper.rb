@@ -71,6 +71,13 @@ module ApplicationHelper
     ].compact.first.to_s unless q_params[:q].blank?
   end
 
+  def search_field__delivery_option_param(q_params)
+    [
+      q_params[:q][:name_cont],
+      q_params[:q][:name_or_ships_name_cont]
+    ].compact.first.to_s unless q_params[:q].blank?
+  end
+
   def connection_manager_actions_to_show(seller_api)
     if seller_api.status == 'disable'
        return ['enable']
@@ -112,6 +119,12 @@ module ApplicationHelper
 'title_or_brand_or_sku_or_yan_or_ean_cont']
     valid_field_names.include?(params[:csfname]) ? params[:csfname] : 'title_or_brand_or_sku_or_yan_or_ean_cont'
   end
+
+  def current_search_field_delivery_name
+    valid_field_names = ['name_cont', 'name_or_ships_name_cont']
+    valid_field_names.include?(params[:csfname]) ? params[:csfname] : 'name_or_ships_name_cont'
+  end
+
 
   def set_filter_active(f_type)
     'active' if set_filter_type_in_dropdown(params)==f_type
