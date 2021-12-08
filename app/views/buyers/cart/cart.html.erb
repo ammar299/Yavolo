@@ -78,8 +78,8 @@
               <div id="paypal-button" style="display: none;">
                 <%= render 'shared/checkout/paypal_express_checkout_button' %>
               </div>
-              <div id="payment-request-button">
-                <!-- A Stripe Element will be inserted here. -->
+              <div id="google-pay-button" style="display: none;">
+                <%= render 'shared/checkout/google_pay_button' %>
               </div>
             </div>
           </div>
@@ -107,7 +107,7 @@ $(document).ready(function() {
     }
     else if (this.value == 'g-pay' && this.checked) {
       hideAllPaymentButtons();
-      onThisPaymentButton('proceed');
+      onThisPaymentButton('google-pay-button');
     }
   });
 });
@@ -122,7 +122,7 @@ $('body').on('change', 'input[type=radio][name="pay_with"]', function() {
   }
   else if (this.value == 'g-pay' && this.checked) {
       hideAllPaymentButtons();
-      onThisPaymentButton('proceed');
+      onThisPaymentButton('google-pay-button');
   }
 });
 

@@ -1,6 +1,6 @@
 $(document).ready(function () {
   console.log('google pay is ready');
-  if (window.location.pathname.includes("payment_method")) {
+  if (window.location.pathname.includes("cart")) {
     googlePayPayment();
   }
 });
