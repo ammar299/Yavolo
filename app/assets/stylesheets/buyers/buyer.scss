@@ -30,6 +30,7 @@
   outline: none;
   box-shadow: none;
   border: 0;
+  border-radius: 22px !important;
 }
 .main-header .form-inline input::placeholder {
   color: #C09AA8;
@@ -37,7 +38,7 @@
 .main-header .form-inline a {
   position: absolute;
   right: 20px;
-  top: 10px;
+  top: 9px;
   font-size: 14px;
   color: var(--dark-red) !important;
 }
@@ -449,7 +450,7 @@
 }
 .pdp-drop .dropdown-filter.show .dropdown-menu {
   background-color: #fff;
-  min-width: 40px;
+  min-width: 40px !important;
   padding: 6px 0px !important;
 }
 .pdp-drop .dropdown-filter.show .dropdown-menu a{
@@ -458,6 +459,9 @@
 .pdp-drop .dropdown-filter.show .dropdown-menu:hover {
   border-radius: 0;
 }
+.pdp-drop .dropdown-filter.show .btn-link-dropdown {
+  border-radius: 12px 12px 0 0 !important;
+}
 .pdp-drop .dropdown-item:hover {
   background-color: #FFD8DD !important;
   border-radius: 0 !important;
@@ -465,6 +469,8 @@
 .pdp-drp-input {
   width: 30px;
   border: 0;
+  font-size: 12px;
+  color: var(--dark-red);
 }
 .pdp-drp-input:focus {
   outline: none;

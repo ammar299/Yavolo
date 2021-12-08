@@ -1,0 +1,70 @@
+<div class="yavolos--product-item" data-controller="yavolos--product-item">
+  <div class="product-bg-title-bordr d-flex align-items-center">
+    <span class="product-bg-title" data-yavolos--product-item-target="counter">1</span> <span><%= product.title %></span>
+  </div>
+  <div class="Yavolo-table mt-4 w-100 table-responsive">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>
+        </th>
+        <th>image</th>
+        <th>Product Title</th>
+        <th>Key info</th>
+        <th class="text-center">Discount</th>
+        <th class="text-center" width="15%">Regular Price</th>
+        <th class="text-center" width="15%">Yavolo Price</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><label class="checkbox-blk">
+          <input type="checkbox" data-yavolos--summary-target="productCheckbox" data-product-id="<%= product.id %>" >
+          <span class="checkmark"></span>
+        </label>
+        </td>
+        <td>
+          <span class="imglist" width="100%">
+            <%= product_thumbnail_image_for_table_row(product) %>
+          </span>
+        </td>
+        <td>
+          <span><%= product.title %></span>
+        </td>
+        <td width="">
+          <ul>
+            <li><strong>YAN: </strong> <%= product.yan %></li>
+            <li><strong>YAN: </strong> <%= product.ean %></li>
+            <li><strong>Brand: </strong> <%= product.brand %></li>
+          </ul>
+        </td>
+        <td class="text-center">
+          <%= format_to_percentage(product.discount) %>
+        </td>
+        <td>
+          <div class="text-center">
+            <div class="form-group">
+              <input type="text"
+                     class="yo-price-inpt text-center"
+                     id="exampleInputEmail1"
+                     aria-describedby="emailHelp" disabled="disabled" value="<%= get_price_in_pounds(product.price) %>">
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="text-center">
+            <div class="form-group">
+              <input type="text"
+                     class="yo-price-inpt text-center"
+                     id="exampleInputEmail1"
+                     aria-describedby="emailHelp"
+                     value="<%= get_discount_value_product(product) %>"
+                      min="" max="">
+            </div>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

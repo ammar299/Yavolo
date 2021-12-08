@@ -41,8 +41,8 @@ module Paypal
     end
 
     def create_application_context
-      return_url = ENV['PAYPAL_RETURN_URL'] || 'https://558a-202-166-171-14.ngrok.io'
-      cancel_url = ENV['PAYPAL_CANCEL_URL'] || 'https://558a-202-166-171-14.ngrok.io'
+      return_url = ENV['PAYPAL_RETURN_URL'] || 'https://eeec-182-179-134-113.ngrok.io'
+      cancel_url = ENV['PAYPAL_CANCEL_URL'] || 'https://eeec-182-179-134-113.ngrok.io'
       brand_name = 'PhaerdraSolutions'
 
       {

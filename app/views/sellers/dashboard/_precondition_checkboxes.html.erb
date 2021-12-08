@@ -36,7 +36,7 @@
         </label>
         <label class="checkbox-blk">
         <a href="<%= new_sellers_product_path %>">Add your first sensational product*</a>
-          <input type="checkbox" <%= @seller.products.count > 1 ? 'checked': '' %> disabled>
+          <input type="checkbox" <%= @seller.products.count > 0 ? 'checked': '' %> disabled>
           <span class="checkmark"></span>
         </label>
       </div>

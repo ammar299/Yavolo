@@ -71,6 +71,13 @@ module ApplicationHelper
     ].compact.first.to_s unless q_params[:q].blank?
   end
 
+  def search_field__delivery_option_param(q_params)
+    [
+      q_params[:q][:name_cont],
+      q_params[:q][:name_or_ships_name_cont]
+    ].compact.first.to_s unless q_params[:q].blank?
+  end
+
   def connection_manager_actions_to_show(seller_api)
     if seller_api.status == 'disable'
        return ['enable']
@@ -113,12 +120,22 @@ module ApplicationHelper
     valid_field_names.include?(params[:csfname]) ? params[:csfname] : 'title_or_brand_or_sku_or_yan_or_ean_cont'
   end
 
+  def current_search_field_delivery_name
+    valid_field_names = ['name_cont', 'name_or_ships_name_cont']
+    valid_field_names.include?(params[:csfname]) ? params[:csfname] : 'name_or_ships_name_cont'
+  end
+
+
   def set_filter_active(f_type)
     'active' if set_filter_type_in_dropdown(params)==f_type
   end
 
   def get_price_in_pounds(amount)
     amount.present? ? number_to_currency(amount, unit: "£", precision: 2) : 0
+  end
+
+  def format_to_percentage(number)
+    number.present? ? number_to_percentage(number,precision:8, scale: 2, strip_insignificant_zeros: true) : number_to_percentage(0,precision:0)
   end
 
   def set_filter_type_in_dropdown(params)
@@ -161,9 +178,14 @@ module ApplicationHelper
     action_hash = ACTION_NAME_WITH_ACTION_STATUS.select { |h| h[:action_name] == action_name }.last
     action_hash.present? ? action_hash[:action_performed] : action_name
   end
-  
+
+  def titleize(str)
+    str.to_s.titleize
+  end
+
   def authorise_developer_by_seller_or_admin
     ((current_seller.present? && current_seller.eligible_to_create_api) ||
         (current_admin.present? && admin_seller_route?(params[:controller])))
   end
+
 end

@@ -46,20 +46,20 @@
                             </div>
                             <div class="search-field mb-0">
                                 <%= search_form_for @q, url: sellers_products_path do |f| %>
-                                <%= hidden_field_tag :tab, params[:tab].to_s ||'all'%>
+                                    <%= hidden_field_tag :tab, params[:tab].to_s ||'all' %>
                                 <input type="hidden" name="filter_type" id="product-filter-type" value="<%= params[:filter_type] %>">
                                 <input type="hidden" name="csfname" id="csfn" value="<%= current_search_field_name %>">
-                                <% if params[:q].present? && params[:q].keys.include?('s') %>
-                                <%=hidden_field_tag 'q[s]', params[:q][:s].to_json %>
-                                <% end %>
-                                <%= f.search_field current_search_field_name.to_sym, { class: 'input-btn-sm seller-product-search-field', placeholder: 'Search Products', value: "#{search_field_query_param_val(params)}" } %>
-                                <% if params[:q].present? && params[:q]['title_or_brand_or_sku_or_yan_or_ean_cont'].present? %>
-                                  <%= link_to sellers_products_path, class: 'btn-sm' do %>
-                                    <i class="icon-cross" aria-hidden="true"></i>
-                                  <% end %>
-                                <% else %>
-                                  <i class="fa fa-search" aria-hidden="true"></i>
-                                <% end %>
+                                    <% if params[:q].present? && params[:q].keys.include?('s') %>
+                                        <%= hidden_field_tag 'q[s]', params[:q][:s].to_json %>
+                                    <% end %>
+                                    <%= f.search_field current_search_field_name.to_sym, { class: 'input-btn-sm seller-product-search-field', placeholder: 'Search Products', value: "#{search_field_query_param_val(params)}" } %>
+                                    <% if params[:q].present? %>
+                                        <%= link_to sellers_products_path(filter_type: params[:filter_type], tab: (params[:tab].present? ? params[:tab] : 'all')), class: 'btn-sm' do %>
+                                            <i class="icon-cross" aria-hidden="true"></i>
+                                        <% end %>
+                                    <% else %>
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    <% end %>
                                 <% end %>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                         </div>
                         <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border">
                             <div class="dropdown">
-                                <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%=set_product_sort_by_in_dropdown(params)%> <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+                                <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center filter-by-dropdown" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%=set_product_sort_by_in_dropdown(params)%> <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <%= render 'shared/products/sort_by_title_price_dropdown_item', filter: 'title asc', title: 'Product Title A-Z' %>
                                 <%= render 'shared/products/sort_by_title_price_dropdown_item', filter: 'title desc', title: 'Product Title Z-A' %>
@@ -203,6 +203,9 @@
                                         <% end %>
                                     </tbody>
                                 </table>
+                                <% if @products.count == 0 %>
+                                    <p class="text-center my-5">No Record Found</p>
+                                <% end %>
                             </div>
                         </div>
                     </div>

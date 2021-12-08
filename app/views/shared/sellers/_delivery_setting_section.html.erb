@@ -11,9 +11,9 @@
           <a class="dropdown-item" href="#">Delivery Name</a>
         </div>
       </div>
-      <%= form_tag(search_seller_delivery_options_admin_delivery_options_path, method: :get, remote: true) do %>
+      <%= form_tag(search_seller_delivery_options_admin_delivery_options_path, method: :get, class: 'flex1', remote: true) do %>
       <div class="search-field mb-0">
-        <input type="text" name="search" placeholder="Search Delivery Templates">
+        <input type="text" name="search" placeholder="Search Delivery Templates" class="search-input delivery-template-search-field">
         <i class="fa fa-search accounts-delivery-search" aria-hidden="true"></i>
         <input type="hidden" id="seller_id" name="seller_id" value="<%=params[:id]%>">
       </div>

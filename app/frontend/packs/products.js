@@ -6,8 +6,11 @@ $(document).ready(function(){
   bindAndSortByEvent();
   bindFilterByEvents();
   bindRemoveFilterBy();
+  divAdjusterWidth();
+  disableEnterOnProductCreate();
   let updatedProductIds = [];
   let productErrors = [];
+
   $(document).on({
     mouseenter: function () {
       $(this).parents('.prod-table-row').find('.yavolo-btn').removeClass('btn-danger');
@@ -139,22 +142,34 @@ $(document).ready(function(){
     }
   });
 
-
   // start img delete
   $(document).on('click','.img-del-icon', function(){
       $(this).addClass('mark-as-delete');
       $('#yes-no-product-delete-img-modal').modal('show');
   });
 
+  $('.grid-single-img').click(function(){ 
+    if($('.grid-single-img').length < 1){
+      $('.add-edit-product-photos').removeClass('col-lg-8').addClass('col-lg-12');
+    }
+  })
+
+  
+
   $('#yes-delete-img').click(function(){
+
     if($('.mark-as-delete').length > 0){
       removeImage($('.mark-as-delete'));
+      // divAdjusterWidth();
       $('#yes-no-product-delete-img-modal').modal('hide');
     }
   });
 
   $('#yes-no-product-delete-img-modal').on('hidden.bs.modal', function () {
+
     $('.mark-as-delete').removeClass('mark-as-delete');
+    
+    divAdjusterWidth();
   });
   // end image delete
 
@@ -234,6 +249,15 @@ $(document).ready(function(){
 });
 
 let product_description_editor;
+function disableEnterOnProductCreate(){
+  $('#product_form').on('keyup keypress', function(e) {
+    var keyCode = e.keyCode || e.which;
+    if (keyCode === 13) { 
+      e.preventDefault();
+      return false;
+    }
+  });
+}
 
 function removeImage(ele){
   let count = 1;
@@ -532,6 +556,7 @@ function uploadCSVFile(files){
   let url = 'YOUR URL HERE'
   let formData = new FormData()
   formData.append('csv_import[file]', files[0])
+  formData.append('product_status', location.search.substr(1).split("&")[0].split("=")[1])
   $.ajax({
     url: "/"+$('#namespace').val()+"/products/upload_csv",
     type: "POST",
@@ -983,7 +1008,7 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
   }, "Please add some description about your product.");
 
   jQuery.validator.addMethod('productEan', function(value, element) {
-    return this.optional(element) || /^(\d{12})?$/.test(value);
+    return this.optional(element) || /^(\d{13})?$/.test(value);
   }, 'Please Enter a valid EAN');
 
   let rules = {
@@ -992,7 +1017,7 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
     },
     "product[ean]": {
       required: true,
-      maxlength: 12
+      maxlength: 13
     },
     "product[price]": {
       required: true
@@ -1143,7 +1168,17 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
   $('#product_ean').rules('add', {
     productEan: true,
     messages: {
-      productEan: 'Please Enter a valid EAN.'
+      productEan: 'Please Enter a valid EAN without decimal.'
     }
   });
 }
+
+
+
+function divAdjusterWidth(){
+    if(window.location.pathname.split("/").pop() == 'new' || window.location.pathname.split("/").pop() == 'edit'){
+      if($('.grid-single-img').length == $('.remove').length ){
+        $('.add-edit-product-photos').removeClass('col-lg-8').addClass('col-lg-12');
+      }
+    }
+  }

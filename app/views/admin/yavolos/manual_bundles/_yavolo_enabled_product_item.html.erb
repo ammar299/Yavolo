@@ -1,0 +1,29 @@
+<tr data-controller="yavolos--add-to-yavolo" data-yavolos--add-to-yavolo-product-id="<%= product.id %>" data-yavolos--add-to-yavolo-url="<%= yavolo_product_details_admin_yavolos_manual_bundles_path(product_id: product.id) %>">
+  <td> <%= titleize(product.status) %> </td>
+  <td>
+    <div class="">
+      <span class="imglist" width="100%">
+        <%= product_thumbnail_image_for_table_row(product) %>
+      </span>
+    </div>
+  </td>
+  <td>
+    <span><%= product.title %></span>
+  </td>
+  <td width="20%">
+    <ul>
+      <li><strong>YAN: </strong> <%= product.yan %></li>
+      <li><strong>Brand: </strong> <%= product.brand %></li>
+      <li><strong>Condition: </strong> <%= product.condition == 'brand_new' ? 'New' : titleize(product.condition) %></li>
+      <li><strong>Price: </strong> <%= get_price_in_pounds(product.price) %></li>
+    </ul>
+  </td>
+  <td class="text-center">
+    <%= format_to_percentage(product.discount) %>
+  </td>
+  <td>
+    <div class="text-center">
+      <a href="#" class="btn btn-sm btn-radius px-3 btn-secondary w-100 btn-light-hvr" data-action="click->yavolos--add-to-yavolo#addToBundle">Add to Yavolo</a>
+    </div>
+  </td>
+</tr>

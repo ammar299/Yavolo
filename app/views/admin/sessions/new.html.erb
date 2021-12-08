@@ -16,11 +16,15 @@
             <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
               <div class="form-group general-mrgn form-group-vertical">
                 <label for="exampleInputEmail1" class= "login-page-label">Username *</label>
-                <%= f.email_field :email, autofocus: true, class: "form-control ",placeholder: "Email address" %>
+                <div style="flex: 1">
+                  <%= f.email_field :email, autofocus: true, class: "form-control ",placeholder: "Email address" %>
+                </div>
               </div>
               <div class="form-group general-mrgn form-group-vertical">
                 <label for="exampleInputPassword1" class= "login-page-label">Password *</label>
-                <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder:"Password" %>
+                <div style="flex: 1">
+                  <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder:"Password" %>
+                </div>
               </div>
               <div class="d-flex justify-content-between flex-wrap mb-0">
               <!--  <div class="form-check mb-0">

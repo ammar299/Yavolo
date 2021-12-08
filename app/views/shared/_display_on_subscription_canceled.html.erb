@@ -1,7 +1,7 @@
 <table class="table mt-2 subscription-table">
   <tbody>
     <tr>
-      <td >Subscription status:</td>
+      <td class="seller-subscription-td-width">Subscription status:</td>
       <td >Canceled</td>
     </tr>
     <tr>
@@ -10,5 +10,5 @@
     </tr>
   </tbody>
 </table>
-<a href="#" name="<%= subscription_renew_path %>" class="btn btn-sm btn-radius px-4 btn-primary mb-3 renew-seller-subscription">Renew Subscription</a>
+<a href="#" name="<%= subscription_renew_path %>" class="btn btn-sm btn-radius px-4 btn-primary mb-3 ml-3 renew-seller-subscription">Renew Subscription</a>
 <%= render 'shared/simple_confirm_modal', confirm_statement: 'Are you sure you want to perform this action?', id: 'renew-seller-subscription-by-admin',path: '#', data: "", modal_id: 'renew-seller-subscription-confirm' %>

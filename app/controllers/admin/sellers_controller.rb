@@ -1,7 +1,7 @@
 class Admin::SellersController < Admin::BaseController
   before_action :set_seller,
                 except: %i[index new create send_password_reset_emails update_multiple export_sellers get_sellers
-                           import_sellers search]
+                           import_sellers search renew_seller_subscription]
   before_action :is_seller_locked?, only: %i[show]
   include SharedSellerMethods
 
@@ -33,6 +33,7 @@ class Admin::SellersController < Admin::BaseController
 
   def create
     @seller = Seller.new(seller_params)
+    @seller.provider = "admin"
     @seller.skip_password_validation = true
     if @seller.save
       raw, hashed = Devise.token_generator.generate(Seller, :reset_password_token)

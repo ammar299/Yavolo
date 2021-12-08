@@ -1,26 +1,36 @@
-<div class="tab-pane fade" id="Delivery-Settings" role="tabpanel" aria-labelledby="Delivery-Settings-tab">
+<div class="tab-pane fade <%= 'show active' if params[:tab] == 'delivery-settings' %>" id="Delivery-Settings" role="tabpanel" aria-labelledby="Delivery-Settings-tab">
   <div class="d-flex justify-content-between flex-wrap">
     <div class="dropdown-filter-field active my-1 dropdown-filter-custom seller-account-delivery-setting">
       <div class="dropdown">
-        <a class="btn btn-radius px-2 btn-primary current-search-filter" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Search All <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
+        <a class="btn btn-radius px-2 btn-primary current-search-filter" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%= set_filter_type_in_dropdown(params) %> <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
         </a>
-        <div class="dropdown-menu admin-orders-filters" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item <%= set_filter_active('Search All') %>" href="#">Search All<i aria-hidden="true"></i></a>
-            <a class="dropdown-item <%= set_filter_active('Product Title A-Z') %>" href="#">Delivery Name<i aria-hidden="true"></i></a>
+        <div class="dropdown-menu seller-delivery-options-filters" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item" href="#">Search All <i class="fa fa-check" aria-hidden="true"></i></a>
+          <a class="dropdown-item" href="#">Delivery Name<i class="fa fa-check d-none" aria-hidden="true"></i></a>
         </div>
       </div>
-      <%= form_tag(search_delivery_options_sellers_profile_path, method: :get, remote: true, class:"search-delivery-options-form flex-1") do %>
+      <%= search_form_for @q, url: sellers_profile_path(@seller), class: 'search-delivery-options-form flex-1' do |f| %>
         <div class="search-field mb-0">
-          <input type="text" name="search" placeholder="Search Delivery Templates" class="search-input delivery-template-search-field">
-            <%= link_to search_delivery_options_sellers_profile_path, method: :get, remote: true, class: 'cross-icon',style:'display:none;' do %>
-              <i class="icon-cross mm-text pt-1" aria-hidden="true"></i>
+          <%= hidden_field_tag :tab, params[:tab].present? ? params[:tab].to_s : 'delivery-settings' %>
+          <input type="hidden" name="filter_type" id="delivery-option-filter-type" value="<%= params[:filter_type] %>">
+          <input type="hidden" name="csfname" id="csfn" value="<%= current_search_field_delivery_name %>">
+          <% if params[:q].present? && params[:q].keys.include?('s') %>
+            <%= hidden_field_tag 'q[s]', params[:q][:s].to_json %>
+          <% end %>
+          <%= f.search_field current_search_field_delivery_name.to_sym, { class: 'search-input seller-delivery-option-search-field delivery-template-search-field', placeholder: 'Search Delivery Templates', value: "#{search_field__delivery_option_param(params)}" } %>
+          <% if params[:q].present? %>
+            <%= link_to sellers_profile_path(@seller, filter_type: params[:filter_type], tab: params[:tab]), class: 'btn-sm' do %>
+              <i class="icon-cross" aria-hidden="true"></i>
             <% end %>
-            <i class="fa fa-search search-icon" aria-hidden="true"></i>
+          <% else %>
+            <i class="fa fa-search" aria-hidden="true"></i>
+          <% end %>
         </div>
       <% end %>
     </div>
     <div>
-      <%= link_to 'Create New Template', new_sellers_delivery_option_path, class: 'btn btn-sm btn-radius px-4 btn-primary ml-5 mb-3 my-1', data: { remote: true } %>
+      <%= link_to 'Create New Template', new_sellers_delivery_option_path, class: 'btn btn-sm btn-radius px-4 btn-primary mb-3 my-1', data: { remote: true } %>
     </div>
   </div>
   <h5 class="mb-3">Delivery Templates</h5>

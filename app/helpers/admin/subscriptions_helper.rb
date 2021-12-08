@@ -5,6 +5,7 @@ module Admin::SubscriptionsHelper
   end
 
   def subscription_name
+    value = "Standard"
     if @seller.provider == "admin" && @seller.subscription_type == "month_12"
       value = "12 Month"
     elsif @seller.provider == "admin" && @seller.subscription_type == "month_24"
@@ -13,13 +14,16 @@ module Admin::SubscriptionsHelper
       value = "36 Month"
     elsif @seller.provider == "admin" && @seller.subscription_type == "lifetime"
       value = "Pioneer"
-    else
-      value = "Standard"
     end
+    value
   end
 
   def expiry_date
-    seller_subscription&.current_period_end&.strftime('%d/%m/%y %T') || seller_subscription&.schedule_date&.strftime('%d/%m/%y %T') || ""
+    value = seller_subscription&.schedule_date&.strftime('%d/%m/%y %T') || seller_subscription&.current_period_end&.strftime('%d/%m/%y %T') || ""
+    if subscription_name == "Standard"
+      value = seller_subscription&.current_period_end&.strftime('%d/%m/%y %T') || seller_subscription&.schedule_date&.strftime('%d/%m/%y %T') || ""
+    end
+    value
   end
 
   def renewal_cost
@@ -27,6 +31,7 @@ module Admin::SubscriptionsHelper
     if @seller.provider != "admin"
     val = "£29.00"
     end
+    val
   end
 
   def cancel_at_period_end_nil_or_false?
@@ -95,8 +100,17 @@ module Admin::SubscriptionsHelper
   def is_eligible_for_save?
     (seller_subscription.present? && cancel_at_period_end_nil_or_false? && !cancel_after_next_payment_taken? && !subscription_canceled?)
   end
+  
   def seller_subscription
     @seller&.seller_stripe_subscription&.reload
+  end
+
+  def date_parser(date)
+    begin 
+      Time.at(date)
+    rescue
+      nil
+    end
   end
 
 end

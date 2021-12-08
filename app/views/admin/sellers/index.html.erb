@@ -95,11 +95,11 @@
             </th>
             <th>Email</th>
             <th>Seller Since</th>
-            <th>Last sale</th>
-            <th>Active Listings</th>
-            <th>Lifetime Sales</th>
-            <th>Account Status</th>
-            <th>Account health</th>
+            <th class="text-center">Last sale</th>
+            <th class="text-center">Active Listings</th>
+            <th class="text-center">Lifetime Sales</th>
+            <th class="text-center">Account Status</th>
+            <th class="text-center">Account health</th>
             <th class="text-center" width="5%">Action</th>
           </tr>
         </thead>
@@ -118,14 +118,14 @@
               </td>
               <td><span class="email-in-table"><%=seller.email %></span></td>
               <td><%= date_format_UK(seller.created_at) %></td>
-              <td>Show the last sale date</td>
-              <td>Show the number of active listings</td>
-              <td>Show the total sales</td>
-              <td class="account-status">
+              <td class="text-center">Show the last sale date</td>
+              <td class="text-center">Show the number of active listings</td>
+              <td class="text-center">Show the total sales</td>
+              <td class="account-status text-center">
                 <% account_status = account_status_to_show(seller) %>
                 <%= account_status.humanize %>
               </td>
-              <td>Show the health status</td>
+              <td class="text-center">Show the health status</td>
               
               <td class="text-center actions">
                 <div class="all-seller-btn">

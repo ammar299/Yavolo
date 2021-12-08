@@ -122,6 +122,15 @@ Rails.application.routes.draw do
             get :confirm_delete
           end
         end
+
+        namespace :yavolos do
+          resources :manual_bundles, except: %i[show] do
+            collection do
+              get :yavolo_product_details
+            end
+          end
+        end
+
       end
     end
   end

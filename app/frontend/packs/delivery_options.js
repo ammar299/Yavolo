@@ -6,6 +6,7 @@ $(document).ready(function(){
   enableDeliveryOptionName(); // enable/disable name validation after form submit
   deliveryOptionDropdownValidation(); // enable/disable select filed validation after form submit
   enableDeliveryShipAttributes(); // enable and disable ship attributes on checked
+  setSellerDeliveryOptionSearchMenuAndQueryName();
   $('.delivery-options-select-all-container #delivery-option-select-all').change(() => selectedDeliveryOptionsCarriers('.delivery-options-checkbox-container'));
   $('.carriers-select-all-container #carrier-select-all').change(() => selectedDeliveryOptionsCarriers('.carriers-checkbox-container'));
 });
@@ -188,5 +189,29 @@ function enableDeliveryShipAttributes() {
       $('.' + delivery_time_klass).parents("div.form-group").removeClass('error-field');
       $('#' + delivery_time_klass + '-error-text').text('');
     }
+  });
+}
+
+function setSellerDeliveryOptionSearchMenuAndQueryName(){
+  $('.seller-delivery-options-filters a').click(function(e) {
+    e.preventDefault();
+    let currentFilter = $(this).text().trim();
+    let searchField = $('.seller-delivery-option-search-field');
+    let filterType = $('#delivery-option-filter-type');
+    $('.seller-delivery-options-filters a').each(function( index ) {
+      $(this).find('.fa-check').addClass('d-none');
+    });
+    $(this).find('.fa-check').removeClass('d-none');
+    if(currentFilter=='Delivery Name'){
+      searchField.attr('name', 'q[name_cont]');
+      $('#csfn').val('name_cont');
+      filterType.val('Delivery Name');
+    }else{
+      $('.current-search-filter').text('Search All');
+      searchField.attr('name', 'q[name_or_ships_name_cont]');
+      $('#csfn').val('name_or_ships_name_cont');
+      filterType.val('Search All');
+    }
+    $('.current-search-filter').html(currentFilter+' <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>');
   });
 }

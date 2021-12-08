@@ -1,6 +1,7 @@
 module Admins
   module Sellers
     class SubscriptionUpdaterService < ApplicationService
+      include Admin::SubscriptionsHelper
       attr_reader  :seller, :status, :errors
 
       def initialize(subscription_status,enforce_status,seller)
@@ -156,10 +157,10 @@ module Admins
       end
 
       def update_schedule_subscription_db(sub)
-        record = @seller&.seller_stripe_subscription.update(
+        record = @seller&.seller_stripe_subscription&.update(
           schedule_date: date_parser(sub.phases[0].start_date)
         )
-        return true if record == true 
+        true if record == true 
       end
 
       def get_subscription_id
@@ -175,7 +176,7 @@ module Admins
           seller_requested_cancelation: false
         )
         UpdateSubscriptionEmailWorker.perform_async(@seller.email,"canceled_at_time_end")
-        return true if record == true 
+        true if record == true 
       end
 
       def update_current_schedule_subscription(sub)
@@ -187,15 +188,7 @@ module Admins
           seller_requested_cancelation: false
         )
         UpdateSubscriptionEmailWorker.perform_async(@seller.email,"canceled_immediateley")
-        return true if record == true 
-      end
-
-      def date_parser(date)
-        begin 
-          Time.at(date)
-        rescue
-          nil
-        end
+        true if record == true 
       end
     end
   end

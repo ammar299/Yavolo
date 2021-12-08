@@ -88,13 +88,14 @@ class Sellers::ProductsController < Sellers::BaseController
 
 
   def upload_csv
+    product_status = params[:product_status] if params[:product_status].present?
     csv_import = CsvImport.new(params.require(:csv_import).permit(:file))
     csv_import.importer_id = current_seller.id
     csv_import.importer_type = current_seller.class.name
     if csv_import.valid?
       csv_import.save
       csv_import.update({status: :uploaded})
-      ImportCsvWorker.perform_async(csv_import.id)
+      ImportCsvWorker.perform_async(csv_import.id,product_status)
       render json: { message: 'Your file is uploaded and you will be notified with import status.' }, status: :ok
     else
       render json: { errors: csv_import.errors.where(:file).last.message }, status: :unprocessable_entity

@@ -2,16 +2,16 @@
   <section class="holiday-mode yo-white-card box-border pb-0">
     <h6>Holiday Mode</h6>
     
-      <%= simple_form_for @seller, url: url, remote: true do |form| %>
+      <%= simple_form_for @seller, url: url, html: {class: 'pl-3 mt-2'}, remote: true do |form| %>
         <div class="d-flex">
           <div class="pr-5">
-            <label class="checkbox-blk">Enable
+            <label class="checkbox-blk mt-2">Enabled
               <%= form.radio_button :holiday_mode, '1', checked: @seller.holiday_mode, class: '' %>
               <span class="checkmark"></span>
             </label>
           </div>
           <div>
-            <label class="checkbox-blk">Disable
+            <label class="checkbox-blk mt-2">Disabled
               <%= form.radio_button :holiday_mode, '0', checked: !@seller.holiday_mode, class: '' %>
               <span class="checkmark"></span>
             </label>

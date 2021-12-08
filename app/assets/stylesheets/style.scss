@@ -946,7 +946,7 @@ h6 {
   position: absolute;
   top: 20px;
   left: 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
   right: 24px;
   padding-bottom: 1rem;
 }
@@ -958,7 +958,8 @@ h6 {
 }
 
 .add-photo-inner .photo-btn {
-  width: 300px;
+  min-width: 300px;
+  width: 100%;
   display: inline-flex;
   justify-content: center;
 }
@@ -1211,7 +1212,7 @@ h6 {
 .subscription-table tbody td {
   border: none;
   font-size: 12px;
-  vertical-align: middle;
+  // vertical-align: middle;
   color: var(--dark-red);
 }
 .select-width {
@@ -1266,9 +1267,6 @@ h6 {
   position: absolute;
   top: 20px;
   left: 20px;
-}
-.add-photo-inner .photo-btn {
-  width: 300px;
 }
 .box-border {
   padding: 20px;
@@ -2327,9 +2325,11 @@ select {
 /* dark-bg-dropdown */
 /* bg-hvr-dropdown */
 .bg-hvr-dropdown .btn-link-dropdown {
-  border: 1px solid var(--dark-red);
+  border: 1px solid var(--dark-red) !important;
   border-radius: 6px;
   background-color: #fff !important;
+  font-size: 12px;
+  height: 40px;
 }
 .bg-hvr-dropdown .dropdown-filter.show .btn-link-dropdown,
 .bg-hvr-dropdown .btn-link:hover {
@@ -2341,6 +2341,7 @@ select {
   border: 1px solid var(--dark-red);
   border-radius: 6px;
   padding: 5px;
+  top: 39px !important;
 }
 .bg-hvr-dropdown .dropdown-menu a:hover {
   background-color: var(--light-red) !important;

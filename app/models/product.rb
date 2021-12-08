@@ -36,8 +36,8 @@ class Product < ApplicationRecord
     validates :title, :condition, :description, :keywords, presence: true
     validates :discount, presence: true, inclusion: { in: 2.5..100, message: "value should be between 2.5 and 100" }
     validates :stock,:price, presence: true, inclusion: { in: 0..MAX_STOCK_VALUE, message: "value should be between 0 and #{MAX_STOCK_VALUE}" }
+    validates_format_of :ean, with: /\A(\d{13})?\z/, message: 'EAN is Invalid, It must be of 13 characters.'
     validate :validate_seller
-    validates_format_of :ean, with: /\A(\d{12})?\z/
 
     def validate_seller
         if owner_id.blank?
@@ -53,18 +53,19 @@ class Product < ApplicationRecord
     end
 
 
+
     scope :all_products, ->(owner) { where(owner_condition(owner)) }
     scope :active_products, ->(owner) { where(owner_condition(owner).merge!(status: :active)) }
     scope :inactive_products, ->(owner) { where(owner_condition(owner).merge!(status: :inactive)) }
     scope :pending_products, ->(owner) { where(owner_condition(owner).merge!(status: :pending)) }
     scope :draft_products, ->(owner) { where(owner_condition(owner).merge!(status: :draft)) }
-    scope :yavolo_enabled_products, ->(owner) { where(owner_condition(owner).merge!(yavolo_enabled: true)) }
-
+    scope :yavolo_enabled_products_by_owner, ->(owner) { where(owner_condition(owner).merge!(yavolo_enabled: true)) }
+    scope :yavolo_enabled, -> { where(yavolo_enabled: true) }
 
     def self.get_group_by_status_count(owner)
         group_by_hash = Product.where(owner_id: owner.id, owner_type: owner.class.name).group(:status).count
         group_by_hash.merge!(all: Product.all_products(owner).count)
-        group_by_hash.merge!(yavolo_enabled: Product.yavolo_enabled_products(owner).count)
+        group_by_hash.merge!(yavolo_enabled: Product.yavolo_enabled_products_by_owner(owner).count)
         group_by_hash.delete(nil)
         group_by_hash.collect{|k,v| [k.to_sym, v]}.to_h
     end

@@ -11,11 +11,8 @@ class Sellers::PaymentMethodsController < Sellers::BaseController
         token = Sellers::StripeApiCallsService.retrieve_token(stripe_token)
         Sellers::StripeApiCallsService.attach_card_to_customer(current_seller,stripe_token)
         save_card_in_db(token)
-      end    
-      
-      if !@seller.seller_stripe_subscription.present?
-        @subscribe = Sellers::StripeDefaultSubscriptionCreatorService.call({seller: current_seller}) 
       end
+      Sellers::StripeDefaultSubscriptionCreatorService.call({seller: current_seller}) if !@seller.seller_stripe_subscription.present?
       @payment_methods = current_seller.seller_payment_methods.reload
       flash.now[:notice] =  'Card added successfully!!'
     else

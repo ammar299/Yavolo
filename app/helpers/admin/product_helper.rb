@@ -66,4 +66,22 @@ module Admin::ProductHelper
     q_params
   end
 
+  def product_thumbnail_image_for_table_row(product)
+    if product.pictures&.first&.name&.url&.present?
+      image_tag product.pictures.first.name.url(:thumb), class: "w-100"
+    else
+      product_default_image
+    end
+  end
+
+  def product_default_image
+    image_tag 'default.jpg', class: "w-100"
+  end
+
+  def get_discount_value_product(product)
+    discounted_price = product.price * (product.discount/100.00)
+    new_price = product.price - discounted_price
+    get_price_in_pounds(new_price)
+  end
+
 end

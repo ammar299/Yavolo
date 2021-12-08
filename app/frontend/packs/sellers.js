@@ -16,6 +16,7 @@ $(document).ready(function () {
   $(".upload-sellers-csv-btn").click(function () {
     $("#upload-sellers-csv-popup").modal("show");
   });
+  
   uploadCsvDragDrop();
   function addNewSellerFormValidation() {
     $("form#add_new_seller_form").validate({

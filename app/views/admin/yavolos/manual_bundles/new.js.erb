@@ -1,0 +1,10 @@
+$(".yavolo-enabled-product-items-container").html("<%= j (render partial:'yavolo_enabled_product_item', collection: @products, as: :product) || render("shared/no_result_found_table_row",colspan:6) %>")
+$(".yavolo-enabled-pagination-container").html("<%= j paginate @products, remote: true %>")
+
+<% if params.dig(:q,:title_or_yan_cont).present? %>
+  $(".new-yavolo-bundle-search-form .cross-icon").removeClass('d-none')
+  $(".new-yavolo-bundle-search-form .search-icon").addClass('d-none')
+<% else %>
+  $(".new-yavolo-bundle-search-form .cross-icon").addClass('d-none')
+  $(".new-yavolo-bundle-search-form .search-icon").removeClass('d-none')
+<% end %>

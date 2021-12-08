@@ -1,7 +1,7 @@
 <ul class="nav nav-tabs seller-edit-nav" id="myTab" role="tablist">
   <% class_name = is_eligible?(current_seller) ? "" : "not-eligible-toast" %>
   <li class="nav-item">
-    <a class="nav-link active" id="Seller-About-tab" data-toggle="tab" href="#Seller-About-Page" role="tab" aria-controls="Seller-About-Page" aria-selected="true">
+    <a class="nav-link <%= 'active' if !(params[:tab] == 'delivery-settings') %>" id="Seller-About-tab" data-toggle="tab" href="#Seller-About-Page" role="tab" aria-controls="Seller-About-Page" aria-selected="true">
       About You
     </a>
   </li>
@@ -15,7 +15,7 @@
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link  <%= class_name %>" id="Delivery-Settings-tab" data-toggle="tab" href="<%= is_eligible?(current_seller) ? '#Delivery-Settings' : '' %>" role="tab" aria-controls="Delivery-Settings" aria-selected="false">
+    <a class="nav-link <%= 'active' if params[:tab] == 'delivery-settings' %>  <%= class_name %>" id="Delivery-Settings-tab" data-toggle="tab" href="<%= is_eligible?(current_seller) ? '#Delivery-Settings' : '' %>" role="tab" aria-controls="Delivery-Settings" aria-selected="false">
       Delivery Settings
     </a>
   </li>

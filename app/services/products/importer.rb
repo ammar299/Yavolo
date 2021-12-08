@@ -8,6 +8,7 @@ module Products
         @status = true
         @errors = []
         @title_list = []
+        @product_status = []
     end
 
     def call
@@ -33,7 +34,7 @@ module Products
             product = Product.new(params)
             product.owner_id = product_owner_id(row)
             product.owner_type = product_owner_type(row)
-            product.status = 'draft'
+            product.status = product_type
             product.filter_in_category_ids = []
             product.delivery_option_id = get_default_delivery_option_id
             seo_content = SeoContent.find_by(title: params[:seo_content_attributes][:title], description: params[:seo_content_attributes][:description])
@@ -59,23 +60,25 @@ module Products
       end
 
       def product_owner_id(row)
-        if row["seller"] != "Admin"
+        if csv_import.importer_type == 'Seller'
+          owner = csv_import.importer         
+          owner.id
+        else
           owner = Seller.where("CONCAT_WS(' ', first_name, last_name) LIKE ?", row["seller"]).first
           if owner.present?
-            return owner.id 
+            owner.id
           else
-            return nil
+            csv_import.importer.id
           end
-        else
-          return 1
         end
       end
 
       def product_owner_type(row)
-        if row["seller"] != "Admin"
+        if csv_import.importer_type == 'Seller'
           return "Seller" 
         else
-          return "Admin"
+          owner = Seller.where("CONCAT_WS(' ', first_name, last_name) LIKE ?", row["seller"]).first
+          owner.present? ? "Seller" : "Admin"
         end
       end
 
@@ -194,6 +197,16 @@ module Products
 
       def importer
         @importer ||= csv_import.importer
+      end
+
+      def product_type
+        if params[:product_status] == 'draft'
+          return 'draft'
+        elsif params[:product_status] == 'active'
+          return 'active'
+        else 
+          return 'pending'
+        end
       end
 
   end

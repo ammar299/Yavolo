@@ -22,7 +22,7 @@
             <%= form.hidden_field :account_status, {value: 'activate'} %>
           <% end %>
           <div class="form-group form-group-vertical form-group-vertical-responsive">
-            <%= form.label :email, 'Email Address:' %>
+            <%= form.label :email, 'Email Address:', class: 'boldheadings' %>
             <div style="flex: 1">
               <%= form.email_field :email, placeholder: 'Email Address', class: 'form-control' %>
             </div>
@@ -31,61 +31,61 @@
           <h4 class="mt-4 mb-4">Business Information</h4>
           <%= form.simple_fields_for :company_detail do |cd| %>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= cd.label :name, 'Company Name:' %>
+              <%= cd.label :name, 'Company Name:', class: 'boldheadings' %>
               <div style="flex: 1">
                 <%= cd.text_field :name, placeholder: 'Company Name', class: 'form-control' %>
               </div>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= cd.label :country, 'Country:' %>
+              <%= cd.label :country, 'Country:', class: 'boldheadings' %>
               <div style="flex: 1">
                 <%= cd.select :country, options_for_select(countries_list, cd.object.country || default_country), { prompt: 'Select Country' }, required: true, class: 'form-control' %>
               </div>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= cd.label :legal_business_name, 'Legal Business Name:' %>
+              <%= cd.label :legal_business_name, 'Legal Business Name:', class: 'boldheadings' %>
               <div style="flex: 1">
                 <%= cd.text_field :legal_business_name, placeholder: 'Legal Business Name', class: 'form-control' %>
               </div>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= cd.label :companies_house_registration_number, 'Companies House Registration Number:' %>
+              <%= cd.label :companies_house_registration_number, 'Companies House Registration Number:', class: 'boldheadings' %>
               <div style="flex: 1">
                 <%= cd.text_field :companies_house_registration_number, placeholder: 'Companies House Registration Number', class: 'form-control' %>
                 </div>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= cd.label :doing_business_as, 'Doing Business as:' %>
+              <%= cd.label :doing_business_as, 'Doing Business as:', class: 'boldheadings' %>
               <div style="flex: 1">
                 <%= cd.text_field :doing_business_as, placeholder: 'Doing Business as', class: 'form-control' %>
               </div>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= cd.label :business_industry, 'Business Industry:' %>
+              <%= cd.label :business_industry, 'Business Industry:', class: 'boldheadings' %>
               <div style="flex: 1">
                 <%= cd.text_field :business_industry, placeholder: 'Business Industry', class: 'form-control' %>
               </div>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= cd.label :website_url, 'Business Website:' %>
+              <%= cd.label :website_url, 'Business Website:', class: 'boldheadings' %>
               <div style="flex: 1">
                 <%= cd.text_field :website_url, placeholder: 'Business Website', class: 'form-control' %>
               </div>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= cd.label :amazon_url, 'Amazon URL:' %>
+              <%= cd.label :amazon_url, 'Amazon URL:', class: 'boldheadings' %>
               <div style="flex: 1">
                 <%= cd.text_field :amazon_url, placeholder: 'Amazon URL', class: 'form-control' %>
               </div>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= cd.label :ebay_url, 'eBay:', class: 'label-transform' %>
+              <%= cd.label :ebay_url, 'eBay:', class: 'label-transform boldheadings' %>
               <div style="flex: 1">
                 <%= cd.text_field :ebay_url, placeholder: 'eBay URL', class: 'form-control' %>
               </div>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= cd.label :vat_number, 'VAT Number:' %>
+              <%= cd.label :vat_number, 'VAT Number:', class: 'boldheadings' %>
               <div style="flex: 1">
                 <%= cd.text_field :vat_number, placeholder: 'VAT Number', class: 'form-control' %>
               </div>
@@ -104,7 +104,7 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group form-group-vertical form-group-vertical-responsive mb-lg-0">
-                  <label for="">Registerd Business Address:</label>
+                  <label for="" class="boldheadings">Registerd Business Address:</label>
                   <%= addr.hidden_field :address_type, value: Address.address_types.keys[Address.address_types["business_address"]], class: 'form-control' %>
                   <div style="flex: 1">
                     <%= addr.text_field :address_line_1, placeholder: 'Address Line 1', class: 'form-control' %>
@@ -143,7 +143,7 @@
               </div>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= addr.label :phone_number, 'Business Phone Number:' %>
+              <%= addr.label :phone_number, 'Business Phone Number:', class: 'boldheadings' %>
               <div style="flex: 1">
                 <%= addr.text_field :phone_number, placeholder: '+13443453123', class: 'form-control' %>
               </div>
@@ -153,25 +153,25 @@
           <h5 class="mt-4 mb-4">Business Representative</h5>
           <%= form.simple_fields_for :business_representative do |br| %>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= br.label :full_legal_name, 'Full Legal Name:' %>
+              <%= br.label :full_legal_name, 'Full Legal Name:', class: 'boldheadings' %>
               <div style="flex: 1">
                 <%= br.text_field :full_legal_name, placeholder: 'John Paul Smith', class: 'form-control' %>
               </div>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= br.label :email, 'Email:' %>
+              <%= br.label :email, 'Email:', class: 'boldheadings' %>
               <div style="flex: 1">
                 <%= br.email_field :email, placeholder: 'john.smith@example.co.uk', class: 'form-control' %>
               </div>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= br.label :job_title, 'Job Title:' %>
+              <%= br.label :job_title, 'Job Title:', class: 'boldheadings' %>
               <div style="flex: 1">
                 <%= br.text_field :job_title, placeholder: 'Job Title', class: 'form-control' %>
               </div>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <%= br.label :date_of_birth, 'Date of Birth:' %>
+              <%= br.label :date_of_birth, 'Date of Birth:', class: 'boldheadings' %>
               <div style="flex: 1">
                 <%= br.text_field :date_of_birth, placeholder: 'dd/mm/yyyy', class: 'form-control datepicker', autocomplete: 'date_of_birth' %>
               </div>
@@ -182,7 +182,7 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group form-group-vertical form-group-vertical-responsive">
-                  <label for="">Business Owner Address:</label>
+                  <label for="" class="boldheadings">Business Owner Address:</label>
                   <%= addr.hidden_field :address_type, value: Address.address_types.keys[Address.address_types["business_representative_address"]], class: 'form-control' %>
                   <div style="flex: 1">
                     <%= addr.text_field :address_line_1, placeholder: 'Address Line 1', class: 'form-control' %>
@@ -221,15 +221,15 @@
               </div>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive mb-lg-0">
-              <%= addr.label :phone_number, 'Phone Number:' %>
+              <%= addr.label :phone_number, 'Phone Number:', class: 'boldheadings' %>
               <div style="flex: 1">
                 <%= addr.text_field :phone_number, placeholder: 'Phone Number', class: 'form-control' %>
               </div>
             </div>
           <% end %>
           <!-- Seller Fields -->
-          <div class="form-group form-group-vertical form-group-vertical-responsive">
-            <%= form.label :subscription_type, 'Subscription Type:' %>
+          <div class="form-group form-group-vertical form-group-vertical-responsive mt-3">
+            <%= form.label :subscription_type, 'Subscription Type:', class: 'boldheadings' %>
             <div style="flex: 1">
               <%= form.select(:subscription_type, Seller.subscription_types.collect {|sub| [sub[0].capitalize, sub[0]]}, {:include_blank => "Select"}, {:class => "form-control"} ) %>
             </div>
