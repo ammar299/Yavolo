@@ -2325,9 +2325,11 @@ select {
 /* dark-bg-dropdown */
 /* bg-hvr-dropdown */
 .bg-hvr-dropdown .btn-link-dropdown {
-  border: 1px solid var(--dark-red);
+  border: 1px solid var(--dark-red) !important;
   border-radius: 6px;
   background-color: #fff !important;
+  font-size: 12px;
+  height: 40px;
 }
 .bg-hvr-dropdown .dropdown-filter.show .btn-link-dropdown,
 .bg-hvr-dropdown .btn-link:hover {
@@ -2339,6 +2341,7 @@ select {
   border: 1px solid var(--dark-red);
   border-radius: 6px;
   padding: 5px;
+  top: 39px !important;
 }
 .bg-hvr-dropdown .dropdown-menu a:hover {
   background-color: var(--light-red) !important;
