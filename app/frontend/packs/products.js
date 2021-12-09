@@ -957,7 +957,6 @@ function setSellerSearchMenuAndQueryName(){
       $('#csfn').val('ean_cont');
       filterType.val('EAN');
     }else{
-      $('.current-search-filter').html('Search All <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>');
       searchField.attr('name', 'q[title_or_brand_or_sku_or_yan_or_ean_cont]');
       $('#csfn').val('title_or_brand_or_sku_or_yan_or_ean_cont');
       filterType.val('Search All');

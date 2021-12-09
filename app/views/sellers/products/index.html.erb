@@ -183,7 +183,7 @@
                                                 </td>
                                                 <td>
                                                 <div class="form-group mb-0 relative">
-                                                        <%=number_field_tag 'product_discount', product.discount.to_d, class: 'form-control px-2 w-30 discount-field editable input-discount', data: {pid: product.id, action: 'update_discount'} %>
+                                                        <%=number_field_tag 'product_discount', sprintf('%g', product.discount.to_d), class: 'form-control px-2 w-30 discount-field editable input-discount', data: {pid: product.id, action: 'update_discount'} %>
                                                         <span class= "discount-symbol">%</span>
                                                 </div>
                                                 </td>
