@@ -22,8 +22,8 @@
                 <div class="tab-pane fade show active" id="all-listings" role="tabpanel"
                     aria-labelledby="home-tab">
                     <div class="d-flex align-items-center justify-content-between flex-wrap mb-2">
-                    <div class="d-flex">
-                        <div class="dropdown-filter-field active search-border my-1 dropdown-filter-custom">
+                    <div class="d-flex flex-wrap">
+                        <div class="dropdown-filter-field active search-border my-1 dropdown-filter-custom dropdown-filter-position"> 
                             <div class="dropdown">
                                 <a class="btn btn-radius px-3 btn-primary current-search-filter btn-sm" href="#" role="button"
                                     id="dropdownMenuLink" data-toggle="dropdown"
@@ -95,7 +95,7 @@
                             </div>
                         </div>
                         </div>
-                        <div class="d-flex">
+                        <div class="d-flex flex-wrap">
                             <%#= link_to "Export CSV", export_csv_sellers_products_path(:format => :csv), class: 'btn btn-sm btn-radius px-2 btn-primary mx-1' %>
                             <%= link_to 'Export CSV', export_csv_sellers_products_path(format: "csv", product: "") ,class: 'btn btn-radius px-2 btn-primary btn-sm mr-1 my-1 seller-export-csv-selected-products' %>
                             <a href="#"
@@ -170,7 +170,7 @@
                                                 </td>
                                                 <td>
                                                 <div class="form-group mb-0">
-                                                        <%=number_field_tag 'product_price',(number_with_precision(product.price, :precision => 2) || 0), class: 'form-control px-2 w-20 price-field editable product-listing-input-fields', data: {pid: product.id, action: 'update_price'} %>
+                                                        <%=text_field_tag 'product_price',(number_with_precision(product.price, :precision => 2) || 0), class: 'form-control px-2 w-20 price-field editable product-listing-input-fields listing-price', data: {pid: product.id, action: 'update_price'} %>
                                                     </div>
                                                 </td>
 
@@ -182,9 +182,10 @@
                                                     <% end %>
                                                 </td>
                                                 <td>
-                                                <div class="form-group mb-0">
-                                                        <%=number_field_tag 'product_discount', product.discount.to_d, class: 'form-control px-2 w-30 discount-field editable', data: {pid: product.id, action: 'update_discount'} %>
-                                                    </div>
+                                                <div class="form-group mb-0 relative">
+                                                        <%=number_field_tag 'product_discount', product.discount.to_d, class: 'form-control px-2 w-30 discount-field editable input-discount', data: {pid: product.id, action: 'update_discount'} %>
+                                                        <span class= "discount-symbol">%</span>
+                                                </div>
                                                 </td>
                                                 <td>
                                                     <div class="row-actions">
@@ -225,3 +226,13 @@
 <%= render 'admin/products/upload_csv_success_popup' %>
 <%= render 'shared/bulk_update_form_modal' %>
 <%= render 'shared/simple_confirm_modal', confirm_statement: 'Are you sure to perform this bulk action?', id: 'yes-perform-action',path: '#', data: nil, modal_id: 'seller-products-confirm' %>
+
+<script>
+    $(document).ready(function () {
+        $(".listing-price").inputmask('currency', {
+            prefix: '£',
+            rightAlign: false
+        });
+    })
+
+</script>

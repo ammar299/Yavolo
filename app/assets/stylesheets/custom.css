@@ -750,7 +750,7 @@ label {
   border: 2px solid var(--dark-red);
   height: 35px;
 }
-.dropdown-filter-custom .dropdown {
+.dropdown-filter-position .dropdown {
   left: -2px;
   top: -2px;
 }
@@ -769,7 +769,6 @@ label {
 }
 .dropdown-filter-custom .show .btn {
   border-radius: 10px 10px 0 0 !important;
-  top: -2px;
 }
 .dropdown-filter-custom .input-btn-sm {
   height: 31px !important;
@@ -1142,5 +1141,16 @@ width: 75%;
 }
 .cross-btn-center .icon-cross {
   position: sticky;
+}
+.discount-symbol {
+  position: absolute;
+  right: 4px;
+  top: 14px;
+}
+.relative {
+  position: relative;
+}
+.input-discount.form-control {
+  padding: 5px 14px 5px 8px !important;
 }
 /* edite yavolo listings */
