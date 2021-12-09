@@ -131,8 +131,7 @@ module ApplicationHelper
   end
 
   def set_filter_check_none(f_type)
-    return if set_filter_type_in_dropdown(params)==f_type
-    'd-none'
+    'd-none' unless set_filter_type_in_dropdown(params)==f_type
   end
 
   def get_price_in_pounds(amount)
