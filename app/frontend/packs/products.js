@@ -935,7 +935,7 @@ function setSellerSearchMenuAndQueryName(){
     let filterType = $('#product-filter-type');
     $('.seller-products-filters a').removeClass('active');
     $(this).addClass('active')
-    $('.current-search-filter').html(currentFilter+' <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>');
+    $('.current-search-filter').html(currentFilter +' <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>');
     if(currentFilter=='Product Title'){
       searchField.attr('name', 'q[title_cont]');
       $('#csfn').val('title_cont');
@@ -957,7 +957,7 @@ function setSellerSearchMenuAndQueryName(){
       $('#csfn').val('ean_cont');
       filterType.val('EAN');
     }else{
-      $('.current-search-filter').text('Search All');
+      $('.current-search-filter').html('Search All <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>');
       searchField.attr('name', 'q[title_or_brand_or_sku_or_yan_or_ean_cont]');
       $('#csfn').val('title_or_brand_or_sku_or_yan_or_ean_cont');
       filterType.val('Search All');
