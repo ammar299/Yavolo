@@ -1057,9 +1057,8 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
     invalidHandler: function(event,validator){
       if (!validator.numberOfInvalids())
             return;
-      const errorField = $(".error-field").length > 0 ? $(".error-field").first() : $('#listing-details')
       $('html, body').animate({
-          scrollTop: $(errorField).offset().top - 100
+        scrollTop: $($(validator.errorList[0].element).parent()).offset().top - 100
       }, 2000);
     },
     ignore: "#product_width,#product_depth,#product_height,.ck-hidden, .ignoreme, .ck",
