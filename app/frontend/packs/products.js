@@ -294,6 +294,7 @@ function bindResultPerPageOption(){
   })
 }
 function bindAndSortByEvent(){
+  
   $('.sortby-products').click(function(e){
     e.preventDefault();
 

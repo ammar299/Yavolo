@@ -1145,12 +1145,18 @@ width: 75%;
 .discount-symbol {
   position: absolute;
   right: 4px;
-  top: 14px;
+  top: 13px;
 }
 .relative {
   position: relative;
 }
 .input-discount.form-control {
-  padding: 5px 14px 5px 8px !important;
+  padding: 5px 15px 5px 5px !important;
+}
+
+@media screen and (max-width: 767px) {
+	.seller-account-delivery-setting {
+		width: 100%;
+	}
 }
 /* edite yavolo listings */
