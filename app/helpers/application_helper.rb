@@ -130,6 +130,10 @@ module ApplicationHelper
     'active' if set_filter_type_in_dropdown(params)==f_type
   end
 
+  def set_filter_check_none(f_type)
+    'd-none' unless set_filter_type_in_dropdown(params)==f_type
+  end
+
   def get_price_in_pounds(amount)
     amount.present? ? number_to_currency(amount, unit: "£", precision: 2) : 0
   end
