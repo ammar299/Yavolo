@@ -36,7 +36,7 @@ class Product < ApplicationRecord
     validates :title, :condition, :description, :keywords, presence: true
     validates :discount, presence: true, inclusion: { in: 2.5..100, message: "value should be between 2.5 and 100" }
     validates :stock,:price, presence: true, inclusion: { in: 0..MAX_STOCK_VALUE, message: "value should be between 0 and #{MAX_STOCK_VALUE}" }
-    validates_format_of :ean, with: /\A(\d{13})?\z/, message: 'EAN is Invalid, It must be of 13 characters.'
+    validates_format_of :ean, with: /\A(\d{13})?\z/, message: 'is Invalid, It must be of 13 characters.'
     validate :validate_seller
 
     def validate_seller
@@ -51,6 +51,8 @@ class Product < ApplicationRecord
             end
         end
     end
+
+
 
 
 
