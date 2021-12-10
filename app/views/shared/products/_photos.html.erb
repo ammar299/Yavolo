@@ -3,8 +3,8 @@
         <div class="add-edit-product-photos <%= form.object.new_record? && params[:dup_product_id].blank? ? 'col-lg-12' : 'col-lg-8' %>">
             <div class="add-photoo text-center <%= form.object.new_record? && params[:dup_product_id].blank? ? 'photos-uploader-section' : '' %>">
                 <div class="add-photo-inner">
-                    <a href="" class="btn btn-radius px-4 btn-primary photo-btn grid-btn-top show-upload-images-popup">
-                      <%=(form.object.new_record? && params[:dup_product_id].blank?) || form.object.pictures.size < 1 ? 'Add Photos' : 'Edit Photos' %>
+                    <a href="" class="btn btn-radius px-4 btn-primary photo-btn grid-btn-top show-upload-images-popup" disabled="disabled">
+                      <%=(form.object.new_record? && params[:dup_product_id].blank?) || form.object.pictures.ids.compact.count <= 8 ? 'Add Photos' : 'Edit Photos' %>
                     </a>
                   <br>
                     <small class="red-color">Upload images to show your sensational product in all its wonderful glory.</small>
@@ -44,6 +44,9 @@
                         <% end %>
                     </div>
                 </div>
+                <% if (form.object.new_record? && params[:dup_product_id].blank?) || form.object.pictures.ids.compact.count > 1 %>
+                    <span class="icon-help icon-help-style"></span>
+                <% end %>        
             </div>
         </div>
 

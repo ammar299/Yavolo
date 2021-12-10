@@ -1,0 +1,23 @@
+<div class="modal fade" id="<%=modal_id%>" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><%= heading %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+      </div>
+      <div class="modal-body px-5 text-center">
+        <p><%=confirm_statement%></p>
+        <div class="d-flex justify-content-between align-items-center flex-wrap">
+
+          <a class="decoration-none" href=" "><u>Back to product listing</u> </a>
+          <%= link_to "DELETE IMAGE",path||"#", data: data||{}, id: id, class: 'btn btn-sm btn-radius px-4 btn-primary mt-2 ml-2'  %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

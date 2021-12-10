@@ -203,7 +203,7 @@
                         <td class="text-center"><%=number_to_currency((number_with_precision(300, :precision => 2) || 0), unit: '£') %></td>
                         <td class="text-center"><%=number_to_currency((number_with_precision(300, :precision => 2) || 0), unit: '£') %></td>
                         <td class="text-center"<a href="" class="decoration-none"><span class="icon-manage-Yavolo red-text font-20px"></span></a></td>
-                        <td class="discount-box text-center"><%= "#{product.discount}" %></td>
+                        <td class="discount-box text-center"><%= "#{sprintf('%g', product.discount)}" %></td>
                         <td class="text-center">
                             <div class="d-flex">
                                 <span class="icon-star pr-1 font-20px red-text pr-2"></span>

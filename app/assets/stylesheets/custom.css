@@ -1043,6 +1043,23 @@ width: 75%;
   width: 40%;
 }
 
+.pointer-events-none {
+    pointer-events: none;
+}
+
+.icon-help-style{
+  position: absolute;
+  top: 8px;
+  left: -15px;
+}
+@media only screen and (max-width: 992px) {
+  .icon-help-style{
+    position: absolute;
+    top: -24px;
+    left: 6px;
+  }
+}
+
 /* edite yavolo listings */
 .product-bg-title {
     background-color: var(--dark-red);

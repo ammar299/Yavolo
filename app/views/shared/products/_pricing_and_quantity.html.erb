@@ -28,7 +28,7 @@
                     <% has_error, msg = get_errors(form, :ean) %>
                     <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
                         <%= form.label :ean, 'EAN*' %>
-                        <%= form.number_field :ean, class: 'form-control' %>
+                        <%= form.number_field :ean, class: 'form-control ean-product-field' %>
                         <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                     </div>
             </div>
