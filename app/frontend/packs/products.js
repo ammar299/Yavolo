@@ -461,7 +461,7 @@ function bindAndLoadBabyCategoriesSelect2(){
         };
       },
       processResults: function (data, params) {
-        params.page = params.page || 10;
+        params.page = params.page || 1;
         return {
           results: $.map(data.categories,function(e){ return {id: e.id, text: e.category_name}}),
           pagination: {

@@ -10,11 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_06_121259) do
+ActiveRecord::Schema.define(version: 2021_12_09_121209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string "namespace"
+    t.text "body"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.string "author_type"
+    t.bigint "author_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author"
+    t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
+    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -60,6 +74,27 @@ ActiveRecord::Schema.define(version: 2021_12_06_121259) do
     t.string "addressable_type"
     t.index ["addressable_id"], name: "index_addresses_on_addressable_id"
     t.index ["addressable_type"], name: "index_addresses_on_addressable_type"
+  end
+
+  create_table "admin_users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_admin_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
   create_table "admins", force: :cascade do |t|
@@ -326,11 +361,12 @@ ActiveRecord::Schema.define(version: 2021_12_06_121259) do
     t.string "category"
     t.string "campaign_category"
     t.text "description"
-    t.bigint "product_id"
+    t.bigint "google_shopping_able_id"
     t.boolean "exclude_from_google_feed", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["product_id"], name: "index_google_shoppings_on_product_id"
+    t.string "google_shopping_able_type"
+    t.index ["google_shopping_able_id"], name: "index_google_shoppings_on_google_shopping_able_id"
   end
 
   create_table "line_items", force: :cascade do |t|
@@ -591,10 +627,11 @@ ActiveRecord::Schema.define(version: 2021_12_06_121259) do
     t.text "url"
     t.text "description"
     t.text "keywords"
-    t.bigint "product_id"
+    t.bigint "seo_content_able_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["product_id"], name: "index_seo_contents_on_product_id"
+    t.string "seo_content_able_type"
+    t.index ["seo_content_able_id"], name: "index_seo_contents_on_seo_content_able_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -684,6 +721,37 @@ ActiveRecord::Schema.define(version: 2021_12_06_121259) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "yavolo_bundle_products", force: :cascade do |t|
+    t.decimal "price", precision: 8, scale: 2
+    t.bigint "product_id", null: false
+    t.bigint "yavolo_bundle_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_yavolo_bundle_products_on_product_id"
+    t.index ["yavolo_bundle_id"], name: "index_yavolo_bundle_products_on_yavolo_bundle_id"
+  end
+
+  create_table "yavolo_bundles", force: :cascade do |t|
+    t.string "title"
+    t.string "handle"
+    t.text "description"
+    t.bigint "category_id"
+    t.integer "status"
+    t.string "yan"
+    t.integer "quantity"
+    t.decimal "price", precision: 8, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "stock_limit"
+    t.integer "max_stock_limit"
+    t.decimal "regular_total", precision: 8, scale: 2
+    t.decimal "yavolo_total", precision: 8, scale: 2
+    t.index ["category_id"], name: "index_yavolo_bundles_on_category_id"
+    t.index ["status"], name: "index_yavolo_bundles_on_status"
+    t.index ["title"], name: "index_yavolo_bundles_on_title"
+    t.index ["yan"], name: "index_yavolo_bundles_on_yan"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "billing_listing_stripes", "sellers"
@@ -694,4 +762,6 @@ ActiveRecord::Schema.define(version: 2021_12_06_121259) do
   add_foreign_key "seller_apis", "sellers"
   add_foreign_key "seller_payment_methods", "sellers"
   add_foreign_key "seller_stripe_subscriptions", "sellers"
+  add_foreign_key "yavolo_bundle_products", "products"
+  add_foreign_key "yavolo_bundle_products", "yavolo_bundles"
 end

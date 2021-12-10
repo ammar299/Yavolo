@@ -78,6 +78,7 @@ Rails.application.routes.draw do
           end
           collection do
             get :search_category
+            get :search_all_categories
             delete :category_products_delete_multiple
             get :manage_category_linking_filter
             get :gallery_images_with_pagination
@@ -124,9 +125,13 @@ Rails.application.routes.draw do
         end
 
         namespace :yavolos do
-          resources :manual_bundles, except: %i[show] do
+          resources :manual_bundles, except: %i[show new create] do
             collection do
+              post :new, as: :new_manual_bundle
+              post :create_bundle, as: :create_manual_bundle
+              get :add_yavolos
               get :yavolo_product_details
+              get :yavolo_least_stock_value
             end
           end
         end

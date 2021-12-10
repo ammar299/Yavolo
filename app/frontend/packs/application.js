@@ -42,6 +42,7 @@ require("packs/stripe");
 require("packs/cart");
 require("packs/slick.min");
 require("packs/checkout");
+require("packs/manual-bundles");
 require("packs/google-pay");
 $(document).ready(() => {
   $("body").on("focus", ".datepicker", function () {

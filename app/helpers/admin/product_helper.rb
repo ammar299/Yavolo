@@ -83,4 +83,9 @@ module Admin::ProductHelper
     new_price = product.price - discounted_price
     get_price_in_pounds(new_price)
   end
+
+  def product_owner(product)
+    product.owner.class.name=='Seller' ? "#{product.owner.first_name} #{product.owner.last_name}" : "Admin"
+  end
+
 end

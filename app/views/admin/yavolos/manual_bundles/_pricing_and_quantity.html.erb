@@ -1,0 +1,29 @@
+<div class="col-lg-8">
+  <div class="pricing-quality box-border yo-white-card">
+    <h4>Pricing and Quantity</h4>
+
+    <div>
+      <% has_error, msg = get_errors(form, :price) %>
+      <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
+        <%= form.label :price, 'Price (Inc VAT if applicable) *' %>
+        <%= form.text_field :price, class: 'form-control', placeholder: '0.00', readonly: true %>
+        <%= "<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+      </div>
+
+      <% has_error, msg = get_errors(form, :stock) %>
+      <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
+        <%= form.label 'Quantity*' %>
+        <%= form.number_field :quantity, value: @products.size, class: 'form-control', min: 0, readonly: true %>
+        <%= "<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+      </div>
+
+      <% @products.each do |p| %>
+        <div class="form-group general-mrgn">
+          <%= form.label :ean, "EAN - #{titleize(p.title)}" %>
+          <%= text_field_tag 'product[][ean]', p.ean, class: 'form-control', disabled: true %>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>

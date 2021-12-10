@@ -10,9 +10,9 @@ class Product < ApplicationRecord
     enum status: { draft: 0, active: 1, inactive: 2, pending: 3, disapproved: 4 }
     enum discount_unit:{ percentage: 0, amount: 1 }
 
-    has_one :seo_content, dependent: :destroy
+    has_one :seo_content, dependent: :destroy, as: :seo_content_able
     has_one :ebay_detail, dependent: :destroy
-    has_one :google_shopping, dependent: :destroy
+    has_one :google_shopping, dependent: :destroy, as: :google_shopping_able
     has_one :assigned_category, dependent: :destroy
     has_one :category, through: :assigned_category, dependent: :destroy
 

@@ -16,7 +16,9 @@ export default class extends ApplicationController {
             this.saveProductId((product_id))
         }
         this.stockLimitController.toggleUI(this.isAnyProductAddedToBundle())
+        this.stockLimitController.fetchLeastStock()
         this.totalPricesController.toggleUI(this.isAnyProductAddedToBundle())
+        this.totalPricesController.setPrices()
     }
 
     addProductItemToDOM(html) {
@@ -35,8 +37,10 @@ export default class extends ApplicationController {
             this.removeSingleProduct(checkbox)
         }
         this.stockLimitController.toggleUI(this.isAnyProductAddedToBundle())
+        this.stockLimitController.fetchLeastStock()
         this.totalPricesController.toggleUI(this.isAnyProductAddedToBundle())
         this.changeProductsCounterHeading()
+        this.totalPricesController.setPrices()
     }
 
     removeSingleProduct(checkbox){

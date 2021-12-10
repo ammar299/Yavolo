@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="listing detail box-border yo-white-card" id="listing-details">
+      <h4>Listing Details - Yavolo</h4>
+      <hr>
+      <div>
+        <% has_error, msg = get_errors(form, :title) %>
+        <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
+          <%= form.label :title, 'Title / H1 tag*' %>
+          <%= form.text_field :title, class: 'form-control', placeholder: 'Include all those important keywords' %>
+          <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+        </div>
+
+
+
+        <% has_error, msg = get_errors(form, "assigned_category.category_id") %>
+        <div class="form-group general-mrgn mt-0 product-bb-cat <%= has_error ? 'error-field' : '' %>">
+          <label for="exampleInputEmail1">Category*</label>
+          <%= form.select :category_id, Category.all.map{|bc| [bc.category_name.titleize, bc.id]}, { prompt: 'Search for the best Yavolo category for your product' }, class: 'form-control', id: 'yavolo_bundle_product_category' %>
+          <%="<small class='form-text'>#{form.object.errors.where("assigned_category.category_id").first.message}</small>".html_safe if has_error %>
+        </div>
+
+
+
+        <% has_error, msg = get_errors(form, :description) %>
+        <div class="form-group <%= has_error ? 'error-field' : '' %>">
+          <%= form.label 'Description*' %>
+          <%= form.text_area :description, class: 'form-control ckeditor-field', placeholder: 'Why should the world buy your amazing product?' %>
+          <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

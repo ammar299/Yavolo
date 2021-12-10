@@ -138,6 +138,10 @@ module ApplicationHelper
     amount.present? ? number_to_currency(amount, unit: "£", precision: 2) : 0
   end
 
+  def strip_currency_from_price(amount)
+    amount.split('£').join('').delete(',')
+  end
+
   def format_to_percentage(number)
     number.present? ? number_to_percentage(number,precision:8, scale: 2, strip_insignificant_zeros: true) : number_to_percentage(0,precision:0)
   end

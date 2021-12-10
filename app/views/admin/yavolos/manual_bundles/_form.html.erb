@@ -1,0 +1,200 @@
+<div class="container-fluid">
+  <% if params[:action] == 'edit' %>
+    <h3 class="mt-4 mb-3">Edit Yavolo</h3>
+  <% else %>
+    <h3 class="mt-4 mb-3">Add New Yavolo</h3>
+  <% end %>
+  <%= simple_form_for @yavolo_bundle, url: url, method: method, html: { id: 'yavolo_bundle_form' } do |form| %>
+    <%= form.hidden_field :stock_limit %>
+    <%= form.hidden_field :max_stock_limit %>
+    <%= form.hidden_field :regular_total %>
+    <%= form.hidden_field :yavolo_total %>
+<!--    <div class="photo-grid yo-white-card  box-border mt-3">-->
+<!--      <div class="row align-items-center">-->
+<!--        <div class="col-lg-8">-->
+<!--          <div class="add-photoo text-center">-->
+<!--            <div class="add-photo-inner">-->
+<!--              <a href="" class="btn btn-radius px-4 btn-primary photo-btn grid-btn-top">Add Photos</a><br>-->
+<!--              <small class="red-color">Upload images to show your sensational in all its-->
+<!--                wonderfull glory</small>-->
+<!--            </div>-->
+
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-4">-->
+<!--          <div class="photo-grid-img">-->
+<!--            <div class="product-images-inner text-center">-->
+<!--              <div class="row">-->
+<!--                <div class="col-md-4 p-1">-->
+<!--                  <div class="grid-single-img">-->
+<!--                                                    <span>-->
+<!--                                                        <img src="images/camera.png" alt="">-->
+<!--                                                    </span>-->
+<!--                    <div class="img-star-icon">-->
+<!--                      <span class="icon-reviews "></span>-->
+<!--                    </div>-->
+<!--                    <div class="img-del-icon">-->
+<!--                      <span class="fas fa-trash-alt"></span>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-4 p-1">-->
+<!--                  <div class="grid-single-img">-->
+<!--                                                    <span>-->
+<!--                                                        <img src="images/camera.png" alt="">-->
+<!--                                                    </span>-->
+<!--                    <div class="img-star-icon">-->
+<!--                      <span class="icon-reviews "></span>-->
+<!--                    </div>-->
+<!--                    <div class="img-del-icon">-->
+<!--                      <span class="fas fa-trash-alt"></span>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-4 p-1">-->
+<!--                  <div class="grid-single-img">-->
+<!--                                                    <span>-->
+<!--                                                        <img src="images/camera.png" alt="">-->
+<!--                                                    </span>-->
+<!--                    <div class="img-star-icon">-->
+<!--                      <span class="icon-reviews "></span>-->
+<!--                    </div>-->
+<!--                    <div class="img-del-icon">-->
+<!--                      <span class="fas fa-trash-alt"></span>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="row">-->
+<!--                <div class="col-md-4 p-1">-->
+<!--                  <div class="grid-single-img">-->
+<!--                                                    <span>-->
+<!--                                                        <img src="images/camera.png" alt="">-->
+<!--                                                    </span>-->
+<!--                    <div class="img-star-icon">-->
+<!--                      <span class="icon-reviews "></span>-->
+<!--                    </div>-->
+<!--                    <div class="img-del-icon">-->
+<!--                      <span class="fas fa-trash-alt"></span>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-4 p-1">-->
+<!--                  <div class="grid-single-img">-->
+<!--                                                    <span>-->
+<!--                                                        <img src="images/camera.png" alt="">-->
+<!--                                                    </span>-->
+<!--                    <div class="img-star-icon">-->
+<!--                      <span class="icon-reviews "></span>-->
+<!--                    </div>-->
+<!--                    <div class="img-del-icon">-->
+<!--                      <span class="fas fa-trash-alt"></span>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-4 p-1">-->
+<!--                  <div class="grid-single-img">-->
+<!--                                                    <span>-->
+<!--                                                        <img src="images/camera.png" alt="">-->
+<!--                                                    </span>-->
+<!--                    <div class="img-star-icon">-->
+<!--                      <span class="icon-reviews "></span>-->
+<!--                    </div>-->
+<!--                    <div class="img-del-icon">-->
+<!--                      <span class="fas fa-trash-alt"></span>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="row">-->
+<!--                <div class="col-md-4 p-1">-->
+<!--                  <div class="grid-single-img">-->
+<!--                                                    <span>-->
+<!--                                                        <img src="images/camera.png" alt="">-->
+<!--                                                    </span>-->
+<!--                    <div class="img-star-icon">-->
+<!--                      <span class="icon-reviews "></span>-->
+<!--                    </div>-->
+<!--                    <div class="img-del-icon">-->
+<!--                      <span class="fas fa-trash-alt"></span>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-4 p-1">-->
+<!--                  <div class="grid-single-img">-->
+<!--                                                    <span>-->
+<!--                                                        <img src="images/camera.png" alt="">-->
+<!--                                                    </span>-->
+<!--                    <div class="img-star-icon">-->
+<!--                      <span class="icon-reviews "></span>-->
+<!--                    </div>-->
+<!--                    <div class="img-del-icon">-->
+<!--                      <span class="fas fa-trash-alt"></span>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-4 p-1">-->
+<!--                  <div class="grid-single-img">-->
+<!--                                                    <span>-->
+<!--                                                        <img src="images/camera.png" alt="">-->
+<!--                                                    </span>-->
+<!--                    <div class="img-star-icon">-->
+<!--                      <span class="icon-reviews "></span>-->
+<!--                    </div>-->
+<!--                    <div class="img-del-icon">-->
+<!--                      <span class="fas fa-trash-alt"></span>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+
+
+<!--            </div>-->
+
+<!--          </div>-->
+<!--        </div>-->
+<!--        <h4 class="photo-text"><strong>Photo</strong> </h4>-->
+
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="row">-->
+<!--      <div class="col-lg-12">-->
+<!--        <div class="add-photo box-border yo-white-card">-->
+<!--          <div class="add-photo-inner">-->
+<!--            <a href="" class="btn btn-radius px-4 btn-primary photo-btn ">Add Photos</a><br>-->
+<!--            <small class="red-color">Upload images to show your sensational in all its wonderfull glory</small>-->
+<!--          </div>-->
+<!--          <h4 class="photo-text"><strong>Photo</strong> </h4>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+    <%= render "yavolo_bundle_products", form: form %>
+    <%= render "seo_content", form: form %>
+    <%= render "google_shopping", form: form %>
+    <%= render "listing_details", form: form %>
+
+    <% @products.each do |product| %>
+      <%= render 'yavolo_product_listing_details',product: product, form: form %>
+    <% end %>
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <%= render "pricing_and_quantity",form: form %>
+          <%= render "reviews", form: form %>
+        </div>
+      </div>
+
+    </div>
+
+    <%= render "actions_bar", form: form do %>
+      <% if form.object.new_record? || form.object.draft? %>
+        <%= form.submit 'APPROVE & PUBLISH', class: 'btn btn-sm btn-radius px-4 btn-outline-white mb-2 mt-2', data: { disable_with: false } %>
+      <% else %>
+        <%= form.submit 'UPDATE', class: 'btn btn-sm btn-radius px-4 btn-outline-white mb-2 mt-2', data: { disable_with: false } %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+</div>

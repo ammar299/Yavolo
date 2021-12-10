@@ -1,0 +1,58 @@
+<tr>
+  <td>
+    <label class="checkbox-blk">
+      <input type="checkbox">
+      <span class="checkmark"></span>
+    </label>
+  </td>
+  <td> <%= yavolo_bundle.status %></td>
+  <td>
+    <%= yavolo_bundle.yan %>
+  </td>
+  <td>
+    <ul>
+      <%= yavolo_bundle.products.map{|p| "<li>#{p.title}</li>"}.join("").html_safe %>
+    </ul>
+  </td>
+  <td>
+    <ul>
+      <%= yavolo_bundle.products.map{|p| "<li>#{product_owner(p)}</li>"}.join("").html_safe %>
+    </ul>
+  </td>
+  <td class="text-center">
+    <ul>
+      <%= yavolo_bundle.products.map{|p| "<li>#{p.yan}</li>"}.join("").html_safe %>
+    </ul>
+  </td>
+  <td class="text-center">
+    <ul>
+      <%= yavolo_bundle.products.map{|p| "<li>#{get_price_in_pounds(p.price)}</li>"}.join("").html_safe %>
+    </ul>
+  </td>
+  <td class="text-center">
+    <ul>
+      <%= yavolo_bundle.yavolo_bundle_products.map{|p| "<li>#{get_price_in_pounds(p.price)}</li>"}.join("").html_safe %>
+    </ul>
+  </td>
+  <td class="text-center">
+    <ul>
+      <%= yavolo_bundle.products.map{|p| "<li>#{format_to_percentage(p.discount)}</li>"}.join("").html_safe %>
+    </ul>
+  </td>
+  <td class="text-center">
+    <p><%= get_price_in_pounds(yavolo_bundle.price) %></p>
+    <p><i>Customer saves </i> <%= get_price_in_pounds(yavolo_bundle.regular_total - (yavolo_bundle.price || 0)) %> (<%= format_to_percentage(yavolo_bundle.products.sum(&:discount)) %>)</p>
+
+  </td>
+  <td>
+    <div class="text-center">
+      <a href="#" class="btn btn-sm btn-radius px-4 btn-danger mb-1 w-100 btn-light-hvr">Review</a>
+    </div>
+    <div class="text-center">
+      <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary w-100 mb-1 btn-light-hvr">Edit</a>
+    </div>
+    <div class="text-center">
+      <a href="#" class="btn btn-sm btn-radius px-4 btn-secondary w-100 btn-light-hvr">Delete</a>
+    </div>
+  </td>
+</tr>

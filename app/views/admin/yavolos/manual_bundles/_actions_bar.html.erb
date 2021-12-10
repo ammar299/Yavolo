@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="delivery-detail-footer-innerr d-flex justify-content-between flex-wrap mb-4">
+      <div class="fooetr-left">
+        <a href="#" class="btn btn-sm btn-radius px-4 btn-outline-white mb-2 mt-2 back-btn-action">BACK</a>
+      </div>
+      <div class="footer-left">
+        <% if form.object.persisted? %>
+          <a href="javascript:void(0)" class="btn btn-sm btn-radius px-4 btn-outline-white mb-2 mt-2 preview_listing">PREVIEW LISTING</a>
+          <%= hidden_field_tag "product[product_id]", @product.id, id: "product_id" %>
+        <% end %>
+        <% if form.object.new_record? || form.object.draft? %>
+          <%= form.submit 'SAVE DRAFT', class: 'btn btn-sm btn-radius px-4 btn-outline-white mb-2 mt-2',data: { disable_with: false } %>
+        <% end %>
+        <%= yield if block_given? %>
+      </div>
+    </div>
+  </div>
+</div>

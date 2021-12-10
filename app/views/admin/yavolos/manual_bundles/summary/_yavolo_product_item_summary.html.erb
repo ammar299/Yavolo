@@ -1,4 +1,5 @@
 <div class="yavolos--product-item" data-controller="yavolos--product-item">
+  <%= hidden_field_tag "products[][id]",product.id %>
   <div class="product-bg-title-bordr d-flex align-items-center">
     <span class="product-bg-title" data-yavolos--product-item-target="counter">1</span> <span><%= product.title %></span>
   </div>
@@ -46,20 +47,26 @@
             <div class="form-group">
               <input type="text"
                      class="yo-price-inpt text-center"
-                     id="exampleInputEmail1"
-                     aria-describedby="emailHelp" disabled="disabled" value="<%= get_price_in_pounds(product.price) %>">
+                     id="exampleInputEmail1" data-yavolos--product-item-target="regularPriceInput"
+                     aria-describedby="emailHelp" readonly value="<%= get_price_in_pounds(product.price) %>"
+                     name="products[][regular_price]" >
             </div>
           </div>
         </td>
         <td>
           <div class="text-center">
-            <div class="form-group">
+            <div class="form-group error-field">
+              <% discount_price = get_discount_value_product(product).gsub!("£","") %>
               <input type="text"
                      class="yo-price-inpt text-center"
                      id="exampleInputEmail1"
                      aria-describedby="emailHelp"
+                     data-discount-price-original="<%= discount_price %>"
+                     data-yavolos--product-item-target="discountPriceInput"
                      value="<%= get_discount_value_product(product) %>"
-                      min="" max="">
+                     name="products[][discount_price]"
+                      min="<%= discount_price %>" max="<%= product.price %>" data-action="blur->yavolos--product-item#validateDiscountPrice">
+              <small class="form-text input-error-text d-none" data-yavolos--product-item-target="errorText">Please enter a value between <%= discount_price  %> and <%=  product.price  %></small>
             </div>
           </div>
         </td>

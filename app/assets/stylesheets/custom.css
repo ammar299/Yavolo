@@ -1077,7 +1077,7 @@ width: 75%;
     outline: none !important;
 }
 
-.yo-price-inpt:disabled{
+.yo-price-inpt:read-only{
     background: lightgray;
 }
 
@@ -1108,7 +1108,7 @@ width: 75%;
     width: 100%;
 }
 
-.yavolos--summary .label-custm-min .form-control{
+.yavolos--summary .label-custm-min .form-control {
     background: lightgray;
 }
 
@@ -1116,9 +1116,34 @@ width: 75%;
     background: white;
 }
 
+.yavolos--summary .label-custm-min .form-control:read-only{
+    background: lightgray;
+}
+
+.yavolos--summary .input-error-text{
+    width: 140px;
+    position: absolute;
+    right: 50px !important;
+    text-align: right;
+}
+
+.productreview-slider.review-slider .carousel-arrow-parent {
+    display: flex;
+    position: absolute;
+    right: 0;
+    top: -38px !important;
+    right: 8px;
+}
+.productreview-slider .review-card {
+    margin: 6px 10px 20px 10px !important;
+}
+.Product-Review-text {
+    padding-left: 11px;
+}
+
 .boldheadings {
   font-weight: bold;
-} 
+}
 .cross-input-btn .search-input {
   width: 100% !important;
   max-width: inherit !important;

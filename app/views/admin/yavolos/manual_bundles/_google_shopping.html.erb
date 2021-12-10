@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="google-shoping box-border yo-white-card">
+      <h4>Google Shopping</h4>
+      <hr>
+      <div>
+        <%= form.fields_for :google_shopping, @yavolo_bundle.google_shopping do |google_data| %>
+          <% has_error, msg = get_errors(form, "google_shopping.title") %>
+          <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
+            <%= google_data.label 'Title' %>
+            <%= google_data.text_field :title, class: 'form-control', placeholder: 'Enter Title' %>
+            <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+          </div>
+
+          <% has_error, msg = get_errors(form, "google_shopping.price") %>
+          <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
+            <%= google_data.label 'Price' %>
+            <%= google_data.number_field :price, min: 0, class: 'form-control', placeholder: 'Enter Price' %>
+            <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+          </div>
+          <div class="row">
+            <% has_error, msg = get_errors(form, "google_shopping.category") %>
+            <div class="form-group general-mrgn col-md-9 mt-0 <%= has_error ? 'error-field' : '' %>">
+              <%= google_data.label 'Category'%>
+              <%= google_data.text_field :category, class: 'form-control', placeholder: 'Enter Category'  %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+            </div>
+
+            <% has_error, msg = get_errors(form, "google_shopping.campaign_category") %>
+            <div class="general-mrgn col-md-3 mt-0 <%= has_error ? 'error-field' : '' %>">
+              <%= google_data.label :campaign_category,  "Campaign Category" %>
+              <%= google_data.select :campaign_category,[['Individual CPC','Individual CPC'],['All Products Expensive','All Products Expensive'],['All Products Cheap','All Products Cheap'],['Dumped','Dumped']],{},class: 'form-control', placeholder: 'Enter Category'  %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+            </div>
+          </div>
+          <% has_error, msg = get_errors(form, "google_shopping.description") %>
+          <div class="form-group <%= has_error ? 'error-field' : '' %>">
+            <%= google_data.label 'Description' %>
+            <%= google_data.text_area :description, class: 'form-control ckeditor-field', placeholder: 'Enter Description' %>
+            <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+          </div>
+          <div class="d-inline-flex align-items-center">
+            <p class="my-0 mr-3">Exclude from Google Merchant Feed</p>
+            <label class="switch">
+              <%= google_data.check_box :exclude_from_google_feed %>
+              <span class="slider round"></span>
+            </label>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
