@@ -13,14 +13,16 @@
           <option value="cancel" id="show-other-option-tag" <%= selected_or_not("cancel") %> data-seller="<%= @seller.id%>">Cancel</option>
         <%end%>
       </select>
-      <div class="d-flex align-items-start enforce-subscription-dropdown invisible">
-        <label class="mb-0 mr-3">Enforce Subscription Change:</label>
-        <select id="enforce-dropdown" name="enforce_status" class="form-control">
-          <option value="">select</option>
-          <option value="next-payment-taken" <%= enforce_sub_dropdown("next-payment-taken")%> data-seller="<%= @seller.id%>">When next payment taken</option>
-          <option value="current-subscriptions-end" <%= enforce_sub_dropdown("current-subscriptions-end")%> data-seller="<%= @seller.id %>">When current subscriptions end</option>
-        </select>
-      </div>
+      <%if subsciption_status == 'active'%>
+        <div class="d-flex align-items-start enforce-subscription-dropdown">
+          <label class="mb-0 mr-3">Enforce Subscription Change:</label>
+          <select id="enforce-dropdown" name="enforce_status" class="form-control">
+            <option value="">select</option>
+            <option value="next-payment-taken" <%= enforce_sub_dropdown("next-payment-taken")%> data-seller="<%= @seller.id%>">When next payment taken</option>
+            <option value="current-subscriptions-end" <%= enforce_sub_dropdown("current-subscriptions-end")%> data-seller="<%= @seller.id %>">When current subscriptions end</option>
+          </select>
+        </div>
+      <%end%>
     </td>
   <%else%>
   <td>

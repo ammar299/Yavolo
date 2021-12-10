@@ -26,7 +26,7 @@ module Admins
         when "cancel"
           check_cancelation_process
         when "month_12"
-          @start_date = Time.current + 1.year
+          @start_date = Time.current + 3.minutes
           change_seller_subscription_status
         when "month_24"
           @start_date = Time.current + 2.year
@@ -144,7 +144,7 @@ module Admins
       end
 
       def cancel_subscription
-        release_schedule_subscription if @seller.seller_stripe_subscription.cancel_at_period_end.nil? 
+        release_schedule_subscription if !@seller.seller_stripe_subscription.cancel_at_period_end?
           @subscription_id = @seller.seller_stripe_subscription.subscription_stripe_id
           sub = Stripe::Subscription.update(
             @subscription_id,

@@ -6,16 +6,20 @@ module Admin::SubscriptionsHelper
 
   def subscription_name
     value = "Standard"
-    if @seller.provider == "admin" && @seller.subscription_type == "month_12"
+    if subscription_is?("month_12")
       value = "12 Month"
-    elsif @seller.provider == "admin" && @seller.subscription_type == "month_24"
+    elsif subscription_is?("month_24")
       value = "24 Month"
-    elsif @seller.provider == "admin" && @seller.subscription_type == "month_36"
+    elsif subscription_is?("month_36")
       value = "36 Month"
-    elsif @seller.provider == "admin" && @seller.subscription_type == "lifetime"
+    elsif subscription_is?("lifetime")
       value = "Pioneer"
     end
     value
+  end
+
+  def subscription_is?(type)
+    @seller.provider == "admin" && @seller.subscription_type == type && seller_subscription.status != "active"
   end
 
   def expiry_date
@@ -28,7 +32,7 @@ module Admin::SubscriptionsHelper
 
   def renewal_cost
     val = "£0.00"
-    if @seller.provider != "admin"
+    if seller_subscription&.status == "active"
     val = "£29.00"
     end
     val

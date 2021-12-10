@@ -13,9 +13,6 @@ $(document).ready(function(){
   removePayoutBankAccountHandler()
   contactSellerPopup()
   // verifyBankAccountForPayoutHanlder()
-  $(document).on("change",".admin-subscription-status-dropdown, #enforce-dropdown",function () {
-    hideShowDropdown()
-  });
 
 });
 
@@ -300,6 +297,7 @@ function check_form_data(formData,empty_form){
 }
 
 function adminManageSubscription(){
+  $(".enforce-subscription-dropdown").addClass("invisible")
   dropdownHandler()
   saveSellerSubscriptionForm()
 }
@@ -308,7 +306,7 @@ function dropdownHandler(){
   $("body").on("change", ".admin-subscription-status-dropdown", function(e){
     e.preventDefault();
     let option = $(this).find(":selected").val()
-    if (option=="cancel")
+    if (option == "cancel")
     { 
       $("#enforce-dropdown").val("current-subscriptions-end").change();
       hideShowDropdown()
