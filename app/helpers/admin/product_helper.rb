@@ -83,5 +83,4 @@ module Admin::ProductHelper
     new_price = product.price - discounted_price
     get_price_in_pounds(new_price)
   end
-
 end

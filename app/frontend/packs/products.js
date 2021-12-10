@@ -294,6 +294,7 @@ function bindResultPerPageOption(){
   })
 }
 function bindAndSortByEvent(){
+  
   $('.sortby-products').click(function(e){
     e.preventDefault();
 
@@ -935,7 +936,7 @@ function setSellerSearchMenuAndQueryName(){
     let filterType = $('#product-filter-type');
     $('.seller-products-filters a').removeClass('active');
     $(this).addClass('active')
-    $('.current-search-filter').html(currentFilter+' <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>');
+    $('.current-search-filter').html(currentFilter +' <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>');
     if(currentFilter=='Product Title'){
       searchField.attr('name', 'q[title_cont]');
       $('#csfn').val('title_cont');
@@ -957,7 +958,6 @@ function setSellerSearchMenuAndQueryName(){
       $('#csfn').val('ean_cont');
       filterType.val('EAN');
     }else{
-      $('.current-search-filter').text('Search All');
       searchField.attr('name', 'q[title_or_brand_or_sku_or_yan_or_ean_cont]');
       $('#csfn').val('title_or_brand_or_sku_or_yan_or_ean_cont');
       filterType.val('Search All');
@@ -1058,9 +1058,8 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
     invalidHandler: function(event,validator){
       if (!validator.numberOfInvalids())
             return;
-      const errorField = $(".error-field").length > 0 ? $(".error-field").first() : $('#listing-details')
       $('html, body').animate({
-          scrollTop: $(errorField).offset().top - 100
+        scrollTop: $($(validator.errorList[0].element).parent()).offset().top - 100
       }, 2000);
     },
     ignore: "#product_width,#product_depth,#product_height,.ck-hidden, .ignoreme, .ck",

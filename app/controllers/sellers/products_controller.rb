@@ -138,7 +138,7 @@ class Sellers::ProductsController < Sellers::BaseController
     permitted_params = params.require(:product).permit(:id,:value,:action)
     product = Product.where(id: params[:id],owner_id: current_seller.id,owner_type: current_seller.class.name).first
     if product.present?
-      product.update(price: permitted_params[:value].to_d) if permitted_params[:action]=='update_price'
+      product.update(price: permitted_params[:value].gsub!('£',"").to_d) if permitted_params[:action]=='update_price'
       product.update(stock: permitted_params[:value].to_i) if permitted_params[:action]=='update_stock'
       product.update(discount: permitted_params[:value].to_d) if permitted_params[:action]=='update_discount'
       render json: { msg: 'value updated successfully' }, status: :ok

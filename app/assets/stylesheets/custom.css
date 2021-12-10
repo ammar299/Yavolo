@@ -750,7 +750,7 @@ label {
   border: 2px solid var(--dark-red);
   height: 35px;
 }
-.dropdown-filter-custom .dropdown {
+.dropdown-filter-position .dropdown {
   left: -2px;
   top: -2px;
 }
@@ -761,7 +761,7 @@ label {
   min-height: 35px;
   display: flex;
   align-items: center;
-  width: 122px;
+  width: 135px;
   text-overflow: ellipsis;
   justify-content: space-between;
   position: relative;
@@ -769,7 +769,6 @@ label {
 }
 .dropdown-filter-custom .show .btn {
   border-radius: 10px 10px 0 0 !important;
-  top: -2px;
 }
 .dropdown-filter-custom .input-btn-sm {
   height: 31px !important;
@@ -1120,4 +1119,44 @@ width: 75%;
 .boldheadings {
   font-weight: bold;
 } 
+.cross-input-btn .search-input {
+  width: 100% !important;
+  max-width: inherit !important;
+}
+
+.dropdown-filter-custom a.cross-btn-center {
+  display: inline-flex !important;
+  width: auto !important;
+  position: absolute;
+  right: 0;
+  padding: 10px !important;
+  top: -1px;
+  bottom: 0;
+  align-items: center;
+  justify-content: center;
+  height: auto !important;
+}
+.cross-btn-center:hover {
+  text-decoration: none !important;
+}
+.cross-btn-center .icon-cross {
+  position: sticky;
+}
+.discount-symbol {
+  position: absolute;
+  right: 4px;
+  top: 13px;
+}
+.relative {
+  position: relative;
+}
+.input-discount.form-control {
+  padding: 5px 15px 5px 5px !important;
+}
+
+@media screen and (max-width: 767px) {
+	.seller-account-delivery-setting {
+		width: 100%;
+	}
+}
 /* edite yavolo listings */

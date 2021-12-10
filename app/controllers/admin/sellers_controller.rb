@@ -1,7 +1,8 @@
 class Admin::SellersController < Admin::BaseController
   before_action :set_seller,
                 except: %i[index new create send_password_reset_emails update_multiple export_sellers get_sellers
-                           import_sellers search renew_seller_subscription]
+                           import_sellers search renew_seller_subscription remove_seller_card update_seller_api 
+                           confirm_multi_update confirm_send_password_reset_email]
   before_action :is_seller_locked?, only: %i[show]
   include SharedSellerMethods
 

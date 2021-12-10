@@ -95,13 +95,13 @@
               <div class="form-group form-group-vertical">
                 <label for="exampleInputPassword1" class="text-left pr-3"></label>
               </div>
-              <div class="search-field-flex">
+              <div class="search-field-flex row">
                 
-                  <div class="col-md-12 my-2 d-flex align-items-end flex-wrap">
+                  <div class="col-md-12 my-2 d-flex align-items-start flex-wrap flex-column">
 										<span>
                       <%= image_tag f.object.picture.name.url, class: "product-content-img existing-image", data: {src: f.object.picture.name.url} %>
 										</span>
-                    <small class="mx-3 mt-2"><%= link_to "Remove Image", remove_image_admin_category_path(@category), class: "btn btn-sm btn-radius px-4 btn-secondary w-100 remove_category_image", id: 'remove-picture' %></small>
+                    <small class="mt-2"><%= link_to "Remove Image", remove_image_admin_category_path(@category), class: "btn btn-sm btn-radius px-4 btn-secondary w-100 remove_category_image", id: 'remove-picture' %></small>
                   </div>
                 
               </div>

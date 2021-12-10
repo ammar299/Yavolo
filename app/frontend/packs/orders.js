@@ -86,7 +86,6 @@ function setOrderSearchMenuAndQueryName() {
             $('#csfn').val('line_items_product_sku_cont');
             filterType.val('SKU');
         } else {
-            $('.current-search-filter').text('Search All');
             searchField.attr('name', 'q[line_items_product_title_or_order_detail_customer_name_cont_or_line_items_product_sku_cont]');
             $('#csfn').val('line_items_product_title_or_order_detail_customer_name_cont_or_line_items_product_sku_cont');
             filterType.val('Search All');
