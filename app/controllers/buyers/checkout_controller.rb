@@ -6,7 +6,7 @@ class Buyers::CheckoutController < Buyers::BaseController
 
   def new
     @cart = get_cart
-    if !@cart.present?
+    unless @cart.present?
       flash[:notice] = I18n.t('flash_messages.no_products_are_added_to_card')
       redirect_to store_front_path
       return
@@ -15,8 +15,8 @@ class Buyers::CheckoutController < Buyers::BaseController
     @order_id = session_order_id
     if @order_id.present?
       @order = Order.find(@order_id) || nil
-      session.delete(:_current_user_order_id) if !@order.present?
-      @order = Order.new if !@order.present?
+      session.delete(:_current_user_order_id) unless @order.present?
+      @order = Order.new unless @order.present?
     else
       @order = Order.new
     end
@@ -28,9 +28,7 @@ class Buyers::CheckoutController < Buyers::BaseController
       order_line_item_params[:shipping_address_attributes] = order_line_item_params[:billing_address_attributes]
     end
     @order_id = session_order_id
-    if @order_id.present?
-      @order = Order.find(@order_id).destroy
-    end
+    @order = Order.find(@order_id).destroy if @order_id.present?
     @buyer = find_or_create_buyer(order_params[:order_detail_attributes][:email])
     @order = @buyer.orders.create(order_line_item_params)
     session[:_current_user_order_id] = @order.id
@@ -40,7 +38,7 @@ class Buyers::CheckoutController < Buyers::BaseController
   def payment_method
     @cart = get_cart
     @order_amount = order_amount
-    if !@cart.present?
+    unless @cart.present?
       flash[:notice] = I18n.t('flash_messages.no_products_are_added_to_card')
       redirect_to store_front_path
     end
@@ -60,9 +58,7 @@ class Buyers::CheckoutController < Buyers::BaseController
         )
         if card_details.status
           @save_card = false
-          if params[:is_card_saved].present? && params[:is_card_saved] == 'on'
-            @save_card = true
-          end
+          @save_card = true if params[:is_card_saved].present? && params[:is_card_saved] == 'on'
           card = card_details.response.card
           @payment_method = update_or_create_buyer_payment_method(@buyer, params[:stripeToken], card, @save_card)
           @order.update(buyer_payment_method_id: @payment_method.id)
@@ -97,12 +93,8 @@ class Buyers::CheckoutController < Buyers::BaseController
     @order = Order.find params[:order]
     @line_items = @order.line_items.includes(:product)
     product_ids = @order.line_items.map { |item| item[:product_id] }
-    @sub_total = 0
-    product_ids.each do |item|
-      product = Product.find(item.to_i) || nil
-      @sub_total += (product.price ? product.price.to_f : 0) if product.present?
-    end
-    @sub_total.to_f
+    @order_amount = order_amount
+    @sub_total = @order_amount[:sub_total]
   end
 
   def create_payment
@@ -127,6 +119,66 @@ class Buyers::CheckoutController < Buyers::BaseController
           flash[:notice] = payment.errors
           render :review_order
         end
+      end
+    end
+  end
+
+  def create_google_payment
+    @order = Order.find(session_order_id) rescue nil
+    @order = Order.new unless @order.present?
+    if @order.order_type != 'paid_order'
+      @order_amount = order_amount
+      # This API endpoint renders back JSON with the client_secret for the payment
+      # intent so that the payment can be confirmed on the front-end. Once payment
+      # is successful, fulfillment is done in the /webhook handler below.
+      intent = Stripe::PaymentIntent.create({ amount: (@order_amount[:total] * 100).to_i, currency: 'gbp' })
+      @buyer = @order.buyer
+      unless @buyer.present?
+        buyer_email = params[:buyerDetails][:buyerEmail]
+        @buyer = find_or_create_buyer(buyer_email)
+      end
+      @payment_method = @buyer.buyer_payment_methods.create(
+        payment_method_type: :google_pay,
+        token: intent.id
+      )
+      @order.update(buyer_payment_method_id: @payment_method.id, buyer_id: @buyer.id) if @order.id.present?
+      @order = Order.create(buyer_payment_method_id: @payment_method.id, buyer_id: @buyer.id) unless @order.id.present?
+      session[:_current_user_order_id] = @order.id
+      puts intent
+      render json: { clientSecret: intent.client_secret }, status: :ok
+    end
+  end
+
+  def confirm_google_pay_payment
+    @order = Order.find(session_order_id) rescue nil
+    response = params
+    if @order.present? && @order.order_type != 'paid_order'
+      @buyer = @order.buyer
+      @order_amount = order_amount
+      if session_selected_payment_method.present? && session_selected_payment_method == 'g-pay'
+        buyer_details = params[:buyerDetails]
+        payment_method = buyer_details[:paymentMethod]
+        buyer_billing_address = payment_method[:billing_details][:address]
+        buyer_shipping_address = buyer_details[:shippingDetails]
+        unless @order.order_detail.present?
+          @order.create_order_detail(
+            name: buyer_details[:buyerName],
+            email: buyer_details[:buyerEmail],
+            contact_number: buyer_details[:buyerPhone] || nil
+          )
+        end
+        unless @order.shipping_address.present?
+          create_gpay_shipping_address(@order, buyer_shipping_address)
+        end
+        unless @order.billing_address.present?
+          create_gpay_billing_address(@order, buyer_billing_address)
+        end
+        @order = update_order_to_paid(@order, @order_amount[:total], @order_amount[:sub_total])
+        create_gpay_payment_mode(@order, response, @order_amount)
+        session.delete(:_current_user_cart)
+        session.delete(:_current_user_order_id)
+        session.delete(:_selected_payment_method)
+        render json: { order: @order }, status: :ok
       end
     end
   end
@@ -214,26 +266,53 @@ class Buyers::CheckoutController < Buyers::BaseController
     session[:_selected_payment_method] || nil
   end
 
+  def create_address_from_gpay(address)
+    {
+      address_line_1: address[:line1],
+      address_line_2: address[:line2],
+      city: address[:city],
+      county: address[:state],
+      country: address[:country],
+      postal_code: address[:postal_code]
+    }
+  end
+
+  def create_shipping_address_from_gpay(address)
+    {
+      address_line_1: address[:addressLine][0] || '',
+      address_line_2: address[:addressLine][1] || address[:addressLine][0],
+      city: address[:city],
+      county: address[:region],
+      country: address[:country],
+      postal_code: address[:postalCode]
+    }
+  end
+
+  def address_params(address)
+    {
+      address_line_1: address.address_line_1,
+      address_line_2: address.address_line_2,
+      city: address.admin_area_2,
+      county: address.admin_area_1,
+      country: address.country_code,
+      postal_code: address.postal_code
+    }
+  end
+
+  def create_gpay_shipping_address(order, shipping_address)
+    order.create_shipping_address(create_shipping_address_from_gpay(shipping_address))
+  end
+
+  def create_gpay_billing_address(order, billing_address)
+    order.create_billing_address(create_address_from_gpay(billing_address))
+  end
+
   def create_shipping_address(order, shipping_address)
-    order.create_shipping_address(
-      address_line_1: shipping_address.address_line_1,
-      address_line_2: shipping_address.address_line_2,
-      city: shipping_address.admin_area_2,
-      county: shipping_address.admin_area_1,
-      country: shipping_address.country_code,
-      postal_code: shipping_address.postal_code
-    )
+    order.create_shipping_address(address_params(shipping_address))
   end
 
   def create_billing_address(order, billing_address)
-    order.create_billing_address(
-      address_line_1: billing_address.address_line_1,
-      address_line_2: billing_address.address_line_2,
-      city: billing_address.admin_area_2,
-      county: billing_address.admin_area_1,
-      country: billing_address.country_code,
-      postal_code: billing_address.postal_code
-    )
+    order.create_billing_address(address_params(billing_address))
   end
 
   def update_order_to_paid(order, total, sub_total)
@@ -243,6 +322,14 @@ class Buyers::CheckoutController < Buyers::BaseController
       order_type: :paid_order
     )
     order
+  end
+
+  def create_gpay_payment_mode(order, response, order_amount)
+    order.create_payment_mode(
+      payment_through: 'google_pay',
+      charge_id: response[:paymentIntentId],
+      amount: order_amount[:total]
+    )
   end
 
   def create_payment_mode_paypal(order, paypal_response, order_amount)
@@ -261,7 +348,7 @@ class Buyers::CheckoutController < Buyers::BaseController
     @sub_total = 0
     cart.each do |item|
       product = Product.find(item[:product_id].to_i) rescue nil
-      @sub_total += (item[:quantity].to_i * product.price ? product.price.to_f : 0) if product.present?
+      @sub_total += item[:quantity].to_i * (product.price ? product.price.to_f : 0) if product.present?
     end
     @sub_total.to_f
   end
@@ -323,7 +410,7 @@ class Buyers::CheckoutController < Buyers::BaseController
   end
 
   def session_order_id
-    session[:_current_user_order_id] || nil
+    session[:_current_user_order_id] rescue nil
   end
 
   def line_items_params

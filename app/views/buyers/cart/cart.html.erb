@@ -78,6 +78,9 @@
               <div id="paypal-button" style="display: none;">
                 <%= render 'shared/checkout/paypal_express_checkout_button' %>
               </div>
+              <div id="google-pay-button" style="display: none;">
+                <%= render 'shared/checkout/google_pay_button' %>
+              </div>
             </div>
           </div>
         </div>
@@ -89,7 +92,6 @@
     <% end %>
   </div>
 </div>
-<%=%>
 
 <script>
 $(document).ready(function() {
@@ -104,7 +106,7 @@ $(document).ready(function() {
     }
     else if (this.value == 'g-pay' && this.checked) {
       hideAllPaymentButtons();
-      onThisPaymentButton('proceed');
+      onThisPaymentButton('google-pay-button');
     }
   });
 });
@@ -119,13 +121,14 @@ $('body').on('change', 'input[type=radio][name="pay_with"]', function() {
   }
   else if (this.value == 'g-pay' && this.checked) {
       hideAllPaymentButtons();
-      onThisPaymentButton('proceed');
+      onThisPaymentButton('google-pay-button');
   }
 });
 
 function hideAllPaymentButtons() {
   $('#proceed').hide();
   $('#paypal-button').hide();
+  $('#google-pay-button').hide();
 }
 
 function onThisPaymentButton(id) {

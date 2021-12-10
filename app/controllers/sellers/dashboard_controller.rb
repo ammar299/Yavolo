@@ -41,7 +41,9 @@ class Sellers::DashboardController < Sellers::BaseController
   def get_action_url
     @seller = current_seller
     @action_url = @seller&.paypal_detail&.seller_action_url
-    @action_url = Sellers::PaypalIntegrationService.call({seller: current_seller}) if !@action_url.present?
+    if !@action_url.present? || !@seller&.paypal_detail&.integration_status
+      @action_url = Sellers::PaypalIntegrationService.call({seller: current_seller})
+    end
   end
 
 end

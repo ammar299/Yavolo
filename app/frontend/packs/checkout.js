@@ -161,14 +161,20 @@ function checkoutDetailsFormValidation() {
   jQuery.validator.addMethod(
     "requiredIfChecked",
     function (val, ele, arg) {
-      if (
-        $("#billing_address_is_shipping_address").is(":checked") &&
-        $.trim(val) == ""
-      ) {
+      var is_checked = $('#billing_address_is_shipping_address').is(':checked')
+      if ((is_checked === true) && ($.trim(val) === '')) {
         return true;
       }
-      return false;
+      else if ((is_checked === true) && ($.trim(val) !== '')) {
+        return true;
+      }
+      else if ((is_checked === false) && ($.trim(val) !== '')) {
+        return true;
+      }
+      else if ((is_checked === false) && ($.trim(val) === '')) {
+        return false;
+      }
     },
-    "This field is required if checkbox is unchecked..."
+    "This field is required if checkbox is unchecked."
   );
 }

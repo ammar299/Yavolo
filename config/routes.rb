@@ -264,6 +264,10 @@ Rails.application.routes.draw do
   post 'create_payment_method', to: 'buyers/checkout#create_payment_method', as: :create_payment_method
   post 'create_payment', to: 'buyers/checkout#create_payment', as: :create_payment
 
+  # acecpt google pay payment
+  post 'create_google_payment', to: 'buyers/checkout#create_google_payment', as: :create_google_payment
+  post 'confirm_google_pay_payment', to: 'buyers/checkout#confirm_google_pay_payment', as: :confirm_google_pay_payment
+
   post :create_paypal_order, to: 'buyers/checkout#create_paypal_order'
   post :capture_paypal_order, to: 'buyers/checkout#capture_paypal_order'
 
