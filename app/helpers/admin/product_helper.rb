@@ -26,32 +26,6 @@ module Admin::ProductHelper
     val
   end
 
-  def check_search_params(params)
-    if params.present?
-      if params['title_a_z_cont'].present?
-        true
-      elsif params['title_z_a_cont'].present?
-        true
-      elsif params['price_low_high_cont'].present?
-        true
-      elsif params['price_high_low_cont'].present?
-        true
-      elsif params['brand_cont'].present?
-        true
-      elsif params['sku_cont'].present?
-        true
-      elsif params['yan_cont'].present?
-        true
-      elsif params['ean_cont'].present?
-        true
-      elsif params['title_or_brand_or_sku_or_yan_or_ean_cont'].present?
-        true
-      end
-    else
-      false
-    end
-  end
-
   def set_product_filter_by_in_dropdown(params)
     val = 'Filter'
     product_status = Product.statuses.invert.as_json

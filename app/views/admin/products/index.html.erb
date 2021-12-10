@@ -41,15 +41,9 @@
                       <%=hidden_field_tag 'statuses', params[:statuses], class: 'yp-statuses' %>
                       <% end %>
                       <%= f.search_field current_search_field_name.to_sym, { class: 'input-btn-sm seller-product-search-field', placeholder: 'Search Products', value: "#{search_field_query_param_val(params)}" } %>
-                      <% if check_search_params(params[:q]) %>
-                        <% if params[:q][:s].present? %>
-                          <%= link_to admin_products_path(filter_type: params[:filter_type], yavolo_enabled: params[:yavolo_enabled], statuses: params[:statuses], q: { s: params[:q][:s].to_json}), class: 'btn-sm' do %>
-                            <i class="icon-cross" aria-hidden="true"></i>
-                          <% end %>
-                        <% else %>
-                          <%= link_to admin_products_path(filter_type: params[:filter_type], yavolo_enabled: params[:yavolo_enabled], statuses: params[:statuses]), class: 'btn-sm' do %>
-                            <i class="icon-cross" aria-hidden="true"></i>
-                          <% end %>
+                      <% if params[:q].present? && params[:q]['title_or_brand_or_sku_or_yan_or_ean_cont'].present? %>
+                        <%= link_to admin_products_path, class: 'btn-sm' do %>
+                          <i class="icon-cross" aria-hidden="true"></i>
                         <% end %>
                       <% else %>
                         <i class="fa fa-search" aria-hidden="true"></i>

@@ -46,18 +46,15 @@
                             </div>
                             <div class="search-field mb-0">
                                 <%= search_form_for @q, url: sellers_products_path do |f| %>
-                                    <%= hidden_field_tag :tab, params[:tab] || 'all' %>
+                                    <%= hidden_field_tag :tab, params[:tab].to_s ||'all' %>
                                 <input type="hidden" name="filter_type" id="product-filter-type" value="<%= params[:filter_type] %>">
                                 <input type="hidden" name="csfname" id="csfn" value="<%= current_search_field_name %>">
                                     <% if params[:q].present? && params[:q].keys.include?('s') %>
                                         <%= hidden_field_tag 'q[s]', params[:q][:s].to_json %>
                                     <% end %>
-                                    <% if params[:yavolo_enabled].present? %>
-                                        <%=hidden_field_tag 'yavolo_enabled', params[:yavolo_enabled], class: 'yp-yavolo_enabled' %>
-                                    <% end %>
                                     <%= f.search_field current_search_field_name.to_sym, { class: 'input-btn-sm seller-product-search-field', placeholder: 'Search Products', value: "#{search_field_query_param_val(params)}" } %>
-                                    <% if check_search_params(params[:q]) %>
-                                        <%= link_to sellers_products_path(filter_type: params[:filter_type], tab: (params[:tab].present? ? params[:tab] : 'all'), yavolo_enabled: params[:yavolo_enabled], q: { s: params[:q][:s].to_json}), class: 'btn-sm' do %>
+                                    <% if params[:q].present? %>
+                                        <%= link_to sellers_products_path(filter_type: params[:filter_type], tab: (params[:tab].present? ? params[:tab] : 'all')), class: 'btn-sm' do %>
                                             <i class="icon-cross" aria-hidden="true"></i>
                                         <% end %>
                                     <% else %>
