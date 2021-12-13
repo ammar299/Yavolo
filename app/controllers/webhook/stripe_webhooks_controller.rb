@@ -132,10 +132,12 @@ class Webhook::StripeWebhooksController < ActionController::Base
     subscription_plan_id = params[:data][:object][:phases][0][:items][0][:price]
     subscription_canceled_at = date_parser(params[:data][:object][:canceled_at])
     subscription = SellerStripeSubscription.where(subscription_schedule_id: subscription_id)
-    subscription.status = subscription_updated_status
-    subscription.canceled_at = subscription_canceled_at
-    subscription.plan_id = subscription_plan_id
-    subscription.save
+    if subscription.present?
+      subscription.status = subscription_updated_status
+      subscription.canceled_at = subscription_canceled_at
+      subscription.plan_id = subscription_plan_id
+      subscription.save
+    end
   end
 
   def update_status_subscription(subscription_id,subscription_updated_status)
@@ -143,13 +145,15 @@ class Webhook::StripeWebhooksController < ActionController::Base
     subscription_plan_id = params[:data][:object][:phases][0][:items][0][:price]
     current_period_start = date_parser(params[:data][:object][:current_phase][:start_date])
     current_period_end = date_parser(params[:data][:object][:current_phase][:end_date])
-    subscription = SellerStripeSubscription.where(subscription_schedule_id: subscription_id).last
-    subscription.status = subscription_updated_status
-    subscription.plan_id = subscription_plan_id
-    subscription.current_period_start = current_period_start
-    subscription.current_period_end = current_period_end
-    subscription.subscription_stripe_id = params[:data][:object][:subscription]
-    subscription.save
+    subscription = SellerStripeSubscription.where(subscription_schedule_id: subscription_id)&.last
+    if subscription.present?
+      subscription.status = subscription_updated_status
+      subscription.plan_id = subscription_plan_id
+      subscription.current_period_start = current_period_start
+      subscription.current_period_end = current_period_end
+      subscription.subscription_stripe_id = params[:data][:object][:subscription]
+      subscription.save
+    end
   end
 
   def cancel_current_subscription_webhook(params)

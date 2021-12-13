@@ -26,7 +26,7 @@ module Admins
         when "cancel"
           check_cancelation_process
         when "month_12"
-          @start_date = Time.current + 3.minutes
+          @start_date = Time.current + 1.year
           change_seller_subscription_status
         when "month_24"
           @start_date = Time.current + 2.year
