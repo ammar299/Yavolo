@@ -3,7 +3,7 @@ class Sellers::ProfilesController < Sellers::BaseController
   layout 'sellers/seller', except: %[new]
   include SharedSellerMethods
 
-  before_action :set_seller, except: %i[search_delivery_options destroy_delivery_template manage_returns_and_terms]
+  before_action :set_seller, except: %i[search_delivery_options confirm_delete destroy_delivery_template manage_returns_and_terms]
   before_action :set_delivery_template, only: %i[confirm_delete destroy_delivery_template]
   before_action :get_action_url, only: %i[show]
 
