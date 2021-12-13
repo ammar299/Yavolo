@@ -6,7 +6,7 @@
       <div>
         <% has_error, msg = get_errors(form, :title) %>
         <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
-          <%= form.label :title, 'Title / H1 tag*' %>
+          <%= form.label :title, 'Title*' %>
           <%= form.text_field :title, class: 'form-control', placeholder: 'Include all those important keywords' %>
           <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
         </div>

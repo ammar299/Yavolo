@@ -25,7 +25,18 @@ class Admin::Yavolos::ManualBundlesController < Admin::BaseController
 
   def create_bundle
     @yavolo_bundle = YavoloBundle.new(manual_bundle_params)
-
+    @products = []
+    params[:products].each do |p|
+      product = Product.find_by(id: p[:id])
+      next unless product.present?
+      @products << product
+      product.update(associated_products_params(p))
+    end
+    if params[:commit]== 'APPROVE & PUBLISH'
+      @yavolo_bundle.status = 'live'
+    elsif params[:commit]== 'SAVE DRAFT'
+      @yavolo_bundle.status = 'draft'
+    end
     # TODO: Update products
     if @yavolo_bundle.save
       redirect_to admin_yavolos_manual_bundles_path, notice: "Bundle created successfully"
@@ -74,12 +85,21 @@ class Admin::Yavolos::ManualBundlesController < Admin::BaseController
                                           )
   end
 
+  def associated_products_params(product_param)
+    format_keyword_params(product_param)
+    product_param.permit(:id, :title, :keywords, :description)
+  end
+
   def format_price_params
     return unless params[:yavolo].present?
     [:regular_total,:yavolo_total,:price].each do |key|
       p = view_context.strip_currency_from_price(params[:yavolo][key]) if params[:yavolo][key].present?
       params[:yavolo][key] = p if p.present?
     end
+  end
+
+  def format_keyword_params(product_param)
+    product_param[:keywords] = product_param[:keywords].reject {|k| k.blank?}.compact.uniq.join(",")
   end
 
 

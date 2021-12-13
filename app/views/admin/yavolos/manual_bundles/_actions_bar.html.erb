@@ -9,7 +9,7 @@
           <a href="javascript:void(0)" class="btn btn-sm btn-radius px-4 btn-outline-white mb-2 mt-2 preview_listing">PREVIEW LISTING</a>
           <%= hidden_field_tag "product[product_id]", @product.id, id: "product_id" %>
         <% end %>
-        <% if form.object.new_record? || form.object.draft? %>
+        <% if form.object.new_record? || form.object.status_draft? %>
           <%= form.submit 'SAVE DRAFT', class: 'btn btn-sm btn-radius px-4 btn-outline-white mb-2 mt-2',data: { disable_with: false } %>
         <% end %>
         <%= yield if block_given? %>

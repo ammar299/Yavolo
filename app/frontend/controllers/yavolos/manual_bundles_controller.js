@@ -13,9 +13,14 @@ export default class extends ApplicationController {
 
     continueToFormPage(e) {
         e.preventDefault();
-        const {valid,message} = this.areAllProductItemsValid()
-        if(!valid){
-            window.displayNoticeMessage(message)
+        let productItems = this.areAllProductItemsValid()
+        if(!productItems.valid){
+            window.displayNoticeMessage(productItems.message)
+            return
+        }
+        let stockLimit = this.isStockLimitValid()
+        if(!stockLimit.valid){
+            window.displayNoticeMessage(stockLimit.message)
             return
         }
         $(this.formTarget).submit();
@@ -33,6 +38,14 @@ export default class extends ApplicationController {
             obj['valid'] = pricesControllers.every(pc => pc.isDiscountValid === true)
             obj['message'] = "Please add correct value for product yavolo discount"
         }
+        return obj;
+    }
+
+    isStockLimitValid() {
+        let obj = {}
+        const isMaxStockLimitFieldValid = this.stockLimitController.isMaxStockLimitFieldValid
+        obj['valid'] = isMaxStockLimitFieldValid
+        obj['message'] = "Please add correct value for max stock limit"
         return obj;
     }
 

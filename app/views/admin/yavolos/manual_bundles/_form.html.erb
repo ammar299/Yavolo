@@ -189,7 +189,7 @@
     </div>
 
     <%= render "actions_bar", form: form do %>
-      <% if form.object.new_record? || form.object.draft? %>
+      <% if form.object.new_record? || form.object.status_draft? %>
         <%= form.submit 'APPROVE & PUBLISH', class: 'btn btn-sm btn-radius px-4 btn-outline-white mb-2 mt-2', data: { disable_with: false } %>
       <% else %>
         <%= form.submit 'UPDATE', class: 'btn btn-sm btn-radius px-4 btn-outline-white mb-2 mt-2', data: { disable_with: false } %>

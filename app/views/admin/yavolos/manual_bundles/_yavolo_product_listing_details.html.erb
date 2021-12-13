@@ -56,7 +56,7 @@
         <% has_error, msg = get_errors(form, :keywords) %>
         <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
           <%= form.label 'Keywords*' %>
-          <%= text_field_tag 'products[][keywords]',product.keywords, class: 'form-control', placeholder: 'Help customers find your product by selecting relevant keywords for your product', data: {role: "tagsinput"}, id: 'product_keywords', size: "100" %>
+          <%= text_field_tag 'products[][keywords][]',product.keywords, class: 'form-control yavolo-bundle-product-keywords-input', placeholder: 'Help customers find your product by selecting relevant keywords for your product', data: {role: "tagsinput"}, size: "100"%>
           <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
         </div>
 

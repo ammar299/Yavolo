@@ -1024,19 +1024,10 @@ $(document).ready(function () {
 
 window.validateProductForm = function(custom_rules={}, custom_messages={}) {
 
-  jQuery.validator.addMethod("validPrice", function(value) {
-    let number = value.split('£')[value.split('£').length-1].split(',').join('')
-    return Number(number) >= 0 && Number(number) <= 999999.99
-  }, "Please enter a valid price value.");
-
   jQuery.validator.addMethod("descriptionPresent", function(value) {
     let content_length = product_description_editor.getData().trim().length;
     return content_length > 0;
   }, "Please add some description about your product.");
-
-  jQuery.validator.addMethod('productEan', function(value, element) {
-    return this.optional(element) || /^(\d{13})?$/.test(value);
-  }, 'Please Enter a valid EAN');
 
   let rules = {
     "product[title]": {

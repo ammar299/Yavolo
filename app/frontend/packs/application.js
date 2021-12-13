@@ -130,3 +130,12 @@ jQuery.validator.addMethod(
   },
   "Please enter a valid House Registration Number (e.g AB123456, 99123456, C1234567)"
 );
+
+jQuery.validator.addMethod("validPrice", function(value) {
+    let number = value.split('£')[value.split('£').length-1].split(',').join('')
+    return Number(number) >= 0 && Number(number) <= 999999.99
+}, "Please enter a valid price value.");
+
+jQuery.validator.addMethod('productEan', function(value, element) {
+    return this.optional(element) || /^(\d{13})?$/.test(value);
+}, 'Please Enter a valid EAN');
