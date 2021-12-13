@@ -576,9 +576,9 @@ ActiveRecord::Schema.define(version: 2021_12_09_121209) do
     t.boolean "two_factor_auth", default: false
     t.datetime "last_seen_at"
     t.string "recovery_email"
-    t.boolean "skip_success_hub_steps", default: false
     t.string "otp_secret"
     t.integer "last_otp_at"
+    t.boolean "skip_success_hub_steps", default: false
     t.integer "failed_attempts", default: 0
     t.string "unlock_token"
     t.datetime "locked_at"
@@ -646,6 +646,15 @@ ActiveRecord::Schema.define(version: 2021_12_09_121209) do
     t.string "name"
     t.string "status"
     t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.string "subscription_name"
+    t.string "subscription_types"
+    t.float "price"
+    t.float "commission_excluding_vat"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
