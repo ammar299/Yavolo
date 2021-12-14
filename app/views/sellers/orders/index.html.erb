@@ -1,0 +1,79 @@
+<div class="container-fluid y-page-container">
+  <div class="d-flex flex-wrap justify-content-between mb-4 mt-5 align-items-start">
+    <h4 class="m-0">Orders & Delivery</h4>
+  </div>
+  <div class="row ac-setting-tabs">
+    <div class="col-md-2">
+      <ul class="nav nav-tabs seller-listing-tab-items" id="myTab" role="tablist">
+        <%= render "sellers/orders/left_sidebar_tabs" %>
+      </ul>
+    </div>
+    <div class="col-md-10">
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="all-listings" role="tabpanel" aria-labelledby="home-tab">
+          <div class="d-flex align-items-center justify-content-between flex-wrap mb-2">
+            <div class="d-flex w-100 flex-wrap">
+              <div class="dropdown-filter-field active search-border my-1 dropdown-filter-custom dropdown-filter-position">
+                <div class="dropdown">
+                  <a class="btn btn-radius px-3 btn-primary current-order-search-filter btn-sm" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                     aria-haspopup="true" aria-expanded="false"><%= set_filter_type_in_dropdown(params) %> <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
+                  </a>
+                  <div class="dropdown-menu seller-products-filters seller-orders-filters" aria-labelledby="dropdownMenuLink">
+                    <%= render "sellers/orders/search_filters_collections" %>
+                  </div>
+                </div>
+                <div class="search-field mb-0">
+                  <%= render "sellers/orders/search_form" %>
+                </div>
+              </div>
+              <div style="flex: 1;" class="dropdown dropdown-filter mb-3 d-inline-flex mx-1">
+                <a href="#" class="btn btn-radius px-3 btn-link btn-link-dropdown d-flex align-items-center  w-100 justify-content-between" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions <i class="fas fa-ellipsis-h ml-5" aria-hidden="true"></i></a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <%= render "sellers/orders/actions_collections" %>
+                </div>
+              </div>
+              <div style="flex: 1;" class="dropdown dropdown-filter mb-3 d-inline-flex mr-1">
+                <a href="#" class="btn btn-radius px-3 btn-link btn-link-dropdown d-flex align-items-center  w-100 justify-content-between" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by <i class="fa fa-angle-down ml-5" aria-hidden="true"></i></a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <%= render "sellers/orders/filter_by_collections" %>
+                </div>
+              </div>
+              <a href="#" class="btn btn-radius px-3 btn-outline-primary btn-sm mr-1 my-1">Export CSV</a>
+              <a href="#" class="btn btn-radius px-3 btn-outline-primary btn-sm mr-1 my-1">Upload Product CSV</a>
+              <a href="#" class="btn btn-radius px-3 btn-primary btn-sm mr-1 my-1">Refresh</a>
+            </div>
+          </div>
+          <div class="filter-by-tags d-flex justify-content-start mt-2">
+            <%= print_filter_by_sort_tags.to_s.html_safe %>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="Yavolo-table mt-4">
+                <table class="table">
+                  <thead>
+                    <%= render "sellers/orders/listing_header" %>
+                  </thead>
+                  <tbody class="seller-order">
+                  <% @seller_orders.each do |seller_order| %>
+                    <%= render "sellers/orders/orders_listing", seller_order: seller_order %>
+                  <% end %>
+                  </tbody>
+                </table>
+                <% if @seller_orders.length == 0 %>
+                  <p class="text-center my-5">No Result Found</p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mx-auto">
+              <div class="pager-middle text-center d-flex justify-content-center mb-4">
+                <%= paginate @seller_orders %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

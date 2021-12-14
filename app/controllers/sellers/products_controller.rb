@@ -1,6 +1,10 @@
 class Sellers::ProductsController < Sellers::BaseController
+
   before_action :format_price_value, only: %i[create update]
+
   include SharedProductMethods
+  include ParseSortParam
+
   def index
     parse_sort_param_to_array
     @listing_by_status_with_count = Product.get_group_by_status_count(current_seller)

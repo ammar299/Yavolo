@@ -1,6 +1,8 @@
 class Admin::ProductsController < Admin::BaseController
   before_action :format_price_value, only: %i[create update]
   include SharedProductMethods
+  include ParseSortParam
+
   def index
     parse_sort_param_to_array
     @q = Product.ransack(params[:q])

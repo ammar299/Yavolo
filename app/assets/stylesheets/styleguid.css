@@ -571,6 +571,23 @@ textarea.form-control {
 .Yavolo-table table tbody tr td:last-child {
     border-radius: 0px 8px 8px 0px;
 }
+.Yavolo-table table tbody.seller-order tr td {
+    vertical-align: top;
+}
+.Yavolo-table table tbody tr td.order-image {
+    width: 60px;
+    height: 45px;
+}
+.Yavolo-table table td span.order-checkmark {
+    top: 0px !important;
+    position: absolute;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    border: 2px solid var(--dark-red);
+    border-radius: 4px;
+    pointer-events: none;
+}
 /*TABLE*/
 
 

@@ -14,4 +14,10 @@ class Order < ApplicationRecord
     abundent_checkout: 0,
     paid_order: 1,
  }
+
+  scope :seller_orders, ->(owner) { includes(line_items: [:product]).where(line_items: {products: {owner_id: owner.id}}) }
+
+  ransacker :idfilter do
+    Arel.sql("to_char(\"#{table_name}\".\"id\", '99999999')")
+  end
 end

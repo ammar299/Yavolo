@@ -721,14 +721,16 @@ select.form-control {
   border-color: var(--dark-red);
 }
 .filter-tag {
-  background-color: var(--light-red) !important;
-  color: var(--red) !important;
-  border-radius: 12px;
+  background-color: var(--off-white) !important;
+  color: var(--dark-red) !important;
+  border-radius: 6px;
   padding: 2px 12px;
+  font-size: 12px;
+  box-shadow: 3px 3px 5px #0000001c;
 }
 .rm-filterby {
   padding-left: 15px;
-  font-size: 12px;
+  font-size: 6px;
   cursor: pointer;
 }
 
@@ -1023,6 +1025,21 @@ label {
   min-width: 125px !important;
   max-width: 125px !important;
 }
+
+.seller-order-sub-table {
+    width: 100%;
+    margin-top: -12px;
+}
+.Yavolo-table table thead tr th .seller-order-sub-table {
+    margin-top: 0 !important;
+}
+.seller-order-sub-table tr {
+    border-bottom: 1px solid #6405294f !important;
+}
+.seller-order-sub-table tr:last-child {
+    border-bottom: 0 !important;
+}
+
 .seller-account-delivery-setting {
 width: 75%;
 }
@@ -1212,3 +1229,4 @@ width: 75%;
 	}
 }
 /* edite yavolo listings */
+

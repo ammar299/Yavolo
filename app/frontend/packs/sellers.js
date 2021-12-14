@@ -10,6 +10,9 @@ $(document).ready(function () {
   TwoFactorAuthEmail();
   TwoFactorAuthForCode();
   sellerTimeOutSlector();
+  setSellerOrderSearchMenuAndQueryName();
+  bindAndSortByEvent();
+  bindRemoveFilterBy();
   endSubscriptionHanlder()
   // reviewedLoginScreen();
   //Upload Sellers
@@ -1298,6 +1301,102 @@ function stripeTokenHandler(token) {
   // form.submit();
 }
 
+function setSellerOrderSearchMenuAndQueryName() {
+  $('.seller-orders-filters a').click(function (e) {
+    e.preventDefault();
+    let currentFilter = $(this).text().trim();
+    $('.seller-orders-filters a').removeClass('active');
+    $(this).addClass('active');
+    $('.current-order-search-filter').html(currentFilter + ' <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>');
+    switch (currentFilter) {
+      case 'Product Title':
+        parsingSearchParams("Product Title", 'line_items_product_title_cont');
+        break;
+      case 'Order Number':
+        parsingSearchParams("Order Number", 'idfilter_cont');
+        break;
+      case 'Customer Name':
+        parsingSearchParams('Customer Name', 'order_detail_name_cont');
+        break;
+      case 'Customer Postcode':
+        parsingSearchParams('Customer Postcode', 'shipping_address_postal_code_or_billing_address_postal_code_cont');
+        break;
+      case 'SKU':
+        parsingSearchParams('SKU', 'line_items_product_sku_cont');
+        break;
+      case 'YAN':
+        parsingSearchParams('YAN', 'line_items_product_yan_cont');
+        break;
+      case 'EAN':
+        parsingSearchParams('EAN', 'line_items_product_ean_cont');
+        break;
+      default:
+        $('.current-search-filter').text('Search All');
+        parsingSearchParams('Search All', 'line_items_product_title_or_order_detail_name_or_shipping_address_postal_code_or_billing_address_postal_code_or_line_items_product_sku_or_line_items_product_yan_or_line_items_product_ean_or_idfilter_cont');
+        break;
+    }
+  });
+}
+
+function parsingSearchParams(search_title, search_type) {
+  let searchField = $(".seller-order-search-field");
+  let filterType = $("#seller-order-filter-type");
+  searchField.attr('name', 'q[' + search_type + ']');
+  $('#csfn').val(search_type);
+  filterType.val(search_title);
+}
+
+function bindAndSortByEvent() {
+  $('.sortby-seller-orders').click(function (e) {
+    e.preventDefault();
+    if ($('#q_s').length === 0) {
+      $('#seller_order_search').append('<input type="hidden" name="q[s]" id="q_s">')
+      $("#q_s").val($(this).data('sortby'));
+    }
+    assignValueToSellerOrderSortFilterInput($(this).data('sortby'))
+    $('form#seller_order_search').submit();
+  });
+}
+
+function assignValueToSellerOrderSortFilterInput(currentValue) {
+  const id_asc = "id asc";
+  const id_desc = "id desc";
+  const price_asc = "sub_total asc";
+  const price_desc = "sub_total desc";
+  const inputVal = $("#q_s").val();
+  let valueArray = []
+
+  try {valueArray = JSON.parse(inputVal.split(","))} catch (e) {}
+
+  if (currentValue === price_desc && valueArray.includes(price_asc)) {
+    valueArray = valueArray.filter(i => i !== price_asc || i.strip == "")
+  } else if (currentValue === price_asc && valueArray.includes(price_desc)) {
+    valueArray = valueArray.filter(i => i !== price_desc || i.strip == "")
+  } else if (currentValue === id_desc && valueArray.includes(id_asc)) {
+    valueArray = valueArray.filter(i => i !== id_asc || i.strip == "")
+  } else if (currentValue === id_asc && valueArray.includes(id_desc)) {
+    valueArray = valueArray.filter(i => i !== id_desc || i.strip == "")
+  }
+  valueArray.push(currentValue);
+  $("#q_s").val(JSON.stringify(valueArray));
+}
+
+function bindRemoveFilterBy(){
+  $(document).on('click','.rm-filterby',function(){
+    let removedFilter = $(this).data('yfilter');
+    bindRemoveFilterBySortOrderForOrder(removedFilter);
+    $('form#seller_order_search').submit();
+  });
+}
+
+function bindRemoveFilterBySortOrderForOrder(removedFilter) {
+  const inputVal = $('#q_s').val()
+  let valueArray = []
+  try {valueArray = JSON.parse(inputVal.split(","))} catch (e) {}
+  valueArray = valueArray.filter(i=> i !== removedFilter)
+  $('#q_s').val(JSON.stringify(valueArray));
+}
+
 function endSubscriptionHanlder(){
   initialDecisionModule()
   reasonModule()
@@ -1372,3 +1471,4 @@ function reasonSelection(){
       $(".reason-input").show()
   });
 }
+

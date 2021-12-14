@@ -227,6 +227,7 @@ Rails.application.routes.draw do
             post :update_field
           end
         end
+        resources :orders
 
         resources :categories do
           member do

@@ -25,6 +25,16 @@ module Admin::AdminHelper
 
   def sort_filter_tags_titles(status)
     case status.titleize
+    when "Created At"
+      "Order Date"
+    when "Id Asc"
+      "Oldest Orders"
+    when "Id Desc"
+      "Newest Orders"
+    when "Sub Total Asc"
+      "Order Total Low-High"
+    when  "Sub Total Desc"
+      "Order Total High-Low"
     when "Title Asc"
       "Product Title A-Z"
     when "Title Desc"

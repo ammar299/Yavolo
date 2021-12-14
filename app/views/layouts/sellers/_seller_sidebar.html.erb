@@ -21,7 +21,7 @@
         Messages
         <% end %>
       </li>
-      <li class="<%= class_name %>"><%= link_to is_eligible?(current_seller) ? sellers_delivery_options_path : '#' do %>
+      <li class="<%= class_name %>"><%= link_to is_eligible?(current_seller) ? sellers_orders_path : '#' do %>
         <span class="icon-orders--delivery icon-right-pd"></span>
         Orders & Delivery
         <% end %>
