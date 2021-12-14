@@ -458,8 +458,10 @@ function updateFieldValue(pid,val,action){
       }
     },
     error: function (xhr){
+      displayNoticeMessage(xhr.responseJSON.errors[0])
     },
     success: function (res){
+      displayNoticeMessage(res.msg)
     }
   });
 }
@@ -898,6 +900,7 @@ function sellerProductForm() {
 }
 
 function updateProductsDom(res){
+  var $prodRow=$('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row')
   let action = $('.bulk-actions a.dropdown-item.active').data('bulkaction')
   let selectors = res.update_ids.map(id=> "#prod-id-"+id).join(',')
   if(action=='delete')
@@ -907,36 +910,36 @@ function updateProductsDom(res){
     let price = parseFloat(res.value);
     var classNameOfAction = ".price-field, .price-box"
     updateBulkActions(res, classNameOfAction,"£" + price)
-    // if($('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.price-field').length > 0){
-    //   $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.price-field').val(price.toFixed(2))
-    // }
-    // if($('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.price-box').length > 0){
-    //   $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.price-box').html(price.toFixed(2))
-    // }
+    if($prodRow.find('.price-field').length > 0){
+      $prodRow.find('.price-field').val(price.toFixed(2))
+    }
+    if($prodRow.find('.price-box').length > 0){
+      $prodRow.find('.price-box').html(price.toFixed(2))
+    }
   }
 
   if(action=='update_stock'){
     let stock = parseInt(res.value)
     var classNameOfAction = ".stock-field, .stock-box"
     updateBulkActions(res, classNameOfAction, stock)
-    // if($('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.stock-field').length > 0){
-    //   $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.stock-field').val(stock)
-    // }
-    // if($('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.stock-box').length > 0){
-    //   $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.stock-box').html(stock)
-    // }
+    if($prodRow.find('.stock-field').length > 0){
+      $prodRow.find('.stock-field').val(stock)
+    }
+    if($prodRow.find('.stock-box').length > 0){
+      $prodRow.find('.stock-box').html(stock)
+    }
   }
 
   if(action=='update_discount'){
     let discount = res.value
     var classNameOfAction = ".discount-field, .discount-box"
     updateBulkActions(res, classNameOfAction, discount)
-    // if($('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.discount-field').length > 0){
-    //   $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.discount-field').val(res.value)
-    // }
-    // if($('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.discount-box').length > 0){
-    //   $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('.discount-box').html(res.value)
-    // }
+    if($prodRow.find('.discount-field').length > 0){
+      $prodRow.find('.discount-field').val(res.value)
+    }
+    if($prodRow.find('.discount-box').length > 0){
+      $prodRow.find('.discount-box').html(res.value)
+    }
   }
 
   if(action=='activate')

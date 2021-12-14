@@ -142,10 +142,14 @@ class Sellers::ProductsController < Sellers::BaseController
     permitted_params = params.require(:product).permit(:id,:value,:action)
     product = Product.where(id: params[:id],owner_id: current_seller.id,owner_type: current_seller.class.name).first
     if product.present?
-      product.update(price: permitted_params[:value].gsub!('£',"").to_d) if permitted_params[:action]=='update_price'
-      product.update(stock: permitted_params[:value].to_i) if permitted_params[:action]=='update_stock'
-      product.update(discount: permitted_params[:value].to_d) if permitted_params[:action]=='update_discount'
-      render json: { msg: 'value updated successfully' }, status: :ok
+      if permitted_params[:action]=='update_price' && product.update(price: permitted_params[:value].gsub("£","").gsub(",","")) || permitted_params[:action]=='update_stock' &&  product.update(stock: permitted_params[:value].to_i) || permitted_params[:action]=='update_discount' && product.update(discount: permitted_params[:value].to_d)
+        render json: { msg: 'value updated successfully' }, status: :ok
+      else
+        render json: { errors: ['value can not updated'] }, status: :unprocessable_entity
+      #   product.update(price: permitted_params[:value].gsub!('£',"").to_d) if permitted_params[:action]=='update_price'
+      #   product.update(stock: permitted_params[:value].to_i) if permitted_params[:action]=='update_stock'
+      #   product.update(discount: permitted_params[:value].to_d) if permitted_params[:action]=='update_discount'
+      end
     else
       render json: { errors: ['product not found'] }, status: :unprocessable_entity
     end
