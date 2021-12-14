@@ -497,6 +497,7 @@ $(document).ready(function () {
   $(".multiple-products input").click(function () {
     if (!$(this).is(":checked")) {
       $("#check-all-checkboxes").prop("checked", false);
+      $('.mark-bulk-update').prop('checked', false);
     }
   });
 
