@@ -9,6 +9,7 @@ $(document).ready(function(){
   divAdjusterWidth();
   eanErrorRemoveBackend();
   disableEnterOnProductCreate();
+  sellerProductForm();
   productImageDelete();
   if($(".grid-single-img").length >= 9){
     $(".show-upload-images-popup").addClass('pointer-events-none');
@@ -36,6 +37,12 @@ $(document).ready(function(){
       $('.prod-table-row').find('input:checkbox').prop('checked', true);
     }else{
       $('.prod-table-row').find('input:checkbox').prop('checked', false);
+    }
+  });
+
+  $(".multiple-products input").click(function () {
+    if (!$(this).is(":checked")) {
+      $(".mark-bulk-update").prop("checked", false);
     }
   });
 
@@ -257,6 +264,7 @@ $(document).ready(function(){
     if(!value) return
     $(".yavolo-discount-hidden-input").val(value)
   })
+
 });
 
 let product_description_editor;
@@ -399,7 +407,6 @@ function bindFilterByEvents(){
 
       if($(this).data('status')=='yavolo_enabled')
         $('.yp-yavolo_enabled').remove();
-
     }else{
       $(this).addClass('active');
     }
@@ -857,6 +864,39 @@ function updateBulkProducts(action){
   })
 }
 
+function sellerProductForm() {
+  $("form#products-bulk-form").validate({
+    rules: {
+      "product[stock]": {
+        max: 9999999,
+      },
+      "product[price]": {
+        max: 9999999,
+      },
+      "product[discount]": {
+        max: 100,
+      },
+    },
+    highlight: function (element) {
+      $(element).parents("div.form-group").addClass("error-field");
+    },
+    unhighlight: function (element) {
+      $(element).parents("div.form-group").removeClass("error-field");
+    },
+    messages: {
+      "product[stock]": {
+        max: "Invalid value",
+      },
+      "product[price]": {
+        max: "Invalid value",
+      },
+      "product[discount]": {
+        max: "Invalid value",
+      },
+    },
+  });
+}
+
 function updateProductsDom(res){
   let action = $('.bulk-actions a.dropdown-item.active').data('bulkaction')
   let selectors = res.update_ids.map(id=> "#prod-id-"+id).join(',')
@@ -918,9 +958,8 @@ function updateProductsDom(res){
         $(this).find('.icon-manage-Yavolo').addClass('p-yavolo-enabled');
       }
     });
+    $("input:checkbox").not(this).prop("checked", false);
   }
-
-
 
   if(action=='yavolo_disabled'){
     $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').each(function(){
@@ -936,6 +975,7 @@ function updateProductsDom(res){
     })
   }
   $('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row').find('input[type=checkbox]').prop('checked',false).trigger('change')
+  $("input:checkbox").not(this).prop("checked", false);
 }
 
 window.showSuccessAlert = function(msg){

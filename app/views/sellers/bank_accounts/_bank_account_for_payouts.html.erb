@@ -3,7 +3,7 @@
     <a href="#add-bank-account" name=""class="btn btn-sm btn-radius px-4 btn-primary mb-3 add-bank-account float-right" data-toggle="modal" data-target="#add-bank-account">Connect</a>
   <%end%>
   <div class="d-flex align-items-center mb-3">
-    <h6 class="mb-0">Back account for payout</h6>
+    <h6 class="mb-0">Bank account for payout</h6>
     <%if !current_seller&.bank_detail&.customer_stripe_account_id&.present?%>
       <a href="#add-bank-account" data-toggle="modal" data-target="#add-bank-account"><span class="badge badge-secondary ml-2">Connect your account to get payouts</span></a>
     <%end%>  

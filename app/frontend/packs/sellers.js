@@ -516,6 +516,7 @@ $(document).ready(function () {
       );
     }
   });
+  
   $(document).on("click", ".add-card", function (e) {
     e.preventDefault();
     $("#stripe-card-submit").prop("disabled", false);
@@ -1471,4 +1472,3 @@ function reasonSelection(){
       $(".reason-input").show()
   });
 }
-
