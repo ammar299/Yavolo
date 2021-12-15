@@ -1,8 +1,9 @@
 <%= form_tag url, method: method do %>
   <%= hidden_field_tag :filter_group_ids, @filter_group_ids %>
+  <%= label_tag 'Category Name :' %>
   <%= select_tag :category, options_from_collection_for_select(Category.all,:id, "category_name"),multiple:true,prompt: 'Select category', class: 'form-control assign-category-bulk-select-tag' %>
   <div class="text-center">
-    <%= submit_tag 'Save Filter', class: "btn btn-radius px-4 btn-primary"%>
+    <%= submit_tag 'Assign Category', class: "btn btn-radius px-4 btn-primary"%>
   </div>
 <% end %>
 
