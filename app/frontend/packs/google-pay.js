@@ -9,7 +9,7 @@ function googlePayPayment() {
   // 1. Initialize Stripe
   const stripe = Stripe('pk_test_51IfjFUFqSiWsjxhXbRrObdGnNbi0HGp64DKuqsivFjJN81Dip3ZpRAFUKGrOxhZkAoRZMbEOSLr7SAvvk6bmDvTu00eJrWMQB2');
 
-  const cart_total = Number($('#cart-total').text().slice(1));
+  const cart_total = Number($('#cart-total-hidden').val());
 
   // 2. Create a payment request object
   var paymentRequest = stripe.paymentRequest({

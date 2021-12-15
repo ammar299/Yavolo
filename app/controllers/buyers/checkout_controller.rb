@@ -1,6 +1,9 @@
 class Buyers::CheckoutController < Buyers::BaseController
   skip_before_action :authenticate_buyer!
   # before_action :find_or_create_buyer, only: [:new, :create_checkout]
+  before_action :get_order, only: [:new, :create_checkout, :create_payment_method, :review_order, :create_payment,
+                                   :create_google_payment, :confirm_google_pay_payment, :create_paypal_order,
+                                   :capture_paypal_order]
 
   def index; end
 
@@ -12,11 +15,11 @@ class Buyers::CheckoutController < Buyers::BaseController
       return
     end
     @order_amount = order_amount
-    @order_id = session_order_id
     if @order_id.present?
-      @order = Order.find(@order_id) || nil
-      session.delete(:_current_user_order_id) unless @order.present?
-      @order = Order.new unless @order.present?
+      unless @order.present?
+        session.delete(:_current_user_order_id)
+        @order = Order.new
+      end
     else
       @order = Order.new
     end
@@ -27,8 +30,7 @@ class Buyers::CheckoutController < Buyers::BaseController
     if params[:billing_address_is_shipping_address].present? && params[:billing_address_is_shipping_address] == "true"
       order_line_item_params[:shipping_address_attributes] = order_line_item_params[:billing_address_attributes]
     end
-    @order_id = session_order_id
-    @order = Order.find(@order_id).destroy if @order_id.present?
+    @order = @order.destroy if @order_id.present?
     @buyer = find_or_create_buyer(order_params[:order_detail_attributes][:email])
     @order = @buyer.orders.create(order_line_item_params)
     session[:_current_user_order_id] = @order.id
@@ -45,9 +47,7 @@ class Buyers::CheckoutController < Buyers::BaseController
   end
 
   def create_payment_method
-    @order_id = session_order_id
     if @order_id.present?
-      @order = Order.find(@order_id)
       @buyer = @order.buyer if @order.present?
       if @order.present? && @buyer.present?
         card_details = Stripe::RetrieveCardFromToken.call(
@@ -76,9 +76,7 @@ class Buyers::CheckoutController < Buyers::BaseController
   end
 
   def review_order
-    @order_id = session_order_id
     if @order_id.present?
-      @order = Order.find(@order_id)
       @cart = get_cart
       @order_amount = order_amount
       product_ids = @cart.map { |item| item[:product_id] }
@@ -98,9 +96,7 @@ class Buyers::CheckoutController < Buyers::BaseController
   end
 
   def create_payment
-    @order_id = session_order_id
     if @order_id.present?
-      @order = Order.find(@order_id)
       @buyer = @order.buyer if @order.present?
       if @order.present? && @buyer.present? && @order.order_type != 'paid_order'
         @order_amount = order_amount
@@ -124,7 +120,6 @@ class Buyers::CheckoutController < Buyers::BaseController
   end
 
   def create_google_payment
-    @order = Order.find(session_order_id) rescue nil
     @order = Order.new unless @order.present?
     if @order.order_type != 'paid_order'
       @order_amount = order_amount
@@ -150,7 +145,6 @@ class Buyers::CheckoutController < Buyers::BaseController
   end
 
   def confirm_google_pay_payment
-    @order = Order.find(session_order_id) rescue nil
     response = params
     if @order.present? && @order.order_type != 'paid_order'
       @buyer = @order.buyer
@@ -185,8 +179,7 @@ class Buyers::CheckoutController < Buyers::BaseController
 
   def create_paypal_order
     # PAYPAL CREATE ORDER
-    @order = Order.find(session_order_id) rescue nil
-    if !@order.present?
+    unless @order.present?
       @order = Order.new
     end
     if @order.order_type != 'paid_order'
@@ -205,7 +198,7 @@ class Buyers::CheckoutController < Buyers::BaseController
           )
         end
         @order.update(buyer_payment_method_id: @payment_method.id) if @order.id.present?
-        @order = Order.create(buyer_payment_method_id: @payment_method.id) if !@order.id.present?
+        @order = Order.create(buyer_payment_method_id: @payment_method.id) unless @order.id.present?
         session[:_current_user_order_id] = @order.id
         puts paypal_order_creator
         render json: { token: paypal_order_creator.paypal_response.result.id }, status: :ok
@@ -215,9 +208,7 @@ class Buyers::CheckoutController < Buyers::BaseController
 
   def capture_paypal_order
     # PAYPAL CAPTURE ORDER
-    @order_id = session_order_id
     if @order_id.present?
-      @order = Order.find(@order_id)
       @buyer = @order.buyer if @order.present?
       if @order.present? && @order.order_type != 'paid_order'
         @order_amount = order_amount
@@ -235,7 +226,7 @@ class Buyers::CheckoutController < Buyers::BaseController
             create_shipping_address(@order, shipping_address)
             create_billing_address(@order, billing_address)
           end
-          if !@buyer.present?
+          unless @buyer.present?
             @buyer = find_or_create_buyer(payer_info.email_address)
             @order.update(buyer_id: @buyer.id)
             @order.buyer_payment_method.update(buyer_id: @buyer.id)
@@ -426,5 +417,10 @@ class Buyers::CheckoutController < Buyers::BaseController
       shipping_address_attributes: [:id, :appartment, :address_line_1, :address_line_2, :city, :county, :country, :postal_code],
       line_items_attributes: [:id, :product_id, :quantity, :added_on]
     )
+  end
+
+  def get_order
+    @order_id = session_order_id
+    @order = Order.find(@order_id) rescue nil
   end
 end

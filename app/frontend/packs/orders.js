@@ -77,6 +77,14 @@ function setOrderSearchMenuAndQueryName() {
             filterType.val('Product Title Z-A');
             $('#order_search').append('<input type="hidden" name="q[s]" id="q_s">')
             $('#q_s').val('line_items_product_title desc');
+        } else if (currentFilter === 'Order Number') {
+            searchField.attr('name', 'q[order_number_cont]');
+            $('#csfn').val('order_number_cont');
+            filterType.val('Order Number');
+        } else if (currentFilter === 'Seller Name') {
+            searchField.attr('name', 'q[line_items_product_owner_of_Seller_type_first_name_or_line_items_product_owner_of_Seller_type_last_name_cont]');
+            $('#csfn').val('line_items_product_owner_of_Seller_type_first_name_or_line_items_product_owner_of_Seller_type_last_name_cont');
+            filterType.val('Seller Name');
         } else if (currentFilter === 'Customer Name') {
             searchField.attr('name', 'q[order_detail_name_cont]');
             $('#csfn').val('order_detail_name_cont');
@@ -86,8 +94,8 @@ function setOrderSearchMenuAndQueryName() {
             $('#csfn').val('line_items_product_sku_cont');
             filterType.val('SKU');
         } else {
-            searchField.attr('name', 'q[line_items_product_title_or_order_detail_customer_name_cont_or_line_items_product_sku_cont]');
-            $('#csfn').val('line_items_product_title_or_order_detail_customer_name_cont_or_line_items_product_sku_cont');
+            searchField.attr('name', 'q[line_items_product_title_or_order_number_or_line_items_product_owner_of_Seller_type_first_name_or_line_items_product_owner_of_Seller_type_last_name_or_order_detail_name_or_line_items_product_sku_cont]');
+            $('#csfn').val('line_items_product_title_or_order_number_or_line_items_product_owner_of_Seller_type_first_name_or_line_items_product_owner_of_Seller_type_last_name_or_order_detail_name_or_line_items_product_sku_cont');
             filterType.val('Search All');
         }
     });
@@ -96,7 +104,9 @@ function setOrderSearchMenuAndQueryName() {
 function bindWithSortByEvent() {
     $('.sortby-orders').click(function (e) {
         e.preventDefault();
-        $('#order_search').append('<input type="hidden" name="q[s]" id="q_s">')
+        if ($('#q_s').length === 0) {
+            $('#order_search').append('<input type="hidden" name="q[s]" id="q_s">');
+        }
         $('#q_s').val($(this).data('sortby'));
         $('form#order_search').submit();
     });

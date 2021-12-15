@@ -17,7 +17,7 @@ class Admin::OrdersController < Admin::BaseController
     respond_to do |format|
       format.html
       format.pdf {
-        render pdf: "Order_#{@order.id}",
+        render pdf: "Order_#{@order.order_number}",
                template: 'admin/orders/download_order.pdf.erb',
                layout: false,
                disposition: 'attachment'

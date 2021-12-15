@@ -1,14 +1,14 @@
 <%= search_form_for @q, url: sellers_orders_path, id: "seller_order_search" do |f| %>
   <input type="hidden" name="filter_type" id="seller-order-filter-type" value="<%= params[:filter_type] %>">
-  <input type="hidden" name="csfname" id="csfn" value="<%= order_current_search_field_name %>">
+  <input type="hidden" name="csfname" id="csfn" value="<%= seller_order_current_search_field_name %>">
   <% if params[:q].present? && params[:q].keys.include?('s') %>
     <%= hidden_field_tag 'q[s]', params[:q][:s].to_json %>
   <% end %>
   <% if params[:per_page].present? %>
     <%= hidden_field_tag :per_page, params[:per_page] %>
   <% end %>
-  <%= f.search_field order_current_search_field_name.to_sym, { class: 'input-btn-sm seller-order-search-field', placeholder: 'Search your orders', value: "#{order_search_field_query_param_val(params)}" } %>
-  <% if params[:q].present? && params[:q]['line_items_product_title_or_order_detail_name_or_shipping_address_postal_code_or_billing_address_postal_code_or_line_items_product_sku_or_line_items_product_yan_or_line_items_product_ean_or_idfilter_cont'].present? %>
+  <%= f.search_field seller_order_current_search_field_name.to_sym, { class: 'input-btn-sm seller-order-search-field', placeholder: 'Search your orders', value: "#{seller_order_search_field_query_param_val(params)}" } %>
+  <% if params[:q].present? && params[:q]['line_items_product_title_or_order_detail_name_or_shipping_address_postal_code_or_billing_address_postal_code_or_line_items_product_sku_or_line_items_product_yan_or_line_items_product_ean_or_order_number_cont'].present? %>
     <%= link_to sellers_orders_path, class: 'btn-sm' do %>
       <i class="icon-cross" aria-hidden="true"></i>
     <% end %>

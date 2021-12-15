@@ -17,6 +17,12 @@ class Order < ApplicationRecord
 
   scope :seller_orders, ->(owner) { includes(line_items: [:product]).where(line_items: {products: {owner_id: owner.id}}) }
 
+  after_create :assign_unique_order_number
+
+  def assign_unique_order_number
+    self.update(order_number: "YAVO#{rand(100000..999999)}")
+  end
+
   ransacker :idfilter do
     Arel.sql("to_char(\"#{table_name}\".\"id\", '99999999')")
   end

@@ -69,6 +69,7 @@
                 <strong>Order Total</strong>
               </span>
               <span id="cart-total"><%= get_price_in_pounds(@order_amount.present? ? @order_amount[:total] : 0) %></span>
+              <input type="hidden" value="<%= @order_amount.present? ? @order_amount[:total] : 0 %>" id='cart-total-hidden'>
             </div>
             <hr>
             <div id="checkout-buttons">

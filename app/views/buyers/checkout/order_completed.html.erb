@@ -6,7 +6,7 @@
       <div class="row mt-5">
         <div class="col-lg-8">
           <div class="your-detail-left yo-white-card box-border">
-            <h5>Order Number: YAVO-<%=@order.id%></h5>
+            <h5>Order Number: <%=@order.order_number%></h5>
             <hr>
             <p>Your order will now be processed and dispatched. You should receive an email confirmation shortly. </p>
             <p> Please make note of your order number for reference. </p>
@@ -127,7 +127,7 @@
                     <% end %>
                   <div class="d-flex justify-content-between mb-2">
                       <span><strong>Sub Total</strong></span>
-                      <span>£<%= @order.total %></span>
+                      <span>£<%= @order.sub_total.to_f %></span>
                   </div>
                   <div class="d-flex justify-content-between">
                       <span><strong>Delivery</strong></span>
@@ -136,7 +136,7 @@
                   <hr>
                   <div class="d-flex justify-content-between">
                       <span><strong>Order Total</strong></span>
-                      <span>£<%= @order.sub_total.to_f %></span>
+                      <span>£<%= @order.total.to_f %></span>
                   </div>
               </div>
               <div class="yo-white-card box-border">
