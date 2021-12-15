@@ -13,9 +13,8 @@ $(document).ready(function () {
   setSellerOrderSearchMenuAndQueryName();
   bindAndSortByEvent();
   bindRemoveFilterBy();
-  endSubscriptionHanlder()
-  // reviewedLoginScreen();
-  //Upload Sellers
+  endSubscriptionHanlder();
+  sellerLoginSettingsForm()
   $(".upload-sellers-csv-btn").click(function () {
     $("#upload-sellers-csv-popup").modal("show");
   });
@@ -76,6 +75,7 @@ $(document).ready(function () {
         "seller[addresses_attributes][0][phone_number]": {
           required: true,
           phone_number_uk: true,
+          noSpace: true,
         },
         "seller[business_representative_attributes][full_legal_name]": {
           required: true,
@@ -113,6 +113,7 @@ $(document).ready(function () {
         "seller[addresses_attributes][1][phone_number]": {
           required: true,
           phone_number_uk: true,
+          noSpace: true,
         },
         "seller[subscription_type]": {
           required: true,
@@ -312,6 +313,7 @@ $(document).ready(function () {
         "seller[addresses_attributes][0][phone_number]": {
           required: true,
           phone_number_uk: true,
+          noSpace: true,
         },
         "seller[business_representative_attributes][full_legal_name]": {
           required: true,
@@ -349,6 +351,7 @@ $(document).ready(function () {
         "seller[addresses_attributes][1][phone_number]": {
           required: true,
           phone_number_uk: true,
+          noSpace: true,
         },
       },
       highlight: function (element) {
@@ -457,6 +460,106 @@ $(document).ready(function () {
       },
       "Enter valid UK phone number(e.g +447911123456)"
     );
+
+    jQuery.validator.addMethod("noSpace", function(value, element) { 
+      return value.indexOf(" ") < 0 && value != ""; 
+    }, "No space please");
+
+    jQuery.validator.addMethod(
+      /* The value you can use inside the email object in the validator. */
+      "regex",
+
+      /* The function that tests a given string against a given regEx. */
+      function (value, element, regexp) {
+        /* Check if the value is truthy (avoid null.constructor) & if it's not a RegEx. (Edited: regex --> regexp)*/
+
+        if (regexp && regexp.constructor != RegExp) {
+          /* Create a new regular expression using the regex argument. */
+          regexp = new RegExp(regexp);
+        } else if (regexp.global) regexp.lastIndex = 0;
+
+        /* Check whether the argument is global and, if so set its last index to 0. */
+
+        /* Return whether the element is optional or the result of the validation. */
+        return this.optional(element) || regexp.test(value);
+      }
+    );
+  }
+
+  function sellerLoginSettingsForm() {
+    $("form#seller_profile_login_setting_form").validate({
+      ignore: "",
+      rules: {
+        "seller[recovery_email]": {
+          required: true,
+          email: true,
+          regex: /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i,
+        },
+        "seller[contact_number]": {
+          required: true,
+          phone_number_uk: true,
+          noSpace: true,
+        },
+        "seller[password]": {
+          required: function(element){
+            return $("#seller_current_password").val().length > 0;
+          },
+        },
+        "seller[password_confirmation]":
+        {
+          required: function(element){
+            return $("#seller_current_password").val().length > 0;
+          },
+        },
+      },
+      highlight: function (element) {
+        $(element).parents("div.form-group").addClass("error-field");
+      },
+      unhighlight: function (element) {
+        $(element).parents("div.form-group").removeClass("error-field");
+      },
+      messages: {
+        "seller[recovery_email]": {
+          required: "Recovery email required",
+        },
+        "seller[contact_number]": {
+          required: "Recovery phone number required",
+        },
+        "seller[password]": {
+          required: "New passowrd required",
+        },
+        "seller[password_confirmation]":
+        {
+          required: "New password required",
+        },
+      },
+    });
+    jQuery.validator.addMethod(
+      "postal_code_uk",
+      function (value, element) {
+        return (
+          this.optional(element) ||
+          /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/.test(value)
+        );
+      },
+      "Enter valid UK postal code"
+    );
+    jQuery.validator.addMethod(
+      "phone_number_uk",
+      function (value, element) {
+        return (
+          this.optional(element) ||
+          (value.length > 9 &&
+            value.match(/^(\(?(\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/))
+        );
+      },
+      "Enter valid UK phone number(e.g +447911123456)"
+    );
+
+    jQuery.validator.addMethod("noSpace", function(value, element) { 
+      return value.indexOf(" ") < 0 && value != ""; 
+    }, "No space please");
+
     jQuery.validator.addMethod(
       /* The value you can use inside the email object in the validator. */
       "regex",
@@ -872,6 +975,7 @@ window.validateSellerEditForm = function () {
       },
       "seller[addresses_attributes][0][phone_number]": {
         required: true,
+        noSpace: true,
         phone_number_uk: true,
       },
       "seller[business_representative_attributes][full_legal_name]": {
@@ -910,6 +1014,7 @@ window.validateSellerEditForm = function () {
       "seller[addresses_attributes][1][phone_number]": {
         required: true,
         phone_number_uk: true,
+        noSpace: true,
       },
       "seller[subscription_type]": {
         required: true,
@@ -1037,6 +1142,11 @@ window.validateSellerEditForm = function () {
     },
     "Enter valid UK phone number(e.g +447911123456)"
   );
+
+  jQuery.validator.addMethod("noSpace", function(value, element) { 
+    return value.indexOf(" ") < 0 && value != ""; 
+  }, "No space please");
+
   jQuery.validator.addMethod(
     /* The value you can use inside the email object in the validator. */
     "regex",

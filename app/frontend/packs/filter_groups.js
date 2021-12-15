@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	AssingCategoriesFormValidation();
 	$('#assign-filter-group-category').attr('title', 'Please select just one filter group');
 	assignFilterGroupCategory();
 	$('body').on('change', '.filter-group-radio', function(){
@@ -22,13 +23,9 @@ $(document).ready(function(){
   });
 
 	// filter group form errors validation
-	$('body').on('submit','form#filter_group_new_form',function(e){
+	$('body').on('submit','form#filter_group_new_form','form#assigned-category-form-filter-group',function(e){
     if(!validFilterGroupForm()){
       e.preventDefault();
-      // $([document.documentElement, document.body]).animate({
-      //   scrollTop: $("#filter_group_new_form").offset().top
-      // }, 2000);
-      // return;
     }
   });
 
@@ -120,6 +117,25 @@ window.FilterGroupFormValidation = function(){
 			}
      }
 	});
+}
+
+window.AssingCategoriesFormValidation = function(){
+	$('form#assigned-category-form-filter-group').validate({
+		
+    errorPlacement: function(error, element){
+      $(element).parents('.assign-category-bulk-select-tag').append(error)      
+    },
+		highlight: function (element) {
+      $(element).parents("div.form-group").addClass("error-field");
+    },
+    unhighlight: function (element) {
+      $(element).parents("div.form-group").removeClass("error-field");
+    }
+	});
+  
+  $('#category').change(function(){
+  	$(this).parents('form').valid()
+  });
 }
 
 $(document).on('cocoon:after-insert', "#filter_in_categories",function(e, insertedItem, originalEvent) {

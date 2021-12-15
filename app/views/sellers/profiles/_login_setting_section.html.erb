@@ -51,11 +51,15 @@
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
               <label for="exampleInputPassword1"></label>
-              <%= f.password_field :password, :autocomplete => "off", autocomplete: "Enter New Password", class: "form-control", placeholder: "Enter new Password" %>
+              <div style="flex: 1;">
+                <%= f.password_field :password, :autocomplete => "off", autocomplete: "Enter New Password", class: "form-control", placeholder: "Enter new Password" %>
+              </div>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
               <label for="exampleInputPassword1"></label>
-              <%= f.password_field :password_confirmation, :autocomplete => "off", autocomplete: "Enter New Password", class: "form-control", placeholder: "Confirm new Password" %>
+              <div style="flex: 1;">
+                <%= f.password_field :password_confirmation, :autocomplete => "off", autocomplete: "Enter New Password", class: "form-control", placeholder: "Confirm new Password" %>
+              </div>
             </div>
             <div class="form-group form-group-vertical align-items-center">
               <label for="exampleInputPassword1">Remember me:</label>

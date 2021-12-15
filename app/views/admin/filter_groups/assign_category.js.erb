@@ -1,4 +1,6 @@
+
 $('#filter-group-form').html("<%= j render(partial: 'assign_category_form', locals: { url: create_assign_category_admin_filter_groups_path, method: :put}) %>");
 $('#filterGroupForm').modal('show');
 $('a.remove_fields.filter_categories').first().hide();
 $('a.remove_fields.filter_in_categories').first().hide();
+AssingCategoriesFormValidation();
