@@ -114,7 +114,7 @@ class Sellers::ProductsController < Sellers::BaseController
     #   all_products << product
     # end
     # if all_products.count > 50
-      ExportCsvWorker.perform_async(current_admin.id, current_admin.class.name, product_ids)
+      ExportCsvWorker.perform_async(current_seller.id, current_seller.class.name, product_ids)
       redirect_to sellers_products_path, notice: 'Products export is started, You will receive a file when its completed.'
     # else
     #   exporter = Products::Exporter.call({ owner: all_products })
