@@ -1,5 +1,5 @@
-<div class="yavolos--product-item" data-controller="yavolos--product-item">
-  <%= hidden_field_tag "products[][id]",product.id %>
+<div class="yavolos--product-item" data-controller="yavolos--product-item" data-yavolos--product-item-index-count = "<%= defined?(index) ? index : nil%>" >
+  <%= hidden_field_tag "products[][id]",product.id, data: {"yavolos--product-item-target": "id"} %>
   <div class="product-bg-title-bordr d-flex align-items-center">
     <span class="product-bg-title" data-yavolos--product-item-target="counter">1</span> <span><%= product.title %></span>
   </div>
@@ -35,7 +35,7 @@
         <td width="">
           <ul>
             <li><strong>YAN: </strong> <%= product.yan %></li>
-            <li><strong>YAN: </strong> <%= product.ean %></li>
+            <li><strong>EAN: </strong> <%= product.ean %></li>
             <li><strong>Brand: </strong> <%= product.brand %></li>
           </ul>
         </td>
@@ -56,17 +56,19 @@
         <td>
           <div class="text-center">
             <div class="form-group error-field">
-              <% discount_price = get_discount_value_product(product).gsub!("£","") %>
+              <% discount_price = get_discount_value_product(product) %>
+              <% discount_price_adjusted = defined?(yavolo_bundle_product) ? get_price_in_pounds(yavolo_bundle_product.price): discount_price %>
+              <% discount_price_original = discount_price.gsub!("£","") %>
               <input type="text"
                      class="yo-price-inpt text-center"
                      id="exampleInputEmail1"
                      aria-describedby="emailHelp"
-                     data-discount-price-original="<%= discount_price %>"
+                     data-discount-price-original="<%= discount_price_original %>"
                      data-yavolos--product-item-target="discountPriceInput"
-                     value="<%= get_discount_value_product(product) %>"
+                     value="<%= discount_price_adjusted %>"
                      name="products[][discount_price]"
-                      min="<%= discount_price %>" max="<%= product.price %>" data-action="blur->yavolos--product-item#validateDiscountPrice">
-              <small class="form-text input-error-text d-none" data-yavolos--product-item-target="errorText">Please enter a value between <%= discount_price  %> and <%=  product.price  %></small>
+                      min="<%= discount_price_original %>" max="<%= product.price %>" data-action="blur->yavolos--product-item#validateDiscountPrice">
+              <small class="form-text input-error-text d-none" data-yavolos--product-item-target="errorText">Please enter a value between <%= discount_price_original  %> and <%=  product.price  %></small>
             </div>
           </div>
         </td>

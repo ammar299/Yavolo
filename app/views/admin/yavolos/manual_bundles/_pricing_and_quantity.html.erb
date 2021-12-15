@@ -6,7 +6,7 @@
       <% has_error, msg = get_errors(form, :price) %>
       <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
         <%= form.label :price, 'Price (Inc VAT if applicable) *' %>
-        <%= form.text_field :price, class: 'form-control', placeholder: '0.00', readonly: true %>
+        <%= form.text_field :price, value: get_price_in_pounds(form.object.price),class: 'form-control', placeholder: '0.00', readonly: true %>
         <%= "<small class='form-text'>#{msg}</small>".html_safe if has_error %>
       </div>
 

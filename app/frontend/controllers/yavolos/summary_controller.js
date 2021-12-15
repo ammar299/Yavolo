@@ -15,14 +15,18 @@ export default class extends ApplicationController {
             this.addProductItemToDOM(raw_html)
             this.saveProductId((product_id))
         }
-        this.stockLimitController.toggleUI(this.isAnyProductAddedToBundle())
-        this.stockLimitController.fetchLeastStock()
-        this.totalPricesController.toggleUI(this.isAnyProductAddedToBundle())
-        this.totalPricesController.setPrices()
+        this.notifyDependentControllers()
     }
 
     addProductItemToDOM(html) {
         this.productsContainerTarget.insertAdjacentHTML('beforeend', html)
+    }
+
+    notifyDependentControllers() {
+        this.stockLimitController.toggleUI(this.isAnyProductAddedToBundle())
+        this.stockLimitController.fetchLeastStock()
+        this.totalPricesController.toggleUI(this.isAnyProductAddedToBundle())
+        this.totalPricesController.setPrices()
     }
 
     removeSelectedProductsFromDOM(e) {
@@ -33,25 +37,52 @@ export default class extends ApplicationController {
             window.displayNoticeMessage("Please select some product to remove")
             return;
         }
+        $(".yavolos--delete-confirmation-modal").modal('show')
+
+    }
+
+    removeProductsConfirmed() {
+        const checkboxes = this.productCheckboxTargets;
         for (let checkbox of checkboxes) {
             this.removeSingleProduct(checkbox)
         }
-        this.stockLimitController.toggleUI(this.isAnyProductAddedToBundle())
-        this.stockLimitController.fetchLeastStock()
-        this.totalPricesController.toggleUI(this.isAnyProductAddedToBundle())
+        this.notifyDependentControllers()
         this.changeProductsCounterHeading()
-        this.totalPricesController.setPrices()
     }
 
-    removeSingleProduct(checkbox){
+    removeSingleProduct(checkbox) {
         if (!checkbox.checked) return;
         const productId = checkbox.dataset.productId
         this.removeProductId(productId)
         checkbox.closest(".yavolos--product-item").remove()
+        this.removeAssociationFromDatabaseIfPresent(productId)
+    }
+
+    removeAssociationFromDatabaseIfPresent(productId) {
+        if(!this.bundleId) return;
+        const url = this.removeAssociationUrl
+        const data = {
+            bundle_id: this.bundleId,
+            product_id: productId
+        }
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 
     changeProductsCounterHeading() {
-        const controllerThis= this
+        const controllerThis = this
         // Added setTimout because it takes some time for product item controller to disconned
         setTimeout(function () {
                 let counter = 1
@@ -77,6 +108,14 @@ export default class extends ApplicationController {
 
     isAnyProductAddedToBundle() {
         return this.productIds.length > 0
+    }
+
+    get bundleId() {
+        return this.data.get("bundle-id")
+    }
+
+    get removeAssociationUrl() {
+        return this.data.get("remove-association-url")
     }
 
     get manualBundlesController() {

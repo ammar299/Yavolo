@@ -125,10 +125,13 @@ Rails.application.routes.draw do
         end
 
         namespace :yavolos do
-          resources :manual_bundles, except: %i[show new create] do
+          resources :manual_bundles, except: %i[show new create edit] do
             collection do
               post :new, as: :new_manual_bundle
+              post :edit, as: :edit_manual_bundle
               post :create_bundle, as: :create_manual_bundle
+              put :update_bundle, as: :update_manual_bundle
+              post :remove_product_bundle_association
               get :add_yavolos
               get :yavolo_product_details
               get :yavolo_least_stock_value

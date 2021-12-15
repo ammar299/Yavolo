@@ -1,14 +1,16 @@
 <div class="container-fluid yavolos--manual-bundles" data-controller="yavolos--manual-bundles">
 
   <div class="row">
-    <h3 class="mt-4 mb-3">Add New Yavolo</h3>
+    <h3 class="mt-4 mb-3"><%=  @yavolo_bundle.present? ? "Edit Yavolo Listing" : "Add New Yavolo" %></h3>
     <div class="col-lg-6 d-flex flex-column">
       <div class="row">
         <div class="col-lg-12">
           <div class="row all-products-header d-flex justify-content-between flex-wrap mt-3 align-items-center">
             <div class="all-products-header-left flex-wrap col-8">
               <%= search_form_for @q, url: add_yavolos_admin_yavolos_manual_bundles_path, remote: true, html: {class: "new-yavolo-bundle-search-form", data: {controller: "new-yavolo-bundle-search-form", action: "submit->new-yavolo-bundle-search-form#onSubmit"}} do |f| %>
-
+                <% if @yavolo_bundle.present? %>
+                  <%= hidden_field_tag :yavolo_bundle_id, @yavolo_bundle.id %>
+                <% end %>
                 <% if params[:per_page].present? %>
                   <%= hidden_field_tag :per_page, params[:per_page] %>
                 <% end %>
@@ -51,14 +53,20 @@
           <span class="icon-chevron-left-solid pr-2 mm-text"></span>Back
         </a>
       </div>
-      <%= form_tag new_manual_bundle_admin_yavolos_manual_bundles_path, method: :post, data: {"yavolos--manual-bundles-target": "form"},class:"h-100" do %>
-        <div class="yo-white-card box-border mt-2 d-flex flex-column justify-content-between w-100 h-100 mb-4 flex1 yavolos--summary" data-controller="yavolos--summary">
-
+      <%= form_tag @yavolo_bundle.present? ? edit_manual_bundle_admin_yavolos_manual_bundles_path : new_manual_bundle_admin_yavolos_manual_bundles_path, method: :post, data: {"yavolos--manual-bundles-target": "form"},class:"h-100" do %>
+        <% if @yavolo_bundle.present? %>
+          <%= hidden_field_tag :yavolo_bundle_id, @yavolo_bundle.id %>
+        <% end %>
+        <div class="yo-white-card box-border mt-2 d-flex flex-column justify-content-between w-100 h-100 mb-4 flex1 yavolos--summary" data-controller="yavolos--summary" data-yavolos--summary-bundle-id="<%= @yavolo_bundle.present? ? @yavolo_bundle.id : nil %>" data-yavolos--summary-remove-association-url="<%= remove_product_bundle_association_admin_yavolos_manual_bundles_path %>">
           <div>
             <h5 class="text-center">Summary</h5>
 
             <div data-yavolos--summary-target="productsContainer" class="yavolos-bundle-products-container">
-              <%#= render "admin/yavolos/manual_bundles/summary/yavolo_product_item_summary" %>
+              <% if @yavolo_bundle.present? && @yavolo_bundle.yavolo_bundle_products.present? %>
+                <% @yavolo_bundle.yavolo_bundle_products.includes(:product).each.with_index(1) do  |ybp, index|%>
+                  <%= render "admin/yavolos/manual_bundles/summary/yavolo_product_item_summary", product: ybp.product, index: index, yavolo_bundle_product: ybp %>
+                <% end %>
+              <% end %>
             </div>
 
             <div>
@@ -93,4 +101,5 @@
   </div>
 </div>
 
+<%= render "confirmation_modal_stimulus" %>
 <%= render "admin/yavolos/manual_bundles/back_button_modal" %>

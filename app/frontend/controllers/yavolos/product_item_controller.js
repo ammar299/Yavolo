@@ -1,16 +1,22 @@
 import {ApplicationController} from "../application_controller.js"
 
 export default class extends ApplicationController {
-    static targets = ["counter", "errorText", "regularPriceInput", "discountPriceInput"]
+    static targets = ["id", "counter", "errorText", "regularPriceInput", "discountPriceInput"]
 
     connect() {
-        this.addCount()
+        this.setDisplay()
         this.inputMaskCurrencyFields()
         this.isDiscountValid = true
     }
 
-    addCount() {
-        this.setCountTarget($(".yavolos--product-item").length)
+    setDisplay() {
+        if(this.indexCount){
+            this.setCountTarget(this.indexCount)
+            this.summaryController.saveProductId(parseInt(this.idTarget.value))
+            setTimeout(()=>this.summaryController.notifyDependentControllers(),200);
+        } else {
+            this.setCountTarget($(".yavolos--product-item").length)
+        }
     }
 
     setCountTarget(value) {
@@ -33,7 +39,7 @@ export default class extends ApplicationController {
             this.isDiscountValid = false
             return
         }
-        value = parseFloat(value.replace("£", ""));
+        value = parseFloat(value.replace("£", "").replace(",",""));
         minValue = parseFloat(minValue);
         maxValue = parseFloat(maxValue);
         if (value < minValue || value > maxValue) {
@@ -44,6 +50,10 @@ export default class extends ApplicationController {
             this.isDiscountValid = true
             this.summaryController.totalPricesController.setPrices()
         }
+    }
+
+    get indexCount(){
+        return this.data.get('index-count')
     }
 
     get summaryController() {

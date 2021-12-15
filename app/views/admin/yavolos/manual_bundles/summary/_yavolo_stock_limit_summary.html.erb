@@ -12,7 +12,7 @@
         <label for="exampleInputPassword1" class="pr-2"><a href="#" data-action="click->yavolos--stock-limit#toggleInputField"><u>Edit
           Yavolo Display
           Stock Limit:</u></a></label>
-        <input name="yavolo[max_stock_limit]" type="number" class="form-control text-center invisible" min="0" max="<%= MAX_STOCK_VALUE %>" required  data-yavolos--stock-limit-target="maxStockLimit" data-action="blur->yavolos--stock-limit#validateMaxStockLimitField">
+        <input name="yavolo[max_stock_limit]" value="<%= @yavolo_bundle.present? ? @yavolo_bundle.max_stock_limit : nil %>" type="number" class="form-control text-center invisible" min="0" max="<%= MAX_STOCK_VALUE %>" required  data-yavolos--stock-limit-target="maxStockLimit" data-action="blur->yavolos--stock-limit#validateMaxStockLimitField">
         <small class="form-text input-error-text d-none" data-yavolos--stock-limit-target="errorText">Please enter a value between 0 and <%=  MAX_STOCK_VALUE  %></small>
       </div>
     </div>

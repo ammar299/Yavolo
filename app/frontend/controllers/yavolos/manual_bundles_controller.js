@@ -31,7 +31,7 @@ export default class extends ApplicationController {
     areAllProductItemsValid() {
         let obj = {}
         const pricesControllers = this.summaryController.getAllPricesControllers()
-        if (pricesControllers.length === 0) {
+        if (pricesControllers.length < 2) {
             obj['valid'] = false;
             obj['message'] = "Please add some products to bundle first"
         } else {
