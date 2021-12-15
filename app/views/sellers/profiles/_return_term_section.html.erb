@@ -3,12 +3,27 @@
     <section class="payment-method">
       <div class="return-term-inner">
         <h5>Returns & Terms</h5>
-        <%= simple_form_for current_seller.return_and_term || current_seller.build_return_and_term, url: manage_returns_and_terms_sellers_profiles_path, method: :post,  data: { remote: true } do |f| %>
+        <%= simple_form_for @return_and_term, url: manage_returns_and_terms_sellers_profiles_path, method: :post,  data: { remote: true } do |f| %>
           <div class="return-term-card yo-white-card box-border row">
             <div class="col-lg-8">
               <div class="form-group form-group-vertical form-group-vertical-responsive">
                 <strong><%= f.label :duration, 'Return items within:' %></strong>
-                <%= f.select :duration, return_and_terms_duration, { }, class: 'form-control' %>
+                <div class="bg-hvr-dropdown bg-hvr-drpdwn-2">
+                  <div class="dropdown dropdown-filter mb-3 d-inline-flex">
+                    <a href="#"
+                      class="btn btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center"
+                      id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                      aria-expanded="false"><span id="return-items-dispatch-text"><%= @return_and_term.duration.titleize || '30 days of dispatch' %></span><i class="fa fa-angle-down ml-3"
+                        aria-hidden="true"></i></a>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <% return_and_terms_duration.each do |key, value| %>
+                          <a class="dropdown-item" href="#" data-value="<%= value %>" id="return-items-dispatch"><%= key %><i class=""
+                            aria-hidden="true"></i></a>
+                        <% end %>   
+                      </div>
+                  </div>
+                </div>
+                <%= hidden_field_tag 'return_and_term[duration]', @return_and_term.duration %>
               </div>
               <div class="mb-4">
                 <p class="mb-2"><strong>Email format</strong></p>

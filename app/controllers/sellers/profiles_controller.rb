@@ -23,6 +23,7 @@ class Sellers::ProfilesController < Sellers::BaseController
     @remaining_addresses.each do |address_type| @seller.addresses.build address_type: address_type end if @remaining_addresses.present?
     @seller_apis = @seller.seller_apis
     @payment_methods = @seller.seller_payment_methods if @seller.seller_payment_methods.present?
+    @return_and_term = @seller.return_and_term || @seller.build_return_and_term
   end
 
   def seller_login_setting_update

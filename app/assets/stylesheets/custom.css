@@ -1048,9 +1048,7 @@ width: 75%;
   min-width: 135px;
 }
 
-.yo-white-card label {
-  font-weight: 600;
-}
+
 
 .seller-subscription-td-width {
   width: 20%;
@@ -1228,5 +1226,72 @@ width: 75%;
 		width: 100%;
 	}
 }
+
+.assign-category-form label{
+  min-width: 130px;
+}
+.form-control.assign-category-bulk-select-tag {
+  border: none !important;
+  padding: 0 !important;
+}
+.assign-category-form .form-control .selectize-input {
+  padding: 10px 15px;
+  word-break: break-all;
+  white-space: normal;
+}
+.selectize-input.focus{
+  outline: none !important;
+  box-shadow: none !important;
+}
+.bold-label {
+  font-weight: 600;
+}
+.login-form-label-space, 
+.login-form-space .form-group-vertical label{
+  min-width: 270px !important;
+}
+
 /* edite yavolo listings */
+
+/* bg-hvr-dropdown */
+.bg-hvr-dropdown .btn-link-dropdown {
+	border: 1px solid var(--dark-red) !important;
+	border-radius: 6px;
+	background-color: #fff !important;
+	font-size: 12px;
+	height: 38px;
+  }
+  .bg-hvr-dropdown .dropdown-filter.show .btn-link-dropdown,
+  .bg-hvr-dropdown .btn-link:hover {
+	background-color: #fff !important;
+	border-radius: 6px;
+	z-index: 4444;
+  }
+  .bg-hvr-dropdown .dropdown-filter.show .dropdown-menu {
+	background-color: #fff;
+	border: 1px solid var(--dark-red);
+	border-radius: 6px;
+	padding: 5px;
+	top: 35px !important;
+	min-width: 40px;
+  }
+  .bg-hvr-dropdown .dropdown-menu a  {
+	  font-size: 12px !important;
+	  word-break: break-all;
+	  white-space: normal;
+	  padding:  6px 12px !important;
+  }
+  .bg-hvr-dropdown .dropdown-menu a:hover {
+	background-color: var(--light-red) !important;
+	border-radius: 10px;
+	padding: 0 5px;
+  }
+  /* bg-hvr-dropdown */
+/* bg-hvr-drpdwn-2 */
+.bg-hvr-drpdwn-2.bg-hvr-dropdown .dropdown-filter.show .dropdown-menu {
+	border-radius: 0 0 6px 6px !important;
+	border-top: 0 !important;
+	top: 32px !important;
+}
+/* bg-hvr-drpdwn-2 */
 

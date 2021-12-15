@@ -7,7 +7,7 @@
         <div class="col-lg-10">
 
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <label for="exampleInputEmail1">Enable 2 step factor authentication:</label>
+              <label for="exampleInputEmail1" class="login-form-label-space">Enable 2 step factor authentication:</label>
               <div class="d-inline-flex align-items-center mb-1">
                 <label class="switch" for="two_factor_auth">
                     <%= f.check_box :two_factor_auth, checked: @seller.new_record? || f.object.two_factor_auth?, class: 'sellect-two-auth', id: 'two_factor_auth' %>
@@ -17,7 +17,7 @@
               </div>
             </div>
             <div class="form-group form-group-vertical form-group-vertical-responsive">
-              <label for="exampleInputEmail1">Automatic logout:</label>
+              <label for="exampleInputEmail1" class="login-form-label-space">Automatic logout:</label>
               <div class="d-inline-flex align-items-center mb-1">
                 <label class="switch" for="seller_timeout">
                   <%= f.check_box "check_box", checked: @seller.new_record? || f.object.timeout?, class: 'time-out-session', id: 'seller_timeout' %>
@@ -32,7 +32,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-8"> 
+        <div class="col-lg-10 login-form-space"> 
             <div class="form-group form-group-vertical form-group-vertical-responsive">
               <label for="exampleInputPassword1">Recovery email:</label>
               <div style="flex: 1;">

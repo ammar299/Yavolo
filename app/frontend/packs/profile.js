@@ -2,6 +2,7 @@ $(document).ready(function () {
   console.log("profile js is loaded");
   addNewSellerFormValidation();
   newSellerFormDropdownValidation();
+  changeReturnItemsDispatchDropdown();
 });
 function addNewSellerFormValidation() {
   $("form#add_new_seller_profile_form").validate({
@@ -304,4 +305,10 @@ function newSellerFormDropdownValidation() {
   //     }
   //   }
   // );
+}
+function changeReturnItemsDispatchDropdown() {
+  $('body').on('click', '#return-items-dispatch', function() {
+    $('#return_and_term_duration').val($(this).data('value'));
+    $('#return-items-dispatch-text').text($(this).text());
+  });
 }
