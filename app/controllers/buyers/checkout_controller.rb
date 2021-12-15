@@ -138,6 +138,8 @@ class Buyers::CheckoutController < Buyers::BaseController
       )
       @order.update(buyer_payment_method_id: @payment_method.id, buyer_id: @buyer.id) if @order.id.present?
       @order = Order.create(buyer_payment_method_id: @payment_method.id, buyer_id: @buyer.id) unless @order.id.present?
+      @order.line_items.destroy_all if @order.line_items.present?
+      @order.line_items.create(session[:_current_user_cart])
       session[:_current_user_order_id] = @order.id
       puts intent
       render json: { clientSecret: intent.client_secret }, status: :ok
@@ -199,6 +201,8 @@ class Buyers::CheckoutController < Buyers::BaseController
         end
         @order.update(buyer_payment_method_id: @payment_method.id) if @order.id.present?
         @order = Order.create(buyer_payment_method_id: @payment_method.id) unless @order.id.present?
+        @order.line_items.destroy_all if @order.line_items.present?
+        @order.line_items.create(session[:_current_user_cart])
         session[:_current_user_order_id] = @order.id
         puts paypal_order_creator
         render json: { token: paypal_order_creator.paypal_response.result.id }, status: :ok
