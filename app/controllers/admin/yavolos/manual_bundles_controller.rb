@@ -96,6 +96,17 @@ class Admin::Yavolos::ManualBundlesController < Admin::BaseController
     render json: {stockValue: stock_value}, status: :ok
   end
 
+  def export_yavolos
+    if params[:yavolos]&.split(",")&.count <= 50
+      respond_to do |format|
+        format.html
+        format.csv { send_data YavoloBundle.new.export_yavolos(params[:yavolos]), filename: "#{Date.today}-export-yavolos.csv"}
+      end
+    else
+      ExportYavolosToEmailWorker.perform_async(params[:yavolos])
+    end
+  end
+  
   def remove_product_bundle_association
     bundle_id = params[:manual_bundle][:bundle_id]
     product_id = params[:manual_bundle][:product_id]

@@ -23,10 +23,10 @@
           <%= render 'shared/result_per_page_dropdown', url_path: admin_yavolos_manual_bundles_path %>
         </div>
         <div class="all-products-header-right d-flex justify-content-between">
-          <a href="#" class="btn btn-radius px-4 btn-primary btn-sm mr-1">Upload CSV</a>
-          <a href="#" class="btn btn-radius px-4 btn-primary btn-sm mr-1">Export CSV</a>
+          <a href="#" class="btn btn-radius px-4 btn-primary mr-1 btn-sm">Upload CSV</a>
+          <a href="#" class="btn btn-radius px-4 btn-primary mr-1 export-yavolos btn-sm" >Export CSV</a>
+          <a href="#" class="btn btn-radius px-4 btn-primary mr-1 d-none" id="yavolos-trigger" >export yavolos data</a>
           <%= link_to "Add new Yavolo", add_yavolos_admin_yavolos_manual_bundles_path, class: "btn btn-radius px-4 btn-primary btn-sm" %>
-
         </div>
       </div>
     </div>
@@ -42,7 +42,7 @@
           <tr>
             <th>
               <label class="checkbox-blk">
-                <input type="checkbox">
+                <input type="checkbox" id="check-all-checkboxes">
                 <span class="checkmark checkmark-white"></span>
               </label>
             </th>

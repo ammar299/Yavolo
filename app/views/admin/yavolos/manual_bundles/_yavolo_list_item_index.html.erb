@@ -1,9 +1,11 @@
 <tr>
   <td>
-    <label class="checkbox-blk">
-      <input type="checkbox">
-      <span class="checkmark"></span>
-    </label>
+    <div class="multiple-yavolos">
+      <label class="checkbox-blk">
+        <%=check_box_tag '[yavolos_attributes][][marked]', yavolo_bundle.id %>
+        <span class="checkmark"></span>
+      </label>
+    </div>
   </td>
   <td> <%= yavolo_bundle.status %></td>
   <td>

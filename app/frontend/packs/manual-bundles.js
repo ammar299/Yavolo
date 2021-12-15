@@ -5,6 +5,7 @@ $(document).ready(function () {
     initializeCKEditorOnYavoloManualFormFields();
     bindAndLoadCategoriesSelect2ForYavoloManualForm()
     validateYavoloBundleForm();
+    setExportData();
 
     if($('[name="products[][keywords][]"]').length) {
         $('[name="products[][keywords][]"]').on('itemAddedOnInit', function(event) {
@@ -14,6 +15,37 @@ $(document).ready(function () {
 
 })
 
+function setExportData(){
+    $(document).on("click", ".export-yavolos", function (e) {
+        e.preventDefault()
+        var selected_yavolos = [];
+        $(".multiple-yavolos input[type=checkbox]:checked").each(function () { //get selected yavolos
+            selected_yavolos.push($(this).val());
+        });
+        if (selected_yavolos.length < 1) {
+            exportAllYavolos(selected_yavolos) //export all yavolos
+        } 
+        else {
+            $("#yavolos-trigger").attr("href","/admin/yavolos/manual_bundles/export_yavolos.csv?format=csv&yavolos=" + selected_yavolos) //export selected yavolos.
+        }
+        exportYavolosNotification(selected_yavolos)
+        $("#yavolos-trigger")[0].click()
+    });
+}
+
+function exportYavolosNotification(selected_yavolos){
+    let msg = selected_yavolos.length <= 50 ? 'Yavolos Csv is being downloaded.' : 'Yavolos Csv will be sent to your email.'
+    displayNoticeMessage(msg)
+}
+
+function exportAllYavolos(selected_yavolos){
+
+    $(".multiple-yavolos input[type=checkbox]").each(function () { //get all yavolos
+        selected_yavolos.push(parseInt($(this).val()));
+    });
+    
+    $("#yavolos-trigger").attr("href","/admin/yavolos/manual_bundles/export_yavolos.csv?format=csv&yavolos=" + selected_yavolos)
+}
 function initializeCKEditorOnYavoloManualFormFields(){
     if(!$('.ckeditor-field').length) return;
     $('.ckeditor-field').each(function (index,element) {

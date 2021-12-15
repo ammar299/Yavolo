@@ -41,4 +41,12 @@ class AdminMailer < ApplicationMailer
     puts "---- Email Sent for send_account_creation_email_admin_seller ------"
   end
 
+  def send_yavolos_email(csv)
+    attachments["#{Date.today}-export-yavolos.csv"] = {mime_type: 'text/csv', content: csv}
+    Admin.all.each do |admin|
+      mail(to: admin.email, subject: 'Yavolo: CSV yavolos data')
+    end
+  end
+  
+
 end

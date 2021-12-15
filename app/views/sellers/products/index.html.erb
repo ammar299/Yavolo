@@ -97,7 +97,6 @@
                         </div>
                         </div>
                         <div class="d-flex flex-wrap">
-                            <%#= link_to "Export CSV", export_csv_sellers_products_path(:format => :csv), class: 'btn btn-sm btn-radius px-2 btn-primary mx-1' %>
                             <%= link_to 'Export CSV', export_csv_sellers_products_path(format: "csv", product: "") ,class: 'btn btn-radius px-2 btn-primary btn-sm mr-1 my-1 seller-export-csv-selected-products' %>
                             <a href="#"
                                 class="btn btn-sm btn-radius px-2 btn-primary mr-1 my-1 upload-csv-btn">Upload Product CSV</a>

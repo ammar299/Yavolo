@@ -139,3 +139,4 @@ jQuery.validator.addMethod("validPrice", function(value) {
 jQuery.validator.addMethod('productEan', function(value, element) {
     return this.optional(element) || /^(\d{13})?$/.test(value);
 }, 'Please Enter a valid EAN');
+import "controllers"
