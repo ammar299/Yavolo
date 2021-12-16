@@ -307,8 +307,10 @@ function newSellerFormDropdownValidation() {
   // );
 }
 function changeReturnItemsDispatchDropdown() {
-  $('body').on('click', '#return-items-dispatch', function() {
-    $('#return_and_term_duration').val($(this).data('value'));
-    $('#return-items-dispatch-text').text($(this).text());
+  $('body').on('click', '#return-items-dispatch, #login-timeout', function() {
+    let hidden_field = ($(this).attr('id') == 'login-timeout')? '#seller-timeout-filed' : '#return_and_term_duration'
+    let text_field = ($(this).attr('id') == 'login-timeout')? '#login-timeout' : '#return-items-dispatch'
+    $(hidden_field).val($(this).data('value'));
+    $(text_field + '-text').text($(this).text());
   });
 }

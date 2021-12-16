@@ -162,6 +162,10 @@ module ApplicationHelper
     date.strftime('%d/%m/%Y')
   end
 
+  def connection_expiry_time(time)
+    time.strftime('%I:%M%p')
+  end
+
   def countries_list
     COUNTRIES_HASH_LIST.map { |obj| [obj[:name]] }
   end

@@ -24,11 +24,28 @@
                   <span class="slider round"></span>
                 </label>
               </div>
-              <div class="column logout-time-dropdown  <%=f.object.timeout.blank? ? 'd-none' : ' '%> d-flex align-items-center">
-                <p class="my-0 mx-3 seller-selector" >Enable</p>
-                <%= f.select(:timeout, Seller.timeouts.keys.to_a, {:include_blank => "Select"}, {:class => "form-control selector-value seller-selector"} ) %>
+              <div class="logout-time-dropdown <%= 'd-none' if @seller.timeout.blank? %>">
+                <div class="column d-flex align-items-center">
+                  <p class="my-0 mx-3 seller-selector" >Enable</p>
+                  <div class="bg-hvr-dropdown bg-hvr-drpdwn-2">
+                    <div class="dropdown dropdown-filter mb-3 d-inline-flex">
+                      <a href="#"
+                        class="btn btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center"
+                        id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false"><span id="login-timeout-text"><%= @seller.timeout || 'After 1 hour of no activity' %></span><i class="fa fa-angle-down ml-3"
+                          aria-hidden="true"></i></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <% Seller.timeouts.keys.to_a.each do |value| %>
+                            <a class="dropdown-item" href="#" data-value="<%= value %>" id="login-timeout"><%= value %><i class=""
+                              aria-hidden="true"></i></a>
+                          <% end %>
+                        </div>
+                    </div>
+                  </div>
+                  <%= f.hidden_field :timeout, value: @seller.timeout, id: 'seller-timeout-filed', disabled: (@seller.timeout.present? ? false : true) %>
+                </div>
               </div>
-            </div>    
+            </div>
         </div>
       </div>
       <div class="row">

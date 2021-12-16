@@ -161,9 +161,9 @@ class Admin::SellersController < Admin::BaseController
   def holiday_mode
     if holiday_mode_params[:holiday_mode] == 0 || holiday_mode_params[:holiday_mode] == '0'
       # change this seller's products status to inactive
-      @seller.products.where(status: :active).update(status: :inactive)
-    else
       @seller.products.where(status: :inactive).update(status: :active)
+    else
+      @seller.products.where(status: :active).update(status: :inactive)
     end
     @seller.update(holiday_mode_params)
     text = @seller.holiday_mode == true ? 'Enabled holiday mode successfully' : 'Disabled holiday mode successfully'

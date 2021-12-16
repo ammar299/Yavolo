@@ -4,7 +4,10 @@
     <td id="seller-api-developer-id"><%= seller_api.developer_id %></td>
     <td><%= seller_api.app_name %></td>
     <td id="seller-api-status"><%= action_performed_value(seller_api.status).capitalize %></td>
-    <td id="seller-api-expiry-date"><%= seller_api.expiry_date ? date_format_US(seller_api.expiry_date) : '' %></td>
+    <td id="seller-api-expiry-date">
+      <%= seller_api.expiry_date ? date_format_US(seller_api.expiry_date) : '' %>
+      <span class="ml-2"><%= seller_api.expiry_date ? connection_expiry_time(seller_api.created_at).downcase : '' %></span>
+    </td>
     <td id="developer-api-token" class="text-center">
       <a href="javascript:void(0)" class="view-api-token">View</a>
       <span id="api-token" class="help-popup api-token d-none developer-api-token">
