@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="seo-content box-border yo-white-card">
             <h4>SEO Content</h4>
-            <hr>
+            
             <div>
             <%= form.fields_for :seo_content, @product.seo_content do |seo_data| %>
                 <% has_error, msg = get_errors(form, "seo_content.title") %>

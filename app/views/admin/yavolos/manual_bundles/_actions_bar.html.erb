@@ -10,7 +10,7 @@
           <%= hidden_field_tag "yavolo_bundle_id", @yavolo_bundle.id, id: "yavolo_bundle_id" %>
         <% end %>
         <% if form.object.new_record? || form.object.status_draft? %>
-          <%= form.submit 'SAVE DRAFT', class: 'btn btn-sm btn-radius px-4 btn-outline-white mb-2 mt-2',data: { disable_with: false } %>
+          <%= form.submit 'SAVE DRAFT', class: 'btn btn-radius px-4 btn-outline-white mb-2 mt-2',data: { disable_with: false } %>
         <% end %>
         <%= yield if block_given? %>
       </div>

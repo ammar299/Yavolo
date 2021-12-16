@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="ebay box-border yo-white-card">
             <h4>eBay Details</h4>
-            <hr>
+            
             <%= form.fields_for :ebay_detail, @product.ebay_detail do |ebay_data| %>
             <div class="ebay-forms d-flex justify-content-between flex-wrap align-items-center mb-3">
                 <% has_error, msg = get_errors(form, "ebay_detail.lifetime_sales") %>

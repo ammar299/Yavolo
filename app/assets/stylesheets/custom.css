@@ -310,12 +310,14 @@ scrollbar-width: none;  /* Firefox */
   cursor: pointer;
 }
 .badge-info {
-  background-color: var(--light-red) !important;
-  color: var(--red) !important;
+  background-color: var(--dark-red) !important;
+  color: var(--off-white) !important;
   border-radius: 20px;
-  padding-top: 3px !important;
-  padding-bottom: 6px !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
   padding-left: 10px !important;
+  font-size: 12px;
+  font-weight: normal;
 }
 .bootstrap-tagsinput .badge [data-role="remove"]:after {
   background-color: transparent !important;
@@ -763,7 +765,7 @@ label {
   min-height: 35px;
   display: flex;
   align-items: center;
-  width: 135px;
+  min-width: 100px;
   text-overflow: ellipsis;
   justify-content: space-between;
   position: relative;
@@ -1294,4 +1296,6 @@ width: 75%;
 	top: 32px !important;
 }
 /* bg-hvr-drpdwn-2 */
-
+.delivery-option {
+  border: 1px solid #D6D6D6;
+}

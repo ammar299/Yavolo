@@ -150,7 +150,6 @@ h4 {
     background-color: var(--dark-red);
     border-color: var(--dark-red);
 }
-
 .btn-outline-white {
     color: var(--white);
     background-color: transparent;
@@ -160,14 +159,24 @@ h4 {
 .btn-outline-white:not([disabled]):not(.disabled).active, .btn-outline-white:not([disabled]):not(.disabled):active, .show>.btn-outline-white.dropdown-toggle,
 .btn-outline-white:hover {
     color: var(--dark-red);
-    background-color: var(--white);
+    background-color: var(--white) !important;
     border-color: var(--white);
 }
-
+.btn-bg-white {
+    color: var(--dark-red);
+    background-color: var(--white) !important;
+    border-color: var(--white);
+}
 .btn-danger {
     color: #fff;
     background-color: var(--danger-color);
     border-color: var(--danger-color);
+}
+.btn-bg-white:hover {
+    color: var(--white);
+    background-color: transparent !important;
+    background-image: none;
+    border-color: var(--white);
 }
 .btn-radius {
     border-radius: 30px;
@@ -289,7 +298,7 @@ textarea.form-control {
     color: var(--dark-red);
 }*/
 .form-control:focus {
-    border-color: var(--dark-red);
+    border-color: var(--dark-red) !important;
     box-shadow: none;
     color: var(--dark-red);
 }

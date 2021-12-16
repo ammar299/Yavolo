@@ -6,7 +6,7 @@
             </div>
             <div class="footer-left">
                 <% if form.object.persisted? %>
-                  <a href="javascript:void(0)" class="btn btn-sm btn-radius px-4 btn-outline-white mb-2 mt-2 preview_listing">PREVIEW LISTING</a>
+                  <a href="javascript:void(0)" class="btn btn-sm btn-radius px-4 btn-bg-white mb-2 mt-2 mr-3 preview_listing">PREVIEW LISTING</a>
                   <%= hidden_field_tag "product[product_id]", @product.id, id: "product_id" %>
                 <% end %>
                 <% if form.object.new_record? || form.object.draft? %>

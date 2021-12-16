@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <div class="google-shoping box-border yo-white-card">
       <h4>Google Shopping</h4>
-      <hr>
+      
       <div>
         <%= form.fields_for :google_shopping, @yavolo_bundle.google_shopping do |google_data| %>
           <% has_error, msg = get_errors(form, "google_shopping.title") %>
