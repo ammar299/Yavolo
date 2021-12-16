@@ -117,6 +117,15 @@ class Admin::Yavolos::ManualBundlesController < Admin::BaseController
     render json: {message: "Product removed successfully"}, status: :ok
   end
 
+  def delete_yavolo
+    if params[:ids].present?
+      @yavolo_bundle_ids = params[:ids].split(',')
+      @yavolo_bundles = YavoloBundle.find(@yavolo_bundle_ids)
+      YavoloBundle.where(id: @yavolo_bundle_ids).destroy_all
+      flash[:notice] = @yavolo_bundle_ids.length > 1 ? 'Yavolo Bundles deleted successfully!' : 'Yavolo Bundle deleted successfully!'
+    end
+  end
+
   private
 
   def update_associated_products

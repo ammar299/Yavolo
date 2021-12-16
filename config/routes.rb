@@ -135,6 +135,7 @@ Rails.application.routes.draw do
               get :add_yavolos
               get :yavolo_product_details
               get :yavolo_least_stock_value
+              delete :delete_yavolo
               get :export_yavolos
             end
           end
