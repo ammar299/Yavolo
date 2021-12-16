@@ -44,7 +44,11 @@ module Products
       def get_columns_values(product)
         values = []
         get_csv_headers.slice(0, get_csv_headers.index('seo_title')).each do |col|
-          values << product.send(col).to_s
+          if col == 'ean'
+            values << "ean_#{product.send(col).to_s}"
+            else
+              values << product.send(col).to_s
+          end
         end
         so = product.seo_content
         values << [so.title,so.url,so.description,so.keywords] if so.present?

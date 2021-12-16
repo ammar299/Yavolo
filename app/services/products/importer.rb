@@ -141,6 +141,7 @@ module Products
         product_params = { product: { seo_content_attributes: {}, ebay_detail_attributes: {}, google_shopping_attributes: {} } }
         params_hash = row.to_hash
         params_hash['condition'] = 'brand_new' if params_hash['condition'] == 'new' || params_hash['condition'] == 'New'
+        params_hash['ean'] = params_hash['ean'].split('_')[1] if params_hash['ean'].present? && params_hash['ean'].split('_')[1].length == 13
         params_hash['seo_title'] = params_hash['title'] if params_hash['seo_title'].blank?
         params_hash['seo_description'] = params_hash['description'] if params_hash['seo_description'].blank?
         params_hash.keys.each do |key|
