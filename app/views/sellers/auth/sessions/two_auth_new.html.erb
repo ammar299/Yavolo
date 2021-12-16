@@ -14,8 +14,12 @@
             <%= image_tag @qr_code %>
           </div>
           <br />
-          <label for="exampleInputPassword1">Authenticator Code:</label>
-          <%= text_field_tag(:otp_attempt, nil, placeholder: 'Enter code', required: true) %>
+          <div class="d-flex align-items-baseline">
+            <label for="exampleInputPassword1" class="pr-3">Authenticator Code:</label>
+            <div class="flex1">
+              <%= text_field_tag(:otp_attempt, nil, placeholder: 'Enter code', class: 'form-control') %>
+            </div>
+          </div>
           <%= submit_tag 'Confirm', class: 'btn btn-primary btn-lg btn-block general-mrgn' %>
         <% end %>
         </div>

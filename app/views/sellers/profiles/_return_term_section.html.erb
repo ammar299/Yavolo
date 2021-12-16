@@ -13,7 +13,7 @@
                     <a href="#"
                       class="btn btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center"
                       id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                      aria-expanded="false"><span id="return-items-dispatch-text"><%= @return_and_term.duration.titleize || '30 days of dispatch' %></span><i class="fa fa-angle-down ml-3"
+                      aria-expanded="false"><span id="return-items-dispatch-text"><%= @return_and_term.duration&.titleize || '30 days of dispatch' %></span><i class="fa fa-angle-down ml-3"
                         aria-hidden="true"></i></a>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         <% return_and_terms_duration.each do |key, value| %>

@@ -522,6 +522,12 @@ textarea.form-control {
 /* Rounded sliders */
 .slider.round {
   border-radius: 34px;
+  box-shadow: none;
+  outline: 0;
+}
+.slider{
+  outline: 0 !important;
+  box-shadow: none !important;
 }
 
 .slider.round:before {
