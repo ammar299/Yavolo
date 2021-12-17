@@ -514,6 +514,7 @@ $(document).ready(function () {
           required: function(element){
             return $("#seller_current_password").val().length > 0;
           },
+          equalTo: "#seller_password"
         },
       },
       highlight: function (element) {
@@ -535,6 +536,7 @@ $(document).ready(function () {
         "seller[password_confirmation]":
         {
           required: "New password required",
+          equalTo: "New password does not match"
         },
       },
     });
