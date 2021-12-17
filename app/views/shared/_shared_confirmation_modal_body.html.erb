@@ -1,0 +1,7 @@
+<p class="pb-4 confirmation-text"><%= text.present? ? text : 'Are you sure to perform this action?' %></p>
+<div class="carrier-btn text-right">
+  <%= link_to "No", "javascript:void(0)",'data-dismiss': "modal", class: 'btn btn-sm btn-radius px-4 btn-primary mt-2' %>
+  <%= link_to "Yes", request_path, data: {
+      disable_with: "Updating...", remote: remote_type, method: method_type.to_sym
+  },id: 'shared-modal-confirm-btn', class: 'btn btn-sm btn-radius px-4 btn-primary mt-2 ml-2'  %>
+</div>

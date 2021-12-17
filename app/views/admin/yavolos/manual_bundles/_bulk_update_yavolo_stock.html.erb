@@ -1,0 +1,12 @@
+<p class="pb-4 confirmation-text">Enter Stock Display Value</p>
+
+<%= simple_form_for "yavolo_max_stock_limit_update", url: bulk_update_max_stock_limit_admin_yavolos_manual_bundles_path, method: :post do |form| %>
+  <div class="form-group">
+    <%= form.number_field :max_stock_value, min: 0, max: MAX_STOCK_VALUE, class: 'form-control', placeholder: 'Enter Value' %>
+    <%= form.hidden_field :selected_yovolos, value: '', id: 'selected-yavolos' %>
+  </div>
+  <div class="carrier-btn text-right">
+    <%= link_to "No", "javascript:void(0)",'data-dismiss': "modal", class: 'btn btn-sm btn-radius px-4 btn-primary mt-2' %>
+    <%= form.submit 'Yes', class: 'btn btn-sm btn-radius px-4 btn-primary mt-2 ml-2' %>
+  </div>
+<% end %>

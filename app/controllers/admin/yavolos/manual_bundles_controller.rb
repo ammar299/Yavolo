@@ -106,7 +106,7 @@ class Admin::Yavolos::ManualBundlesController < Admin::BaseController
       ExportYavolosToEmailWorker.perform_async(params[:yavolos])
     end
   end
-  
+
   def remove_product_bundle_association
     bundle_id = params[:manual_bundle][:bundle_id]
     product_id = params[:manual_bundle][:product_id]
@@ -123,6 +123,17 @@ class Admin::Yavolos::ManualBundlesController < Admin::BaseController
       @yavolo_bundles = YavoloBundle.find(@yavolo_bundle_ids)
       YavoloBundle.where(id: @yavolo_bundle_ids).destroy_all
       flash[:notice] = @yavolo_bundle_ids.length > 1 ? 'Yavolo Bundles deleted successfully!' : 'Yavolo Bundle deleted successfully!'
+    end
+  end
+
+  def bulk_max_stock_limit_value; end
+
+  def bulk_update_max_stock_limit
+    if bulk_max_stock_limit_update[:selected_yovolos].present? && bulk_max_stock_limit_update[:max_stock_value].present?
+      @yavolo_bundle_ids = bulk_max_stock_limit_update[:selected_yovolos].split(',')
+      @yavolo_bundles = YavoloBundle.find(@yavolo_bundle_ids)
+      YavoloBundle.where(id: @yavolo_bundle_ids).update(max_stock_limit: bulk_max_stock_limit_update[:max_stock_value].to_i)
+      redirect_to admin_yavolos_manual_bundles_path, notice: "Yavolo Bundles updated successfully!"
     end
   end
 
@@ -174,6 +185,10 @@ class Admin::Yavolos::ManualBundlesController < Admin::BaseController
 
   def format_keyword_params(product_param)
     product_param[:keywords] = Array.wrap(product_param[:keywords]).flatten.reject { |k| k.blank? }.compact.uniq.join(",")
+  end
+
+  def bulk_max_stock_limit_update
+    params.require(:yavolo_max_stock_limit_update).permit(:max_stock_value, :selected_yovolos)
   end
 
 

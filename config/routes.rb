@@ -137,6 +137,8 @@ Rails.application.routes.draw do
               get :yavolo_least_stock_value
               delete :delete_yavolo
               get :export_yavolos
+              get :bulk_max_stock_limit_value
+              post :bulk_update_max_stock_limit
             end
           end
         end

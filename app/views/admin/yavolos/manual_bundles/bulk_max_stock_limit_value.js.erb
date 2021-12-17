@@ -1,0 +1,13 @@
+$("#shared-modal-actions").html("<%= j render(partial: 'admin/yavolos/manual_bundles/bulk_update_yavolo_stock') %>");
+
+var $selected_yavolos = []
+$('.multiple-update-yavolos input[type=checkbox]:checked').each(function () {
+  $selected_yavolos.push($(this).val())
+});
+if ($selected_yavolos.length < 1) {
+  $('#flash-msg').html("<%= j render partial: 'shared/notice_banner', locals: {notice: 'You have not selected any yavolo bundle to update'}%>");
+}
+else {
+  $('#selected-yavolos').val($selected_yavolos);
+  $('#shared-confirmation-modal').modal('show');
+}
