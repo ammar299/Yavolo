@@ -4,27 +4,17 @@
     <div class="row">
       <div class="col-md-12">
         <%= simple_form_for @seller, url: url, html: { id: :add_new_seller_form } do |form| %>
-          <% if form.object.errors.any? %>
-            <div id="error_explanation">
-              <div class="alert alert-error">
-                The form contains <%= pluralize(form.object.errors.count, "error") %>.
-              </div>
-              <ul>
-                <% form.object.errors.full_messages.each do |msg| %>
-                  <li style="border: 1px solid red;" class="red-text">* <%= msg %></li>
-                <% end %>
-              </ul>
-            </div>
-          <% end %>
           <!-- Seller Email -->
           <h4 class="mt-4 mb-4">User</h4>
           <% if params[:controller] == "admin/sellers" %>
             <%= form.hidden_field :account_status, {value: 'activate'} %>
           <% end %>
+          <% has_error, msg = get_errors(form, :email) %>
           <div class="form-group form-group-vertical form-group-vertical-responsive">
             <%= form.label :email, 'Email Address:', class: 'boldheadings' %>
             <div style="flex: 1">
-              <%= form.email_field :email, placeholder: 'Email Address', class: 'form-control' %>
+              <%= form.email_field :email, placeholder: 'Email Address', class: 'form-control seller-email-field' %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
           </div>
           <!-- Business Information Section / Company Details -->

@@ -14,7 +14,11 @@ $(document).ready(function () {
   bindAndSortByEvent();
   bindRemoveFilterBy();
   endSubscriptionHanlder();
-  sellerLoginSettingsForm()
+  sellerLoginSettingsForm();
+  emailErrorRemovedBaackend();
+  $(".upload-sellers-csv-btn").click(function () {
+    $("#upload-sellers-csv-popup").modal("show");
+  });
   bindReasonUpdateOnInput();
   bindSellerCsvPopup()
   
@@ -1610,8 +1614,23 @@ function bindReasonUpdateOnInput(){
   })
 }
 
+function eanErrorRemoveBackend(){
+  $(".ean-product-field").on('input',function(){
+    if($(this).parent().find('.form-text')[0])
+     $(this).parent().find('.form-text')[0].remove()
+ })
+}
+
+function emailErrorRemovedBaackend(){
+  $(".seller-email-field").on('input',function(){
+    if($(this).parent().find('.form-text')[0])
+     $(this).parent().find('.form-text')[0].remove()
+ })
+}
+
 function bindSellerCsvPopup(){
   $(".upload-sellers-csv-btn").click(function () {
     $("#upload-sellers-csv-popup").modal("show");
   });
 }
+
