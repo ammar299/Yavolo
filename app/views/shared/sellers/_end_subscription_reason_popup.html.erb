@@ -17,18 +17,21 @@
           </div>
           <h5>End Subscription</h5>
           <p><%=confirm_statement%></p>
-          <div class="d-flex align-items-center form-group-vertical-responsive">
+          <div class="d-flex align-items-center form-group-vertical-responsive mb-3">
             <label id="reason-input-field_label" for="" class="pr-2">Please provide a reason for your cancellation:</label>
             <%= render 'shared/sellers/reason_dropdown_block'%>
           </div>
-           <br>
-           <div class="row">
-              <div class="col-lg-6"></div>
-              <div class="reason-input col-lg-6 mb-3">
-                <input type="text" class="form-control reason-input-field" placeholder="Please provide reason" required>
-              </div>
+          
+          <div class="row align-items-start text-right mb-3">
+            <div class="col-lg-6 mb-0 align-items-center form-group-vertical-responsive  text-right pr-0">
+              <label class=" reason-label align-items-start font14 mb-0 ">Other:</label>
             </div>
-          <%= link_to "END SUBSCRIPTION",path||"#", data: data||{}, id: id, class: 'mb-3 btn btn-sm btn-radius px-4 btn-primary mb-3'  %> <br>
+            <div class="col-lg-6 text-left">
+              <div class="other-reason pl-2 mb-0"></div>
+            </div>
+        
+          </div>
+          <%= link_to "END SUBSCRIPTION",path||"#", data: data||{}, id: id, class: 'btn btn-sm btn-radius px-4 btn-primary'  %>
         </div>
       </div>
       <div class="modal-footer justify-content-center footer-upper-border">

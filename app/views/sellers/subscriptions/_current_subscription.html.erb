@@ -6,7 +6,7 @@
       <%= render 'sellers/subscriptions/information_block'%>
       <a href="#" name="" class="btn btn-sm btn-radius px-4 btn-primary mb-3 ml-3 end-subscription">End Subscription</a>
       <%= render 'shared/sellers/subscription_end_modal', confirm_statement: 'Are you sure you want to pass up all the great benefits of Yavolo?', id: 'stripe-subscription-end',path: '#', data: "", modal_id: 'stripe-subscription-end-confirm' %>
-      <%= render 'shared/sellers/end_subscription_reason_popup', confirm_statement: "We're sorry to hear you're ending your subscription with yavolo.", id: 'stripe-subscription-reason-end',path: '#', data: sellers_remove_subscription_path(@seller.seller_stripe_subscription), modal_id: 'stripe-subscription-end-reason-confirm' %>
+      <%= render 'shared/sellers/end_subscription_reason_popup', confirm_statement: "We're sorry to hear you're ending your subscription with Yavolo.", id: 'stripe-subscription-reason-end',path: '#', data: sellers_remove_subscription_path(@seller.seller_stripe_subscription), modal_id: 'stripe-subscription-end-reason-confirm' %>
     <%end%>
   <%elsif subscription_canceled? %>
     <table class="table mt-2 subscription-table">

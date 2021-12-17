@@ -1296,6 +1296,21 @@ width: 75%;
 	top: 32px !important;
 }
 /* bg-hvr-drpdwn-2 */
+
+.other-reason{
+  overflow-y: auto;
+  max-height: 158px;
+  width: 100%;
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+
+.dropdown-filter.show .dropdown-menu .active{
+  background-color: var(--light-red) !important; 
+  color: var(--dark-red);
+  border-radius: 10px;
+  user-select: none;
+}
 .delivery-option {
   border: 1px solid #D6D6D6;
 }

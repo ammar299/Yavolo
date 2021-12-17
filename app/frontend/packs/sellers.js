@@ -15,10 +15,10 @@ $(document).ready(function () {
   bindRemoveFilterBy();
   endSubscriptionHanlder();
   sellerLoginSettingsForm()
-  $(".upload-sellers-csv-btn").click(function () {
-    $("#upload-sellers-csv-popup").modal("show");
-  });
+  bindReasonUpdateOnInput();
+  bindSellerCsvPopup()
   
+
   uploadCsvDragDrop();
   function addNewSellerFormValidation() {
     $("form#add_new_seller_form").validate({
@@ -1548,6 +1548,7 @@ function reasonModule(){
       if (reason == "")
       {
         displayNoticeMessage("Reason is required")
+        $("#dropdownMenuLinkForEndSubscription")[0].click()
         return false
       }
       unsubscribeSeller(url,reason)
@@ -1569,19 +1570,48 @@ function unsubscribeSeller(url,reason){
 }
 
 function reasonSelection(){
-  $(".reason-input").hide()
-  $(".select-reason:first-child").find(".fa-check").removeClass("invisible")
-
+  // $(".select-reason:first-child").find(".fa-check").removeClass("invisible") will be used later
+  $(".select-reason:nth-child(2)").addClass("active")
+  hideShow("hide")
   $(document).on("click", ".select-reason", function (e) {
     e.preventDefault();
-    $(".select-reason").find('.fa-check').each(function() {
-      $(this).addClass("invisible")
+    $(".select-reason").each(function() {
+      $(this).removeClass("active")
     });
-
+    
     $(".append-reason").html($(this).text())
-    $(this).find('.fa-check').removeClass("invisible")
-    $(".reason-input").hide()
-    if ($(this).text()== "Other")
-      $(".reason-input").show()
+    $(this).addClass("active")
+    hideShow("hide")
+    if ($(this).text() == "Other"){
+      hideShow("show")
+      return false
+    }
+      
+  });
+
+}
+
+function hideShow(action){
+  if (action == "hide"){
+    $(".reason-label").addClass("d-none")
+    $(".other-reason").addClass("d-none")
+    $(".reason-input").addClass("d-none")
+  }else{
+    $(".reason-label").removeClass("d-none")
+    $(".other-reason").removeClass("d-none")
+    $(".reason-input").removeClass("d-none")
+  }
+  
+}
+
+function bindReasonUpdateOnInput(){
+  $(document).on("input", ".reason-input-field", function (e) {
+    $(".other-reason").html($(".reason-input-field").val())
+  })
+}
+
+function bindSellerCsvPopup(){
+  $(".upload-sellers-csv-btn").click(function () {
+    $("#upload-sellers-csv-popup").modal("show");
   });
 }
