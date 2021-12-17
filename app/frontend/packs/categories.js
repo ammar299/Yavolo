@@ -221,7 +221,7 @@ window.validateCategoryForm = function() {
     },
     messages: {
       "category[category_name]": {
-          required: "Category Name can't be blank."
+        required: "Name can't be blank."
       }
     }
   });

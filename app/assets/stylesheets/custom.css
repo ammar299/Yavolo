@@ -61,7 +61,7 @@
 }
 
 .error-field .bootstrap-tagsinput {
-  border: 1px solid var(--red);
+  border: 1px solid var(--red) !important;
 }
 .bootstrap-tagsinput .badge {
   margin: 0px 3px;

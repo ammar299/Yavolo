@@ -9,7 +9,9 @@
           <input type="hidden" id="is_subcategory" name="is_subcategory" value="" >
           <div class="form-group form-group-vertical form-group-vertical-responsive">
             <%= f.label :category_name, "Category Name / H1 Tag" %>
-            <%= f.text_field :category_name, class: "form-control" %>
+            <div class="d-flex flex-column flex1">
+              <%= f.text_field :category_name, class: "form-control" %>
+            </div>
           </div>
           <div class="filter-type d-flex align-items-center flex-wrap">
             <div class="form-group form-group-vertical form-group-vertical-responsive">

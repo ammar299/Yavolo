@@ -1,15 +1,18 @@
 <div class="product-catagory-inner yo-white-card box-border">
   <h5>Meta Content</h5>
-  <%= form_with(model: [:admin, @category], local: false, html: {id: 'category_meta_form'}) do |f| %>
+  <%= form_with(model: [:admin, @category], local: false, html: {id: 'category-meta-form', class: 'category-meta-form'}) do |f| %>
     <%= f.fields_for :meta_content, @category.meta_content || @category.build_meta_content do |g| %>
       <div class="form-group form-group-vertical form-group-vertical-responsive">
         <%= g.label :title, "Meta Title" %>
-        <%= g.text_field :title, class: "form-control" %>
+        <div class="d-flex flex-column flex1">
+          <%= g.text_field :title, class: "form-control" %>
+        </div>
       </div>
-
       <div class="form-group form-group-vertical form-group-vertical-responsive">
         <%= g.label :keywords, "Meta Keywords" %>
-        <%= g.text_field :keywords, class: "form-control category-meta-tags", placeholder: "Enter Keywords", data: {role: "tagsinput"} %>
+        <div class="d-flex flex-column flex1">
+          <%= g.text_field :keywords, class: "form-control category-meta-tags", placeholder: "Enter Keywords", data: {role: "tagsinput"} %>
+        </div>
       </div>
 
       <div class="form-group form-group-vertical form-group-vertical-responsive">
@@ -31,5 +34,55 @@
         ClassicEditor.create(document.querySelector('.meta-description'),{toolbar: [ 'bold', 'italic', '|' ,'bulletedList', 'numberedList' ]}).catch(error => {
             console.error(error);
         });
-    })
+
+      if($("#category_meta_content_attributes_keywords").tagsinput('input')) {
+        $("#category_meta_content_attributes_keywords").tagsinput('input').addClass('ignoreme');
+      }
+      validateProductForm();
+    });
+
+  function validateProductForm(custom_rules={}, custom_messages={}) {
+    let rules = {
+      "category[meta_content_attributes][title]": {
+        required: true
+      }
+    };
+
+    let messages = {
+      "category[meta_content_attributes][title]": {
+        required: "Title can\'t be blank"
+      }
+    };
+
+    $('form.category-meta-form').validate({
+      ignore: ".ignoreme",
+      rules: {...rules, ...custom_rules},
+      highlight: function(element) {
+        if(element.name=="category[meta_content_attributes][keywords]"){
+          $(element).parents('.form-group').addClass('error-field')
+        }else{
+          $(element).parents("div.form-group").addClass('error-field');
+        }
+      },
+      unhighlight: function(element) {
+        if($(element).attr('name')=="category[meta_content_attributes][keywords]"){
+          $(element).parents('.form-group').removeClass('error-field')
+        }else{
+          $(element).parents("div.form-group").removeClass('error-field');
+        }
+      },
+      messages: {...messages, ...custom_messages}
+    });
+
+    $('#category_meta_content_attributes_keywords').change(function(){
+      $(this).valid();
+    });
+
+    $('#category_meta_content_attributes_keywords').rules('add', {
+      required: true,
+      messages: {
+        required: "Keywords can\'t be blank"
+      }
+    });
+  }
 </script>
