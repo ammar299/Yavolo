@@ -28,6 +28,7 @@
                 <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
               <div class="dropdown-menu pt-0" aria-labelledby="dropdownMenuLink" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
                 <%= link_to 'Delete', delete_yavolo_admin_yavolos_manual_bundles_path(), remote: true, class: 'dropdown-item', data: { bulk: true, "bulk-checkboxes-selector":".multiple-update-yavolos", confirm: "Are you sure you want to perform this action?", method: :delete}  %>
+                <%= link_to 'Publish', publish_yavolo_admin_yavolos_manual_bundles_path(), remote: false, class: 'dropdown-item', data: { bulk: true, "bulk-checkboxes-selector":".multiple-update-yavolos", confirm: "Are you sure you want to perform this action?", method: :post}  %>
                 <a class="dropdown-item" href="<%= bulk_max_stock_limit_value_admin_yavolos_manual_bundles_path %>" data-remote="true" data-method="get">Update stock display value </a>
               </div>
             </div>

@@ -139,6 +139,7 @@ Rails.application.routes.draw do
               get :export_yavolos
               get :bulk_max_stock_limit_value
               post :bulk_update_max_stock_limit
+              post :publish_yavolo
             end
           end
         end

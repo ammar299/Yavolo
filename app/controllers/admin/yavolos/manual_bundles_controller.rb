@@ -137,6 +137,15 @@ class Admin::Yavolos::ManualBundlesController < Admin::BaseController
     end
   end
 
+  def publish_yavolo
+    if params[:ids].present?
+      @yavolo_bundle_ids = params[:ids].split(',')
+      @yavolo_bundles = YavoloBundle.find(@yavolo_bundle_ids)
+      number = YavoloBundle.where(id: @yavolo_bundle_ids, status: :draft).update_all(status: :live)
+      redirect_to admin_yavolos_manual_bundles_path, notice: "#{number} out of #{@yavolo_bundle_ids.length} yavolos are published"
+    end
+  end
+
   private
 
   def update_associated_products
