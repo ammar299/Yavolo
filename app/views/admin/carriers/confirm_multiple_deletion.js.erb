@@ -7,6 +7,6 @@ $('.carriers-checkbox-container input[type=checkbox]:checked').each(function() {
 if (selected_carriers.length > 0) {
   $('#delete-confirmation-modal').modal('show');
 }
-
-
-
+else{
+  $('#flash-msg').html("<%= j render partial: 'shared/notice_banner', locals: {notice: 'No record selected'}%>");
+}

@@ -28,7 +28,7 @@
             <div class="row align-items-end">
               <div class="col-md-4">
                 <label class="checkbox-blk">
-                  <%= b.check_box checked: @ship_ids.present? ? @ship_ids[index].present? : ((b.value == 1)? true : checked_delivery_ship?(@delivery_option, b.value)), id: 'ship-checkbox', data: { processing_ship_id: "select-processing-ship-filed-#{b.value}", delivery_ship_id: "select-delivery-ship-filed-#{b.value}" } %>
+                  <%= b.check_box checked: @ship_ids.present? ? @ship_ids[index].present? : ((b.value == 1)? true : checked_delivery_ship?(@delivery_option, b.value)), id: 'ship-checkbox', data: { ship_price_id: "ship-price-filed-#{b.value}", processing_ship_id: "select-processing-ship-filed-#{b.value}", delivery_ship_id: "select-delivery-ship-filed-#{b.value}" } %>
                   <span class="checkmark"></span>
                   <%= b.label %>
                 </label>
@@ -38,7 +38,8 @@
                   <div class="col-md-4 pl-md-0">
                     <div class="form-group form-group-vertical flex-wrap">
                       <b><label for="ship_price" class="text-left pr-3 w-100">Price</label></b>
-                      <%= text_field_tag 'ship_price[]', @ship_prices.present? ? @ship_prices[index] : (b.value == 1? "#{0.00}" : "#{delivery_ship_price(@delivery_option.id, b.value)}"), readonly: (b.value == 1), class: 'form-control W-100 delivery-option-price' %>
+                      <%= text_field_tag 'ship_price[]', @ship_prices.present? ? @ship_prices[index] : (b.value == 1? "#{0.00}" : "#{delivery_ship_price(@delivery_option.id, b.value)}"), readonly: (b.value == 1), class: "form-control W-100 delivery-option-price ship-price-filed-#{b.value}" %>
+                      <div id="ship-price-error-label"></div>
                     </div>
                   </div>
                   <div class="col-md-4 pl-md-0">

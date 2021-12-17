@@ -2,6 +2,7 @@ $(document).ready(function(){
   deleteDeliveryOptionsCarriers();
   deleteDeliveryOptionsForSellers();
   addNewCarrierFormValidation();
+  addNewDeliveryOptionForm();
   submitDeliveryForm(); // check fields are valid or not and then submit form
   enableDeliveryOptionName(); // enable/disable name validation after form submit
   deliveryOptionDropdownValidation(); // enable/disable select filed validation after form submit
@@ -92,6 +93,7 @@ function submitDeliveryForm() {
     var non_empty_name_filed = (name_field.val() != '');
     var processing_time_count = 0;
     var delivery_time_count = 0;
+    var price_count = 0;
     $('#delivery-option-form input[type=checkbox]').each(function () {
       if (this.checked) {
         accessShipsAttributesClasses($(this));
@@ -101,9 +103,12 @@ function submitDeliveryForm() {
         if ($('.' + delivery_time_klass).val() == '') {
           delivery_time_count += 1;
         }
+        if ((price_klass != 'ship-price-filed-1') && (parseInt($('.' + price_klass).val().split('£').join('').split(',').join('')).toFixed(2) > 999999.99)) {
+          price_count += 1;
+        }
       }
     });
-    if ((non_empty_name_filed == true) && (processing_time_count == 0) && (delivery_time_count == 0)) {
+    if ((non_empty_name_filed == true) && (processing_time_count == 0) && (delivery_time_count == 0) && (price_count == 0)) {
       $('#delivery-option-form-btn').attr('id', 'delivery-option-submit-btn');
       $('#delivery-option-form input[type=checkbox]').each(function () {
         accessShipsAttributesClasses($(this));
@@ -139,6 +144,7 @@ function submitDeliveryForm() {
 function accessShipsAttributesClasses($this) {
   processing_time_klass = $this.data('processingShipId');
   delivery_time_klass = $this.data('deliveryShipId');
+  price_klass = $this.data('shipPriceId');
 }
 
 // enable/disable name validation after form submit
@@ -214,4 +220,17 @@ function setSellerDeliveryOptionSearchMenuAndQueryName(){
     }
     $('.current-search-filter').html(currentFilter+' <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>');
   });
+}
+
+function addNewDeliveryOptionForm() {
+	$('body').on('input propertychange', '#ship_price_', function () {
+    if (parseInt($(this).val().split('£').join('').split(',').join('')).toFixed(2) > 999999.99) {
+      $(this).parents("div.form-group").addClass('error-field');
+      $(this).parent().find('#ship-price-error-label').html('<label id="ship_price_-error" class="error"></label>');
+      $(this).parent().find('#ship_price_-error').text('Price too high');
+    }else {
+      $(this).parents("div.form-group").removeClass('error-field');
+      $(this).parent().find('#ship_price_-error').text('');
+    }
+	});
 }
