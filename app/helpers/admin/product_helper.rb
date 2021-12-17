@@ -88,4 +88,12 @@ module Admin::ProductHelper
     product.owner.class.name=='Seller' ? "#{product.owner.first_name} #{product.owner.last_name}" : "Admin"
   end
 
+  def percentage_decimal_addition(discount)
+    if (discount % 1 != 0)
+      number_to_percentage(discount, precision: discount.to_d.to_s.split('.').last.length)
+    else
+      number_to_percentage(discount, precision: 0)
+    end
+  end
+
 end

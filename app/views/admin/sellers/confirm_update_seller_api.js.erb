@@ -1,9 +1,12 @@
 <% if params[:param_to_update].present? && params[:param_to_update] == 'enable' %>
-<% text = 'Are you sure you want to enable api for this developer?' %>
+  $('.modal-title').text('Enable Developer')
+  <% text = "Enable the following developer: #{get_seller_api_developer_name(params[:seller_api_id])} ?" %>
 <% elsif params[:param_to_update].present? && params[:param_to_update] == 'disable' %>
-<% text = 'Are you sure you want to disable api for this developer?' %>
+  $('.modal-title').text('Disable Developer')
+  <% text = "Disable the following developer: #{get_seller_api_developer_name(params[:seller_api_id])} ?" %>
 <% elsif params[:param_to_update].present? && params[:param_to_update] == 'renew' %>
-<% text = 'Are you sure you want to renew api this developer?' %>
+  $('.modal-title').text('Renew Developer')
+  <% text = "Renew the following developer: #{get_seller_api_developer_name(params[:seller_api_id])} ?" %>
 <% end %>
 $("#seller-api-actions").html("<%= j render(partial: 'admin/sellers/update_seller_api', locals: { id: @seller, seller_api_id: params[:seller_api_id], text: text }) %>");
 $('#seller-api-modal').modal('show');

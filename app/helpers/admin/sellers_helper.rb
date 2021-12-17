@@ -99,4 +99,7 @@ module Admin::SellersHelper
     seller.picture.present? ? 'Update Image' : 'Add Image'
   end
 
+  def get_seller_api_developer_name(id)
+    SellerApi.find_by(id: id)&.developer_name
+  end
 end

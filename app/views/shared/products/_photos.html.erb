@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <% if (form.object.new_record? && params[:dup_product_id].blank?) || form.object.pictures.ids.compact.count > 1 %>
-                    <span class="icon-help icon-help-style"></span>
+                <span class="icon-help icon-help-style" id="verify"></span>
                 <% end %>        
             </div>
         </div>

@@ -176,15 +176,28 @@
 
                                                 <td class="text-center">
                                                     <% if product.yavolo_enabled %>
-                                                        <span class="icon-manage-Yavolo font-20px light-red p-yavolo-enabled"></span>
+                                                        <div class="relative">
+                                                            <div>
+                                                                <span class="icon-manage-Yavolo font-20px light-red p-yavolo-enabled"></span>
+                                                            </div>
+                                                            <div>
+                                                                <span class="icon-help help-popup pl-1"></span>
+                                                                <div class="help-popup-inner">
+                                                                    <p class="text-center mb-0">
+                                                                        <strong>title</strong>
+                                                                    </p>
+                                                                    <p class="mb-0 help-popup-text">Lorem ipsum dolor sit, amet consectetur
+                                                                        adipisicing elit. Esse, doloremque.</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     <% else %>
                                                         <span class="icon-manage-Yavolo font-20px light-red yo-opacity p-yavolo-disabled"></span>
                                                     <% end %>
                                                 </td>
                                                 <td>
                                                 <div class="form-group mb-0 relative">
-                                                        <%=number_field_tag 'product[discount]', sprintf('%g', product.discount.to_d), class: 'form-control px-2 w-30 discount-field editable input-discount', data: {pid: product.id, action: 'update_discount'} %>
-                                                        <span class= "discount-symbol">%</span>
+                                                        <%=text_field_tag 'product[discount]', percentage_decimal_addition(product.discount), class: 'form-control px-2 w-30 discount-field editable input-discount', data: {pid: product.id, action: 'update_discount'} %>
                                                 </div>
                                                 </td>
                                                 <td>

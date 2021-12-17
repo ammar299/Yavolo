@@ -11,6 +11,10 @@ $(document).ready(function(){
   disableEnterOnProductCreate();
   sellerProductForm();
   productImageDelete();
+  $("#verify").click(function () {
+    $('#information-modal').modal('show');
+  });
+
   if($(".grid-single-img").length >= 9){
     $(".show-upload-images-popup").addClass('pointer-events-none');
   }
@@ -931,7 +935,8 @@ function updateProductsDom(res){
   }
 
   if(action=='update_discount'){
-    let discount = res.value
+    var value = res.value
+    let discount = parseFloat(res.value)
     var classNameOfAction = ".discount-field, .discount-box"
     updateBulkActions(res, classNameOfAction, discount)
     if($prodRow.find('.discount-field').length > 0){
@@ -1254,6 +1259,3 @@ function updateBulkActions(res,classNameOfAction, val){
     $("#prod-id-" + item).find(classNameOfAction).val(val);
   });
 }
-
-
-

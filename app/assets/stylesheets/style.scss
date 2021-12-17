@@ -1752,6 +1752,11 @@ h6 {
 .light-red {
   color: var(--danger-color);
 }
+.help-popup {
+  position: absolute;
+  top: 5px;
+  right: -4px;
+}
 .help-popup:hover {
   color: var(--danger-color);
   cursor: pointer;
@@ -1765,8 +1770,9 @@ h6 {
   display: none;
   border-radius: 10px;
   position: absolute;
-  right: 200px;
+  right: -100px;
   width: 200px;
+  margin-top: 15px;
 }
 .yo-opacity {
   opacity: 0.3;
