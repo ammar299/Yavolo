@@ -1831,6 +1831,11 @@ select {
   background-repeat: no-repeat;
   background-position: right 15px bottom 13px;
 }
+select.new-select {
+  background-image: asset-url("downarrow.png") !important;
+  background-position: right 6px bottom 11px !important;
+  background-size: 13px;
+}
 .opacity-50 {
   opacity: 0.5;
 }

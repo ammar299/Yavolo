@@ -1,4 +1,5 @@
 $('#filter-group-form').html("<%= j render(partial: 'form', locals: { filter_group: @filter_group, url: admin_filter_groups_path }) %>");
+$('#filter-group-form').find('#submitbutton').val('Create Filter Group');
 $('#filterGroupForm').find('.modal-title').text('Add New Filter Group');
 $('#filterGroupForm').modal('show');
 $('a.remove_fields.filter_categories').first().hide();

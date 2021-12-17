@@ -1320,3 +1320,14 @@ width: 75%;
 .delivery-option {
   border: 1px solid #D6D6D6;
 }
+.ck.ck-editor__editable:not(.ck-editor__nested-editable).ck-focused {
+  outline: var(--dark-red) !important;
+    border: var(--dark-red) !important;
+    box-shadow: var(--dark-red) !important;
+}
+.ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable, .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners {
+  border: 1px solid #ccc !important;
+}
+select.new-select {
+
+}

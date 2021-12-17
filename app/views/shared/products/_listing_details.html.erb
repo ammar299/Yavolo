@@ -23,7 +23,7 @@
                 <% has_error, msg = get_errors(form, :condition) %>
                 <div class="form-group general-mrgn col-md-12 mt-0 <%= has_error ? 'error-field' : '' %>">
                     <%= form.label 'Condition*' %>
-                    <%= form.select :condition, Product.conditions.keys.map{|c| [(c == 'brand_new' ? 'New' : c.titleize ), c]}, {include_blank: false }, class: 'form-control' %>
+                    <%= form.select :condition, Product.conditions.keys.map{|c| [(c == 'brand_new' ? 'New' : c.titleize ), c]}, {include_blank: false }, class: 'form-control new-select' %>
                     <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                 </div>
             </div>

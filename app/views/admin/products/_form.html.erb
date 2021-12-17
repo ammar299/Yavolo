@@ -19,7 +19,7 @@
         <%= render "shared/products/delivery_details", form: form, new_delivery_option_url: new_admin_delivery_option_path %>
         <%= render "shared/products/product_actions_bar", form: form  do %>
           <% if form.object.new_record? || form.object.draft? || form.object.pending? %>
-            <%= form.submit 'APPROVE & PUBLISH', class: 'btn btn-sm btn-radius px-4 btn-outline-white mb-2 mt-2', data: { disable_with: false } %>
+            <%= form.submit 'APPROVE & PUBLISH', class: 'btn btn-sm btn-radius px-4 btn-bg-white mb-2 mt-2', data: { disable_with: false } %>
           <% else %>
             <%= form.submit 'UPDATE', class: 'btn btn-sm btn-radius px-4 btn-bg-white mb-2 mt-2', data: { disable_with: false } %>
           <% end %>

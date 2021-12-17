@@ -119,9 +119,9 @@ h4 {
 
 
 .btn-primary {
-    background-color: var(--dark-red);
-    border-color: var(--dark-red);
-    color: var(--off-white);
+    background-color: var(--dark-red) !important;
+    border-color: var(--dark-red) !important;
+    color: var(--off-white) !important;
     box-shadow: none;
 }
 .btn-primary:not([disabled]):not(.disabled).active, .btn-primary:not([disabled]):not(.disabled):active, .show>.btn-primary.dropdown-toggle,
@@ -324,7 +324,7 @@ textarea.form-control {
 .categories-main .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused),
 .form-group-vertical .bootstrap-tagsinput,
 .form-group-vertical .form-control {
-    border: 1px solid var(--dark-red) !important;
+    border: 1px solid #ccc !important;
 }
 .subscribe-field,
 .search-field {
