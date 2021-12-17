@@ -4,17 +4,30 @@
     <div class="col-lg-12">
       <div class="all-products-header d-flex justify-content-between flex-wrap mt-3">
         <div class="all-products-header-left d-flex flex-wrap">
-          <div class="search-field mb-0 mr-1">
-            <input type="text" placeholder="Search Yavolos">
-            <i class="fa fa-search" aria-hidden="true"></i>
-          </div>
+          <%= search_form_for @q, url: admin_yavolos_manual_bundles_path do |f| %>
+            <% if params[:per_page].present? %>
+              <%= hidden_field_tag :per_page, params[:per_page] %>
+            <% end %>
+
+            <div class="search-field mb-0 mr-1">
+              <% search_query_param = 'yan_or_products_title_or_products_yan_or_products_owner_of_Seller_type_first_name_or_products_owner_of_Seller_type_last_name_cont' %>
+              <%= f.search_field search_query_param, {class: '', placeholder: 'Search Yavolos', value: params.dig(:q, search_query_param.to_sym).to_s, autocomplete: 'off'} %>
+              <% if params.dig(:q, search_query_param.to_sym).to_s.present? %>
+                <%= link_to admin_yavolos_manual_bundles_path, class: 'cross-icon' do %>
+                  <i class="icon-cross mm-text" aria-hidden="true" style="top: 15px"></i>
+                <% end %>
+              <% else %>
+                <i class="fa fa-search search-icon" aria-hidden="true"></i>
+            <% end %>
+            </div>
+          <% end %>
+
           <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border">
             <div class="dropdown">
               <a href="#" class="btn btn-radius px-3 btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions
                 <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
               <div class="dropdown-menu pt-0" aria-labelledby="dropdownMenuLink" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
                 <%= link_to 'Delete', delete_yavolo_admin_yavolos_manual_bundles_path(), remote: true, class: 'dropdown-item', data: { bulk: true, "bulk-checkboxes-selector":".multiple-update-yavolos", confirm: "Are you sure you want to perform this action?", method: :delete}  %>
-                <%#= link_to 'Delete', delete_yavolo_admin_yavolos_manual_bundles_path, method: :get, remote: true, class: 'dropdown-item' %>
                 <a class="dropdown-item" href="#">Update stock display value </a>
               </div>
             </div>
@@ -61,6 +74,9 @@
             <%= render partial:"yavolo_list_item_index",collection: @yavolo_bundles, as: :yavolo_bundle  %>
           </tbody>
         </table>
+        <% if @yavolo_bundles.count == 0 %>
+          <p class="text-center my-5">No Result Found</p>
+        <% end %>
       </div>
     </div>
   </div>
