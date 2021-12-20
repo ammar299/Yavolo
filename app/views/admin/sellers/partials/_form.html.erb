@@ -14,7 +14,7 @@
             <%= form.label :email, 'Email Address:', class: 'boldheadings' %>
             <div style="flex: 1">
               <%= form.email_field :email, placeholder: 'Email Address', class: 'form-control seller-email-field' %>
-              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+              <%="<small class='form-text red-text'>#{msg}</small>".html_safe if has_error %>
             </div>
           </div>
           <!-- Business Information Section / Company Details -->
