@@ -19,7 +19,7 @@ function setExportData(){
     $(document).on("click", ".export-yavolos", function (e) {
         e.preventDefault()
         var selected_yavolos = [];
-        $(".multiple-yavolos input[type=checkbox]:checked").each(function () { //get selected yavolos
+        $(".multiple-update-yavolos input[type=checkbox]:checked").each(function () { //get selected yavolos
             selected_yavolos.push($(this).val());
         });
         if (selected_yavolos.length < 1) {
@@ -28,8 +28,13 @@ function setExportData(){
         else {
             $("#yavolos-trigger").attr("href","/admin/yavolos/manual_bundles/export_yavolos.csv?format=csv&yavolos=" + selected_yavolos) //export selected yavolos.
         }
-        exportYavolosNotification(selected_yavolos)
-        $("#yavolos-trigger")[0].click()
+        if (selected_yavolos.length !== 0){
+            exportYavolosNotification(selected_yavolos)
+            $("#yavolos-trigger")[0].click()
+        }
+        else{
+            displayNoticeMessage("Nothing to export.")
+        }
     });
 }
 
@@ -40,7 +45,7 @@ function exportYavolosNotification(selected_yavolos){
 
 function exportAllYavolos(selected_yavolos){
 
-    $(".multiple-yavolos input[type=checkbox]").each(function () { //get all yavolos
+    $(".multiple-update-yavolos input[type=checkbox]").each(function () { //get all yavolos
         selected_yavolos.push(parseInt($(this).val()));
     });
     

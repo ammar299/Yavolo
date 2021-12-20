@@ -55,7 +55,7 @@ class YavoloBundle < ApplicationRecord
   def get_max_product_number(yavolos)
     max_bundled_products = []
     yavolos&.each do |yavolo|
-      max_bundled_products <<  YavoloBundle.where(id: yavolo.to_i)&.last&.products.count
+      max_bundled_products <<  YavoloBundle.where(id: yavolo.to_i)&.last&.products&.count
     end
     return max_bundled_products.max
   end

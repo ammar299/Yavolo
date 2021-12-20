@@ -106,7 +106,7 @@ class Admin::Yavolos::ManualBundlesController < Admin::BaseController
       ExportYavolosToEmailWorker.perform_async(params[:yavolos])
     end
   end
-
+  
   def remove_product_bundle_association
     bundle_id = params[:manual_bundle][:bundle_id]
     product_id = params[:manual_bundle][:product_id]

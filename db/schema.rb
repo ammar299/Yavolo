@@ -652,6 +652,15 @@ ActiveRecord::Schema.define(version: 2021_12_17_130521) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "subscriptions", force: :cascade do |t|
+    t.string "subscription_name"
+    t.string "subscription_types"
+    t.float "price"
+    t.float "commission_excluding_vat"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
