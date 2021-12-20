@@ -15,3 +15,4 @@
 <% end %>
 $('#confirm-seller-actions-modal').modal('hide');
 $('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
+$("#total-sellers-per-page").html("<%= j render 'shared/result_of_pages', total_count: @sellers_count, count: @sellers_count %>");

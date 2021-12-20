@@ -84,7 +84,7 @@ class Admin::SellersController < Admin::BaseController
       if params[:field_to_update] == 'delete'
         @sellers = Seller.find(@seller_ids)
         Seller.where(id: @seller_ids).destroy_all
-        flash.now[:notice] = 'Sellers deleted successfully!'
+        flash.now[:notice] =  "#{'Seller'.pluralize(@seller_ids.count)} deleted successfully!"
       else
         Seller.where(id: @seller_ids).update_all(account_status: params[:field_to_update])
         @sellers = Seller.find(@seller_ids)
@@ -92,9 +92,10 @@ class Admin::SellersController < Admin::BaseController
           seller.send_account_status_changed_email_to_seller
           seller.update_seller_products_listing
         end
-        flash.now[:notice] = 'Sellers updated successfully!'
+        flash.now[:notice] =  "#{'Seller'.pluralize(@seller_ids.count)} updated successfully!"
       end
     end
+    @sellers_count = Seller.all.count
   end
 
   def update
