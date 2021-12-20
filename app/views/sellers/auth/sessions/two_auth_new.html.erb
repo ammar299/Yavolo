@@ -10,10 +10,18 @@
           <%= hidden_field_tag :otp_secret, @otp_secret  %>
           <%= hidden_field_tag :email, @current_seller.email %>
           <br />
-          <div class= "google-2fa-auth-qr text-center"> 
+          <div class= "google-2fa-auth-qr d-flex">
+            <div class="back-yavolo pr-2">
+              <i class="fas fa-angle-left"></i>
+              <%= link_to 'Back to Yavolo', new_seller_session_path %>
+            </div>
             <%= image_tag @qr_code %>
           </div>
           <br />
+          <span class="mm-text">
+            Scan this code with the Google Authenticator app and insert <br>
+            authentication code to continue.
+          </span>
           <div class="d-flex align-items-baseline">
             <label for="exampleInputPassword1" class="pr-3">Authenticator Code:</label>
             <div class="flex1">
