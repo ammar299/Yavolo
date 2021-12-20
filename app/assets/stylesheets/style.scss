@@ -1048,6 +1048,24 @@ h6 {
   -webkit-transition: 0.3s ease-out;
   transition: 0.3s linear;
 }
+
+.product-photos-section .img-star-icon{
+  .icon-reviews{
+    display: none;
+  }
+  .icon-star-empty{
+    display: inline;
+  }
+}
+
+.product-photos-section .img-star-icon.featured{
+  .icon-reviews{
+    display: inline;
+  }
+  .icon-star-empty{
+    display: none;
+  }
+}
 .img-del-icon {
   bottom: 6px;
   right: 6px;

@@ -1,5 +1,7 @@
-<div class="photo-grid yo-white-card  box-border mt-3">
+<div class="photo-grid yo-white-card  box-border mt-3 product-photos-wrapper">
     <div class="row">
+
+      <%= hidden_field_tag "featured_image", nil, id:"featured_image_input"%>
         <div class="add-edit-product-photos <%= form.object.new_record? && params[:dup_product_id].blank? ? 'col-lg-12' : 'col-lg-8' %>">
             <div class="add-photoo text-center <%= form.object.new_record? && params[:dup_product_id].blank? ? 'photos-uploader-section' : '' %>">
                 <div class="add-photo-inner">
@@ -18,13 +20,20 @@
                         <% form.object.pictures.each.with_index do |picture,index| %>
                             <%= form.fields_for :images,picture do |pic_form| %>
                             <% unless pic_form.object.new_record? %>
-                                <div class="col-md-4 p-1 p-img-container">
+                                <% data_file_name =  params[:dup_product_id].present? ? File.basename(pic_form.object.name.url) : picture.id %>
+                                <% data_identification_type = params[:dup_product_id].present? ? "name": "id" %>
+                                <div class="col-md-4 p-1 p-img-container"  data-file-name="<%= data_file_name %>" data-identification-type="<%= data_identification_type %>">
                                 <div class="grid-single-img">
                                     <span>
                                         <%= image_tag pic_form.object.name.url %>
                                     </span>
-                                    <div class="img-star-icon">
+                                    <div class="img-star-icon <%= pic_form.object.is_featured && params[:dup_product_id].nil? ? "featured" : nil %>">
                                         <span class="icon-reviews"></span>
+                                        <span class="icon-star-empty">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                            <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                          </svg>
+                                        </span>
                                     </div>
                                     <div class="img-del-icon rm-img" data-imgindex="<%=index%>">
                                         <span class="fas fa-trash-alt">

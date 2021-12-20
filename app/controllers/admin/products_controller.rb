@@ -39,6 +39,7 @@ class Admin::ProductsController < Admin::BaseController
     if @product.save
       messages = @product.seo_content.assign_meta_title_and_description
       save_product_images_from_remote_urls(@product) if params[:dup_product_id].present?
+      @product.update_featured_image(params[:featured_image])
       redirect_to admin_products_path, notice: messages.join(". ")
     else
       if params[:dup_product_id].present?
@@ -75,6 +76,7 @@ class Admin::ProductsController < Admin::BaseController
         @product.pictures_attributes = images_to_delete_params
         @product.save
       end
+      @product.update_featured_image(params[:featured_image])
       redirect_to admin_products_path, notice: 'Product was successfully updated.'
     else
       @delivery_options = admin_and_current_product_sellers_delivery_templates

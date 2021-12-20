@@ -82,4 +82,26 @@ class Product < ApplicationRecord
         return 0 if total_count.zero?
         ((yavolo_count.to_d/total_count.to_d)*100.0).to_i
     end
+
+    def update_featured_image(featured_image_param)
+        return unless featured_image_param.present?
+        featured_image_param = JSON.parse(featured_image_param)
+        picture = get_picture_for_featured_image(featured_image_param["identifier"],featured_image_param["identifier_type"])
+        return unless picture.present?
+        self.pictures.where(is_featured: true).update_all(is_featured: false)
+        picture.update(is_featured: true)
+    end
+
+    private
+
+    def get_picture_for_featured_image(identifier, identifier_type)
+        picture = nil
+        if identifier_type == "id"
+            picture = self.pictures.find_by(id: identifier.to_i)
+        elsif identifier_type == "name"
+            identifier = identifier.gsub(CarrierWave::SanitizedFile.sanitize_regexp,"_")
+            picture = self.pictures.where('pictures.name ILIKE ?',"%#{identifier}").first
+        end
+        picture
+    end
 end

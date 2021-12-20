@@ -47,6 +47,7 @@ class Sellers::ProductsController < Sellers::BaseController
 
     if @product.save
       save_product_images_from_remote_urls(@product) if params[:dup_product_id].present?
+      @product.update_featured_image(params[:featured_image])
       redirect_to sellers_products_path, notice: 'Product was successfully created.'
     else
       if params[:dup_product_id].present?
@@ -83,6 +84,7 @@ class Sellers::ProductsController < Sellers::BaseController
         @product.pictures_attributes = images_to_delete_params
         @product.save
       end
+      @product.update_featured_image(params[:featured_image])
       redirect_to sellers_products_path, notice: 'Product was successfully updated.'
     else
       @delivery_options = seller_and_admins_delivery_templates
