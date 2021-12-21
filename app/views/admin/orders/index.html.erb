@@ -30,7 +30,7 @@
               <%= hidden_field_tag :per_page, params[:per_page] %>
             <% end %>
             <%= f.search_field admin_order_current_search_field_name.to_sym, { class: 'input-btn-sm admin-order-search-field', placeholder: 'Search Orders', value: "#{admin_order_search_field_query_param_val(params)}" } %>
-            <% if params[:q].present? && params[:q]['line_items_product_title_or_order_number_or_line_items_product_owner_of_Seller_type_first_name_or_line_items_product_owner_of_Seller_type_last_name_or_order_detail_name_or_line_items_product_sku_cont'].present? %>
+            <% if params[:q].present? %>
               <%= link_to admin_orders_path, class: 'btn-sm' do %>
                 <i class="icon-cross" aria-hidden="true"></i>
               <% end %>
@@ -136,6 +136,9 @@
           <%= render 'orders_list', orders: @orders %>
           </tbody>
         </table>
+        <% if @orders.count == 0 %>
+          <p class="text-center my-5">No Record Found</p>
+        <% end %>
       </div>
       <div class="row">
         <div class="col-md-4 mx-auto">
