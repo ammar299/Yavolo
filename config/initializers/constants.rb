@@ -81,3 +81,6 @@ ACTION_NAME_WITH_ACTION_STATUS = [
     'action_performed': 'disabled'
   }
 ].freeze
+
+
+COMMISSION = 14

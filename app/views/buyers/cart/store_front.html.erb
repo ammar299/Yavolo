@@ -1,11 +1,14 @@
 <%= link_to 'Go To Cart', cart_path, class: 'btn btn-sm btn-primary m-3' %>
 <div class="row">
   <div class="col-md-6">
-    <% five_products = Product.first(5) %>
-    <% five_products.each do |product| %>
+    <%# five_products = Product.first(5) %>
+    <% Product.all.each do |product| %>
       <div>
         <%#= product.pictures.inspect %>
         <div id="<%= product.id %>">
+          <span>Product Seller:</span>
+          <span><%= "#{product.owner.email}" %></span>
+          <br>
           <span>Product Name:</span>
           <span><%= product.title %></span>
         </div>

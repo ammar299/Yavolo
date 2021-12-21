@@ -105,7 +105,14 @@ class Buyers::CheckoutController < Buyers::BaseController
           { stripe_token_id: payment_method.token, buyer: @buyer, order: @order, amount: @order_amount[:total] }
         )
         if payment.status
-          @order.update(buyer_payment_method_id: payment_method.id,sub_total: @order_amount[:sub_total],total: @order_amount[:total])
+          @order.update(order_type: :paid_order, buyer_payment_method_id: payment_method.id,sub_total: @order_amount[:sub_total],total: @order_amount[:total])
+          @order.create_payment_mode(
+            payment_through: 'stripe',
+            charge_id: payment.charge[:id],
+            amount: payment.charge[:amount],
+            return_url: payment.charge[:refunds][:url],
+            receipt_url: payment.charge[:receipt_url]
+          )
           session.delete(:_current_user_cart)
           session.delete(:_current_user_order_id)
           session.delete(:_selected_payment_method)
@@ -113,7 +120,7 @@ class Buyers::CheckoutController < Buyers::BaseController
           redirect_to order_completed_path(order: @order)
         else
           flash[:notice] = payment.errors
-          render :review_order
+          redirect_to review_order_path
         end
       end
     end
