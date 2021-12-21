@@ -7,6 +7,12 @@ $(document).ready(function () {
         $('.order-table-row').find('input:checkbox').prop('checked', $(this).is(':checked'));
     });
 
+    $(".multiple-orders input").click(function () {
+        if (!$(this).is(":checked")) {
+            $(".order-mark-bulk-update").prop("checked", false);
+        }
+    });
+
     $('.order-bulk-actions a.dropdown-item').click(function (e) {
         e.preventDefault();
         if ($('.order-table-row input[type=checkbox]:checked').length > 0) {
