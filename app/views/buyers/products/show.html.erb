@@ -76,9 +76,9 @@
               </div>
             </div>
             <span class="font-14px black-text" style="opacity: 50%;">VAT Included</span>
-            <%= form_tag(add_to_cart_path, method: :post, remote: true) do %>
+            <%= form_tag(add_to_cart_path, id: "buyer-products-quantity", method: :post, remote: true) do %>
               <div class="dropdown quantity-dropdown text-center mt-3 mb-2 w-100">
-                <button class="btn dropdown-toggle btn-lg" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                <button class="btn dropdown-toggle btn-lg" type="button" name="product[quantities]"id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
                   Quantity: <%= number_field_tag 'product[quantity]', 1, class: "update-product-quantity" %>
                 </button>
                 <div class="dropdown-menu p-3 mt-0" aria-labelledby="dropdownMenuButton">
@@ -90,8 +90,8 @@
               <%= hidden_field_tag 'product[product_id]', @product["id"] %>
               <%= hidden_field_tag 'page', 'pdp' %>
               <div>
-                <%= button_tag "BUY IT NOW", value: "BUY IT NOW", class: "btn btn-lg btn-radius px-4 btn-primary w-100 mb-2" %>
-                <%= button_tag "ADD TO BASKET", value: "ADD TO BASKET", class: "btn btn-lg btn-radius px-4 btn-outline-primary w-100 mb-2" %>
+                <%= button_tag "BUY IT NOW", value: "BUY IT NOW", id: "buy_button", class: "btn btn-lg btn-radius px-4 buy-it-now btn-primary w-100 mb-2" %>
+                <%= button_tag "ADD TO BASKET", value: "ADD TO BASKET", id: "add_basket_button", class: "btn btn-lg btn-radius px-4 btn-outline-primary w-100 mb-2" %>
               </div>
             <% end %>
             <div class="text-center mb-3">
