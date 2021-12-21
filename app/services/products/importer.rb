@@ -34,6 +34,7 @@ module Products
             product = Product.new(params)
             product.owner_id = product_owner_id(row)
             product.owner_type = product_owner_type(row)
+            product.condition = product_condition(row)
             product.status = product_type
             product.filter_in_category_ids = []
             product.delivery_option_id = get_default_delivery_option_id
@@ -84,6 +85,14 @@ module Products
 
       def csv_import
         @csv_import ||= params[:csv_import]
+      end
+
+      def product_condition(row)
+        if row["condition"].downcase == "brand_new" || row["condition"] == "new"
+          return "brand_new"
+        elsif row["condition"].downcase == "refurbished"
+          return "refurbished"
+        end
       end
 
       def field_mappings
