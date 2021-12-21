@@ -532,6 +532,44 @@ ActiveRecord::Schema.define(version: 2021_12_17_130521) do
     t.index ["yan"], name: "index_products_on_yan"
   end
 
+  create_table "refund_details", force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "refund_id"
+    t.bigint "product_id"
+    t.decimal "amount_paid"
+    t.decimal "amount_refund"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_refund_details_on_order_id"
+    t.index ["product_id"], name: "index_refund_details_on_product_id"
+    t.index ["refund_id"], name: "index_refund_details_on_refund_id"
+  end
+
+  create_table "refund_messages", force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "refund_id"
+    t.bigint "buyer_id"
+    t.text "buyer_message"
+    t.bigint "seller_id"
+    t.text "seller_message"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["buyer_id"], name: "index_refund_messages_on_buyer_id"
+    t.index ["order_id"], name: "index_refund_messages_on_order_id"
+    t.index ["refund_id"], name: "index_refund_messages_on_refund_id"
+    t.index ["seller_id"], name: "index_refund_messages_on_seller_id"
+  end
+
+  create_table "refunds", force: :cascade do |t|
+    t.bigint "order_id"
+    t.integer "refund_reason"
+    t.decimal "total_paid"
+    t.decimal "total_refund"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_refunds_on_order_id"
+  end
+
   create_table "return_and_terms", force: :cascade do |t|
     t.integer "duration"
     t.boolean "email_format", default: false
@@ -781,6 +819,14 @@ ActiveRecord::Schema.define(version: 2021_12_17_130521) do
   add_foreign_key "delivery_option_ships", "delivery_options"
   add_foreign_key "delivery_option_ships", "ships"
   add_foreign_key "paypal_details", "sellers"
+  add_foreign_key "refund_details", "orders"
+  add_foreign_key "refund_details", "products"
+  add_foreign_key "refund_details", "refunds"
+  add_foreign_key "refund_messages", "buyers"
+  add_foreign_key "refund_messages", "orders"
+  add_foreign_key "refund_messages", "refunds"
+  add_foreign_key "refund_messages", "sellers"
+  add_foreign_key "refunds", "orders"
   add_foreign_key "return_and_terms", "sellers"
   add_foreign_key "seller_apis", "sellers"
   add_foreign_key "seller_payment_methods", "sellers"
