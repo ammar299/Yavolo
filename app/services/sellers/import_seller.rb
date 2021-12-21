@@ -161,7 +161,7 @@ module Sellers
       def create_company_detail(seller,row)
         seller.create_company_detail(
           name: row["company_name"],
-          vat_number: row["company_vat_number"],
+          vat_number: company_vat_number(row),
           country: row["company_country"],
           legal_business_name: row["company_legal_business_name"],
           companies_house_registration_number: validate_house_registration_number(row),
@@ -198,7 +198,7 @@ module Sellers
           state: row["business_address_state"],
           country: row["business_address_country"],
           postal_code: row["business_address_postal_code"],
-          phone_number: row["business_address_phone_number"],
+          phone_number: phone_number("business_address_phone_number",row),
           address_type: "business_address"
         )
         
@@ -263,7 +263,20 @@ module Sellers
       end
 
       def phone_number(field, row)
-        row["#{field}"] || row["business_address_phone_number"]
+        pattern=/^(\(?(\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/
+        phone_number = row["#{field}"] || row["business_address_phone_number"]
+        if phone_number.start_with?("+")
+          return phone_number
+        else
+          phone_number = ("+").concat(phone_number)
+        end
+        if phone_number.present?
+          phone_number.match?(pattern)
+          return phone_number
+        else
+          @errors << "For seller: #{row["user_email"]} Company house registration number #{phone_number} is invalid. Enter valid UK phone number(e.g +447911123456)"
+          return false
+        end
       end
 
       def validate_house_registration_number(row)
@@ -273,7 +286,19 @@ module Sellers
           if row["company_companies_house_registration_number"].match?(pattern)
             return row["company_companies_house_registration_number"]
           else
-            @errors << "For seller: #{row["user_email"]} Company house registration number #{row["company_companies_house_registration_number"]} is invalid. Valid format is: 12345678 or AB345678"
+            @errors << "For seller: #{row["user_email"]} Company house registration number #{row["company_companies_house_registration_number"]} is invalid. Valid format is: A9123456, 12345678 or AB345678"
+            return false
+          end
+        end
+      end
+
+      def company_vat_number(row)
+        pattern=/^GB(?:\d{3} ?\d{4} ?\d{2}(?:\d{3})?|[A-Z]{2}\d{3})$/
+        if row["company_vat_number"].present?
+          if row["company_vat_number"].match?(pattern)
+            return row["company_vat_number"]
+          else
+            @errors << "For seller: #{row["user_email"]} Company VAT number #{row["company_vat_number"]} is invalid. Please enter a valid VAT number"
             return false
           end
         end
