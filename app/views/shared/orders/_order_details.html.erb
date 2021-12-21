@@ -2,13 +2,13 @@
   <div class="col-lg-6">
     <div class="yo-white-card box-border">
       <p><strong>Order Number:</strong> <%= @order.order_number %></p>
-      <p><strong>Order:</strong> <%= date_format_UK(@order.created_at) %></p>
+      <p><strong>Ordered:</strong> <%= formatted_order_date(@order.created_at) %></p>
       <p><strong>Estimated Delivery:</strong> 15-17 June 2021</p>
       <p><strong>Tracking:</strong> No Tracking</p>
       <p><strong>Courier:</strong> Royal Mail</p>
       <p><strong>Mail Class:</strong> 2nd Class</p>
       <p><strong>VAT Number:</strong> 1234567890</p>
-      <p><strong>Paid Via:</strong> Paid By</p>
+      <p><strong>Paid Via:</strong> <%= @order&.buyer_payment_method&.payment_method_type&.titleize %></p>
     </div>
   </div>
   <div class="col-lg-6 d-flex">
@@ -69,25 +69,25 @@
         <% @order_line_items.each do |order_line_item| %>
           <tr>
             <td>
-              <span><u><%= order_line_item.product.title %></u></span>
+              <span><u><%= order_line_item&.product&.title %></u></span>
             </td>
             <td>
-              <span><u>Seller Shop Name</u></span>
+              <span><u><%= "#{order_line_item&.product&.owner&.first_name}" "#{order_line_item&.product&.owner&.last_name}" %></u></span>
             </td>
             <td>
-              1
+              <%= order_line_item.quantity %>
             </td>
             <td>
-              £<%= order_line_item.product.price %>
-            </td>
-            <td>
-              £0.00
+              £<%= order_line_item.product&.price %>
             </td>
             <td>
               £0.00
             </td>
             <td>
-              £229.99
+              £0.00
+            </td>
+            <td>
+              <%= get_price_in_pounds(order_line_item.product&.price * order_line_item.quantity) %>
             </td>
           </tr>
         <% end %>
@@ -96,7 +96,7 @@
             <p class="font-14px mb-0"><strong>Total</strong></p>
           </td>
           <td>
-            <p class="font-14px mb-0"><strong>£1,574.95</strong></p>
+            <p class="font-14px mb-0"><strong><%= get_price_in_pounds(@order_line_items.map {|oli| oli&.product&.price}.sum) %></strong></p>
           </td>
           <td>
             <p class="font-14px mb-0"><strong>£0.00</strong></p>
@@ -105,7 +105,7 @@
             <p class="font-14px mb-0"><strong>£0.00</strong></p>
           </td>
           <td>
-            <p class="font-14px mb-0"><strong>£1,574.95</strong></p>
+            <p class="font-14px mb-0"><strong><%= get_price_in_pounds(@order_line_items.map {|oli| oli.quantity * oli.product&.price}.sum) %></strong></p>
           </td>
         </tr>
         </tbody>

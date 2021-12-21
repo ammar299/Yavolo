@@ -1231,6 +1231,90 @@ width: 75%;
 		width: 100%;
 	}
 }
+/* refund-detail-block */
+.refund-detail-header {
+    background-color: var(--dark-red);
+    border-radius: 12px;
+    color: var(--off-white);
+    font-size: 14px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.refund-detail-body {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+}
+.flex1 {
+    flex: 1;
+}
+.white-mark .check-mark-white {
+    border: 2px solid #fff;
+    top: -2px;
+}
+.white-mark label {
+    font-size: 14px;
+}
+.refund-table thead th {
+    border: 0;
+}
+.border-test {
+    border: 1px solid var(--dark-red);
+    border-radius: 10px;
+}
+.refund-table td,
+.refund-table th {
+    font-size: 12px;
+    border: 0;
+    padding: 3px;
+    vertical-align: middle;
+}
+.refund-input {
+    border: 1px solid var(--dark-red);
+    border-radius: 12px;
+    background-color: transparent;
+    padding: 3px 10px;
+    color: var(--dark-red);
+    width: 85px;
+    height: 33px;
+    text-align: right;
+}
+.refund-input:focus {
+    outline: none;
+    box-shadow: none;
+}
+.refund-input::-webkit-outer-spin-button,
+.refund-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.refund-detail-body td {
+    width: 20%;
+}
+.refund-detail-body td:first-child {
+    width: 40%;
+}
+.refund-subtotal-table td:first-child {
+    width: 60% !important;
+}
+/* .refund-table tbody tr td {
+	border: 1px solid;
+	border-radius: 5px;
+} */
+.btn-text-hvr {
+    width: 230px;
+    text-decoration: none;
+    vertical-align: middle;
+}
+.btn-text-hvr:hover span {
+    display:none
+}
+.btn-text-hvr:hover:before {
+    content:"CONFIRM REFUND & CLOSE TICKET";
+}
+/* refund-detail-block */
 
 .assign-category-form label{
   min-width: 130px;

@@ -6,6 +6,9 @@ class Order < ApplicationRecord
   has_one :shipping_address, dependent: :destroy
   has_one :billing_address, dependent: :destroy
   has_one :payment_mode, dependent: :destroy
+  has_one :refund, dependent: :destroy
+  has_many :refund_details, dependent: :destroy
+  has_many :refund_messages, dependent: :destroy
   belongs_to :buyer_payment_method, optional: true
 
   accepts_nested_attributes_for :order_detail, :line_items, :shipping_address, :billing_address

@@ -1,0 +1,150 @@
+<div class="container-fluid">
+  <div class="row">
+    <h3 class="mt-4 mb-3">Issue a Refund</h3>
+    <div class="col-lg-12">
+      <div class="mt-4 mb-4">
+        <a href="" class="red-text decoration-none btn-light-hvr px-3 py-2 btn-radius align-items-center"><span
+          class="icon-chevron-left-solid pr-2 mm-text"></span>Back </a>
+      </div>
+      <%= form_for @refund, url: create_refund_admin_order_path, method: :post do |f| %>
+        <div class="refund-detail-block">
+          <div class="refund-detail-header">
+            <span>Refund Details</span>
+          </div>
+          <div class="refund-detail-body mt-3">
+            <div class="row">
+              <div class="col-lg-6">
+              <span>
+                  <b>Reason for refund:</b>
+              </span>
+                <div class="bg-hvr-dropdown mt-2">
+                  <!--                  PUTTING THIS BLOCK IN COMMENTS AS DESIGNER INPUT IS NEEDED ON IT -->
+                  <!--                  <div class="dropdown dropdown-filter mb-3 d-inline-flex w-100">-->
+                  <!--                    <a href="#"-->
+                  <!--                       class="btn btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center justify-content-between flex1"-->
+                  <!--                       id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                  <!--                      item never arrived with the customer-->
+                  <!--                      <i class="fa fa-angle-down ml-3" aria-hidden="true"></i>-->
+                  <!--                    </a>-->
+                  <!--                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" x-placement="bottom-start"-->
+                  <!--                         style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px; will-change: transform;">-->
+                  <!--                      <a class="dropdown-item active" href="#">Action <i class="fa fa-check" aria-hidden="true"></i></a>-->
+                  <!--                      <a class="dropdown-item" href="#">Another action <i class="fa fa-check" aria-hidden="true"></i></a>-->
+                  <!--                      <a class="dropdown-item" href="#">Something else here <i class="fa fa-check" aria-hidden="true"></i></a>-->
+                  <!--                    </div>-->
+                  <!--                  </div>-->
+                  <!--                  <div class="dropdown dropdown-filter mb-3 d-inline-flex w-100">-->
+                  <!--                    <strong><%#= f.label :refund_reason, 'Reason for Refund:' %></strong>-->
+                  <%= f.select :refund_reason, refund_reason_options, {}, class: 'form-control' %>
+                  <!--                  </div>-->
+                  <!--                  PUTTING THIS BLOCK IN COMMENTS AS DESIGNER INPUT IS NEEDED ON IT -->
+                  <%= f.hidden_field :total_paid, value: @order.line_items.map { |oli| oli.quantity * oli.product&.price }.sum %>
+                  <%= f.hidden_field :total_refund, value: nil, class: "hidden_total_refund" %>
+                </div>
+              </div>
+            </div>
+            <div class="form-group mt-3">
+              <b><label for="exampleInputPassword1">Message to buyer:</label></b>
+              <%= text_area_tag "refund[refund_messages_attributes][0][buyer_message]", nil, placeholder: "Message buyer (optional)", class: "form-control" %>
+              <%= hidden_field_tag "refund[refund_messages_attributes][0][order_id]", @order.id %>
+              <%= hidden_field_tag "refund[refund_messages_attributes][0][buyer_id]", @order&.buyer_id %>
+            </div>
+            <% @order.line_items.product_owners_collection.each.with_index(1) do |product_owner, index| %>
+              <%= render "admin/orders/line_items_refund_messages_form", product_owner: product_owner, index: index %>
+            <% end %>
+          </div>
+        </div>
+        <div class="refund-detail-block">
+          <div class="refund-detail-header d-flex justify-content-between align-items-center mt-3">
+            <div>
+              <span>Order #<%= @order.order_number %></span>
+            </div>
+            <div class="d-flex align-items-center flex-wrap">
+              <div class="white-mark mr-5">
+                <label class="checkbox-blk mb-0"> Keep Sales Commission
+                  <input type="checkbox">
+                  <span class="checkmark check-mark-white"></span>
+                </label>
+              </div>
+              <div class="white-mark">
+                <label class="checkbox-blk mb-0"> Issue Full Refund
+                  <input type="checkbox">
+                  <span class="checkmark check-mark-white"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="refund-detail-body mt-3">
+            <div class="px-2">
+              <table class="table refund-table mb-0">
+                <thead>
+                <tr>
+                  <td><strong> Item(s)</strong></td>
+                  <td class="text-right"><strong>Seller(s)</strong></td>
+                  <td class="text-right"><strong>Amount paid</strong></td>
+                  <td class="text-right"><strong>Amount to refund</strong></td>
+                </tr>
+                </thead>
+              </table>
+            </div>
+            <div class="p-2 border-test mb-3">
+              <table class="table refund-table mb-0">
+                <tbody>
+                <% @order.line_items.each_with_index do |line_items, index| %>
+                  <%= render "admin/orders/line_items_refund_details_form", line_items: line_items, index: index %>
+                <% end %>
+                </tbody>
+              </table>
+            </div>
+            <div class="px-2">
+              <table class="table refund-table mb-0">
+                <thead>
+                <tr>
+                  <th colspan="4">Item Subtotal</th>
+                </tr>
+                </thead>
+              </table>
+            </div>
+            <div class="p-2 border-test mb-0">
+              <table class="table refund-table refund-subtotal-table mb-0">
+                <tbody>
+                <tr>
+                  <td scope="row">Delivery</td>
+                  <td class="text-right">£0.00</td>
+                  <td class="text-right" width="20%">
+                    <input type="number" class="refund-input" placeholder="0.00">
+                  </td>
+                </tr>
+                <tr>
+                  <td scope="row">Tax</td>
+                  <td class="text-right" width="20%">£0.00</td>
+                  <td class="text-right" width="20%">
+                    <input type="number" class="refund-input" placeholder="0.00">
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="p-2">
+              <table class="table refund-table refund-subtotal-table mb-0">
+                <tbody class="">
+                <tr>
+                  <td scope="row"><strong>Total</strong></td>
+                  <td class="text-right" width="20%">
+                    <strong class="total_paid"><%= get_price_in_pounds(@order.line_items.map { |oli| oli.quantity * oli.product&.price }.sum) %></strong>
+                  </td>
+                  <td class="text-right pr-3" width="20%">
+                    <strong class="total_refund">£0.00</strong>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!--<a href="#" class="btn btn-radius px-4 btn-primary mb-3 mt-3">Review Refund</a>-->
+          <%= f.submit 'Review Refund', class: "btn btn-radius px-4 btn-primary mb-3 mt-3" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

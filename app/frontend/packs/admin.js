@@ -12,6 +12,8 @@ $(document).ready(function(){
   renewSubscriptionHandler()
   removePayoutBankAccountHandler()
   contactSellerPopup()
+  calculateRefund();
+  sumOfTotalPaid();
   // verifyBankAccountForPayoutHanlder()
 
 });
@@ -434,4 +436,35 @@ function hideShowDropdown(){
   if ($(".check-data-type").attr("data-type") !== "Standard"){
     $(".enforce-subscription-dropdown").addClass("invisible")
   }
+}
+
+function calculateRefund() {
+  $(".amount_refund").each(function () {
+    $(this).keyup(function () {
+      sumOfTotalRefund();
+    });
+  });
+}
+
+function sumOfTotalRefund() {
+  let total_refund = 0.0;
+  $('.amount_refund').each(function () {
+    let amount_refund_handler = this.value;
+    if (!isNaN(amount_refund_handler) && amount_refund_handler.length !== 0) {
+      total_refund += parseFloat(amount_refund_handler);
+    }
+  });
+  $(".total_refund").text("£" + total_refund.toFixed(2));
+  $(".hidden_total_refund").val(total_refund.toFixed(2));
+}
+
+function sumOfTotalPaid() {
+  let total_paid = 0.0;
+  $('.amount_paid').each(function () {
+    let amount_paid_handler = $(this).text().split('£').join('');
+    if (!isNaN(amount_paid_handler) && amount_paid_handler.length !== 0) {
+      total_paid += parseFloat(amount_paid_handler);
+    }
+  });
+  $(".total_paid").text("£" + total_paid);
 }

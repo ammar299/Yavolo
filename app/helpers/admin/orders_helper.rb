@@ -45,5 +45,13 @@ module Admin::OrdersHelper
       return nil
     end
   end
+
+  def refund_reason_options
+    Refund.refund_reasons.map {|text, value| [text.split('_').map(&:capitalize).join(' '), text]}
+  end
+
+  def formatted_order_date(order)
+    order.strftime("%H:%M, %m/%d/%Y")
+  end
       
 end

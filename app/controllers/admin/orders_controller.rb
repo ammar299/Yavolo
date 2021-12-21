@@ -1,6 +1,6 @@
 class Admin::OrdersController < Admin::BaseController
 
-  before_action :set_order, only: :show
+  before_action :set_order, only: [:show, :new_refund, :create_refund]
 
   def index
     @q = Order.ransack(params[:q])
@@ -22,6 +22,20 @@ class Admin::OrdersController < Admin::BaseController
                layout: false,
                disposition: 'attachment'
       }
+    end
+  end
+
+  def new_refund
+    @refund = @order.build_refund
+  end
+
+  def create_refund
+    @refund = @order.build_refund(order_refund_params)
+    if @refund.save
+      redirect_to admin_orders_path, notice: 'Refund successfully created.'
+    else
+      flash.now[:notice] = @refund.errors.full_messages.join('')
+      render :new_refund
     end
   end
 
@@ -57,6 +71,13 @@ class Admin::OrdersController < Admin::BaseController
   end
 
   private
+
+  def order_refund_params
+    params.require(:refund).permit(:refund_reason, :total_paid, :total_refund,
+                                   refund_messages_attributes: [:id, :order_id, :buyer_id, :buyer_message, :seller_id, :seller_message],
+                                   refund_details_attributes: [:id, :order_id, :product_id, :amount_paid, :amount_refund])
+
+  end
 
   def set_order
     @order = Order.find(params[:id])

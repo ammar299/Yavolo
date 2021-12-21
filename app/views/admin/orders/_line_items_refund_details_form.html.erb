@@ -1,0 +1,9 @@
+<tr class="line_items">
+  <td scope="row"><%= line_items.product&.title %></td>
+  <td class="text-right"><%= "#{line_items.product&.owner&.first_name} #{line_items.product&.owner&.last_name}" %></td>
+  <td class="text-right amount_paid"><%= get_price_in_pounds(line_items.quantity * line_items.product&.price) %></td>
+  <td class="text-right"><%= number_field_tag "refund[refund_details_attributes][#{index}][amount_refund]", nil, placeholder: "£0.00", min: 1, step: "any", class: "refund-input amount_refund" %></td>
+  <%= hidden_field_tag "refund[refund_details_attributes][#{index}][amount_paid]", line_items.quantity * line_items.product&.price %>
+  <%= hidden_field_tag "refund[refund_details_attributes][#{index}][product_id]", line_items.product&.id %>
+  <%= hidden_field_tag "refund[refund_details_attributes][#{index}][order_id]", line_items&.order_id %>
+</tr>
