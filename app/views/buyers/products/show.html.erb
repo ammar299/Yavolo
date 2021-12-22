@@ -1555,3 +1555,10 @@
     }
 </script>
 
+<script>
+  $(document).ready(function() {
+    if ($('#main-slider-list').find('li').length == 0) {
+      $('.splide__arrows').addClass('d-none');
+    }
+  });
+</script>
