@@ -12,7 +12,7 @@
         <% if product.present? %>
           <div class="mb-1 d-flex pdp-cart-brdr">
             <div class="p-2 yo-white-card pdp-register-drp-img mr-2 cart-image-section">
-              <span>
+              <span class= "d-flex align-items-center justify-content-center">
                 <%= image_tag product.pictures.first&.name&.url.present? ? product.pictures.first&.name&.url : "default.jpg" %>
               </span>
             </div>

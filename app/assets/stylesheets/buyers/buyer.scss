@@ -833,7 +833,7 @@
   background: #FFFFFF 0% 0% no-repeat padding-box;
   box-shadow: 3px 3px 8px #0000000f;
   border-radius: 12px;
-  height: 500px;
+  min-height: 500px;
   margin-bottom: 20px;
   padding: 20px;
   display: flex;
@@ -852,6 +852,7 @@
   align-items: center;
   justify-content: center;
   opacity: 0.6;
+  overflow: hidden;
 }
 .splide--nav > .splide__slider > .splide__track > .splide__list > .splide__slide.is-active,
 .splide--nav > .splide__track > .splide__list > .splide__slide.is-active {
