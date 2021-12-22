@@ -28,9 +28,9 @@
           </td>
           <td>
             <p class="mb-4"><%= line_item_product.title %></p>
-            <p class="mb-0"><strong>SKU: <%= line_item_product.sku %></p>
-            <p class="mb-0">Quantity: <%= line_item.quantity %></p>
-            <p class="mb-0">Item Subtotal: <%= number_to_currency((number_with_precision(line_item_product.price * line_item.quantity, :precision => 2) || 0), unit: '£') %></p>
+            <p class="mb-0"><strong>SKU: <%= line_item_product.sku %></strong></p>
+            <p class="mb-0"><strong>Quantity: <%= line_item.quantity %></strong></p>
+            <p class="mb-0"><strong>Item Subtotal: <%= number_to_currency((number_with_precision(line_item_product.price * line_item.quantity, :precision => 2) || 0), unit: '£') %></strong></p>
           </td>
         </tr>
       <% end %>
@@ -42,7 +42,7 @@
     <p class="mb-0">09:47:28 GMT</p>
     <p class="mb-0"><a href=""><u>#75757757</u></a></p>
   </td>
-  <td>Shipped</td>
+  <td><strong>Shipped</strong></td>
   <td>
     <div class="row-actions">
       <a class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr btn-danger" href="#">Edit Tracking</a>

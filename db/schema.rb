@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_17_130521) do
+ActiveRecord::Schema.define(version: 2021_12_22_083650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -268,6 +268,7 @@ ActiveRecord::Schema.define(version: 2021_12_17_130521) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "delivery_optionable_type"
     t.bigint "delivery_optionable_id"
+    t.string "handle"
     t.index ["delivery_optionable_type", "delivery_optionable_id"], name: "index_delivery_options_on_delivery_optionable"
   end
 
