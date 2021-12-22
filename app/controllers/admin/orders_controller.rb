@@ -1,9 +1,9 @@
 class Admin::OrdersController < Admin::BaseController
 
-  before_action :set_order, only: [:show, :new_refund, :create_refund]
+  before_action :set_order, only: [:show, :new_refund, :get_refund, :create_refund]
 
   def index
-    @q = Order.ransack(params[:q])
+    @q = Order.paid_orders_listing.ransack(params[:q])
     @orders = @q.result
     @orders = @orders.order(sub_total: :desc) if params.dig(:q, :s) == "price"
     @orders = @orders.page(params[:page]).per(params[:per_page].presence || 10)
@@ -26,7 +26,13 @@ class Admin::OrdersController < Admin::BaseController
   end
 
   def new_refund
+    @commission = COMMISSION
     @refund = @order.build_refund
+  end
+
+  def get_refund
+    @commission = COMMISSION
+    @params = params
   end
 
   def create_refund

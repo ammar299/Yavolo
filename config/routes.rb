@@ -14,6 +14,7 @@ Rails.application.routes.draw do
           member do
             get :new_refund
             post :create_refund
+            post :get_refund
           end
           collection do
             get :export_orders

@@ -14,6 +14,7 @@ $(document).ready(function(){
   contactSellerPopup()
   calculateRefund();
   sumOfTotalPaid();
+  calculateSalesCommission();
   // verifyBankAccountForPayoutHanlder()
 
 });
@@ -467,4 +468,20 @@ function sumOfTotalPaid() {
     }
   });
   $(".total_paid").text("£" + total_paid);
+}
+
+function calculateSalesCommission() {
+  $(document).on("click", ".refund_option_checkboxes input:checkbox", function () {
+    $('.refund_option_checkboxes input:checkbox').not(this).prop('checked', false);
+    if ($(this).is(":checked") === true) {
+      if ($(this).attr('name') === 'keep_sales_commission') {
+        let total_commission = parseFloat($(".hidden_total_refund").val()) * parseFloat($(".commission").val() / 100);
+        let net_commission = parseFloat($(".hidden_total_refund").val()) - parseFloat(total_commission);
+        $(".total_refund").text("£" + net_commission.toFixed(2));
+        $(".hidden_total_refund").val(net_commission.toFixed(2));
+      } else if ($(this).attr('name') === 'issue_full_refund') {
+        sumOfTotalRefund();
+      }
+    }
+  })
 }

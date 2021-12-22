@@ -19,6 +19,7 @@ class Order < ApplicationRecord
  }
 
   scope :seller_orders, ->(owner) { includes(line_items: [:product]).where(line_items: {products: {owner_id: owner.id}}) }
+  scope :paid_orders_listing, -> { where(order_type: 'paid_order') }
 
   after_create :assign_unique_order_number
 

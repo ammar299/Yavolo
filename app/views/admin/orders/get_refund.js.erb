@@ -1,0 +1,9 @@
+$('.new_refund').attr('action', "<%= create_refund_admin_order_path %>");
+$('#refund-review-modal').replaceWith("<%= j render(partial: 'admin/orders/confirm_refund', locals: { params: params }) %>");
+$('#refund-review-modal').modal('show');
+$('#refund-review-modal').on('hidden.bs.modal', function () {
+    $('.new_refund').attr('action', "<%= get_refund_admin_order_path %>");
+});
+$(".confirm_refund").on("click", function () {
+    $('form.new_refund').submit();
+});
