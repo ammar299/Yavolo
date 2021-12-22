@@ -17,6 +17,7 @@ function checkoutDetailsFormValidation() {
       },
       "order[order_detail_attributes][contact_number]": {
         required: true,
+        phone_number_uk: true
       },
       "order[billing_address_attributes][appartment]": {
         required: true,

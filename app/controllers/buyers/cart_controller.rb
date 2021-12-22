@@ -21,7 +21,9 @@ class Buyers::CartController < Buyers::BaseController
     @selected_payment_method = get_selected_payment_method
   end
 
-  def store_front; end
+  def store_front
+    @products_to_display = Product.all.where(status: 'active')
+  end
 
   def add_to_cart
     product = add_to_cart_params

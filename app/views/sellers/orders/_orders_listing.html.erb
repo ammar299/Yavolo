@@ -28,7 +28,7 @@
           </td>
           <td>
             <p class="mb-4"><%= line_item_product.title %></p>
-            <p class="mb-0">SKU: <%= line_item_product.sku %></p>
+            <p class="mb-0"><strong>SKU: <%= line_item_product.sku %></p>
             <p class="mb-0">Quantity: <%= line_item.quantity %></p>
             <p class="mb-0">Item Subtotal: <%= number_to_currency((number_with_precision(line_item_product.price * line_item.quantity, :precision => 2) || 0), unit: '£') %></p>
           </td>
@@ -37,7 +37,7 @@
     </table>
   </td>
   <td>
-    <p class="mb-0">Dispatched:
+    <p class="mb-0"><strong>Dispatched: </strong>
       11th March 2021</p>
     <p class="mb-0">09:47:28 GMT</p>
     <p class="mb-0"><a href=""><u>#75757757</u></a></p>

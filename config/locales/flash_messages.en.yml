@@ -9,3 +9,4 @@ en:
     product_removed_successfully: "Product removed successfully."
     order_placed_successfully: "Order placed successfully."
     something_went_wrong: "Something went wrong."
+    product_status_disable: "The product status is not active."

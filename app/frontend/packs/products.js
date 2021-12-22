@@ -1085,12 +1085,13 @@ $(document).ready(function () {
         depth: $("#product_depth").val(),
         height: $("#product_height").val(),
         colour: $("#product_colour").val(),
+        product_handle: $("#product_handle").val(),
         material: $("#product_material").val(),
         images: all_images
       },
       type: 'put',
       success: function (response) {
-        window.open(window.location.protocol + "//" + window.location.host + "/product/" + response.product_name + "?preview_listing=true", '_blank').focus();
+        window.open(window.location.protocol + "//" + window.location.host + "/product/" + response.product_handle + "?preview_listing=true", '_blank').focus();
       }
     });
   });

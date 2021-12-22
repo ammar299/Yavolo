@@ -71,8 +71,8 @@
                 <h3 class="black-text mb-0 mt-0">£<%= @product["price"] %></h3>
               </div>
               <div>
-                                    <span><span class="icon-manage-Yavolo red-text font-20px"><span class="font-14px">
-                                      6 sold in the last 24 hours</span></span></span>
+                <span><span class="icon-manage-Yavolo red-text font-20px"><span class="font-14px">
+                    6 sold in the last 24 hours</span></span></span>
               </div>
             </div>
             <span class="font-14px black-text" style="opacity: 50%;">VAT Included</span>
@@ -90,8 +90,14 @@
               <%= hidden_field_tag 'product[product_id]', @product["id"] %>
               <%= hidden_field_tag 'page', 'pdp' %>
               <div>
+              <% if @product_status  == 'active' %>
                 <%= button_tag "BUY IT NOW", value: "BUY IT NOW", id: "buy_button", class: "btn btn-lg btn-radius px-4 buy-it-now btn-primary w-100 mb-2" %>
                 <%= button_tag "ADD TO BASKET", value: "ADD TO BASKET", id: "add_basket_button", class: "btn btn-lg btn-radius px-4 btn-outline-primary w-100 mb-2" %>
+              <% else %>
+                <%= button_tag "BUY IT NOW", value: "BUY IT NOW", :disabled => true, id: "buy_button", class: "btn btn-lg btn-radius px-4 buy-it-now btn-primary w-100 mb-2" %>
+                <%= button_tag "ADD TO BASKET", value: "ADD TO BASKET", :disabled => true, id: "add_basket_button", class: "btn btn-lg btn-radius px-4 btn-outline-primary w-100 mb-2" %>
+              <% end %>
+                
               </div>
             <% end %>
             <div class="text-center mb-3">
@@ -117,7 +123,7 @@
               <span>Sold by John Smith</span>
             </div>
             <div class="mb-2">
-              <span class="rev-und">Product Reviews</span>
+              <span class="rev-und">Featured Reviews</span>
             </div>
             <div class="review-slider">
               <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
