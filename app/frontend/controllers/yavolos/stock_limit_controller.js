@@ -29,20 +29,31 @@ export default class extends ApplicationController {
         let minValue = $(e.target).attr('min');
         let maxValue = $(e.target).attr('max');
         if (!value) {
-            this.errorTextTarget.classList.remove("d-none")
-            this.isMaxStockLimitFieldValid = false
+            this.showMaxStockLimitErrorMessage()
             return
         }
         value = parseInt(value);
         minValue = parseInt(minValue);
         maxValue = parseInt(maxValue);
         if (value < minValue || value > maxValue) {
-            this.errorTextTarget.classList.remove("d-none")
-            this.isMaxStockLimitFieldValid = false
+            this.showMaxStockLimitErrorMessage()
         } else {
             this.errorTextTarget.classList.add("d-none")
             this.isMaxStockLimitFieldValid = true
         }
+    }
+
+    showMaxStockLimitErrorMessage(){
+        this.errorTextTarget.classList.remove("d-none")
+        this.isMaxStockLimitFieldValid = false
+    }
+
+    toggleMaxStockLimitInputFieldAndShowErrorMessage(){
+        $(this.maxStockLimitTarget).toggleClass("visible").toggleClass("invisible")
+        this.showMaxStockLimitErrorMessage()
+        $('html, body').animate({
+            scrollTop: $(this.maxStockLimitTarget).offset().top - 100
+        }, 2000);
     }
 
     toggleInputField(e){

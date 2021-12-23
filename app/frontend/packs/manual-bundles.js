@@ -13,7 +13,34 @@ $(document).ready(function () {
         });
     }
 
+    $(".yavolo-main-image-input-wrapper .yavolo-main-image-input").change(function () {
+        previewFileForYavoloMainImage($(this))
+    })
+
 })
+
+function previewFileForYavoloMainImage(input){
+    const file = $(input).get(0).files[0];
+
+    if(file){
+        var reader = new FileReader();
+
+        reader.onload = function(){
+            const template = `
+            <div class="row bundle-block-pad align-items-center one-to-three">
+              <div class="col-12">
+                <div class="yo-white-card">
+                  <img src="${reader.result}">
+                </div>
+              </div>
+            </div>
+            `
+            $(".yavolo-main-image-container").html(template);
+        }
+
+        reader.readAsDataURL(file);
+    }
+}
 
 function setExportData(){
     $(document).on("click", ".export-yavolos", function (e) {

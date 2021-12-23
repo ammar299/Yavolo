@@ -13,12 +13,15 @@ class Admin::Yavolos::ManualBundlesController < Admin::BaseController
   def new
     @yavolo_bundle = YavoloBundle.new(yavolo_params_for_new)
     @products = []
+    @featured_images = []
     params[:products].each do |p|
       product = Product.find_by(id: p[:id])
       next unless product.present?
       @products << product
       @yavolo_bundle.yavolo_bundle_products << YavoloBundleProduct.new(product: product, price: view_context.strip_currency_from_price(p[:discount_price]))
+      @featured_images << product.get_featured_image
     end
+    @featured_images.compact!
     @yavolo_bundle.build_seo_content
     @yavolo_bundle.build_google_shopping
   end
@@ -27,6 +30,7 @@ class Admin::Yavolos::ManualBundlesController < Admin::BaseController
     @yavolo_bundle = YavoloBundle.find_by(id: params[:yavolo_bundle_id])
     if @yavolo_bundle.present?
       @products = []
+      @featured_images = @yavolo_bundle.pictures
       params[:products].each do |p|
         product = Product.find_by(id: p[:id])
         next unless product.present?
@@ -51,6 +55,7 @@ class Admin::Yavolos::ManualBundlesController < Admin::BaseController
     assign_correct_status_to_bundle
 
     if @yavolo_bundle.save
+      save_product_images_from_remote_urls(@yavolo_bundle)
       redirect_to admin_yavolos_manual_bundles_path, notice: "Bundle created successfully"
     else
       render :new
@@ -63,8 +68,13 @@ class Admin::Yavolos::ManualBundlesController < Admin::BaseController
     update_associated_products
     assign_correct_status_to_bundle
     if @yavolo_bundle.update(manual_bundle_params)
+      if images_to_delete_params.present?
+        @yavolo_bundle.pictures_attributes = images_to_delete_params
+        @yavolo_bundle.save
+      end
       redirect_to admin_yavolos_manual_bundles_path, notice: "Bundle updated successfully"
     else
+      @featured_images = @yavolo_bundle.pictures
       render :edit
     end
   end
@@ -149,11 +159,13 @@ class Admin::Yavolos::ManualBundlesController < Admin::BaseController
   private
 
   def update_associated_products
+    @featured_images = []
     params[:products].each do |p|
       product = Product.find_by(id: p[:id])
       next unless product.present?
       @products << product
       product.update(associated_products_params(p))
+      @featured_images << product.get_featured_image
     end
   end
 
@@ -165,6 +177,24 @@ class Admin::Yavolos::ManualBundlesController < Admin::BaseController
     end
   end
 
+  def images_to_delete_params
+    @images_to_remove ||= params[:yavolo_bundle][:images_attributes].values.select{|h| h["_destroy"]=="1" } if params[:yavolo_bundle][:images_attributes].present?
+  end
+
+  def save_product_images_from_remote_urls(yavolo)
+    if params[:yavolo_bundle][:copy_images].present?
+      images_urls = params[:yavolo_bundle][:copy_images].map{ |e|
+        if Rails.env.production?
+          {remote_name_url: "#{e[:remote_name_url]}"}
+        else
+          {remote_name_url: "#{ENV['HOST_URL']}#{e[:remote_name_url]}"}
+        end
+      }
+      yavolo.pictures_attributes=images_urls
+      yavolo.save
+    end
+  end
+
   def yavolo_params_for_new
     params.require(:yavolo).permit(:stock_limit, :max_stock_limit, :regular_total, :yavolo_total, :price)
   end
@@ -173,7 +203,9 @@ class Admin::Yavolos::ManualBundlesController < Admin::BaseController
     params.require(:yavolo_bundle).permit(:title, :category_id, :description, :price, :quantity, :stock_limit, :max_stock_limit, :regular_total, :yavolo_total,
                                           seo_content_attributes: [:id, :title, :url, :description, :keywords],
                                           google_shopping_attributes: [:id, :title, :price, :category, :campaign_category, :description, :exclude_from_google_feed],
-                                          yavolo_bundle_products_attributes: [:id, :product_id, :price]
+                                          yavolo_bundle_products_attributes: [:id, :product_id, :price],
+                                          pictures_attributes: ["name", "@original_filename", "@content_type", "@headers", [:remote_name_url] ],
+                                          main_image_attributes: ["name", "@original_filename", "@content_type", "@headers" ]
     )
   end
 

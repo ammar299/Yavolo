@@ -7,6 +7,8 @@ class Picture < ApplicationRecord
 
     validate :validate_attachments
 
+		scope :featured, -> { where(is_featured: true) }
+
     private
 		def validate_attachments
 			file_content_and_size_validation(:name)

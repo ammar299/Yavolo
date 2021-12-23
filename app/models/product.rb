@@ -39,6 +39,8 @@ class Product < ApplicationRecord
     validates_format_of :ean, with: /\A(\d{13})?\z/, message: 'is Invalid, It must be of 13 characters.'
     validate :validate_seller
 
+    before_save :assign_yan_to_product
+
     def validate_seller
         if owner_id.blank?
             errors.add(:owner_id, "Seller can't be blank")
@@ -51,10 +53,6 @@ class Product < ApplicationRecord
             end
         end
     end
-
-
-
-
 
     scope :all_products, ->(owner) { where(owner_condition(owner)) }
     scope :active_products, ->(owner) { where(owner_condition(owner).merge!(status: :active)) }
@@ -83,6 +81,10 @@ class Product < ApplicationRecord
         ((yavolo_count.to_d/total_count.to_d)*100.0).to_i
     end
 
+    def get_featured_image
+        self.images.featured.first
+    end
+
     def update_featured_image(featured_image_param)
         return unless featured_image_param.present?
         featured_image_param = JSON.parse(featured_image_param)
@@ -103,5 +105,13 @@ class Product < ApplicationRecord
             picture = self.pictures.where('pictures.name ILIKE ?',"%#{identifier}").first
         end
         picture
+    end
+
+    def assign_yan_to_product
+        return if self.yan.present?
+        loop do
+            self.yan = "Y" + SecureRandom.send('choose', [*'0'..'9'], 12)
+            break unless self.class.exists?(yan: yan)
+        end
     end
 end

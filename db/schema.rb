@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_22_083650) do
+ActiveRecord::Schema.define(version: 2021_12_20_112511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -719,7 +719,7 @@ ActiveRecord::Schema.define(version: 2021_12_22_083650) do
   end
 
   create_table "yavolo_bundle_products", force: :cascade do |t|
-    t.decimal "price", precision: 8, scale: 2
+    t.decimal "price", precision: 9, scale: 2
     t.bigint "product_id", null: false
     t.bigint "yavolo_bundle_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -736,7 +736,7 @@ ActiveRecord::Schema.define(version: 2021_12_22_083650) do
     t.integer "status"
     t.string "yan"
     t.integer "quantity"
-    t.decimal "price", precision: 8, scale: 2
+    t.decimal "price", precision: 10, scale: 2
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "stock_limit"

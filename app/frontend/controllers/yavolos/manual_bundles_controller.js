@@ -21,6 +21,7 @@ export default class extends ApplicationController {
         let stockLimit = this.isStockLimitValid()
         if(!stockLimit.valid){
             window.displayNoticeMessage(stockLimit.message)
+            this.stockLimitController.toggleMaxStockLimitInputFieldAndShowErrorMessage()
             return
         }
         $(this.formTarget).submit();
@@ -31,9 +32,10 @@ export default class extends ApplicationController {
     areAllProductItemsValid() {
         let obj = {}
         const pricesControllers = this.summaryController.getAllPricesControllers()
-        if (pricesControllers.length < 2) {
+        const [minLength, maxLength] = [2,6]
+        if (pricesControllers.length < minLength || pricesControllers.length > maxLength) {
             obj['valid'] = false;
-            obj['message'] = "Please add some products to bundle first"
+            obj['message'] = `At least ${minLength} and at most ${maxLength} products can be added to bundle`
         } else {
             obj['valid'] = pricesControllers.every(pc => pc.isDiscountValid === true)
             obj['message'] = "Please add correct value for product yavolo discount"

@@ -1,0 +1,43 @@
+<div class="photo-grid yo-white-card  box-border mt-3">
+  <div class="row align-items-center">
+    <div class="col-lg-6">
+      <div class="add-photoo text-center">
+        <div class="add-photo-inner">
+          <a href="#" class="btn btn-sm btn-radius px-4 btn-primary text-uppercase position-relative overflow-hidden yavolo-main-image-input-wrapper">
+            <span>Edit Photo</span>
+            <%= form.fields_for :main_image,Picture.new do |picture| %>
+              <%= picture.file_field :name, multiple: false, name: "yavolo_bundle[main_image_attributes][name]", class: "yavolo-main-image-input", accept: "image/*" %>
+          <% end %>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="yo-white-card m-3">
+        <div class="text-right">
+          <span>
+              <%= image_tag "badge.png", class: "mr-0 my-4" %>
+          </span>
+        </div>
+
+        <% featured_images = get_featured_images_of_bundle_products(@products) %>
+        <div class="yavolo-main-image-container">
+
+          <% if form.object.main_image.present? %>
+            <%= render "admin/yavolos/manual_bundles/featured_image_pattern/featured_image_single", featured_image: form.object.main_image %>
+          <% elsif featured_images.present? && featured_images.size <= 4 %>
+            <%= render 'admin/yavolos/manual_bundles/featured_image_pattern/featured_image_pattern_1_to_3', featured_images: featured_images %>
+          <% elsif featured_images.present? && featured_images.size > 4 %>
+            <%= render 'admin/yavolos/manual_bundles/featured_image_pattern/featured_image_pattern_4_to_5', featured_images: featured_images %>
+          <% end%>
+        </div>
+
+
+        <div class="text-right pr-3 pb-3">
+          <h5> A good deal better.</h5>
+        </div>
+      </div>
+    </div>
+    <h4 class="photo-text"><strong>Main Yavolo Image</strong></h4>
+  </div>
+</div>

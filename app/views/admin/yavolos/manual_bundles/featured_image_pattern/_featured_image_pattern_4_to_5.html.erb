@@ -1,0 +1,22 @@
+<div class="row bundle-block-pad align-items-center four-to-five">
+  <div class="col-8">
+    <div class="yo-white-card">
+      <%= image_tag featured_images[0].name.url %>
+    </div>
+  </div>
+  <div class="col-4 d-flex justify-content-between flex-column">
+    <div class="yo-white-card">
+      <%= image_tag featured_images[1].name.url %>
+    </div>
+    <div class="yo-white-card">
+      <%= image_tag featured_images[2].name.url %>
+    </div>
+  </div>
+  <% (3...featured_images.size).each do |i| %>
+    <div class="col-4 d-flex justify-content-between flex-column">
+      <div class="yo-white-card">
+        <%= image_tag featured_images[i].name.url %>
+      </div>
+    </div>
+  <% end %>
+</div>
