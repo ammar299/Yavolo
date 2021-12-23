@@ -90,7 +90,10 @@
               <%= hidden_field_tag 'product[product_id]', @product["id"] %>
               <%= hidden_field_tag 'page', 'pdp' %>
               <div>
-              <% if @product["product_status"]  == 'active' %>
+              <% if params[:preview_listing] %>
+                <%= button_tag "BUY IT NOW", value: "BUY IT NOW", :disabled => true, id: "buy_button", class: "btn btn-lg btn-radius px-4 buy-it-now btn-primary w-100 mb-2" %>
+                <%= button_tag "ADD TO BASKET", value: "ADD TO BASKET", :disabled => true, id: "add_basket_button", class: "btn btn-lg btn-radius px-4 btn-outline-primary w-100 mb-2" %>
+              <% elsif @product_status == 'active'%>
                 <%= button_tag "BUY IT NOW", value: "BUY IT NOW", id: "buy_button", class: "btn btn-lg btn-radius px-4 buy-it-now btn-primary w-100 mb-2" %>
                 <%= button_tag "ADD TO BASKET", value: "ADD TO BASKET", id: "add_basket_button", class: "btn btn-lg btn-radius px-4 btn-outline-primary w-100 mb-2" %>
               <% else %>
