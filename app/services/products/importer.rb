@@ -37,7 +37,7 @@ module Products
             product.condition = product_condition(row)
             product.status = product_type
             product.filter_in_category_ids = []
-            product.delivery_option_id = get_default_delivery_option_id
+            product.delivery_option_id = get_delivery_option_id(params['delivery_option_id'])
             seo_content = SeoContent.find_by(title: params[:seo_content_attributes][:title], description: params[:seo_content_attributes][:description])
             if product.valid?
               seo_content.present? ? @errors << "#{product.title}: Meta title and Meta Description already taken" : product.save
@@ -193,16 +193,20 @@ module Products
         remote_images_ary
       end
 
-      def get_default_delivery_option_id
-        ship_id = Ship.find_or_create_by(name: 'UK Mainland').id
+      def get_delivery_option_id(delivery_option)
+        delivery_option_name = delivery_option.parameterize(separator: '_')
+        DeliveryOption.find_by(handle: delivery_option_name)&.id
 
-        delivery_option = DeliveryOption.joins(:delivery_option_ships).where(delivery_options: { delivery_optionable_type: csv_import.importer_type, delivery_optionable_id: csv_import.importer_id },delivery_option_ships: {ship_id: ship_id}).last if ship_id.present?
+        # ship_id = Ship.find_or_create_by(name: 'UK Mainland').id
 
-        return delivery_option.id if delivery_option.present?
+        # delivery_option = DeliveryOption.joins(:delivery_option_ships).where(delivery_options: { delivery_optionable_type: csv_import.importer_type, delivery_optionable_id: csv_import.importer_id },delivery_option_ships: {ship_id: ship_id}).last if ship_id.present?
 
-        delivery_option = importer.delivery_options.create({name: 'Default UK Mainland'})
-        DeliveryOptionShip.create(price: 40, processing_time: 'same_day', delivery_time: 'next_day', ship_id: ship_id, delivery_option_id: delivery_option.id)
-        delivery_option.id
+        # return delivery_option.id if delivery_option.present?
+
+        # delivery_option = importer.delivery_options.create({name: 'Default UK Mainland'})
+        # DeliveryOptionShip.create(price: 40, processing_time: 'same_day', delivery_time: 'next_day', ship_id: ship_id, delivery_option_id: delivery_option.id)
+        # delivery_option.id
+
       end
 
       def importer

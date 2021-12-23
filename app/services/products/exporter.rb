@@ -46,8 +46,10 @@ module Products
         get_csv_headers.slice(0, get_csv_headers.index('seo_title')).each do |col|
           if col == 'ean'
             values << "ean_#{product.send(col).to_s}"
-            else
-              values << product.send(col).to_s
+          elsif col == 'delivery_option_id'
+            values << get_delivery_option_id(product.delivery_option_id)
+          else
+            values << product.send(col).to_s
           end
         end
         so = product.seo_content
@@ -73,5 +75,8 @@ module Products
         end
       end
 
+      def get_delivery_option_id(delivery_option_id)
+        DeliveryOption.find(delivery_option_id).handle
+      end
   end
 end
