@@ -101,17 +101,28 @@ class Buyers::CheckoutController < Buyers::BaseController
       if @order.present? && @buyer.present? && @order.order_type != 'paid_order'
         @order_amount = order_amount
         payment_method = @buyer.buyer_payment_methods.last
-        payment = Stripe::ChargeCreator.call(
+        seller_grouped_products_hash = Stripe::SellerProductHash.call(
           { stripe_token_id: payment_method.token, buyer: @buyer, order: @order, amount: @order_amount[:total] }
         )
-        if payment.status
-          @order.update(order_type: :paid_order, buyer_payment_method_id: payment_method.id,sub_total: @order_amount[:sub_total],total: @order_amount[:total])
+        unless seller_grouped_products_hash.status
+          flash[:notice] = "Can't place this order. One of the sellers does not have any bank account attached yet."
+          redirect_to review_order_path
+        end
+        charge = Stripe::ChargeCreator.call(
+          { stripe_token_id: payment_method.token, buyer: @buyer, order: @order, amount: @order_amount[:total] }
+        )
+        if charge.status
+          Stripe::TransferAmount.call(
+            { charge_id: charge.charge.id, seller_hash: seller_grouped_products_hash.seller_hash }
+          )
+          @order.update(order_type: :paid_order, buyer_payment_method_id: payment_method.id,
+                        sub_total: @order_amount[:sub_total], total: @order_amount[:total])
           @order.create_payment_mode(
             payment_through: 'stripe',
-            charge_id: payment.charge[:id],
-            amount: payment.charge[:amount],
-            return_url: payment.charge[:refunds][:url],
-            receipt_url: payment.charge[:receipt_url]
+            charge_id: charge.charge[:id],
+            amount: charge.charge[:amount],
+            return_url: charge.charge[:refunds][:url],
+            receipt_url: charge.charge[:receipt_url]
           )
           session.delete(:_current_user_cart)
           session.delete(:_current_user_order_id)
@@ -119,7 +130,7 @@ class Buyers::CheckoutController < Buyers::BaseController
           flash[:notice] = I18n.t('flash_messages.order_placed_successfully')
           redirect_to order_completed_path(order: @order)
         else
-          flash[:notice] = payment.errors
+          flash[:notice] = charge.errors
           redirect_to review_order_path
         end
       end
