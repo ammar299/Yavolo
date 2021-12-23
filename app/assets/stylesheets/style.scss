@@ -1289,9 +1289,10 @@ h6 {
   margin-bottom: 20px;
 }
 .yo-white-card {
-  background-color: var(--white);
+  background-color: var(--white) ;
   border-radius: 10px;
-  box-shadow: 1px 1px 5px #0000000a;
+  /* box-shadow: 1px 1px 5px #0000000A; */
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .ebay-forms input {
   width: 170px;
@@ -3487,3 +3488,130 @@ input::-webkit-inner-spin-button {
 }
 /* custome-input-dropdwsn */
 /* ================== sprint-3 ================== */
+
+/* ================== sprint-5 ================== */
+#main-slider.splide-pad {
+  padding: 20px 0 !important;
+}
+.bundle-block-pad {
+  padding: 10px 55px;
+}
+.plus-bundling {
+  position: absolute;
+  right: -12px;
+  font-size: 22px;
+  font-weight: 600;
+}
+.plus-bundling-botm {
+  position: absolute;
+  bottom: 29%;
+  padding-bottom: -3px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.bundle-block-pad .col-4 {
+  margin: -15px 0;
+  display: flex;
+  flex-direction: column;
+}
+.bundle-block-pad .col-4 .yo-white-card {
+  padding: 15px 0;
+}
+.bundle-block-pad .yo-white-card {
+  box-shadow: none !important;
+}
+.bundle-block-pad .yo-white-card img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  margin: 0 !important;
+  border-radius: 8px;
+  background-color: #eee;
+  box-shadow: 2px 2px 6px #00000021;
+}
+
+.bundle-block-pad .col-8 .yo-white-card img {
+  min-height: 285px;
+}
+.bundle-block-pad .col-4 .yo-white-card img {
+  min-height: 128px;
+}
+.bundle-block-pad .col-8:after,
+.bundle-block-pad.four-to-five .col-8:before {
+  content: "+";
+  position: absolute;
+  display: inline-flex;
+  margin: auto;
+  height: 20px;
+  width: 20px;
+  line-height: 1.3rem;
+  font-size: 2rem;
+  color: var(--dark-red);
+  align-items: center;
+  justify-content: center;
+}
+
+.bundle-block-pad .col-8:after {
+  right: -11px;
+  top: 0;
+  bottom: 0;
+}
+.bundle-block-pad.four-to-five .col-8:before {
+  right: 0;
+  left: 0;
+  bottom: -25px;
+}
+.bundle-block-pad.four-to-five .col-4:nth-child(3) {
+  margin: 15px 0;
+}
+@media only screen and (max-width: 600px) {
+  .bundle-block-pad {
+    padding: 20px !important;
+  }
+  .bundle-block-pad .col-8 .yo-white-card img {
+    min-height: 160px;
+  }
+  .bundle-block-pad .col-4 .yo-white-card img {
+    min-height: 80px;
+  }
+  .bundle-block-pad .col-4 {
+    margin: -5px 0;
+    padding: 5px !important;
+  }
+  .bundle-block-pad .col-8 {
+    padding: 5px !important;
+  }
+  .bundle-block-pad .col-4 .yo-white-card {
+    padding: 5px 0;
+  }
+  .bundle-block-pad.four-to-five .col-4:nth-child(3) {
+    margin: 0;
+  }
+  .bundle-block-pad .col-8:after,
+  .bundle-block-pad.four-to-five .col-8:before {
+    font-size: 1.5rem;
+  }
+  .bundle-block-pad .col-8:after {
+    right: -13px;
+  }
+  .bundle-block-pad.four-to-five .col-8:before {
+    bottom: -13px;
+  }
+}
+
+.yavolo-main-image-input-wrapper {
+  .yavolo-main-image-input{
+    position: absolute;
+    left: -104px;
+    top: 0;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    right: 0;
+  }
+}
+
+
+
+/* ================== sprint-5 ================== */

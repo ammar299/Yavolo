@@ -16,7 +16,7 @@
                         <a href="javascript:void(0)" class="btn btn-sm btn-radius px-4 btn-primary text-uppercase position-relative overflow-hidden">Browse files
                         <%= form.fields_for :pictures,Picture.new do |picture| %>
                             <% if picture.object.new_record? %>
-                            <%= picture.file_field :name, multiple: true, name: "product[pictures_attributes][][name]", id: 'product_pictures_attributes_0_name', accept: "image/*" %>
+                            <%= picture.file_field :name, multiple: true, name: defined?(file_field_name)? file_field_name: 'product[pictures_attributes][][name]', id: 'product_pictures_attributes_0_name', accept: "image/*" %>
                             <% end %>
                         <% end %>
                         </a>
