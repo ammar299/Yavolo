@@ -1,10 +1,13 @@
-<%= form_tag url, method: method, id: 'assigned-category-form-filter-group', :class => 'd-flex align-items-center assign-category-form form-group-vertical-responsive' do %>
+<%= form_tag url, method: method, id: 'assigned-category-form-filter-group', :class => 'd-flex flex-column assign-category-form form-group-vertical-responsive' do %>
   <%= hidden_field_tag :filter_group_ids, @filter_group_ids %>
-  <%= label_tag :category_name, "Category Name", :class => "bold-label" %>
-  <%= select_tag :category, options_from_collection_for_select(Category.all,:id, "category_name"),multiple:true, required: true, prompt: 'Select category', class: 'form-control assign-category-bulk-select-tag mr-3' %>
-  <div class="text-right mt-3">
+  <div class="d-flex align-items-center">
+    <%= label_tag :category_name, "Category Name", :class => "bold-label" %>
+    <%= select_tag :category, options_from_collection_for_select(Category.all,:id, "category_name"),multiple:true, required: true, prompt: 'Select category', class: 'form-control new-select assign-category-bulk-select-tag mr-3' %>
+  </div>
+  <div class="text-center mt-3">
     <%= submit_tag 'Assign Category', class: "btn btn-radius px-4 btn-primary btn-sm"%>
   </div>
+  
 <% end %>
 
 <script>

@@ -74,16 +74,21 @@
         <h5 class="mb-3">Order Summary</h5>
         <div class="item-basket">
           <input type="checkbox" id="sometoggler" class="toggler">
-          <label for="sometoggler"><span class="mm-text pointer">You have 2 items in your basket <i class="dropdown-toggle pl-2"></i> </span></label>
+          <label for="sometoggler" id="count-label"><span class="mm-text pointer total-product-count" id="total-cnt">You have <%=@total_num_of_products %> items in your basket <i class="dropdown-toggle pl-2"></i> </span></label>
           <div>
-            <div class="d-flex justify-content-between flex-wrap mm-text mb-2">
-              <span>Sony PlayStation 5 Console</span>
-              <span>£499.99 <span class="font-10 pl-2">times-circle</span> </span>
-            </div>
-            <div class="d-flex justify-content-between flex-wrap mm-text mb-2">
-              <span>PawHut 150CM Cat Tree Tower, Wall-Mounted Cat <br> Shelf Perch &amp; Plush Folding Cat Tree</span>
-              <span>£55.99<span class="font-10 pl-2">times-circle</span> </span>
-            </div>
+            <% @cart.each_with_index do |value, index| %>
+              <div class="d-flex justify-content-between abcd flex-wrap mm-text mb-2" id="summary-basket-<%=value[:product_id] %>">
+                <% product = Product.find value[:product_id] %>
+                <span><%= product.title %></span>
+                
+                <div class="d-flex">
+                  <span class="pr-2"><%= product.price %></span>
+                  <%= link_to remove_product_form_cart_path(remove_product: {product_id: product.id}, product_count: value[:quantity], total_product: @total_num_of_products), method: :delete, remote: true, class: 'decoration-none' do %>
+                    <span class="order-summary-basket-cross">x</span>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
           </div>
         </div>
         <div class="d-flex justify-content-between mb-2">

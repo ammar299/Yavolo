@@ -38,11 +38,15 @@ class Buyers::CheckoutController < Buyers::BaseController
   end
 
   def payment_method
+    @total_num_of_products = 0
     @cart = get_cart
     @order_amount = order_amount
     unless @cart.present?
       flash[:notice] = I18n.t('flash_messages.no_products_are_added_to_card')
       redirect_to store_front_path
+    end
+    @cart.each_with_index do |value, index| 
+      @total_num_of_products = @total_num_of_products + value[:quantity]
     end
   end
 

@@ -1415,6 +1415,19 @@ width: 75%;
 .ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable, .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners {
   border: 1px solid #ccc !important;
 }
-select.new-select {
 
+.order-summary-basket-cross {
+    color: white;
+    background-color: var(--dark-red);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    width: 12px;
+    height: 12px;
+    padding-bottom: 2px;
+    padding-left: 1px;
+    cursor: pointer;
+    margin-top: 2px;
 }
