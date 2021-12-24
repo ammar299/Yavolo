@@ -31,14 +31,13 @@ module Sellers
               uid = (('A'..'Z').to_a.sample(2) + (0..9).to_a.sample(6) ).join
               seller = create_seller_instance(row,password,uid)
               if seller.valid?
-                seller.save
-                seller.update_seller_products_listing
                 create_associate_seller_data(seller,row)
-                seller.skip_password_validation = true
-                raw, hashed = Devise.token_generator.generate(Seller, :reset_password_token)
-                seller.reset_password_token = hashed
-                seller.reset_password_sent_at = Time.now.utc
-                if seller.save
+                if @errors.blank? && seller.save
+                  seller.update_seller_products_listing
+                  seller.skip_password_validation = true
+                  raw, hashed = Devise.token_generator.generate(Seller, :reset_password_token)
+                  seller.reset_password_token = hashed
+                  seller.reset_password_sent_at = Time.now.utc
                   AdminMailer.with(to: row["user_email"].to_s.downcase, token: raw,seller: seller ).send_account_creation_email.deliver_now #send notification email to seller
                 end
               else
@@ -150,8 +149,8 @@ module Sellers
       end
 
       def create_bussiness_representative(seller,row)
-        seller.create_business_representative(
-          email: row["business_representative_email"],
+        seller.build_business_representative(
+          email: business_representative_email_valid(seller,row),
           job_title: row["business_representative_job_title"], 
           date_of_birth: row["business_representative_date_of_birth"],
           full_legal_name: row["business_representative_full_legal_name"]
@@ -159,7 +158,7 @@ module Sellers
       end
 
       def create_company_detail(seller,row)
-        seller.create_company_detail(
+        seller.build_company_detail(
           name: row["company_name"],
           vat_number: company_vat_number(row),
           country: row["company_country"],
@@ -175,7 +174,7 @@ module Sellers
       
       def create_business_representative_address(seller,row)
 
-        data = seller.addresses.create(
+        data = seller.addresses.new(
           address_line_1: address_line_1("business_representative_address_line_1",row),
           address_line_2: address_line_2("business_representative_address_line_2",row),
           city: city("business_representative_address_city", row),
@@ -183,14 +182,14 @@ module Sellers
           state: state("business_representative_address_state", row),
           country: country("business_representative_address_country", row),
           postal_code: postal_code("business_representative_address_postal_code", row),
-          phone_number: phone_number("business_representative_address_phone_number", row),
+          phone_number: phone_number_valid("business_representative_address_phone_number", row),
           address_type: "business_representative_address"
         )
         
       end
 
       def create_business_address(seller,row)
-        data = seller.addresses.create(
+        data = seller.addresses.new(
           address_line_1: row["business_address_line_1"],
           address_line_2: row["business_address_line_2"],
           city: row["business_address_city"],
@@ -198,14 +197,14 @@ module Sellers
           state: row["business_address_state"],
           country: row["business_address_country"],
           postal_code: row["business_address_postal_code"],
-          phone_number: phone_number("business_address_phone_number",row),
+          phone_number: phone_number_valid("business_address_phone_number",row),
           address_type: "business_address"
         )
         
       end
 
       def create_return_address(seller,row)
-        data = seller.addresses.create(
+        data = seller.addresses.new(
           address_line_1: address_line_1("return_address_line_1",row),
           address_line_2: address_line_2("return_address_line_2",row),
           city: city("return_address_city", row),
@@ -213,14 +212,14 @@ module Sellers
           state: state("return_address_state", row),
           country: country("return_address_country", row),
           postal_code: postal_code("return_address_postal_code", row),
-          phone_number: phone_number("return_address_phone_number", row),
+          phone_number: phone_number_valid("return_address_phone_number", row),
           address_type: "return_address"
         )
         
       end
 
       def create_invoice_address(seller,row)
-        data = seller.addresses.create(
+        data = seller.addresses.new(
           address_line_1: address_line_1("invoice_address_line_1",row),
           address_line_2: address_line_2("invoice_address_line_2",row),
           city: city("invoice_address_city", row),
@@ -228,7 +227,7 @@ module Sellers
           state: state("invoice_address_state", row),
           country: country("invoice_address_country", row),
           postal_code: postal_code("invoice_address_postal_code", row),
-          phone_number: phone_number("invoice_address_phone_number", row),
+          phone_number: phone_number_valid("invoice_address_phone_number", row),
           address_type: "invoice_address"
         )
       end
@@ -262,20 +261,22 @@ module Sellers
         row["#{field}"] || row["business_address_postal_code"]
       end
 
-      def phone_number(field, row)
+      def phone_number_valid(field, row)
         pattern=/^(\(?(\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/
-        phone_number = row["#{field}"] || row["business_address_phone_number"]
-        if phone_number.start_with?("+")
-          return phone_number
+        phone = row["#{field}"] || row["business_address_phone_number"]
+        if phone.start_with?("+")
+          return phone
         else
-          phone_number = ("+").concat(phone_number)
+          phone = ("+").concat(phone)
         end
-        if phone_number.present?
-          phone_number.match?(pattern)
-          return phone_number
+        if phone.present?
+          if phone.match?(pattern)
+            return phone
+          else
+            @errors << "For seller: #{row["user_email"]} phone number #{phone} is invalid. Enter valid UK phone number(e.g +447911123456)"
+          end
         else
-          @errors << "For seller: #{row["user_email"]} Company house registration number #{phone_number} is invalid. Enter valid UK phone number(e.g +447911123456)"
-          return false
+          @errors << "For seller: #{row["user_email"]} phone number can not blank. Enter valid UK phone number(e.g +447911123456)"
         end
       end
 
@@ -287,7 +288,6 @@ module Sellers
             return row["company_companies_house_registration_number"]
           else
             @errors << "For seller: #{row["user_email"]} Company house registration number #{row["company_companies_house_registration_number"]} is invalid. Valid format is: A9123456, 12345678 or AB345678"
-            return false
           end
         end
       end
@@ -299,8 +299,16 @@ module Sellers
             return row["company_vat_number"]
           else
             @errors << "For seller: #{row["user_email"]} Company VAT number #{row["company_vat_number"]} is invalid. Please enter a valid VAT number"
-            return false
           end
+        end
+      end
+
+      def business_representative_email_valid(seller,row)
+        pattern = /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+        if row["business_representative_email"].match?(pattern)
+          row["business_representative_email"]
+        else
+          @errors << "For seller: #{row["user_email"]} Business repersentative email #{row["business_representative_email"]} is invalid. Please enter a valid Business repersentative Email"
         end
       end
   end

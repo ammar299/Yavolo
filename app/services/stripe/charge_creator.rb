@@ -15,7 +15,7 @@ module Stripe
 
     def call
       begin
-        separate_cart_item_wrt_seller
+        charge_customer_once
       rescue StandardError => e
         @status = false
         @errors << e.message
@@ -24,6 +24,35 @@ module Stripe
     end
 
     private
+
+    def charge_customer_once
+      customer = find_customer(stripe_customer_id)
+      create_charge(customer) if customer.present?
+      # separate_cart_item_wrt_seller
+    end
+
+    def transfer_amount_to_sellers(seller_grouped_products_array)
+      seller_grouped_products_array.each do |seller_hash|
+        seller_stripe_account_id = find_provider_connect_account(seller_hash[:seller_connect_account_id])
+        if seller_stripe_account_id.present?
+          transfer_amount_stripe(seller_hash[:seller_connect_account_id], seller_hash[:remaining_amount])
+        end
+      end
+    end
+
+    def transfer_amount_stripe(seller_stripe_account_id, amount_to_transfer_to_seller)
+      payload = transfer_amount_payload(seller_stripe_account_id, amount_to_transfer_to_seller, @charge.id)
+      Stripe::Transfer.create(payload)
+    end
+
+    def transfer_amount_payload(seller_stripe_account_id, amount_to_transfer_to_seller, charge_id)
+      {
+        amount: amount_to_transfer_to_seller.to_i,
+        currency: 'gbp',
+        destination: seller_stripe_account_id,
+        source_transaction: charge_id
+      }
+    end
 
     def separate_charge_for_each_seller_grouped_product(seller_grouped_products_array)
       seller_grouped_products_array.each do |seller_hash|
@@ -42,7 +71,8 @@ module Stripe
         product_seller_id = product_owner_id(line_item)
         create_or_update_hash(group_product_with_sellers, product_seller_id, line_item)
       end
-      separate_charge_for_each_seller_grouped_product(group_product_with_sellers)
+      transfer_amount_to_sellers(group_product_with_sellers)
+      # separate_charge_for_each_seller_grouped_product(group_product_with_sellers)
     end
 
     def product_owner_id(line_item)
@@ -50,8 +80,7 @@ module Stripe
     end
 
     def product_owner_stripe_id(line_item)
-      if line_item.product.owner&.bank_detail&.account_verification_status == true ||
-          line_item.product.owner&.bank_detail&.account_verification_status == 'true'
+      if line_item.product.owner&.bank_detail&.account_verification_status.to_s == 'true'
         line_item.product.owner&.bank_detail&.customer_stripe_account_id
       else
         raise StandardError.new('seller does not attached bank account')
@@ -108,6 +137,11 @@ module Stripe
       @charge = Stripe::Charge.create(params)
     end
 
+    def create_charge(customer)
+      params = charge_customer_once_params(customer)
+      @charge = Stripe::Charge.create(params)
+    end
+
     def stripe_token_id
       params[:stripe_token_id] || nil
     end
@@ -148,8 +182,19 @@ module Stripe
         transfer_data: {
           destination: destination_account_id
         },
-        metadata: { order_id: order.id, order_line_items: order_line_items.to_json.to_s, 
+        metadata: { order_id: order.id, order_line_items: order_line_items.to_json.to_s,
                     line_items: line_items.to_json.to_s }
+      }
+    end
+
+    def charge_customer_once_params(customer)
+      {
+        source: card_id,
+        customer: customer.id,
+        amount: amount_to_lower_unit(amount),
+        description: "#{buyer.email} has paid £#{amount} for Order ID: #{order.id}",
+        currency: 'gbp',
+        metadata: { order_id: order.id }
       }
     end
 

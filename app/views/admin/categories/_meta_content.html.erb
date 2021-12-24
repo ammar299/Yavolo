@@ -38,7 +38,15 @@
       if($("#category_meta_content_attributes_keywords").tagsinput('input')) {
         $("#category_meta_content_attributes_keywords").tagsinput('input').addClass('ignoreme');
       }
-      validateProductForm();
+
+      $('#category-meta-form').on('keyup keypress', function(e) {
+        var keyCode = e.keyCode || e.which;
+        if (keyCode === 13) {
+          e.preventDefault();
+        }else {
+          validateProductForm();
+        }
+      });
     });
 
   function validateProductForm(custom_rules={}, custom_messages={}) {
