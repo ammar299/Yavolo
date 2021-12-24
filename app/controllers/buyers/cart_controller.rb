@@ -84,6 +84,9 @@ class Buyers::CartController < Buyers::BaseController
       @order_amount = order_amount
       flash.now[:notice] = I18n.t('flash_messages.product_removed_successfully')
     end
+    if params[:product_count].present?
+      @total_num_of_products = @cart.inject(0) { |sum, p| sum + p[:quantity] }
+    end
   end
 
   def update_selected_payment_method
