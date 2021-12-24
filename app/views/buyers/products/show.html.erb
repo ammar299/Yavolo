@@ -79,10 +79,11 @@
             <%= form_tag(add_to_cart_path, id: "buyer-products-quantity", method: :post, remote: true) do %>
               <div class="dropdown quantity-dropdown text-center mt-3 mb-2 w-100">
                 <button class="btn dropdown-toggle btn-lg" type="button" name="product[quantities]"id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                  Quantity: <%= number_field_tag 'product[quantity]', 1, class: "update-product-quantity" %>
+                  Quantity: <%= number_field_tag 'product[quantity]', 1, class: "update-product-quantity", data: { quantity: @product['product_stock'] } %>
                 </button>
                 <div class="dropdown-menu p-3 mt-0" aria-labelledby="dropdownMenuButton">
-                  <% (1..10).each do |stock_quantity| %>
+                  <% quantity_list = @product['product_stock'] < 10? (1..@product['product_stock']) : (1..10) %>
+                  <% quantity_list.each do |stock_quantity| %>
                     <a class="dropdown-item p-1 click-product-quantity" href="javascript:void(0)" data-quantity="<%= stock_quantity %>"><span><%= stock_quantity %></span></a>
                   <% end %>
                 </div>
@@ -91,8 +92,8 @@
               <%= hidden_field_tag 'page', 'pdp' %>
               <div>
               <% if params[:preview_listing] %>
-                <%= button_tag "BUY IT NOW", value: "BUY IT NOW", :disabled => true, id: "buy_button", class: "btn btn-lg btn-radius px-4 buy-it-now btn-primary w-100 mb-2" %>
-                <%= button_tag "ADD TO BASKET", value: "ADD TO BASKET", :disabled => true, id: "add_basket_button", class: "btn btn-lg btn-radius px-4 btn-outline-primary w-100 mb-2" %>
+                <%= button_tag "BUY IT NOW", value: "BUY IT NOW", id: "buy_button", class: "btn btn-lg btn-radius px-4 buy-it-now btn-primary w-100 mb-2" %>
+                <%= button_tag "ADD TO BASKET", value: "ADD TO BASKET", id: "add_basket_button", class: "btn btn-lg btn-radius px-4 btn-outline-primary w-100 mb-2" %>
               <% elsif @product_status == 'active'%>
                 <%= button_tag "BUY IT NOW", value: "BUY IT NOW", id: "buy_button", class: "btn btn-lg btn-radius px-4 buy-it-now btn-primary w-100 mb-2" %>
                 <%= button_tag "ADD TO BASKET", value: "ADD TO BASKET", id: "add_basket_button", class: "btn btn-lg btn-radius px-4 btn-outline-primary w-100 mb-2" %>
