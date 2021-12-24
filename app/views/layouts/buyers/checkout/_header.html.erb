@@ -6,17 +6,17 @@
           <%= image_tag 'Yavolo_Logo_WarmRed.png', width: '160' %>
         </span>
       </a>
-      <div class="innerSteps">
+      <div class="innerSteps" data-url="<%= action_name %>">
         <ul>
-          <li class="active">
+          <li class="checkout-new">
             <span class="icon-check"></span>
             <p class="mb-0">Your Details</p>
           </li>
-          <li>
+          <li class="checkout-payment-method">
             <span class="icon-check"></span>
             <p class="mb-0">Payment</p>
           </li>
-          <li>
+          <li class="checkout-review-order">
             <span class="icon-check"></span>
             <p class="mb-0">Review Your Order</p>
           </li>
@@ -25,4 +25,4 @@
       <a href="#" class="d-inline-flex align-items-center decoration-none text-white"><span class="mr-2 icon-Secure-checkout red-text"></span> Secure Checkout</a>
     </div>
   </div>
-</header>  
+</header>

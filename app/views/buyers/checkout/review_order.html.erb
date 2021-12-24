@@ -18,7 +18,7 @@
                     <li class="black-text "><%= @order.shipping_address.country %></li>
                   </ul>
                 </div>
-                <!-- <a href="" class="red-text mm-text"><u>Change Delivery Address</u></a> -->
+                <%= link_to 'Change Delivery Address', checkout_path, class: 'red-text mm-text' %>
               </div>
               <% end %>
               <% if @order.billing_address.present? %>
@@ -35,7 +35,7 @@
                     <li class="black-text "><%= @order.billing_address.country %></li>
                   </ul>
                 </div>
-                <!-- <a href="" class="red-text mm-text"><u>Change Billing Address</u></a> -->
+                <%= link_to 'Change Billing Address', checkout_path, class: 'red-text mm-text' %>
               </div>
               <% end %>
               <div class="col-lg-4 d-flex flex-column justify-content-between">
@@ -56,7 +56,7 @@
                     </div>
                   </div>
                 </div>
-                <!-- <a href="" class="red-text mm-text"><u>Change Payment Method</u></a> -->
+                <%= link_to 'Change Payment Method', payment_method_path, class: 'red-text mm-text' %>
               </div>
           </div>
         </div>
