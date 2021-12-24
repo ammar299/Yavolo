@@ -82,7 +82,7 @@
                   Quantity: <%= number_field_tag 'product[quantity]', 1, class: "update-product-quantity", data: { quantity: @product['product_stock'] } %>
                 </button>
                 <div class="dropdown-menu p-3 mt-0" aria-labelledby="dropdownMenuButton">
-                  <% quantity_list = @product['product_stock'] < 10? (1..@product['product_stock']) : (1..10) %>
+                  <% quantity_list = @product['stock'] < 10? (1..@product['stock']) : (1..10) %>
                   <% quantity_list.each do |stock_quantity| %>
                     <a class="dropdown-item p-1 click-product-quantity" href="javascript:void(0)" data-quantity="<%= stock_quantity %>"><span><%= stock_quantity %></span></a>
                   <% end %>
@@ -1567,7 +1567,7 @@
 
 <script>
   $(document).ready(function() {
-    if ($('#main-slider-list').find('li').length == 0) {
+    if ($('#main-slider-list').find('li').length <= 1 ) {
       $('.splide__arrows').addClass('d-none');
     }
   });

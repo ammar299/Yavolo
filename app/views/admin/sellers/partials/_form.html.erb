@@ -9,6 +9,23 @@
           <% if params[:controller] == "admin/sellers" %>
             <%= form.hidden_field :account_status, {value: 'activate'} %>
           <% end %>
+
+          <div class="row">
+            <div class="col-md-7">
+              <div class="form-group form-group-vertical form-group-vertical-responsive mb-lg-0">
+                <label for="" class="boldheadings">Name:</label>
+                <div style="flex: 1">
+                  <%= form.text_field :first_name, placeholder: 'First Name', class: 'form-control' %>
+                </div>
+              </div>
+            </div>
+            <div class="form-group form-group-vertical form-group-vertical-responsive col-md-5">
+              <div style="flex: 1">
+                <%= form.text_field :last_name, placeholder: 'Last Name', class: 'form-control' %>
+              </div>
+            </div>
+          </div>
+
           <% has_error, msg = get_errors(form, :email) %>
           <div class="form-group form-group-vertical form-group-vertical-responsive">
             <%= form.label :email, 'Email Address:', class: 'boldheadings' %>
