@@ -59,7 +59,7 @@ class Sellers::ProfilesController < Sellers::BaseController
         flash.now[:notice] = "Login details updated successfully"
       end
     else
-      flash.now[:notice] = "Password not true"
+      flash.now[:notice] = "Incorrect current password"
     end
   end
 
