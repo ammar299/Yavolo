@@ -85,10 +85,7 @@ class Buyers::CartController < Buyers::BaseController
       flash.now[:notice] = I18n.t('flash_messages.product_removed_successfully')
     end
     if params[:product_count].present?
-      @total_num_of_products = 0
-      @cart.each_with_index do |value, index| 
-        @total_num_of_products = @total_num_of_products + value[:quantity]
-      end
+      @total_num_of_products = @cart.inject(0) { |sum, p| sum + p[:quantity] }
     end
   end
 

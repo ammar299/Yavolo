@@ -45,9 +45,10 @@ class Buyers::CheckoutController < Buyers::BaseController
       flash[:notice] = I18n.t('flash_messages.no_products_are_added_to_card')
       redirect_to store_front_path
     end
-    @cart.each_with_index do |value, index| 
-      @total_num_of_products = @total_num_of_products + value[:quantity]
-    end
+    @total_num_of_products = @cart.inject(0) { |sum, p| sum + p[:quantity] }
+    # @cart.each_with_index do |value, index| 
+    #   @total_num_of_products = @total_num_of_products + value[:quantity]
+    # end
   end
 
   def create_payment_method
