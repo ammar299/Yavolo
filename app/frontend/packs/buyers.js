@@ -3,6 +3,7 @@ $(document).ready(function () {
 		disableEnterOnAddToCart();
 		disableAddToCartForm();
     restrictQuantityValue();
+    activeCheckoutPath();
     $('.click-product-quantity').click(function (e) {
         e.preventDefault();
         const quantity = $(this).data("quantity");
@@ -68,4 +69,20 @@ function restrictQuantityValue() {
   }).on('paste',function(e) {
     e.preventDefault();
   });
+}
+
+function activeCheckoutPath() {
+  let action = $('.innerSteps').data('url')
+  if (action == 'new') {
+    $('.checkout-new').addClass('active');
+  }
+  else if (action == 'payment_method') {
+    $('.checkout-new').addClass('active');
+    $('.checkout-payment-method').addClass('active');
+  }
+  else {
+    $('.checkout-new').addClass('active');
+    $('.checkout-payment-method').addClass('active');
+    $('.checkout-review-order').addClass('active');
+  }
 }

@@ -6,7 +6,8 @@ class Admin::OrdersController < Admin::BaseController
     @q = Order.paid_orders_listing.ransack(params[:q])
     @orders = @q.result
     @orders = @orders.order(sub_total: :desc) if params.dig(:q, :s) == "price"
-    @orders = @orders.page(params[:page]).per(params[:per_page].presence || 10)
+    @total_count = @orders.size
+    @orders = @orders.page(params[:page]).per(params[:per_page].presence || 15)
   end
 
   def show

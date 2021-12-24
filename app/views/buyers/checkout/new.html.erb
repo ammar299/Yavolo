@@ -96,6 +96,7 @@
 							</div>
 					</div>
 					<div class="your-detail-left yo-white-card box-border" id="shipping_address_details" style="display: none;">
+						<h5>Billing Address</h5>
 					<hr>
 					<%= form.fields_for :shipping_address_attributes, (form.object.shipping_address) do |bil_addr| %>
 					<div class="row">
@@ -237,6 +238,8 @@
 $(document).ready(function() {
 	if ($('#billing_address_is_shipping_address').is(':checked')) {
 		$('#shipping_address_details').hide();
+	}else {
+		$('#shipping_address_details').show();
 	}
 });
 
