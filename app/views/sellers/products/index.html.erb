@@ -164,7 +164,7 @@
                                                     <p class="mb-0">Condition: <%=product.condition=='brand_new' ? 'New' : product.condition.titleize %></p>
                                                 </td>
                                                 <td>
-                                                    <div class="form-group mb-0">
+                                                    <div class="form-group mb-0" id="product-stock-listing">
                                                         <%=number_field_tag 'product[stock]', product.stock.to_i, class: 'form-control px-2 w-20 stock-field editable product-listing-input-fields', data: {pid: product.id, action: 'update_stock'}  %>
                                                     </div>
                                                 </td>

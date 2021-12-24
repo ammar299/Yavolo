@@ -2,7 +2,7 @@ class Sellers::BaseController < ApplicationController
   before_action :authenticate_seller!
   layout 'sellers/seller'
   before_action :seller_session_expire, if: proc { seller_signed_in? }
-  before_action :set_last_seen_at, if: proc { seller_signed_in? }
+  after_action :set_last_seen_at, if: proc { seller_signed_in? }
   private
 
   def set_last_seen_at
