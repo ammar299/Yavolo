@@ -107,6 +107,7 @@ class Buyers::CheckoutController < Buyers::BaseController
         unless seller_grouped_products_hash.status
           flash[:notice] = "Can't place this order. One of the sellers does not have any bank account attached yet."
           redirect_to review_order_path
+          return
         end
         charge = Stripe::ChargeCreator.call(
           { stripe_token_id: payment_method.token, buyer: @buyer, order: @order, amount: @order_amount[:total] }
