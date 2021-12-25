@@ -3,14 +3,14 @@
 	<!--<form action="<%= create_checkout_path %>" method="post">-->
 	<%= form_with model: @order, url: create_checkout_path, method: :post, html: {id: 'checkout_details_form'} do |form| %>
 		<div class="row mt-4">
-			<div class="col-lg-8">
-					<div class="your-detail-left yo-white-card box-border">
+			<div class="col-lg-8 d-flex">
+					<div class="your-detail-left yo-white-card box-border flex1">
 							<h5>Your Details</h5>
 							<hr>
 							<%= form.fields_for :order_detail_attributes, (form.object.order_detail) do |od| %>
 							<div class="row">
 									<div class="form-group col-md-6">
-											<%= od.label :name, "Name" %>
+											<%= od.label :name, "First Name" %>
 											<%= od.text_field :name, class: 'form-control', placeholder: 'Name' %>
 									</div>
 									<div class="form-group col-md-6">
@@ -35,7 +35,7 @@
 													aria-describedby="" placeholder="Company Name">
 									</div>
 									<div class="form-group col-md-6">
-											<%= bil_addr.label :appartment, "Flat / Apartment" %>
+											<%= bil_addr.label :appartment, "House / Flat Number" %>
 											<%= bil_addr.text_field :appartment, class: 'form-control', placeholder: 'Apartment' %>
 									</div>
 							</div>
@@ -76,8 +76,8 @@
 									<%= bil_addr.text_field :city, class: 'form-control', placeholder: 'City' %>
 								</div>
 								<div class="form-group col-md-6">
-									<%= bil_addr.label :country, "Country" %>
-									<%= bil_addr.text_field :country, class: 'form-control', placeholder: 'Country' %>
+									<%= bil_addr.label :country, "County" %>
+									<%= bil_addr.text_field :country, class: 'form-control', placeholder: 'County' %>
 								</div>
 							</div>
 							<% end %>
@@ -106,7 +106,7 @@
 											aria-describedby="" placeholder="Company Name">
 							</div>
 							<div class="form-group col-md-6">
-									<%= bil_addr.label :appartment, "Flat / Apartment" %>
+									<%= bil_addr.label :appartment, "House / Flat Number" %>
 									<%= bil_addr.text_field :appartment, class: 'form-control', placeholder: 'Apartment' %>
 							</div>
 					</div>
@@ -147,8 +147,8 @@
 							<%= bil_addr.text_field :city, class: 'form-control', placeholder: 'City' %>
 						</div>
 						<div class="form-group col-md-6">
-							<%= bil_addr.label :country, "Country" %>
-							<%= bil_addr.text_field :country, class: 'form-control', placeholder: 'Country' %>
+							<%= bil_addr.label :country, "County" %>
+							<%= bil_addr.text_field :country, class: 'form-control', placeholder: 'County' %>
 						</div>
 					</div>
 					<% end %>

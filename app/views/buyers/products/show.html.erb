@@ -77,6 +77,22 @@
             </div>
             <span class="font-14px black-text" style="opacity: 50%;">VAT Included</span>
             <%= form_tag(add_to_cart_path, id: "buyer-products-quantity", method: :post, remote: true) do %>
+
+              <div>
+                <span class="pr-3">Quantity: </span>
+                <span class="pdp-drop">
+                  <div class="dropdown dropdown-filter mb-3 d-inline-flex">
+                      <a href="#" class="btn btn-radius px-2 btn-link btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <input type="number" placeholder="1" class="pdp-drp-input"> <i class="ml-3 dropdown-toggle d-flex" aria-hidden="true"></i></a>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 43px, 0px); top: 0px; left: 0px; will-change: transform;">
+                          <a class="dropdown-item " href="#">1 <i class="fa fa-check" aria-hidden="true"></i></a>
+                          <a class="dropdown-item" href="#">2 <i class="fa fa-check" aria-hidden="true"></i></a>
+                          <a class="dropdown-item" href="#">3 <i class="fa fa-check" aria-hidden="true"></i></a>
+                      </div>
+                  </div>
+                </span>
+              </div>
+
               <div class="dropdown quantity-dropdown text-center mt-3 mb-2 w-100">
                 <button class="btn dropdown-toggle btn-lg" type="button" name="product[quantities]"id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
                   Quantity: <%= number_field_tag 'product[quantity]', 1, class: "update-product-quantity", data: { quantity: @product['product_stock'] } %>
@@ -107,20 +123,27 @@
             <div class="text-center mb-3">
               <a href="" class="text-center"><u>View bundles that feature this product</u> </a>
             </div>
-            <div class="d-flex delivery-note align-items-center py-3">
-              <span class="icon-orders--delivery"></span>
-              <span class="in-text"><strong>FREE Delivery </strong> <br/>FREE Delivery Get it by
-                                    Friday 16th July 2021</span>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="d-flex delivery-note align-items-center py-3">
+                <span class="icon-orders--delivery"></span>
+                <span class="in-text"><strong>FREE Delivery </strong> <br/>Get it by
+                                      Friday 16th July 2021</span>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="d-flex delivery-note align-items-center py-3">
+                <span class="icon-stopwatch icons-ico"></span>
+                <span class="in-text"><strong>Money Back Guarantee.</strong> <br/>30 days return for full <br>
+                                      peace of mind.</span>
+                </div>
+              </div>
             </div>
+            
+            
             <div class="d-flex delivery-note align-items-center py-3">
               <span class="icon-stopwatch icons-ico"></span>
-              <span class="in-text"><strong>Almost sold out.</strong> There’s only 2 left and <br>
-                                    it’s in more than 10 people’s baskets</span>
-            </div>
-            <div class="d-flex delivery-note align-items-center py-3">
-              <span class="icon-stopwatch icons-ico"></span>
-              <span class="in-text"><strong>30 Day Returns.</strong> 30 days exchange or full <br>
-                                    refund for peace of mind.</span>
+              <span class="in-text"><strong>Almost sold out & 10 people have this in their baskets right now.</strong> </span>
             </div>
             <div class="d-flex justify-content-between align-items-center mb-4">
               <span>Condition: <%= @product["condition"].titleize %></span>
@@ -229,7 +252,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="carousel-arrow-parent">
+                <div class="carousel-arrow-parent invisible">
                   <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
                      data-slide="prev">
                                             <span class="carousel-control-prev-icon icon-chevron-left-solid"
@@ -281,7 +304,7 @@
                 <div class="card-header" id="headingOne">
                   <h5 class="mb-0">
                     <button
-                      class="btn btn-link btn-radius px-4 d-flex justify-content-between align-items-center"
+                      class="btn btn-link btn-radius px-4 d-flex justify-content-between decoration-none align-items-center"
                       data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
                       aria-controls="collapseOne">
                       Description <span class="icon-chevron-down-solid chev-colps"></span>
@@ -300,7 +323,7 @@
                 <div class="card-header" id="headingTwo">
                   <h5 class="mb-0">
                     <button
-                      class="btn btn-link collapsed btn-radius px-4 d-flex justify-content-between align-items-center"
+                      class="btn btn-link collapsed btn-radius px-4 d-flex justify-content-between decoration-none align-items-center"
                       data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
                       aria-controls="collapseTwo">
                       Specification <span class="icon-chevron-down-solid chev-colps"></span>
@@ -341,7 +364,7 @@
                 <div class="card-header" id="headingThree">
                   <h5 class="mb-0">
                     <button
-                      class="btn btn-link collapsed btn-radius px-4 d-flex justify-content-between align-items-center"
+                      class="btn btn-link collapsed btn-radius px-4 d-flex justify-content-between  decoration-none align-items-center"
                       data-toggle="collapse" data-target="#collapseThree"
                       aria-expanded="false" aria-controls="collapseThree">
                       Return & Terms<span class="icon-chevron-down-solid chev-colps"></span>
@@ -370,9 +393,8 @@
         <div class="col-lg-12">
           <div class="yo-offwhite-card pdp-slick-bg mx-lg-4 mb-5 mt-4">
             <div class="text-center">
-              <label class="lable-tag btn btn-sm btn-radius px-4 btn-danger py-2 pdp-label-tag">
-                MORE
-                FORM THIS SELLER</label>
+              <label class="lable-tag btn btn-sm btn-radius px-4 btn-danger no-hover py-2 pdp-label-tag">
+                BUNDLE POWERED DEALS</label>
             </div>
             <div class="pdp-slick-slider">
               <div>
@@ -645,8 +667,11 @@
       <div class="row justify-content-center">
         <div class="col-lg-12">
           <div class="mx-lg-4">
+          <div class="text-center justify-content-center d-flex">
+            <h5 class="mb-3 bundling-title-border">SIMILAR PRODUCTS</h5>
+          </div>
             <div class="d-flex justify-content-between pdp-slick-bg align-items-center flex-wrap mx-3">
-              <h5 class="mb-3">Similar Products</h5>
+              <h5 class="mb-3 bundling-title-border"></h5>
               <p class="mt-2 mm-text pr-5 mr-5 similar-page-pd">Page <span>1</span>of <span>3</span>
               </p>
             </div>
@@ -848,7 +873,7 @@
         <div class="col-lg-12">
           <div class="yo-offwhite-card pdp-slick-bg mx-lg-4 mb-5 mt-4">
             <div class="text-center">
-              <label class="lable-tag btn btn-sm btn-radius px-4 btn-danger py-2 pdp-label-tag">
+              <label class="lable-tag btn btn-sm btn-radius px-4 btn-danger no-hover py-2 pdp-label-tag">
                 MORE
                 FORM THIS SELLER</label>
             </div>
@@ -1123,8 +1148,11 @@
       <div class="row justify-content-center">
         <div class="col-lg-12">
           <div class="mx-lg-4">
+            <div class="text-center justify-content-center d-flex">
+              <h5 class="mb-3 bundling-title-border">YAVOLO REVIEWS</h5>
+            </div>
             <div class="d-flex justify-content-between pdp-slick-bg align-items-center flex-wrap mx-3">
-              <h5 class="mb-3">Similar Products</h5>
+              <h5 class="mb-3 bundling-title-border"></h5>
               <p class="mt-2 mm-text pr-5 mr-5 similar-page-pd">Page <span>1</span>of <span>3</span>
               </p>
             </div>
@@ -1356,7 +1384,7 @@
           <div class="col-lg-12 subscribe-bottom-inner">
             <div>
               <h3>You’ve reached the bottom but it doesn’t have to end</h3>
-              <p>You’ve reached the bottom but it doesn’t have to end</p>
+              <p>Join thousands of subscribers currently receiving the best Yavolo deals!</p>
               <div class="dropdown-filter-field">
                 <div class="search-field mb-0 subscribe-field">
                   <input type="text" placeholder="Enter your email" class="">

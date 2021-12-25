@@ -1431,3 +1431,25 @@ width: 75%;
     cursor: pointer;
     margin-top: 2px;
 }
+
+.visa-number {
+  line-height: 21px;
+}
+
+.visa-pix.pay-cards {
+  height: 42px !important;
+  width: 80px !important;
+}
+
+.no-hover.btn-danger :hover  {
+    color: #fff !important;
+    background-color: var(--danger-color) !important;
+    border-color: var(--danger-color) !important;
+}
+
+.bundling-title-border {
+	border-bottom: 2px solid var(--red);
+}
+.order-name-width {
+  max-width: 230px;
+}
