@@ -77,22 +77,6 @@
             </div>
             <span class="font-14px black-text" style="opacity: 50%;">VAT Included</span>
             <%= form_tag(add_to_cart_path, id: "buyer-products-quantity", method: :post, remote: true) do %>
-
-              <div>
-                <span class="pr-3">Quantity: </span>
-                <span class="pdp-drop">
-                  <div class="dropdown dropdown-filter mb-3 d-inline-flex">
-                      <a href="#" class="btn btn-radius px-2 btn-link btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <input type="number" placeholder="1" class="pdp-drp-input"> <i class="ml-3 dropdown-toggle d-flex" aria-hidden="true"></i></a>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 43px, 0px); top: 0px; left: 0px; will-change: transform;">
-                          <a class="dropdown-item " href="#">1 <i class="fa fa-check" aria-hidden="true"></i></a>
-                          <a class="dropdown-item" href="#">2 <i class="fa fa-check" aria-hidden="true"></i></a>
-                          <a class="dropdown-item" href="#">3 <i class="fa fa-check" aria-hidden="true"></i></a>
-                      </div>
-                  </div>
-                </span>
-              </div>
-
               <div class="dropdown quantity-dropdown text-center mt-3 mb-2 w-100">
                 <button class="btn dropdown-toggle btn-lg" type="button" name="product[quantities]"id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
                   Quantity: <%= number_field_tag 'product[quantity]', 1, class: "update-product-quantity", data: { quantity: @product['product_stock'] } %>
