@@ -9,8 +9,10 @@ $(document).ready(function(){
   divAdjusterWidth();
   eanErrorRemoveBackend();
   disableEnterOnProductCreate();
-  sellerProductForm();
+  priceUpdateOnListing();
   productImageDelete();
+  stockUpdateOnListing();
+  discountUpdateOnListing();
   $("#verify").click(function () {
     $('#information-modal').modal('show');
   });
@@ -29,7 +31,9 @@ $(document).ready(function(){
   }, ".icon-manage-Yavolo.yo-opacity");
 
   $('.editable').change(function(){
-    updateFieldValue($(this).data('pid'),$(this).val(),$(this).data('action'));
+    if($(this).parents('.error-field').length < 1){
+      updateFieldValue($(this).data('pid'),$(this).val(),$(this).data('action'));
+    }
   });
 
   bindAndLoadSellersSelect2()
@@ -900,39 +904,6 @@ function updateBulkProducts(action){
   })
 }
 
-function sellerProductForm() {
-  $("form#products-bulk-form").validate({
-    rules: {
-      "product[stock]": {
-        max: 9999999,
-      },
-      "product[price]": {
-        max: 9999999,
-      },
-      "product[discount]": {
-        max: 100,
-      },
-    },
-    highlight: function (element) {
-      $(element).parents("div.form-group").addClass("error-field");
-    },
-    unhighlight: function (element) {
-      $(element).parents("div.form-group").removeClass("error-field");
-    },
-    messages: {
-      "product[stock]": {
-        max: "Invalid value",
-      },
-      "product[price]": {
-        max: "Invalid value",
-      },
-      "product[discount]": {
-        max: "Invalid value",
-      },
-    },
-  });
-}
-
 function updateProductsDom(res){
   var $prodRow=$('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row')
   let action = $('.bulk-actions a.dropdown-item.active').data('bulkaction')
@@ -955,8 +926,9 @@ function updateProductsDom(res){
   if(action=='update_stock'){
     let stock = parseInt(res.value)
     var classNameOfAction = ".stock-field, .stock-box"
+    stockUpdateOnListing();
     updateBulkActions(res, classNameOfAction, stock)
-    if($prodRow.find('.stock-field').length > 0){
+    if(($prodRow.find('.stock-field').length > 0) && ($prodRow.find('.stock-field').length < 10000) ){
       $prodRow.find('.stock-field').val(stock)
     }
     if($prodRow.find('.stock-box').length > 0){
@@ -1120,7 +1092,8 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
       required: true
     },
     "product[stock]": {
-      required: true
+      required: true,
+      maxlength: 4
     },
     "product[condition]": {
       required: true
@@ -1269,6 +1242,7 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
   });
 }
 
+
 function divAdjusterWidth(){
   if(window.location.pathname.split("/").pop() == 'new' || window.location.pathname.split("/").pop() == 'edit'){
     if($('.grid-single-img').length == $('.remove').length ){
@@ -1290,3 +1264,54 @@ function updateBulkActions(res,classNameOfAction, val){
     $("#prod-id-" + item).find(classNameOfAction).val(val);
   });
 }
+
+
+function stockUpdateOnListing(){
+  $('body').on('input', '#product_stock', function() {
+    if ($(this).val().length > 4 || $(this).val().length == 0) {
+      if($("#quantity-error").length == 0)
+      {
+        $(this).parents("div.form-group").addClass('error-field');
+        $(this).after('<label  id= "quantity-error" class="text-left w-100 error text-">Must be 1 to 9999</label>');
+      }
+    } else {
+        $(this).parents("div.form-group").removeClass('error-field');
+        $("#quantity-error").remove();
+      }
+  });
+}
+
+function priceUpdateOnListing(){
+  $('body').on('input', '#product_price', function() {
+    if ($(this).val().length > 9) {
+      if($("#price-error").length == 0)
+      {
+        $(this).parents("div.form-group").addClass('error-field');
+        $(this).after('<label  id= "price-error" class="text-left w-100 error text-">Must be 1 to 9999</label>');
+      }
+    } else {
+        $(this).parents("div.form-group").removeClass('error-field');
+        $("#price-error").remove();
+      }
+  });
+}
+
+function discountUpdateOnListing(){
+  $('body').on('input', '#product_discount', function() {
+    let discount = $(this).val().replace("%","")
+    if(discount){
+      discount = parseFloat(discount)
+    }
+    if (discount < 2.5 || discount > 100) {
+      if($("#discount-error").length == 0)
+      {
+        $(this).parents("div.form-group").addClass('error-field');
+        $(this).after('<label  id= "discount-error" class="text-left w-100 error text-">Must 2.5 to 100</label>');
+      }
+    } else {
+        $(this).parents("div.form-group").removeClass('error-field');
+        $("#discount-error").remove();
+      }
+  });
+}
+

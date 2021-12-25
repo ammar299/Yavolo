@@ -28,6 +28,12 @@ $(document).ready(function () {
     $("form#add_new_seller_form").validate({
       ignore: "",
       rules: {
+        "seller[first_name]": {
+          required: true,
+        },
+        "seller[last_name]": {
+          required: true,
+        },
         "seller[email]": {
           required: true,
           email: true,
@@ -130,6 +136,12 @@ $(document).ready(function () {
         $(element).parents("div.form-group").removeClass("error-field");
       },
       messages: {
+        "seller[first_name]": {
+          required: "Required",
+        },
+        "seller[last_name]": {
+          required: "Required",
+        },
         "seller[email]": {
           required: "Required",
         },
