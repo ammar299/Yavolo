@@ -79,10 +79,10 @@
             <% @cart.each_with_index do |value, index| %>
               <div class="d-flex justify-content-between flex-wrap mm-text mb-2" id="summary-basket-<%=value[:product_id] %>">
                 <% product = Product.find value[:product_id] %>
-                <span class="order-name-width"><%= product.title %></span>
+                <span class="order-name-width"><strong><%= product.title %></strong></span>
                 
                 <div class="d-flex">
-                  <span class="pr-2"><%= product.price %></span>
+                  <span class="pr-2">£<%= product.price %></span>
                   <%= link_to remove_product_form_cart_path(remove_product: {product_id: product.id}, product_count: value[:quantity], total_product: @total_num_of_products), method: :delete, remote: true, class: 'decoration-none' do %>
                     <span class="order-summary-basket-cross">x</span>
                   <% end %>
