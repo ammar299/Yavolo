@@ -385,7 +385,7 @@ class Buyers::CheckoutController < Buyers::BaseController
   end
 
   def find_or_create_buyer(email)
-    @buyer = Buyer.find_by(email: email)
+    @buyer = Buyer.find_by(email: email.downcase)
     if @buyer.nil?
       @buyer = Buyer.new({ email: email })
       @buyer.skip_password_validation = true
