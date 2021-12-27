@@ -184,12 +184,13 @@ class Admin::SellersController < Admin::BaseController
     end
     
     if all_sellers.size > 0
-      respond_to do |format|
-        format.html
-        format.csv { send_data Seller.new.to_csv(all_sellers), filename: "#{Date.today}-export-sellers.csv" }
-      end
+      # respond_to do |format|
+      #   format.html
+      #   format.csv { send_data Seller.new.to_csv(all_sellers), filename: "#{Date.today}-export-sellers.csv" }
+      # end
       csv = Seller.new.to_csv(all_sellers)
       ExportSellerCsvViaEmailWorker.perform_async(current_admin.email, csv)
+      redirect_to admin_sellers_path, notice: 'Sellers export is started, You will receive a file when its completed.'
     end
   end
 

@@ -16,7 +16,7 @@ class Sellers::BaseController < ApplicationController
       redirect_to new_seller_session_path, notice: message
     elsif current_seller.timeout.present? &&  current_seller.last_seen_at.present?
       seller_time = Time.at(Time.current - current_seller.last_seen_at).utc.strftime("%M").to_i
-      seller_timeout = Seller.timeouts[current_seller.timeout] * 60
+      seller_timeout = Seller.timeouts[current_seller.timeout]
       if seller_timeout <= seller_time
         current_seller.last_seen_at = nil
         current_seller.save
