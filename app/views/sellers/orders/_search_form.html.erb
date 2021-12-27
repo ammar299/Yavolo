@@ -8,7 +8,7 @@
     <%= hidden_field_tag :per_page, params[:per_page] %>
   <% end %>
   <%= f.search_field seller_order_current_search_field_name.to_sym, { class: 'input-btn-sm seller-order-search-field', placeholder: 'Search your orders', value: "#{seller_order_search_field_query_param_val(params)}" } %>
-  <% if params[:q].present? && params[:q]['line_items_product_title_or_order_detail_name_or_shipping_address_postal_code_or_billing_address_postal_code_or_line_items_product_sku_or_line_items_product_yan_or_line_items_product_ean_or_order_number_cont'].present? %>
+  <% if params[:q].present? %>
     <%= link_to sellers_orders_path, class: 'btn-sm' do %>
       <i class="icon-cross" aria-hidden="true"></i>
     <% end %>

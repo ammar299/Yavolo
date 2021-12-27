@@ -81,7 +81,7 @@
             <%= form_tag(add_to_cart_path, id: "buyer-products-quantity", method: :post, remote: true) do %>
               <div class="dropdown quantity-dropdown text-center mt-3 mb-2 w-100">
                 <button class="btn dropdown-toggle btn-lg" type="button" name="product[quantities]"id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                  Quantity: <%= number_field_tag 'product[quantity]', 1, class: "update-product-quantity", data: { quantity: @product['product_stock'] } %>
+                  Quantity: <%= number_field_tag 'product[quantity]', 1, class: "update-product-quantity", data: { quantity: @product['stock'] } %>
                 </button>
                 <div class="dropdown-menu p-3 mt-0" aria-labelledby="dropdownMenuButton">
                   <% quantity_list = @product['stock'] < 10? (1..@product['stock']) : (1..10) %>
