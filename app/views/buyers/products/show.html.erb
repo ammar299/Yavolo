@@ -28,6 +28,7 @@
                       </li>
                     <% end %>
                   <% end %>
+                  <%= image_tag 'default.jpg', class: 'w-100 d-none product-default-preview' %>
                 </ul>
               </div>
             </div>
@@ -1581,8 +1582,13 @@
 
 <script>
   $(document).ready(function() {
-    if ($('#main-slider-list').find('li').length <= 1 ) {
+    let images = $('#main-slider-list').find('li').length;
+    if (images <= 1 ) {
       $('.splide__arrows').addClass('d-none');
+    }
+
+    if (images == 0) {
+      $('.product-default-preview').removeClass('d-none');
     }
 
       var main = new Splide('#main-slider', {
