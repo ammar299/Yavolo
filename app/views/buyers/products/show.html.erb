@@ -73,17 +73,18 @@
               </div>
               <div class="col-lg-7">
                     <div class="d-flex delivery-note align-items-center py-3">
-                <span class="icon-orders--delivery"></span>
-                <span class="in-text"><strong>100% EXCLUSIVE.</strong> <br>The deal is only found on Yavolo.</span>
+                <span class=""><%= image_tag "icon-awesome-award.svg", class: "award-badge" %></span>
+                <span class="in-text"><strong>100% EXCLUSIVE.</strong> <br>This deal is only found on Yavolo.</span>
                 </div>
               </div>
             </div>
             <%= form_tag(add_to_cart_path, id: "buyer-products-quantity", method: :post, remote: true) do %>
-              <div class="dropdown quantity-dropdown text-center mt-3 mb-2 w-100">
+              <span class="pr-3">Quantity:</span>
+              <div class="dropdown quantity-dropdown text-center mt-3 mb-2">
                 <button class="btn dropdown-toggle btn-lg" type="button" name="product[quantities]"id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                  Quantity: <%= number_field_tag 'product[quantity]', 1, class: "update-product-quantity", data: { quantity: @product['product_stock'] } %>
+                   <%= number_field_tag 'product[quantity]', 1, class: "update-product-quantity", data: { quantity: @product['product_stock'] } %>
                 </button>
-                <div class="dropdown-menu p-3 mt-0" aria-labelledby="dropdownMenuButton">
+                <div class="dropdown-menu p-1 mt-0" aria-labelledby="dropdownMenuButton">
                   <% quantity_list = @product['stock'] < 10? (1..@product['stock']) : (1..10) %>
                   <% quantity_list.each do |stock_quantity| %>
                     <a class="dropdown-item p-1 click-product-quantity" href="javascript:void(0)" data-quantity="<%= stock_quantity %>"><span><%= stock_quantity %></span></a>
@@ -119,7 +120,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="d-flex delivery-note align-items-center py-3">
-                <span class="icon-stopwatch icons-ico"></span>
+                <span class=""><%= image_tag "icon-dollar-note.svg", class: "dollar-img" %></span>
                 <span class="in-text"><strong>Money Back Guarantee.</strong> <br/>30 days return for full <br>
                                       peace of mind.</span>
                 </div>
@@ -368,6 +369,92 @@
                   </div>
                 </div>
               </div>
+
+              <div class="card">
+                <div class="card-header" id="headingFour">
+                  <h5 class="mb-0">
+                    <button
+                      class="btn btn-link collapsed btn-radius px-4 d-flex justify-content-between  decoration-none align-items-center"
+                      data-toggle="collapse" data-target="#collapseFour"
+                      aria-expanded="false" aria-controls="collapseFour">
+                      Product Reviews<span class="icon-chevron-down-solid chev-colps"></span>
+                    </button>
+                  </h5>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
+                     data-parent="#accordion">
+                  <div class="card-body px-4">
+                        
+                    <div class="review-card mx-0">
+                    <div class="review-header d-flex justify-content-between">
+                        <span>John Smith</span>
+                        <span>22/04/2021</span>
+                    </div>
+                    <ul class="rating d-flex mb-2">
+                        <li class="mr-1 active"><span class="icon-star"></span></li>
+                        <li class="mr-1 active"><span class="icon-star"></span></li>
+                        <li class="mr-1 active"><span class="icon-star"></span></li>
+                        <li class="mr-1 active"><span class="icon-star"></span></li>
+                        <li class="mr-1"><span class="icon-star"></span></li>
+                        <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                    </ul>
+                    <div class="d-flex">
+                        <div>
+                            <p class="black-text font-14px pr-3 mb-0">Lorem ipsum dolor sit
+                                amet, consectetur adipiscing elit. Nulla id aliquet erat, eu
+                                congue arcu. Quisque quis mi turpis. Curabitur eu mauris
+                                malesuada, posuere dui eget, placerat nisi. Donec lacus
+                                magna,
+                                imperdiet nec molestie et.</p>
+                        </div>
+                        <div class="yo-white-card bundling-review-block">
+                            <div class="">
+                                <div class="d-flex align-items-center mb-2">
+                                    <span class="icon-manage-Yavolo red-text bundling-smily-logo"></span>
+                                    <div class="d-flex flex-column bundling-logo-title">
+                                        <span class="red-text font-14px"> Yavolo </span>
+                                        <span class="dark-red-text font-14px">Exclusive Bundle</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="row align-items-center">
+                                        <div class="col-lg-8">
+                                            <div class="yo-white-card p-2 d-flex justify-content-center align-items-center">
+                                                <span>
+                                                    <%= image_tag "Image496.png" %>
+                                                </span>
+                                                <span class="plus-bundling">+</span>
+                                            </div>
+                                          
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="yo-white-card p-2">
+                                                <span>
+                                                  <%= image_tag "Image496.png" %>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <span class="">
+                                    <img src="images/profile.jpg" alt="">
+                                </span> -->
+                                <div class="text-right mt-2">
+                                    <span>A goog deal better.</span>
+                                </div>
+                            </div>
+                        </div>
+                      
+                    </div>
+                    </div>
+                    <% if params[:preview_listing] %>
+                      <%= @product["terms_and_returns"].present? ? @product["terms_and_returns"].try(:html_safe) : "" %>
+                    <% else %>
+                      <%= @product.owner_type == "Seller" ? @product.owner&.return_and_term&.instructions&.html_safe : "" %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -404,13 +491,6 @@
                       <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
                     </ul>
                     <p class="pdp-price black-text">£229.99</p>
-                    <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
-                      basket</a>
-                    <div class="d-flex delivery-note align-items-center py-3">
-                      <span class="icon-orders--delivery"></span>
-                      <span class="in-text">FREE 1-Day Delivery <br/>Get it
-                                                    tomorrow</span>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -432,13 +512,7 @@
                       <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
                     </ul>
                     <p class="pdp-price black-text">£229.99</p>
-                    <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
-                      basket</a>
-                    <div class="d-flex delivery-note align-items-center py-3">
-                      <span class="icon-orders--delivery"></span>
-                      <span class="in-text">FREE 1-Day Delivery <br/>Get it
-                                                    tomorrow</span>
-                    </div>
+                    
 
                   </div>
                 </div>
@@ -461,13 +535,7 @@
                       <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
                     </ul>
                     <p class="pdp-price black-text">£229.99</p>
-                    <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
-                      basket</a>
-                    <div class="d-flex delivery-note align-items-center py-3">
-                      <span class="icon-orders--delivery"></span>
-                      <span class="in-text">FREE 1-Day Delivery <br/>Get it
-                                                    tomorrow</span>
-                    </div>
+                    
 
                   </div>
                 </div>
@@ -490,13 +558,7 @@
                       <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
                     </ul>
                     <p class="pdp-price black-text">£229.99</p>
-                    <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
-                      basket</a>
-                    <div class="d-flex delivery-note align-items-center py-3">
-                      <span class="icon-orders--delivery"></span>
-                      <span class="in-text">FREE 1-Day Delivery <br/>Get it
-                                                    tomorrow</span>
-                    </div>
+                    
 
                   </div>
                 </div>
@@ -519,13 +581,7 @@
                       <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
                     </ul>
                     <p class="pdp-price black-text">£229.99</p>
-                    <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
-                      basket</a>
-                    <div class="d-flex delivery-note align-items-center py-3">
-                      <span class="icon-orders--delivery"></span>
-                      <span class="in-text">FREE 1-Day Delivery <br/>Get it
-                                                    tomorrow</span>
-                    </div>
+                    
 
                   </div>
                 </div>
@@ -548,13 +604,7 @@
                       <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
                     </ul>
                     <p class="pdp-price black-text">£229.99</p>
-                    <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
-                      basket</a>
-                    <div class="d-flex delivery-note align-items-center py-3">
-                      <span class="icon-orders--delivery"></span>
-                      <span class="in-text">FREE 1-Day Delivery <br/>Get it
-                                                    tomorrow</span>
-                    </div>
+                    
 
                   </div>
                 </div>
@@ -577,13 +627,7 @@
                       <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
                     </ul>
                     <p class="pdp-price black-text">£229.99</p>
-                    <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
-                      basket</a>
-                    <div class="d-flex delivery-note align-items-center py-3">
-                      <span class="icon-orders--delivery"></span>
-                      <span class="in-text">FREE 1-Day Delivery <br/>Get it
-                                                    tomorrow</span>
-                    </div>
+                    
 
                   </div>
                 </div>
@@ -606,13 +650,7 @@
                       <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
                     </ul>
                     <p class="pdp-price black-text">£229.99</p>
-                    <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
-                      basket</a>
-                    <div class="d-flex delivery-note align-items-center py-3">
-                      <span class="icon-orders--delivery"></span>
-                      <span class="in-text">FREE 1-Day Delivery <br/>Get it
-                                                    tomorrow</span>
-                    </div>
+                    
 
                   </div>
                 </div>
@@ -635,13 +673,7 @@
                       <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
                     </ul>
                     <p class="pdp-price black-text">£229.99</p>
-                    <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
-                      basket</a>
-                    <div class="d-flex delivery-note align-items-center py-3">
-                      <span class="icon-orders--delivery"></span>
-                      <span class="in-text">FREE 1-Day Delivery <br/>Get it
-                                                    tomorrow</span>
-                    </div>
+                    
 
                   </div>
                 </div>

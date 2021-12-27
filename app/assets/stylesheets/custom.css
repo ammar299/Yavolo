@@ -1453,3 +1453,40 @@ width: 75%;
 .order-name-width {
   max-width: 230px;
 }
+.award-badge {
+  width: 24px;
+  margin-right: 12px;
+}
+
+.descrptn-left-img {
+	border: 2px solid var(--dark-red);
+}
+.descrptn-left-img img {
+	width: 100%;
+	height: 300px;
+	object-fit: contain;
+}
+.bundling-list li {
+	list-style: disc !important;
+	font-size: 14px;
+    margin-left: 15px;
+	
+}
+.bundling-title-border {
+	border-bottom: 2px solid var(--red);
+}
+.bundling-review-block {
+	max-height: 300px;
+    width: 400px;
+    padding: 20px;
+}
+.bundling-smily-logo {
+	font-size: 22px;
+	padding-right: 8px;
+}
+.bundling-logo-title {
+	line-height: 15px;
+}
+.dollar-img {
+  width: 66px;
+}
