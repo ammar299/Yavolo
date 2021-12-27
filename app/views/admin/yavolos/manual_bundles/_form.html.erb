@@ -5,6 +5,13 @@
     <h3 class="mt-4 mb-3">Add New Yavolo</h3>
   <% end %>
   <%= simple_form_for @yavolo_bundle, url: url, method: method, html: { id: 'yavolo_bundle_form' } do |form| %>
+    <% if @yavolo_bundle.errors.present? %>
+      <ul style="color: red">
+        <% @yavolo_bundle.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    <% end %>
     <%= form.hidden_field :stock_limit %>
     <%= form.hidden_field :max_stock_limit %>
     <%= form.hidden_field :regular_total %>

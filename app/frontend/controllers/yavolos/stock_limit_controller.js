@@ -49,7 +49,7 @@ export default class extends ApplicationController {
     }
 
     toggleMaxStockLimitInputFieldAndShowErrorMessage(){
-        $(this.maxStockLimitTarget).toggleClass("visible").toggleClass("invisible")
+        $(this.maxStockLimitTarget).addClass("visible")
         this.showMaxStockLimitErrorMessage()
         $('html, body').animate({
             scrollTop: $(this.maxStockLimitTarget).offset().top - 100
@@ -60,6 +60,9 @@ export default class extends ApplicationController {
         e.preventDefault();
         const input = ($(e.target).parents('.form-group').find("input"))[0];
         $(input).toggleClass("visible").toggleClass("invisible")
+        if($(input).hasClass("invisible") && $(input).siblings(".input-error-text").length){
+            $(input).siblings(".input-error-text").addClass("d-none")
+        }
     }
 
     fetchLeastStock(){

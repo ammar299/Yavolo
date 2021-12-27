@@ -1171,9 +1171,11 @@ width: 75%;
 
 .yavolos--summary .yavolos--stock-limit .input-error-text{
     color: red;
-    top: 40%;
+    top: 58%;
     right: 10px !important;
-    width: 200px;
+    width: 237px;
+    font-size: 10px;
+    text-align: left;
 }
 
 .productreview-slider.review-slider .carousel-arrow-parent {

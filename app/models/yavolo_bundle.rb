@@ -6,8 +6,8 @@ class YavoloBundle < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_for_bundle
 
-  has_many :yavolo_bundle_products, -> { order(id: :asc) }, dependent: :destroy
-  has_many :products, through: :yavolo_bundle_products
+  has_many :yavolo_bundle_products, dependent: :destroy
+  has_many :products, -> {order('yavolo_bundle_products.id asc')}, through: :yavolo_bundle_products
   has_one :seo_content, dependent: :destroy, as: :seo_content_able
   has_one :google_shopping, dependent: :destroy, as: :google_shopping_able
   has_one :main_image, -> { where(is_featured: true) },as: :imageable, dependent: :destroy, class_name: 'Picture'
