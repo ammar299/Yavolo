@@ -75,7 +75,13 @@
             <h5 class="mb-3">Order Summary</h5>
             <div class="item-basket">
               <input type="checkbox" id="sometoggler" class="toggler">
-              <label for="sometoggler" id="count-label"><span class="mm-text pointer total-product-count" id="total-cnt">You have <%=@total_num_of_products %> items in your basket <i class="dropdown-toggle pl-2"></i> </span></label>
+              <label for="sometoggler" id="count-label"><span class="mm-text pointer total-product-count" id="total-cnt">
+              <% if @total_num_of_products < 2 %>
+              You have <%=@total_num_of_products %> item in your basket
+              <% else %>
+              You have <%=@total_num_of_products %> items in your basket
+              <% end %>
+               <i class="dropdown-toggle pl-2"></i> </span></label>
               <div>
                 <% @cart.each_with_index do |value, index| %>
                   <div class="d-flex justify-content-between flex-wrap mm-text mb-2" id="summary-basket-<%=value[:product_id] %>">
