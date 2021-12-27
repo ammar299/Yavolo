@@ -27,6 +27,7 @@ class Sellers::ProfilesController < Sellers::BaseController
   end
 
   def seller_login_setting_update
+    params[:seller][:timeout].present? ? params[:seller][:timeout] : params[:seller][:timeout] = nil
     params[:seller][:two_factor_auth] == '1' ? params[:seller][:two_factor_auth] = true : params[:seller][:two_factor_auth] = false
     if params[:seller][:current_password].blank? && params[:seller][:password].blank? && params[:seller][:password_confirmation].blank?
       @seller = @seller.update(seller_params)
