@@ -3022,6 +3022,7 @@ select.new-select {
   box-shadow: none;
   outline: none !important;
   border: 0 !important;
+  min-width: 100px
 }
 .quantity-dropdown .btn.dropdown-toggle:active {
   color: inherit;
@@ -3048,6 +3049,7 @@ select.new-select {
   border-radius: 0 0 8px 8px;
   left: 0px !important;
   top: -2px !important;
+  min-width: 40px;
 }
 .quantity-dropdown .dropdown-menu .dropdown-item:first-child {
   border-top: 1px solid #cccccc7a;
@@ -3056,7 +3058,7 @@ select.new-select {
   border-bottom: 1px solid #cccccc7a;
 }
 .quantity-dropdown .dropdown-menu .dropdown-item span {
-  padding: 0 10px 0 78px;
+  padding: 0 10px 0 7px;
 }
 .quantity-dropdown .dropdown-menu .dropdown-item {
   background-color: inherit;
@@ -3628,8 +3630,6 @@ input::-webkit-inner-spin-button {
   zoom: 0.13;
 }
 
-
-
 .pdp-specification-table {
   border: 1px solid var(--dark-red);
 }
@@ -3685,8 +3685,4 @@ input::-webkit-inner-spin-button {
   line-height: 15px;
 }
 /* bundling collapse */
-
-
-
-
 /* ================== sprint-5 ================== */
