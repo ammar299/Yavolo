@@ -6,7 +6,7 @@
       </div>
       <div class="footer-left">
         <% if form.object.persisted? %>
-          <a href="javascript:void(0)" class="btn btn-sm btn-radius px-4 btn-outline-white mb-2 mt-2 preview_listing">PREVIEW LISTING</a>
+          <%= link_to "PREVIEW LISTING", product_path(@yavolo_bundle.handle, preview_listing: true), class: "btn btn-sm btn-radius px-4 btn-outline-white mb-2 mt-2 preview_listing", target: "_blank" %>
           <%= hidden_field_tag "yavolo_bundle_id", @yavolo_bundle.id, id: "yavolo_bundle_id" %>
         <% end %>
         <% if form.object.new_record? || form.object.status_draft? %>

@@ -1,5 +1,12 @@
 class YavoloBundle < ApplicationRecord
-  has_many :yavolo_bundle_products, dependent: :destroy
+
+  # Yavolo bundles handle will start with text yavolobundle followed by 4 digits, then underscore, then bundle title
+  SLUG_REGEX_PATTERN = "\\Ayavolobundle\\d{4}_"
+
+  extend FriendlyId
+  friendly_id :slug_for_bundle
+
+  has_many :yavolo_bundle_products, -> { order(id: :asc) }, dependent: :destroy
   has_many :products, through: :yavolo_bundle_products
   has_one :seo_content, dependent: :destroy, as: :seo_content_able
   has_one :google_shopping, dependent: :destroy, as: :google_shopping_able
@@ -96,6 +103,11 @@ class YavoloBundle < ApplicationRecord
       self.yan = "YB" + SecureRandom.send('choose', [*'0'..'9'], 11)
       break unless self.class.exists?(yan: yan)
     end
+  end
+
+  def slug_for_bundle
+    random_digits = SecureRandom.send('choose', [*'0'..'9'], 4)
+    "yavolobundle#{random_digits}_#{title}"
   end
 
 end

@@ -1,0 +1,10 @@
+<% featured_images = get_featured_images_of_bundle_products(@yavolo_bundle.products) %>
+<% if @yavolo_bundle.main_image.present? %>
+  <%= render "admin/yavolos/manual_bundles/featured_image_pattern/featured_image_single", featured_image: @yavolo_bundle.main_image %>
+<% elsif featured_images.present? && featured_images.size == 1 %>
+  <%= render "admin/yavolos/manual_bundles/featured_image_pattern/featured_image_single", featured_image: featured_images[0] %>
+<% elsif featured_images.present? && featured_images.size <= 4 %>
+  <%= render 'admin/yavolos/manual_bundles/featured_image_pattern/featured_image_pattern_1_to_3', featured_images: featured_images %>
+<% elsif featured_images.present? && featured_images.size > 4 %>
+  <%= render 'admin/yavolos/manual_bundles/featured_image_pattern/featured_image_pattern_4_to_5', featured_images: featured_images %>
+<% end %>
