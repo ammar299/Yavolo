@@ -19,6 +19,13 @@ class Sellers::Auth::SessionsController < Devise::SessionsController
     end
   end
 
+  # DELETE /resource/sign_out
+  def destroy
+    current_seller.last_seen_at = nil
+    current_seller.save
+    super
+  end
+
   def two_auth_new
     @current_seller = Seller.find_by_email session[:emai]
     @otp_secret = ROTP::Base32.random

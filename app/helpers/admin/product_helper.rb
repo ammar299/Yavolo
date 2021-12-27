@@ -66,13 +66,14 @@ module Admin::ProductHelper
     q_params
   end
 
-  def product_thumbnail_image_for_table_row(product)
+  def product_thumbnail_image_for_table_row(product,version = :thumb)
     if product.pictures&.first&.name&.url&.present?
-      image_tag product.pictures.first.name.url(:thumb), class: "w-100"
+      image_tag product.pictures.first.name.url(version), class: "w-100"
     else
       product_default_image
     end
   end
+
 
   def product_default_image
     image_tag 'default.jpg', class: "w-100"

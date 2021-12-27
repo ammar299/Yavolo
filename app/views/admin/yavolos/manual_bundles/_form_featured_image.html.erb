@@ -25,6 +25,8 @@
 
           <% if form.object.main_image.present? %>
             <%= render "admin/yavolos/manual_bundles/featured_image_pattern/featured_image_single", featured_image: form.object.main_image %>
+          <% elsif featured_images.present? && featured_images.size == 1 %>
+            <%= render "admin/yavolos/manual_bundles/featured_image_pattern/featured_image_single", featured_image: featured_images[0] %>
           <% elsif featured_images.present? && featured_images.size <= 4 %>
             <%= render 'admin/yavolos/manual_bundles/featured_image_pattern/featured_image_pattern_1_to_3', featured_images: featured_images %>
           <% elsif featured_images.present? && featured_images.size > 4 %>

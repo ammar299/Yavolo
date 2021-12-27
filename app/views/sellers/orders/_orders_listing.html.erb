@@ -1,11 +1,11 @@
-<tr>
+<tr class="order-table-row" id="order-id-<%= seller_order.id %>">
   <td>
     <div class="multiple-orders">
-      <label class="checkbox-blk">
-        <input type="checkbox">
-        <span class="order-checkmark"></span>
-      </label>
-    </div>
+        <label class="checkbox-blk">
+          <input type="checkbox" name="order_ids[]" class="order_ids" value="<%= seller_order.id %>">
+          <span class="checkmark"></span>
+        </label>
+      </div>
   </td>
   <td>
     <p class="mb-0"><%= seller_order.created_at.strftime("#{seller_order.created_at.day.ordinalize} %B %Y") %></p>

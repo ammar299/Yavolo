@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="card-header" id="headingThree">
+    <h5 class="mb-0">
+      <button
+        class="btn btn-link collapsed btn-radius px-4 d-flex justify-content-between align-items-center decoration-none"
+        data-toggle="collapse" data-target="#collapseThree"
+        aria-expanded="false" aria-controls="collapseThree">
+        Returns & Terms<span class="icon-chevron-down-solid chev-colps"></span>
+      </button>
+    </h5>
+  </div>
+  <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+       data-parent="#accordion">
+    <div class="card-body px-4">
+      <% returns_and_terms = get_return_and_terms_of_bundle_products(@yavolo_bundle) %>
+      <% returns_and_terms.each do |term| %>
+        <div class="d-flex">
+          <h5 class="bundling-title-border"><%= term[:title].upcase %> RETURNS & TERMS </h5>
+        </div>
+        <p class="font-14px"><%= term[:instructions] %></p>
+      <% end %>
+
+    </div>
+  </div>
+</div>

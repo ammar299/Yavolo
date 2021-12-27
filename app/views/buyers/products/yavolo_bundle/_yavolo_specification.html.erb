@@ -1,0 +1,36 @@
+<div class="card">
+  <div class="card-header" id="headingTwo">
+    <h5 class="mb-0">
+      <button
+        class="btn btn-link collapsed btn-radius px-4 d-flex justify-content-between align-items-center decoration-none"
+        data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+        aria-controls="collapseTwo">
+        Specification <span class="icon-chevron-down-solid chev-colps"></span>
+      </button>
+    </h5>
+  </div>
+  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+       data-parent="#accordion">
+    <% specifications = get_specification_of_bundle_products(@yavolo_bundle) %>
+    <% specifications.each do |specification| %>
+      <div class="px-4 d-flex">
+        <h5 class="bundling-title-border mt-3"><%= specification[:title].upcase %></h5>
+      </div>
+      <div class="card-body p-0 mt-3 pdp-specification-table mx-4">
+
+        <table class="table table-striped mb-0">
+          <tbody>
+          <% specification[:filter_groups].each do |fg| %>
+            <tr>
+              <td width="25%"><h6 class="font-14px m-0"><%= fg[:name] %></h6></td>
+              <td><%= fg[:details] %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+
+
+  </div>
+</div>

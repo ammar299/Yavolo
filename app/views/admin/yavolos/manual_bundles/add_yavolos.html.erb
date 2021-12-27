@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="Yavolo-table mt-2 w-100 table-responsive">
-        <table class="table">
+        <table class="table mb-0">
           <thead>
           <tr>
             <th>status</th>
@@ -53,11 +53,11 @@
           <span class="icon-chevron-left-solid pr-2 mm-text"></span>Back
         </a>
       </div>
-      <%= form_tag @yavolo_bundle.present? ? edit_manual_bundle_admin_yavolos_manual_bundles_path : new_manual_bundle_admin_yavolos_manual_bundles_path, method: :post, data: {"yavolos--manual-bundles-target": "form"},class:"h-100" do %>
+      <%= form_tag @yavolo_bundle.present? ? edit_manual_bundle_admin_yavolos_manual_bundles_path : new_manual_bundle_admin_yavolos_manual_bundles_path, method: :post, data: {"yavolos--manual-bundles-target": "form"}, class:"yavolo-summary-form" do %>
         <% if @yavolo_bundle.present? %>
           <%= hidden_field_tag :yavolo_bundle_id, @yavolo_bundle.id %>
         <% end %>
-        <div class="yo-white-card box-border mt-2 d-flex flex-column justify-content-between w-100 h-100 mb-4 flex1 yavolos--summary" data-controller="yavolos--summary" data-yavolos--summary-bundle-id="<%= @yavolo_bundle.present? ? @yavolo_bundle.id : nil %>" data-yavolos--summary-remove-association-url="<%= remove_product_bundle_association_admin_yavolos_manual_bundles_path %>">
+        <div class="yo-white-card box-border mt-2 d-flex flex-column justify-content-between w-100 h-100 mb-0 flex1 yavolos--summary" data-controller="yavolos--summary" data-yavolos--summary-bundle-id="<%= @yavolo_bundle.present? ? @yavolo_bundle.id : nil %>" data-yavolos--summary-remove-association-url="<%= remove_product_bundle_association_admin_yavolos_manual_bundles_path %>">
           <div>
             <h5 class="text-center">Summary</h5>
 

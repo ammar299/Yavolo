@@ -1,0 +1,34 @@
+<div class="card">
+  <div class="card-header" id="headingOne">
+    <h5 class="mb-0">
+      <button
+        class="btn btn-link btn-radius collapsed px-4 d-flex justify-content-between align-items-center decoration-none"
+        data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+        aria-controls="collapseOne">
+        Description <span class="icon-chevron-down-solid chev-colps"></span>
+      </button>
+    </h5>
+  </div>
+
+  <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+       data-parent="#accordion">
+    <div class="card-body px-4">
+      <%= @yavolo_bundle["description"].present? ? @yavolo_bundle["description"].try(:html_safe) : "" %>
+      <% @yavolo_bundle.products.each_with_index do |product,index| %>
+        <div class="row mt-3 align-items-center <%= index%2 == 0 ? nil : 'flex-row-reverse' %>">
+          <div class="col-lg-3">
+                                                    <span class="yo-white-card p-2 d-flex justify-content-center align-items-center descrptn-left-img">
+                                                        <%= product_thumbnail_image_for_table_row(product,:medium) %>
+                                                    </span>
+          </div>
+          <div class="col-lg-9">
+            <h5 class="mt-0"><%= product["title"] %> Description:</h5>
+            <%= product["description"].present? ? product["description"].try(:html_safe) : "" %>
+          </div>
+        </div>
+      <% end %>
+
+
+    </div>
+  </div>
+</div>
