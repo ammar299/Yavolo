@@ -66,16 +66,18 @@
               <li class="mr-1"><span class="icon-star"></span></li>
               <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
             </ul>
-            <div class="d-flex align-items-center flex-wrap mt-3">
-              <div class="pr-5">
+            <div class="d-flex align-items-center flex-wrap mt-3 row">
+              <div class="pr-5 col-lg-5">
                 <h3 class="black-text mb-0 mt-0">£<%= @product["price"] %></h3>
+                <span class="mm-text black-text" style="opacity: 50%;">Including VAT & Free Shipping</span>
               </div>
-              <div>
-                <span><span class="icon-manage-Yavolo red-text font-20px"><span class="font-14px">
-                    6 sold in the last 24 hours</span></span></span>
+              <div class="col-lg-7">
+                    <div class="d-flex delivery-note align-items-center py-3">
+                <span class="icon-orders--delivery"></span>
+                <span class="in-text"><strong>100% EXCLUSIVE.</strong> <br>The deal is only found on Yavolo.</span>
+                </div>
               </div>
             </div>
-            <span class="font-14px black-text" style="opacity: 50%;">VAT Included</span>
             <%= form_tag(add_to_cart_path, id: "buyer-products-quantity", method: :post, remote: true) do %>
               <div class="dropdown quantity-dropdown text-center mt-3 mb-2 w-100">
                 <button class="btn dropdown-toggle btn-lg" type="button" name="product[quantities]"id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">

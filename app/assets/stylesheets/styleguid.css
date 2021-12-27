@@ -721,6 +721,7 @@ textarea.form-control {
     align-items: center;
     line-height: 14px;
     padding-top: 2px !important;
+    pointer-events: none;
 }
 .pdp-card .pdp-img .lable-tag .icon-Yavolo-top-seller-icon {
     font-size: 16px;

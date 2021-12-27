@@ -3,7 +3,7 @@
 	<!--<form action="<%= create_checkout_path %>" method="post">-->
 	<%= form_with model: @order, url: create_checkout_path, method: :post, html: {id: 'checkout_details_form'} do |form| %>
 		<div class="row mt-4">
-			<div class="col-lg-8 d-flex">
+			<div class="col-lg-8 d-flex flex-column">
 					<div class="your-detail-left yo-white-card box-border flex1">
 							<h5>Your Details</h5>
 							<hr>

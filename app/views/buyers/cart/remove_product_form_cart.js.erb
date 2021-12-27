@@ -1,10 +1,6 @@
 $("#cart-item-<%= @product.id %>").remove()
 $("#summary-basket-<%= @product.id%>").remove()
-<% if @total_num_of_products < 2 %>
-  $('#count-label span').text('You have <%=@total_num_of_products %> item in your basket')
-<% else %> 
-  $('#count-label span').text('You have <%=@total_num_of_products %> items in your basket')
-<% end %>
+$('#count-label span').html("<%= item_or_items(@total_num_of_products) %>")
 $('#cart-sub-total').html("<%= get_price_in_pounds(@order_amount[:sub_total]) %>")
 $('#cart-total').html("<%= get_price_in_pounds(@order_amount[:total]) %>")
 $("#header_cart").html("<%= j render('buyers/cart/header_cart' ) %>");

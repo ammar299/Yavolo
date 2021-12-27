@@ -33,5 +33,13 @@ module Buyers::CartHelper
     end
     sub_total.to_f
   end
-
+  
+  def item_or_items(total_products)
+    if total_products < 2
+      "You have #{total_products} item in your basket"
+    else
+      "You have #{total_products} items in your basket"
+    end
+  end
+  
 end
