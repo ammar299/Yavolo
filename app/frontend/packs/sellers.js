@@ -1260,6 +1260,9 @@ function sellerTimeOutSlector() {
   $("body").on("click", ".time-out-session", function () {
     $("#seller_timeout").val().length > 1;
     if ($(this).is(":checked")) {
+      if($('#seller-timeout-filed').val().length<1){
+        $('#seller-timeout-filed').val('After 1 hour of no activity')
+      }
       $(".logout-time-dropdown").removeClass("d-none");
       $('#seller-timeout-filed').removeAttr('disabled')
       // $(".seller-selector").show()
