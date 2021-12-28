@@ -104,10 +104,10 @@
                                   <div class="card-content search-field-flex">
                                       <div class="product-title d-flex justify-content-between">
                                           <div class="title black-text">
-                                              <h5><%= line_item.product.title %> </h5>
+                                              <h5 class="font-14px"><%= line_item.product.title %> </h5>
                                           </div>
                                           <div class="price black-text">
-                                              <h5><%= line_item.product.price ? line_item.product.price.to_f : 0  %></h5>
+                                              <h6>£<%= line_item.product.price ? line_item.product.price.to_f : 0  %></h6>
                                           </div>
                                       </div>
                                       <ul class="rating d-flex mb-1">

@@ -24,7 +24,7 @@
         </div>
         <div class="col-lg-4">
           <div class="your-detail-right yo-white-card box-border">
-            <h5 class="mb-3">Order Summary</h5>
+            <h6 class="mb-3">How would you like to pay?</h6>
             <% PAYMENT_TYPES.each_with_index do |payment_type, index| %>
               <div class="d-flex">
               <% next_type = PAYMENT_TYPES[index+1] %>
@@ -76,6 +76,9 @@
             <div id="proceed" style="display: none;">
               <%= link_to "PROCEED TO CHECKOUT", checkout_path, class: "btn btn-lg btn-radius px-4 btn-primary w-100 mb-2" %>
             </div>
+            <div class="text-center">
+              <span class="font-14px black-text" style="opacity: 50%;">VAT Included (where applicable)</span>
+            </div>
               <div id="paypal-button" style="display: none;">
                 <%= render 'shared/checkout/paypal_express_checkout_button' %>
               </div>
@@ -100,7 +103,7 @@
         <div>
           <h3>You’ve reached the bottom but it doesn’t have to end</h3>
           <p>Join thousands of the subscribers currently receiving the best Yaolo deals!</p>
-          <div class="dropdown-filter-field">
+          <div class="dropdown-filter-field col-lg-8 mx-auto">
             <div class="search-field mb-0 subscribe-field">
               <input type="text" placeholder="Enter your email" class="">
               <a href="#" class="btn btn-radius px-4 red-text btn-light-hvr">Subscribe</a>

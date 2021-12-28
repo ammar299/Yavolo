@@ -84,7 +84,7 @@
                     
                     <div class="d-flex">
                       <span class="pr-2">£<%= product.price %></span>
-                      <%= link_to remove_product_form_cart_path(remove_product: {product_id: product.id}, product_count: value[:quantity], total_product: @total_num_of_products), method: :delete, remote: true, class: 'decoration-none' do %>
+                      <%= link_to remove_product_from_summary_path(remove_product: {product_id: product.id}, product_count: value[:quantity], total_product: @total_num_of_products), method: :delete, remote: true, class: 'decoration-none' do %>
                         <span class="order-summary-basket-cross">x</span>
                       <% end %>
                     </div>

@@ -67,21 +67,22 @@
               <li class="mr-1"><span class="icon-star"></span></li>
               <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
             </ul>
-            <div class="d-flex align-items-center flex-wrap mt-3 row">
-              <div class="pr-5 col-lg-5">
+            <div class="d-flex align-items-start flex-wrap mt-3 row">
+              <div class="pr-5 col-lg-5 mb-3">
                 <h3 class="black-text mb-0 mt-0">£<%= @product["price"] %></h3>
                 <span class="mm-text black-text" style="opacity: 50%;">Including VAT & Free Shipping</span>
               </div>
               <div class="col-lg-7">
-                    <div class="d-flex delivery-note align-items-center py-3">
-                <span class=""><%= image_tag "icon-awesome-award.svg", class: "award-badge" %></span>
-                <span class="in-text"><strong>100% EXCLUSIVE.</strong> <br>This deal is only found on Yavolo.</span>
+                    <div class="d-flex delivery-note align-items-center">
+                <span class="icon-manage-Yavolo red-text font-20px"><%= image_tag "", class: "award-badge" %></span>
+                <span class="in-text">6 sold in the last 24 hours</span>
                 </div>
               </div>
             </div>
             <%= form_tag(add_to_cart_path, id: "buyer-products-quantity", method: :post, remote: true) do %>
-              <span class="pr-3">Quantity:</span>
-              <div class="dropdown quantity-dropdown text-center mt-3 mb-2">
+              <div class="d-flex align-items-start">
+                <span class="pr-3 pt-2">Quantity:</span>
+                <div class="dropdown quantity-dropdown text-center mb-2">
                 <button class="btn dropdown-toggle btn-lg" type="button" name="product[quantities]"id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
                    <%= number_field_tag 'product[quantity]', 1, class: "update-product-quantity", data: { quantity: @product['product_stock'] } %>
                 </button>
@@ -90,6 +91,7 @@
                   <% quantity_list.each do |stock_quantity| %>
                     <a class="dropdown-item p-1 click-product-quantity" href="javascript:void(0)" data-quantity="<%= stock_quantity %>"><span><%= stock_quantity %></span></a>
                   <% end %>
+                </div>
                 </div>
               </div>
               <%= hidden_field_tag 'product[product_id]', @product["id"] %>
@@ -325,23 +327,23 @@
                       <tbody>
                       <tr>
                         <td width="25%"><strong>Width</strong></td>
-                        <td><%= @product["width"] %></td>
+                        <td class="word-break"><%= @product["width"] %></td>
                       </tr>
                       <tr>
                         <td><strong>Depth</strong></td>
-                        <td><%= @product["depth"] %></td>
+                        <td class="word-break"><%= @product["depth"] %></td>
                       </tr>
                       <tr>
                         <td><strong>Height</strong></td>
-                        <td><%= @product["height"] %></td>
+                        <td class="word-break"><%= @product["height"] %></td>
                       </tr>
                       <tr>
                         <td><strong>Colour</strong></td>
-                        <td><%= @product["colour"] %></td>
+                        <td class="word-break"><%= @product["colour"] %></td>
                       </tr>
                       <tr>
                         <td><strong>Material</strong></td>
-                        <td><%= @product["material"] %></td>
+                        <td class="word-break"><%= @product["material"] %></td>
                       </tr>
                       </tbody>
                     </table>

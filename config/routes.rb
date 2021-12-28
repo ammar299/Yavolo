@@ -274,6 +274,7 @@ Rails.application.routes.draw do
   post 'update_selected_payment_method', to: "buyers/cart#update_selected_payment_method", as: :update_selected_payment_method
   get 'cart', to: "buyers/cart#cart", as: :cart
   delete 'remove_product_form_cart', to: 'buyers/cart#remove_product_form_cart', as: :remove_product_form_cart
+  delete 'remove_product_from_summary', to: 'buyers/cart#remove_product_from_summary', as: :remove_product_from_summary
   
   get 'checkout', to: 'buyers/checkout#new', as: :checkout
   post 'create_checkout', to: 'buyers/checkout#create_checkout', as: :create_checkout

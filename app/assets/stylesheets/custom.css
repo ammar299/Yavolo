@@ -1554,3 +1554,6 @@ width: 75%;
 }
 /* bundling-images */
 
+.word-break {
+  word-break: break-all;
+}
