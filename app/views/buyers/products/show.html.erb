@@ -84,7 +84,7 @@
                 <span class="pr-3 pt-2">Quantity:</span>
                 <div class="dropdown quantity-dropdown text-center mb-2">
                 <button class="btn dropdown-toggle btn-lg" type="button" name="product[quantities]"id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                   <%= number_field_tag 'product[quantity]', 1, class: "update-product-quantity", data: { quantity: @product['product_stock'] } %>
+                   <%= number_field_tag 'product[quantity]', 1, class: "update-product-quantity", data: { quantity: @product['stock'] } %>
                 </button>
                 <div class="dropdown-menu p-1 mt-0" aria-labelledby="dropdownMenuButton">
                   <% quantity_list = @product['stock'] < 10? (1..@product['stock']) : (1..10) %>
@@ -3045,14 +3045,16 @@
 
 <script>
   $(document).ready(function() {
-    let images = $('#main-slider-list').find('li').length;
-    if (images <= 1 ) {
-      $('.splide__arrows').addClass('d-none');
-    }
+    setTimeout(() => {
+      let images = $('#main-slider-list').find('li').length;
+      if (images <= 1 ) {
+        $('.splide__arrows').addClass('d-none');
+      }
 
-    if (images == 0) {
-      $('.product-default-preview').removeClass('d-none');
-    }
+      if (images == 0) {
+        $('.product-default-preview').removeClass('d-none');
+      }
+    }, 10);
 
       var main = new Splide('#main-slider', {
           type: 'slide',
