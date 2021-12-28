@@ -16,4 +16,8 @@ export class ApplicationController extends Controller {
         return [... new Set(controllers)]
     }
 
+    parseCurrencyValueToNumber(str){
+        return str.replace(/£|,/g,"")
+    }
+
 }

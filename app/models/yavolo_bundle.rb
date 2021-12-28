@@ -22,6 +22,7 @@ class YavoloBundle < ApplicationRecord
   attr_accessor :check_for_seo_content_uniqueness
 
   validates_presence_of :title, :description, :category_id, :price, :quantity
+  validates :max_stock_limit,:price, presence: true, inclusion: { in: 0..MAX_STOCK_VALUE, message: "value should be between 0 and #{MAX_STOCK_VALUE}" }
 
   before_save :assign_yan_to_bundle
 
