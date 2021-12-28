@@ -21,7 +21,7 @@ module Sellers
       def import_sellers_from_csv
         file_path = "#{Rails.root}/public/#{csv_import.file.url}"
         csv_file_conent = File.read(file_path)
-        csv = CSV.parse(csv_file_conent, :headers => true)
+        csv =  CSV.parse(csv_file_conent, headers: true).delete_if { |row| row.to_hash.values.all?(&:blank?) }
         csv_import.update({status: :importing})
         csv.each do |row|
           seller_found = Seller.where(email: row["user_email"])&.first
@@ -32,13 +32,15 @@ module Sellers
               seller = create_seller_instance(row,password,uid)
               if seller.valid?
                 create_associate_seller_data(seller,row)
-                if @errors.blank? && seller.save
+                if @errors.blank? && @dob_errors.blank? && seller.save
                   seller.update_seller_products_listing
                   seller.skip_password_validation = true
                   raw, hashed = Devise.token_generator.generate(Seller, :reset_password_token)
                   seller.reset_password_token = hashed
                   seller.reset_password_sent_at = Time.now.utc
                   AdminMailer.with(to: row["user_email"].to_s.downcase, token: raw,seller: seller ).send_account_creation_email.deliver_now #send notification email to seller
+                else
+                  error_messages(row, seller)
                 end
               else
                 format_error_messages(row, "", seller)
@@ -64,7 +66,7 @@ module Sellers
           first_name: row["user_first_name"],
           last_name: row["user_surname"],
           surname: row["user_surname"],
-          date_of_birth: date_of_birth_is_valid_datetime(row),
+          date_of_birth: date_of_birth_is_valid_datetime(row["user_date_of_birth"]),
           contact_number: row["business_representative_address_phone_number"],
           provider: "admin",
           uid: uid,
@@ -75,22 +77,38 @@ module Sellers
       end
 
       def date_of_birth_is_valid_datetime(row)
-        @dob_errors = []
-        begin
-          dob = Date.strptime(row["business_representative_date_of_birth"], '%d/%m/%Y')
-          diff = Time.now.year - dob.year
-          if dob > Time.now
-            row["business_representative_date_of_birth"] = nil
-            @dob_errors << "Date of birth cannot be in the future"
-          elsif diff < 18
-            row["business_representative_date_of_birth"] = nil
-            @dob_errors << "Date of birth cannot be less than 18 year"
+        if row.present?
+          begin
+            dob = Date.strptime(row, '%d/%m/%Y')
+            diff = Time.now.year - dob.year
+            if dob > Time.now
+              row = nil
+              @dob_errors << "Date of birth cannot be in the future"
+            elsif diff < 18
+              row = nil
+              @dob_errors << "Date of birth cannot be less than 18 year"
+            else
+              return row
+            end
+          rescue
+            @dob_errors << "#{row} must be a valid date. Valid format is dd/mm/yyyy"
           end
-        rescue
-          @dob_errors << "#{row["business_representative_date_of_birth"]} must be a valid date. Valid format is dd/mm/yyyy"
+        else
+          @dob_errors << " Date of birth cannot blank"
         end
+        @dob_errors
       end
 
+      def error_messages(row, seller)
+        @errors << "seller: #{row["user_email"]} "
+        if @dob_errors.present?
+          @dob_errors.each do |err|
+            @errors << "#{err}" 
+          end
+        end
+      
+        @errors << seller.errors.full_messages.join("<br>") if seller.present?
+      end
 
       def format_error_messages(row, e, seller)
         @errors << "seller: #{row["user_email"]} "
@@ -102,7 +120,9 @@ module Sellers
       
         @errors << seller.errors.full_messages.join("<br>") if seller.present?
         @errors << "<hr>" if seller.present?
-        @errors << e.message unless seller.present?
+        if e.present?
+          @errors << e.message unless seller.present?
+        end
       end
 
       def account_status_rephrase(row)
@@ -152,7 +172,7 @@ module Sellers
         seller.build_business_representative(
           email: business_representative_email_valid(seller,row),
           job_title: row["business_representative_job_title"], 
-          date_of_birth: row["business_representative_date_of_birth"],
+          date_of_birth: date_of_birth_is_valid_datetime(row["business_representative_date_of_birth"]),
           full_legal_name: row["business_representative_full_legal_name"]
         )
       end
