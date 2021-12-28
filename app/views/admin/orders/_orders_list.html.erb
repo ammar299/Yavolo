@@ -14,14 +14,13 @@
       <%= link_to order.order_number.present? ? order.order_number : "", admin_order_path(order) %>
     </td>
     <td>
-      <%= order_detail.name if order_detail %>
+      <%= get_full_name(order_detail) if order_detail %>
     </td>
     <td>
       <%= order_seller_name(order_line_items) %>
     </td>
     <td>
       <%= get_price_in_pounds(order.sub_total? ? order.sub_total : 0) %>
-      <%#= "£#{order.sub_total}" %>
     </td>
     <td class="text-center">
       <%= order_line_items.count %>

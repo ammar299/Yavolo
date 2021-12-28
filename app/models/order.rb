@@ -18,8 +18,8 @@ class Order < ApplicationRecord
     paid_order: 1,
  }
 
+  default_scope -> { order(created_at: :desc) }
   scope :seller_orders, ->(owner) { includes(line_items: [:product]).where(line_items: {products: {owner_id: owner.id}}) }
-  scope :paid_orders_listing, -> { where(order_type: 'paid_order') }
 
   after_create :assign_unique_order_number
   after_create :billing_address_is_same_as_shipping_address

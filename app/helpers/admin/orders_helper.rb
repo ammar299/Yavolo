@@ -15,9 +15,9 @@ module Admin::OrdersHelper
       q_params[:q][:line_items_product_title_cont],
       q_params[:q][:order_number_cont],
       q_params[:q][:line_items_product_owner_of_Seller_type_first_name_or_line_items_product_owner_of_Seller_type_last_name_cont],
-      q_params[:q][:order_detail_name_cont],
+      q_params[:q][:order_detail_first_name_or_order_detail_last_name_cont],
       q_params[:q][:line_items_product_sku_cont],
-      q_params[:q][:line_items_product_title_or_order_number_or_line_items_product_owner_of_Seller_type_first_name_or_line_items_product_owner_of_Seller_type_last_name_or_order_detail_name_or_line_items_product_sku_cont]
+      q_params[:q][:line_items_product_title_or_order_number_or_line_items_product_owner_of_Seller_type_first_name_or_line_items_product_owner_of_Seller_type_last_name_or_order_detail_first_name_or_order_detail_last_name_or_line_items_product_sku_cont]
     ].compact.first.to_s unless q_params[:q].blank?
   end
 
@@ -26,14 +26,19 @@ module Admin::OrdersHelper
       line_items_product_title_cont
       order_number_cont
       line_items_product_owner_of_Seller_type_first_name_or_line_items_product_owner_of_Seller_type_last_name_cont
-      order_detail_name_cont
+      order_detail_first_name_or_order_detail_last_name_cont
       line_items_product_sku_cont
     ]
-    valid_field_names.include?(params[:csfname]) ? params[:csfname] : 'line_items_product_title_or_order_number_or_line_items_product_owner_of_Seller_type_first_name_or_line_items_product_owner_of_Seller_type_last_name_or_order_detail_name_or_line_items_product_sku_cont'
+    valid_field_names.include?(params[:csfname]) ? params[:csfname] : 'line_items_product_title_or_order_number_or_line_items_product_owner_of_Seller_type_first_name_or_line_items_product_owner_of_Seller_type_last_name_or_order_detail_first_name_or_order_detail_last_name_or_line_items_product_sku_cont'
   end
 
   def order_seller_name(order_line_items)
-    order_line_items.first.product.owner.full_name rescue ""
+    seller_names = []
+    order_line_items.each do |oli|
+      seller_name = oli&.product&.owner&.full_name rescue nil
+      seller_names.push(seller_name)
+    end
+    seller_names.compact.uniq.join(", ")
   end
   
   def order_status(order)

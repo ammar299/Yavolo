@@ -9,7 +9,7 @@
   <% end %>
   <%= f.search_field seller_order_current_search_field_name.to_sym, { class: 'input-btn-sm seller-order-search-field', placeholder: 'Search your orders', value: "#{seller_order_search_field_query_param_val(params)}" } %>
   <% if params[:q].present? %>
-    <%= link_to sellers_orders_path, class: 'btn-sm' do %>
+    <%= link_to sellers_orders_path, class: 'btn-sm cross_link_icon' do %>
       <i class="icon-cross" aria-hidden="true"></i>
     <% end %>
   <% else %>

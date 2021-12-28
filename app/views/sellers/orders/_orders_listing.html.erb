@@ -11,11 +11,12 @@
     <p class="mb-0"><%= seller_order.created_at.strftime("#{seller_order.created_at.day.ordinalize} %B %Y") %></p>
     <p class="mb-0"><%= seller_order.created_at.strftime('%H:%M:%S GMT') %></p>
     <p class="mb-0">Sale Fee: £121.80</p>
+    <p class="mb-0">Sub Total: <%= get_seller_order_line_items_total(seller_order) %></p>
   </td>
   <td>
     <p class="mb-0">Order number: <%= seller_order.order_number %></p>
     <p class="mb-0">Payment method: Card</p>
-    <p class="mb-0">Customer Name: <%= seller_order.order_detail&.name %></p>
+    <p class="mb-0">Customer Name: <%= get_full_name(seller_order.order_detail) %></p>
     <p class="mb-0">Sales Channel: Yavolo.com</p>
     Sold within a Yavolo
   </td>
