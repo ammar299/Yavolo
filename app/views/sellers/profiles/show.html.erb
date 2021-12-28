@@ -15,14 +15,16 @@
     <div class="col-md-10">
       <div class="tab-content" id="myTabContent">
         <%= render 'shared/sellers/about_seller_section' %>
-        <%= render 'review_section' %>
-        <%= render 'manage_subscription_section' %>
-        <%= render 'delivery_setting_section' %>
+        <% if is_eligible?(@seller) %>
+          <%= render 'review_section' %>
+          <%= render 'manage_subscription_section' %>
+          <%= render 'delivery_setting_section' %>
+          <%= render 'shared/sellers/connection_manager_section' %>
+          <%= render 'shared/sellers/holiday_mode_section', url: holiday_mode_sellers_profile_path(@seller) %>
+        <% end %>
         <%= render 'return_term_section' %>
         <%= render 'login_setting_section' %>
-        <%= render 'shared/sellers/connection_manager_section' %>
         <%= render 'integrate_payment_method'%>
-        <%= render 'shared/sellers/holiday_mode_section', url: holiday_mode_sellers_profile_path(@seller) %>
         
       </div>
     </div>

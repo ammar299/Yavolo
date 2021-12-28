@@ -49,7 +49,7 @@ export default class extends ApplicationController {
     }
 
     toggleMaxStockLimitInputFieldAndShowErrorMessage(){
-        $(this.maxStockLimitTarget).addClass("visible")
+        $(this.maxStockLimitTarget).addClass("visible").removeClass("invisible")
         this.showMaxStockLimitErrorMessage()
         $('html, body').animate({
             scrollTop: $(this.maxStockLimitTarget).offset().top - 100

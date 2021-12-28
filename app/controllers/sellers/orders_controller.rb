@@ -1,5 +1,5 @@
 class Sellers::OrdersController < Sellers::BaseController
-
+  before_action :validate_seller_dashboard!
   before_action :set_order, only: :show
   include ParseSortParam
 

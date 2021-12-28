@@ -26,15 +26,15 @@ class Buyers::CheckoutController < Buyers::BaseController
   end
 
   def create_checkout
-    order_line_item_params = order_params
-    if params[:billing_address_is_shipping_address].present? && params[:billing_address_is_shipping_address] == "true"
-      order_line_item_params[:shipping_address_attributes] = order_line_item_params[:billing_address_attributes]
-    end
     @order = @order.destroy if @order_id.present?
     @buyer = find_or_create_buyer(order_params[:order_detail_attributes][:email])
-    @order = @buyer.orders.create(order_line_item_params)
+    @order = @buyer.orders.create(order_params)
     session[:_current_user_order_id] = @order.id
     redirect_to payment_method_path
+  end
+
+  def create_custom_create_obj(form_params)
+    form_params
   end
 
   def payment_method
@@ -484,7 +484,7 @@ class Buyers::CheckoutController < Buyers::BaseController
 
   def order_params
     line_items_params
-    params.require(:order).permit(
+    params.require(:order).permit(:billing_address_is_shipping_address,
       order_detail_attributes: [:id, :name, :contact_number, :email, :_destroy],
       billing_address_attributes: [:id, :appartment, :address_line_1, :address_line_2, :city, :county, :country, :postal_code],
       shipping_address_attributes: [:id, :appartment, :address_line_1, :address_line_2, :city, :county, :country, :postal_code],

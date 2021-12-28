@@ -22,9 +22,16 @@ class Order < ApplicationRecord
   scope :paid_orders_listing, -> { where(order_type: 'paid_order') }
 
   after_create :assign_unique_order_number
+  after_create :billing_address_is_same_as_shipping_address
 
   def assign_unique_order_number
     self.update(order_number: "YAVO#{rand(100000..999999)}")
+  end
+
+  def billing_address_is_same_as_shipping_address
+    if self.billing_address_is_shipping_address
+      self.billing_address.update(self.shipping_address.attributes)
+    end
   end
 
   ransacker :idfilter do

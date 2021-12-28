@@ -46,9 +46,9 @@ export default class extends ApplicationController {
     calculateTotalPrices(pricesControllers) {
         let regularTotal = 0, yavoloTotal = 0, adjustTotal = 0;
         for (let priceController of pricesControllers) {
-            let rtotal = priceController.regularPriceInputTarget.value.replace("£", "")
-            let atotal = priceController.discountPriceInputTarget.value.replace("£", "")
-            let ytotal = priceController.discountPriceInputTarget.dataset.discountPriceOriginal
+            let rtotal = this.parseCurrencyValueToNumber(priceController.regularPriceInputTarget.value)
+            let atotal = this.parseCurrencyValueToNumber(priceController.discountPriceInputTarget.value)
+            let ytotal = this.parseCurrencyValueToNumber(priceController.discountPriceInputTarget.dataset.discountPriceOriginal)
             rtotal = rtotal ? parseFloat(rtotal) : 0.00;
             atotal = atotal ? parseFloat(atotal) : 0.00;
             ytotal = ytotal ? parseFloat(ytotal) : 0.00;
