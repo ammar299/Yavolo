@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_22_144818) do
+ActiveRecord::Schema.define(version: 2021_12_28_080600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -389,6 +389,7 @@ ActiveRecord::Schema.define(version: 2021_12_22_144818) do
     t.bigint "buyer_payment_method_id"
     t.float "total"
     t.string "order_number"
+    t.boolean "billing_address_is_shipping_address", default: false
     t.index ["buyer_id"], name: "index_orders_on_buyer_id"
     t.index ["buyer_payment_method_id"], name: "index_orders_on_buyer_payment_method_id"
   end

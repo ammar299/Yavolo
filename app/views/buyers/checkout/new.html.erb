@@ -27,7 +27,7 @@
 							<% end %>
 							<hr>
 
-							<%= form.fields_for :billing_address_attributes, (form.object.billing_address) do |bil_addr| %>
+							<%= form.fields_for :shipping_address_attributes, (form.object.shipping_address) do |bil_addr| %>
 							<div class="row">
 									<div class="form-group col-md-6">
 											<label for="exampleInputEmail1">Company Name (if applicable)</label>
@@ -83,8 +83,7 @@
 							<% end %>
 							<div>
 									<label class="checkbox-blk">Billing Address the same as Shipping Address
-											<%#= form.check_box :billing_address_is_shipping_address %>
-											<%= check_box_tag :billing_address_is_shipping_address, true, true %>
+											<%= form.check_box :billing_address_is_shipping_address, id: 'billing_address_is_shipping_address' %>
 											<span class="checkmark"></span>
 									</label>
 							</div>
@@ -98,7 +97,7 @@
 					<div class="your-detail-left yo-white-card box-border" id="shipping_address_details" style="display: none;">
 						<h5>Billing Address</h5>
 					<hr>
-					<%= form.fields_for :shipping_address_attributes, (form.object.shipping_address) do |bil_addr| %>
+					<%= form.fields_for :billing_address_attributes, (form.object.billing_address) do |bil_addr| %>
 					<div class="row">
 							<div class="form-group col-md-6">
 									<label for="exampleInputEmail1">Company Name (if applicable)</label>
