@@ -232,6 +232,8 @@ GEM
     orm_adapter (0.5.0)
     paypal-checkout-sdk (1.0.4)
       paypalhttp (~> 1.0.1)
+    paypal-payouts-sdk (1.0.1)
+      paypalhttp (~> 1.0.1)
     paypalhttp (1.0.1)
     pg (1.2.3)
     pg_search (2.3.5)
@@ -390,6 +392,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
   paypal-checkout-sdk
+  paypal-payouts-sdk
   pg (~> 1.1)
   pg_search
   phonelib
