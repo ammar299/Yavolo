@@ -1,253 +1,262 @@
 <%= render 'shared/progress_bar', locals: { progress: "30" } %>
 <div class="container">
-	<!--<form action="<%= create_checkout_path %>" method="post">-->
-	<%= form_with model: @order, url: create_checkout_path, method: :post, html: {id: 'checkout_details_form'} do |form| %>
-		<div class="row mt-4">
-			<div class="col-lg-8 d-flex flex-column">
-					<div class="your-detail-left yo-white-card box-border flex1">
-							<h5>Your Details</h5>
-							<hr>
-							<%= form.fields_for :order_detail_attributes, (form.object.order_detail) do |od| %>
-							<div class="row">
-									<div class="form-group col-md-6">
-											<%= od.label :name, "First Name" %>
-											<%= od.text_field :name, class: 'form-control', placeholder: 'Name' %>
-									</div>
-									<div class="form-group col-md-6">
-											<%= od.label :contact_number, "Telephone" %>
-											<%= od.text_field :contact_number, class: 'form-control', placeholder: 'Telephone' %>
-									</div>
-							</div>
-							<div class="row">
-									<div class="form-group col-md-6">
-											<%= od.label :email, "Email" %>
-											<%= od.text_field :email, class: 'form-control', placeholder: 'Email' %>
-									</div>
-							</div>
-							<% end %>
-							<hr>
+  <!--<form action="<%#= create_checkout_path %>" method="post">-->
+  <%= form_with model: @order, url: create_checkout_path, method: :post, html: { id: 'checkout_details_form' } do |form| %>
+    <div class="row mt-4">
+      <div class="col-lg-8 d-flex flex-column">
+        <div class="your-detail-left yo-white-card box-border flex1">
+          <h5>Your Details</h5>
+          <hr>
+          <%= form.fields_for :order_detail_attributes, (form.object.order_detail) do |od| %>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <%= od.label :first_name, "First Name" %>
+                <%= od.text_field :first_name, class: 'form-control', placeholder: 'First Name' %>
+              </div>
+              <div class="form-group col-md-6">
+                <%= od.label :last_name, "Last Name" %>
+                <%= od.text_field :last_name, class: 'form-control', placeholder: 'Last Name' %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <%= od.label :phone_number, "Telephone" %>
+                <%= od.text_field :phone_number, class: 'form-control', placeholder: 'Telephone' %>
+              </div>
+              <div class="form-group col-md-6">
+                <%= od.label :email, "Email" %>
+                <%= od.text_field :email, class: 'form-control', placeholder: 'Email' %>
+              </div>
+            </div>
+          <% end %>
+          <hr>
+          <%= form.fields_for :shipping_address_attributes, (form.object.shipping_address) do |ship_addr| %>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <%= ship_addr.label :company_name, "Company Name (if applicable)" %>
+                <%= ship_addr.text_field :company_name, class: 'form-control', placeholder: 'Company Name (if applicable)' %>
+              </div>
+              <div class="form-group col-md-6">
+                <%= ship_addr.label :appartment, "House / Flat Number" %>
+                <%= ship_addr.text_field :appartment, class: 'form-control', placeholder: 'Apartment' %>
+              </div>
+            </div>
+            <div class="row d-flex align-items-end">
+              <div class="form-group col-md-6">
+                <%= ship_addr.label :postal_code, "Postcode" %>
+                <%= ship_addr.text_field :postal_code, class: 'form-control', placeholder: 'Postcode' %>
+              </div>
+              <div class="mt-lg-2 col-md-6">
+                <div class="dropdown d-inline-flex mb-3">
+                  <a href="#"
+                     class="btn btn-radius px-3 btn-radius-12 btn-secondary d-inline-flex align-items-center"
+                     id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                     aria-expanded="false"><i class="fa fa-search mr-3"
+                                              aria-hidden="true"></i> Find Address <i
+                    class="fa fa-caret-right ml-5" aria-hidden="true"></i></a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <%= ship_addr.label :address_line_1, "Address Line 1" %>
+                <%= ship_addr.text_field :address_line_1, class: 'form-control', placeholder: 'Address Line 1' %>
+              </div>
+              <div class="form-group col-md-6">
+                <%= ship_addr.label :address_line_2, "Address Line 2" %>
+                <%= ship_addr.text_field :address_line_2, class: 'form-control', placeholder: 'Address Line 2' %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <%= ship_addr.label :city, "City" %>
+                <%= ship_addr.text_field :city, class: 'form-control', placeholder: 'City' %>
+              </div>
+              <div class="form-group col-md-6">
+                <%= ship_addr.label :county, "County" %>
+                <%= ship_addr.text_field :county, class: 'form-control', placeholder: 'County' %>
+              </div>
+            </div>
+          <% end %>
+          <div>
+            <label class="checkbox-blk">Billing Address the same as Shipping Address
+              <input type="checkbox" name="order[billing_address_is_shipping_address]" id="billing_address_is_shipping_address" checked>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div>
+            <label class="checkbox-blk">Save address for later use
+              <%= form.check_box :save_address %>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="your-detail-left yo-white-card box-border" id="billing_address_details" style="display: none;">
+          <h5>Billing Address</h5>
+          <hr>
+          <%= form.fields_for :billing_address_attributes, (form.object.billing_address) do |bil_addr| %>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <%= bil_addr.label :first_name, "First Name" %>
+                <%= bil_addr.text_field :first_name, class: 'form-control', placeholder: 'First Name' %>
+              </div>
+              <div class="form-group col-md-6">
+                <%= bil_addr.label :last_name, "Last Name" %>
+                <%= bil_addr.text_field :last_name, class: 'form-control', placeholder: 'Last Name' %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <%= bil_addr.label :company_name, "Company Name (if applicable)" %>
+                <%= bil_addr.text_field :company_name, class: 'form-control', placeholder: 'Company Name (if applicable)' %>
+              </div>
+              <div class="form-group col-md-6">
+                <%= bil_addr.label :appartment, "House / Flat Number" %>
+                <%= bil_addr.text_field :appartment, class: 'form-control', placeholder: 'Apartment' %>
+              </div>
+            </div>
+            <div class="row d-flex align-items-end">
+              <div class="form-group col-md-6">
+                <%= bil_addr.label :postal_code, "Postcode" %>
+                <%= bil_addr.text_field :postal_code, class: 'form-control', placeholder: 'Postcode' %>
+              </div>
+              <div class="mt-lg-2 col-md-6">
+                <div class="dropdown d-inline-flex mb-3">
+                  <a href="#"
+                     class="btn btn-radius px-3 btn-radius-12 btn-secondary d-inline-flex align-items-center"
+                     id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                     aria-expanded="false"><i class="fa fa-search mr-3"
+                                              aria-hidden="true"></i> Find Address <i
+                    class="fa fa-caret-right ml-5" aria-hidden="true"></i></a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <%= bil_addr.label :address_line_1, "Address Line 1" %>
+                <%= bil_addr.text_field :address_line_1, class: 'form-control', placeholder: 'Address Line 1' %>
+              </div>
+              <div class="form-group col-md-6">
+                <%= bil_addr.label :address_line_2, "Address Line 2" %>
+                <%= bil_addr.text_field :address_line_2, class: 'form-control', placeholder: 'Address Line 2' %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <%= bil_addr.label :city, "City" %>
+                <%= bil_addr.text_field :city, class: 'form-control', placeholder: 'City' %>
+              </div>
+              <div class="form-group col-md-6">
+                <%= bil_addr.label :county, "County" %>
+                <%= bil_addr.text_field :county, class: 'form-control', placeholder: 'County' %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="your-detail-right yo-white-card box-border">
+          <h5 class="mb-3">Order Summary</h5>
+          <div class="basket-dropdn">
 
-							<%= form.fields_for :shipping_address_attributes, (form.object.shipping_address) do |bil_addr| %>
-							<div class="row">
-									<div class="form-group col-md-6">
-											<label for="exampleInputEmail1">Company Name (if applicable)</label>
-											<input type="text" class="form-control" id=""
-													aria-describedby="" placeholder="Company Name">
-									</div>
-									<div class="form-group col-md-6">
-											<%= bil_addr.label :appartment, "House / Flat Number" %>
-											<%= bil_addr.text_field :appartment, class: 'form-control', placeholder: 'Apartment' %>
-									</div>
-							</div>
-							<div class="row d-flex align-items-end">
-								<div class="form-group col-md-6">
-									<%= bil_addr.label :postal_code, "Postcode" %>
-									<%= bil_addr.text_field :postal_code, class: 'form-control', placeholder: 'Postcode' %>
-								</div>
-								<div class="mt-lg-2 col-md-6">
-										<div class="dropdown d-inline-flex mb-3">
-												<a href="#"
-														class="btn btn-radius px-3 btn-radius-12 btn-secondary d-inline-flex align-items-center"
-														id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-														aria-expanded="false"><i class="fa fa-search mr-3"
-																aria-hidden="true"></i> Find Address <i
-																class="fa fa-caret-right ml-5" aria-hidden="true"></i></a>
-												<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-														<a class="dropdown-item" href="#">Action</a>
-														<a class="dropdown-item" href="#">Another action</a>
-														<a class="dropdown-item" href="#">Something else here</a>
-												</div>
-										</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="form-group col-md-6">
-									<%= bil_addr.label :address_line_1, "Address Line 1" %>
-									<%= bil_addr.text_field :address_line_1, class: 'form-control', placeholder: 'Address Line 1' %>
-								</div>
-								<div class="form-group col-md-6">
-									<%= bil_addr.label :address_line_2, "Address Line 2" %>
-									<%= bil_addr.text_field :address_line_2, class: 'form-control', placeholder: 'Address Line 2' %>
-								</div>
-							</div>
-							<div class="row">
-								<div class="form-group col-md-6">
-									<%= bil_addr.label :city, "City" %>
-									<%= bil_addr.text_field :city, class: 'form-control', placeholder: 'City' %>
-								</div>
-								<div class="form-group col-md-6">
-									<%= bil_addr.label :country, "County" %>
-									<%= bil_addr.text_field :country, class: 'form-control', placeholder: 'County' %>
-								</div>
-							</div>
-							<% end %>
-							<div>
-									<label class="checkbox-blk">Billing Address the same as Shipping Address
-											<%= form.check_box :billing_address_is_shipping_address, id: 'billing_address_is_shipping_address' %>
-											<span class="checkmark"></span>
-									</label>
-							</div>
-							<div>
-									<label class="checkbox-blk">Save address for later use
-											<%= form.check_box :save_address %>
-											<span class="checkmark"></span>
-									</label>
-							</div>
-					</div>
-					<div class="your-detail-left yo-white-card box-border" id="shipping_address_details" style="display: none;">
-						<h5>Billing Address</h5>
-					<hr>
-					<%= form.fields_for :billing_address_attributes, (form.object.billing_address) do |bil_addr| %>
-					<div class="row">
-							<div class="form-group col-md-6">
-									<label for="exampleInputEmail1">Company Name (if applicable)</label>
-									<input type="text" class="form-control" id=""
-											aria-describedby="" placeholder="Company Name">
-							</div>
-							<div class="form-group col-md-6">
-									<%= bil_addr.label :appartment, "House / Flat Number" %>
-									<%= bil_addr.text_field :appartment, class: 'form-control', placeholder: 'Apartment' %>
-							</div>
-					</div>
-					<div class="row d-flex align-items-end">
-						<div class="form-group col-md-6">
-							<%= bil_addr.label :postal_code, "Postcode" %>
-							<%= bil_addr.text_field :postal_code, class: 'form-control', placeholder: 'Postcode' %>
-						</div>
-						<div class="mt-lg-2 col-md-6">
-								<div class="dropdown d-inline-flex mb-3">
-										<a href="#"
-												class="btn btn-radius px-3 btn-radius-12 btn-secondary d-inline-flex align-items-center"
-												id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-												aria-expanded="false"><i class="fa fa-search mr-3"
-														aria-hidden="true"></i> Find Address <i
-														class="fa fa-caret-right ml-5" aria-hidden="true"></i></a>
-										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-												<a class="dropdown-item" href="#">Action</a>
-												<a class="dropdown-item" href="#">Another action</a>
-												<a class="dropdown-item" href="#">Something else here</a>
-										</div>
-								</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="form-group col-md-6">
-							<%= bil_addr.label :address_line_1, "Address Line 1" %>
-							<%= bil_addr.text_field :address_line_1, class: 'form-control', placeholder: 'Address Line 1' %>
-						</div>
-						<div class="form-group col-md-6">
-							<%= bil_addr.label :address_line_2, "Address Line 2" %>
-							<%= bil_addr.text_field :address_line_2, class: 'form-control', placeholder: 'Address Line 2' %>
-						</div>
-					</div>
-					<div class="row">
-						<div class="form-group col-md-6">
-							<%= bil_addr.label :city, "City" %>
-							<%= bil_addr.text_field :city, class: 'form-control', placeholder: 'City' %>
-						</div>
-						<div class="form-group col-md-6">
-							<%= bil_addr.label :country, "County" %>
-							<%= bil_addr.text_field :country, class: 'form-control', placeholder: 'County' %>
-						</div>
-					</div>
-					<% end %>
-				</div>
-			</div>
-			<div class="col-lg-4">
-					<div class="your-detail-right yo-white-card box-border">
-							<h5 class="mb-3">Order Summary</h5>
-							<div class="basket-dropdn">
-									
-							</div>
-							<div class="d-flex justify-content-between mb-2">
-									<span><strong>Sub Total</strong></span>
-									<span><%= get_price_in_pounds(@order_amount.present? ? @order_amount[:sub_total] : 0) %></span>
-							</div>
-							<div class="d-flex justify-content-between">
-									<span><strong>Delivery</strong></span>
-									<span>Free</span>
-							</div>
-							<hr>
-							<div class="d-flex justify-content-between">
-									<span><strong>Order Total</strong></span>
-									<span><%= get_price_in_pounds(@order_amount.present? ? @order_amount[:total] : 0) %></span>
-							</div>
-							<hr>
-							<div class="d-flex delivery-note align-items-center py-3">
-									<span class="icon-Secure-checkout icons-ico"></span>
-									<span class="in-text mm-text"><b>Secure Checkout</b> <br>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span><strong>Sub Total</strong></span>
+            <span><%= get_price_in_pounds(@order_amount.present? ? @order_amount[:sub_total] : 0) %></span>
+          </div>
+          <div class="d-flex justify-content-between">
+            <span><strong>Delivery</strong></span>
+            <span>Free</span>
+          </div>
+          <hr>
+          <div class="d-flex justify-content-between">
+            <span><strong>Order Total</strong></span>
+            <span><%= get_price_in_pounds(@order_amount.present? ? @order_amount[:total] : 0) %></span>
+          </div>
+          <hr>
+          <div class="d-flex delivery-note align-items-center py-3">
+            <span class="icon-Secure-checkout icons-ico"></span>
+            <span class="in-text mm-text"><b>Secure Checkout</b> <br>
 											Shopping with Yavolo is always safe and secure </span>
-							</div>
-							<div class="d-flex delivery-note align-items-center py-3">
-									<span class="icon-day-guarantee icons-ico"></span>
-									<span class="in-text mm-text"><b>30 Day Guarantee</b> <br>
+          </div>
+          <div class="d-flex delivery-note align-items-center py-3">
+            <span class="icon-day-guarantee icons-ico"></span>
+            <span class="in-text mm-text"><b>30 Day Guarantee</b> <br>
 											Returns are accepted up to 30 days as standard</span>
-							</div>
-							<!-- <a href="#" class="btn btn-lg btn-radius px-4 btn-primary w-100 ">CONTINUE TO PAYMENT</a> -->
-							<input type="submit" value="CONTINUE TO PAYMENT", class="btn btn-lg btn-radius px-4 btn-primary w-100" >
-					</div>
-					<div class="your-detail-right yo-white-card box-border">
-							<div>
-									<h5 class="mb-3">Latest Review</h5>
-									<ul class="rating d-flex">
-											<li class="mr-1 active"><span class="icon-star"></span></li>
-											<li class="mr-1 active"><span class="icon-star"></span></li>
-											<li class="mr-1 active"><span class="icon-star"></span></li>
-											<li class="mr-1 active"><span class="icon-star"></span></li>
-											<li class="mr-1"><span class="icon-star"></span></li>
-									</ul>
-									<p class="mm-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-											eiusmod
-											tempor incididunt ut labore et dolore magna aliqua.</p>
-							</div>
-							<div>
+          </div>
+          <input type="submit" value="CONTINUE TO PAYMENT" , class="btn btn-lg btn-radius px-4 btn-primary w-100">
+        </div>
+        <div class="your-detail-right yo-white-card box-border">
+          <div>
+            <h5 class="mb-3">Latest Review</h5>
+            <ul class="rating d-flex">
+              <li class="mr-1 active"><span class="icon-star"></span></li>
+              <li class="mr-1 active"><span class="icon-star"></span></li>
+              <li class="mr-1 active"><span class="icon-star"></span></li>
+              <li class="mr-1 active"><span class="icon-star"></span></li>
+              <li class="mr-1"><span class="icon-star"></span></li>
+            </ul>
+            <p class="mm-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod
+              tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+          <div>
 
-									<ul class="rating d-flex">
-											<li class="mr-1 active"><span class="icon-star"></span></li>
-											<li class="mr-1 active"><span class="icon-star"></span></li>
-											<li class="mr-1 active"><span class="icon-star"></span></li>
-											<li class="mr-1 active"><span class="icon-star"></span></li>
-											<li class="mr-1"><span class="icon-star"></span></li>
-									</ul>
-									<p class="mm-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-											eiusmod
-											tempor incididunt ut labore et dolore magna aliqua.</p>
-							</div>
-							<div>
+            <ul class="rating d-flex">
+              <li class="mr-1 active"><span class="icon-star"></span></li>
+              <li class="mr-1 active"><span class="icon-star"></span></li>
+              <li class="mr-1 active"><span class="icon-star"></span></li>
+              <li class="mr-1 active"><span class="icon-star"></span></li>
+              <li class="mr-1"><span class="icon-star"></span></li>
+            </ul>
+            <p class="mm-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod
+              tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+          <div>
 
-									<ul class="rating d-flex">
-											<li class="mr-1 active"><span class="icon-star"></span></li>
-											<li class="mr-1 active"><span class="icon-star"></span></li>
-											<li class="mr-1 active"><span class="icon-star"></span></li>
-											<li class="mr-1 active"><span class="icon-star"></span></li>
-											<li class="mr-1"><span class="icon-star"></span></li>
-									</ul>
-									<p class="mm-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-											eiusmod
-											tempor incididunt ut labore et dolore magna aliqua.</p>
-							</div>
+            <ul class="rating d-flex">
+              <li class="mr-1 active"><span class="icon-star"></span></li>
+              <li class="mr-1 active"><span class="icon-star"></span></li>
+              <li class="mr-1 active"><span class="icon-star"></span></li>
+              <li class="mr-1 active"><span class="icon-star"></span></li>
+              <li class="mr-1"><span class="icon-star"></span></li>
+            </ul>
+            <p class="mm-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod
+              tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
 
-					</div>
-			</div>
-		</div>
-	<% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>
 
 <script>
-$(document).ready(function() {
-	if ($('#billing_address_is_shipping_address').is(':checked')) {
-		$('#shipping_address_details').hide();
-	}else {
-		$('#shipping_address_details').show();
-	}
-});
+    $(document).ready(function () {
+        if ($('#billing_address_is_shipping_address').is(':checked')) {
+            $('#billing_address_details').hide();
+        } else {
+            $('#billing_address_details').show();
+        }
+    });
 
-$('body').on('change', '#billing_address_is_shipping_address', function() {
-	if ($(this).is(':checked')) {
-		$('#shipping_address_details').hide();
-	}
-	else {
-		$('#shipping_address_details').show();
-	}
-})
+    $('body').on('change', '#billing_address_is_shipping_address', function () {
+        if ($(this).is(':checked')) {
+            $('#billing_address_details').hide();
+        } else {
+            $('#billing_address_details').show();
+        }
+    })
 </script>

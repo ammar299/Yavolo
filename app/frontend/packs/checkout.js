@@ -12,50 +12,59 @@ function checkoutDetailsFormValidation() {
         email: true,
         regex: /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i,
       },
-      "order[order_detail_attributes][name]": {
+      "order[order_detail_attributes][first_name]": {
         required: true,
       },
-      "order[order_detail_attributes][contact_number]": {
+      "order[order_detail_attributes][last_name]": {
+        required: true,
+      },
+      "order[order_detail_attributes][phone_number]": {
         required: true,
         phone_number_uk: true
       },
-      "order[billing_address_attributes][appartment]": {
-        required: true,
-      },
-      "order[billing_address_attributes][postal_code]": {
-        required: true,
-        postal_code_uk: true,
-      },
-      "order[billing_address_attributes][address_line_1]": {
-        required: true,
-      },
-      "order[billing_address_attributes][address_line_2]": {
-        required: true,
-      },
-      "order[billing_address_attributes][city]": {
-        required: true,
-      },
-      "order[billing_address_attributes][country]": {
-        required: true,
-      },
-      billing_address_is_shipping_address: {},
       "order[shipping_address_attributes][appartment]": {
-        requiredIfChecked: true,
+        required: true,
       },
       "order[shipping_address_attributes][postal_code]": {
-        requiredIfChecked: true,
+        required: true,
         postal_code_uk: true,
       },
       "order[shipping_address_attributes][address_line_1]": {
-        requiredIfChecked: true,
+        required: true,
       },
       "order[shipping_address_attributes][address_line_2]": {
-        requiredIfChecked: true,
+        required: true,
       },
       "order[shipping_address_attributes][city]": {
+        required: true,
+      },
+      "order[shipping_address_attributes][county]": {
+        required: true,
+      },
+      billing_address_is_shipping_address: {},
+      "order[billing_address_attributes][first_name]": {
         requiredIfChecked: true,
       },
-      "order[shipping_address_attributes][country]": {
+      "order[billing_address_attributes][last_name]": {
+        requiredIfChecked: true,
+      },
+      "order[billing_address_attributes][appartment]": {
+        requiredIfChecked: true,
+      },
+      "order[billing_address_attributes][postal_code]": {
+        requiredIfChecked: true,
+        postal_code_uk: true,
+      },
+      "order[billing_address_attributes][address_line_1]": {
+        requiredIfChecked: true,
+      },
+      "order[billing_address_attributes][address_line_2]": {
+        requiredIfChecked: true,
+      },
+      "order[billing_address_attributes][city]": {
+        requiredIfChecked: true,
+      },
+      "order[billing_address_attributes][county]": {
         requiredIfChecked: true,
       },
     },
@@ -69,11 +78,41 @@ function checkoutDetailsFormValidation() {
       "order[order_detail_attributes][email]": {
         required: "Email is required",
       },
-      "order[order_detail_attributes][name]": {
-        required: "Name is required",
+      "order[order_detail_attributes][first_name]": {
+        required: "First Name is required",
       },
-      "order[order_detail_attributes][contact_number]": {
+      "order[order_detail_attributes][last_name]": {
+        required: "Last Name is required",
+      },
+      "order[order_detail_attributes][phone_number]": {
         required: "Contact number is required",
+      },
+      "order[shipping_address_attributes][appartment]": {
+        required: "Apartment is required",
+      },
+      "order[shipping_address_attributes][postal_code]": {
+        required: "Postal Code is required",
+      },
+      "order[shipping_address_attributes][address_line_1]": {
+        required: "Address Line 1 is required",
+      },
+      "order[shipping_address_attributes][address_line_2]": {
+        required: "Address Line 2 is required",
+      },
+      "order[shipping_address_attributes][city]": {
+        required: "City is required",
+      },
+      "order[shipping_address_attributes][county]": {
+        required: "County is required",
+      },
+      billing_address_is_shipping_address: {
+        required: "Please accept these Terms and conditions",
+      },
+      "order[billing_address_attributes][first_name]": {
+        required: "First Name is required",
+      },
+      "order[billing_address_attributes][last_name]": {
+        required: "Last Name is required",
       },
       "order[billing_address_attributes][appartment]": {
         required: "Appratment is required",
@@ -90,29 +129,8 @@ function checkoutDetailsFormValidation() {
       "order[billing_address_attributes][city]": {
         required: "City is required",
       },
-      "order[billing_address_attributes][country]": {
-        required: "Country is required",
-      },
-      billing_address_is_shipping_address: {
-        required: "Please accept these Terms and conditions",
-      },
-      "order[shipping_address_attributes][appartment]": {
-        required: "Appratment is required",
-      },
-      "order[shipping_address_attributes][postal_code]": {
-        required: "Postal Code is required",
-      },
-      "order[shipping_address_attributes][address_line_1]": {
-        required: "Address Line 1 is required",
-      },
-      "order[shipping_address_attributes][address_line_2]": {
-        required: "Address Line 2 is required",
-      },
-      "order[shipping_address_attributes][city]": {
-        required: "City is required",
-      },
-      "order[shipping_address_attributes][country]": {
-        required: "Country is required",
+      "order[billing_address_attributes][county]": {
+        required: "County is required",
       },
     },
   });

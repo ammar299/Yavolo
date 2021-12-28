@@ -1417,6 +1417,10 @@ width: 75%;
   border: 1px solid #ccc !important;
 }
 
+.cross_link_icon {
+    position: absolute;
+    top: 0;
+}
 .order-summary-basket-cross {
     color: white;
     background-color: var(--dark-red);

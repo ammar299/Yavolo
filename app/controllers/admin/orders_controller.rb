@@ -3,8 +3,8 @@ class Admin::OrdersController < Admin::BaseController
   before_action :set_order, only: [:show, :new_refund, :get_refund, :create_refund]
 
   def index
-    @q = Order.paid_orders_listing.ransack(params[:q])
-    @orders = @q.result
+    @q = Order.ransack(params[:q])
+    @orders = @q.result(distinct: true)
     @orders = @orders.order(sub_total: :desc) if params.dig(:q, :s) == "price"
     @total_count = @orders.size
     @orders = @orders.page(params[:page]).per(params[:per_page].presence || 15)

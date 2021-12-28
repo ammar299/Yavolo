@@ -33,10 +33,6 @@ class Buyers::CheckoutController < Buyers::BaseController
     redirect_to payment_method_path
   end
 
-  def create_custom_create_obj(form_params)
-    form_params
-  end
-
   def payment_method
     @total_num_of_products = 0
     @cart = get_cart
@@ -485,9 +481,9 @@ class Buyers::CheckoutController < Buyers::BaseController
   def order_params
     line_items_params
     params.require(:order).permit(:billing_address_is_shipping_address,
-      order_detail_attributes: [:id, :name, :contact_number, :email, :_destroy],
-      billing_address_attributes: [:id, :appartment, :address_line_1, :address_line_2, :city, :county, :country, :postal_code],
-      shipping_address_attributes: [:id, :appartment, :address_line_1, :address_line_2, :city, :county, :country, :postal_code],
+      order_detail_attributes: [:id, :first_name, :last_name, :phone_number, :email, :_destroy],
+      billing_address_attributes: [:id, :first_name, :last_name, :company_name, :appartment, :address_line_1, :address_line_2, :city, :county, :country, :postal_code],
+      shipping_address_attributes: [:id, :first_name, :last_name, :company_name, :appartment, :address_line_1, :address_line_2, :city, :county, :country, :postal_code],
       line_items_attributes: [:id, :product_id, :quantity, :added_on]
     )
   end

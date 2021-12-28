@@ -1210,15 +1210,7 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
     });
   }
 
-  $('#product_price').change(function(){
-    $(this).valid();
-  })
-  $('#product_price').rules('add', {
-    validPrice: true,
-    messages: {
-      validPrice: "Please enter a valid price value."
-    }
-  });
+  
 
 
   $('#product_description').change(function(){
@@ -1283,11 +1275,11 @@ function stockUpdateOnListing(){
 
 function priceUpdateOnListing(){
   $('body').on('input', '#product_price', function() {
-    if ($(this).val().length > 9) {
+    if ($(this).val().length > 11) {
       if($("#price-error").length == 0)
       {
         $(this).parents("div.form-group").addClass('error-field');
-        $(this).after('<label  id= "price-error" class="text-left w-100 error text-">Must be 1 to 9999</label>');
+        $(this).after('<label  id= "price-error" class="text-left w-100 error text-">Must be 1 to 999999</label>');
       }
     } else {
         $(this).parents("div.form-group").removeClass('error-field');
