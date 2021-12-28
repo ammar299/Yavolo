@@ -1,5 +1,5 @@
 class Sellers::ProductsController < Sellers::BaseController
-
+  before_action :validate_seller_dashboard!
   before_action :format_price_value, only: %i[create update]
 
   include SharedProductMethods
