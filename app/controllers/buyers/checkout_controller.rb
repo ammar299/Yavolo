@@ -46,9 +46,6 @@ class Buyers::CheckoutController < Buyers::BaseController
       redirect_to store_front_path
     end
     @total_num_of_products = @cart.inject(0) { |sum, p| sum + p[:quantity].to_i }
-    # @cart.each_with_index do |value, index| 
-     #  @total_num_of_products = @total_num_of_products + value[:quantity].to_i
-    # end
   end
 
   def create_payment_method
@@ -145,6 +142,15 @@ class Buyers::CheckoutController < Buyers::BaseController
     end
   end
 
+  def paypal_payout_webhook
+    if params.present?
+      batch_payout_id = params[:resource][:batch_header][:payout_batch_id]
+      if batch_payout_id.present?
+        LineItem.where(transfer_id: batch_payout_id).update(transfer_status: :paid)
+      end
+    end
+  end
+
   def create_google_payment
     @order = Order.new unless @order.present?
     if @order.order_type != 'paid_order'
@@ -167,7 +173,6 @@ class Buyers::CheckoutController < Buyers::BaseController
       @order.line_items.destroy_all if @order.line_items.present?
       @order.line_items.create(session[:_current_user_cart])
       session[:_current_user_order_id] = @order.id
-      puts intent
       render json: { clientSecret: intent.client_secret }, status: :ok
     end
   end
@@ -211,6 +216,14 @@ class Buyers::CheckoutController < Buyers::BaseController
       @order = Order.new
     end
     if @order.order_type != 'paid_order'
+      seller_grouped_products_hash = Stripe::SellerProductHash.call(
+        { order: @order }
+      )
+      unless seller_grouped_products_hash.status
+        flash[:notice] = "Can't place this order. One of the sellers does not have paypal attached."
+        redirect_to store_front_path
+        return
+      end
       paypal_order_creator = Paypal::PaypalOrderCreator.call({ debug: true, amount: order_amount[:total] })
       if paypal_order_creator.status
         @buyer = @order.buyer
@@ -230,7 +243,6 @@ class Buyers::CheckoutController < Buyers::BaseController
         @order.line_items.destroy_all if @order.line_items.present?
         @order.line_items.create(session[:_current_user_cart])
         session[:_current_user_order_id] = @order.id
-        puts paypal_order_creator
         render json: { token: paypal_order_creator.paypal_response.result.id }, status: :ok
       end
     end
@@ -244,6 +256,7 @@ class Buyers::CheckoutController < Buyers::BaseController
         @order_amount = order_amount
         paypal_order_capturor = Paypal::PaypalOrderCapturor.call({ order_id: params[:order_id], debug: true })
         if paypal_order_capturor.status
+          create_paypal_payout(@order)
           payer_info = paypal_order_capturor.paypal_response.first.result.payer
           if session_selected_payment_method.present? && session_selected_payment_method == 'paypal' && !@order.order_detail.present?
             billing_address = payer_info.address
@@ -263,7 +276,6 @@ class Buyers::CheckoutController < Buyers::BaseController
           end
           @order = update_order_to_paid(@order, @order_amount[:total], @order_amount[:sub_total])
           create_payment_mode_paypal(@order, paypal_order_capturor.paypal_response, @order_amount)
-          puts paypal_order_capturor.paypal_response
           session.delete(:_current_user_cart)
           session.delete(:_current_user_order_id)
           session.delete(:_selected_payment_method)
@@ -420,6 +432,37 @@ class Buyers::CheckoutController < Buyers::BaseController
       )
     end
     buyer_payment_method
+  end
+
+  def create_paypal_payout(order)
+    seller_grouped_products_hash = Stripe::SellerProductHash.call(
+      { order: order }
+    )
+    if seller_grouped_products_hash.status
+      response = Paypal::PayoutCreator.call({ debug: true, seller_hash: seller_grouped_products_hash.seller_hash })
+      if response.status
+        update_line_items_status(order, response.paypal_payout_response.result.batch_header.payout_batch_id, seller_grouped_products_hash.seller_hash)
+      end
+    end
+  end
+
+  def update_line_items_status(order, transfer_id, seller_hash = nil)
+    unless seller_hash.present?
+      seller_grouped_products_hash = Stripe::SellerProductHash.call(
+        { order: order }
+      )
+      if seller_grouped_products_hash.status
+        seller_hash = seller_grouped_products_hash.seller_hash
+      else
+        return
+      end
+    end
+    seller_hash.each do |seller_details|
+      Orders::UpdateLineItemsToPaid.call(
+        { seller_id: seller_details[:seller_id], transfer_id: transfer_id,
+          transfer_status: 'pending', products_array: seller_details[:products_array] }
+      )
+    end
   end
 
   def save_stripe_customer_detail(buyer, customer)

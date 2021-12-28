@@ -40,7 +40,7 @@ module Stripe
       payload = transfer_amount_payload(seller_stripe_account_id, amount_to_transfer_to_seller, charge_id)
       transfer = Stripe::Transfer.create(payload)
       Orders::UpdateLineItemsToPaid.call(
-        { seller_id: seller_id, transfer_id: transfer.id, products_array: products_array }
+        { seller_id: seller_id, transfer_id: transfer.id, transfer_status: 'paid', products_array: products_array }
       )
     end
 

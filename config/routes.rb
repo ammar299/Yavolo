@@ -290,6 +290,8 @@ Rails.application.routes.draw do
   post :create_paypal_order, to: 'buyers/checkout#create_paypal_order'
   post :capture_paypal_order, to: 'buyers/checkout#capture_paypal_order'
 
+  post :paypal_payout_webhook, to: 'buyers/checkout#paypal_payout_webhook'
+
   resource :user, only: :update
   get :profile, to: 'users#show'
   scope :profile do

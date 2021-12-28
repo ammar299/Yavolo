@@ -24,7 +24,7 @@ module Orders
       line_items_array.each do |line_item|
         item = LineItem.find(line_item[:id]) rescue nil
         if item.present?
-          item.update(price: line_item[:price], transfer_id: transfer_id, transfer_status: :paid)
+          item.update(price: line_item[:price], transfer_id: transfer_id, transfer_status: transfer_status)
         end
       end
     end
@@ -41,6 +41,10 @@ module Orders
 
     def transfer_id
       params[:transfer_id] || nil
+    end
+
+    def transfer_status
+      params[:transfer_status] || 'pending'
     end
   end
 end

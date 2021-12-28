@@ -27,6 +27,11 @@ class Buyers::CartController < Buyers::BaseController
 
   def add_to_cart
     product = add_to_cart_params
+    this_product = Product.find_by(id: product[:product_id])
+    if !this_product.present? || this_product.present? && (this_product.owner&.bank_detail&.account_verification_status.to_s == 'false' || this_product.owner&.paypal_detail&.integration_status.to_s == 'false')
+      flash.now[:notice] = I18n.t('flash_messages.cannot_buy_this_product')
+      return
+    end
     cart = []
     found = false
     if !session[:_current_user_cart].present?

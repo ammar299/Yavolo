@@ -85,4 +85,6 @@ gem 'stripe'
 gem 'rotp'
 gem 'rqrcode'
 gem "mini_magick"
+#Payout Paypal
+gem 'paypal-payouts-sdk'
 
