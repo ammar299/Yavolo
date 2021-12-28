@@ -3010,6 +3010,7 @@ select.new-select {
 /* quantity-dropdn */
 .quantity-dropdown {
   display: inline-block;
+  width: 100px;
 }
 .quantity-dropdown .btn.dropdown-toggle {
   background-color: #fff;
@@ -3070,7 +3071,7 @@ select.new-select {
 }
 .quantity-dropdown .btn input,
 .quantity-dropdown .dropdown-menu .dropdown-item {
-  font-size: 16px;
+  font-size: 12px !important;
   color: #a2697e;
 }
 .quantity-dropdown .dropdown-menu .dropdown-item:active {

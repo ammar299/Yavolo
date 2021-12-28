@@ -89,6 +89,19 @@ class Buyers::CartController < Buyers::BaseController
       @order_amount = order_amount
       flash.now[:notice] = I18n.t('flash_messages.product_removed_successfully')
     end
+  end
+
+  def remove_product_from_summary
+    remove_product_params = remove_product_from_cart_params
+    # todo only update if the product status is active
+    # add status: :active in find_by
+    @product = Product.find_by(id: remove_product_params[:product_id]) || nil
+    if @product.present?
+      @cart = get_cart
+      @cart.delete_if { |h| h[:product_id].to_i == @product.id }
+      @order_amount = order_amount
+      flash.now[:notice] = I18n.t('flash_messages.product_removed_successfully')
+    end
     if params[:product_count].present?
       @total_num_of_products = @cart.inject(0) { |sum, p| sum + p[:quantity].to_i }
     end
