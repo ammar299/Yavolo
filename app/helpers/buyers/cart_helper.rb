@@ -1,7 +1,7 @@
 module Buyers::CartHelper
 
   def product_cart_images(product)
-    product.pictures.first.name.url rescue 'profile.jpg' 
+    product.pictures.first.name.url rescue 'default.jpg' 
   end
 
   def total_price(product, quantity)

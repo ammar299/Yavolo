@@ -774,7 +774,6 @@ label {
   text-overflow: ellipsis;
   justify-content: space-between;
   position: relative;
-  /* min-width: 140px; */
 }
 .dropdown-filter-custom .show .btn {
   border-radius: 10px 10px 0 0 !important;
@@ -1492,3 +1491,66 @@ width: 75%;
 .dollar-img {
   width: 66px;
 }
+.splide__slide img {
+  vertical-align: bottom;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+/* bundling-tabs-links */
+.bundling-tabs-links .active {
+	color: var(--red);
+	border-bottom: 2px solid var(--red);
+}
+/* bundling-tabs-links */
+/* bundling-images */
+.bundle-block-pad {
+	padding: 10px 55px;
+}
+.plus-bundling {
+	position: absolute;
+    right: -21px;
+    font-size: 22px;
+    font-weight: 600;
+}
+.plus-bundling-botm {
+	position: absolute;
+    bottom: 29%;
+    padding-bottom: -3px;
+    font-size: 22px;
+    font-weight: 600;
+}
+.new-subscription .form-group-vertical label {
+	text-align: right;
+	padding-right: 15px !important;
+}
+.bundling-img-rest {
+	width: 100%;
+	max-height: 150px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.bundling-img-rest img {
+	object-fit: contain;
+	width: 100% !important;
+	max-height: 110px;
+}
+.bundling-main-img {
+	width: 100%;
+	/* height: 260px; */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.bundling-main-img img {
+	width: 100%;
+	object-fit: contain;
+	height: 165px;
+}
+.bundling-label-img {
+	width: 200px;
+	margin-left: auto;
+}
+/* bundling-images */
+
