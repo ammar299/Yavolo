@@ -11,4 +11,8 @@ class LineItem < ApplicationRecord
     canceled: 3,
     partial_refunded: 4
   }
+
+  scope :seller_own_order_line_items, ->(owner) {
+    owner.class.name == "Seller" ? joins(:product).where(products: { owner_id: owner.id }) : all
+  }
 end
