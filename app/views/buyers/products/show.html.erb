@@ -89,7 +89,7 @@
                 <div class="dropdown-menu p-1 mt-0" aria-labelledby="dropdownMenuButton">
                   <% quantity_list = @product['stock'] < 10? (1..@product['stock']) : (1..10) %>
                   <% quantity_list.each do |stock_quantity| %>
-                    <a class="dropdown-item p-1 click-product-quantity" href="javascript:void(0)" data-quantity="<%= stock_quantity %>"><span><%= stock_quantity %></span></a>
+                    <a class="dropdown-item p-1 click-product-quantity" href="javascript:void(0)" data-quantity="<%= stock_quantity %>"><span><%= stock_quantity == 10 ? '10+' : stock_quantity%></span></a>
                   <% end %>
                 </div>
                 </div>
@@ -386,9 +386,9 @@
                 </div>
                 <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
                      data-parent="#accordion">
-                  <div class="card-body px-4">
+                  <div class="card-body px-0">
                         
-                    <div class="review-card mx-0">
+                    <div class="review-card mx-0 px-4 mt-0">
                     <div class="review-header d-flex justify-content-between">
                         <span>John Smith</span>
                         <span>22/04/2021</span>
@@ -410,42 +410,10 @@
                                 magna,
                                 imperdiet nec molestie et.</p>
                         </div>
-                        <div class="yo-white-card bundling-review-block">
-                            <div class="">
-                                <div class="d-flex align-items-center mb-2">
-                                    <span class="icon-manage-Yavolo red-text bundling-smily-logo"></span>
-                                    <div class="d-flex flex-column bundling-logo-title">
-                                        <span class="red-text font-14px"> Yavolo </span>
-                                        <span class="dark-red-text font-14px">Exclusive Bundle</span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="row align-items-center">
-                                        <div class="col-lg-8">
-                                            <div class="yo-white-card p-2 d-flex justify-content-center align-items-center">
-                                                <span>
-                                                    <%= image_tag "Image496.png" %>
-                                                </span>
-                                                <span class="plus-bundling">+</span>
-                                            </div>
-                                          
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="yo-white-card p-2">
-                                                <span>
-                                                  <%= image_tag "Image496.png" %>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- <span class="">
-                                    <%= image_tag "profile.jpg"%>
-                                </span> -->
-                                <div class="text-right mt-2">
-                                    <span>A goog deal better.</span>
-                                </div>
-                            </div>
+                        <div class="yo-white-card p-2">
+                            <span class="">
+                            <%= image_tag "profile.jpg", class:"col-img-profile" %>
+                            </span>
                         </div>
                       
                     </div>
@@ -455,6 +423,69 @@
                     <% else %>
                       <%= @product.owner_type == "Seller" ? @product.owner&.return_and_term&.instructions&.html_safe : "" %>
                     <% end %>
+                    <div class="row">
+                      <div class="col-md-4 mx-auto">
+                        <div class="pager-middle text-center d-flex justify-content-center mb-4">
+                          <div class="text-center"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body px-0">
+                        
+                    <div class="review-card mx-0 px-4 mt-0">
+                    <div class="review-header d-flex justify-content-between">
+                        <span>John Smith</span>
+                        <span>22/04/2021</span>
+                    </div>
+                    <ul class="rating d-flex mb-2">
+                        <li class="mr-1 active"><span class="icon-star"></span></li>
+                        <li class="mr-1 active"><span class="icon-star"></span></li>
+                        <li class="mr-1 active"><span class="icon-star"></span></li>
+                        <li class="mr-1 active"><span class="icon-star"></span></li>
+                        <li class="mr-1"><span class="icon-star"></span></li>
+                        <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                    </ul>
+                    <div class="d-flex">
+                        <div>
+                            <p class="black-text font-14px pr-3 mb-0">Lorem ipsum dolor sit
+                                amet, consectetur adipiscing elit. Nulla id aliquet erat, eu
+                                congue arcu. Quisque quis mi turpis. Curabitur eu mauris
+                                malesuada, posuere dui eget, placerat nisi. Donec lacus
+                                magna,
+                                imperdiet nec molestie et.</p>
+                        </div>
+                        <div class="yo-white-card p-2">
+                            <span class="">
+                            <%= image_tag "profile.jpg", class:"col-img-profile" %>
+                            </span>
+                        </div>
+                      
+                    </div>
+                    </div>
+                    <% if params[:preview_listing] %>
+                      <%= @product["terms_and_returns"].present? ? @product["terms_and_returns"].try(:html_safe) : "" %>
+                    <% else %>
+                      <%= @product.owner_type == "Seller" ? @product.owner&.return_and_term&.instructions&.html_safe : "" %>
+                    <% end %>
+                  </div>
+                  <div class="pager-middle text-center d-flex justify-content-center mb-4">
+                    <nav class="footer-pagination">
+                      <ul class="pagination">
+                        <li class="page-item active">
+                          <a data-remote="false" class="page-link">1</a>
+                        </li>
+                        <li class="page-item">
+                          <a rel="next" class="page-link" href="#">2</a>
+                        </li>
+                        <li class="page-item">
+                          <a rel="next" class="page-link" href="#">Next ›</a>
+                        </li>
+                        <li class="page-item">
+                          <a class="page-link" href="#">Last »</a>
+                        </li>
+                      </ul>
+                    </nav>
                   </div>
                 </div>
               </div>

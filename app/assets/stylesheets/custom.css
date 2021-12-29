@@ -1561,3 +1561,20 @@ width: 75%;
 .word-break {
   word-break: break-all;
 }
+.col-img-profile {
+  width: 220px;
+  height: 170px;
+  object-fit: contain;
+}
+
+.empty-card-height {
+    width: 100%;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sign-in-basket-btn {
+  width: 200px;
+  margin-top: 20px;
+}
