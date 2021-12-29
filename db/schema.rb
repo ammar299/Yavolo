@@ -120,6 +120,9 @@ ActiveRecord::Schema.define(version: 2021_12_28_080600) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "order_id"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "company_name"
     t.index ["order_id"], name: "index_billing_addresses_on_order_id"
   end
 
@@ -369,12 +372,13 @@ ActiveRecord::Schema.define(version: 2021_12_28_080600) do
   end
 
   create_table "order_details", force: :cascade do |t|
-    t.string "name"
+    t.string "first_name"
     t.string "email"
-    t.string "contact_number"
+    t.string "phone_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "order_id"
+    t.string "last_name"
     t.index ["order_id"], name: "index_order_details_on_order_id"
   end
 
@@ -620,9 +624,9 @@ ActiveRecord::Schema.define(version: 2021_12_28_080600) do
     t.boolean "two_factor_auth", default: false
     t.datetime "last_seen_at"
     t.string "recovery_email"
-    t.boolean "skip_success_hub_steps", default: false
     t.string "otp_secret"
     t.integer "last_otp_at"
+    t.boolean "skip_success_hub_steps", default: false
     t.integer "failed_attempts", default: 0
     t.string "unlock_token"
     t.datetime "locked_at"
@@ -665,6 +669,9 @@ ActiveRecord::Schema.define(version: 2021_12_28_080600) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "order_id"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "company_name"
     t.index ["order_id"], name: "index_shipping_addresses_on_order_id"
   end
 

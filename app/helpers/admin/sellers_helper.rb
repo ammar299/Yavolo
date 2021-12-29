@@ -53,7 +53,7 @@ module Admin::SellersHelper
     invoice_address = seller.addresses.select do |address| address.address_type == 'invoice_address' end
     return_address = seller.addresses.select do |address| address.address_type == 'return_address' end
 
-    (return_address.present? && invoice_address.present? && seller.bank_detail.present? && seller&.paypal_detail&.integration_status? && seller.products.count > 0)
+    (return_address.present? && invoice_address.present? && seller.bank_detail&.account_verification_status? && seller&.paypal_detail&.integration_status? && seller.products.count > 0)
   end
 
   def show_or_skip_success_steps
