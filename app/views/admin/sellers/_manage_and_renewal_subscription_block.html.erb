@@ -2,7 +2,7 @@
   <h5>Subscription</h5>
   <div class="">
   <%if is_eligible_for_save?%>
-    <a href="#" name="<%=@seller.id%>" class="btn btn-sm px-4 btn-primary mb-3 ml-3 save-seller-subscription">Save</a>
+    <a href="#" name="<%=@seller.id%>" class="btn btn-sm px-4 btn-primary mb-3 ml-3 save-seller-subscription btn-radius">Save</a>
     <%= render 'shared/simple_confirm_modal', confirm_statement: 'Are you sure you want to save changes?', id: 'save-seller-subscription-by-admin',path: '#', data: "", modal_id: 'save-seller-subscription-confirm' %>
   <%end%>
   </div>

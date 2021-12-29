@@ -17,11 +17,11 @@
             </div>
           <% end %>
           <% business_representative_address = '' %>
-          <% if form.object.addresses.present? && form.object.addresses.length > 0 %>
+          <% if form.object.addresses.present? %>
             <% business_representative_address = form.object.addresses.select{ |addr| addr.address_type == "business_representative_address"} %>
-            <% if business_representative_address.blank? || business_representative_address.length < 1 %>
-              <% business_representative_address = @seller.addresses.build(address_type: 'business_representative_address') %>
-            <% end %>
+          <% end %>
+          <% if business_representative_address.blank? %>
+            <% business_representative_address = @seller.addresses.build(address_type: 'business_representative_address') %>
           <% end %>
           <%= form.fields_for :addresses, (business_representative_address) do |br_addr| %>
             <div class="form-group general-mrgn">

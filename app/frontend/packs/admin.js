@@ -12,10 +12,29 @@ $(document).ready(function(){
   renewSubscriptionHandler()
   removePayoutBankAccountHandler()
   contactSellerPopup()
+  createDeleteSubscription()
+  validatePlanForm()
+  checkPlanFormValidation()
+  // showButtonLoader("#create-subscription-form-submit") pass id to show loader in button
+  // hideButtonLoader("#create-subscription-form-submit") pass id to hide loader in button
   calculateRefund();
   sumOfTotalPaid();
   calculateSalesCommission();
   // verifyBankAccountForPayoutHanlder()
+  
+  $(document).on("click", "#stripe-subscription-cancel-by-admin", function(e){
+    let seller = $(this).attr("data")
+    let url = "/admin/sellers/"+seller+"/update_subscription_by_admin?id="+seller
+    let selectedValue = $(".confirmation-text").attr("name")
+    $('#stripe-subscription-end-by-admin-confirm').modal('hide');
+    $.ajax({
+      url: url,
+      type: "POST",
+      data: {subsciption_status: selectedValue},
+    });
+  })
+
+
 
 });
 
@@ -190,36 +209,36 @@ function validateAdminSignIn() {
   );
 }
 
-  function validateChangePasswordForm() {
-    $('form#admin_change_password_form').validate({
-      ignore: "", 
-      rules: {
-        "admin[password]": {
-          required: true,
-          minlength: 6
-        },
-        "admin[password_confirmation]": {
-          required: true,
-          equalTo: "#admin_password"
-        },
-      }, 
-      highlight: function(element) {
-        $(element).parents("div.form-group").addClass('error-field');
+function validateChangePasswordForm() {
+  $('form#admin_change_password_form').validate({
+    ignore: "", 
+    rules: {
+      "admin[password]": {
+        required: true,
+        minlength: 6
       },
-      unhighlight: function(element) {
-        $(element).parents("div.form-group").removeClass('error-field');
+      "admin[password_confirmation]": {
+        required: true,
+        equalTo: "#admin_password"
       },
-      messages: {
-        "admin[password]": {
-            required: "Password is required",
-        },
-        "admin[password_confirmation]": {
-          required: "Confirm password is required",
-          equalTo: "Password does not match"
-        }
+    }, 
+    highlight: function(element) {
+      $(element).parents("div.form-group").addClass('error-field');
+    },
+    unhighlight: function(element) {
+      $(element).parents("div.form-group").removeClass('error-field');
+    },
+    messages: {
+      "admin[password]": {
+          required: "Password is required",
+      },
+      "admin[password_confirmation]": {
+        required: "Confirm password is required",
+        equalTo: "Password does not match"
       }
-    });
-  }
+    }
+  });
+}
 
 window.renderHistogram = function(){
   var x1 = [];
@@ -299,6 +318,21 @@ function check_form_data(formData,empty_form){
   return empty_form
 }
 
+function check_subscription_form_data(formData,empty_form){
+  for (let i = 0; i< formData.length;i++){
+    if (formData[i].value == ''){
+      if($("#rolling_subscription").prop('checked') == true && formData["subscription_months"] == ''){
+        empty_form.push(false)
+      }else{
+        empty_form.push(true)
+      }
+    }else{
+      empty_form.push(false)
+    }
+  }
+  return empty_form
+}
+
 function adminManageSubscription(){
   $(".enforce-subscription-dropdown").addClass("invisible")
   dropdownHandler()
@@ -312,7 +346,7 @@ function dropdownHandler(){
     if (option == "cancel")
     { 
       $("#enforce-dropdown").val("current-subscriptions-end").change();
-      hideShowDropdown()
+      $(".enforce-subscription-dropdown").removeClass("invisible")
     }
     else{
       $("#enforce-dropdown").val("").change();
@@ -330,6 +364,8 @@ function saveSellerSubscriptionForm(){
 
   $(document).on("click", "#save-seller-subscription-by-admin", function(e){
     e.preventDefault();
+    let that = this
+    showButtonLoader(that)
     let seller = $(this).attr("data")
     let formData = $("#admin-subscription-form").serializeArray()
     let empty_form = []
@@ -338,12 +374,16 @@ function saveSellerSubscriptionForm(){
       $.ajax({
         url: "/admin/sellers/"+seller+"/update_subscription_by_admin?id="+seller,
         type: "POST",
-        data: formData
+        data: formData,
+        complete: function(){
+          hideButtonLoader(that)
+        }
       });
     }
     else{
       $('#save-seller-subscription-confirm').modal('hide');
       displayNoticeMessage("Please make any change to save.")
+      hideButtonLoader(that)
     }
 
   })
@@ -376,10 +416,15 @@ function renewSubscriptionHandler(){
 
   $(document).on("click", "#renew-seller-subscription-by-admin", function(e){
     e.preventDefault();
+    let that = this
+    showButtonLoader(that)
     let url = $(this).attr("data")
     $.ajax({
       url: url,
       type: "POST",
+      complete: function(){
+        hideButtonLoader(that)
+      }
     });
 
   })
@@ -432,11 +477,257 @@ function verifyBankAccountForPayoutHanlder(){
   })
 }
 
-function hideShowDropdown(){
-  $(".enforce-subscription-dropdown").removeClass("invisible")
-  if ($(".check-data-type").attr("data-type") !== "Standard"){
-    $(".enforce-subscription-dropdown").addClass("invisible")
+function deleteConfirmBoxMessage(selected_subscriptions){
+  let msg =  selected_subscriptions.length > 1 ? 'Are you sure you want to remove these subscriptions?' : 'Are you sure you want to remove this subscription?'
+  $(".confirmation-text").text(msg)
+}
+
+function createDeleteSubscription(){
+  subscriptionListSelection()
+  deleteDynamicPlan()
+  editDynamicPlan()
+  resetCreateSubscriptionPlanFormHandler()
+}
+
+function resetCreateSubscriptionPlanFormHandler(){
+  $(document).on("click", "#create-new-subscription-plan-form", function(e){
+    validateAgain()
+    resetCreateSubscriptionPlanForm()
+  })
+}
+
+function resetCreateSubscriptionPlanForm(){
+  $("#create-subscription-form-submit").attr("data-type","create")
+  $("#subscription_name,#price,#commission_excluding_vat,#subscription_months").val("")
+  $('#rolling_subscription,#default_subscription').prop('checked', false);
+  $("#subscription-dynamic-form").attr('action', '/admin/settings/create_subscription');
+  $('#subscription_months').prop('disabled', false);
+}
+
+function subscriptionListSelection(){
+  $(document).on("click", "#check-all-subscription-checkboxes", function(e){
+    if ($(this).is(":checked")) {
+      $("input:checkbox").not(this).prop("checked", true);
+    } else {
+      $("input:checkbox").not(this).prop("checked", false);
+    }
+  });
+}
+
+function deleteDynamicPlan(){
+  deleteSubscriptionPlanHanlder()
+  deleteSubscriptionPlanInitiatorHanlder()
+}
+
+function deleteSubscriptionPlanHanlder(){
+  $(document).on("click", "#delete-subscription", function(e){
+    e.preventDefault();
+    let that = this
+    if ($(this).attr("data-default") === "true"){
+      displayNoticeMessage("You cannot delete a default subscription plan.")
+      return false
+    }
+    $("#subscription-remove").attr("data",$(this).attr("data-id"))
+    $('#subscription-remove-confirm').modal('show');
+  })
+}
+
+function deleteSubscriptionPlanInitiatorHanlder(){
+  $(document).on("click", "#subscription-remove", function(e){
+    e.preventDefault();
+    let plan = $(this).attr("data")
+    let that = this
+    showButtonLoader(that)
+    $.ajax({
+      url: "/admin/settings/remove_subscriptions",
+      type: "DELETE",
+      data: {plan:plan},
+      complete: function(){
+        hideButtonLoader(that)
+      }
+    });
+
+  })
+}
+
+function editDynamicPlan(){
+  $(document).on("click", "#subscription-plan-edit", function(e){ 
+    let that = this 
+    validateAgain()
+    editFormResetAndMethodFormTypePopulate()
+    editFormDataPopulate(that)
+    editRollingPopulate(that)
+    editDefaultPopulate(that)
+    editActionPopulate()
+  })
+}
+
+function editFormResetAndMethodFormTypePopulate(){
+  $("#subscription_name,#price,#commission_excluding_vat").val("")
+  $("#create-subscription-form-submit").attr("data-type","update")
+}
+
+function editFormDataPopulate(that){
+  $("#create-subscription-form-submit").attr("data-id",$(that).attr("data-id"))    
+  $("#subscription_name").val($(that).attr("data-name"))
+  $("#subscription_months").val($(that).attr("data-monthx"))
+  $("#price").val($(that).attr("data-price"))
+  $("#commission_excluding_vat").val($(that).attr("data-commission"))
+}
+
+function editRollingPopulate(that){
+  $('#rolling_subscription').prop('checked', false);
+  $('#subscription_months').prop('disabled', false);
+  if ($(that).attr("data-rolling") == "on"){
+    $('#rolling_subscription').prop('checked', true);
+    $('#subscription_months').prop('disabled', true);
   }
+}
+
+function editDefaultPopulate(that){
+  $('#default_subscription').prop('checked', false);
+  $('#default_subscription').attr("data-prev-default",false)
+  if ($(that).attr("data-default") == "true"){
+    $('#default_subscription').prop('checked', true);
+    $('#default_subscription').attr("data-prev-default",true)
+  }
+}
+
+function editActionPopulate(){
+  let sub = $("#create-subscription-form-submit").attr("data-id")
+  $("#subscription-dynamic-form").attr('action', '/admin/settings/update_subscription?id='+sub);
+  $('#create-new-subscription').modal('show');
+}
+
+function validateAgain(){
+  var validator = $( "#subscription-dynamic-form" ).validate();
+  validator.resetForm();
+}
+
+function validatePlanForm(){
+
+  $("form#subscription-dynamic-form").validate({
+    ignore: "",
+    submitHandler: function(form,e) {
+      e.preventDefault()
+      showButtonLoader("#create-subscription-form-submit")
+      $("#create-subscription-form-submit").attr("type","")
+      $.ajax({
+        url: form.action,
+        type: form.method,
+        data: $(form).serialize(),
+        error: function(){
+          $("#create-subscription-form-submit").attr("type","submit")
+          hideButtonLoader("#create-subscription-form-submit")
+        }
+                  
+    });
+    },
+    rules: {
+      "subscription_name": {
+        required: true,
+        remote: function(){
+          var checkit = {
+              type: "get",
+              url:  "/admin/settings/check_subscription_presence?sub_id="+$("#create-subscription-form-submit").attr("data-id"),
+          };
+          return checkit;
+        }
+      },
+      "subscription_price": {
+        required: true,
+        min: 0,
+      },
+      "commission_excluding_vat": {
+        required: true,
+        min: 0,
+        max: 100,
+      },"rolling_subscription": {
+        subscription_months_and_rolling: true,
+      }
+      ,"default_subscription": {
+        default_subscription_check: true,
+      },"subscription_months": {
+        min: 1,
+      }
+    },
+    highlight: function (element) {
+      $(element).parents("div.form-group").addClass("error-field");
+    },
+    unhighlight: function (element) {
+      $(element).parents("div.form-group").removeClass("error-field");
+    },
+    messages: {
+      "subscription_name": {
+        required: "Required",
+        remote: "Already exists"
+      },
+      "subscription_price": {
+        required: "Required",
+      },
+      "commission_excluding_vat": {
+        required: "Required",
+      },
+    
+    },
+  });
+
+  jQuery.validator.addMethod(
+    "subscription_months_and_rolling",
+    function () {
+      return checkRollingConditions()
+    },
+    "Select rolling or enter months"
+  );
+
+  jQuery.validator.addMethod(
+    "default_subscription_check",
+    function (value,element) {
+      return checkDefaultPlan(value,element)
+    },
+    "Please set another plan as default first"
+  );
+
+}
+
+function showButtonLoader(button){
+  $(button).prop("disabled",true)
+  $(button).html($(button).text()+"<div class='ml-2 loadingio-spinner-rolling-x9emz9hqb6q'><div class='ldio-q57eiqc90zl'><div></div></div></div>")
+}
+
+function hideButtonLoader(button){
+  $(button).prop("disabled",false)
+  $(button).html($(button).text())
+}
+
+function checkRollingConditions(){
+  result = true
+  if ($("#rolling_subscription").is(":checked") === false && $("#subscription_months").val() === "" ) {
+    result = false
+  }
+  return result
+}
+
+function checkDefaultPlan(value,element){
+  let result = true
+  if (element.attributes["data-prev-default"].value == 'true' && element.checked == false && $("#create-subscription-form-submit").attr("data-type") == "update"){
+    result = false
+  }
+  return result
+}
+
+function checkPlanFormValidation(){
+  rollingCheck()
+  $(document).on("change","#rolling_subscription",function () {
+    rollingCheck()
+  });
+}
+
+function rollingCheck(){
+  $("#subscription_months").prop("disabled",false)
+  if ($("#rolling_subscription").is(":checked"))
+    $("#subscription_months").prop("disabled",true)
+
 }
 
 function calculateRefund() {

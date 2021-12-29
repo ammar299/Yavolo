@@ -1,0 +1,27 @@
+<p>Hi,</p>
+<p>Your subscription plan has been updated. Details are:</p>
+<table>
+  <tr>
+    <td>Subscription Name:</td>
+    <td><%=@plan.subscription_name%></td>
+  </tr>
+  <tr>
+    <td>Subscription Price:</td>
+    <td><%=number_with_precision(@plan.price, precision: 2)%></td>
+  </tr>
+  <%if @plan.rolling_subscription == "on"%>
+    <tr>
+      <td>Rolling Subscription:</td>
+      <td>Activated</td>
+    </tr>
+  <%else%>
+    <tr>
+      <td>Subscription Valid For:</td>
+      <td><%=@plan.subscription_months%> Months</td>
+    </tr>
+  <%end%>
+  <tr>
+    <td>Subscription Comission:</td>
+    <td><%=number_with_precision(@plan.commission_excluding_vat, precision: 2)%>%</td>
+  </tr>
+</table>

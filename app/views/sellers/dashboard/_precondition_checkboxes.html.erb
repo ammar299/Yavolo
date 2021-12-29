@@ -17,7 +17,7 @@
         </label>
         <label class="checkbox-blk">
         <a href="<%= sellers_profile_path(@seller) %>">Add your bank account to recieve the dosh*</a>
-          <input type="checkbox" <%= @seller.bank_detail.present? ? 'checked': '' %> disabled>
+          <input type="checkbox" <%= @seller.bank_detail.present? && @seller.bank_detail&.account_verification_status? ? 'checked': '' %> disabled>
           <span class="checkmark"></span>
         </label>
       </div>

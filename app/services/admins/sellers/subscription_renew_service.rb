@@ -26,7 +26,7 @@ module Admins
         if @subscription.present? && @subscription.cancel_at_period_end == true
           renew_seller_subscription
         elsif @subscription.present? && @subscription.status == "canceled"
-          @subscribe = Admins::Sellers::SubscriptionNewCreatorService.call({seller: @seller})
+          @subscribe = StripeDefaultSubscriptionCreatorService.call({seller: @seller})
           if @subscribe.errors.present?
             @errors << @subscribe.errors
           end
@@ -45,7 +45,7 @@ module Admins
       end
 
       def update_current_subscription(sub)
-        record = @seller&.seller_stripe_subscription.update(update_params(sub))
+        record = @seller.seller_stripe_subscription.update(update_params(sub))
       end
 
       def update_params(sub)
