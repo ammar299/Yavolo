@@ -16,7 +16,7 @@
                   <% if params[:preview_listing] %>
                     <% unless @product["images"].blank? %>
                       <% @product["images"].each do |image| %>
-                        <li class="splide__slide">
+                        <li class="splide__slide px-5">
                           <img src="<%= image %>">
                         </li>
                       <% end %>
