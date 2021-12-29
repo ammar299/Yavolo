@@ -1,14 +1,14 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-        <div class="mb-3 mt-5">
+        <div class="mb-3 mt-3">
             <a href="" class="red-text decoration-none btn-light-hvr px-3 py-2 btn-radius" ><span
-                    class="icon-chevron-left-solid pr-2"></span>Continue shopping </a>
+                    class="icon-chevron-left-solid pr-2 mm-text"></span>Continue shopping </a>
         </div>
         <h3>Ya basket</h3>
     </div>
   </div>
-  <div id="cart">
+  <div id="cart" class="empty-card-height">
     <% if @products.present? && @products.length > 0 %>
       <div class="row mt-4">
         <div class="col-lg-8">
@@ -90,11 +90,10 @@
         </div>
       </div>
     <% elsif current_buyer.nil?%>
-      <div class="text-center">
-        <strong>Ya basket is empty</strong>
-        <br/>
-        Sign in too seeyour saved later and get shopping!<br/>
-        <%= link_to "Sign in",new_buyer_session_path, class: "btn btn-lg btn-radius px-4 btn-primary w-100 mb-2" %>
+      <div class="text-center d-flex flex-column align-items-center">
+        <span class="mb-3">Ya Basket is empty </span>
+        <span>Sign in too see your saved later and get shopping!</span>
+        <%= link_to "Sign in",new_buyer_session_path, class: "btn sign-in-basket-btn btn-radius px-4 btn-primary btn-sm mb-2" %>
     </div>
     <% else %>
     <div class="text-center">
