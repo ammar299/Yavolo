@@ -1,4 +1,6 @@
 class Sellers::PaymentMethodsController < Sellers::BaseController
+  include SubscriptionPlanMethods
+
   def index; end
 
   def create
@@ -12,7 +14,10 @@ class Sellers::PaymentMethodsController < Sellers::BaseController
         Sellers::StripeApiCallsService.attach_card_to_customer(current_seller,stripe_token)
         save_card_in_db(token)
       end
-      Sellers::StripeDefaultSubscriptionCreatorService.call({seller: current_seller}) if !@seller.seller_stripe_subscription.present?
+      if !@seller.seller_stripe_subscription.present?
+        StripeDefaultSubscriptionCreatorService.call({seller: current_seller})
+        notify_through_email(@seller.email,"create_subscription")
+      end
       @payment_methods = current_seller.seller_payment_methods.reload
       flash.now[:notice] =  'Card added successfully!!'
     else
@@ -27,7 +32,8 @@ class Sellers::PaymentMethodsController < Sellers::BaseController
     card.default_status = true
     card.save
     @payment_methods = current_seller.seller_payment_methods.reload
-    if card.save == true
+    
+    if card.save
       flash.now[:notice] =  'Card set as default successfully!!'
     else
       flash.now[:notice] =  "Error occurred: #{card.errors}"

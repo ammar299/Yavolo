@@ -3,3 +3,4 @@ $('body').removeClass('modal-open');
 $(".modal-backdrop").remove();
 $('#refresh-manage-subscription-block').html("<%= j render(partial: 'manage_and_renewal_subscription_block', locals: { seller: @seller }) %>")
 $('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
+$(".enforce-subscription-dropdown").addClass("invisible")

@@ -1,0 +1,65 @@
+<div class="modal fade" id="create-new-subscription" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Subscription Type</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body px-lg-5  py-0">
+        <form action="/admin/settings/create_subscription" id="subscription-dynamic-form" data-remote="true" method="post">
+          <div class="new-subscription text-md-center text-left">
+            <div class="form-group form-group-vertical form-group-vertical-responsive">
+              <label for="exampleInputPassword1">Subscription Name:</label>
+              <div class="flex1">
+                <input type="text" id="subscription_name" name="subscription_name" placeholder="Enter Name" class="form-control">
+              </div>
+            </div>
+            <div class="form-group form-group-vertical form-group-vertical-responsive">
+              <label for="exampleInputPassword1">Price (£/month):</label>
+              <div class="flex1">
+                <input type="number" id="price" name="subscription_price"  placeholder="Enter Price" class="form-control" step="0.1">
+              </div>
+            </div>
+            <div class="form-group form-group-vertical form-group-vertical-responsive">
+              <label for="exampleInputPassword1">Commission(%):</label>
+              <div class="flex1">
+                <input type="number" id="commission_excluding_vat" name="commission_excluding_vat" step="0.5" placeholder="Enter commission excluding VAT" class="form-control">
+              </div>
+            </div>
+            <div class="form-group form-group-vertical form-group-vertical-responsive flex-wrap">
+              <label for="exampleInputPassword1">Subscription Length:</label>
+              <div class="flex1 d-flex align-items-center  flex-wrap">
+                <label class="checkbox-blk pl-padding py-0 pr-2 remove_bottom_margin">Rolling Subcription
+                  <div class="rolling-error">
+                    <input type="checkbox" id="rolling_subscription" name="rolling_subscription">
+                    <span class="checkmark"></span>
+                  </div>
+                </label>
+                <div class="rolling-error3 relative flex1">
+                  <input type="number" id="subscription_months" name="subscription_months" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="Enter number of months" class="form-control subscription_mont remove_bottom_margin">
+                </div>
+              </div>
+            </div>
+            <div class="form-group form-group-vertical form-group-vertical-responsive">
+              <label for="exampleInputPassword1">Subscription Type:</label>
+              <div class="flex1 d-flex align-items-center">
+                <label class="checkbox-blk mb-0 pl-padding py-0 pr-2">Set as default
+                  <div class="rolling-error rolling-error-1">
+                    <input type="checkbox" id="default_subscription" name="default_subscription" data-prev-default="">
+                    <span class="checkmark"></span>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="text-center mt-3">
+            <button type="submit" data-type="create" data-id="" id="create-subscription-form-submit" class="btn btn-sm btn-radius px-4 btn-primary mb-3 submit-plan-button">Save Subscription Type</button>
+          </div>
+        </div>
+      </form>
+      <div id="error-plan-message"></div>
+    </div>
+</div>

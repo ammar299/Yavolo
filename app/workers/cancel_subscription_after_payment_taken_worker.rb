@@ -1,4 +1,6 @@
 class CancelSubscriptionAfterPaymentTakenWorker
+  include SubscriptionPlanMethods
+  include Admin::SubscriptionsHelper
   include Sidekiq::Worker
   def perform(*args)
     @seller_id = args[0]
@@ -15,40 +17,18 @@ class CancelSubscriptionAfterPaymentTakenWorker
 
   def cancel_after_next_payment_taken?
     subscription = seller_subscription.reload
+    value = false
     if subscription.cancel_after_next_payment_taken?
-      true
-    else
-      false
+      value = true
     end
-  end
-
-  def release_schedule_subscription
-    begin
-      release = Stripe::SubscriptionSchedule.release(
-        get_scheduled_subscription_id,
-      )
-    rescue => e
-      puts "Error on releasing schedule subscription: #{e.message}"
-    end
+    return value
   end
 
   def cancel_subscription
-    release_schedule_subscription if seller_subscription.cancel_at_period_end.nil? 
-    sub = Stripe::Subscription.update(
-      current_sub_id,
-        {
-          cancel_at_period_end: true,
-        }
-      )
-    record =  update_current_subscription(sub) if sub.status == 'active'
-  end
-
-  def current_sub_id
-    seller_subscription.subscription_stripe_id
-  end
-
-  def get_scheduled_subscription_id
-    seller_subscription.subscription_schedule_id
+    sub = Stripe::Subscription.delete(
+      seller_subscription.subscription_stripe_id,
+    )
+    record =  update_current_subscription(sub) if sub.status == 'canceled'
   end
 
   def seller_subscription
@@ -61,16 +41,19 @@ class CancelSubscriptionAfterPaymentTakenWorker
 
   def update_current_subscription(sub)
     seller_subscription.update(update_params(sub))
-    UpdateSubscriptionEmailWorker.perform_async(seller.email,"canceled_at_time_end")
+    notify_through_email(seller.email,"canceled")
   end
 
   def update_params(sub)
     {
-      subscription_stripe_id: sub.id,
       status: sub.status,
-      cancel_at_period_end: sub.cancel_at_period_end || false,
+      cancel_at_period_end: sub.cancel_at_period_end,
       canceled_at: date_parser(sub.canceled_at),
       seller_requested_cancelation: false,
+      cancel_after_next_payment_taken: false,
+      cancel_at: date_parser(sub.cancel_at),
+      current_period_end: date_parser(sub.current_period_end),
+      current_period_start: date_parser(sub.current_period_start),
       subscription_data: sub
     }
   end

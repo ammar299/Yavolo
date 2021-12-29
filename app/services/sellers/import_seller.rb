@@ -66,13 +66,13 @@ module Sellers
           first_name: row["user_first_name"],
           last_name: row["user_surname"],
           surname: row["user_surname"],
-          date_of_birth: date_of_birth_is_valid_datetime(row["user_date_of_birth"]),
+          date_of_birth: date_of_birth_is_valid_datetime(row["business_representative_date_of_birth"]),
           contact_number: row["business_representative_address_phone_number"],
           provider: "admin",
           uid: uid,
           account_status: account_status_rephrase(row),
           listing_status: listing_status_rephrase(row),
-          subscription_type: row["subscription_type"]
+          subscription_type: set_subscription_type(row),
         )
       end
 
@@ -331,6 +331,16 @@ module Sellers
           @errors << "For seller: #{row["user_email"]} Business repersentative email #{row["business_representative_email"]} is invalid. Please enter a valid Business repersentative Email"
         end
       end
+
+      def set_subscription_type(row)
+        @selected_plan = SubscriptionPlan.where('lower(subscription_name) = ?', row["subscription_type"].downcase).first
+        if @selected_plan.present?
+          return @selected_plan.subscription_name
+        else
+          @errors << "For seller: #{row["user_email"]} #{row["subscription_type"]} Subscription type is not correct."
+        end
+      end
+
   end
 end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_28_080600) do
+ActiveRecord::Schema.define(version: 2021_12_29_090635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -673,7 +673,7 @@ ActiveRecord::Schema.define(version: 2021_12_28_080600) do
     t.integer "listing_status", default: 0
     t.string "contact_email", default: "", null: false
     t.string "contact_name", default: "", null: false
-    t.integer "subscription_type", default: 0
+    t.string "subscription_type", default: "0"
     t.boolean "terms_and_conditions", default: false
     t.boolean "recieve_deals_via_email", default: false
     t.boolean "multistep_sign_up", default: true
@@ -758,12 +758,17 @@ ActiveRecord::Schema.define(version: 2021_12_28_080600) do
   end
 
   create_table "subscription_plans", force: :cascade do |t|
-    t.string "stripe_subscription_id"
-    t.string "name"
-    t.string "status"
-    t.string "description"
+    t.string "subscription_name"
+    t.string "subscription_type"
+    t.float "price"
+    t.float "commission_excluding_vat"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "subscription_months"
+    t.string "rolling_subscription"
+    t.boolean "default_subscription", default: false
+    t.string "plan_id"
+    t.string "plan_name_id"
   end
 
   create_table "users", force: :cascade do |t|
