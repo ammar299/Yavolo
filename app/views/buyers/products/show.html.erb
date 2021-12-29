@@ -16,7 +16,7 @@
                   <% if params[:preview_listing] %>
                     <% unless @product["images"].blank? %>
                       <% @product["images"].each do |image| %>
-                        <li class="splide__slide">
+                        <li class="splide__slide px-5">
                           <img src="<%= image %>">
                         </li>
                       <% end %>
@@ -140,7 +140,7 @@
               <span>Sold by John Smith</span>
             </div>
             <div class="mb-2">
-              <span class="rev-und">Featured Reviews</span>
+              <span class="rev-und"><strong>Featured Reviews</strong></span>
             </div>
             <div class="review-slider">
               <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
