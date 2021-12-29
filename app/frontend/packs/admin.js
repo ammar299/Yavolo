@@ -33,9 +33,7 @@ $(document).ready(function(){
       data: {subsciption_status: selectedValue},
     });
   })
-
-
-
+ 
 });
 
 $(document).ready(function(){
@@ -616,11 +614,12 @@ function validatePlanForm(){
         url: form.action,
         type: form.method,
         data: $(form).serialize(),
-        error: function(){
-          $("#create-subscription-form-submit").attr("type","submit")
-          hideButtonLoader("#create-subscription-form-submit")
-        }
-                  
+        complete: function(){
+          setTimeout(function() { 
+            hideButtonLoader("#create-subscription-form-submit")
+            $("#create-subscription-form-submit").attr("type","submit")
+        }, 1500);
+        }          
     });
     },
     rules: {
