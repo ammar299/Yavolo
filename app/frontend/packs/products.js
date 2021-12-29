@@ -1092,8 +1092,7 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
       required: true
     },
     "product[stock]": {
-      required: true,
-      maxlength: 4
+      required: true
     },
     "product[condition]": {
       required: true

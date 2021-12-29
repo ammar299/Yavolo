@@ -26,7 +26,7 @@
             <li class="mr-1"><span class="icon-star"></span></li>
             <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
           </ul>
-          <p class="font-14px mb-2">Sold by John Smith</p>
+          <p class="font-14px mb-2">Sold by <%= product_seller_name(product.id) %></p>
           <p class="font-14px">Qty: <%= cart_item[:quantity] %></p>
           <% unless params[:action] == "order_completed" %>
             <hr>
