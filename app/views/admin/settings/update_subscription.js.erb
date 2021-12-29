@@ -6,4 +6,6 @@ $("#create-new-subscription").removeClass("show");
 $('body').removeClass('modal-open');
 $(".modal-backdrop").remove();
 $('#render-sub-listing').html("<%= j render(partial: 'admin/settings/sub_listing', locals: { seller: @subscriptions }) %>")
+$("#create-subscription-form-submit").attr("type","submit")
+hideButtonLoader("#create-subscription-form-submit")
 <%end%>
