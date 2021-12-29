@@ -48,7 +48,8 @@ class Sellers::ProductsController < Sellers::BaseController
     if @product.save
       save_product_images_from_remote_urls(@product) if params[:dup_product_id].present?
       @product.update_featured_image(params[:featured_image])
-      redirect_to sellers_products_path, notice: 'Product was successfully created.'
+      url_path = current_seller.products.count == 1? sellers_seller_authenticated_root_path : sellers_products_path
+      redirect_to url_path, notice: 'Product was successfully created.'
     else
       if params[:dup_product_id].present?
         ref_product = Product.where(id: params[:dup_product_id]).first
