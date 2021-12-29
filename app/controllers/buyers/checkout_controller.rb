@@ -28,9 +28,19 @@ class Buyers::CheckoutController < Buyers::BaseController
   def create_checkout
     @order = @order.destroy if @order_id.present?
     @buyer = find_or_create_buyer(order_params[:order_detail_attributes][:email])
-    @order = @buyer.orders.create(order_params)
+    @order = @buyer.orders.create(order_params.except(order_params[:shipping_address_attributes], order_params[:billing_address_attributes]))
+    update_billing_shipping_addresses(@order)
     session[:_current_user_order_id] = @order.id
     redirect_to payment_method_path
+  end
+
+  def update_billing_shipping_addresses(order)
+    if order.billing_address_is_shipping_address
+      order.shipping_address.update_columns(order_params[:order_detail_attributes].except(:email, :phone_number).to_h)
+      order.billing_address.update_columns(order_params[:order_detail_attributes].except(:email, :phone_number).to_h)
+    else
+      order.shipping_address.update_columns(order_params[:order_detail_attributes].except(:email, :phone_number).to_h)
+    end
   end
 
   def payment_method
