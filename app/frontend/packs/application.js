@@ -100,6 +100,16 @@ window.displayNoticeMessage = (message) => {
   return message;
 };
 
+window.showButtonLoader = (button) => {
+  $(button).prop("disabled",true)
+  $(button).html($(button).text()+"<div class='ml-2 loadingio-spinner-rolling-x9emz9hqb6q'><div class='ldio-q57eiqc90zl'><div></div></div></div>")
+}
+
+window.hideButtonLoader = (button) => {
+  $(button).prop("disabled",false)
+  $(button).html($(button).text())
+}
+
 jQuery.validator.addMethod(
   "url_without_scheme",
   function (value, element) {

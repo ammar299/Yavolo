@@ -360,6 +360,10 @@ function saveSellerSubscriptionForm(){
     $('#save-seller-subscription-confirm').modal('show');
   })
 
+  $(document).on('submit', '#product_form', function () {
+    showButtonLoader('.product-form-submission');
+  })
+
   $(document).on("click", "#save-seller-subscription-by-admin", function(e){
     e.preventDefault();
     let that = this
@@ -689,16 +693,6 @@ function validatePlanForm(){
     "Please set another plan as default first"
   );
 
-}
-
-function showButtonLoader(button){
-  $(button).prop("disabled",true)
-  $(button).html($(button).text()+"<div class='ml-2 loadingio-spinner-rolling-x9emz9hqb6q'><div class='ldio-q57eiqc90zl'><div></div></div></div>")
-}
-
-function hideButtonLoader(button){
-  $(button).prop("disabled",false)
-  $(button).html($(button).text())
 }
 
 function checkRollingConditions(){
