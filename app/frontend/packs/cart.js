@@ -7,7 +7,7 @@ $(document).ready(function () {
 
 function checkCartEmpty() {
   $("body").on("click", ".remove-product-cart", function () {
-    if ($('.asda').length < 1)
+    if ($('.cart-item-products').length == 1)
     {
       $("#cart").addClass("empty-card-height")
     }
