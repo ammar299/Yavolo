@@ -4,8 +4,7 @@
       <thead>
         <tr>
           <th>Subscripton Name</th>
-          <th>Subscripton Months</th>
-          <th>Subscripton Rolling</th>
+          <th>Subscripton Length</th>
           <th>Price</th>
           <th>Commission excluding VAT</th>
           <th class="text-center" width="5%">Action</th>
@@ -18,13 +17,12 @@
             <% if subscription.default_subscription == true %>
             <span class="badge badge-secondary ml-2">Default</span>
             <%end%></td>
-          <td><%= subscription.subscription_months %></td>
-          <td><%= rolling(subscription) %></td>
-          <td><%= subscription.price %></td>
-          <td><%= subscription.commission_excluding_vat %>%</td>
+          <td><%= rolling_and_month_display(subscription) %></td>
+          <td>£<%= number_with_precision(subscription.price, precision: 2) %></td>
+          <td><%=  plan_percentage_rephrase(subscription) %>% </td>
           <td>
-            <button data-id="<%= subscription.id %>" data-commission="<%= subscription.commission_excluding_vat %>"
-              data-price="<%= subscription.price %>" data-monthx="<%= subscription.subscription_months %>" 
+            <button data-id="<%= subscription.id %>" data-commission="<%= plan_percentage_rephrase(subscription) %>"
+              data-price="<%= number_with_precision(subscription.price, precision: 2) %>" data-monthx="<%= subscription.subscription_months %>"
               data-default="<%= subscription.default_subscription %>" data-rolling="<%= subscription.rolling_subscription %>"
               data-name="<%= subscription.subscription_name %>" id="subscription-plan-edit"
               class="btn btn-sm btn-radius px-4 btn-primary mb-1 w-100">Edit
