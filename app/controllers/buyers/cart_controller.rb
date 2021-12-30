@@ -71,12 +71,6 @@ class Buyers::CartController < Buyers::BaseController
         @order_amount = order_amount
         render :remove_product_form_cart
       else
-        # @cart.map { |h|
-        #   if h[:product_id].to_i == @product.id
-        #     @cart_item = h
-        #     h[:quantity] = update_product_quantity_by_number[:quantity].to_i
-        #   end
-        # }
         @cart.each do |item|
           next unless item[:product_id].to_i == @product.id
 

@@ -137,10 +137,10 @@ class Buyers::CheckoutController < Buyers::BaseController
             return_url: charge.charge[:refunds][:url],
             receipt_url: charge.charge[:receipt_url]
           )
-          session.delete(:_current_user_cart)
-          session.delete(:_current_user_order_id)
-          session.delete(:_selected_payment_method)
+          reduce_cart_products_stock(session[:_current_user_cart])
+          clear_session
           flash[:notice] = I18n.t('flash_messages.order_placed_successfully')
+          OrderMailer.with(to: @buyer.email).send_order_complete_mail.deliver_now
           redirect_to order_completed_path(order: @order)
         else
           flash[:notice] = charge.errors
@@ -210,9 +210,9 @@ class Buyers::CheckoutController < Buyers::BaseController
         end
         @order = update_order_to_paid(@order, @order_amount[:total], @order_amount[:sub_total])
         create_gpay_payment_mode(@order, response, @order_amount)
-        session.delete(:_current_user_cart)
-        session.delete(:_current_user_order_id)
-        session.delete(:_selected_payment_method)
+        reduce_cart_products_stock(session[:_current_user_cart])
+        clear_session
+        OrderMailer.with(to: @buyer.email).send_order_complete_mail.deliver_now
         render json: { order: @order }, status: :ok
       end
     end
@@ -284,9 +284,9 @@ class Buyers::CheckoutController < Buyers::BaseController
           end
           @order = update_order_to_paid(@order, @order_amount[:total], @order_amount[:sub_total])
           create_payment_mode_paypal(@order, paypal_order_capturor.paypal_response, @order_amount)
-          session.delete(:_current_user_cart)
-          session.delete(:_current_user_order_id)
-          session.delete(:_selected_payment_method)
+          reduce_cart_products_stock(session[:_current_user_cart])
+          clear_session
+          OrderMailer.with(to: @buyer.email).send_order_complete_mail.deliver_now
           render json: { status: paypal_order_capturor.paypal_response[0].result.status, order: @order }, status: :ok
         end
       end
@@ -305,6 +305,12 @@ class Buyers::CheckoutController < Buyers::BaseController
 
   def session_selected_payment_method
     session[:_selected_payment_method] || nil
+  end
+
+  def clear_session
+    session.delete(:_current_user_cart)
+    session.delete(:_current_user_order_id)
+    session.delete(:_selected_payment_method)
   end
 
   def create_address_from_gpay(address)
@@ -479,6 +485,20 @@ class Buyers::CheckoutController < Buyers::BaseController
     else
       buyer.create_stripe_customer(customer_id: customer.id)
     end
+  end
+
+  def reduce_cart_products_stock(cart)
+    cart.each do |item|
+      reduce_product_stock(item[:product_id], item[:quantity].to_i)
+    end
+  end
+
+  def reduce_product_stock(product_id, quantity)
+    product = Product.find_by(id: product_id)
+    return unless product.present?
+
+    decremented_stock_value = product.stock.to_i - quantity
+    product.update(stock: decremented_stock_value)
   end
 
   def session_order_id
