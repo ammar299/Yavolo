@@ -40,7 +40,7 @@ module Products
             product.delivery_option_id = get_delivery_option_id(params['delivery_option_id'])
             seo_content = SeoContent.find_by(title: params[:seo_content_attributes][:title], description: params[:seo_content_attributes][:description])
             if product.valid?
-              seo_content.present? ? @errors << "#{product.title}: Meta title and Meta Description already taken" : product.save
+              seo_content.present? ? @errors << "#{product.title}: Meta title and Meta Description already taken" : save_product_and_assign_featured_image(product,row['featured_image_index'])
             else
               if seo_content.present?
                 @errors << "#{product.title}: #{product.errors.full_messages.join(', ')}, Meta title and Meta Description already taken"
@@ -59,6 +59,14 @@ module Products
         @errors.present? ? @status = false : @status = true
         self
       end
+
+    def save_product_and_assign_featured_image(product,featured_image_index)
+      product.save
+      if featured_image_index.present? && featured_image_index.match?(/\d/) && featured_image_index.to_i >= 0 && featured_image_index.to_i < product.pictures.size
+        image_at_index = product.pictures.order(:id)[featured_image_index.to_i]
+        image_at_index.update(is_featured: true) if image_at_index.present?
+      end
+    end
 
       def product_owner_id(row)
         if csv_import.importer_type == 'Seller'
