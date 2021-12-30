@@ -54,6 +54,8 @@ class Buyers::CheckoutController < Buyers::BaseController
     @total_num_of_products = @cart.inject(0) { |sum, p| sum + p[:quantity].to_i }
   end
 
+  
+
   def create_payment_method
     if @order_id.present?
       @buyer = @order.buyer if @order.present?

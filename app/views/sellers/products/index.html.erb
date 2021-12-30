@@ -54,7 +54,7 @@
                                     <% end %>
                                     <%= f.search_field current_search_field_name.to_sym, { class: 'input-btn-sm seller-product-search-field', placeholder: 'Search Products', value: "#{search_field_query_param_val(params)}" } %>
                                     <% if params[:q].present? %>
-                                        <%= link_to sellers_products_path(filter_type: params[:filter_type], tab: (params[:tab].present? ? params[:tab] : 'all')), class: 'btn-sm' do %>
+                                        <%= link_to sellers_products_path(filter_type: params[:filter_type], tab: (params[:tab].present? ? params[:tab] : 'all')), class: 'btn-sm cross_link_icon' do %>
                                             <i class="icon-cross" aria-hidden="true"></i>
                                         <% end %>
                                     <% else %>
