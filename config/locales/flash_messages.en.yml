@@ -11,3 +11,4 @@ en:
     something_went_wrong: "Something went wrong."
     product_status_disable: "The product status is not active."
     cannot_buy_this_product: 'Sorry! cannot buy this product'
+    stock_not_available: 'Sorry! stocks not available'
