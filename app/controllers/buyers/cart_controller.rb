@@ -39,10 +39,14 @@ class Buyers::CartController < Buyers::BaseController
     else
       cart = session[:_current_user_cart]
       cart.each do |item|
-        if item[:product_id] == product[:product_id]
-          item[:quantity] = product[:quantity].present? ? product[:quantity].to_i : item[:quantity].to_i + 1
-          found = true
+        next unless item[:product_id] == product[:product_id]
+
+        unless (item[:quantity].to_i + 1) <= this_product[:stock].to_i
+          flash.now[:notice] = I18n.t('flash_messages.stock_not_available')
+          return
         end
+        item[:quantity] = product[:quantity].present? ? product[:quantity].to_i : item[:quantity].to_i + 1
+        found = true
       end
       if !found
         cart.push({ product_id: product[:product_id], quantity: product[:quantity].present? ? product[:quantity] : 1, added_on: DateTime.now() });
@@ -63,17 +67,29 @@ class Buyers::CartController < Buyers::BaseController
       @cart = get_cart
       if update_product_quantity_by_number[:quantity].to_i < 1
         @cart.delete_if { |h| h[:product_id].to_i == @product.id }
-        flash.now[:notice] = I18n.t('flash_messages.all_products_removed_from_cart')
+        flash.now[:notice] = I18n.t('flash_messages.product_removed_successfully')
+        @order_amount = order_amount
         render :remove_product_form_cart
       else
-        @cart.map { |h|
-          if h[:product_id].to_i == @product.id
-            @cart_item = h
-            h[:quantity] = update_product_quantity_by_number[:quantity].to_i
+        # @cart.map { |h|
+        #   if h[:product_id].to_i == @product.id
+        #     @cart_item = h
+        #     h[:quantity] = update_product_quantity_by_number[:quantity].to_i
+        #   end
+        # }
+        @cart.each do |item|
+          next unless item[:product_id].to_i == @product.id
+
+          @cart_item = item
+          if update_product_quantity_by_number[:quantity].to_i > @product[:stock].to_i
+            flash.now[:notice] = I18n.t('flash_messages.stock_not_available')
+            next
+          else
+            item[:quantity] = update_product_quantity_by_number[:quantity].to_i
+            flash.now[:notice] = I18n.t('flash_messages.products_quantity_updated_successfully')
           end
-        }
+        end
         @order_amount = order_amount
-        flash.now[:notice] = I18n.t('flash_messages.products_quantity_updated_successfully')
       end
     end
   end
