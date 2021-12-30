@@ -8,6 +8,14 @@ module Admin::SubscriptionsHelper
     value
   end
 
+  def rolling_and_month_display(subscription)
+    value = 'Rolling'
+    if subscription.rolling_subscription.nil?
+      value = subscription.subscription_months == 1 ? "#{subscription.subscription_months} Month" : "#{subscription.subscription_months} Months"
+    end
+    value
+  end
+
   def plan_has_subscription?(plan)
     status = false
     SellerStripeSubscription.where(plan_id: plan)&.each do |subscription|
@@ -130,6 +138,11 @@ module Admin::SubscriptionsHelper
     rescue
       nil
     end
+  end
+
+  def plan_percentage_rephrase(subscription)
+
+    number_with_precision(subscription.commission_excluding_vat, precision: 2, significant: true)
   end
 
 end
