@@ -496,6 +496,7 @@ function resetCreateSubscriptionPlanFormHandler(){
 
 function resetCreateSubscriptionPlanForm(){
   $("#create-subscription-form-submit").attr("data-type","create")
+  $(".subscription-plan-title").text("Add New Subscription Type")
   $("#subscription_name,#price,#commission_excluding_vat,#subscription_months").val("")
   $('#rolling_subscription,#default_subscription').prop('checked', false);
   $("#subscription-dynamic-form").attr('action', '/admin/settings/create_subscription');
@@ -563,6 +564,7 @@ function editDynamicPlan(){
 function editFormResetAndMethodFormTypePopulate(){
   $("#subscription_name,#price,#commission_excluding_vat").val("")
   $("#create-subscription-form-submit").attr("data-type","update")
+  $(".subscription-plan-title").text("Edit Subscription Type")
 }
 
 function editFormDataPopulate(that){
