@@ -200,4 +200,8 @@ module ApplicationHelper
         (current_admin.present? && admin_seller_route?(params[:controller])))
   end
 
+  def product_seller_name(product_id)
+    Product.find_by(id: product_id).owner.full_name.titleize
+  end
+
 end

@@ -10,7 +10,7 @@ module OrdersHelper
   end
 
   def get_full_name(object)
-    "#{object.first_name.present? ? object.first_name : ''}" "#{object.last_name.present? ? object.last_name : ''}"
+    "#{object.first_name.present? ? object.first_name : ''}"+" "+"#{object.last_name.present? ? object.last_name : ''}"
   end
 
 end

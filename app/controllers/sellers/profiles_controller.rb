@@ -153,7 +153,10 @@ class Sellers::ProfilesController < Sellers::BaseController
   end
 
   def set_seller
-    @seller = Seller.includes([ :business_representative, :company_detail, :addresses ]).find(params[:id])
+    @seller = Seller.includes([ :business_representative, :company_detail, :addresses ]).find_by(id: params[:id])
+    if current_seller != @seller
+      redirect_to sellers_seller_authenticated_root_path
+    end
   end
 
   def set_delivery_template
