@@ -1,0 +1,13 @@
+$('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
+<%if @subscription.present? && @subscription.errors.any?%>
+  $('#error-plan-message').html("<%= @subscription.errors.full_messages.join('<br/>').html_safe %>");
+<%elsif @response.errors.any?%>
+  $('#error-plan-message').html("<%= @response.errors.full_messages.join('<br/>').html_safe %>");
+<%else%>
+  $("#create-new-subscription").removeClass("show");
+  $('body').removeClass('modal-open');
+  $(".modal-backdrop").remove();
+  $('#render-sub-listing').html("<%= j render(partial: 'admin/settings/sub_listing', locals: { seller: @subscriptions }) %>")
+  $("#create-subscription-form-submit").attr("type","submit")
+  hideButtonLoader("#create-subscription-form-submit")
+<%end%>

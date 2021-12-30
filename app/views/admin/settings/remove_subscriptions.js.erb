@@ -1,0 +1,5 @@
+$('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
+$("#subscription-remove-confirm").removeClass("show");
+$('body').removeClass('modal-open');
+$(".modal-backdrop").remove();
+$('#render-sub-listing').html("<%= j render(partial: 'admin/settings/sub_listing', locals: { seller: @subscriptions }) %>")

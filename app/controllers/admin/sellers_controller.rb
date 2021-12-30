@@ -1,10 +1,11 @@
 class Admin::SellersController < Admin::BaseController
+  include SharedSellerMethods
+  include SubscriptionPlanMethods
   before_action :set_seller,
                 except: %i[index new create send_password_reset_emails update_multiple export_sellers get_sellers
                            import_sellers search renew_seller_subscription remove_seller_card update_seller_api 
                            confirm_multi_update confirm_send_password_reset_email]
   before_action :is_seller_locked?, only: %i[show]
-  include SharedSellerMethods
 
   def index
     @q = Seller.ransack(params[:q])
@@ -246,16 +247,22 @@ class Admin::SellersController < Admin::BaseController
       @subsciption_status = params[:subsciption_status]
       @enforce_status = params[:enforce_status]
       subscription = Admins::Sellers::SubscriptionUpdaterService.call(@subsciption_status,@enforce_status, @seller )
-      notice = "Incorrect action performed, #{subscription.errors[0]}."
+      notice = "Incorrect action performed."
       case subscription.status
-      when "canceled" 
+      when "canceled"
+        notify_through_email(@seller.email,"cancel_at_period_end")
         notice = "Subscription status canceled for seller: #{@seller.email}."
       when "after-next-payment-taken"
         notice = "Subscription set to cancel after next payment taken."
+        notify_through_email(@seller.email,"cancel_after_next_payment_taken")
       when "already-set-to-cancel"
         notice = "Subscription already set to cancel after next payment taken."
-      when  "month_12" , "month_24" , "month_36","lifetime"
-        notice = "Subscription status changed to #{subscription.status}."        
+      when "other"
+        @seller.update(subscription_type: subscription.plan_name)
+        notice = "Subscription plan updated."
+        notify_through_email(@seller.email,"subscription_updated")
+      when "already_set"
+        notice = "This subscription plan is already set."
       end
     end
     flash.now[:notice] = notice
@@ -276,18 +283,13 @@ class Admin::SellersController < Admin::BaseController
     @seller = Seller.find(params[:seller_id].to_i)
     if @seller&.seller_stripe_subscription&.cancel_after_next_payment_taken == false
       subscription = Admins::Sellers::SubscriptionRenewService.call(@seller)
-      if subscription.errors.present?
-        flash.now[:notice] = "Renew process failed: #{subscription.errors}"
-      else
-        UpdateSubscriptionEmailWorker.perform_async(@seller.email,"renew_subscription")
-        flash.now[:notice] = "Subscription renewed successfully."
-      end
+      notify_about_renew_status(subscription,@seller,"renew")
+    elsif @seller&.seller_stripe_subscription&.cancel_at_period_end == true
+      subscription = Admins::Sellers::SubscriptionRenewService.call(@seller)
+      notify_about_renew_status(subscription,@seller,"other")
     else
-      Admins::Sellers::DeleteSpecificWrokerService.call(@seller)
-      @seller&.seller_stripe_subscription&.update(cancel_after_next_payment_taken: false)
-      flash.now[:notice] = "Subscription renewed successfully.."
+      remove_worker_to_cancel(@seller)
     end
-
   end
 
   def remove_payout_bank_account
@@ -336,5 +338,23 @@ class Admin::SellersController < Admin::BaseController
       @seller.is_locked = true
       @seller.save
     end
+  end
+
+  def notify_about_renew_status(subscription,seller,type)
+    if subscription.errors.present?
+      flash.now[:notice] = "Renew process failed: #{subscription.errors}"
+    elsif type == 'other'
+      remove_worker_to_cancel(seller)
+    else
+      notify_through_email(@seller.email,"renew_subscription")
+      flash.now[:notice] = "Subscription renewed successfully."
+    end
+  end
+
+  def remove_worker_to_cancel(seller)
+    Admins::Sellers::DeleteSpecificWrokerService.call(seller)
+    seller&.seller_stripe_subscription&.update(cancel_after_next_payment_taken: false)
+    notify_through_email(@seller.email,"renew_subscription")
+    flash.now[:notice] = "Subscription renewed successfully."
   end
 end

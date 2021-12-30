@@ -3,7 +3,7 @@
     <tbody>
       <tr>
         <td class="seller-subscription-td-width">Current Subscription:</td>
-        <td id="subscription-name"><%= subscription_name%></td>
+        <td id="subscription-name"><%= plan_name%></td>
       </tr>
       <tr>
         <td id="subscription-expiry-date">Expires:</td>
@@ -22,7 +22,7 @@
       </tr>
       <tr>
         <td id="subscription-commission">Commission:</td>
-        <td>14.5%</td>
+        <td><%=seller_commission%>%</td>
       </tr>
     </tbody> 
   </table>

@@ -1,0 +1,41 @@
+<div id="render-sub-listing">
+  <div class="Yavolo-table mt-4">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Subscripton Name</th>
+          <th>Subscripton Months</th>
+          <th>Subscripton Rolling</th>
+          <th>Price</th>
+          <th>Commission excluding VAT</th>
+          <th class="text-center" width="5%">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @subscriptions.each do |subscription| %>
+        <tr>
+          <td><%=subscription.subscription_name%>
+            <% if subscription.default_subscription == true %>
+            <span class="badge badge-secondary ml-2">Default</span>
+            <%end%></td>
+          <td><%= subscription.subscription_months %></td>
+          <td><%= rolling(subscription) %></td>
+          <td><%= subscription.price %></td>
+          <td><%= subscription.commission_excluding_vat %>%</td>
+          <td>
+            <button data-id="<%= subscription.id %>" data-commission="<%= subscription.commission_excluding_vat %>"
+              data-price="<%= subscription.price %>" data-monthx="<%= subscription.subscription_months %>" 
+              data-default="<%= subscription.default_subscription %>" data-rolling="<%= subscription.rolling_subscription %>"
+              data-name="<%= subscription.subscription_name %>" id="subscription-plan-edit"
+              class="btn btn-sm btn-radius px-4 btn-primary mb-1 w-100">Edit
+            </button>
+ 
+            <a href="#remove_sub" data-id="<%= subscription.id %>"  data-default="<%= subscription.default_subscription %>" id="delete-subscription" class="btn btn-sm btn-radius px-4 btn-primary mb-1 w-100">Delete</a>
+            <%= render 'shared/simple_confirm_modal', confirm_statement: "Are you sure you want to remove #{subscription.subscription_name} subscription plan?", id: 'subscription-remove',path: '#remove_sub', data: "", modal_id: 'subscription-remove-confirm' %>
+          </td>
+        </tr>
+        <%end%>
+      </tbody>
+    </table>
+  </div>
+</div>

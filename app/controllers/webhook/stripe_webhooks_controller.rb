@@ -1,29 +1,14 @@
 class Webhook::StripeWebhooksController < ActionController::Base
   include Admin::SubscriptionsHelper
+  include SubscriptionPlanMethods
   skip_before_action :verify_authenticity_token
 
   def subscription_start_webhook
     webhook_type = params[:type]
     begin
       case webhook_type
-      when 'customer.subscription.created'
-        create_customer_subscription(params)
-      when 'subscription_schedule.aborted'
-
-      when 'customer.subscription.deleted'
-        cancel_current_subscription_webhook(params)
-      when 'subscription_schedule.canceled'
-        cancel_subscription_webhook(params)
-      when 'subscription_schedule.completed'
-        # completed_subscription_webhook
-      when 'subscription_schedule.created'
-        # created_subscription_webhook
-      when 'subscription_schedule.expiring'
-
-      when 'subscription_schedule.released'
-
-      when 'subscription_schedule.updated'
-        updated_subscription_webhook(params)
+      when 'customer.subscription.deleted','customer.subscription.updated'
+        update_current_subscription_webhook(params)
       when 'account.updated'
         account_updated(params)
       when check_invoice_status[check_invoice_status.index(webhook_type)]
@@ -44,18 +29,13 @@ class Webhook::StripeWebhooksController < ActionController::Base
   end
 
   private
-  def check_invoice_status
-    ['invoice.created','invoice.updated','invoice.deleted','invoice.finalization_failed',
-      'invoice.finalized','invoice.marked_uncollectible','invoice.paid','invoice.payment_action_required',
-        'invoice.payment_failed','invoice.payment_succeeded','invoice.sent','invoice.upcoming','invoice.voided']
-  end
 
   def update_invoice(params)
-    bill = BillingListingStripe.where(invoice_id: params["data"]["object"]["id"])&.last
+    bill = BillingListingStripe.where(invoice_id: params[:data][:object][:id])&.last
     if bill.present?
       bill.update(update_invoice_paranms(params))
     else
-      customer = StripeCustomer.where(customer_id: params["data"]["object"]["customer"])&.last
+      customer = StripeCustomer.where(customer_id: params[:data][:object][:customer])&.last
       invoice  = customer.try(:stripe_customerable).try(:billing_listing_stripe).create(create_invoice_params(params)) if customer.present?
       pay_invoice(params)
     end
@@ -63,25 +43,25 @@ class Webhook::StripeWebhooksController < ActionController::Base
 
   def pay_invoice(params)
     begin
-      Stripe::Invoice.pay(params["data"]["object"]["id"])
+      Stripe::Invoice.pay(params[:data][:object][:id])
     rescue
     end
   end
 
   def create_invoice_params(params)
     {
-      invoice_id: params["data"]["object"]["id"],
-      total: params["data"]["object"]["total"].to_f,
-      description: params["data"]["object"]["lines"]["data"][0]["description"],
-      date_generated: date_parser(params["data"]["object"]["created"]),
-      due_date: date_parser(params["data"]["object"]["due_date"]),
-      status:  params["data"]["object"]["status"]
+      invoice_id: params[:data][:object][:id],
+      total: params[:data][:object][:total].to_f,
+      description: params[:data][:object][:lines][:data].last[:description],
+      date_generated: date_parser(params[:data][:object][:created]),
+      due_date: date_parser(params[:data][:object][:due_date]),
+      status:  params[:data][:object][:status]
     }
   end
 
   def update_invoice_paranms(params)
     {
-      status: params["data"]["object"]["status"]
+      status: params[:data][:object][:status]
     } 
   end
 
@@ -96,71 +76,22 @@ class Webhook::StripeWebhooksController < ActionController::Base
     end
   end
 
-  def create_customer_subscription(params)
-    customer = StripeCustomer.where(customer_id: params["data"]["object"]["customer"])&.last&.stripe_customerable if params["data"]["object"]["customer"].present?
-    customer.seller_stripe_subscription.update(update_params(params)) if customer.present?
-  end
-
-  def cancel_subscription_webhook(cancel_params)
-    subscription_id = cancel_params[:data][:object][:subscription]
-    subscription_schedule_id = cancel_params[:data][:object][:id]
-    subscription = SellerStripeSubscription.find_by(subscription_stripe_id: subscription_id)
-    subscription = SellerStripeSubscription.find_by(subscription_schedule_id: subscription_schedule_id) if !subscription.present?
-    if subscription.present?
-      subscription_updated_status = cancel_params[:data][:object][:status]
-      subscription_plan_id = cancel_params[:data][:object][:phases][0][:items][0][:price]
-      subscription_canceled_at = date_parser(cancel_params[:data][:object][:canceled_at])
-      subscription.status = "canceled"  #subscription_updated_status
-      subscription.canceled_at = subscription_canceled_at
-      subscription.plan_id = subscription_plan_id
-      subscription.save
+  def update_current_subscription_webhook(params)
+    subscription_id = params[:data][:object][:id]
+    subscription = SellerStripeSubscription.where(subscription_stripe_id: subscription_id)&.last
+    subscription.update(update_params(params))
+    if params[:data][:object][:status] == "canceled"
+      subscription.update(cancel_after_next_payment_taken: false)
     end
-    return true
-  end
-
-  def updated_subscription_webhook(params)
-    subscription_id = params[:data][:object][:id]
-    subscription_updated_status = params[:data][:object][:status]
-    if subscription_updated_status == "active"
-      SellerStripeSubscription.where(subscription_schedule_id: subscription_id)&.last&.update(update_status_params(params))
-    end
-  end
-
-  def completed_subscription_webhook
-    subscription_id = params[:data][:object][:id]
-    subscription = SellerStripeSubscription.where(subscription_schedule_id: subscription_id)&.last&.update(completed_sub_params(params))
-  end
-
-  def cancel_current_subscription_webhook(params)
-    subscription_id = params[:data][:object][:id]
-    subscription = SellerStripeSubscription.where(subscription_stripe_id: subscription_id)&.last&.update(update_params(params))
-  end
-
-  def completed_sub_params(params)
-    {
-      status: params[:data][:object][:status],
-      canceled_at: date_parser(params[:data][:object][:canceled_at]),
-      plan_id: params[:data][:object][:phases][0][:items][0][:price]
-    }
   end
 
   def update_params(params)
-    { 
-      subscription_stripe_id: params[:data][:object][:id],
+    {  
       status: params[:data][:object][:status],
       current_period_end: date_parser(params[:data][:object][:current_period_end]),
       current_period_start: date_parser(params[:data][:object][:current_period_start]),
+      canceled_at: date_parser(params[:data][:object][:canceled_at]),
       cancel_at_period_end: params[:data][:object][:cancel_at_period_end]
-    }
-  end
-
-  def update_status_params(params)
-    {
-      status: params[:data][:object][:status],
-      plan_id: params[:data][:object][:phases][0][:items][0][:price],
-      current_period_start: date_parser(params[:data][:object][:current_phase][:start_date]),
-      current_period_end: date_parser(params[:data][:object][:current_phase][:end_date]),
-      subscription_stripe_id: params[:data][:object][:subscription]
     }
   end
 

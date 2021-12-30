@@ -129,6 +129,16 @@ Rails.application.routes.draw do
           end
         end
 
+        resources :settings do
+          collection do
+            get    :subscription_listing
+            post    :create_subscription
+            delete :remove_subscriptions
+            post :update_subscription
+            get :check_subscription_presence
+
+          end
+        end
         namespace :yavolos do
           resources :manual_bundles, except: %i[show new create edit] do
             collection do

@@ -1,21 +1,28 @@
 module Admin::SubscriptionsHelper
 
-  def plan_name
-    seller_subscription&.plan_name || "Default"
-  end
-
-  def subscription_name
-    value = "Standard"
-    if subscription_is?("month_12")
-      value = "12 Month"
-    elsif subscription_is?("month_24")
-      value = "24 Month"
-    elsif subscription_is?("month_36")
-      value = "36 Month"
-    elsif subscription_is?("lifetime")
-      value = "Pioneer"
+  def rolling(sub)
+    value = "false"
+    if sub.rolling_subscription.present? && sub.rolling_subscription == "on"
+      value = "true"
     end
     value
+  end
+
+  def plan_has_subscription?(plan)
+    status = false
+    SellerStripeSubscription.where(plan_id: plan)&.each do |subscription|
+      status = true 
+      break
+    end
+    return status
+  end
+
+  def subscription_plans
+    SubscriptionPlan.all
+  end
+
+  def plan_name
+    seller_subscription&.plan_name || "Default"
   end
 
   def subscription_is?(type)
@@ -23,19 +30,19 @@ module Admin::SubscriptionsHelper
   end
 
   def expiry_date
-    value = seller_subscription&.schedule_date&.strftime('%d/%m/%y %T') || seller_subscription&.current_period_end&.strftime('%d/%m/%y %T') || ""
-    if subscription_name == "Standard"
-      value = seller_subscription&.current_period_end&.strftime('%d/%m/%y %T') || seller_subscription&.schedule_date&.strftime('%d/%m/%y %T') || ""
-    end
-    value
+    seller_subscription&.current_period_end&.strftime('%d/%m/%y %T')
+  end
+
+  def seller_commission
+    number_with_precision(seller_selected_plan&.commission_excluding_vat, precision: 2) if seller_selected_plan&.commission_excluding_vat.present?
   end
 
   def renewal_cost
-    val = "£0.00"
-    if seller_subscription&.status == "active"
-    val = "£29.00"
-    end
-    val
+    number_with_precision(seller_selected_plan&.price, precision: 2)
+  end
+
+  def seller_selected_plan
+    @subscription_plan ||= SubscriptionPlan.where(plan_id: seller_subscription&.plan_id)&.last
   end
 
   def cancel_at_period_end_nil_or_false?
@@ -54,12 +61,20 @@ module Admin::SubscriptionsHelper
   end
 
   def selected_or_not(option)
-    type = @seller&.subscription_type
-    if type == option
-      "selected"
-    else
-      ""
+    value = ""
+    name = seller_subscription&.plan_name&.strip
+    if name == option&.subscription_name&.strip
+      value = "selected"
     end
+    value
+  end
+
+  def canceled_or_not
+    value = ""
+    if seller_subscription.status == "canceled"
+      value = "selected"
+    end
+    value
   end
 
   def enforce_sub_dropdown(option)
@@ -106,7 +121,7 @@ module Admin::SubscriptionsHelper
   end
   
   def seller_subscription
-    @seller&.seller_stripe_subscription&.reload
+    @seller_subscription ||= @seller&.seller_stripe_subscription&.reload
   end
 
   def date_parser(date)

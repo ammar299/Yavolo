@@ -24,6 +24,7 @@ class Seller < ApplicationRecord
   has_one :seller_stripe_subscription,dependent: :destroy
   has_many :seller_payment_methods,dependent: :destroy
   has_many :billing_listing_stripe,dependent: :destroy
+  before_destroy :cancel_any_active_subscription, prepend: true
   # has_one :stripe_bank_detail,dependent: :destroy
 
   enum timeout: {
@@ -52,12 +53,12 @@ class Seller < ApplicationRecord
     active: 0,
     in_active: 1,
   }
-  enum subscription_type: {
-    month_12: 0,
-    month_24: 1,
-    month_36: 2,
-    lifetime: 3,
-  }
+  # enum subscription_type: {
+  #   month_12: 0,
+  #   month_24: 1,
+  #   month_36: 2,
+  #   lifetime: 3,
+  # }
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP } 
   accepts_nested_attributes_for :business_representative
   accepts_nested_attributes_for :addresses
@@ -206,6 +207,10 @@ class Seller < ApplicationRecord
       errors.add(:account_status, "cannot be changed to rejected")
     end
 
+  end
+
+  def cancel_any_active_subscription
+    CancelSubscriptionsOnDestroySellerWorker.perform_at(Time.now, self.seller_stripe_subscription.subscription_stripe_id) if self.seller_stripe_subscription.present?
   end
 
 end

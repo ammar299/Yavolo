@@ -19,7 +19,7 @@ class Sellers::BaseController < ApplicationController
         sign_out(current_seller)
         redirect_to(controller: 'sellers/auth/sessions', action: 'new')
       else
-        current_seller.update(:last_seen_at, Time.current)
+        current_seller.update(last_seen_at: Time.current)
       end
     end
   end

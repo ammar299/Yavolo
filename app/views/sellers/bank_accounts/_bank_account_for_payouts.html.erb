@@ -39,7 +39,7 @@
     <%= render 'shared/stripe_payout_remove', confirm_statement: "Are you sure you want to remove bank account ending  *****#{current_seller&.bank_detail&.last4 || ""}?", id: 'stripe-payout-bank-account-end',path: '#', data: "", modal_id: 'stripe-payout-bank-account-confirm' %>
   <%else%>
     <div class="payment-method-card yo-white-card box-border p-0">
-      <p class="pl-3 py-4 mm-text">Connect bank account to receive payouts</p>
+      <h6 class="p-3 mm-text">Connect bank account to receive payouts</h6>
     </div>
   <%end%>
   <%= render 'sellers/bank_accounts/bank_details'%>

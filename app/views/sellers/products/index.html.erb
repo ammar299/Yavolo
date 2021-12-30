@@ -150,6 +150,8 @@
                                                             <% if product.pictures.first&.name&.url.present? %>
                                                                 <%=image_tag product.pictures.first&.name&.url(:thumb), :class => "w-100" %>
                                                             <% end %>
+                                                        <% else %>
+                                                            <%= product_thumbnail_image_for_table_row(product) %>
                                                         <% end %> 
                                                         </span>
                                                     </div>

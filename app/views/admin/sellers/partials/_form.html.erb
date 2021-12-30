@@ -238,7 +238,7 @@
           <div class="form-group form-group-vertical form-group-vertical-responsive mt-3">
             <%= form.label :subscription_type, 'Subscription Type:', class: 'boldheadings' %>
             <div style="flex: 1">
-              <%= form.select(:subscription_type, Seller.subscription_types.collect {|sub| [sub[0].capitalize, sub[0]]}, {:include_blank => "Select"}, {:class => "form-control"} ) %>
+              <%= form.select(:subscription_type, SubscriptionPlan.all.map {|plan| plan.subscription_name}, {:include_blank => "Select"}, {:class => "form-control"} ) %>
             </div>
           </div>
           <div class="text-right mt-3 mb-3">
