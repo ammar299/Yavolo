@@ -78,7 +78,7 @@
                 Save for later</span>
             </a>
             <%= link_to remove_product_form_cart_path(remove_product: {product_id: product.id}), method:
-              :delete, remote: true, class: 'decoration-none' do %>
+              :delete, remote: true, class: 'decoration-none remove-product-cart' do %>
               <span class="icon-remove pr-2"></span>
               Remove
               <% end %>

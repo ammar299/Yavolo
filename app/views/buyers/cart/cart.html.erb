@@ -8,7 +8,11 @@
         <h3>Ya basket</h3>
     </div>
   </div>
-  <div id="cart" class="empty-card-height">
+  <% if @cart.empty? %>
+    <div id="cart" class="empty-card-height">
+  <% else %>
+    <div id="cart">
+  <% end %>
     <% if @products.present? && @products.length > 0 %>
       <div class="row mt-4">
         <div class="col-lg-8">

@@ -1,7 +1,7 @@
 <div class="yavolos--product-item" data-controller="yavolos--product-item" data-yavolos--product-item-index-count = "<%= defined?(index) ? index : nil%>" >
   <%= hidden_field_tag "products[][id]",product.id, data: {"yavolos--product-item-target": "id"} %>
-  <div class="product-bg-title-bordr d-flex align-items-center">
-    <span class="product-bg-title" data-yavolos--product-item-target="counter">1</span> <span><%= product.title %></span>
+  <div class="product-bg-title-bordr d-flex align-items-end">
+    <span class="product-bg-title" data-yavolos--product-item-target="counter">1</span> <span class="product-bg-name"><%= product.title %></span>
   </div>
   <div class="Yavolo-table mt-4 w-100 table-responsive">
     <table class="table">

@@ -1,9 +1,18 @@
 $(document).ready(function () {
   console.log("Cart js is loaded");
   // maintainCart();
-
+  checkCartEmpty();
   cartChangeSubmit();
 });
+
+function checkCartEmpty() {
+  $("body").on("click", ".remove-product-cart", function () {
+    if ($('.asda').length < 1)
+    {
+      $("#cart").addClass("empty-card-height")
+    }
+  });
+}
 
 function maintainCart() {
   $("body").on("click", ".add_to_cart", function () {

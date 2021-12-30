@@ -636,11 +636,13 @@ textarea.form-control {
     color: var(--dark-red);
     cursor: pointer;
     font-size: 33px;
-    padding: 7px 12px;
+    padding: 7px 12px !important;
     display: flex;
     align-items: center;
     opacity: 1;
     outline: none;
+    position: absolute;
+    right: 20px;
 }
 .csv-file-uploader {
     border-radius: 8px;
