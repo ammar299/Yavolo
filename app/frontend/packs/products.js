@@ -13,6 +13,7 @@ $(document).ready(function(){
   productImageDelete();
   stockUpdateOnListing();
   discountUpdateOnListing();
+  inputMaskCurrencyField();
   $("#verify").click(function () {
     $('#information-modal').modal('show');
   });
@@ -1099,6 +1100,9 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
     },
     "product[delivery_option_id]":{
       required: true
+    },
+    "product[google_shopping_attributes][price]":{
+      required: true
     }
   };
 
@@ -1120,6 +1124,9 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
     },
     "product[delivery_option_id]":{
       required: "Please select a delivery option"
+    },
+    "product[google_shopping_attributes][price]":{
+      required: "Price can\'t be blank"
     }
   };
 
@@ -1273,7 +1280,7 @@ function stockUpdateOnListing(){
 }
 
 function priceUpdateOnListing(){
-  $('body').on('input', '#product_price', function() {
+  $('body').on('input', '#product_price, #product_google_shopping_attributes_price', function() {
     if ($(this).val().length > 11) {
       if($("#price-error").length == 0)
       {
@@ -1306,3 +1313,9 @@ function discountUpdateOnListing(){
   });
 }
 
+function inputMaskCurrencyField() {
+  $('#product_google_shopping_attributes_price').inputmask('currency', {
+    prefix: '£',
+    rightAlign: false
+  });
+}

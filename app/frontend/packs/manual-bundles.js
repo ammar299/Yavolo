@@ -17,6 +17,12 @@ $(document).ready(function () {
         previewFileForYavoloMainImage($(this))
     })
 
+    $(".multiple-update-yavolos input").click(function () {
+			if (!$(this).is(":checked")) {
+				$("#check-all-checkboxes").prop("checked", false);
+			}
+    });
+
 })
 
 function previewFileForYavoloMainImage(input){
