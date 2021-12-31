@@ -67,8 +67,12 @@ module SubscriptionPlanMethods
   end
 
   def current_default_plan(seller)
-    if seller.provider != "admin"
-      SubscriptionPlan.where(default_subscription: true)&.last
+    if seller.provider != 'admin'
+      if seller.subscription_type.present? && (seller.subscription_type != 0 || seller.subscription_type != '0')
+        SubscriptionPlan.where(subscription_name: seller.subscription_type)&.last
+      else
+        SubscriptionPlan.where(default_subscription: true)&.last
+      end
     else
       SubscriptionPlan.where(subscription_name: seller.subscription_type)&.last
     end

@@ -575,7 +575,7 @@ function editFormDataPopulate(that){
   $("#create-subscription-form-submit").attr("data-id",$(that).attr("data-id"))    
   $("#subscription_name").val($(that).attr("data-name"))
   $("#subscription_months").val($(that).attr("data-monthx"))
-  $("#price").val($(that).attr("data-price"))
+  $("#price").val(Number($(that).attr("data-price")).toFixed(2))
   $("#commission_excluding_vat").val($(that).attr("data-commission"))
 }
 
@@ -642,6 +642,7 @@ function validatePlanForm(){
       "subscription_price": {
         required: true,
         min: 0,
+        max: 999999,
       },
       "commission_excluding_vat": {
         required: true,
@@ -654,6 +655,7 @@ function validatePlanForm(){
         default_subscription_check: true,
       },"subscription_months": {
         min: 1,
+        max: 12
       }
     },
     highlight: function (element) {
@@ -669,6 +671,7 @@ function validatePlanForm(){
       },
       "subscription_price": {
         required: "Required",
+        max: "Please enter a value less than or equal to 999,999.99",
       },
       "commission_excluding_vat": {
         required: "Required",

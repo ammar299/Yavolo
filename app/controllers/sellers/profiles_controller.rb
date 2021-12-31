@@ -13,6 +13,7 @@ class Sellers::ProfilesController < Sellers::BaseController
 
   def show
     @seller = current_seller
+    assign_subscription_type
     @q = current_seller.delivery_options.ransack(params[:q])
     if params[:q].present? && params[:q][:name_or_ships_name_cont].present?
       @delivery_options = @q.result.includes(:ships)
@@ -168,6 +169,13 @@ class Sellers::ProfilesController < Sellers::BaseController
     @action_url = @seller&.paypal_detail&.seller_action_url
     if !@action_url.present? || !@seller&.paypal_detail&.integration_status
       @action_url = Sellers::PaypalIntegrationService.call({seller: current_seller})
+    end
+  end
+
+  def assign_subscription_type
+    if current_seller.subscription_type.present? && (current_seller.subscription_type == '0')
+      plan = SubscriptionPlan.find_by(default_subscription: true)
+      current_seller.update(subscription_type: plan.subscription_name) if plan.present?
     end
   end
 

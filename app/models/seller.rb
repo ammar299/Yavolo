@@ -53,12 +53,7 @@ class Seller < ApplicationRecord
     active: 0,
     in_active: 1,
   }
-  # enum subscription_type: {
-  #   month_12: 0,
-  #   month_24: 1,
-  #   month_36: 2,
-  #   lifetime: 3,
-  # }
+
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP } 
   accepts_nested_attributes_for :business_representative
   accepts_nested_attributes_for :addresses

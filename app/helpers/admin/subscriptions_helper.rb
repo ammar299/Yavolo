@@ -38,15 +38,23 @@ module Admin::SubscriptionsHelper
   end
 
   def expiry_date
+    if seller_selected_plan.rolling_subscription.nil?
+      seller_subscription&.cancel_at
+    else
+      seller_subscription&.current_period_end
+    end
+  end
+
+  def renewal_date
     seller_subscription&.current_period_end&.strftime('%d/%m/%y %T')
   end
 
   def seller_commission
-    number_with_precision(seller_selected_plan&.commission_excluding_vat, precision: 2) if seller_selected_plan&.commission_excluding_vat.present?
+    seller_selected_plan&.commission_excluding_vat == 0 ? 0 : number_with_precision(seller_selected_plan&.commission_excluding_vat, precision: 2, significant: true)
   end
 
   def renewal_cost
-    number_with_precision(seller_selected_plan&.price, precision: 2)
+    number_to_currency(seller_selected_plan&.price, unit: "£", precision: 2)
   end
 
   def seller_selected_plan
@@ -141,8 +149,7 @@ module Admin::SubscriptionsHelper
   end
 
   def plan_percentage_rephrase(subscription)
-
-    number_with_precision(subscription.commission_excluding_vat, precision: 2, significant: true)
+    subscription.commission_excluding_vat == 0 ? 0 : number_with_precision(subscription.commission_excluding_vat, precision: 2, significant: true)
   end
 
 end

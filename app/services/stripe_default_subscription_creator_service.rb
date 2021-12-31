@@ -52,6 +52,7 @@
         else
           seller&.create_seller_stripe_subscription(subscription_params(@subscription,seller))
         end
+        seller.update(subscription_type: default_plan.subscription_name)
       end
     end
     

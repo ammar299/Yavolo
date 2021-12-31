@@ -81,6 +81,7 @@ module Admins
           sub_deleted = delete_prev_plan_from_subscription(sub)
           seller_current_subscription.update(stripe_params(new_plan.subscription_name,sub)) if sub_deleted.deleted?
         end
+        @seller.update(subscription_type: new_plan.subscription_name)
         return @status = "other"
       end
 

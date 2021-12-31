@@ -3,26 +3,26 @@
     <tbody>
       <tr>
         <td class="seller-subscription-td-width">Current Subscription:</td>
-        <td id="subscription-name"><%= plan_name%></td>
+        <td id="subscription-name"><%= plan_name %></td>
       </tr>
       <tr>
         <td id="subscription-expiry-date">Expires:</td>
-        <td><%=expiry_date%></td>
+        <td><%= expiry_date&.strftime('%d/%m/%y %T') %></td>
       </tr>
       <tr>
         <td id="subscription-renewal-cost">Renewal Cost:</td>
-        <td><%=renewal_cost%></td>
+        <td><%= renewal_cost %></td>
       </tr>
       <tr>
         <td id="subscription-renewal-date">Renewal Date:</td>
-        <td><%=expiry_date%></td>
+        <td><%= renewal_date %></td>
       </tr>
       <tr>
-        <%= render 'admin/sellers/partials/cancel_subscription_dropdowns'%> 
+        <%= render 'admin/sellers/partials/cancel_subscription_dropdowns' %>
       </tr>
       <tr>
         <td id="subscription-commission">Commission:</td>
-        <td><%=seller_commission%>%</td>
+        <td><%= seller_commission %>%</td>
       </tr>
     </tbody> 
   </table>
