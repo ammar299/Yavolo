@@ -6,14 +6,14 @@
       <% has_error, msg = get_errors(form, :price) %>
       <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
         <%= form.label :price, 'Price (Inc VAT if applicable) *' %>
-        <%= form.text_field :price, value: get_price_in_pounds(form.object.price),class: 'form-control', placeholder: '0.00', readonly: true %>
+        <%= form.text_field :price, value: get_price_in_pounds(form.object.price),class: 'no-hover form-control', placeholder: '0.00', readonly: true %>
         <%= "<small class='form-text'>#{msg}</small>".html_safe if has_error %>
       </div>
 
       <% has_error, msg = get_errors(form, :stock) %>
       <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
         <%= form.label 'Quantity*' %>
-        <%= form.number_field :quantity, value: @products.size, class: 'form-control', min: 0, readonly: true %>
+        <%= form.number_field :quantity, value: @products.size, class: 'no-hover form-control', min: 0, readonly: true %>
         <%= "<small class='form-text'>#{msg}</small>".html_safe if has_error %>
       </div>
 
@@ -27,9 +27,8 @@
       <% has_error, msg = get_errors(form, :yan) %>
       <div class="form-group general-mrgn">
         <%= form.label :yan, 'YAN' %>
-        <%= form.text_field :yan, class: 'form-control', readonly: true %>
+        <%= form.text_field :yan, class: 'no-hover form-control', readonly: true %>
       </div>
-
     </div>
   </div>
 </div>

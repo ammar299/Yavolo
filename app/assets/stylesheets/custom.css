@@ -1708,3 +1708,6 @@ width: 75%;
 .absolute {
     position: absolute;
 }
+.no-hover {
+  pointer-events: none;
+}
