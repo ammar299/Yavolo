@@ -1267,29 +1267,30 @@ function updateBulkActions(res,classNameOfAction, val){
 function stockUpdateOnListing(){
   $('body').on('input', '#product_stock', function() {
     if ($(this).val().length > 4 || $(this).val().length == 0) {
-      if($("#quantity-error").length == 0)
+      if ($(this).find("#quantity-error").length == 0 )
       {
         $(this).parents("div.form-group").addClass('error-field');
-        $(this).after('<label  id= "quantity-error" class="text-left w-100 error text-">Must be 1 to 9999</label>');
+        $(this).after('<label  id= "quantity-error" class="text-left w-100 error text- absolute">Must be 1 to 9999</label>');
       }
     } else {
         $(this).parents("div.form-group").removeClass('error-field');
-        $("#quantity-error").remove();
+        $(this).siblings("#quantity-error").remove();
       }
   });
 }
 
 function priceUpdateOnListing(){
-  $('body').on('input', '#product_price, #product_google_shopping_attributes_price', function() {
-    if ($(this).val().length > 11) {
-      if($("#price-error").length == 0)
-      {
+
+  $('body').on('input', '#product_price', function() {
+    let price = $(this).val().replace('£','')
+    if (price.length > 10|| price == 0.00 ) {
+      if($(this).find("#price-error").length == 0)
         $(this).parents("div.form-group").addClass('error-field');
-        $(this).after('<label  id= "price-error" class="text-left w-100 error text-">Must be 1 to 999999</label>');
+        $(this).after('<label  id= "price-error" class="text-left w-100 error text- absolute">Must be 1 to 999999</label>');
       }
     } else {
         $(this).parents("div.form-group").removeClass('error-field');
-        $("#price-error").remove();
+        $(this).siblings("#price-error").remove();
       }
   });
 }
@@ -1301,14 +1302,14 @@ function discountUpdateOnListing(){
       discount = parseFloat(discount)
     }
     if (discount < 2.5 || discount > 100) {
-      if($("#discount-error").length == 0)
+      if($(this).find("#discount-error").length == 0)
       {
         $(this).parents("div.form-group").addClass('error-field');
-        $(this).after('<label  id= "discount-error" class="text-left w-100 error text-">Must 2.5 to 100</label>');
+        $(this).after('<label  id= "discount-error" class="text-left w-100 error text- absolute">Must 2.5 to 100</label>');
       }
     } else {
         $(this).parents("div.form-group").removeClass('error-field');
-        $("#discount-error").remove();
+        $(this).siblings("#discount-error").remove();
       }
   });
 }
