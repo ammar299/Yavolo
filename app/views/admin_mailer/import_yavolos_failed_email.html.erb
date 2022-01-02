@@ -1,0 +1,19 @@
+<p>Hi</p>
+<%if @errors.present?%>
+  <p>File is not imported completely if you find any errors listed below. Please ignore otherwise.</p>
+
+  <% if @list.present? %>
+    <p>The list of yavolos which are not created because of some issues.</p>
+    <p><%= @list.html_safe%></p>
+  <% end %>
+
+  <% @errors.each do |error| %>
+    <h5><%= error[:yavolo_title] %></h5>
+    <p><%= error[:errors] %></p>
+  <% end %>
+
+<%else%>
+  <p>Your csv file has been imported successfully.</p>
+<%end%>
+<p>Thanks</p>
+<p>Yavolo Team</p>

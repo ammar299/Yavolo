@@ -80,8 +80,7 @@ module Admin::ProductHelper
   end
 
   def get_discount_value_product(product)
-    discounted_price = product.price * (product.discount/100.00)
-    new_price = product.price - discounted_price
+    new_price = product.get_discount_price
     get_price_in_pounds(new_price)
   end
 

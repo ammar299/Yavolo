@@ -110,10 +110,24 @@ class Admin::Yavolos::ManualBundlesController < Admin::BaseController
     if params[:yavolos]&.split(",")&.count <= 50
       respond_to do |format|
         format.html
-        format.csv { send_data YavoloBundle.new.export_yavolos(params[:yavolos]), filename: "#{Date.today}-export-yavolos.csv"}
+        format.csv { send_data YavoloBundles::Exporter.call(params[:yavolos]).csv_file, filename: "#{Date.today}-export-yavolos.csv"}
       end
     else
       ExportYavolosToEmailWorker.perform_async(params[:yavolos])
+    end
+  end
+
+  def import_yavolos
+    csv_import = CsvImport.new(params.permit(:file))
+    csv_import.importer_id = current_admin.id
+    csv_import.importer_type = 'Admin'
+    if csv_import.valid?
+      csv_import.status = :uploaded
+      csv_import.save
+      ImportYavolosWorker.perform_async(csv_import.id)
+      render json: { message: 'Your file is uploaded and you will be notified with import status.' }, status: :ok
+    else
+      render json: { errors: csv_import.errors.where(:file).last.message }, status: :unprocessable_entity
     end
   end
   

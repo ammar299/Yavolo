@@ -36,7 +36,7 @@
           <%= render 'shared/result_per_page_dropdown', url_path: admin_yavolos_manual_bundles_path %>
         </div>
         <div class="all-products-header-right d-flex justify-content-between">
-          <a href="#" class="btn btn-radius px-4 btn-primary mr-1 btn-sm my-1">Upload CSV</a>
+          <a href="#" class="btn btn-radius px-4 btn-primary mr-1 btn-sm my-1 import-yavolos">Upload CSV</a>
           <a href="#" class="btn btn-radius px-4 btn-primary mr-1 export-yavolos btn-sm my-1" >Export CSV</a>
           <a href="#" class="btn btn-radius px-4 btn-primary mr-1 d-none" id="yavolos-trigger" >export yavolos data</a>
           <%= link_to "Add new Yavolo", add_yavolos_admin_yavolos_manual_bundles_path, class: "btn btn-radius px-4 btn-primary btn-sm my-1" %>
@@ -85,4 +85,6 @@
 
   <%= render 'shared/custom_confirm_modal', request_path: admin_yavolos_manual_bundles_path %>
   <%= render 'shared/confirmation_modal' %>
+  <%= render 'shared/upload_csv_popup/upload_csv_popup', import_url: import_yavolos_admin_yavolos_manual_bundles_path, sample_file_url: '/sample/sample-yavolos.csv' %>
+  <%= render 'shared/upload_csv_popup/upload_csv_success_popup' %>
 </div>

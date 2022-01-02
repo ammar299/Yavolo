@@ -94,6 +94,11 @@ class Product < ApplicationRecord
         picture.update(is_featured: true)
     end
 
+    def get_discount_price
+        discounted_price = self.price * (self.discount/100.00)
+        self.price - discounted_price
+    end
+
     private
 
     def get_picture_for_featured_image(identifier, identifier_type)

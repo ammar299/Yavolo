@@ -6,6 +6,7 @@ $(document).ready(function () {
     bindAndLoadCategoriesSelect2ForYavoloManualForm()
     validateYavoloBundleForm();
     setExportData();
+    setImportYavolos();
 
     if($('[name="products[][keywords][]"]').length) {
         $('[name="products[][keywords][]"]').on('itemAddedOnInit', function(event) {
@@ -24,6 +25,13 @@ $(document).ready(function () {
     });
 
 })
+
+function setImportYavolos() {
+    $(document).on("click", ".import-yavolos", function (e) {
+        e.preventDefault()
+        $("#upload-csv-popup-shared").modal('show')
+    });
+}
 
 function previewFileForYavoloMainImage(input){
     const file = $(input).get(0).files[0];

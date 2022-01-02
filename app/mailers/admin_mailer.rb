@@ -20,9 +20,21 @@ class AdminMailer < ApplicationMailer
     puts "success email sent ******"
   end
 
+  def import_yavolos_email
+    mail(to: params[:to], subject: 'Yavolo: Yavolo Bundles Csv imported successfully')
+    puts "success email sent ******"
+  end
+
   def import_sellers_failed_email
     @errors = params[:errors]
     mail(to: params[:to], subject: 'Yavolo: Sellers Csv import status')
+    puts "failed email sent ******"
+  end
+
+  def import_yavolos_failed_email(list)
+    @errors = params[:errors]
+    @list = list.join('<br>')
+    mail(to: params[:to], subject: 'Yavolo: Yavolo Bundles Csv import status')
     puts "failed email sent ******"
   end
   
