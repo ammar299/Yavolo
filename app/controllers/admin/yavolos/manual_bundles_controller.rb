@@ -3,7 +3,7 @@ class Admin::Yavolos::ManualBundlesController < Admin::BaseController
   before_action :format_price_params, only: %i[new edit create_bundle update_bundle]
 
   def index
-    @q = YavoloBundle.ransack(params[:q])
+    @q = YavoloBundle.includes(yavolo_bundle_products: [:product]).ransack(params[:q])
     @yavolo_bundles = @q.result(distinct: true)
     @yavolo_bundles = @yavolo_bundles.order(created_at: :desc) if params.dig(:q, :s).blank?
     @total_count = @yavolo_bundles.size
@@ -130,7 +130,7 @@ class Admin::Yavolos::ManualBundlesController < Admin::BaseController
       render json: { errors: csv_import.errors.where(:file).last.message }, status: :unprocessable_entity
     end
   end
-  
+
   def remove_product_bundle_association
     bundle_id = params[:manual_bundle][:bundle_id]
     product_id = params[:manual_bundle][:product_id]

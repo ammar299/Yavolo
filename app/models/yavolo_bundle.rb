@@ -26,6 +26,16 @@ class YavoloBundle < ApplicationRecord
 
   before_save :assign_yan_to_bundle
 
+  def self.disbundle_bundle_when_seller_deactivated(seller)
+    yavolo_bundles_ids = YavoloBundleProduct.where(product_id: seller.products.ids).pluck(:yavolo_bundle_id)
+    YavoloBundle.where(id: yavolo_bundles_ids).update_all(status: :disbundled)
+  end
+
+  def self.disbundle_bundle_when_product_deactivated(product)
+    yavolo_bundles_ids = YavoloBundleProduct.where(product_id: product.id).pluck(:yavolo_bundle_id)
+    YavoloBundle.where(id: yavolo_bundles_ids).update_all(status: :disbundled)
+  end
+
   private
 
   def assign_yan_to_bundle

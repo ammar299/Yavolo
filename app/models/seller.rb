@@ -176,6 +176,7 @@ class Seller < ApplicationRecord
 
   def de_active_all_products
     self.products.where(status: :active).update_all(status: :inactive)
+    YavoloBundle.disbundle_bundle_when_seller_deactivated(self)
   end
 
   def date_of_birth_is_valid_datetime

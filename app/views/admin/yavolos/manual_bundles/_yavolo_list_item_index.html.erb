@@ -13,7 +13,7 @@
   </td>
   <td>
     <ul>
-      <%= yavolo_bundle.products.map{|p| "<li>#{p.title}</li>"}.join("").html_safe %>
+      <%= yavolo_bundle.products.map{|p| yavolo_bundle_product_disable_check_index_list(p)}.join("").html_safe %>
     </ul>
   </td>
   <td>

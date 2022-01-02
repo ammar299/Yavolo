@@ -41,6 +41,8 @@ class Product < ApplicationRecord
 
     before_save :assign_yan_to_product
 
+    after_commit :disbundle_associated_yavolo_bundles
+
     def validate_seller
         if owner_id.blank?
             errors.add(:owner_id, "Seller can't be blank")
@@ -118,5 +120,9 @@ class Product < ApplicationRecord
             self.yan = "Y" + SecureRandom.send('choose', [*'0'..'9'], 12)
             break unless self.class.exists?(yan: yan)
         end
+    end
+
+    def disbundle_associated_yavolo_bundles
+        YavoloBundle.disbundle_bundle_when_product_deactivated(self) if self.inactive?
     end
 end
