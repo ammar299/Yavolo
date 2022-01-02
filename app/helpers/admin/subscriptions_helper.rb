@@ -49,10 +49,6 @@ module Admin::SubscriptionsHelper
     seller_subscription&.current_period_end&.strftime('%d/%m/%y %T')
   end
 
-  def seller_commission
-    seller_selected_plan&.commission_excluding_vat == 0 ? 0 : number_with_precision(seller_selected_plan&.commission_excluding_vat, precision: 2, significant: true)
-  end
-
   def renewal_cost
     number_to_currency(seller_selected_plan&.price, unit: "£", precision: 2)
   end
@@ -149,7 +145,7 @@ module Admin::SubscriptionsHelper
   end
 
   def plan_percentage_rephrase(subscription)
-    subscription.commission_excluding_vat == 0 ? 0 : number_with_precision(subscription.commission_excluding_vat, precision: 2, significant: true)
+    subscription.commission_excluding_vat.tap{|x| break x.to_i == x ? x.to_i : x}
   end
 
 end
