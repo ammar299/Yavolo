@@ -187,7 +187,8 @@
                         </td>
                         <td>
                           <p class="mb-0">SKU: <%= product.sku %></p>
-                          <p class="mb-0">YAN: <%= product.ean %></p>
+                          <p class="mb-0">EAN: <%= product.ean %></p>
+                          <p class="mb-0">YAN: <%=product.yan %></p>
                           <p class="mb-0">Brand: <%= product.brand %></p>
                           <p class="mb-0">Condition: <%= product.condition == 'brand_new' ? 'New' : product.try(:condition).try(:titleize) %></p>
                         </td>
