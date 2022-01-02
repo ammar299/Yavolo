@@ -1711,3 +1711,6 @@ width: 75%;
 .no-hover {
   pointer-events: none;
 }
+.photo-grid {
+  min-height: 300px;
+}
