@@ -14,6 +14,7 @@ $(document).ready(function(){
   stockUpdateOnListing();
   discountUpdateOnListing();
   inputMaskCurrencyField();
+
   $("#verify").click(function () {
     $('#information-modal').modal('show');
   });
@@ -1280,18 +1281,18 @@ function stockUpdateOnListing(){
 }
 
 function priceUpdateOnListing(){
-
   $('body').on('input', '#product_price', function() {
-    let price = $(this).val().replace('£','')
+   let price = $(this).val().replace('£','');
     if (price.length > 10|| price == 0.00 ) {
-      if($(this).find("#price-error").length == 0)
+      if($(this).find("#price-error").length == 0){
         $(this).parents("div.form-group").addClass('error-field');
-        $(this).after('<label  id= "price-error" class="text-left w-100 error text- absolute">Must be 1 to 999999</label>');
+        $(this).after("<label  id='price-error' class='text-left w-100 error text-absolute'>Must be 1 to 999999</label>");
       }
-    } else {
-        $(this).parents("div.form-group").removeClass('error-field');
-        $(this).siblings("#price-error").remove();
-      }
+    }
+    else {
+      $(this).parents("div.form-group").removeClass('error-field');
+      $(this).siblings("#price-error").remove();
+    }
   });
 }
 

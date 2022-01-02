@@ -7,7 +7,7 @@
         <%#= product.pictures.inspect %>
         <div id="<%= product.id %>">
           <span>Product Seller:</span>
-          <span><%= "#{product.owner.email}" %></span>
+          <span><%= "#{product.owner.email rescue nil}" %></span>
           <br>
           <span>Product Name:</span>
           <span><%= product.title %></span>
