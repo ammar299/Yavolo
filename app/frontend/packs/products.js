@@ -197,6 +197,9 @@ $(document).ready(function(){
         $('#yes-no-product-delete-img-modal').modal('hide');
         let total_images = $(".grid-single-img").length
         var markAsDel = $(".grid-single-img .mark-as-delete").length
+        if(total_images < 1){
+          $('.icon-help-style').hide();
+        }
         if(total_images - markAsDel < 9) 
         { 
           $('.photo-btn').text('Add Photos');
@@ -636,6 +639,7 @@ function previewProductImages(files){
     if (i<9)
     {
       preveiwImagesTemplate.push(imageTemplate(URL.createObjectURL(files[i]),files[i].name));
+      $('.icon-help-style').show();
     } else {
       break;
     }
