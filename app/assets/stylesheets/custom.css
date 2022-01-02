@@ -715,7 +715,7 @@ select.form-control {
 
 /* naseer */
 
-.datepicker.datepicker-orient-top {
+.datepicker.datepicker-dropdown {
   padding: 5px 25px !important;
   background-color: var(--off-white);
   border: 1px solid var(--dark-red) !important;
@@ -726,7 +726,7 @@ select.form-control {
 .datepicker .datepicker-days thead tr .datepicker-switch {
   color: var(--dark-red);
 }
-.datepicker-dropdown.datepicker-orient-top:after {
+.datepicker-dropdown:after {
   border-top: 6px solid var(--off-white) !important;
 }
 .datepicker table tr td span.active,
@@ -762,7 +762,13 @@ select.form-control {
   bottom: -32px;
   left: 30px;
 }
-
+.datepicker-orient-bottom:before {
+    display: none;
+}
+.datepicker-dropdown.datepicker-orient-bottom:after {
+    border-top: 0 !important;
+    border-bottom-color: var(--off-white) !important;
+}
 /*css for payment method*/
 
 .ElementsApp .CardField {
