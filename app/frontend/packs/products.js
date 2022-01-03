@@ -634,11 +634,20 @@ function uploadCSVFile(files){
 }
 
 function previewProductImages(files){
+  var fileList = Array.from(files)
+  let currentPhotos = 9 - $('.product-photos-grid').find('.grid-single-img').length;
+  if (currentPhotos > 0 && currentPhotos < 9) {
+    for(var i=fileList.length; i>0; i-- ) {
+      if (i > currentPhotos) {
+        fileList.splice(-1);
+      }
+    }
+  }
   let preveiwImagesTemplate = [];
-  for(let i=0; i<files.length; i++ ){
+  for(let i=0; i<fileList.length; i++ ){
     if (i<9)
     {
-      preveiwImagesTemplate.push(imageTemplate(URL.createObjectURL(files[i]),files[i].name));
+      preveiwImagesTemplate.push(imageTemplate(URL.createObjectURL(fileList[i]),fileList[i].name));
       $('.icon-help-style').show();
     } else {
       break;
