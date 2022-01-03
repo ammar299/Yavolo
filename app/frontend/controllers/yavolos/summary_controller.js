@@ -10,8 +10,9 @@ export default class extends ApplicationController {
     appendProductItem(data) {
         const {product_id, raw_html} = data;
         if (this.isProductAlreadyAdded(product_id)) {
-            window.displayNoticeMessage("Product already added to bundle")
+            window.displayNoticeMessage("Product already exists in bundle")
         } else {
+            window.displayNoticeMessage("Product added to bundle")
             this.addProductItemToDOM(raw_html)
             this.saveProductId((product_id))
         }

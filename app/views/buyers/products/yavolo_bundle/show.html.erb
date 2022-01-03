@@ -95,10 +95,11 @@
                 <span class="pr-3 pt-2">Quantity:</span>
                 <div class="dropdown quantity-dropdown text-center mb-2">
                   <button class="btn dropdown-toggle btn-lg" type="button" name="product[quantities]"id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                    <%= number_field_tag 'product[quantity]', 1, class: "update-product-quantity", data: { quantity: 1 } %>
+                    <%= number_field_tag 'product[quantity]', 1, class: "update-product-quantity", data: { quantity: @yavolo_bundle.stock_limit} %>
                   </button>
                   <div class="dropdown-menu p-1 mt-0" aria-labelledby="dropdownMenuButton">
-                    <% (1..10).each do |stock_quantity| %>
+                    <% quantity_list = @yavolo_bundle.stock_limit < 10 ? (1..@yavolo_bundle.stock_limit) : (1..10) %>
+                    <% quantity_list.each do |stock_quantity| %>
                       <a class="dropdown-item p-1 click-product-quantity" href="javascript:void(0)" data-quantity="<%= stock_quantity %>"><span><%= stock_quantity == 10 ? '10+' : stock_quantity%></span></a>
                     <% end %>
                   </div>
@@ -163,21 +164,504 @@
       </div>
     </div>
     <div class="container-fluid">
+
       <div class="row justify-content-center">
         <div class="col-lg-12">
           <div class="yo-offwhite-card pdp-slick-bg mx-lg-4 mb-5 mt-4">
             <div class="text-center">
-              <label class="lable-tag btn btn-sm btn-radius px-4 btn-danger py-2 pdp-label-tag">
-                MORE
-                FORM THIS SELLER</label>
+              <label class="lable-tag btn btn-sm btn-radius px-4 btn-danger no-hover py-2 pdp-label-tag">
+                BUNDLE POWERED DEALS</label>
             </div>
             <div class="pdp-slick-slider">
               <div>
                 <div class="pdp-card mt-4">
-                  <div class="pdp-img">
-                    <%= image_tag "Image496.png" %>
-                    <label class="lable-tag btn btn-sm btn-radius-6 px-4 btn-danger py-0"><span
-                      class="icon-Yavolo-top-seller-icon mr-2"></span> Top
+                  <div class="pdp-img p-0">
+                    <div class="">
+                      <div class="text-right">
+                      <span>
+                          <%= image_tag "badge.png", class:"mr-0 mt-4 mb-3 bundling-label-img" %>
+                      </span>
+                      </div>
+                      <div class="row align-items-center p-2">
+                        <div class="col-8 d-flex flex-column">
+                          <div class="yo-white-card p-2 relative d-flex justify-content-center align-items-center flex-column">
+                              <span class="bundling-main-img">
+                                  <%= image_tag "Image496.png" %>
+                              </span>
+                            <span class="plus-bundling">+</span>
+                          </div>
+                        </div>
+                        <div class="col-4 d-flex">
+                          <div class="flex1">
+                            <div class="yo-white-card p-2 mb-4 radius-0">
+                                  <span class="bundling-img-rest">
+                                      <%= image_tag "Image496.png" %>
+                                  </span>
+                            </div>
+                            <div class="yo-white-card p-2 radius-0">
+                                  <span class="bundling-img-rest">
+                                      <%= image_tag "Image496.png" %>
+                                  </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="text-right pr-3 pb-3">
+                        <h5 class="font-14px"> A good deal better.</h5>
+                      </div>
+                    </div>
+                    <label class="lable-tag btn btn-sm btn-radius-6 px-4 btn-danger py-0"><span class="icon-Yavolo-top-seller-icon mr-2"></span> Top
+                      Seller</label>
+                  </div>
+
+                  <div class="pdp-body">
+                    <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                      Mugs
+                      Bundle</p>
+                    <ul class="rating d-flex">
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                    </ul>
+                    <p class="pdp-price black-text">£229.99</p>
+
+
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="pdp-card mt-4">
+                  <div class="pdp-img p-0">
+                    <div class="">
+                      <div class="text-right">
+                          <span>
+                              <%= image_tag "badge.png", class:"mr-0 mt-4 mb-3 bundling-label-img" %>
+                          </span>
+                      </div>
+                      <div class="row align-items-center p-2">
+                        <div class="col-8 d-flex flex-column">
+                          <div class="yo-white-card p-2 relative d-flex justify-content-center align-items-center flex-column">
+                                  <span class="bundling-main-img">
+                                      <%= image_tag "Image496.png" %>
+                                  </span>
+                            <span class="plus-bundling">+</span>
+                          </div>
+                        </div>
+                        <div class="col-4 d-flex">
+                          <div class="flex1">
+                            <div class="yo-white-card p-2 mb-4 radius-0">
+                                      <span class="bundling-img-rest">
+                                          <%= image_tag "Image496.png" %>
+                                      </span>
+                            </div>
+                            <div class="yo-white-card p-2 radius-0">
+                                      <span class="bundling-img-rest">
+                                          <%= image_tag "Image496.png" %>
+                                      </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="text-right pr-3 pb-3">
+                        <h5 class="font-14px"> A good deal better.</h5>
+                      </div>
+                    </div>
+                    <label class="lable-tag btn btn-sm btn-radius-6 px-4 btn-danger py-0"><span class="icon-Yavolo-top-seller-icon mr-2"></span> Top
+                      Seller</label>
+                  </div>
+
+                  <div class="pdp-body">
+                    <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                      Mugs
+                      Bundle</p>
+                    <ul class="rating d-flex">
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                    </ul>
+                    <p class="pdp-price black-text">£229.99</p>
+
+
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="pdp-card mt-4">
+                  <div class="pdp-img p-0">
+                    <div class="">
+                      <div class="text-right">
+                        <span>
+                            <%= image_tag "badge.png", class:"mr-0 mt-4 mb-3 bundling-label-img" %>
+                        </span>
+                      </div>
+                      <div class="row align-items-center p-2">
+                        <div class="col-8 d-flex flex-column">
+                          <div class="yo-white-card p-2 relative d-flex justify-content-center align-items-center flex-column">
+                                <span class="bundling-main-img">
+                                    <%= image_tag "Image496.png" %>
+                                </span>
+                            <span class="plus-bundling">+</span>
+                          </div>
+                        </div>
+                        <div class="col-4 d-flex">
+                          <div class="flex1">
+                            <div class="yo-white-card p-2 mb-4 radius-0">
+                                    <span class="bundling-img-rest">
+                                        <%= image_tag "Image496.png" %>
+                                    </span>
+                            </div>
+                            <div class="yo-white-card p-2 radius-0">
+                                    <span class="bundling-img-rest">
+                                        <%= image_tag "Image496.png" %>
+                                    </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="text-right pr-3 pb-3">
+                        <h5 class="font-14px"> A good deal better.</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="pdp-body">
+                    <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                      Mugs
+                      Bundle</p>
+                    <ul class="rating d-flex">
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                    </ul>
+                    <p class="pdp-price black-text">£229.99</p>
+
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="pdp-card mt-4">
+                  <div class="pdp-img p-0">
+                    <div class="">
+                      <div class="text-right">
+                        <span>
+                            <%= image_tag "badge.png", class:"mr-0 mt-4 mb-3 bundling-label-img" %>
+                        </span>
+                      </div>
+                      <div class="row align-items-center p-2">
+                        <div class="col-8 d-flex flex-column">
+                          <div class="yo-white-card p-2 relative d-flex justify-content-center align-items-center flex-column">
+                                <span class="bundling-main-img">
+                                    <%= image_tag "Image496.png" %>
+                                </span>
+                            <span class="plus-bundling">+</span>
+                          </div>
+                        </div>
+                        <div class="col-4 d-flex">
+                          <div class="flex1">
+                            <div class="yo-white-card p-2 mb-4 radius-0">
+                                    <span class="bundling-img-rest">
+                                        <%= image_tag "Image496.png" %>
+                                    </span>
+                            </div>
+                            <div class="yo-white-card p-2 radius-0">
+                                    <span class="bundling-img-rest">
+                                        <%= image_tag "Image496.png" %>
+                                    </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="text-right pr-3 pb-3">
+                        <h5 class="font-14px"> A good deal better.</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="pdp-body">
+                    <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                      Mugs
+                      Bundle</p>
+                    <ul class="rating d-flex">
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                    </ul>
+                    <p class="pdp-price black-text">£229.99</p>
+
+
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="pdp-card mt-4">
+                  <div class="pdp-img p-0">
+                    <div class="">
+                      <div class="text-right">
+                        <span>
+                            <%= image_tag "badge.png", class:"mr-0 mt-4 mb-3 bundling-label-img" %>
+                        </span>
+                      </div>
+                      <div class="row align-items-center p-2">
+                        <div class="col-8 d-flex flex-column">
+                          <div class="yo-white-card p-2 relative d-flex justify-content-center align-items-center flex-column">
+                                <span class="bundling-main-img">
+                                    <%= image_tag "Image496.png" %>
+                                </span>
+                            <span class="plus-bundling">+</span>
+                          </div>
+                        </div>
+                        <div class="col-4 d-flex">
+                          <div class="flex1">
+                            <div class="yo-white-card p-2 mb-4 radius-0">
+                                    <span class="bundling-img-rest">
+                                        <%= image_tag "Image496.png" %>
+                                    </span>
+                            </div>
+                            <div class="yo-white-card p-2 radius-0">
+                                    <span class="bundling-img-rest">
+                                        <%= image_tag "Image496.png" %>
+                                    </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="text-right pr-3 pb-3">
+                        <h5 class="font-14px"> A good deal better.</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="pdp-body">
+                    <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                      Mugs
+                      Bundle</p>
+                    <ul class="rating d-flex">
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                    </ul>
+                    <p class="pdp-price black-text">£229.99</p>
+
+
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="pdp-card mt-4">
+                  <div class="pdp-img p-0">
+                    <div class="">
+                      <div class="text-right">
+                        <span>
+                            <%= image_tag "badge.png", class:"mr-0 mt-4 mb-3 bundling-label-img" %>
+                        </span>
+                      </div>
+                      <div class="row align-items-center p-2">
+                        <div class="col-8 d-flex flex-column">
+                          <div class="yo-white-card p-2 relative d-flex justify-content-center align-items-center flex-column">
+                                <span class="bundling-main-img">
+                                    <%= image_tag "Image496.png" %>
+                                </span>
+                            <span class="plus-bundling">+</span>
+                          </div>
+                        </div>
+                        <div class="col-4 d-flex">
+                          <div class="flex1">
+                            <div class="yo-white-card p-2 mb-4 radius-0">
+                                    <span class="bundling-img-rest">
+                                        <%= image_tag "Image496.png" %>
+                                    </span>
+                            </div>
+                            <div class="yo-white-card p-2 radius-0">
+                                    <span class="bundling-img-rest">
+                                        <%= image_tag "Image496.png" %>
+                                    </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="text-right pr-3 pb-3">
+                        <h5 class="font-14px"> A good deal better.</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="pdp-body">
+                    <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                      Mugs
+                      Bundle</p>
+                    <ul class="rating d-flex">
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                    </ul>
+                    <p class="pdp-price black-text">£229.99</p>
+
+
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="pdp-card mt-4">
+                  <div class="pdp-img p-0">
+                    <div class="">
+                      <div class="text-right">
+                        <span>
+                            <%= image_tag "badge.png", class:"mr-0 mt-4 mb-3 bundling-label-img" %>
+                        </span>
+                      </div>
+                      <div class="row align-items-center p-2">
+                        <div class="col-8 d-flex flex-column">
+                          <div class="yo-white-card p-2 relative d-flex justify-content-center align-items-center flex-column">
+                                <span class="bundling-main-img">
+                                    <%= image_tag "Image496.png" %>
+                                </span>
+                            <span class="plus-bundling">+</span>
+                          </div>
+                        </div>
+                        <div class="col-4 d-flex">
+                          <div class="flex1">
+                            <div class="yo-white-card p-2 mb-4 radius-0">
+                                    <span class="bundling-img-rest">
+                                        <%= image_tag "Image496.png" %>
+                                    </span>
+                            </div>
+                            <div class="yo-white-card p-2 radius-0">
+                                    <span class="bundling-img-rest">
+                                        <%= image_tag "Image496.png" %>
+                                    </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="text-right pr-3 pb-3">
+                        <h5 class="font-14px"> A good deal better.</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="pdp-body">
+                    <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                      Mugs
+                      Bundle</p>
+                    <ul class="rating d-flex">
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                    </ul>
+                    <p class="pdp-price black-text">£229.99</p>
+
+
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="pdp-card mt-4">
+                  <div class="pdp-img p-0">
+                    <div class="">
+                      <div class="text-right">
+                        <span>
+                            <%= image_tag "badge.png", class:"mr-0 mt-4 mb-3 bundling-label-img" %>
+                        </span>
+                      </div>
+                      <div class="row align-items-center p-2">
+                        <div class="col-8 d-flex flex-column">
+                          <div class="yo-white-card p-2 relative d-flex justify-content-center align-items-center flex-column">
+                                <span class="bundling-main-img">
+                                    <%= image_tag "Image496.png" %>
+                                </span>
+                            <span class="plus-bundling">+</span>
+                          </div>
+                        </div>
+                        <div class="col-4 d-flex">
+                          <div class="flex1">
+                            <div class="yo-white-card p-2 mb-4 radius-0">
+                                    <span class="bundling-img-rest">
+                                        <%= image_tag "Image496.png" %>
+                                    </span>
+                            </div>
+                            <div class="yo-white-card p-2 radius-0">
+                                    <span class="bundling-img-rest">
+                                        <%= image_tag "Image496.png" %>
+                                    </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="text-right pr-3 pb-3">
+                        <h5 class="font-14px"> A good deal better.</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="pdp-body">
+                    <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                      Mugs
+                      Bundle</p>
+                    <ul class="rating d-flex">
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                    </ul>
+                    <p class="pdp-price black-text">£229.99</p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="pdp-card mt-4">
+                  <div class="pdp-img p-0">
+                    <div class="">
+                      <div class="text-right">
+                        <span>
+                            <%= image_tag "badge.png", class:"mr-0 mt-4 mb-3 bundling-label-img" %>
+                        </span>
+                      </div>
+                      <div class="row align-items-center p-2">
+                        <div class="col-8 d-flex flex-column">
+                          <div class="yo-white-card p-2 relative d-flex justify-content-center align-items-center flex-column">
+                                <span class="bundling-main-img">
+                                    <%= image_tag "Image496.png" %>
+                                </span>
+                            <span class="plus-bundling">+</span>
+                          </div>
+                        </div>
+                        <div class="col-4 d-flex">
+                          <div class="flex1">
+                            <div class="yo-white-card p-2 mb-4 radius-0">
+                                    <span class="bundling-img-rest">
+                                        <%= image_tag "Image496.png" %>
+                                    </span>
+                            </div>
+                            <div class="yo-white-card p-2 radius-0">
+                                    <span class="bundling-img-rest">
+                                        <%= image_tag "Image496.png" %>
+                                    </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="text-right pr-3 pb-3">
+                        <h5 class="font-14px"> A good deal better.</h5>
+                      </div>
+                    </div>
+                    <label class="lable-tag btn btn-sm btn-radius-6 px-4 btn-danger py-0"><span class="icon-Yavolo-top-seller-icon mr-2"></span> Top
                       Seller</label>
                   </div>
                   <div class="pdp-body">
@@ -193,244 +677,7 @@
                       <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
                     </ul>
                     <p class="pdp-price black-text">£229.99</p>
-                    <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
-                      basket</a>
-                    <div class="d-flex delivery-note align-items-center py-3">
-                      <span class="icon-orders--delivery"></span>
-                      <span class="in-text">FREE 1-Day Delivery <br/>Get it
-                                                    tomorrow</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div class="pdp-card mt-4">
-                  <div class="pdp-img">
-                    <%= image_tag "Image496.png" %>
-                  </div>
-                  <div class="pdp-body">
-                    <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
-                      Mugs
-                      Bundle</p>
-                    <ul class="rating d-flex">
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1"><span class="icon-star"></span></li>
-                      <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
-                    </ul>
-                    <p class="pdp-price black-text">£229.99</p>
-                    <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
-                      basket</a>
-                    <div class="d-flex delivery-note align-items-center py-3">
-                      <span class="icon-orders--delivery"></span>
-                      <span class="in-text">FREE 1-Day Delivery <br/>Get it
-                                                    tomorrow</span>
-                    </div>
 
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div class="pdp-card mt-4">
-                  <div class="pdp-img">
-                    <%= image_tag "Image496.png" %>
-                  </div>
-                  <div class="pdp-body">
-                    <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
-                      Mugs
-                      Bundle</p>
-                    <ul class="rating d-flex">
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1"><span class="icon-star"></span></li>
-                      <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
-                    </ul>
-                    <p class="pdp-price black-text">£229.99</p>
-                    <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
-                      basket</a>
-                    <div class="d-flex delivery-note align-items-center py-3">
-                      <span class="icon-orders--delivery"></span>
-                      <span class="in-text">FREE 1-Day Delivery <br/>Get it
-                                                    tomorrow</span>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div class="pdp-card mt-4">
-                  <div class="pdp-img">
-                    <%= image_tag "Image496.png" %>
-                  </div>
-                  <div class="pdp-body">
-                    <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
-                      Mugs
-                      Bundle</p>
-                    <ul class="rating d-flex">
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1"><span class="icon-star"></span></li>
-                      <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
-                    </ul>
-                    <p class="pdp-price black-text">£229.99</p>
-                    <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
-                      basket</a>
-                    <div class="d-flex delivery-note align-items-center py-3">
-                      <span class="icon-orders--delivery"></span>
-                      <span class="in-text">FREE 1-Day Delivery <br/>Get it
-                                                    tomorrow</span>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div class="pdp-card mt-4">
-                  <div class="pdp-img">
-                    <%= image_tag "Image496.png" %>
-                  </div>
-                  <div class="pdp-body">
-                    <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
-                      Mugs
-                      Bundle</p>
-                    <ul class="rating d-flex">
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1"><span class="icon-star"></span></li>
-                      <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
-                    </ul>
-                    <p class="pdp-price black-text">£229.99</p>
-                    <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
-                      basket</a>
-                    <div class="d-flex delivery-note align-items-center py-3">
-                      <span class="icon-orders--delivery"></span>
-                      <span class="in-text">FREE 1-Day Delivery <br/>Get it
-                                                    tomorrow</span>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div class="pdp-card mt-4">
-                  <div class="pdp-img">
-                    <%= image_tag "Image496.png" %>
-                  </div>
-                  <div class="pdp-body">
-                    <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
-                      Mugs
-                      Bundle</p>
-                    <ul class="rating d-flex">
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1"><span class="icon-star"></span></li>
-                      <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
-                    </ul>
-                    <p class="pdp-price black-text">£229.99</p>
-                    <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
-                      basket</a>
-                    <div class="d-flex delivery-note align-items-center py-3">
-                      <span class="icon-orders--delivery"></span>
-                      <span class="in-text">FREE 1-Day Delivery <br/>Get it
-                                                    tomorrow</span>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div class="pdp-card mt-4">
-                  <div class="pdp-img">
-                    <%= image_tag "Image496.png" %>
-                  </div>
-                  <div class="pdp-body">
-                    <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
-                      Mugs
-                      Bundle</p>
-                    <ul class="rating d-flex">
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1"><span class="icon-star"></span></li>
-                      <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
-                    </ul>
-                    <p class="pdp-price black-text">£229.99</p>
-                    <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
-                      basket</a>
-                    <div class="d-flex delivery-note align-items-center py-3">
-                      <span class="icon-orders--delivery"></span>
-                      <span class="in-text">FREE 1-Day Delivery <br/>Get it
-                                                    tomorrow</span>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div class="pdp-card mt-4">
-                  <div class="pdp-img">
-                    <%= image_tag "Image496.png" %>
-                  </div>
-                  <div class="pdp-body">
-                    <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
-                      Mugs
-                      Bundle</p>
-                    <ul class="rating d-flex">
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1"><span class="icon-star"></span></li>
-                      <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
-                    </ul>
-                    <p class="pdp-price black-text">£229.99</p>
-                    <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
-                      basket</a>
-                    <div class="d-flex delivery-note align-items-center py-3">
-                      <span class="icon-orders--delivery"></span>
-                      <span class="in-text">FREE 1-Day Delivery <br/>Get it
-                                                    tomorrow</span>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div class="pdp-card mt-4">
-                  <div class="pdp-img">
-                    <%= image_tag "Image496.png" %>
-                  </div>
-                  <div class="pdp-body">
-                    <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
-                      Mugs
-                      Bundle</p>
-                    <ul class="rating d-flex">
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1 active"><span class="icon-star"></span></li>
-                      <li class="mr-1"><span class="icon-star"></span></li>
-                      <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
-                    </ul>
-                    <p class="pdp-price black-text">£229.99</p>
-                    <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
-                      basket</a>
-                    <div class="d-flex delivery-note align-items-center py-3">
-                      <span class="icon-orders--delivery"></span>
-                      <span class="in-text">FREE 1-Day Delivery <br/>Get it
-                                                    tomorrow</span>
-                    </div>
 
                   </div>
                 </div>
@@ -439,11 +686,15 @@
           </div>
         </div>
       </div>
+
       <div class="row justify-content-center">
         <div class="col-lg-12">
           <div class="mx-lg-4">
+            <div class="text-center justify-content-center d-flex">
+              <h5 class="mb-3 bundling-title-border">SIMILAR PRODUCTS</h5>
+            </div>
             <div class="d-flex justify-content-between pdp-slick-bg align-items-center flex-wrap mx-3">
-              <h5 class="mb-3">Similar Products</h5>
+              <h5 class="mb-3 bundling-title-border"></h5>
               <p class="mt-2 mm-text pr-5 mr-5 similar-page-pd">Page <span>1</span>of <span>3</span>
               </p>
             </div>
@@ -641,13 +892,13 @@
           </div>
         </div>
       </div>
+
       <div class="row justify-content-center">
         <div class="col-lg-12">
           <div class="yo-offwhite-card pdp-slick-bg mx-lg-4 mb-5 mt-4">
             <div class="text-center">
-              <label class="lable-tag btn btn-sm btn-radius px-4 btn-danger py-2 pdp-label-tag">
-                MORE
-                FORM THIS SELLER</label>
+              <label class="lable-tag btn btn-sm btn-radius px-4 btn-danger no-hover py-2 pdp-label-tag">
+                MORE FROM THIS SELLER</label>
             </div>
             <div class="pdp-slick-slider">
               <div>
@@ -917,11 +1168,1650 @@
           </div>
         </div>
       </div>
+
       <div class="row justify-content-center">
         <div class="col-lg-12">
           <div class="mx-lg-4">
+            <div class="text-center justify-content-center d-flex">
+              <h5 class="mb-3 bundling-title-border">NEW IN VIDEO GAMES</h5>
+            </div>
             <div class="d-flex justify-content-between pdp-slick-bg align-items-center flex-wrap mx-3">
-              <h5 class="mb-3">Similar Products</h5>
+              <h5 class="mb-3 bundling-title-border"></h5>
+              <p class="mt-2 mm-text pr-5 mr-5 similar-page-pd">Page <span>1</span>of <span>3</span>
+              </p>
+            </div>
+            <div class="pdp-nbg-slick-slider pdp-slick-bg">
+              <div class="pdp-card mt-4">
+                <div class="pdp-img">
+                  <%= image_tag "Image496.png" %>
+                  <label class="lable-tag btn btn-sm btn-radius-6 px-4 btn-danger py-0"><span
+                    class="icon-Yavolo-top-seller-icon mr-2"></span> Top Seller</label>
+                </div>
+                <div class="pdp-body">
+                  <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72 Mugs
+                    Bundle
+                  </p>
+                  <ul class="rating d-flex">
+                    <li class="mr-1 active"><span class="icon-star"></span></li>
+                    <li class="mr-1 active"><span class="icon-star"></span></li>
+                    <li class="mr-1 active"><span class="icon-star"></span></li>
+                    <li class="mr-1 active"><span class="icon-star"></span></li>
+                    <li class="mr-1"><span class="icon-star"></span></li>
+                    <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                  </ul>
+                  <p class="pdp-price black-text">£229.99</p>
+                </div>
+              </div>
+              <div>
+                <div class="pdp-card mt-4">
+                  <div class="pdp-img">
+                    <%= image_tag "Image496.png" %>
+                  </div>
+                  <div class="pdp-body">
+                    <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                      Mugs
+                      Bundle</p>
+                    <ul class="rating d-flex">
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                    </ul>
+                    <p class="pdp-price black-text">£229.99</p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="pdp-card mt-4">
+                  <div class="pdp-img">
+                    <%= image_tag "Image496.png" %>
+                  </div>
+                  <div class="pdp-body">
+                    <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                      Mugs
+                      Bundle</p>
+                    <ul class="rating d-flex">
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                    </ul>
+                    <p class="pdp-price black-text">£229.99</p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="pdp-card mt-4">
+                  <div class="pdp-img">
+                    <%= image_tag "Image496.png" %>
+                  </div>
+                  <div class="pdp-body">
+                    <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                      Mugs
+                      Bundle</p>
+                    <ul class="rating d-flex">
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                    </ul>
+                    <p class="pdp-price black-text">£229.99</p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="pdp-card mt-4">
+                  <div class="pdp-img">
+                    <%= image_tag "Image496.png" %>
+                  </div>
+                  <div class="pdp-body">
+                    <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                      Mugs
+                      Bundle</p>
+                    <ul class="rating d-flex">
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                    </ul>
+                    <p class="pdp-price black-text">£229.99</p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="pdp-card mt-4">
+                  <div class="pdp-img">
+                    <%= image_tag "Image496.png" %>
+                  </div>
+                  <div class="pdp-body">
+                    <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                      Mugs
+                      Bundle</p>
+                    <ul class="rating d-flex">
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                    </ul>
+                    <p class="pdp-price black-text">£229.99</p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="pdp-card mt-4">
+                  <div class="pdp-img">
+                    <%= image_tag "Image496.png" %>
+                  </div>
+                  <div class="pdp-body">
+                    <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                      Mugs
+                      Bundle</p>
+                    <ul class="rating d-flex">
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                    </ul>
+                    <p class="pdp-price black-text">£229.99</p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="pdp-card mt-4">
+                  <div class="pdp-img">
+                    <%= image_tag "Image496.png" %>
+                  </div>
+                  <div class="pdp-body">
+                    <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                      Mugs
+                      Bundle</p>
+                    <ul class="rating d-flex">
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                    </ul>
+                    <p class="pdp-price black-text">£229.99</p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="pdp-card mt-4">
+                  <div class="pdp-img">
+                    <%= image_tag "Image496.png" %>
+                  </div>
+                  <div class="pdp-body">
+                    <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                      Mugs
+                      Bundle</p>
+                    <ul class="rating d-flex">
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1 active"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="icon-star"></span></li>
+                      <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                    </ul>
+                    <p class="pdp-price black-text">£229.99</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-12">
+          <div class="yo-offwhite-card pdp-slick-bg mx-lg-4 mb-5 mt-4">
+
+            <div class="text-center">
+              <label class="lable-tag btn btn-sm btn-radius px-4 btn-danger py-2 pdp-label-tag">
+                LAST CHANCE BUNDLES</label>
+            </div>
+            <ul class="nav d-flex justify-content-around my-4 flex-wrap bundling-tabs-links" id="myTab" role="tablist">
+              <li>
+                <a class="mx-3 decoration-none active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Most Popular</a>
+              </li>
+              <li>
+                <a class="mx-3 decoration-none " id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Electronics</a>
+              </li>
+              <li>
+                <a class="mx-3 decoration-none " id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Home & DIY</a>
+              </li>
+              <li>
+                <a class="mx-3 decoration-none " id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Pet Supplies</a>
+              </li>
+              <li>
+                <a class="mx-3 decoration-none " id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Supporting Goods</a>
+              </li>
+              <li>
+                <a class="mx-3 decoration-none " id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Toys & Games</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="pdp-slick-slider">
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                        <label class="lable-tag btn btn-sm btn-radius-6 px-4 btn-danger py-0"><span
+                          class="icon-Yavolo-top-seller-icon mr-2"></span> Top
+                          Seller</label>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs
+                          Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs
+                          Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs
+                          Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs
+                          Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs
+                          Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs
+                          Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs
+                          Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs
+                          Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="pdp-slick-slider">
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                        <label class="lable-tag btn btn-sm btn-radius-6 px-4 btn-danger py-0"><span
+                          class="icon-Yavolo-top-seller-icon mr-2"></span> Top
+                          Seller</label>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs
+                          Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs
+                          Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs
+                          Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs
+                          Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs
+                          Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs
+                          Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="pdp-slick-slider">
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img p-0">
+                        <div class="">
+                          <div class="text-right">
+                                                            <span>
+                                                            <%= image_tag "badge.png", class: "mr-0 mt-4 mb-3 bundling-label-img", alt:"" %>
+                                                            </span>
+                          </div>
+                          <div class="row align-items-center p-2">
+                            <div class="col-8 d-flex flex-column">
+                              <div
+                                class="yo-white-card p-2 relative d-flex justify-content-center align-items-center flex-column">
+                                                                    <span class="bundling-main-img">
+                                                                        <%= image_tag "profile.jpg"%>
+                                                                    </span>
+                                <span class="plus-bundling">+</span>
+
+                              </div>
+                            </div>
+                            <div class="col-4 d-flex">
+                              <div class="flex1">
+                                <div class="yo-white-card p-2 mb-4 radius-0">
+                                                                        <span class="bundling-img-rest">
+                                                                            <%= image_tag "profile.jpg"%>
+                                                                        </span>
+                                </div>
+                                <div class="yo-white-card p-2 radius-0">
+                                                                        <span class="bundling-img-rest">
+                                                                            <%= image_tag "profile.jpg"%>
+                                                                        </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-right pr-3 pb-3">
+                            <h5 class="font-14px"> A good deal better.</h5>
+                          </div>
+                        </div>
+
+                        <!-- <label class="lable-tag btn btn-sm btn-radius-6 px-4 btn-danger py-0"><span
+                                class="icon-Yavolo-top-seller-icon mr-2"></span> Top
+                            Seller</label> -->
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs
+                          Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img p-0">
+                        <div class="">
+                          <div class="text-right">
+                                                            <span>
+                                                              <%= image_tag "badge.png", class: "mr-0 mt-4 mb-3 bundling-label-img", alt:"" %>
+                                                            </span>
+                          </div>
+                          <div class="row align-items-center p-2">
+                            <div class="col-8 d-flex flex-column">
+                              <div
+                                class="yo-white-card p-2 relative d-flex justify-content-center align-items-center flex-column">
+                                                                    <span class="bundling-main-img">
+                                                                        <%= image_tag "profile.jpg"%>
+                                                                    </span>
+                                <span class="plus-bundling">+</span>
+
+                              </div>
+                            </div>
+                            <div class="col-4 d-flex">
+                              <div class="flex1">
+                                <div class="yo-white-card p-2 mb-4 radius-0">
+                                                                        <span class="bundling-img-rest">
+                                                                            <%= image_tag "profile.jpg"%>
+                                                                        </span>
+                                </div>
+                                <div class="yo-white-card p-2 radius-0">
+                                                                        <span class="bundling-img-rest">
+                                                                            <%= image_tag "profile.jpg"%>
+                                                                        </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-right pr-3 pb-3">
+                            <h5 class="font-14px"> A good deal better.</h5>
+                          </div>
+                        </div>
+
+                        <!-- <label class="lable-tag btn btn-sm btn-radius-6 px-4 btn-danger py-0"><span
+                                class="icon-Yavolo-top-seller-icon mr-2"></span> Top
+                            Seller</label> -->
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs
+                          Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img p-0">
+                        <div class="">
+                          <div class="text-right">
+                                                            <span>
+                                                              <%= image_tag "badge.png", class: "mr-0 mt-4 mb-3 bundling-label-img", alt:"" %>
+                                                            </span>
+                          </div>
+                          <div class="row align-items-center p-2">
+                            <div class="col-8 d-flex flex-column">
+                              <div
+                                class="yo-white-card p-2 relative d-flex justify-content-center align-items-center flex-column">
+                                                                    <span class="bundling-main-img">
+                                                                        <%= image_tag "profile.jpg"%>
+                                                                    </span>
+                                <span class="plus-bundling">+</span>
+
+                              </div>
+                            </div>
+                            <div class="col-4 d-flex">
+                              <div class="flex1">
+                                <div class="yo-white-card p-2 mb-4 radius-0">
+                                                                        <span class="bundling-img-rest">
+                                                                            <%= image_tag "profile.jpg"%>
+                                                                        </span>
+                                </div>
+                                <div class="yo-white-card p-2 radius-0">
+                                                                        <span class="bundling-img-rest">
+                                                                            <%= image_tag "profile.jpg"%>
+                                                                        </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-right pr-3 pb-3">
+                            <h5 class="font-14px"> A good deal better.</h5>
+                          </div>
+                        </div>
+
+                        <label class="lable-tag btn btn-sm btn-radius-6 px-4 btn-danger py-0"><span
+                          class="icon-Yavolo-top-seller-icon mr-2"></span> Top
+                          Seller</label>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs
+                          Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img p-0">
+                        <div class="">
+                          <div class="text-right">
+                                                            <span>
+                                                              <%= image_tag "badge.png", class: "mr-0 mt-4 mb-3 bundling-label-img", alt:"" %>
+                                                            </span>
+                          </div>
+                          <div class="row align-items-center p-2">
+                            <div class="col-8 d-flex flex-column">
+                              <div
+                                class="yo-white-card p-2 relative d-flex justify-content-center align-items-center flex-column">
+                                                                    <span class="bundling-main-img">
+                                                                        <%= image_tag "Image496.png" %>
+                                                                    </span>
+                                <span class="plus-bundling">+</span>
+
+                              </div>
+                            </div>
+                            <div class="col-4 d-flex">
+                              <div class="flex1">
+                                <div class="yo-white-card p-2 mb-4 radius-0">
+                                                                        <span class="bundling-img-rest">
+                                                                            <%= image_tag "Image496.png" %>
+                                                                        </span>
+                                </div>
+                                <div class="yo-white-card p-2 radius-0">
+                                                                        <span class="bundling-img-rest">
+                                                                            <%= image_tag "Image496.png" %>
+                                                                        </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-right pr-3 pb-3">
+                            <h5 class="font-14px"> A good deal better.</h5>
+                          </div>
+                        </div>
+
+                        <label class="lable-tag btn btn-sm btn-radius-6 px-4 btn-danger py-0"><span
+                          class="icon-Yavolo-top-seller-icon mr-2"></span> Top
+                          Seller</label>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs
+                          Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img p-0">
+                        <div class="">
+                          <div class="text-right">
+                                                            <span>
+                                                              <%= image_tag "badge.png", class: "mr-0 mt-4 mb-3 bundling-label-img", alt:"" %>
+                                                            </span>
+                          </div>
+                          <div class="row align-items-center p-2">
+                            <div class="col-8 d-flex flex-column">
+                              <div
+                                class="yo-white-card p-2 relative d-flex justify-content-center align-items-center flex-column">
+                                                                    <span class="bundling-main-img">
+                                                                        <%= image_tag "profile.jpg"%>
+                                                                    </span>
+                                <span class="plus-bundling">+</span>
+
+                              </div>
+                            </div>
+                            <div class="col-4 d-flex">
+                              <div class="flex1">
+                                <div class="yo-white-card p-2 mb-4 radius-0">
+                                                                        <span class="bundling-img-rest">
+                                                                            <%= image_tag "profile.jpg"%>
+                                                                        </span>
+                                </div>
+                                <div class="yo-white-card p-2 radius-0">
+                                                                        <span class="bundling-img-rest">
+                                                                            <%= image_tag "profile.jpg"%>
+                                                                        </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-right pr-3 pb-3">
+                            <h5 class="font-14px"> A good deal better.</h5>
+                          </div>
+                        </div>
+
+                        <!-- <label class="lable-tag btn btn-sm btn-radius-6 px-4 btn-danger py-0"><span
+                                class="icon-Yavolo-top-seller-icon mr-2"></span> Top
+                            Seller</label> -->
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs
+                          Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img p-0">
+                        <div class="">
+                          <div class="text-right">
+                                                            <span>
+                                                              <%= image_tag "badge.png", class: "mr-0 mt-4 mb-3 bundling-label-img", alt:"" %>
+                                                            </span>
+                          </div>
+                          <div class="row align-items-center p-2">
+                            <div class="col-8 d-flex flex-column">
+                              <div
+                                class="yo-white-card p-2 relative d-flex justify-content-center align-items-center flex-column">
+                                                                    <span class="bundling-main-img">
+                                                                        <%= image_tag "profile.jpg"%>
+                                                                    </span>
+                                <span class="plus-bundling">+</span>
+
+                              </div>
+                            </div>
+                            <div class="col-4 d-flex">
+                              <div class="flex1">
+                                <div class="yo-white-card p-2 mb-4 radius-0">
+                                                                        <span class="bundling-img-rest">
+                                                                            <%= image_tag "profile.jpg"%>
+                                                                        </span>
+                                </div>
+                                <div class="yo-white-card p-2 radius-0">
+                                                                        <span class="bundling-img-rest">
+                                                                            <%= image_tag "profile.jpg"%>
+                                                                        </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-right pr-3 pb-3">
+                            <h5 class="font-14px"> A good deal better.</h5>
+                          </div>
+                        </div>
+
+                        <label class="lable-tag btn btn-sm btn-radius-6 px-4 btn-danger py-0"><span
+                          class="icon-Yavolo-top-seller-icon mr-2"></span> Top
+                          Seller</label>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs
+                          Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img p-0">
+                        <div class="">
+                          <div class="text-right">
+                                                            <span>
+                                                              <%= image_tag "badge.png", class: "mr-0 mt-4 mb-3 bundling-label-img", alt:"" %>
+                                                            </span>
+                          </div>
+                          <div class="row align-items-center p-2">
+                            <div class="col-8 d-flex flex-column">
+                              <div
+                                class="yo-white-card p-2 relative d-flex justify-content-center align-items-center flex-column">
+                                                                    <span class="bundling-main-img">
+                                                                        <%= image_tag "profile.jpg"%>
+                                                                    </span>
+                                <span class="plus-bundling">+</span>
+
+                              </div>
+                            </div>
+                            <div class="col-4 d-flex">
+                              <div class="flex1">
+                                <div class="yo-white-card p-2 mb-4 radius-0">
+                                                                        <span class="bundling-img-rest">
+                                                                            <%= image_tag "profile.jpg"%>
+                                                                        </span>
+                                </div>
+                                <div class="yo-white-card p-2 radius-0">
+                                                                        <span class="bundling-img-rest">
+                                                                            <%= image_tag "profile.jpg"%>
+                                                                        </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-right pr-3 pb-3">
+                            <h5 class="font-14px"> A good deal better.</h5>
+                          </div>
+                        </div>
+
+                        <!-- <label class="lable-tag btn btn-sm btn-radius-6 px-4 btn-danger py-0"><span
+                                class="icon-Yavolo-top-seller-icon mr-2"></span> Top
+                            Seller</label> -->
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs
+                          Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img p-0">
+                        <div class="">
+                          <div class="text-right">
+                                                            <span>
+                                                              <%= image_tag "badge.png", class: "mr-0 mt-4 mb-3 bundling-label-img", alt:"" %>
+                                                            </span>
+                          </div>
+                          <div class="row align-items-center p-2">
+                            <div class="col-8 d-flex flex-column">
+                              <div
+                                class="yo-white-card p-2 relative d-flex justify-content-center align-items-center flex-column">
+                                                                    <span class="bundling-main-img">
+                                                                        <%= image_tag "profile.jpg"%>
+                                                                    </span>
+                                <span class="plus-bundling">+</span>
+
+                              </div>
+                            </div>
+                            <div class="col-4 d-flex">
+                              <div class="flex1">
+                                <div class="yo-white-card p-2 mb-4 radius-0">
+                                                                        <span class="bundling-img-rest">
+                                                                            <%= image_tag "profile.jpg"%>
+                                                                        </span>
+                                </div>
+                                <div class="yo-white-card p-2 radius-0">
+                                                                        <span class="bundling-img-rest">
+                                                                            <%= image_tag "profile.jpg"%>
+                                                                        </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-right pr-3 pb-3">
+                            <h5 class="font-14px"> A good deal better.</h5>
+                          </div>
+                        </div>
+
+                        <label class="lable-tag btn btn-sm btn-radius-6 px-4 btn-danger py-0"><span
+                          class="icon-Yavolo-top-seller-icon mr-2"></span> Top
+                          Seller</label>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img p-0">
+                        <div class="">
+                          <div class="text-right">
+                                                            <span>
+                                                              <%= image_tag "badge.png", class: "mr-0 mt-4 mb-3 bundling-label-img", alt:"" %>
+                                                            </span>
+                          </div>
+                          <div class="row align-items-center p-2">
+                            <div class="col-8 d-flex flex-column">
+                              <div
+                                class="yo-white-card p-2 relative d-flex justify-content-center align-items-center flex-column">
+                                                                    <span class="bundling-main-img">
+                                                                        <%= image_tag "profile.jpg"%>
+                                                                    </span>
+                                <span class="plus-bundling">+</span>
+
+                              </div>
+                            </div>
+                            <div class="col-4 d-flex">
+                              <div class="flex1">
+                                <div class="yo-white-card p-2 mb-4 radius-0">
+                                                                        <span class="bundling-img-rest">
+                                                                            <%= image_tag "profile.jpg"%>
+                                                                        </span>
+                                </div>
+                                <div class="yo-white-card p-2 radius-0">
+                                                                        <span class="bundling-img-rest">
+                                                                            <%= image_tag "profile.jpg"%>
+                                                                        </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-right pr-3 pb-3">
+                            <h5 class="font-14px"> A good deal better.</h5>
+                          </div>
+                        </div>
+
+                        <label class="lable-tag btn btn-sm btn-radius-6 px-4 btn-danger py-0"><span
+                          class="icon-Yavolo-top-seller-icon mr-2"></span> Top
+                          Seller</label>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="pdp-slick-slider">
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                        <label class="lable-tag btn btn-sm btn-radius-6 px-4 btn-danger py-0"><span
+                          class="icon-Yavolo-top-seller-icon mr-2"></span> Top
+                          Seller</label>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="pdp-card mt-4">
+                      <div class="pdp-img">
+                        <%= image_tag "Image496.png" %>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72
+                          Mugs
+                          Bundle</p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to
+                          basket</a>
+                        <div class="d-flex delivery-note align-items-center py-3">
+                          <span class="icon-orders--delivery"></span>
+                          <span class="in-text">FREE 1-Day Delivery <br />Get it
+                                                            tomorrow</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-12">
+          <div class="mx-lg-4">
+            <div class="text-center justify-content-center d-flex">
+              <h5 class="mb-3 bundling-title-border">YAVOLO REVIEWS</h5>
+            </div>
+            <div class="d-flex justify-content-between pdp-slick-bg align-items-center flex-wrap mx-3">
+              <h5 class="mb-3 bundling-title-border"></h5>
               <p class="mt-2 mm-text pr-5 mr-5 similar-page-pd">Page <span>1</span>of <span>3</span>
               </p>
             </div>
@@ -1146,6 +3036,7 @@
           </div>
         </div>
       </div>
+
     </div>
     <div class="subscribe-bottom">
       <div class="container-fluid ">
@@ -1181,10 +3072,10 @@
         });
     })
 
-    $('.pdp-nbg-slick-slider,.pdp-slick-slider,.pdp-review-vertical-slider').slick({
+    $('.pdp-nbg-slick-slider').not('.slick-initialized').slick({
         infinite: true,
         speed: 300,
-        slidesToShow: 5,
+        slidesToShow: 6,
         slidesToScroll: 1,
         autoplay: true,
         padding: 10,
@@ -1212,6 +3103,8 @@
             }
         ]
     });
+
+
 </script>
 
 <script>
@@ -1245,5 +3138,101 @@
         main.sync(thumbnails);
         main.mount();
         thumbnails.mount();
+    });
+
+    $('.pdp-slick-slider').not('.slick-initialized').slick({
+        infinite: true,
+        speed: 300,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        autoplay: true,
+        padding: 10,
+        responsive: [
+            {
+                breakpoint: 1025,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    });
+
+    $('.pdp-nbg-slick-slider').not('.slick-initialized').slick({
+        infinite: true,
+        speed: 300,
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        autoplay: true,
+        padding: 10,
+        responsive: [
+            {
+                breakpoint: 1025,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    });
+
+    $('.pdp-review-vertical-slider').not('.slick-initialized').slick({
+        infinite: true,
+        speed: 300,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        autoplay: true,
+        padding: 10,
+        responsive: [
+            {
+                breakpoint: 1025,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
     });
 </script>
