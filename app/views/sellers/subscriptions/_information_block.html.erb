@@ -6,7 +6,7 @@
     </tr>
     <tr>
       <td id="subscription-expiry-date">Expires:</td>
-      <td><%= expiry_date.strftime('%d/%m/%y %T') %></td>
+      <td><%= expiry_date&.strftime('%d/%m/%y %T') %></td>
     </tr>
     <tr>
       <td id="subscription-renewal-cost">Renewal Cost:</td>
