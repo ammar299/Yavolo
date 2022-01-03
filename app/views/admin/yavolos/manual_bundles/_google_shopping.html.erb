@@ -15,7 +15,7 @@
           <% has_error, msg = get_errors(form, "google_shopping.price") %>
           <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
             <%= google_data.label 'Price' %>
-            <%= google_data.number_field :price, min: 0, class: 'form-control', placeholder: 'Enter Price' %>
+            <%= google_data.text_field :price, class: 'form-control', placeholder: '0.00' %>
             <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
           </div>
           <div class="row">

@@ -1105,9 +1105,6 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
     },
     "product[delivery_option_id]":{
       required: true
-    },
-    "product[google_shopping_attributes][price]":{
-      required: true
     }
   };
 
@@ -1129,9 +1126,6 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
     },
     "product[delivery_option_id]":{
       required: "Please select a delivery option"
-    },
-    "product[google_shopping_attributes][price]":{
-      required: "Price can\'t be blank"
     }
   };
 

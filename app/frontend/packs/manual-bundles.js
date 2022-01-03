@@ -7,6 +7,7 @@ $(document).ready(function () {
     validateYavoloBundleForm();
     setExportData();
     setImportYavolos();
+		inputMaskCurrencyField();
 
     if($('[name="products[][keywords][]"]').length) {
         $('[name="products[][keywords][]"]').on('itemAddedOnInit', function(event) {
@@ -238,4 +239,11 @@ const validateYavoloBundleForm = function(custom_rules={}, custom_messages={}) {
     //         productEan: 'Please Enter a valid EAN without decimal.'
     //     }
     // });
+}
+
+function inputMaskCurrencyField() {
+  $('#yavolo_bundle_google_shopping_attributes_price').inputmask('currency', {
+    prefix: '£',
+    rightAlign: false
+  });
 }

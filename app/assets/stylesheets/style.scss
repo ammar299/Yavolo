@@ -3535,9 +3535,9 @@ input::-webkit-inner-spin-button {
   box-shadow: none !important;
 }
 .bundle-block-pad .yo-white-card img {
-  height: 100%;
+  height: 200px;
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
   margin: 0 !important;
   border-radius: 8px;
   background-color: #eee;
@@ -3699,4 +3699,8 @@ input::-webkit-inner-spin-button {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.exclusive-tag {
+  max-width: 200px;
 }
