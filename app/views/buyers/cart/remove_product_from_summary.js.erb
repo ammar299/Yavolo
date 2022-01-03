@@ -2,6 +2,8 @@ $("#summary-basket-<%= @product.id%>").remove()
 $('#count-label span').html("<%= item_or_items(@total_num_of_products) %>")
 $('#cart-sub-total').html("<%= get_price_in_pounds(@order_amount[:sub_total]) %>")
 $('#cart-total').html("<%= get_price_in_pounds(@order_amount[:total]) %>")
+$('#order-sub-total-price').html("<%= get_price_in_pounds(@order_amount[:total]) %>")
+$('#order-total-price').html("<%= get_price_in_pounds(@order_amount[:total]) %>")
 $("#header_cart").html("<%= j render('buyers/cart/header_cart' ) %>");
 $('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
 <% if @cart.length < 1 %>
