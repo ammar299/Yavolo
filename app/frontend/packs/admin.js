@@ -361,11 +361,11 @@ function saveSellerSubscriptionForm(){
   })
 
   $(document).on('submit', '#product_form', function () {
-    disableButtonOnFormSubmission('.product-form-submission');
+    $(this).addClass('pointer-events-none');
   })
 
   $(document).on('submit', '#yavolo_bundle_form', function () {
-    disableButtonOnFormSubmission('.manual_yavolo_form_submission');
+    $(this).addClass('pointer-events-none');
   })
 
   $(document).on("click", "#save-seller-subscription-by-admin", function(e){
