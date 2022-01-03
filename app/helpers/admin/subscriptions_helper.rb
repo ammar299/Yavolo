@@ -121,7 +121,7 @@ module Admin::SubscriptionsHelper
   end
 
   def canceled_at
-    seller_subscription&.canceled_at&.strftime('%d/%m/%y %T') 
+    seller_subscription&.canceled_at&.strftime('%d/%m/%Y') 
   end
 
   def seller_requested_cancelation?

@@ -79,9 +79,11 @@ class Webhook::StripeWebhooksController < ActionController::Base
   def update_current_subscription_webhook(params)
     subscription_id = params[:data][:object][:id]
     subscription = SellerStripeSubscription.where(subscription_stripe_id: subscription_id)&.last
-    subscription.update(update_params(params)) if subscription.present?
-    if params[:data][:object][:status] == "canceled"
-      subscription.update(cancel_after_next_payment_taken: false)
+    if subscription.present?
+      subscription.update(update_params(params))
+      if params[:data][:object][:status] == "canceled"
+        subscription.update(cancel_after_next_payment_taken: false)
+      end
     end
   end
 

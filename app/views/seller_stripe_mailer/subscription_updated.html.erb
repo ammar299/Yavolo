@@ -3,11 +3,11 @@
 <table>
   <tr>
     <td>Subscription Name:</td>
-    <td><%=@plan.subscription_name%></td>
+    <td><%= @plan.subscription_name %></td>
   </tr>
   <tr>
     <td>Subscription Price:</td>
-    <td><%=number_with_precision(@plan.price, precision: 2)%></td>
+    <td><%= number_with_precision(@plan.price, precision: 2) %></td>
   </tr>
   <%if @plan.rolling_subscription == "on"%>
     <tr>
@@ -17,11 +17,11 @@
   <%else%>
     <tr>
       <td>Subscription Valid For:</td>
-      <td><%=@plan.subscription_months%> Months</td>
+      <td><%= @plan.subscription_months == 1 ? "1 Month" : "#{@plan.subscription_months} Months" %></td>
     </tr>
   <%end%>
   <tr>
     <td>Subscription Comission:</td>
-    <td><%=number_with_precision(@plan.commission_excluding_vat, precision: 2)%>%</td>
+    <td><%= @plan.commission_excluding_vat.tap{|x| break x.to_i == x ? x.to_i : x} %>%</td>
   </tr>
 </table>
