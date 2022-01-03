@@ -107,6 +107,14 @@ window.showButtonLoader = (button) => {
   $(button).html($(button).text()+"<div class='ml-2 loadingio-spinner-rolling-x9emz9hqb6q'><div class='ldio-q57eiqc90zl'><div></div></div></div>")
 }
 
+window.disableButtonOnFormSubmission = (button) => {
+  $(button).prop("disabled",true)
+}
+
+window.enableButtonOnFormSubmission = (button) => {
+  $(button).prop("disabled",false)
+}
+
 window.hideButtonLoader = (button) => {
   $(button).prop("disabled",false)
   $(button).html($(button).text())

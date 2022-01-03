@@ -361,7 +361,11 @@ function saveSellerSubscriptionForm(){
   })
 
   $(document).on('submit', '#product_form', function () {
-    showButtonLoader('.product-form-submission');
+    disableButtonOnFormSubmission('.product-form-submission');
+  })
+
+  $(document).on('submit', '#yavolo_bundle_form', function () {
+    disableButtonOnFormSubmission('.manual_yavolo_form_submission');
   })
 
   $(document).on("click", "#save-seller-subscription-by-admin", function(e){
