@@ -1714,3 +1714,7 @@ width: 75%;
 .photo-grid {
   min-height: 300px;
 }
+
+.width-300 {
+  max-width: 300px;
+}
