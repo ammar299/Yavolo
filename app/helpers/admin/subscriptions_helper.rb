@@ -46,7 +46,7 @@ module Admin::SubscriptionsHelper
   end
 
   def renewal_date
-    seller_subscription&.current_period_end&.strftime('%d/%m/%y %T')
+    seller_subscription&.current_period_end&.strftime('%d/%m/%Y')
   end
 
   def renewal_cost
