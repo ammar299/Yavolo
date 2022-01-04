@@ -1,4 +1,5 @@
 class Buyers::ContactController < Buyers::BaseController
+  skip_before_action :authenticate_buyer!
 
   def contact_us
   end
