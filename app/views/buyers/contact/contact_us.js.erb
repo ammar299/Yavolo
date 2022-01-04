@@ -1,0 +1,6 @@
+<% if @errors.present? %>
+  displayNoticeMessage("<%= @errors %>");
+<% else %>
+  displayNoticeMessage("Your response has been recorded");
+  window.location.href = "<%= send("contact_us_path") %>";
+<% end %>

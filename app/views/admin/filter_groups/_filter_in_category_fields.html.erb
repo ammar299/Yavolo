@@ -4,7 +4,7 @@
       <div class="form-group error-position">
         <div class="row m-0">
           <div class="col-lg-5 p-0 form-group-vertical align-items-center flex-lg-nowrap flex-wrap">
-            <strong> <%= f.label :filter_name, "Filter Name" %> </strong>
+            <strong class="text-right"> <%= f.label :filter_name, "Filter Name", class: "pr-3" %> </strong>
               <div style="flex: 1;position: relative;">
                 <%= f.text_field :filter_name, required: true, class: 'form-control filter-name' %>
               </div>

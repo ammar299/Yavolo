@@ -3,7 +3,7 @@
 
   <% has_error, msg = get_errors(f, :name) %>
   <div class="form-group form-group-vertical align-items-center form-group-vertical-responsive <%= has_error ? 'error-field' : '' %>">
-    <label for="exampleInputPassword1" class="text-left pr-3"><strong>Filter Group Name :</strong></label>
+    <label for="exampleInputPassword1" class="text-right pr-3"><strong>Filter Group Name :</strong></label>
     <div style="flex: 1">
       <%= f.text_field :name, class: "form-control required" %>
     </div>
@@ -11,7 +11,7 @@
   </div>
   <div class="filter-type d-flex align-items-center flex-wrap">
     <div class="form-group form-group-vertical">
-      <label for="exampleInputPassword1" class="text-left pr-3"><strong>Filter Type:</strong></label>
+      <label for="exampleInputPassword1" class="text-right pr-3"><strong>Filter Type:</strong></label>
     </div>
     <div style="flex: 1">
       <div class="d-flex">
@@ -46,7 +46,7 @@
     </div>
   </div>
 
-  <h6><strong>Add Filters within the Group</strong></h6>
+  <h6 class="pl-lg-5"><strong>Add Filters within the Group</strong></h6>
   <div id='filter_in_categories'>
     <%= f.fields_for :filter_in_categories do |filter_in_category| %>
     <%= render 'filter_in_category_fields', :f => filter_in_category %>

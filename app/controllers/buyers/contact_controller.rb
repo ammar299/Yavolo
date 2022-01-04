@@ -11,8 +11,10 @@ class Buyers::ContactController < Buyers::BaseController
       flash[:notice] = "Your response has been recorded"
       redirect_to contact_us_path
     else
-      redirect_to contact_us_path
-      flash[:notice] = "You need to select ReCaptcha"
+      @errors = 'ReCaptcha is not filled.'
+      respond_to do |format|  
+        format.js { render 'buyers/contact/contact_us.js.erb'}
+      end
     end
   end
 
