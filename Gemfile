@@ -87,4 +87,4 @@ gem 'rqrcode'
 gem "mini_magick"
 #Payout Paypal
 gem 'paypal-payouts-sdk'
-
+gem 'recaptcha'

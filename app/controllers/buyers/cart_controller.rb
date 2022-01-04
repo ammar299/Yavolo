@@ -171,4 +171,5 @@ class Buyers::CartController < Buyers::BaseController
   def remove_product_from_cart_params
     params.require(:remove_product).permit(:product_id)
   end
+
 end

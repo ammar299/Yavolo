@@ -718,7 +718,7 @@ textarea.form-control {
     margin: 0 auto;
     top: -15px;
     display: flex !important;
-    width: 120px;
+    max-width: 120px;
     align-items: center;
     box-shadow: 1px 1px 2px #00000010;
     justify-content: center;

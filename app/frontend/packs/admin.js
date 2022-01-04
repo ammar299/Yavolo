@@ -14,6 +14,7 @@ $(document).ready(function(){
   contactSellerPopup()
   createDeleteSubscription()
   validatePlanForm()
+  validateContactUsForm()
   checkPlanFormValidation()
   // showButtonLoader("#create-subscription-form-submit") pass id to show loader in button
   // hideButtonLoader("#create-subscription-form-submit") pass id to hide loader in button
@@ -233,6 +234,46 @@ function validateChangePasswordForm() {
       "admin[password_confirmation]": {
         required: "Confirm password is required",
         equalTo: "Password does not match"
+      }
+    }
+  });
+}
+
+function validateContactUsForm() {
+  $('form#contact-us-form').validate({
+    rules: {
+      "name_field": {
+        required: true,
+      },
+      "email_field": {
+        required: true,
+        email: true
+      },
+      "subject_field": {
+        required: true,
+      },
+      "your_message_field": {
+        required: true,
+      },
+    }, 
+    highlight: function(element) {
+      $(element).parents("div.form-group").addClass('error-field');
+    },
+    unhighlight: function(element) {
+      $(element).parents("div.form-group").removeClass('error-field');
+    },
+    messages: {
+      "name_field": {
+          required: "This field is required",
+      },
+      "email_field": {
+        required: "This field is required"
+      },
+      "subject_field": {
+        required: "This field is required"
+      },
+      "your_message_field": {
+        required: "This field is required"
       }
     }
   });

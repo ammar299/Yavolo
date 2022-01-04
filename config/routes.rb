@@ -287,6 +287,9 @@ Rails.application.routes.draw do
   delete 'remove_product_form_cart', to: 'buyers/cart#remove_product_form_cart', as: :remove_product_form_cart
   delete 'remove_product_from_summary', to: 'buyers/cart#remove_product_from_summary', as: :remove_product_from_summary
   
+  get 'contact_us', to: 'buyers/contact#contact_us', as: :contact_us
+  get 'send_email_to_admin', to: 'buyers/contact#send_email_to_admin', as: :send_email_to_admin
+
   get 'checkout', to: 'buyers/checkout#new', as: :checkout
   post 'create_checkout', to: 'buyers/checkout#create_checkout', as: :create_checkout
   get 'payment_method', to: 'buyers/checkout#payment_method', as: :payment_method

@@ -7,7 +7,7 @@ class Admin::PasswordsController < Devise::PasswordsController
   # end
 
   def create
-    
+  
     if Admin.find_by_email(params[:admin][:email]).present?
       self.resource = resource_class.send_reset_password_instructions(resource_params)
       yield resource if block_given?
