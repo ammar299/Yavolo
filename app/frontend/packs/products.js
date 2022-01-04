@@ -1104,7 +1104,8 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
       maxlength: 13
     },
     "product[price]": {
-      required: true
+      required: true,
+      maxlength: 11,
     },
     "product[stock]": {
       required: true
@@ -1125,7 +1126,8 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
       required: "EAN can\'t be blank"
     },
     "product[price]": {
-      required: "Price can\'t be blank"
+      required: "Price can\'t be blank",
+      maxlength: "Please enter no more than 999,999"
     },
     "product[stock]": {
       required: "Stock can\'t be blank"
@@ -1273,12 +1275,12 @@ function updateBulkActions(res,classNameOfAction, val){
 
 
 function stockUpdateOnListing(){
-  $('body').on('input', '#product_stock', function() {
+  $('body').on('input', '#pr-stock', function() {
     if ($(this).val().length > 4 || $(this).val().length == 0) {
-      if ($(this).find("#quantity-error").length == 0 )
+      if ($(this).siblings('#quantity-error').length == 0 )
       {
         $(this).parents("div.form-group").addClass('error-field');
-        $(this).after('<label  id= "quantity-error" class="text-left w-100 error text- absolute">Must be 1 to 9999</label>');
+        $(this).after('<label name="product-quantity" id= "quantity-error" class="text-left w-100 error text- absolute">Must be 1 to 9999</label>');
       }
     } else {
         $(this).parents("div.form-group").removeClass('error-field');
@@ -1288,12 +1290,12 @@ function stockUpdateOnListing(){
 }
 
 function priceUpdateOnListing(){
-  $('body').on('input', '#product_price', function() {
+  $('body').on('input', '#pr-price', function() {
    let price = $(this).val().replace('£','');
     if (price.length > 10|| price == 0.00 ) {
-      if($(this).find("#price-error").length == 0){
+      if($(this).siblings('#price-error').length == 0){
         $(this).parents("div.form-group").addClass('error-field');
-        $(this).after("<label  id='price-error' class='text-left w-100 error text-absolute'>Must be 1 to 999999</label>");
+        $(this).after("<label name='product-price' id='price-error' class='text-left w-100 error text- absolute'>Must be 1 to 999999</label>");
       }
     }
     else {
@@ -1304,16 +1306,16 @@ function priceUpdateOnListing(){
 }
 
 function discountUpdateOnListing(){
-  $('body').on('input', '#product_discount', function() {
+  $('body').on('input', '#pr-discount', function() {
     let discount = $(this).val().replace("%","")
     if(discount){
       discount = parseFloat(discount)
     }
     if (discount < 2.5 || discount > 100) {
-      if($(this).find("#discount-error").length == 0)
+      if($(this).siblings('#discount-error').length == 0)
       {
         $(this).parents("div.form-group").addClass('error-field');
-        $(this).after('<label  id= "discount-error" class="text-left w-100 error text- absolute">Must 2.5 to 100</label>');
+        $(this).after('<label name="product-discount" id= "discount-error" class="text-left w-100 error text- absolute">Must 2.5 to 100</label>');
       }
     } else {
         $(this).parents("div.form-group").removeClass('error-field');

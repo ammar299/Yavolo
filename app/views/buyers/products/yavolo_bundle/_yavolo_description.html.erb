@@ -20,7 +20,7 @@
                 <%= product_thumbnail_image_for_table_row(product,:medium) %>
             </span>
           </div>
-          <div class="col-lg-9">
+          <div class="col-lg-9 bundle-scroll <%= index%2 == 0 ? nil : 'scroll-left' %>">
             <h5 class="mt-0"><%= product["title"] %> Description:</h5>
             <%= product["description"].present? ? product["description"].try(:html_safe) : "" %>
           </div>

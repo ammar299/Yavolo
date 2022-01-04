@@ -168,12 +168,12 @@
                                                 </td>
                                                 <td>
                                                     <div class="form-group mb-0 relative" id="product-stock-listing">
-                                                        <%=number_field_tag 'product[stock]', product.stock.to_i, class: 'form-control px-2 w-20 stock-field editable product-listing-input-fields', data: {pid: product.id, action: 'update_stock'}  %>
+                                                        <%=number_field_tag 'product[stock]', product.stock.to_i, class: 'form-control px-2 w-20 stock-field editable product-listing-input-fields', id: 'pr-stock', data: {pid: product.id, action: 'update_stock'}  %>
                                                     </div>
                                                 </td>
                                                 <td>
                                                 <div class="form-group mb-0 relative">
-                                                        <%=text_field_tag 'product[price]',(number_with_precision(product.price, :precision => 2) || 0), class: 'form-control px-2 w-20 price-field editable product-listing-input-fields listing-price', data: {pid: product.id, action: 'update_price'} %>
+                                                        <%=text_field_tag 'product[price]',(number_with_precision(product.price, :precision => 2) || 0), class: 'form-control px-2 w-20 price-field editable product-listing-input-fields listing-price', id: 'pr-price', data: {pid: product.id, action: 'update_price'} %>
                                                     </div>
                                                 </td>
 
@@ -216,7 +216,7 @@
                                                 </td>
                                                 <td>
                                                 <div class="form-group mb-0 relative">
-                                                        <%=text_field_tag 'product[discount]', percentage_decimal_addition(product.discount), class: 'form-control px-2 w-30 discount-field editable input-discount', data: {pid: product.id, action: 'update_discount'} %>
+                                                        <%=text_field_tag 'product[discount]', percentage_decimal_addition(product.discount),id: 'pr-discount', class: 'form-control px-2 w-30 discount-field editable input-discount', data: {pid: product.id, action: 'update_discount'} %>
                                                 </div>
                                                 </td>
                                                 <td>

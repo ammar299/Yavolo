@@ -1715,6 +1715,44 @@ width: 75%;
   min-height: 300px;
 }
 
+.manual-yavolo-img-height{
+    min-height: 300px;
+}
+
 .width-300 {
   max-width: 300px;
 }
+
+/* scroll bar */
+.bundle-scroll {
+    overflow-y: auto;
+    width: 100%;
+    height: 300px;
+    direction: ltr;
+}
+/* width */
+.bundle-scroll::-webkit-scrollbar {
+    width: 20px !important;
+    display: block !important;
+}
+
+/* Track */
+.bundle-scroll::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey !important;
+    border-radius: 10px !important;
+}
+
+/* Handle */
+.bundle-scroll::-webkit-scrollbar-thumb {
+    background: var(--dark-red) !important;
+    border-radius: 10px !important;
+}
+
+/* Handle on hover */
+.bundle-scroll::-webkit-scrollbar-thumb:hover {
+    background: var(--dark-red) !important;
+}
+.scroll-left {
+    direction: rtl;
+}
+/* scroll bar */
