@@ -20,6 +20,7 @@ $(document).ready(function(){
   });
 
   if($(".grid-single-img").length >= 9){
+    $('.photo-btn').parent('.add-photo-inner').attr('title', 'You can add only 9 photos');
     $(".show-upload-images-popup").addClass('pointer-events-none');
   }
   
@@ -203,6 +204,7 @@ $(document).ready(function(){
         if(total_images - markAsDel < 9) 
         { 
           $('.photo-btn').text('Add Photos');
+          $('.photo-btn').parent('.add-photo-inner').attr('title', '');
           $('.photo-btn').removeClass('pointer-events-none')
         }
       }
@@ -661,6 +663,7 @@ function previewProductImages(files){
   if(total_images >= 9) 
   {
     $('.photo-btn').text('Edit Photos');
+    $('.photo-btn').parent('.add-photo-inner').attr('title', 'You can add only 9 photos');
     $('.photo-btn').addClass('pointer-events-none')
   }
 

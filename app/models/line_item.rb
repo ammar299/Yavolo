@@ -12,6 +12,11 @@ class LineItem < ApplicationRecord
     partial_refunded: 4
   }
 
+  enum commission_status: {
+    not_refunded: 0,
+    commission_refunded: 1
+  }
+
   scope :seller_own_order_line_items, ->(owner) {
     owner.class.name == "Seller" ? joins(:product).where(products: { owner_id: owner.id }) : all
   }

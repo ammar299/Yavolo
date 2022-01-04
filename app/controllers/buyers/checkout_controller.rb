@@ -128,8 +128,11 @@ class Buyers::CheckoutController < Buyers::BaseController
           Stripe::TransferAmount.call(
             { charge_id: charge.charge.id, seller_hash: seller_grouped_products_hash.seller_hash }
           )
+          @total_commission = seller_grouped_products_hash.seller_hash.sum {|h| h[:total_commissioned_amount] }
+          @total_remaining_amount = seller_grouped_products_hash.seller_hash.sum {|h| h[:remaining_amount] }
           @order.update(order_type: :paid_order, buyer_payment_method_id: payment_method.id,
-                        sub_total: @order_amount[:sub_total], total: @order_amount[:total])
+                        sub_total: @order_amount[:sub_total], total: @order_amount[:total],
+                        commission: @total_commission, remaining_price: @total_remaining_amount)
           @order.create_payment_mode(
             payment_through: 'stripe',
             charge_id: charge.charge[:id],

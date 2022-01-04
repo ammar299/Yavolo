@@ -3,7 +3,7 @@
 
     <div class="add-edit-product-photos <%= @featured_images.present? ? 'col-lg-8' : 'col-lg-12' %>">
       <div class="add-photoo text-center">
-        <div class="add-photo-inner">
+        <div class="add-photo-inner" title="">
           <a href="" class="btn btn-radius px-4 btn-primary photo-btn grid-btn-top show-upload-images-popup" disabled="disabled">
             <%= @featured_images.compact.count <= 8 ? 'Add Photos' : 'Edit Photos' %>
           </a>

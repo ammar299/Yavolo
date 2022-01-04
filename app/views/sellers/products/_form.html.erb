@@ -14,9 +14,9 @@
           <%= render "shared/products/product_actions_bar", form: form  do %>
             <% unless current_seller.suspend? %>
               <% if form.object.new_record? || form.object.draft? %>
-              <%= button_tag "APPROVE & PUBLISH", value: "APPROVE & PUBLISH", class: 'btn btn-sm btn-radius px-4 btn-outline-white mb-2 mt-2 product-form-submission' %>
+              <%= form.submit "APPROVE & PUBLISH", value: "APPROVE & PUBLISH", class: 'btn btn-sm btn-radius px-4 btn-outline-white mb-2 mt-2 product-form-submission' %>
               <% else %>
-              <%= button_tag "UPDATE", value: "UPDATE", class: "btn btn-sm btn-radius px-4 btn-bg-white mb-2 mt-2 product-form-submission" %>
+              <%= form.submit "UPDATE", value: "UPDATE", class: "btn btn-sm btn-radius px-4 btn-bg-white mb-2 mt-2 product-form-submission" %>
               <% end %>
             <% end %>
           <% end %>

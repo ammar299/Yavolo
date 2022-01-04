@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_29_090635) do
+ActiveRecord::Schema.define(version: 2022_01_03_193956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -348,6 +348,10 @@ ActiveRecord::Schema.define(version: 2021_12_29_090635) do
     t.integer "quantity"
     t.string "transfer_id"
     t.integer "transfer_status"
+    t.decimal "commission"
+    t.decimal "remaining_price"
+    t.decimal "refunded_amount"
+    t.integer "commission_status", default: 0
     t.index ["order_id"], name: "index_line_items_on_order_id"
     t.index ["product_id"], name: "index_line_items_on_product_id"
   end
@@ -394,6 +398,9 @@ ActiveRecord::Schema.define(version: 2021_12_29_090635) do
     t.float "total"
     t.string "order_number"
     t.boolean "billing_address_is_shipping_address", default: false
+    t.decimal "commission"
+    t.decimal "remaining_price"
+    t.decimal "refunded_amount"
     t.index ["buyer_id"], name: "index_orders_on_buyer_id"
     t.index ["buyer_payment_method_id"], name: "index_orders_on_buyer_payment_method_id"
   end
@@ -488,24 +495,29 @@ ActiveRecord::Schema.define(version: 2021_12_29_090635) do
     t.decimal "amount_refund"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "line_item_id"
+    t.index ["line_item_id"], name: "index_refund_details_on_line_item_id"
     t.index ["order_id"], name: "index_refund_details_on_order_id"
     t.index ["product_id"], name: "index_refund_details_on_product_id"
     t.index ["refund_id"], name: "index_refund_details_on_refund_id"
   end
 
-  create_table "refund_messages", force: :cascade do |t|
+  create_table "refund_modes", force: :cascade do |t|
     t.bigint "order_id"
     t.bigint "refund_id"
     t.bigint "buyer_id"
-    t.text "buyer_message"
-    t.bigint "seller_id"
-    t.text "seller_message"
+    t.bigint "line_item_id"
+    t.string "response_refund_id"
+    t.string "charge_id"
+    t.decimal "amount_refund"
+    t.integer "refund_through"
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["buyer_id"], name: "index_refund_messages_on_buyer_id"
-    t.index ["order_id"], name: "index_refund_messages_on_order_id"
-    t.index ["refund_id"], name: "index_refund_messages_on_refund_id"
-    t.index ["seller_id"], name: "index_refund_messages_on_seller_id"
+    t.index ["buyer_id"], name: "index_refund_modes_on_buyer_id"
+    t.index ["line_item_id"], name: "index_refund_modes_on_line_item_id"
+    t.index ["order_id"], name: "index_refund_modes_on_order_id"
+    t.index ["refund_id"], name: "index_refund_modes_on_refund_id"
   end
 
   create_table "refunds", force: :cascade do |t|
@@ -527,6 +539,23 @@ ActiveRecord::Schema.define(version: 2021_12_29_090635) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "instructions"
     t.index ["seller_id"], name: "index_return_and_terms_on_seller_id"
+  end
+
+  create_table "reversal_modes", force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "refund_id"
+    t.bigint "seller_id"
+    t.bigint "line_item_id"
+    t.string "transfer_id"
+    t.string "transfer_reversal_id"
+    t.integer "reversal_through"
+    t.decimal "amount_reversed"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["line_item_id"], name: "index_reversal_modes_on_line_item_id"
+    t.index ["order_id"], name: "index_reversal_modes_on_order_id"
+    t.index ["refund_id"], name: "index_reversal_modes_on_refund_id"
+    t.index ["seller_id"], name: "index_reversal_modes_on_seller_id"
   end
 
   create_table "seller_apis", force: :cascade do |t|
@@ -624,9 +653,9 @@ ActiveRecord::Schema.define(version: 2021_12_29_090635) do
     t.boolean "two_factor_auth", default: false
     t.datetime "last_seen_at"
     t.string "recovery_email"
-    t.boolean "skip_success_hub_steps", default: false
     t.string "otp_secret"
     t.integer "last_otp_at"
+    t.boolean "skip_success_hub_steps", default: false
     t.integer "failed_attempts", default: 0
     t.string "unlock_token"
     t.datetime "locked_at"
@@ -773,12 +802,16 @@ ActiveRecord::Schema.define(version: 2021_12_29_090635) do
   add_foreign_key "refund_details", "orders"
   add_foreign_key "refund_details", "products"
   add_foreign_key "refund_details", "refunds"
-  add_foreign_key "refund_messages", "buyers"
-  add_foreign_key "refund_messages", "orders"
-  add_foreign_key "refund_messages", "refunds"
-  add_foreign_key "refund_messages", "sellers"
+  add_foreign_key "refund_modes", "buyers"
+  add_foreign_key "refund_modes", "line_items"
+  add_foreign_key "refund_modes", "orders"
+  add_foreign_key "refund_modes", "refunds"
   add_foreign_key "refunds", "orders"
   add_foreign_key "return_and_terms", "sellers"
+  add_foreign_key "reversal_modes", "line_items"
+  add_foreign_key "reversal_modes", "orders"
+  add_foreign_key "reversal_modes", "refunds"
+  add_foreign_key "reversal_modes", "sellers"
   add_foreign_key "seller_apis", "sellers"
   add_foreign_key "seller_payment_methods", "sellers"
   add_foreign_key "seller_stripe_subscriptions", "sellers"

@@ -1,10 +1,14 @@
 require 'stripe'
 module Stripe
   # This service will return a hash like this
-  # [{seller_id: 1, seller_connect_account_id: acct_123123, seller_paypal_account_id: paypal_acct_13123,
-  #   total_amount: 123, total_commissioned_amount: 1, remaining_amount: 23,
-  #   products_array: [{line_item: {product_id: 1, quantity: 2}}] }]
-   class SellerProductHash < ApplicationService
+  # [{:seller_id=>1, :seller_connect_account_id=>"acct_1K2Dp72H3hliB8Gb", :seller_paypal_account_id=>"R3V5JZ8AHHP5Q",
+  # :total_amount=>0.123123e6, :total_commissioned_amount=>0.1723722e5, :remaining_amount=>0.10588578e6,
+  # :products_array=>[#<LineItem id: 50, created_at: "2021-12-26 07:42:52.472677000 +0000",
+  # updated_at: "2021-12-26 07:44:11.891130000 +0000", order_id: 60, product_id: 4, price: 0.123123e6,
+  # added_on: "2021-12-25T00:09:01+05:00", quantity: 1, transfer_id: "tr_3KArOnFqSiWsjxhX1mHjIA08",
+  # transfer_status: "paid", commission: 1, remaining_price: 12, refunded_amount: 0, commission_status: "not_refunded">]}]
+
+  class SellerProductHash < ApplicationService
     attr_reader :status, :errors, :params, :seller_hash
 
     def initialize(params)
@@ -32,7 +36,11 @@ module Stripe
       order_line_items.each do |line_item|
         product_seller_id = product_owner_id(line_item)
         line_item[:price] = line_item_price(line_item)
+        amount_hash = commission_and_deducted_amount(line_item[:price], line_item[:quantity].to_i)
+        line_item[:commission] = amount_hash[:commission_amount_per_line_item]
+        line_item[:remaining_price] = amount_hash[:remaining_amount_per_line_item]
         create_or_update_hash(group_product_with_sellers, product_seller_id, line_item)
+        line_item.update(commission: line_item[:commission], remaining_price: line_item[:remaining_price])
       end
       @seller_hash = group_product_with_sellers
     end
@@ -91,7 +99,8 @@ module Stripe
       commission_amount = commission_amount_per_line_item * quantity
       remaining_amount_per_line_item = amount_after_commission(commission_amount, line_item_price)
       remaining_amount = remaining_amount_per_line_item * quantity
-      { commission_amount: commission_amount, remaining_amount: remaining_amount }
+      { commission_amount_per_line_item: commission_amount_per_line_item, commission_amount: commission_amount,
+        remaining_amount_per_line_item: remaining_amount_per_line_item, remaining_amount: remaining_amount }
     end
 
     def order
