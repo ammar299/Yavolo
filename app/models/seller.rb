@@ -172,6 +172,7 @@ class Seller < ApplicationRecord
 
   def active_all_products
     self.products.where(status: :inactive).update_all(status: :active)
+    YavoloBundle.reassign_status_to_bundle_when_seller_activated(self)
   end
 
   def de_active_all_products

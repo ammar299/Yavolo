@@ -63,6 +63,7 @@ class Product < ApplicationRecord
     scope :draft_products, ->(owner) { where(owner_condition(owner).merge!(status: :draft)) }
     scope :yavolo_enabled_products, ->(owner) { where(owner_condition(owner).merge!(yavolo_enabled: true)) }
     scope :yavolo_enabled, -> { where(yavolo_enabled: true) }
+    scope :not_yavolo_enabled, -> { where(yavolo_enabled: false) }
 
     def self.get_group_by_status_count(owner)
         group_by_hash = Product.where(owner_id: owner.id, owner_type: owner.class.name).group(:status).count
@@ -101,6 +102,10 @@ class Product < ApplicationRecord
         self.price - discounted_price
     end
 
+    def is_disbundled?
+        self.inactive? || self.yavolo_enabled == false
+    end
+
     private
 
     def get_picture_for_featured_image(identifier, identifier_type)
@@ -123,6 +128,10 @@ class Product < ApplicationRecord
     end
 
     def disbundle_associated_yavolo_bundles
-        YavoloBundle.disbundle_bundle_when_product_deactivated(self) if self.inactive?
+        if is_disbundled?
+            YavoloBundle.disbundle_bundle_when_product_deactivated(self)
+        else
+            YavoloBundle.reassign_status_to_bundle_when_product_activated(self)
+        end
     end
 end
