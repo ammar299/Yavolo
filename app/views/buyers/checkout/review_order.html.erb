@@ -11,6 +11,7 @@
                     <h6>Delivery Address</h6>
                     <ul class="font-14px mb-3">
                       <li class="black-text "><%= get_full_name(@order.shipping_address) %></li>
+                      <li class="black-text "><%= @order.shipping_address.company_name %></li>
                       <li class="black-text "><%= @order.shipping_address.appartment %></li>
                       <li class="black-text "><%= @order.shipping_address.address_line_1 %></li>
                       <li class="black-text "><%= @order.shipping_address.address_line_2 %></li>
@@ -29,6 +30,7 @@
                     <h6>Billing Address</h6>
                     <ul class="font-14px mb-3">
                       <li class="black-text "><%= get_full_name(@order.billing_address) %></li>
+                      <li class="black-text "><%= @order.shipping_address.company_name %></li>
                       <li class="black-text "><%= @order.billing_address.appartment %></li>
                       <li class="black-text "><%= @order.billing_address.address_line_1 %></li>
                       <li class="black-text "><%= @order.billing_address.address_line_2 %></li>
