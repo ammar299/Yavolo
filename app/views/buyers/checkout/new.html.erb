@@ -1,7 +1,8 @@
 <%= render 'shared/progress_bar', locals: { progress: "30" } %>
-<div class="container">
+<div class="container-fluid pdp-pad">
+  <div class="px-lg-5">
   <!--<form action="<%#= create_checkout_path %>" method="post">-->
-  <%= form_with model: @order, url: create_checkout_path, method: :post, html: { id: 'checkout_details_form' } do |form| %>
+    <%= form_with model: @order, url: create_checkout_path, method: :post, html: { id: 'checkout_details_form' } do |form| %>
     <div class="row mt-4">
       <div class="col-lg-8 d-flex flex-column">
         <div class="your-detail-left yo-white-card box-border flex1">
@@ -241,6 +242,7 @@
       </div>
     </div>
   <% end %>
+  </div>
 </div>
 
 <script>

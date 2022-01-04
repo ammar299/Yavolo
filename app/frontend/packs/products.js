@@ -1111,7 +1111,8 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
       maxlength: 11,
     },
     "product[stock]": {
-      required: true
+      required: true,
+      maxlength: 4
     },
     "product[condition]": {
       required: true
@@ -1133,7 +1134,8 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
       maxlength: "Please enter no more than 999,999"
     },
     "product[stock]": {
-      required: "Stock can\'t be blank"
+      required: "Stock can\'t be blank",
+      maxlength: "Stock must be 1 to 9999"
     },
     "product[condition]": {
       required: "Condition can\'t be blank"
