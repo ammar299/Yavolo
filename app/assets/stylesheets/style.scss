@@ -3341,7 +3341,7 @@ select.new-select {
   margin: 0 auto;
   display: block;
   width: 100%;
-  //height: 300px;
+  height: 300px;
   object-fit: contain;
 }
 #main-slider .splide__arrow svg {
@@ -3703,4 +3703,8 @@ input::-webkit-inner-spin-button {
 
 .exclusive-tag {
   max-width: 200px;
+}
+
+.preview-exclusive-tag {
+  height: auto !important;
 }

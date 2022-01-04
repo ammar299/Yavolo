@@ -17,7 +17,7 @@
               <div class="splide__track">
                 <div>
                   <span>
-                      <%= image_tag "badge.png", class: "mr-0 mb-4 width-300" %>
+                      <%= image_tag "badge.png", class: "preview-exclusive-tag mr-0 mb-4 width-300" %>
                   </span>
                 </div>
                 <ul class="splide__list">
@@ -30,7 +30,7 @@
                       <%= image_tag image.name.url %>
                     </li>
                   <% end %>
-
+                  <%= image_tag 'default.jpg', class: 'w-100 d-none product-default-preview' %>
                 </ul>
                 <div class="text-right pr-3 pt-3">
                   <h6> A good deal better.</h6>
@@ -3364,6 +3364,18 @@
 </script>
 
 <script>
+  $(document).ready(function() {
+    setTimeout(() => {
+      let images = $('#main-slider-list').find('li').length;
+      if (images <= 2 ) {
+        $('.splide__arrows').addClass('d-none');
+      }
+      if (images == 1) {
+        $('#main-slider-list').find('li').addClass('d-none');
+        $('.product-default-preview').removeClass('d-none');
+      }
+    }, 10);
+  });
     document.addEventListener('DOMContentLoaded', function () {
         var main = new Splide('#main-slider', {
             type: 'slide',
