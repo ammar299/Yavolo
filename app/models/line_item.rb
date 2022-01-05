@@ -20,6 +20,7 @@ class LineItem < ApplicationRecord
   }
   enum commission_status: {
     not_refunded: 0,
-    commission_refunded: 1
+    commission_refunded: 1,
+    refunded_later: 5,
   }
 end

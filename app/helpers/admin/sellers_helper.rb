@@ -102,4 +102,12 @@ module Admin::SellersHelper
   def get_seller_api_developer_name(id)
     SellerApi.find_by(id: id)&.developer_name
   end
+
+  def invoice_total(invoice)
+    amount = invoice.total * 0.01
+    if invoice.description == "Sales commission"
+      amount = invoice.total
+    end
+    amount = get_price_in_pounds(amount)
+  end
 end

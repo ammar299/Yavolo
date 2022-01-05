@@ -15,14 +15,14 @@
             </tr>
           </thead>
           <tbody>
-            <% @invoices.each do |invoice|%>
+            <% @invoices.each.each.with_index do |invoice,index|%>
               <tr>
-                <td><%=invoice&.invoice_id%></td>
-                <td>£<%=number_with_precision(invoice.total * 0.01, precision: 2) if invoice&.total.present?%></td>
-                <td><%=invoice&.description%></td>
-                <td><%=invoice&.date_generated&.strftime('%d/%m/%y %T')%></td>
-                <td><%=invoice&.due_date&.strftime('%d/%m/%y %T')%></td>
-                <td><%=invoice&.status%></td>
+                <td>YAV<%= 100 + index  %></td>
+                <td><%= invoice_total(invoice) %></td>
+                <td><%= invoice&.description  %></td>
+                <td><%= invoice&.date_generated&.strftime('%d/%m/%Y') %></td>
+                <td><%= invoice&.due_date&.strftime('%d/%m/%Y') %></td>
+                <td><%= invoice&.status %></td>
               </tr>
             <%end%>
           </tbody>
