@@ -1,0 +1,752 @@
+<div class="container-fluid">
+    <div class="row ac-setting-tabs mt-3">
+      <h3 class="mt-4 mb-3">Manage Yavolos</h3>
+      <%= render "admin/yavolos/product_assignments/sidebar_tabs" %>
+      <div class="col-md-9">
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="product-assignment" role="tabpanel"
+               aria-labelledby="home-tab">
+            <div class="d-flex justify-content-between flex-wrap align-items-center mb-2">
+              <div>
+                <h6 class="mb-0">PROGRAMME: 6/9/21 at 12:16:49; DUE TO RUN: 6/9/21 at
+                  12:16:49</h6>
+              </div>
+              <div>
+                <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mb-1">Export
+                  CSV</a>
+                <a href="#"
+                   class="btn btn-sm btn-radius px-4 btn-primary mb-1" data-toggle="modal"
+                   data-target="#productAssignmentSettingsModal">Settings</a>
+              </div>
+            </div>
+            <div class="automatic-yo-tab">
+              <section class="seller-order-board automatic-yavolo-board">
+                <div class="row nav nave-auto-tabs" id="myTab" role="tablist">
+                  <a class="col-lg-3 nav-link active" id="home-tab" data-toggle="tab"
+                     href="#home" role="tab" aria-controls="home"
+                     aria-selected="true">
+                    <p class="title"><strong>High Priority Yas</strong></p>
+                    <div class="detail">
+                      <strong>450</strong>
+                    </div>
+                  </a>
+                  <a class="col-lg-3 nav-link" id="profile-tab" data-toggle="tab"
+                     href="#profile" role="tab" aria-controls="profile"
+                     aria-selected="false">
+                    <p class="title"><strong>High Priority Volos</strong></p>
+                    <div class="detail">
+                      <strong>900</strong>
+                    </div>
+                  </a>
+                  <div class="col-lg-3 nav-link" id="contact-tab" data-toggle="tab"
+                       href="#contact" role="tab" aria-controls="contact"
+                       aria-selected="false">
+                    <p class="title"><strong>Low Priority Yas</strong></p>
+                    <div class="detail">
+                      <strong>2,000</strong>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 nav-link" id="contact-1-tab" data-toggle="tab"
+                       href="#contact-1" role="tab" aria-controls="contact-1"
+                       aria-selected="false">
+                    <p class="title"><strong>Low Priority Volos</strong></p>
+                    <div class="detail">
+                      <strong>4,000</strong>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel"
+                     aria-labelledby="home-tab">
+                  <div class="Yavolo-table">
+                    <table class="table">
+                      <thead>
+                      <tr>
+                        <th>
+                          <label class="checkbox-blk">
+                            <input type="checkbox"
+                                   class="mark-bulk-update">
+                            <span
+                              class="checkmark checkmark-white"></span>
+                          </label>
+                        </th>
+                        <th>product name</th>
+                        <th>catagory</th>
+                        <th class="text-center">YAN</th>
+                        <th class="text-center">price</th>
+                        <th class="text-center">30 Day sales</th>
+                        <th class="text-center">30 Day Revenue</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel"
+                     aria-labelledby="profile-tab">
+                  <div class="Yavolo-table">
+                    <table class="table">
+                      <thead>
+                      <tr>
+                        <th>
+                          <label class="checkbox-blk">
+                            <input type="checkbox"
+                                   class="mark-bulk-update">
+                            <span
+                              class="checkmark checkmark-white"></span>
+                          </label>
+                        </th>
+                        <th>product name</th>
+                        <th>catagory</th>
+                        <th class="text-center">YAN</th>
+                        <th class="text-center">price</th>
+                        <th class="text-center">30 Day sales</th>
+                        <th class="text-center">30 Day Revenue</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel"
+                     aria-labelledby="contact-tab">
+                  <div class="Yavolo-table">
+                    <table class="table">
+                      <thead>
+                      <tr>
+                        <th>
+                          <label class="checkbox-blk">
+                            <input type="checkbox"
+                                   class="mark-bulk-update">
+                            <span
+                              class="checkmark checkmark-white"></span>
+                          </label>
+                        </th>
+                        <th>product name</th>
+                        <th>catagory</th>
+                        <th class="text-center">YAN</th>
+                        <th class="text-center">price</th>
+                        <th class="text-center">30 Day sales</th>
+                        <th class="text-center">30 Day Revenue</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="contact-1" role="tabpanel"
+                     aria-labelledby="contact-tab">
+                  <div class="Yavolo-table">
+                    <table class="table">
+                      <thead>
+                      <tr>
+                        <th>
+                          <label class="checkbox-blk">
+                            <input type="checkbox"
+                                   class="mark-bulk-update">
+                            <span
+                              class="checkmark checkmark-white"></span>
+                          </label>
+                        </th>
+                        <th>product name</th>
+                        <th>catagory</th>
+                        <th class="text-center">YAN</th>
+                        <th class="text-center">price</th>
+                        <th class="text-center">30 Day sales</th>
+                        <th class="text-center">30 Day Revenue</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="checkbox-blk">
+                            <input type="checkbox" name="product_ids[]"
+                                   class="product_ids" value="14">
+                            <span class="checkmark"></span>
+                          </label>
+                        </td>
+                        <td>Lorem ipsum dolor sit amet consectetur
+                          adipisicing elit. Molestias, optio?</td>
+                        <td>Rabbit Hutch</td>
+                        <td class="text-center">15/05/2021</td>
+                        <td class="text-center">£30.99</td>
+                        <td class="text-center">5809</td>
+                        <td class="text-center">£21,865</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<%= render 'admin/yavolos/product_assignments/product_assignment_settings_modal' %>

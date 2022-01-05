@@ -1,0 +1,199 @@
+<div class="container-fluid">
+  <div class="row ac-setting-tabs mt-3">
+    <h3 class="mt-4 mb-3">Manage Yavolos</h3>
+    <%= render "admin/yavolos/product_assignments/sidebar_tabs" %>
+    <div class="col-md-9">
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="waiting-room" role="tabpanel"
+             aria-labelledby="bundle-creation-tab">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <div class="d-flex">
+              <div class="dropdown-filter-field dropdown-filter-field-small dropdown-fillter-border active mb-0 mr-1">
+                <div class="dark-bg-dropdown">
+                  <div class="dropdown dropdown-filter d-inline-flex">
+                    <a href="#" class="btn btn-radius px-3 btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Search All <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+                    <div class="dropdown-menu pt-0" aria-labelledby="dropdownMenuLink" x-placement="bottom-start" style="position: absolute; transform: translate3d(-2px, 33px, 0px); top: 0px; left: 0px; will-change: transform;">
+                      <a class="dropdown-item active" href="#">Username <i class="fa fa-check" aria-hidden="true"></i></a>
+                      <a class="dropdown-item" href="#">Email <i class="fa fa-check" aria-hidden="true"></i></a>
+                    </div>
+                  </div>
+                </div>
+                <div class="search-field mb-0">
+                  <input type="text" placeholder="Search seller" class="">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div class="dark-bg-dropdown dropdown-filter-field-small">
+                <div class="dropdown dropdown-filter d-inline-flex">
+                  <a href="#" class="btn btn-radius px-3 btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Results per page: 15 <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+                  <div class="dropdown-menu pt-0" aria-labelledby="dropdownMenuLink" x-placement="bottom-start" style="position: absolute; transform: translate3d(-2px, 33px, 0px); top: 0px; left: 0px; will-change: transform;">
+                    <a class="dropdown-item active" href="#">Results per page: 15 <i class="fa fa-check" aria-hidden="true"></i></a>
+                    <a class="dropdown-item" href="#">Results per page: 30 <i class="fa fa-check" aria-hidden="true"></i></a>
+                    <a class="dropdown-item" href="#">Results per page: 60<i class="fa fa-check" aria-hidden="true"></i></a>
+                    <a class="dropdown-item" href="#">Results per page: 90<i class="fa fa-check" aria-hidden="true"></i></a>
+                    <a class="dropdown-item" href="#">Results per page: 180<i class="fa fa-check" aria-hidden="true"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mb-1">Export
+                CSV</a>
+            </div>
+          </div>
+          <div class="mt-3" id="total-sellers-per-page">
+            <p>Results: <span>1 - 11</span> of <span>11</span></p>
+          </div>
+          <div class="Yavolo-table">
+            <table class="table">
+              <thead>
+              <tr>
+                <th>
+                  <label class="checkbox-blk">
+                    <input type="checkbox" class="mark-bulk-update">
+                    <span class="checkmark checkmark-white"></span>
+                  </label>
+                </th>
+                <th>Username</th>
+                <th>Email</th>
+                <th class="text-center">Seller Since</th>
+                <th class="text-center">Ya Products</th>
+                <th class="text-center">Volo Products</th>
+                <th class="text-center">Ya/Volo Products</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>
+                  <label class="checkbox-blk">
+                    <input type="checkbox" name="product_ids[]" class="product_ids" value="14">
+                    <span class="checkmark"></span>
+                  </label>
+                </td>
+                <td>Username1</td>
+                <td>roni_cost@example.com</td>
+                <td class="text-center">15/05/2021</td>
+                <td class="text-center">55</td>
+                <td class="text-center">23</td>
+                <td class="text-center">12</td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="checkbox-blk">
+                    <input type="checkbox" name="product_ids[]" class="product_ids" value="14">
+                    <span class="checkmark"></span>
+                  </label>
+                </td>
+                <td>Username1</td>
+                <td>roni_cost@example.com</td>
+                <td class="text-center">15/05/2021</td>
+                <td class="text-center">55</td>
+                <td class="text-center">23</td>
+                <td class="text-center">12</td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="checkbox-blk">
+                    <input type="checkbox" name="product_ids[]" class="product_ids" value="14">
+                    <span class="checkmark"></span>
+                  </label>
+                </td>
+                <td>Username1</td>
+                <td>roni_cost@example.com</td>
+                <td class="text-center">15/05/2021</td>
+                <td class="text-center">55</td>
+                <td class="text-center">23</td>
+                <td class="text-center">12</td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="checkbox-blk">
+                    <input type="checkbox" name="product_ids[]" class="product_ids" value="14">
+                    <span class="checkmark"></span>
+                  </label>
+                </td>
+                <td>Username1</td>
+                <td>roni_cost@example.com</td>
+                <td class="text-center">15/05/2021</td>
+                <td class="text-center">55</td>
+                <td class="text-center">23</td>
+                <td class="text-center">12</td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="checkbox-blk">
+                    <input type="checkbox" name="product_ids[]" class="product_ids" value="14">
+                    <span class="checkmark"></span>
+                  </label>
+                </td>
+                <td>Username1</td>
+                <td>roni_cost@example.com</td>
+                <td class="text-center">15/05/2021</td>
+                <td class="text-center">55</td>
+                <td class="text-center">23</td>
+                <td class="text-center">12</td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="checkbox-blk">
+                    <input type="checkbox" name="product_ids[]" class="product_ids" value="14">
+                    <span class="checkmark"></span>
+                  </label>
+                </td>
+                <td>Username1</td>
+                <td>roni_cost@example.com</td>
+                <td class="text-center">15/05/2021</td>
+                <td class="text-center">55</td>
+                <td class="text-center">23</td>
+                <td class="text-center">12</td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="checkbox-blk">
+                    <input type="checkbox" name="product_ids[]" class="product_ids" value="14">
+                    <span class="checkmark"></span>
+                  </label>
+                </td>
+                <td>Username1</td>
+                <td>roni_cost@example.com</td>
+                <td class="text-center">15/05/2021</td>
+                <td class="text-center">55</td>
+                <td class="text-center">23</td>
+                <td class="text-center">12</td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="checkbox-blk">
+                    <input type="checkbox" name="product_ids[]" class="product_ids" value="14">
+                    <span class="checkmark"></span>
+                  </label>
+                </td>
+                <td>Username1</td>
+                <td>roni_cost@example.com</td>
+                <td class="text-center">15/05/2021</td>
+                <td class="text-center">55</td>
+                <td class="text-center">23</td>
+                <td class="text-center">12</td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="checkbox-blk">
+                    <input type="checkbox" name="product_ids[]" class="product_ids" value="14">
+                    <span class="checkmark"></span>
+                  </label>
+                </td>
+                <td>Username1</td>
+                <td>roni_cost@example.com</td>
+                <td class="text-center">15/05/2021</td>
+                <td class="text-center">55</td>
+                <td class="text-center">23</td>
+                <td class="text-center">12</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

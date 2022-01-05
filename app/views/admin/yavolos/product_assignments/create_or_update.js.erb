@@ -1,0 +1,7 @@
+$("#error-messages-product-assignment-form").html('');
+<% if @product_assignment_settings.errors.count > 0 %>
+  $('#error-messages-product-assignment-form').html("<%= @product_assignment_settings.errors.full_messages.join('<br/>').html_safe %>");
+<% else %>
+  $('#productAssignmentSettingsModal').modal('hide');
+  $('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
+<% end %>

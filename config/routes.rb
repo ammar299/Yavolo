@@ -158,6 +158,13 @@ Rails.application.routes.draw do
               post :import_yavolos
             end
           end
+          resources :product_assignments, only: %i[index] do
+            collection do
+              post :create_or_update
+            end
+          end
+          resources :waiting_rooms, only: %i[index]
+          resources :bundle_creations, only: %i[index]
         end
 
       end

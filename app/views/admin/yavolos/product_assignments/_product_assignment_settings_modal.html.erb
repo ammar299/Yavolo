@@ -1,0 +1,45 @@
+<div class="modal fade" id="productAssignmentSettingsModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Product Assignment Settings</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= form_for @product_assignment_settings, url: create_or_update_admin_yavolos_product_assignments_path, method: :post, remote: true do |f| %>
+          <div id="error-messages-product-assignment-form"></div>
+          <div class="text-center row align-items-center">
+            <div class="col-lg-4">
+              <label for="" class="mb-0">High Priority Benchmarks:</label>
+            </div>
+            <div class="col-lg-8">
+              <div class="d-flex align-items-center flex-wrap justify-content-center">
+                <div class="my-1">
+                  <%= f.select :price, options_for_select([["£100", "100.00"], ["£200", "200.00"], ["£300", "300.00"]], f.object.price), {}, class: "form-control" %>
+                </div>
+                <span class="px-3">or</span>
+                <div class="my-1">
+                  <%= f.select :items, options_for_select([["100 items", "100"], ["200 items", "200"], ["300 items", "300"]], f.object.items), {}, class: "form-control" %>
+                </div>
+                <span class="px-3">in last</span>
+                <div class="my-1">
+                  <%= f.select :duration, options_for_select([["10 days", "10"], ["20 days", "20"], ["30 days", "30"]], f.object.duration), {}, class: "form-control" %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <%= f.submit :Save, class: "btn btn-radius px-4 btn-primary btn-sm mt-3" %>
+
+          </div>
+        <% end %>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
