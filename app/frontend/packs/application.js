@@ -161,4 +161,7 @@ jQuery.validator.addMethod("validPrice", function(value) {
 jQuery.validator.addMethod('productEan', function(value, element) {
     return this.optional(element) || /^(\d{13})?$/.test(value);
 }, 'Please Enter a valid EAN');
+jQuery.validator.addMethod('productDiscount', function(value) {
+  return value >= 2.5 && value <= 100;
+}, 'Discount value should be between 2.5 and 100');
 import "controllers"

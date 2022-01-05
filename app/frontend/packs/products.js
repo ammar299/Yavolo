@@ -265,6 +265,7 @@ $(document).ready(function(){
     const title = `${value} %` || "Custom"
     $(".yavolo-discount-dropdown-title").html(title)
     $(".yavolo-discount-hidden-input").val(value)
+    yavoloDiscountValidation();
     $(".yavolo-discount-custom-input").addClass("d-none")
     $(".yavolo-discount-dropdown .custom-value").removeClass("active")
   })
@@ -275,6 +276,8 @@ $(document).ready(function(){
     $(".yavolo-discount-dropdown-title").html("Custom")
     $(".yavolo-discount-custom-input").val("").removeClass("d-none")
     $(this).addClass("active")
+    $(".yavolo-discount-hidden-input").val($('#customInputValue').val())
+    yavoloDiscountValidation();
   })
 
   $("customInputValue").attr({
@@ -290,7 +293,9 @@ $(document).ready(function(){
   $(".yavolo-discount-custom-input input").change(function (e) {
     const value = $(this).val()
     if(!value) return
+    $('#customInputValue').attr('value', value)
     $(".yavolo-discount-hidden-input").val(value)
+    yavoloDiscountValidation();
   })
 
 });
@@ -1250,7 +1255,17 @@ window.validateProductForm = function(custom_rules={}, custom_messages={}) {
   $('#product_ean').rules('add', {
     productEan: true,
     messages: {
-      productEan: 'Please Enter a valid EAN without decimal.'
+      productEan: 'Please Enter a valid EAN.'
+    }
+  });
+
+  $('#product_discount').change(function() {
+    $(this).valid();
+  })
+  $('#product_discount').rules('add', {
+    productDiscount: true,
+    messages: {
+      productDiscount: 'Discount value should be between 2.5 and 100'
     }
   });
 }
@@ -1334,4 +1349,16 @@ function inputMaskCurrencyField() {
     prefix: '£',
     rightAlign: false
   });
+}
+
+function yavoloDiscountValidation(){
+  if ($('#product_discount').val() >= 2.5 && $('#product_discount').val() <= 100) {
+    if ($('#product_discount-error').text().length > 0) {
+      $('#product_discount-error').text('');
+    }
+  } else {
+    if ($('#product_discount-error').text().length == 0) {
+      $('#product_discount-error').text('Discount value should be between 2.5 and 100');
+    }
+  }
 }
