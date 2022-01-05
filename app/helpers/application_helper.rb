@@ -201,7 +201,7 @@ module ApplicationHelper
   end
 
   def product_seller_name(product_id)
-    Product.find_by(id: product_id).owner.company_detail&.name&.titleize
+    Product.find_by(id: product_id).owner.try(:company_detail)&.name&.titleize
   end
 
 end

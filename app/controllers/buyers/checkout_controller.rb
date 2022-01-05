@@ -1,4 +1,5 @@
 class Buyers::CheckoutController < Buyers::BaseController
+  layout 'buyers/checkout/buyer_checkout'
   skip_before_action :authenticate_buyer!
   # before_action :find_or_create_buyer, only: [:new, :create_checkout]
   before_action :get_order, only: [:new, :create_checkout, :create_payment_method, :review_order, :create_payment,
