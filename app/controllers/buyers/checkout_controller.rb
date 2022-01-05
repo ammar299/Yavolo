@@ -460,30 +460,9 @@ class Buyers::CheckoutController < Buyers::BaseController
     )
     if seller_grouped_products_hash.status
       response = Paypal::PayoutCreator.call({ debug: true, seller_hash: seller_grouped_products_hash.seller_hash })
-      # attempting to do payout per seller instead of batch payout
       if response.status
-        parsed_response = Paypal::PaypalResponse.parsed_response(response.result)
-        @seller_hash = []
-        seller_grouped_products_hash = Stripe::SellerProductHash.call(
-          { order: order }
-        )
-        if seller_grouped_products_hash.status
-          @seller_hash = seller_grouped_products_hash.seller_hash
-        else
-          return
-        end
-        @seller_hash.each do |seller_details|
-          parsed_response["items"].each do |item|
-            if seller_details[:seller_paypal_account_id].to_s == item["payout_item"]["receiver"]
-              seller_details[:products_array].each do |line_item|
-                line_item.update(transfer_id: item["payout_item_id"], transfer_status: 'paid')
-              end
-            end
-          end
-        end
-        # update_line_items_status(order, response.paypal_payout_response.result.batch_header.payout_batch_id, seller_grouped_products_hash.seller_hash)
+        update_line_items_status(order, response.paypal_payout_response.result.batch_header.payout_batch_id, seller_grouped_products_hash.seller_hash)
       end
-      # attempting to do payout per seller instead of batch payout
     end
   end
 
