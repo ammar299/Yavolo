@@ -509,6 +509,14 @@ ActiveRecord::Schema.define(version: 2022_01_04_110530) do
     t.index ["imageable_type", "imageable_id"], name: "index_pictures_on_imageable_type_and_imageable_id"
   end
 
+  create_table "product_assignment_settings", force: :cascade do |t|
+    t.decimal "price", precision: 8, scale: 2
+    t.integer "items"
+    t.integer "duration"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "title"
     t.string "handle"
