@@ -5,8 +5,16 @@ class Admin::OrdersController < Admin::BaseController
   before_action :current_order, only: :show
 
   def index
-    @q = Order.paid_orders_listing.ransack(params[:q])
-    @orders = @q.result(distinct: true)
+    if params.dig(:q, :search_product_a_to_z).present?
+      @q = Order.paid_orders_listing.ransack({ search_product_a_to_z: params[:q][:search_product_a_to_z] })
+      @orders = @q.result
+    elsif params.dig(:q, :search_product_z_to_a).present?
+      @q = Order.paid_orders_listing.ransack({ search_product_z_to_a: params[:q][:search_product_z_to_a] })
+      @orders = @q.result
+    else
+      @q = Order.paid_orders_listing.ransack(params[:q])
+      @orders = @q.result(distinct: true)
+    end
     @orders = @orders.order(sub_total: :desc) if params.dig(:q, :s) == "price"
     @total_count = @orders.size
     @orders = @orders.page(params[:page]).per(params[:per_page].presence || 15)

@@ -24,9 +24,15 @@ class Order < ApplicationRecord
   default_scope -> { order(created_at: :desc) }
   scope :seller_orders, ->(owner) { includes(line_items: [:product]).where(line_items: {products: {owner_id: owner.id}}) }
   scope :paid_orders_listing, -> { where(order_type: 'paid_order') }
+  scope :search_product_a_to_z, ->(q) { includes(line_items: :product).where("product.title LIKE '%#{q}%'").order('product.title ASC') }
+  scope :search_product_z_to_a, ->(q) { includes(line_items: :product).where("product.title LIKE '%#{q}%'").order('product.title DESC') }
 
   after_create :assign_unique_order_number
   after_create :billing_address_is_same_as_shipping_address
+
+  def self.ransackable_scopes(auth_object = nil)
+    %i(search_product_a_to_z search_product_z_to_a)
+  end
 
   def assign_unique_order_number
     self.update(order_number: "YAVO#{rand(100000..999999)}")

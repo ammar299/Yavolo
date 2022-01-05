@@ -12,7 +12,8 @@ module Admin::OrdersHelper
 
   def admin_order_search_field_query_param_val(q_params)
     [
-      q_params[:q][:line_items_product_title_cont],
+      q_params[:q][:search_product_a_to_z],
+      q_params[:q][:search_product_z_to_a],
       q_params[:q][:order_number_cont],
       q_params[:q][:line_items_product_owner_of_Seller_type_first_name_or_line_items_product_owner_of_Seller_type_last_name_cont],
       q_params[:q][:order_detail_first_name_or_order_detail_last_name_cont],
@@ -23,7 +24,8 @@ module Admin::OrdersHelper
 
   def admin_order_current_search_field_name
     valid_field_names = %w[
-      line_items_product_title_cont
+      search_product_a_to_z
+      search_product_z_to_a
       order_number_cont
       line_items_product_owner_of_Seller_type_first_name_or_line_items_product_owner_of_Seller_type_last_name_cont
       order_detail_first_name_or_order_detail_last_name_cont

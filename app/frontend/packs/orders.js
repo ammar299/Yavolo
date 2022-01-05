@@ -26,14 +26,14 @@ function setOrderSearchMenuAndQueryName() {
         $("input[name='q[s]']").remove();
         $('.current-search-filter').html(currentFilter + ' <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>');
         if (currentFilter === 'Product Title A-Z') {
-            searchField.attr('name', 'q[line_items_product_title_cont]');
-            $('#csfn').val('line_items_product_title_cont');
+            searchField.attr('name', 'q[search_product_a_to_z]');
+            $('#csfn').val('search_product_a_to_z');
             filterType.val('Product Title A-Z');
             $('#order_search').append('<input type="hidden" name="q[s]" id="q_s">')
             $('#q_s').val('line_items_product_title asc');
         } else if (currentFilter === 'Product Title Z-A') {
-            searchField.attr('name', 'q[line_items_product_title_cont]');
-            $('#csfn').val('line_items_product_title_cont');
+            searchField.attr('name', 'q[search_product_z_to_a]');
+            $('#csfn').val('search_product_z_to_a');
             filterType.val('Product Title Z-A');
             $('#order_search').append('<input type="hidden" name="q[s]" id="q_s">')
             $('#q_s').val('line_items_product_title desc');
