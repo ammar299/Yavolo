@@ -96,7 +96,7 @@ module Admin::SellersHelper
   end
 
   def seller_logo_text(seller)
-    seller.picture.present? ? 'Update Image' : 'Add Image'
+    seller.picture.present? ? 'Update Image' : 'Upload Image'
   end
 
   def get_seller_api_developer_name(id)
