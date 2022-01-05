@@ -1,6 +1,0 @@
-<div class="form-group">
-  <b><label for="exampleInputPassword1">Message to <%= "#{product_owner&.first_name} #{product_owner&.last_name}" %>:</label></b>
-  <%= text_area_tag "refund[refund_messages_attributes][#{index}][seller_message]", nil, placeholder: "Message seller (optional)", class: "form-control" %>
-  <%= hidden_field_tag "refund[refund_messages_attributes][#{index}][seller_id]", product_owner&.id %>
-  <%= hidden_field_tag "refund[refund_messages_attributes][#{index}][order_id]", @order.id %>
-</div>

@@ -50,12 +50,13 @@ module Stripe
       line_item_owner_stripe_connect_account_id = product_owner_stripe_id(line_item)
       line_item_owner_paypal_account_id = product_owner_paypal_id(line_item)
       line_item_price = line_item_price(line_item)
+      total_amount = line_item_price * line_item[:quantity].to_i
       amount_hash = commission_and_deducted_amount(line_item_price, line_item[:quantity].to_i)
       if seller_products[:exist]
-        update_seller_hash(seller_products[:seller_hash], line_item, line_item_price, amount_hash[:commission_amount],
+        update_seller_hash(seller_products[:seller_hash], line_item, total_amount, amount_hash[:commission_amount],
                            amount_hash[:remaining_amount])
       else
-        seller_hash = create_seller_hash(seller_id, line_item_owner_stripe_connect_account_id, line_item_owner_paypal_account_id, line_item_price,
+        seller_hash = create_seller_hash(seller_id, line_item_owner_stripe_connect_account_id, line_item_owner_paypal_account_id, total_amount,
                                          amount_hash[:commission_amount], amount_hash[:remaining_amount], line_item)
         seller_products_array.push(seller_hash)
       end
@@ -97,7 +98,7 @@ module Stripe
     def commission_and_deducted_amount(line_item_price, quantity, commission_amount = COMMISSION)
       commission_amount_per_line_item = calculate_percentage(line_item_price, commission_amount)
       commission_amount = commission_amount_per_line_item * quantity
-      remaining_amount_per_line_item = amount_after_commission(commission_amount, line_item_price)
+      remaining_amount_per_line_item = amount_after_commission(commission_amount_per_line_item, line_item_price)
       remaining_amount = remaining_amount_per_line_item * quantity
       { commission_amount_per_line_item: commission_amount_per_line_item, commission_amount: commission_amount,
         remaining_amount_per_line_item: remaining_amount_per_line_item, remaining_amount: remaining_amount }

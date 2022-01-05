@@ -1,7 +1,10 @@
 class Sellers::OrdersController < Sellers::BaseController
+
   before_action :validate_seller_dashboard!
-  before_action :set_order, only: :show
+
   include ParseSortParam
+  include RefundingMethods
+  before_action :current_order, only: :show
 
   def index
     parse_sort_param_to_array
@@ -13,16 +16,17 @@ class Sellers::OrdersController < Sellers::BaseController
   end
 
   def show
-    @order_detail = @order.order_detail
-    @order_line_items = @order.line_items.seller_own_order_line_items(current_seller)
-    @order_shipping_address = @order.shipping_address
-    @order_billing_address = @order.billing_address
-  end
-
-  private
-
-  def set_order
-    @order = Order.find(params[:id])
+    super
+    @order_line_items = @order.line_items.user_own_order_line_items(current_seller)
+    respond_to do |format|
+      format.html
+      format.pdf {
+        render pdf: "Order_#{@order.order_number}",
+               template: 'sellers/orders/download_order.pdf.erb',
+               layout: false,
+               disposition: 'attachment'
+      }
+    end
   end
 
 end

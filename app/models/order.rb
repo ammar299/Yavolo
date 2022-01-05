@@ -1,14 +1,17 @@
 class Order < ApplicationRecord
-  belongs_to :buyer, optional: true
+
   include RansackObject
+
+  belongs_to :buyer, optional: true
   has_many :line_items, dependent: :destroy
   has_one :order_detail, dependent: :destroy
   has_one :shipping_address, dependent: :destroy
   has_one :billing_address, dependent: :destroy
   has_one :payment_mode, dependent: :destroy
-  has_one :refund, dependent: :destroy
+  has_many :refunds, dependent: :destroy
   has_many :refund_details, dependent: :destroy
-  has_many :refund_messages, dependent: :destroy
+  has_many :refund_modes, dependent: :destroy
+  has_many :reversal_modes, dependent: :destroy
   belongs_to :buyer_payment_method, optional: true
 
   accepts_nested_attributes_for :order_detail, :line_items, :shipping_address, :billing_address

@@ -51,7 +51,7 @@
       <a class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr" href="#">Send Message</a>
       <a class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr" href="#">Manage Invoice</a>
       <a class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr" href="#">Print packing slip</a>
-      <a class="btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr" href="#">Refund</a>
+      <%= link_to 'Refund', new_refund_sellers_order_path(seller_order), class: "btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr" %>
       <%= link_to 'View', sellers_order_path(seller_order), class: "btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100 btn-light-hvr" %>
     </div>
   </td>

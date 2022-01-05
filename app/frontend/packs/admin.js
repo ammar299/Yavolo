@@ -807,15 +807,20 @@ function sumOfTotalPaid() {
 function calculateSalesCommission() {
   $(document).on("click", ".refund_option_checkboxes input:checkbox", function () {
     $('.refund_option_checkboxes input:checkbox').not(this).prop('checked', false);
+      let total_commission = parseFloat($(".hidden_total_refund").val()) * parseFloat($(".commission").val() / 100);
     if ($(this).is(":checked") === true) {
       if ($(this).attr('name') === 'keep_sales_commission') {
-        let total_commission = parseFloat($(".hidden_total_refund").val()) * parseFloat($(".commission").val() / 100);
         let net_commission = parseFloat($(".hidden_total_refund").val()) - parseFloat(total_commission);
         $(".total_refund").text("£" + net_commission.toFixed(2));
         $(".hidden_total_refund").val(net_commission.toFixed(2));
       } else if ($(this).attr('name') === 'issue_full_refund') {
-        sumOfTotalRefund();
+        let total_refund_current = $(".hidden_total_refund").val();
+        let total_refund_sum = parseFloat(total_refund_current) + parseFloat(total_commission);
+        $(".total_refund").text("£" + total_refund_sum.toFixed(2));
+        $(".hidden_total_refund").val(total_refund_sum.toFixed(2));
       }
+    } else {
+      sumOfTotalRefund();
     }
   })
 }

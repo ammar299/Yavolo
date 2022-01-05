@@ -7,7 +7,7 @@
       <p><strong>Tracking:</strong> No Tracking</p>
       <p><strong>Courier:</strong> Royal Mail</p>
       <p><strong>Mail Class:</strong> 2nd Class</p>
-      <p><strong>VAT Number(s):</strong> <%= get_vat_numbers(@order) %></p>
+      <p><strong>VAT Number(s):</strong> <%= get_vat_numbers(@order_line_items) %></p>
       <p><strong>Paid Via:</strong> <%= @order&.buyer_payment_method&.payment_method_type&.titleize %></p>
     </div>
   </div>
@@ -18,26 +18,26 @@
           <h6 class="mb-3">Shipping Address</h6>
           <ul>
             <li><%= get_full_name(@order_shipping_address) %></li>
-            <li><%= @order_shipping_address.company_name %></li>
-            <li><%= @order_shipping_address.appartment %></li>
-            <li><%= @order_shipping_address.address_line_1 %></li>
-            <li><%= @order_shipping_address.address_line_2 %></li>
-            <li><%= @order_shipping_address.city %></li>
-            <li><%= @order_shipping_address.county %></li>
-            <li><%= @order_shipping_address.postal_code %></li>
+            <li><%= @order_shipping_address&.company_name %></li>
+            <li><%= @order_shipping_address&.appartment %></li>
+            <li><%= @order_shipping_address&.address_line_1 %></li>
+            <li><%= @order_shipping_address&.address_line_2 %></li>
+            <li><%= @order_shipping_address&.city %></li>
+            <li><%= @order_shipping_address&.county %></li>
+            <li><%= @order_shipping_address&.postal_code %></li>
           </ul>
         </div>
         <div class="col-lg-6">
           <h6 class="mb-3">Billing Address</h6>
           <ul>
             <li><%= get_full_name(@order_billing_address) %></li>
-            <li><%= @order_billing_address.company_name %></li>
-            <li><%= @order_billing_address.appartment %></li>
-            <li><%= @order_billing_address.address_line_1 %></li>
-            <li><%= @order_billing_address.address_line_2 %></li>
-            <li><%= @order_billing_address.city %></li>
-            <li><%= @order_billing_address.county %></li>
-            <li><%= @order_billing_address.postal_code %></li>
+            <li><%= @order_billing_address&.company_name %></li>
+            <li><%= @order_billing_address&.appartment %></li>
+            <li><%= @order_billing_address&.address_line_1 %></li>
+            <li><%= @order_billing_address&.address_line_2 %></li>
+            <li><%= @order_billing_address&.city %></li>
+            <li><%= @order_billing_address&.county %></li>
+            <li><%= @order_billing_address&.postal_code %></li>
           </ul>
         </div>
       </div>
@@ -68,7 +68,7 @@
               <span><u><%= order_line_item&.product&.title %></u></span>
             </td>
             <td>
-              <span><u><%= "#{order_line_item&.product&.owner&.first_name}" "#{order_line_item&.product&.owner&.last_name}" %></u></span>
+              <span><u><%= "#{order_line_item&.product&.owner&.first_name} #{order_line_item&.product&.owner&.last_name}" %></u></span>
             </td>
             <td>
               <%= order_line_item.quantity %>

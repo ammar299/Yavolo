@@ -8,7 +8,7 @@ class Buyer < ApplicationRecord
   has_many :orders, dependent: :destroy
   has_one :stripe_customer, as: :stripe_customerable, dependent: :destroy
   has_many :buyer_payment_methods, dependent: :destroy
-  has_one :payment_mode, dependent: :destroy
+  has_many :refund_modes, dependent: :destroy
 
 
 

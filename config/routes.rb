@@ -258,7 +258,13 @@ Rails.application.routes.draw do
             post :update_field
           end
         end
-        resources :orders
+        resources :orders, only: [:index, :show] do
+          member do
+            get :new_refund
+            post :create_refund
+            post :get_refund
+          end
+        end
 
         resources :categories do
           member do

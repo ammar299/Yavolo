@@ -2,14 +2,14 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        <div class="d-flex justify-content-end pb-3">
+        <div class="d-flex justify-content-end pb-4">
           <%= link_to 'Refund', new_refund_admin_order_path(@order), class: 'btn btn-radius px-4 btn-primary mr-2 mb-1' %>
           <%= link_to 'Download Order', admin_order_path(@order, format: :pdf), class: 'btn btn-radius px-4 btn-primary mr-2 mb-1' %>
           <a href="#" class="btn btn-radius px-4 btn-primary">Add Tracking</a>
         </div>
       </div>
     </div>
-    <h3 class="mt-4 mb-3">Order Details</h3>
+    <h3 class="mt-4 mb-3">View Order</h3>
     <%= render "shared/orders/order_details" %>
   </div>
 </section>

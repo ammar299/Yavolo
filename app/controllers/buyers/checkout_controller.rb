@@ -201,9 +201,10 @@ class Buyers::CheckoutController < Buyers::BaseController
         buyer_shipping_address = buyer_details[:shippingDetails]
         unless @order.order_detail.present?
           @order.create_order_detail(
-            name: buyer_details[:buyerName],
+            first_name: buyer_details[:buyerName].split(" ")[0],
+            last_name: buyer_details[:buyerName].split(" ")[1].present? ? buyer_details[:buyerName].split(" ")[1] : "",
             email: buyer_details[:buyerEmail],
-            contact_number: buyer_details[:buyerPhone] || nil
+            phone_number: buyer_details[:buyerPhone] || nil
           )
         end
         unless @order.shipping_address.present?
@@ -273,9 +274,10 @@ class Buyers::CheckoutController < Buyers::BaseController
           if session_selected_payment_method.present? && session_selected_payment_method == 'paypal' && !@order.order_detail.present?
             billing_address = payer_info.address
             @order.create_order_detail(
-              name: payer_info.name.given_name,
+              first_name: payer_info.name.given_name,
+              last_name: payer_info.name.surname,
               email: payer_info.email_address,
-              contact_number: payer_info.try(:phone).try(:phone_number).try(:national_number) || nil
+              phone_number: payer_info.try(:phone).try(:phone_number).try(:national_number) || nil
             )
             shipping_address = paypal_order_capturor.paypal_response.first.result.purchase_units.first.shipping.address
             create_shipping_address(@order, shipping_address)
@@ -458,9 +460,30 @@ class Buyers::CheckoutController < Buyers::BaseController
     )
     if seller_grouped_products_hash.status
       response = Paypal::PayoutCreator.call({ debug: true, seller_hash: seller_grouped_products_hash.seller_hash })
+      # attempting to do payout per seller instead of batch payout
       if response.status
-        update_line_items_status(order, response.paypal_payout_response.result.batch_header.payout_batch_id, seller_grouped_products_hash.seller_hash)
+        parsed_response = Paypal::PaypalResponse.parsed_response(response.result)
+        @seller_hash = []
+        seller_grouped_products_hash = Stripe::SellerProductHash.call(
+          { order: order }
+        )
+        if seller_grouped_products_hash.status
+          @seller_hash = seller_grouped_products_hash.seller_hash
+        else
+          return
+        end
+        @seller_hash.each do |seller_details|
+          parsed_response["items"].each do |item|
+            if seller_details[:seller_paypal_account_id].to_s == item["payout_item"]["receiver"]
+              seller_details[:products_array].each do |line_item|
+                line_item.update(transfer_id: item["payout_item_id"], transfer_status: 'paid')
+              end
+            end
+          end
+        end
+        # update_line_items_status(order, response.paypal_payout_response.result.batch_header.payout_batch_id, seller_grouped_products_hash.seller_hash)
       end
+      # attempting to do payout per seller instead of batch payout
     end
   end
 

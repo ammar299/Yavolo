@@ -1,0 +1,9 @@
+$('.new_refund').attr('action', "<%= send("create_refund_#{current_user_namespace}_order_path") %>");
+$('#refund-review-modal').replaceWith("<%= j render(partial: 'shared/refunds/confirm_refund', locals: { params: params }) %>");
+$('#refund-review-modal').modal('show');
+$('#refund-review-modal').on('hidden.bs.modal', function () {
+    $('.new_refund').attr('action', "<%= send("get_refund_#{current_user_namespace}_order_path") %>");
+});
+$(".confirm_refund").on("click", function () {
+    $('form.new_refund .review_button').click();
+});

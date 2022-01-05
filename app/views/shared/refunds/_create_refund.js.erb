@@ -1,0 +1,8 @@
+<% if errors.present? %>
+displayNoticeMessage("<%= errors %>");
+<% else %>
+setTimeout(function () {
+    displayNoticeMessage("Refund successfully created.");
+    window.location.href = "<%= send("#{current_user_namespace}_orders_path") %>";
+}, 2000);
+<% end %>
