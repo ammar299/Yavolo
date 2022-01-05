@@ -18,7 +18,7 @@ class Product < ApplicationRecord
 
     # Product has many
     has_many :line_items, dependent: :destroy
-
+    has_many :yavolo_bundle_products
 
     has_many :pictures, as: :imageable, dependent: :destroy
     alias_attribute  :images, :pictures

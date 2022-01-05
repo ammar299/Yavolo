@@ -18,9 +18,18 @@ module SharedProductMethods
       update_hash.merge!(discount: value) if action =='update_discount'
 
       result = Product.where(id: product_ids).where(owner_conditions).update(update_hash) if action.present? && update_hash.present?
-      result = Product.where(id: product_ids).where(owner_conditions).destroy_all if action=='delete'
+      product_delete_errors = []
+      if action=='delete'
+        result = Product.where(id: product_ids).where(owner_conditions)
+        if YavoloBundleProduct.where(product_id: result).any?
+          product_delete_errors << "Product exist in Yavolo Bundle"
+        else
+          result.destroy_all
+        end
+      end
       result_errors = result.map{|p| p.errors.full_messages}.flatten
-      if result_errors.present?
+      result_errors << product_delete_errors
+      if result_errors.flatten.present?
         render json: { errors: result_errors.uniq }, status: :unprocessable_entity
       else
         render json: { notice: 'updated', update_ids: result.map(&:id), value: value, action: action }, status: :ok
