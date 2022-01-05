@@ -9,9 +9,8 @@
   </td>
   <td>
     <p class="mb-0"><%= seller_order.created_at.strftime("#{seller_order.created_at.day.ordinalize} %B %Y") %></p>
-    <p class="mb-0"><%= seller_order.created_at.strftime('%H:%M:%S GMT') %></p>
+    <p class="mb-0"><%= seller_order.created_at.strftime('%H:%M:%S GMT') %></p><br>
     <p class="mb-0">Sale Fee: £121.80</p>
-    <p class="mb-0">Sub Total: <%= get_seller_order_line_items_total(seller_order) %></p>
   </td>
   <td>
     <p class="mb-0">Order number: <%= seller_order.order_number %></p>
@@ -39,10 +38,10 @@
     </table>
   </td>
   <td>
-    <p class="mb-0"><strong>Dispatched: </strong>
-      11th March 2021</p>
+    <p class="mb-0"><strong>Dispatched </strong>
+      <br>11th March 2021</p>
     <p class="mb-0">09:47:28 GMT</p>
-    <p class="mb-0"><a href=""><u>#75757757</u></a></p>
+    <p class="mb-0"><a href=""><u><br>#75757757</u></a></p>
   </td>
   <td><strong>Shipped</strong></td>
   <td>
