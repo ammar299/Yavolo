@@ -5,7 +5,7 @@ class Admin::OrdersController < Admin::BaseController
   before_action :current_order, only: :show
 
   def index
-    @q = Order.ransack(params[:q])
+    @q = Order.paid_orders_listing.ransack(params[:q])
     @orders = @q.result(distinct: true)
     @orders = @orders.order(sub_total: :desc) if params.dig(:q, :s) == "price"
     @total_count = @orders.size

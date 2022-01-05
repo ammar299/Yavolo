@@ -38,7 +38,7 @@ module Admin::OrdersHelper
       seller_name = oli&.product&.owner&.full_name rescue nil
       seller_names.push(seller_name)
     end
-    seller_names.compact.uniq.join(", ")
+    seller_names.uniq.compact_blank.join(", ")
   end
   
   def order_status(order)
