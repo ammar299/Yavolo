@@ -28,5 +28,19 @@ class Sellers::OrdersController < Sellers::BaseController
       }
     end
   end
+  def export_orders
+    order_ids = get_orders
+    ExportOrdersCsvWorker.perform_async(current_seller.id, current_seller.class.name, order_ids)
+    redirect_to sellers_orders_path, notice: 'Orders export started, You will receive a file when its completed.'
+  end
+
+  def get_orders
+    orders = []
+    order_ids = params[:orders].split(",")
+    order_ids.each do |order|
+      orders << order.to_i
+    end
+    return orders
+  end
 
 end

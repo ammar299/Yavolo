@@ -266,6 +266,9 @@ Rails.application.routes.draw do
             post :create_refund
             post :get_refund
           end
+          collection do
+            get :export_orders
+          end
         end
 
         resources :categories do

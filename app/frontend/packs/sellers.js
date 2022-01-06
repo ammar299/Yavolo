@@ -1,5 +1,6 @@
 $(document).ready(function () {
   onBoardingApiScript();
+  sellerExportOrder();
   sellerOnBoarding();
   // sellerSearchByFilter();
   addNewSellerFormValidation();
@@ -1649,5 +1650,22 @@ function bindSellerCsvPopup(){
   $(".upload-sellers-csv-btn").click(function () {
     $("#upload-sellers-csv-popup").modal("show");
   });
+}
+
+function sellerExportOrder() {
+  $(".seller-orders-export").click(function (event) {
+    var selected_orders = []
+    $('.multiple-orders input[type=checkbox]:checked').each(function () {
+      selected_orders.push($(this).val())
+    });
+    if (selected_orders.length < 1) {
+      $('.multiple-orders input[type=checkbox]').each(function () {
+        selected_orders.push($(this).val())
+      });
+      $(this).attr('href', '/sellers/orders/export_orders.csv?orders=' + selected_orders);
+    } else {
+      $(this).attr('href', '/sellers/orders/export_orders.csv?orders=' + selected_orders);
+    }
+  })
 }
 
