@@ -4,6 +4,7 @@ $(document).ready(function () {
 		disableAddToCartForm();
     restrictQuantityValue();
     activeCheckoutPath();
+    validateBuyerSignInSignUp();
     $('.click-product-quantity').click(function (e) {
         e.preventDefault();
         const quantity = $(this).data("quantity");
@@ -85,4 +86,84 @@ function activeCheckoutPath() {
     $('.checkout-payment-method').addClass('active');
     $('.checkout-review-order').addClass('active');
   }
+}
+
+
+function validateBuyerSignInSignUp() {
+  $("form#new_buyer").validate({
+    rules: {
+      "buyer[first_name]": {
+        required: true,
+      },
+      "buyer[surname]": {
+        required: true,
+      },
+      "buyer[email]": {
+        required: true,
+        email: true,
+        regex: /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i,
+      },
+      "buyer[email_confirmation]": {
+        required: true,
+        email: true,
+        regex: /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i,
+        equalTo: "#buyer_email",
+      },
+      "buyer[password]": {
+        required: true,
+      },
+      "buyer[password_confirmation]": {
+        required: true,
+        equalTo: "#buyer_password",
+      },
+    },
+    highlight: function (element) {
+      $(element).parents("div.form-group").addClass("error-field");
+    },
+    unhighlight: function (element) {
+      $(element).parents("div.form-group").removeClass("error-field");
+    },
+    messages: {
+      "buyer[first_name]": {
+        required: "First name is required",
+      },
+      "buyer[surname]": {
+        required: "Surname name is required",
+      },
+      "buyer[email]": {
+        required: "Email is required",
+      },
+      "buyer[email_confirmation]": {
+        required: "Email confirmation is required",
+        equalTo: "Email does not match",
+      },
+      "buyer[password]": {
+        required: "Password is required",
+      },
+      "buyer[password_confirmation]": {
+        required: "Password confirmation is required",
+        equalTo: "Password does not match",
+      },
+    },
+  });
+  jQuery.validator.addMethod(
+    /* The value you can use inside the email object in the validator. */
+    "regex",
+
+    /* The function that tests a given string against a given regEx. */
+    function (value, element, regexp) {
+      /* Check if the value is truthy (avoid null.constructor) & if it's not a RegEx. (Edited: regex --> regexp)*/
+
+      if (regexp && regexp.constructor != RegExp) {
+        /* Create a new regular expression using the regex argument. */
+        regexp = new RegExp(regexp);
+      } else if (regexp.global) regexp.lastIndex = 0;
+
+      /* Check whether the argument is global and, if so set its last index to 0. */
+
+      /* Return whether the element is optional or the result of the validation. */
+      return this.optional(element) || regexp.test(value);
+    },
+    "Please Enter a valid Email"
+  );
 }
