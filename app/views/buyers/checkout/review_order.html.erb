@@ -30,8 +30,7 @@
                     <ul class="font-14px mb-3">
                       <li class="black-text "><%= get_full_name(@order.billing_address) %></li>
                       <li class="black-text "><%= @order.shipping_address.company_name %></li>
-                      <li class="black-text "><%= @order.billing_address.appartment %></li>
-                      <li class="black-text "><%= @order.billing_address.address_line_1 %></li>
+                      <li class="black-text "><%= @order.billing_address.appartment %> <%= @order.billing_address.address_line_1 %></li>
                       <li class="black-text "><%= @order.billing_address.address_line_2 %></li>
                       <li class="black-text "><%= @order.billing_address.county %></li>
                       <li class="black-text "><%= @order.billing_address.city %></li>
