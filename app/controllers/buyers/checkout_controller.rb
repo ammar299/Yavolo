@@ -55,7 +55,7 @@ class Buyers::CheckoutController < Buyers::BaseController
     @total_num_of_products = @cart.inject(0) { |sum, p| sum + p[:quantity].to_i }
   end
 
-  
+
 
   def create_payment_method
     if @order_id.present?
@@ -214,6 +214,7 @@ class Buyers::CheckoutController < Buyers::BaseController
           create_gpay_billing_address(@order, buyer_billing_address)
         end
         @order = update_order_to_paid(@order, @order_amount[:total], @order_amount[:sub_total])
+        fname_lname_in_ship_bill_addr(@order)
         create_gpay_payment_mode(@order, response, @order_amount)
         reduce_cart_products_stock(session[:_current_user_cart])
         clear_session
@@ -272,6 +273,7 @@ class Buyers::CheckoutController < Buyers::BaseController
           create_paypal_payout(@order)
           payer_info = paypal_order_capturor.paypal_response.first.result.payer
           if session_selected_payment_method.present? && session_selected_payment_method == 'paypal' && !@order.order_detail.present?
+            billing_address_obj_length = Paypal::PaypalResponse.parsed_response(payer_info.address)
             billing_address = payer_info.address
             @order.create_order_detail(
               first_name: payer_info.name.given_name,
@@ -281,7 +283,7 @@ class Buyers::CheckoutController < Buyers::BaseController
             )
             shipping_address = paypal_order_capturor.paypal_response.first.result.purchase_units.first.shipping.address
             create_shipping_address(@order, shipping_address)
-            create_billing_address(@order, billing_address)
+            create_billing_address(@order, billing_address_obj_length.length > 2 ? billing_address : shipping_address)
           end
           unless @buyer.present?
             @buyer = find_or_create_buyer(payer_info.email_address)
@@ -289,6 +291,7 @@ class Buyers::CheckoutController < Buyers::BaseController
             @order.buyer_payment_method.update(buyer_id: @buyer.id)
           end
           @order = update_order_to_paid(@order, @order_amount[:total], @order_amount[:sub_total])
+          fname_lname_in_ship_bill_addr(@order)
           create_payment_mode_paypal(@order, paypal_order_capturor.paypal_response, @order_amount)
           reduce_cart_products_stock(session[:_current_user_cart])
           clear_session
@@ -453,6 +456,14 @@ class Buyers::CheckoutController < Buyers::BaseController
     end
     buyer_payment_method
   end
+
+  def fname_lname_in_ship_bill_addr(order)
+    if order.present?
+      order.shipping_address.update(first_name: order.order_detail&.first_name, last_name: order.order_detail&.last_name)
+      order.billing_address.update(first_name: order.order_detail&.first_name, last_name: order.order_detail&.last_name)
+    end
+  end
+
 
   def create_paypal_payout(order)
     seller_grouped_products_hash = Stripe::SellerProductHash.call(
