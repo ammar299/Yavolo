@@ -3,7 +3,7 @@
     <div class="container-fluid pdp-pad">
       <div class="px-lg-5 mt-5 ">
         <a href="" class="red-text decoration-none btn-light-hvr btn-radius py-2 px-3 mr-5"><span
-          class="icon-chevron-left-solid pr-2"></span>Back to result</a>
+          class="icon-chevron-left-solid pr-2 mm-text"></span>Back to result</a>
         <span><a href="" class="decoration-none">Home</a>/<a href="" class="decoration-none">Page</a>/<a
           href="" class="decoration-none">Page</a>/<a href="" class="decoration-none">Page</a></span>
       </div>
@@ -418,12 +418,11 @@
                       
                     </div>
                     </div>
-                    <% if params[:preview_listing] %>
-                      <%= @product["terms_and_returns"].present? ? @product["terms_and_returns"].try(:html_safe) : "" %>
-                    <% else %>
-                      <%= @product.owner_type == "Seller" ? @product.owner&.return_and_term&.instructions&.html_safe : "" %>
-                    <% end %>
-                    
+                    <%# if params[:preview_listing] %>
+                      <%#= @product["terms_and_returns"].present? ? @product["terms_and_returns"].try(:html_safe) : "" %>
+                    <%# else %>
+                      <%#= @product.owner_type == "Seller" ? @product.owner&.return_and_term&.instructions&.html_safe : "" %>
+                    <%# end %>
                   </div>
                   <div class="card-body px-0 pb-0">
                         
@@ -457,11 +456,11 @@
                       
                     </div>
                     </div>
-                    <% if params[:preview_listing] %>
-                      <%= @product["terms_and_returns"].present? ? @product["terms_and_returns"].try(:html_safe) : "" %>
-                    <% else %>
-                      <%= @product.owner_type == "Seller" ? @product.owner&.return_and_term&.instructions&.html_safe : "" %>
-                    <% end %>
+                    <%# if params[:preview_listing] %>
+                      <%#= @product["terms_and_returns"].present? ? @product["terms_and_returns"].try(:html_safe) : "" %>
+                    <%# else %>
+                      <%#= @product.owner_type == "Seller" ? @product.owner&.return_and_term&.instructions&.html_safe : "" %>
+                    <%# end %>
                   </div>
                   <div class="pager-middle text-center d-flex justify-content-center mb-4">
                     <nav class="footer-pagination">

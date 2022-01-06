@@ -931,9 +931,9 @@ function updateProductsDom(res){
   var $prodRow=$('.prod-table-row input[type=checkbox]:checked').parents('.prod-table-row')
   let action = $('.bulk-actions a.dropdown-item.active').data('bulkaction')
   let selectors = res.update_ids.map(id=> "#prod-id-"+id).join(',')
-  if(action=='delete')
-    $(selectors).remove();
-
+  if(action=='delete') {
+    location.reload();
+  }
   if(action=='update_price'){
     let price = parseFloat(res.value);
     var classNameOfAction = ".price-field, .price-box"
