@@ -1452,7 +1452,7 @@ function setSellerOrderSearchMenuAndQueryName() {
         parsingSearchParams("Order Number", 'order_number_cont');
         break;
       case 'Customer Name':
-        parsingSearchParams('Customer Name', 'order_detail_first_name_or_order_detail_last_name_cont');
+        parsingSearchParams('Customer Name', 'order_detail_full_name_cont');
         break;
       case 'Customer Postcode':
         parsingSearchParams('Customer Postcode', 'shipping_address_postal_code_or_billing_address_postal_code_cont');
@@ -1468,7 +1468,7 @@ function setSellerOrderSearchMenuAndQueryName() {
         break;
       default:
         $('.current-search-filter').text('Search All');
-        parsingSearchParams('Search All', 'line_items_product_title_or_order_detail_first_name_or_order_detail_last_name_or_shipping_address_postal_code_or_billing_address_postal_code_or_line_items_product_sku_or_line_items_product_yan_or_line_items_product_ean_or_order_number_cont');
+        parsingSearchParams('Search All', 'line_items_product_title_or_order_detail_full_name_or_shipping_address_postal_code_or_billing_address_postal_code_or_line_items_product_sku_or_line_items_product_yan_or_line_items_product_ean_or_order_number_cont');
         break;
     }
   });

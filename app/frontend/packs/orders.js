@@ -42,20 +42,20 @@ function setOrderSearchMenuAndQueryName() {
             $('#csfn').val('order_number_cont');
             filterType.val('Order Number');
         } else if (currentFilter === 'Seller Name') {
-            searchField.attr('name', 'q[line_items_product_owner_of_Seller_type_first_name_or_line_items_product_owner_of_Seller_type_last_name_cont]');
-            $('#csfn').val('line_items_product_owner_of_Seller_type_first_name_or_line_items_product_owner_of_Seller_type_last_name_cont');
+            searchField.attr('name', 'q[line_items_product_owner_of_Seller_type_full_name_cont]');
+            $('#csfn').val('line_items_product_owner_of_Seller_type_full_name_cont');
             filterType.val('Seller Name');
         } else if (currentFilter === 'Customer Name') {
-            searchField.attr('name', 'q[order_detail_first_name_or_order_detail_last_name_cont]');
-            $('#csfn').val('order_detail_first_name_or_order_detail_last_name_cont');
+            searchField.attr('name', 'q[order_detail_full_name_cont]');
+            $('#csfn').val('order_detail_full_name_cont');
             filterType.val('Customer Name');
         } else if (currentFilter === 'SKU') {
             searchField.attr('name', 'q[line_items_product_sku_cont]');
             $('#csfn').val('line_items_product_sku_cont');
             filterType.val('SKU');
         } else {
-            searchField.attr('name', 'q[line_items_product_title_or_order_number_or_line_items_product_owner_of_Seller_type_first_name_or_line_items_product_owner_of_Seller_type_last_name_or_order_detail_first_name_or_order_detail_last_name_or_line_items_product_sku_cont]');
-            $('#csfn').val('line_items_product_title_or_order_number_or_line_items_product_owner_of_Seller_type_first_name_or_line_items_product_owner_of_Seller_type_last_name_or_order_detail_first_name_or_order_detail_last_name_or_line_items_product_sku_cont');
+            searchField.attr('name', 'q[line_items_product_title_or_order_number_or_line_items_product_owner_of_Seller_type_full_name_or_order_detail_full_name_or_line_items_product_sku_cont]');
+            $('#csfn').val('line_items_product_title_or_order_number_or_line_items_product_owner_of_Seller_type_full_name_or_order_detail_full_name_or_line_items_product_sku_cont');
             filterType.val('Search All');
         }
     });

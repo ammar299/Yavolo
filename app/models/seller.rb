@@ -1,5 +1,6 @@
 class Seller < ApplicationRecord
   include Admin::SellersHelper
+  include GenerateFullName
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   # validate :date_of_birth_is_valid_datetime

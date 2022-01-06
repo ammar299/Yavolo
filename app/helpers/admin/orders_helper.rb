@@ -15,10 +15,10 @@ module Admin::OrdersHelper
       q_params[:q][:search_product_a_to_z],
       q_params[:q][:search_product_z_to_a],
       q_params[:q][:order_number_cont],
-      q_params[:q][:line_items_product_owner_of_Seller_type_first_name_or_line_items_product_owner_of_Seller_type_last_name_cont],
-      q_params[:q][:order_detail_first_name_or_order_detail_last_name_cont],
+      q_params[:q][:line_items_product_owner_of_Seller_type_full_name_cont],
+      q_params[:q][:order_detail_full_name_cont],
       q_params[:q][:line_items_product_sku_cont],
-      q_params[:q][:line_items_product_title_or_order_number_or_line_items_product_owner_of_Seller_type_first_name_or_line_items_product_owner_of_Seller_type_last_name_or_order_detail_first_name_or_order_detail_last_name_or_line_items_product_sku_cont]
+      q_params[:q][:line_items_product_title_or_order_number_or_line_items_product_owner_of_Seller_type_full_name_or_order_detail_full_name_or_line_items_product_sku_cont]
     ].compact.first.to_s unless q_params[:q].blank?
   end
 
@@ -27,11 +27,11 @@ module Admin::OrdersHelper
       search_product_a_to_z
       search_product_z_to_a
       order_number_cont
-      line_items_product_owner_of_Seller_type_first_name_or_line_items_product_owner_of_Seller_type_last_name_cont
-      order_detail_first_name_or_order_detail_last_name_cont
+      line_items_product_owner_of_Seller_type_full_name_cont
+      order_detail_full_name_cont
       line_items_product_sku_cont
     ]
-    valid_field_names.include?(params[:csfname]) ? params[:csfname] : 'line_items_product_title_or_order_number_or_line_items_product_owner_of_Seller_type_first_name_or_line_items_product_owner_of_Seller_type_last_name_or_order_detail_first_name_or_order_detail_last_name_or_line_items_product_sku_cont'
+    valid_field_names.include?(params[:csfname]) ? params[:csfname] : 'line_items_product_title_or_order_number_or_line_items_product_owner_of_Seller_type_full_name_or_order_detail_full_name_or_line_items_product_sku_cont'
   end
 
   def order_seller_name(order_line_items)
