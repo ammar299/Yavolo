@@ -16,6 +16,7 @@ class Buyers::Auth::OmniauthController < Devise::OmniauthCallbacksController
   def facebook
     @seller = Buyer.create_from_provider_data(request.env['omniauth.auth'])
     if @seller.persisted?
+      flash[:notice] = 'Signed In Successfully!'
       sign_in_and_redirect @seller, :event => :authentication #this will throw if @seller is not activated
     else
       session['devise.facebook_data'] = request.env['omniauth.auth']
