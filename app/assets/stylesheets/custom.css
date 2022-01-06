@@ -1754,3 +1754,12 @@ width: 75%;
 	}
 }
 /* pdp-single-image-slider */
+.contact-page {
+  text-align: center;
+  min-height: 510px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 80px;
+}

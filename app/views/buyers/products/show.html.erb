@@ -386,7 +386,7 @@
                 </div>
                 <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
                      data-parent="#accordion">
-                  <div class="card-body px-0">
+                  <div class="card-body px-0 pb-0">
                         
                     <div class="review-card mx-0 px-4 mt-0">
                     <div class="review-header d-flex justify-content-between">
@@ -423,15 +423,9 @@
                     <% else %>
                       <%= @product.owner_type == "Seller" ? @product.owner&.return_and_term&.instructions&.html_safe : "" %>
                     <% end %>
-                    <div class="row">
-                      <div class="col-md-4 mx-auto">
-                        <div class="pager-middle text-center d-flex justify-content-center mb-4">
-                          <div class="text-center"></div>
-                        </div>
-                      </div>
-                    </div>
+                    
                   </div>
-                  <div class="card-body px-0">
+                  <div class="card-body px-0 pb-0">
                         
                     <div class="review-card mx-0 px-4 mt-0">
                     <div class="review-header d-flex justify-content-between">
