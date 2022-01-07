@@ -275,6 +275,12 @@ $(document).ready(function () {
     $("form#add_new_seller_profile_form").validate({
       ignore: "",
       rules: {
+        "seller[company_detail_attributes][first_name]": {
+          required: true,
+        },
+        "seller[company_detail_attributes][last_name]": {
+          required: true,
+        },
         "seller[company_detail_attributes][name]": {
           required: true,
         },
@@ -378,6 +384,12 @@ $(document).ready(function () {
         $(element).parents("div.form-group").removeClass("error-field");
       },
       messages: {
+        "seller[company_detail_attributes][first_name]": {
+          required: 'Required',
+        },
+        "seller[company_detail_attributes][last_name]": {
+          required: 'Required',
+        },
         "seller[company_detail_attributes][name]": {
           required: "Required",
         },
@@ -940,6 +952,12 @@ window.validateSellerEditForm = function () {
         email: true,
         regex: /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i,
       },
+      "seller[company_detail_attributes][first_name]": {
+        required: true,
+      },
+      "seller[company_detail_attributes][last_name]": {
+        required: true,
+      },
       "seller[company_detail_attributes][name]": {
         required: true,
       },
@@ -1048,6 +1066,12 @@ window.validateSellerEditForm = function () {
     messages: {
       "seller[email]": {
         required: "Email is required",
+      },
+      "seller[company_detail_attributes][first_name]": {
+        required: "First name is required",
+      },
+      "seller[company_detail_attributes][last_name]": {
+        required: "Last name is required",
       },
       "seller[company_detail_attributes][name]": {
         required: "Company name is required",

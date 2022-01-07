@@ -5,7 +5,15 @@
         <h3 class="text-center mb-5" style="color: #640529;font-size: 48px;">Register Your Business With Yavolo
         </h3>
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-          <%= render "devise/shared/error_messages", resource: resource %>
+          <% if resource.errors.any? %>
+            <div class="red-text">
+              <ul>
+                <% resource.errors.full_messages.each do |msg| %>
+                  <li>*<%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
           <div class="form-group general-mrgn">
           <input type="hidden" id="multistep" name="multistep" value="<%= multisteps_signup? %>">
             <%= f.hidden_field :multistep_sign_up, value: multisteps_signup?  %>

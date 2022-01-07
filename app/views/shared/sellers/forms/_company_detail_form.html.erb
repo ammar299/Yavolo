@@ -4,6 +4,18 @@
 <% end %>
 <%= form.simple_fields_for :company_detail do |cd| %>
   <div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
+    <%= cd.label :first_name, 'First Name:' %>
+    <div style="flex: 1;">
+      <%= cd.text_field :first_name, placeholder: 'Jhon', class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
+    <%= cd.label :last_name, 'Last Name:' %>
+    <div style="flex: 1;">
+      <%= cd.text_field :last_name, placeholder: 'Stons', class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
     <%= cd.label :name, 'Company Name:' %>
     <div style="flex: 1;">
       <%= cd.text_field :name, placeholder: 'Startrek', class: 'form-control' %>

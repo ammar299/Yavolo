@@ -25,6 +25,14 @@
           <!-- Business Information Section / Company Details -->
           <%= form.simple_fields_for :company_detail, (company_detail) do |cd| %>
             <div class="form-group general-mrgn">
+              <%= cd.label :first_name, 'First Name*' %>
+              <%= cd.text_field :first_name, placeholder: 'John', class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
+              <%= cd.label :last_name, 'Last Name*' %>
+              <%= cd.text_field :last_name, placeholder: 'Stons', class: 'form-control' %>
+            </div>
+            <div class="form-group general-mrgn">
               <%= cd.label :name, 'Company Name*' %>
               <%= cd.text_field :name, placeholder: 'JohnStons-Gymnasium', class: 'form-control' %>
             </div>

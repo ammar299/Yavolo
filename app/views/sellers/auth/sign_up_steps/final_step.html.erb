@@ -23,6 +23,8 @@
               <div class="d-flex justify-content-between">
                 <div>
                   <ul>
+                    <li><%= company_detail.try(:first_name).to_s %></li>
+                    <li><%= company_detail.try(:last_name).to_s %></li>
                     <li><%= company_detail.try(:name).to_s %></li>
                     <li><%= company_detail.try(:country).to_s %></li>
                     <li><%= company_detail.try(:legal_business_name).to_s %></li>

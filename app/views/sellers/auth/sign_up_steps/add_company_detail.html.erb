@@ -14,6 +14,18 @@
             <% company_detail = @seller.build_company_detail %>
           <% end %>
           <%= form.fields_for :company_detail, (company_detail) do |cd| %>
+            <% has_error, msg = get_errors(form, "company_detail.first_name") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
+              <%= cd.label :first_name, 'First Name*' %>
+              <%= cd.text_field :first_name, required: true, class: 'form-control' %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+            </div>
+            <% has_error, msg = get_errors(form, "company_detail.last_name") %>
+            <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
+              <%= cd.label :name, 'Last Name*' %>
+              <%= cd.text_field :last_name, required: true, class: 'form-control' %>
+              <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
+            </div>
             <% has_error, msg = get_errors(form, "company_detail.name") %>
             <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= cd.label :name, 'Company Name*' %>

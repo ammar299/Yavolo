@@ -13,6 +13,12 @@ function addNewSellerFormValidation() {
         email: true,
         regex: /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
       },
+      "seller[company_detail_attributes][first_name]": {
+        required: true,
+      },
+      "seller[company_detail_attributes][last_name]": {
+        required: true,
+      },
       "seller[company_detail_attributes][name]": {
         required: true,
       },
@@ -143,6 +149,12 @@ function addNewSellerFormValidation() {
       },
       "seller[company_detail_attributes][name]": {
         required: "Company name is required",
+      },
+      "seller[company_detail_attributes][first_name]": {
+        required: "First name is required",
+      },
+      "seller[company_detail_attributes][last_name]": {
+        required: "Last name is required",
       },
       "seller[company_detail_attributes][country]": {
         required: "Country name is required",
