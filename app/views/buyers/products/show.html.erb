@@ -69,7 +69,7 @@
             </ul>
             <div class="d-flex align-items-start flex-wrap mt-3 row">
               <div class="pr-5 col-lg-5 mb-3">
-                <h3 class="black-text mb-0 mt-0">£<%= @product["price"] %></h3>
+                <h3 class="black-text mb-0 mt-0"><%= get_price_in_pounds(@product["price"]) %></h3>
                 <span class="mm-text black-text" style="opacity: 50%;">Including VAT & Free Shipping</span>
               </div>
               <div class="col-lg-7">

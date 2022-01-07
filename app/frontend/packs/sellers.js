@@ -1253,7 +1253,7 @@ function validateSellerSignInSignUp() {
       /* Return whether the element is optional or the result of the validation. */
       return this.optional(element) || regexp.test(value);
     },
-    "Please Enter a valid Email"
+    "Please enter a valid email address."
   );
 }
 
