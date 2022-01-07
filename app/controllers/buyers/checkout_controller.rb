@@ -197,24 +197,44 @@ class Buyers::CheckoutController < Buyers::BaseController
       if session_selected_payment_method.present? && session_selected_payment_method == 'g-pay'
         buyer_details = params[:buyerDetails]
         payment_method = buyer_details[:paymentMethod]
+        buyer_billing_details = payment_method[:billing_details]
         buyer_billing_address = payment_method[:billing_details][:address]
         buyer_shipping_address = buyer_details[:shippingDetails]
+        buyer_billing_address_payload = {
+          first_name: buyer_billing_details[:name].split(' ')[0] || '',
+          last_name: buyer_billing_details[:name].split(' ', 2).last || buyer_billing_details[:name].split(' ')[0] || '',
+          address_line_1: buyer_billing_address[:line1],
+          address_line_2: buyer_billing_address[:line2],
+          city: buyer_billing_address[:city],
+          county: buyer_billing_address[:state],
+          country: buyer_billing_address[:country],
+          postal_code: buyer_billing_address[:postal_code]
+        }
+        buyer_shipping_address_payload = {
+          first_name: buyer_shipping_address[:recipient].split(' ')[0] || '',
+          last_name: buyer_shipping_address[:recipient].split(' ', 2).last || buyer_shipping_address[:recipient].split(' ')[0] || '',
+          address_line_1: buyer_shipping_address[:addressLine][0].split[0] || '',
+          address_line_2: buyer_shipping_address[:addressLine][0].split(' ', 2).last || '',
+          city: buyer_shipping_address[:city],
+          county: buyer_shipping_address[:region],
+          country: buyer_shipping_address[:country],
+          postal_code: buyer_shipping_address[:postalCode]
+        }
         unless @order.order_detail.present?
           @order.create_order_detail(
-            first_name: buyer_details[:buyerName].split(" ")[0],
-            last_name: buyer_details[:buyerName].split(" ")[1].present? ? buyer_details[:buyerName].split(" ")[1] : "",
+            first_name: buyer_details[:buyerName].split(' ')[0] || '',
+            last_name: buyer_details[:buyerName].split(' ', 2).last || buyer_details[:buyerName].split(' ')[0] || '',
             email: buyer_details[:buyerEmail],
             phone_number: buyer_details[:buyerPhone] || nil
           )
         end
         unless @order.shipping_address.present?
-          create_gpay_shipping_address(@order, buyer_shipping_address)
+          create_gpay_shipping_address(@order, buyer_shipping_address_payload)
         end
         unless @order.billing_address.present?
-          create_gpay_billing_address(@order, buyer_billing_address)
+          create_gpay_billing_address(@order, buyer_billing_address_payload)
         end
         @order = update_order_to_paid(@order, @order_amount[:total], @order_amount[:sub_total])
-        fname_lname_in_ship_bill_addr(@order)
         create_gpay_payment_mode(@order, response, @order_amount)
         reduce_cart_products_stock(session[:_current_user_cart])
         clear_session
@@ -274,15 +294,16 @@ class Buyers::CheckoutController < Buyers::BaseController
           payer_info = paypal_order_capturor.paypal_response.first.result.payer
           if session_selected_payment_method.present? && session_selected_payment_method == 'paypal' && !@order.order_detail.present?
             billing_address_obj_length = Paypal::PaypalResponse.parsed_response(payer_info.address)
-            billing_address = payer_info.address
+            billing_address = payer_info
             @order.create_order_detail(
               first_name: payer_info.name.given_name,
               last_name: payer_info.name.surname,
               email: payer_info.email_address,
               phone_number: payer_info.try(:phone).try(:phone_number).try(:national_number) || nil
             )
-            shipping_address = paypal_order_capturor.paypal_response.first.result.purchase_units.first.shipping.address
+            shipping_address = paypal_order_capturor.paypal_response.first.result.purchase_units.first.shipping
             create_shipping_address(@order, shipping_address)
+            billing_address[:name] = {'full_name': "#{billing_address.name.give_name} #{billing_address.name.surname}"}
             create_billing_address(@order, billing_address_obj_length.length > 2 ? billing_address : shipping_address)
           end
           unless @buyer.present?
@@ -291,7 +312,6 @@ class Buyers::CheckoutController < Buyers::BaseController
             @order.buyer_payment_method.update(buyer_id: @buyer.id)
           end
           @order = update_order_to_paid(@order, @order_amount[:total], @order_amount[:sub_total])
-          fname_lname_in_ship_bill_addr(@order)
           create_payment_mode_paypal(@order, paypal_order_capturor.paypal_response, @order_amount)
           reduce_cart_products_stock(session[:_current_user_cart])
           clear_session
@@ -344,8 +364,12 @@ class Buyers::CheckoutController < Buyers::BaseController
     }
   end
 
-  def address_params(address)
+  def address_params_from_paypal(address)
+    name = address.name.full_name.split(' ',2)
+    address = address.address
     {
+      first_name: name.first,
+      last_name: name.last,
       address_line_1: address.address_line_1,
       address_line_2: address.address_line_2,
       city: address.admin_area_2,
@@ -356,19 +380,19 @@ class Buyers::CheckoutController < Buyers::BaseController
   end
 
   def create_gpay_shipping_address(order, shipping_address)
-    order.create_shipping_address(create_shipping_address_from_gpay(shipping_address))
+    order.create_shipping_address(shipping_address)
   end
 
   def create_gpay_billing_address(order, billing_address)
-    order.create_billing_address(create_address_from_gpay(billing_address))
+    order.create_billing_address(billing_address)
   end
 
   def create_shipping_address(order, shipping_address)
-    order.create_shipping_address(address_params(shipping_address))
+    order.create_shipping_address(address_params_from_paypal(shipping_address))
   end
 
   def create_billing_address(order, billing_address)
-    order.create_billing_address(address_params(billing_address))
+    order.create_billing_address(address_params_from_paypal(billing_address))
   end
 
   def update_order_to_paid(order, total, sub_total)
