@@ -424,7 +424,7 @@ class Buyers::CheckoutController < Buyers::BaseController
     if @buyer.nil?
       @buyer = Buyer.new({ email: email })
       @buyer.skip_password_validation = true
-      @buyer.save
+      @buyer.save(validate: false)
     end
     @buyer
   end
