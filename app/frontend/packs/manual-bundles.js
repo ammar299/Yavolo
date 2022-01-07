@@ -86,13 +86,12 @@ function exportYavolosNotification(selected_yavolos){
 }
 
 function exportAllYavolos(selected_yavolos){
-
-    $(".multiple-update-yavolos input[type=checkbox]").each(function () { //get all yavolos
-        selected_yavolos.push(parseInt($(this).val()));
+    JSON.parse($("#all_yavolo_ids").attr("data")).forEach(function(item) {
+        selected_yavolos.push(item);
     });
-    
     $("#yavolos-trigger").attr("href","/admin/yavolos/manual_bundles/export_yavolos.csv?format=csv&yavolos=" + selected_yavolos)
 }
+
 function initializeCKEditorOnYavoloManualFormFields(){
     if(!$('.ckeditor-field').length) return;
     $('.ckeditor-field').each(function (index,element) {

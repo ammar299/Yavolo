@@ -57,6 +57,7 @@ class AdminMailer < ApplicationMailer
     attachments["#{Date.today}-export-yavolos.csv"] = {mime_type: 'text/csv', content: csv}
     Admin.all.each do |admin|
       mail(to: admin.email, subject: 'Yavolo: CSV yavolos data')
+      puts "---- ADMIN EMAIL: #{admin.email} ------"
     end
   end
   

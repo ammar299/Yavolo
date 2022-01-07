@@ -39,6 +39,7 @@
           <a href="#" class="btn btn-radius px-4 btn-primary mr-1 btn-sm my-1 import-yavolos">Upload CSV</a>
           <a href="#" class="btn btn-radius px-4 btn-primary mr-1 export-yavolos btn-sm my-1" >Export CSV</a>
           <a href="#" class="btn btn-radius px-4 btn-primary mr-1 d-none" id="yavolos-trigger" >export yavolos data</a>
+          <input type="hidden" id="all_yavolo_ids" data="<%= @q.result(distinct: true).ids %>">
           <%= link_to "Add new Yavolo", add_yavolos_admin_yavolos_manual_bundles_path, class: "btn btn-radius px-4 btn-primary btn-sm my-1" %>
         </div>
       </div>
