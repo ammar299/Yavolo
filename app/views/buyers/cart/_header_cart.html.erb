@@ -22,7 +22,7 @@
               </div>
               <div class="d-flex justify-content-between">
                 <span class="font-14px">Qty:<%= line_items[:quantity] %></span>
-                <span class="font-14px">£<%= line_items[:quantity].to_i * (product.price ? product.price.to_f : 0) %></span>
+                <span class="font-14px"><%= get_price_in_pounds(line_items[:quantity].to_i * (product.price ? product.price.to_f : 0)) %></span>
               </div>
             </div>
           </div>
@@ -31,7 +31,7 @@
       <div class="mb-1 pdp-cart-brdr">
         <div class="d-flex justify-content-between dark-red-text">
           <span class="font-14px"><b>Subtotal</b> </span>
-          <span class="font-14px">£<%= cart_sub_total %></span>
+          <span class="font-14px"><%= get_price_in_pounds(cart_sub_total) %></span>
         </div>
       </div>
       <%= link_to "PROCEED TO CHECKOUT", checkout_path, class: "btn btn-sm btn-radius px-4 btn-primary justify-content-center mb-1" %>
