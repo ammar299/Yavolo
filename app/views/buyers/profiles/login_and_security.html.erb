@@ -1,0 +1,149 @@
+<div class="main-content">
+  <div class="container-fluid pdp-pad">
+    <div class="px-xl-5 mt-4">
+      <%= link_to buyers_profile_path(current_buyer), class:"buyer-card-link red-text decoration-none btn-light-hvr btn-radius py-2 px-3 mr-5" do %>
+        <span class="icon-chevron-left-solid pr-2 mm-text back-button-position"></span>Back to account <%end%>
+      <h3 class="mt-3">Login & Security</h3>
+      <h5 class="mt-3">About you</h5>
+      <div class="row">
+        <div class="col-lg-4 d-flex">
+          <div class="yo-white-card  box-border seller-edit-card">
+            <div>
+              <h5 class="mt-0">your Details</h5>
+              <table class="table">
+                <!-- <thead><tr><th scope="col">#</th><th scope="col">First</th><th scope="col">Last</th><th scope="col">Handle</th></tr></thead> -->
+                <tbody>
+                  <tr>
+                    <td class="nowrap">Contact Name:</td>
+                    <td>Mr arvind Panchmatia</td>
+                  </tr>
+                  <tr>
+                    <td class="nowrap">Contact Number:</td>
+                    <td>234567890</td>
+                  </tr>
+                  <tr>
+                    <td class="nowrap">Contact Email:</td>
+                    <td>ahsanzafar@gmail.com</td>
+                  </tr>
+                  <tr>
+                    <td class="nowrap">Account Status:</td>
+                    <td>Active</td>
+                  </tr>
+                  <tr>
+                    <td class="nowrap">Accouont Created:</td>
+                    <td>02/04/21</td>
+                  </tr>
+                  <tr>
+                    <td class="nowrap">last Logged In:</td>
+                    <td>04/07-21</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="">
+              <a href="#" class="btn btn-sm btn-radius px-4 btn-primary w-100">UPDATE DETAILS </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 d-flex">
+          <div class="yo-white-card box-border seller-edit-card">
+            <div>
+              <h5 class="mt-0">Your Profile Picture</h5>
+              <span class="mb-3">
+                <img src="images/profile.jpg" alt="" class="yo-profile-images">
+              </span>
+              <p class="mt-3 mm-text text-center">Image must be a .jpg, .gif or .png file smaller than 10MB and at least 500px by 500px.</p>
+            </div>
+            <div class="text-center">
+              <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mt-1 w-100">UPDATE PROFILE PICTURE </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h5 class="mt-0">Login Settings</h5>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="yo-white-card box-border">
+            <div class="row">
+              <div class="col-lg-8">
+                <form action="">
+                  <div class="form-group form-group-vertical form-group-vertical-responsive">
+                    <label for="exampleInputEmail1">Automatic logout:</label>
+                    <div class="d-inline-flex align-items-center my-1">
+                      <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider round"></span>
+                      </label>
+                      <p class="my-0 mx-3">Enable</p>
+                    </div>
+                    <div class="bg-hvr-dropdown bg-hvr-drpdwn-2 my-1 ml-lg-5">
+                      <div class="dropdown dropdown-filter mb-0 d-inline-flex">
+                        <a href="#" class="btn btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center  dpdown-min-width justify-content-between" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">After 1 hours of no activity <i class="fa fa-angle-down ml-3" aria-hidden="true"></i>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+                          <a class="dropdown-item active" href="#">After 2 hours of no activity <i class="fa fa-check" aria-hidden="true"></i>
+                          </a>
+                          <a class="dropdown-item" href="#">After 3 hours of no activity <i class="fa fa-check" aria-hidden="true"></i>
+                          </a>
+                          <a class="dropdown-item" href="#">After 4 hours of no activity <i class="fa fa-check" aria-hidden="true"></i>
+                          </a>
+                          <a class="dropdown-item" href="#">After 5 hours of no activity <i class="fa fa-check" aria-hidden="true"></i>
+                          </a>
+                          <a class="dropdown-item" href="#">After 6 hours of no activity <i class="fa fa-check" aria-hidden="true"></i>
+                          </a>
+                          <a class="dropdown-item" href="#">After 7 hours of no activity <i class="fa fa-check" aria-hidden="true"></i>
+                          </a>
+                          <a class="dropdown-item" href="#">After 8 hours of no activity <i class="fa fa-check" aria-hidden="true"></i>
+                          </a>
+                          <a class="dropdown-item" href="#">After 9 hours of no activity <i class="fa fa-check" aria-hidden="true"></i>
+                          </a>
+                          <a class="dropdown-item" href="#">After 10 hours of no activity <i class="fa fa-check" aria-hidden="true"></i>
+                          </a>
+                          <a class="dropdown-item" href="#">After 11 hours of no activity <i class="fa fa-check" aria-hidden="true"></i>
+                          </a>
+                          <a class="dropdown-item" href="#">After 12 hours of no activity <i class="fa fa-check" aria-hidden="true"></i>
+                          </a>
+                          <a class="dropdown-item" href="#">After 24 hours of no activity <i class="fa fa-check" aria-hidden="true"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group form-group-vertical form-group-vertical-responsive ">
+                  <label for="exampleInputPassword1">Recovery email:</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                </div>
+                <div class="form-group form-group-vertical form-group-vertical-responsive">
+                  <label for="exampleInputPassword1">Recovery phone number:</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                </div>
+                <div class="form-group form-group-vertical form-group-vertical-responsive">
+                  <label for="exampleInputPassword1">change password:</label>
+                  <div class="flex1">
+                    <input type="email" class="form-control mb-2" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter current password">
+                    <input type="email" class="form-control mb-2" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter new password">
+                    <input type="email" class="form-control mb-2" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Confirm new password">
+                  </div>
+                </div>
+                <div class="form-group form-group-vertical form-group-vertical-responsive align-items-center">
+                  <label for="exampleInputPassword1">Recovery email:</label>
+                  <div>
+                    <label class="checkbox-blk logged_in_checkbox">keep me logged in <input type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+                <a href="#" class="btn btn-sm btn-radius px-4 btn-primary">SAVE LOGIN SETTINGS</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

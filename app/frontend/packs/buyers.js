@@ -5,6 +5,7 @@ $(document).ready(function () {
     restrictQuantityValue();
     activeCheckoutPath();
     validateBuyerSignInSignUp();
+    buyerAccountPageSlider()
     $('.click-product-quantity').click(function (e) {
         e.preventDefault();
         const quantity = $(this).data("quantity");
@@ -166,4 +167,37 @@ function validateBuyerSignInSignUp() {
     },
     "Please enter a valid email address."
   );
+}
+
+function buyerAccountPageSlider(){
+  $('.pdp-nbg-slick-slider').slick({
+    infinite: true,
+    speed: 300,
+    slidesToShow: 6,
+    slidesToScroll: 6,
+    autoplay: false,
+    padding: 10,
+    responsive: [{
+        breakpoint: 1025,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  });
 }

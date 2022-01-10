@@ -1764,6 +1764,81 @@ width: 75%;
   padding-bottom: 80px;
 }
 
+/* ======login & security===== */
+.yo-profile-images {
+	width: 120px;
+	height: 120px;
+	margin: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	object-fit: contain;
+}
+.dpdown-min-width {
+	min-width: 300px !important;
+}
+.checkbox-blk.logged_in_checkbox{
+  padding: 0 30px !important;
+}
+@media screen and (max-width: 480px) {
+	.dpdown-min-width {
+		min-width: inherit !important;
+	}
+}
 .font-19 {
     font-size: 19px;
 }
+
+/* ==cleared notifications=== */
+.notify-col {
+	min-height: 350px;
+	display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.notify-icons {
+	font-size: 20px;
+    color: var(--red);
+    background-color: #ffecee;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+.bg-offwhite {
+	background-color: var(--off-white);
+}
+.pdp-cleared-notify-slider .slick-prev {
+	right: 50px !important;
+} 
+.pdp-cleared-notify-slider .slick-next {
+	right: 0px !important;
+} 
+.pdp-cleared-notify-slider {
+	margin-right: 43px;
+}
+.pdp-cleared-notify-slider.slick-prev:hover::before, 
+.pdp-cleared-notify-slider.slick-next:hover::before{
+	color: #640529 !important;
+    background-color: #eee0d3 !important;
+}
+
+.back-button-position{
+  position: relative;
+  top: -1px;
+}
+
+a.buyer-card-link:hover {
+  text-decoration: none;
+}
+
+@media screen and (max-width: 480px) {
+	.pdp-cleared-notify-slider {
+		margin-right: 0px;
+	}
+}
+
+/* ==cleared notifications=== */
