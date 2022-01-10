@@ -98,7 +98,7 @@
 <script>
 <% if form.object.owner.present? && form.object.owner_type == 'Seller' %>
 $(document).ready(function(){
-var newOption = new Option("<%="#{form.object.owner.first_name} #{form.object.owner.last_name}" %>", "<%=form.object.owner_id%>", true, true);
+var newOption = new Option("<%="#{selected_seller_name(form.object.owner_id)}" %>", "<%=form.object.owner_id%>", true, true);
 $('#search_seller_select').append(newOption).trigger('change');
 });
 <% end %>

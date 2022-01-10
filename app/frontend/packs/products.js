@@ -560,20 +560,15 @@ function bindAndLoadSellersSelect2() {
       delay: 250,
       data: function(params) {
         return {
-          "q[email_or_first_name_or_last_name_cont]": params.term,
-          "q[s]": "first_name asc",
+          "q[name_cont]": params.term,
+          "q[s]": "name asc",
           page: params.page || 1
         };
       },
       processResults: function(data, params) {
         params.page = params.page || 10;
         return {
-          results: $.map(data.sellers, function(e) {
-            return {
-              id: e.id,
-              text: e.full_name
-            }
-          }),
+          results: $.map(data.sellers,function(e){ return {id: e.seller_id, text: e.name}}),
           pagination: {
             more: (params.page * 10) < data.total_count
           }

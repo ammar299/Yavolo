@@ -96,4 +96,7 @@ module Admin::ProductHelper
     end
   end
 
+  def selected_seller_name(seller_id)
+    CompanyDetail.find_by_seller_id(seller_id).name
+  end
 end

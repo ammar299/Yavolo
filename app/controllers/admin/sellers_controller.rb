@@ -234,10 +234,10 @@ class Admin::SellersController < Admin::BaseController
   end
 
   def search
-    @q = Seller.available_sellers_for_product.ransack(params[:q])
+    @q = CompanyDetail.where(seller_id: Seller.available_sellers_for_product.ids).ransack(params[:q])
     @sellers = @q.result(distinct: true).order('created_at').page(params[:page]).per(params[:per_page].presence || 10)
     render json: {
-      sellers: @sellers.as_json(only: [:id], methods: :full_name),
+      sellers: @sellers.as_json(only: [:seller_id, :name]),
       total_count: @sellers.total_count
     }, status: :ok
   end
