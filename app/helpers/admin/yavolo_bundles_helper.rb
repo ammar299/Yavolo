@@ -41,7 +41,7 @@ module Admin::YavoloBundlesHelper
   def yavolo_bundle_product_disable_check_index_list(product)
     "<li><div class='d-flex justify-content-between'>
         <span class='mm-text pr-3'>#{product.title}</span>
-        #{product.is_disbundled? ? "<span class='icon-cross product-title-cross pointer pt-1'></span>" : ''}
+        #{product.is_disbundled? && admin_route?(params[:controller]) ? "<span class='icon-cross product-title-cross pointer pt-1'></span>" : ''}
      </div></li>"
   end
 

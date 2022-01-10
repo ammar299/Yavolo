@@ -71,6 +71,17 @@ module ApplicationHelper
     ].compact.first.to_s unless q_params[:q].blank?
   end
 
+  def search_field_query_param_val_yavolo(q_params)
+    [
+      q_params[:q][:yavolo_bundle_products_title_cont],
+      q_params[:q][:yavolo_bundle_products_brand_cont],
+      q_params[:q][:yavolo_bundle_products_sku_cont],
+      q_params[:q][:yavolo_bundle_products_yan_cont],
+      q_params[:q][:yavolo_bundle_products_ean_cont],
+      q_params[:q][:yavolo_bundle_products_title_or_yavolo_bundle_products_brand_or_yavolo_bundle_products_sku_or_yavolo_bundle_products_yan_or_yavolo_bundle_products_ean_cont]
+    ].compact.first.to_s unless q_params[:q].blank?
+  end
+
   def search_field__delivery_option_param(q_params)
     [
       q_params[:q][:name_cont],
@@ -112,6 +123,12 @@ module ApplicationHelper
       klass = 'box-border yo-white-card'
     end
     klass
+  end
+
+  def current_search_field_name_yavolo
+    valid_field_names = ['products_title_cont','products_brand_cont','products_sku_cont','products_yan_cont','products_ean_cont',
+'products_title_or_products_brand_or_products_sku_or_products_yan_or_products_ean_cont']
+    valid_field_names.include?(params[:csfname]) ? params[:csfname] : 'products_title_or_products_brand_or_products_sku_or_products_yan_or_products_ean_cont'
   end
 
   def current_search_field_name
@@ -202,6 +219,10 @@ module ApplicationHelper
 
   def product_seller_name(product_id)
     Product.find_by(id: product_id).owner.try(:company_detail)&.name&.titleize
+  end
+
+  def admin_route?(from_controller)
+    from_controller.include?("admin")
   end
 
 end

@@ -1,4 +1,5 @@
 class SellerStripeMailer < ApplicationMailer
+  include Admin::SubscriptionsHelper
 
   def cancel_stripe_subscription_email_to_seller
     seller_email = params[:to]

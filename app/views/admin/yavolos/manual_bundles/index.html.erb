@@ -73,7 +73,7 @@
           </tr>
           </thead>
           <tbody>
-            <%= render partial:"yavolo_list_item_index",collection: @yavolo_bundles, as: :yavolo_bundle  %>
+            <%= render partial:"shared/yavolo_list_item_index",collection: @yavolo_bundles, as: :yavolo_bundle  %>
           </tbody>
         </table>
         <% if @yavolo_bundles.count == 0 %>

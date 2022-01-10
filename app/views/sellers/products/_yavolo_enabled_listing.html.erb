@@ -1,0 +1,88 @@
+<div class="col-md-10">
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="yavolo_enabled-listings" role="tabpanel" aria-labelledby="home-tab">
+      <div class="d-flex align-items-center justify-content-between flex-wrap mb-2">
+        <div class="d-flex flex-wrap">
+          <div class="dropdown-filter-field active search-border my-1 dropdown-filter-custom dropdown-filter-position">
+            <div class="dropdown">
+              <a class="btn btn-radius px-3 btn-primary current-search-filter btn-sm" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= set_filter_type_in_dropdown(params) %> <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
+              </a>
+              <div class="dropdown-menu seller-products-filters" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item <%=set_filter_active('Search All')%>" href="#">Search All <i class="fa fa-check" aria-hidden="true"></i>
+                </a>
+                <a class="dropdown-item <%=set_filter_active('Product Title')%>" href="#">Product Title <i class="fa fa-check" aria-hidden="true"></i>
+                </a>
+                <a class="dropdown-item <%=set_filter_active('SKU')%>" href="#">SKU <i class="fa fa-check" aria-hidden="true"></i>
+                </a>
+                <a class="dropdown-item <%=set_filter_active('YAN')%>" href="#">YAN <i class="fa fa-check" aria-hidden="true"></i>
+                </a>
+                <a class="dropdown-item <%=set_filter_active('EAN')%>" href="#">EAN <i class="fa fa-check" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+            <div class="search-field mb-0"><%= search_form_for @q, url: sellers_products_path do |f| %><%= hidden_field_tag :tab, params[:tab].to_s ||'all' %> <input type="hidden" name="filter_type" id="product-filter-type" value="<%= params[:filter_type] %>">
+              <input type="hidden" name="csfname" id="csfn" value="<%= current_search_field_name %>"><% if params[:q].present? && params[:q].keys.include?('s') %><%= hidden_field_tag 'q[s]', params[:q][:s].to_json %><% end %><%= f.search_field current_search_field_name.to_sym, { class: 'input-btn-sm seller-product-search-field', placeholder: 'Search your listings', value: "#{search_field_query_param_val(params)}" } %><% if params[:q].present? %><%= link_to sellers_products_path(filter_type: params[:filter_type], tab: (params[:tab].present? ? params[:tab] : 'all')), class: 'btn-sm cross_link_icon' do %> <i class="icon-cross" aria-hidden="true"></i><% end %><% else %> <i class="fa fa-search" aria-hidden="true"></i><% end %><% end %>
+            </div>
+          </div>
+          <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border">
+            <div class="dropdown">
+              <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center filter-by-dropdown" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%=set_product_sort_by_in_dropdown(params)%> <i class="fa fa-angle-down ml-3" aria-hidden="true"></i>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <%= render 'shared/products/sort_by_title_price_dropdown_item', filter: 'title asc', title: 'Product Title A-Z' %>
+                <%= render 'shared/products/sort_by_title_price_dropdown_item', filter: 'title desc', title: 'Product Title Z-A' %>
+                <%= render 'shared/products/sort_by_title_price_dropdown_item', filter: 'yavolo_total desc', title: 'Price High-Low' %>
+                <%= render 'shared/products/sort_by_title_price_dropdown_item', filter: 'yavolo_total asc', title: 'Price Low-High' %>
+                <%= render 'shared/products/sort_by_products_in_yavolo_high_low', filter: 'products_in_yavolo asc', title: 'Products in Yavolo Low-High' %>
+                <%= render 'shared/products/sort_by_products_in_yavolo_high_low', filter: 'products_in_yavolo desc', title: 'Products in Yavolo High-Low' %>
+                <%= render 'shared/products/sort_by_yavolo_bundle_pending_dropdown_item' %>
+                <%= render 'shared/products/sort_by_yavolo_bundle_live_dropdown_item' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="filter-by-tags d-flex justify-content-start mt-2"><%=print_filter_by_status_tags.to_s.html_safe %><%=print_filter_by_sort_tags.to_s.html_safe %> </div>
+      <div class="row">
+        <div class="col-lg-12">
+            <div class="Yavolo-table mt-4">
+              <table class="table">
+                <thead>
+                <tr>
+                  <th>
+                    <label class="checkbox-blk">
+                      <input type="checkbox" id="check-all-checkboxes">
+                      <span class="checkmark checkmark-white"></span>
+                    </label>
+                  </th>
+                  <th>Status</th>
+                  <% if current_seller.present? && !admin_route?(params[:controller])%>
+                    <th>Image</th>
+                  <%end%>
+                  <th>Yavolo YAN</th>
+                  <th>Yavolo Products</th>
+                  <th>Yavolo Sellers</th>
+                  <th class="text-center">YAN</th>
+                  <th class="text-center">Yavolo Total</th>
+                  <th class="text-center" width="5%">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <%= render partial:"shared/yavolo_list_item_index",collection: @yavolo_bundles, as: :yavolo_bundle  %>
+                </tbody>
+              </table>
+              <% if @yavolo_bundles.count == 0 %>
+                <p class="text-center my-5">You have no Yavolos</p>
+              <% end %>
+
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="pager-middle text-center d-flex justify-content-center mb-4 "><%= paginate @yavolo_bundles %> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

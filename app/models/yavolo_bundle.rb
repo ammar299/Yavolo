@@ -13,7 +13,7 @@ class YavoloBundle < ApplicationRecord
   has_one :main_image, -> { where(is_featured: true) }, as: :imageable, dependent: :destroy, class_name: 'Picture'
   has_many :pictures, -> { where(is_featured: false) }, as: :imageable, dependent: :destroy
   alias_attribute :images, :pictures
-
+  scope :seller_yavolo_bundles, ->(owner) { includes(:products).where(products: {owner_id: owner.id}) }
   enum status: {draft: 0, pending: 1, disbundled: 2, live: 3}, _prefix: true
   enum previous_status: {draft: 0, pending: 1, disbundled: 2, live: 3}, _prefix: true
 

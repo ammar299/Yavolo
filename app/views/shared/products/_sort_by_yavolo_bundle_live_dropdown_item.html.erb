@@ -1,0 +1,6 @@
+<%=link_to '#', class: "dropdown-item admin-filter-by #{ params['live']=='1' ? 'active' : '' }", data: {status: 'live' } do %>
+  Live
+  <% if params['live']=='1'%>
+    <span class="fa fa-check" aria-hidden="true"></span>
+  <% end %>
+<% end %>

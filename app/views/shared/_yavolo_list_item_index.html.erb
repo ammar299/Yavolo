@@ -8,6 +8,21 @@
     </div>
   </td>
   <td> <%= yavolo_bundle.status&.humanize %></td>
+  <% if current_seller.present? && !admin_route?(params[:controller])%>
+  <td> 
+    <div class="">
+      <span class="imglist" width="100%">
+      <% if yavolo_bundle.pictures.present?%>
+          <% if yavolo_bundle.pictures.first&.name&.url.present? %>
+              <%=image_tag yavolo_bundle.pictures.first&.name&.url(:thumb), :class => "w-100" %>
+          <% end %>
+      <% else %>
+          <%= product_thumbnail_image_for_table_row(yavolo_bundle) %>
+      <% end %> 
+      </span>
+    </div>
+  </td>
+  <%end%>
   <td>
     <%= yavolo_bundle.yan %>
   </td>
@@ -26,6 +41,7 @@
       <%= yavolo_bundle.products.map{|p| "<li>#{p.yan}</li>"}.join("").html_safe %>
     </ul>
   </td>
+  <% if current_admin.present? && admin_route?(params[:controller])%>
   <td class="text-center">
     <ul>
       <%= yavolo_bundle.products.map{|p| "<li>#{get_price_in_pounds(p.price)}</li>"}.join("").html_safe %>
@@ -41,17 +57,17 @@
       <%= yavolo_bundle.products.map{|p| "<li>#{format_to_percentage(p.discount)}</li>"}.join("").html_safe %>
     </ul>
   </td>
+  <%end%>
   <td class="text-center">
     <p><%= get_price_in_pounds(yavolo_bundle.price) %></p>
     <p><i>Customer saves </i> <%= get_price_in_pounds(yavolo_bundle.regular_total - (yavolo_bundle.price || 0)) %> (<%= format_to_percentage(yavolo_bundle.products.sum(&:discount)) %>)</p>
 
   </td>
   <td>
-    <div class="text-center">
-      <%= link_to "Edit", add_yavolos_admin_yavolos_manual_bundles_path(yavolo_bundle_id: yavolo_bundle.id), class: "btn btn-sm btn-radius px-4 btn-secondary w-100 mb-1 btn-light-hvr"  %>
-    </div>
-    <div class="text-center">
-      <%= link_to 'Delete', delete_yavolo_admin_yavolos_manual_bundles_path(ids: [yavolo_bundle.id]), remote: true, class: 'btn btn-sm btn-radius px-4 btn-secondary w-100 btn-light-hvr', data: {confirm: "Are you sure you want to delete this bundle?", method: :delete}  %>
-    </div>
+    <% if current_admin.present? && admin_route?(params[:controller])%>
+      <%= render partial:'/admin/yavolos/manual_bundles/yavolo_list_items_action_buttons',locals: {yavolo_item: yavolo_bundle}  %>  
+    <%else%>
+      <%= render partial:'/sellers/products/yavolo_list_items_buttons',locals: {yavolo_item: yavolo_bundle} %>  
+    <%end%>
   </td>
 </tr>

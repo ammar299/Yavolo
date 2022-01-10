@@ -6,18 +6,28 @@ class Sellers::ProductsController < Sellers::BaseController
   include ParseSortParam
 
   def index
-    parse_sort_param_to_array
-    @listing_by_status_with_count = Product.get_group_by_status_count(current_seller)
-    @q = Product.ransack(params[:q])
-    query = @q.result(distinct: true).select('products.*, lower(products.title)')
-    if Product.statuses.keys.include?(params[:tab]) || params[:tab]=='all' || params[:tab]=='yavolo_enabled'
-      @products = query.send("#{params[:tab]}_products", current_seller)
-    else
-      @products = query.where(owner_id: current_seller.id, owner_type: current_seller.class.name)
-    end
-    @products = @products.where(yavolo_enabled: true) if params[:yavolo_enabled]=='1'
-    @products = @products.order(created_at: :desc) if params.dig(:q, :s).blank?
-    @products = @products.page(params[:page]).per(params[:per_page].presence || 15)
+      # listing_of_seller_yavolo_bundles
+      parse_sort_param_to_array
+      @listing_by_status_with_count = Product.get_group_by_status_count(current_seller)
+      @q = Product.ransack(params[:q])
+      query = @q.result(distinct: true).select('products.*, lower(products.title)')
+      ### manage yavolo for seller start  //please donot remove this code
+      # if params[:tab] == "manage_yavolos"
+      @yavolo_bundles = YavoloBundle.seller_yavolo_bundles(current_seller).where(products: {id: @q.result.ids})
+      @yavolo_bundles = YavoloBundle.where(id: @yavolo_bundles.ids)
+      @yavolo_bundles = @yavolo_bundles.order(created_at: :desc) if params.dig(:q, :s).blank?
+      @total_count = @yavolo_bundles.size
+      @yavolo_bundles = @yavolo_bundles.page(params[:page]).per(params[:per_page].presence || 15)
+      # end
+      ### manage yavolo for seller end
+      if Product.statuses.keys.include?(params[:tab]) || params[:tab]=='all' || params[:tab]=='yavolo_enabled'
+        @products = query.send("#{params[:tab]}_products", current_seller)
+      else
+        @products = query.where(owner_id: current_seller.id, owner_type: current_seller.class.name)
+      end
+      @products = @products.where(yavolo_enabled: true) if params[:yavolo_enabled]=='1'
+      @products = @products.order(created_at: :desc) if params.dig(:q, :s).blank?
+      @products = @products.page(params[:page]).per(params[:per_page].presence || 15)
   end
 
   def new
@@ -232,6 +242,33 @@ class Sellers::ProductsController < Sellers::BaseController
     def format_price_value
       price = params[:product][:price].split('£').reject(&:blank?).join('').delete(',') if params[:product][:price].present?
       params[:product][:price] = price if price.present?
+    end
+
+    def listing_of_seller_yavolo_bundles
+      @yavolo_bundles = @q.result(distinct: true)
+      byebug
+        # byebug
+      # if @y.statuses.keys.include?(params[:statuses])
+      #   @yavolo_bundles = @y.send("status_#{params[:statuses]}")
+      # elsif params[:q].present?
+      #   if params[:q][:s].include?("products_in_yavolo")
+      #     byebug
+      #     @yavolo_bundles =   @y.order("products asc")
+      #   end
+      #   if params[:q][:s].include?("yavolo_total")
+      #     @yavolo_bundles = @y.order("yavolo_total asc") if params[:q][:s].include?("asc")
+      #     @yavolo_bundles = @y.order("yavolo_total desc") if params[:q][:s].include?("desc")
+      #   end
+      # else
+      #   @yavolo_bundles = @y
+      # end
+      # byebug
+      # @yavolo_bundles = @q.result(distinct: true)''
+      # byebug
+      # @yavolo_bundles = @q.result(distinct: true)  if params[:csfname].present?
+      # @yavolo_bundles = @yavolo_bundles.order(created_at: :desc) if params.dig(:q, :s).blank?
+      # @total_count = @yavolo_bundles.size
+      @yavolo_bundles = @yavolo_bundles.page(params[:page]).per(params[:per_page].presence || 15)
     end
 
 end
