@@ -10,7 +10,7 @@
             <% end %>
 
             <div class="search-field mb-0 mr-1">
-              <% search_query_param = 'yan_or_products_title_or_products_yan_or_products_owner_of_Seller_type_first_name_or_products_owner_of_Seller_type_last_name_cont' %>
+              <% search_query_param = 'yan_or_products_title_or_products_yan_or_products_owner_of_Seller_type_full_name_cont' %>
               <%= f.search_field search_query_param, {class: '', placeholder: 'Search Yavolos', value: params.dig(:q, search_query_param.to_sym).to_s, autocomplete: 'off'} %>
               <% if params.dig(:q, search_query_param.to_sym).to_s.present? %>
                 <%= link_to admin_yavolos_manual_bundles_path, class: 'cross-icon' do %>
