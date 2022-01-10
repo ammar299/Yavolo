@@ -21,7 +21,7 @@ class Sellers::Auth::SessionsController < Devise::SessionsController
 
   # DELETE /resource/sign_out
   def destroy
-    if current_seller.last_seen_at.present?
+    if current_seller.present?
       current_seller.last_seen_at = nil
       current_seller.save
     end
