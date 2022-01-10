@@ -70,7 +70,7 @@ module Products
 
       def seller_name(product)
         if product.owner_type == "Seller"
-          "#{product.owner.first_name} #{product.owner.last_name}"
+          CompanyDetail.find_by_seller_id(product.owner_id)&.name
         else
           "Admin"
         end

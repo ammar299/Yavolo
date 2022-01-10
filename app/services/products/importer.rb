@@ -73,9 +73,9 @@ module Products
           owner = csv_import.importer         
           owner.id
         else
-          owner = Seller.where("CONCAT_WS(' ', first_name, last_name) LIKE ?", row["seller"]).first
+          owner = CompanyDetail.where('name LIKE ?', row['seller']).first
           if owner.present?
-            owner.id
+            owner.seller_id
           else
             csv_import.importer.id
           end
@@ -86,7 +86,7 @@ module Products
         if csv_import.importer_type == 'Seller'
           return "Seller" 
         else
-          owner = Seller.where("CONCAT_WS(' ', first_name, last_name) LIKE ?", row["seller"]).first
+          owner = CompanyDetail.where('name LIKE ?', row['seller']).first
           owner.present? ? "Seller" : "Admin"
         end
       end

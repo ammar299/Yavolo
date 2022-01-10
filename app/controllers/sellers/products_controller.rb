@@ -246,7 +246,6 @@ class Sellers::ProductsController < Sellers::BaseController
 
     def listing_of_seller_yavolo_bundles
       @yavolo_bundles = @q.result(distinct: true)
-      byebug
         # byebug
       # if @y.statuses.keys.include?(params[:statuses])
       #   @yavolo_bundles = @y.send("status_#{params[:statuses]}")
