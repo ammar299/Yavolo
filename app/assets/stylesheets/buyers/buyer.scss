@@ -94,7 +94,7 @@
   background-color: #fff;
   border-radius: 50%;
   margin-bottom: 10px;
-  box-shadow: 1px 1px 5px #0000000A;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .heading-subtitle {
   display: flex;
@@ -404,7 +404,7 @@
 }
 .pdp-review-vertical-slider .slick-prev,
 .pdp-nbg-slick-slider .slick-prev {
-  right: 70px !important;
+  right: 55px !important;
   left: inherit !important;
   margin-left: 20px;
 }
