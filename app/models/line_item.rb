@@ -14,18 +14,20 @@ class LineItem < ApplicationRecord
     partial_refunded: 4
   }
 
-  scope :product_owners_collection, -> { map { |line_item| line_item.product&.owner }.uniq }
-  scope :user_own_order_line_items, ->(owner) {
-    joins(:product).where(products: { owner_id: owner.id }) if owner.class.name == "Seller"
-  }
   enum commission_status: {
     not_refunded: 0,
     commission_refunded: 1,
     refunded_later: 2,
   }
 
-  scope :seller_own_order_line_items, ->(owner) {
-    owner.class.name == "Seller" ? joins(:product).where(products: { owner_id: owner.id }) : all
-  }
+  scope :product_owners_collection, -> { map { |line_item| line_item.product&.owner }.uniq }
+  scope :user_own_order_line_items, ->(owner) { joins(:product).where(products: { owner_id: owner.id }) if owner.class.name == "Seller" }
 
+  def self.net_refund_of(id)
+    where(id: id).includes(:refund_details).sum("refund_details.amount_refund")
+  end
+
+  def self.net_paid_of(id)
+    where(id: id).sum("quantity * price")
+  end
 end

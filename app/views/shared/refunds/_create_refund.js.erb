@@ -1,5 +1,5 @@
 <% if errors.present? %>
-displayNoticeMessage("<%= errors %>");
+    displayCustomMessage("<%= errors %>");
 <% else %>
 setTimeout(function () {
     displayNoticeMessage("Refund successfully created.");

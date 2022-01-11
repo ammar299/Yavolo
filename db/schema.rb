@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_07_112940) do
+ActiveRecord::Schema.define(version: 2022_01_09_233618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -549,15 +549,12 @@ ActiveRecord::Schema.define(version: 2022_01_07_112940) do
   create_table "refund_details", force: :cascade do |t|
     t.bigint "order_id"
     t.bigint "refund_id"
-    t.bigint "product_id"
-    t.decimal "amount_paid"
     t.decimal "amount_refund"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "line_item_id"
     t.index ["line_item_id"], name: "index_refund_details_on_line_item_id"
     t.index ["order_id"], name: "index_refund_details_on_order_id"
-    t.index ["product_id"], name: "index_refund_details_on_product_id"
     t.index ["refund_id"], name: "index_refund_details_on_refund_id"
   end
 
@@ -862,7 +859,6 @@ ActiveRecord::Schema.define(version: 2022_01_07_112940) do
   add_foreign_key "paypal_details", "sellers"
   add_foreign_key "product_assignments", "products"
   add_foreign_key "refund_details", "orders"
-  add_foreign_key "refund_details", "products"
   add_foreign_key "refund_details", "refunds"
   add_foreign_key "refund_modes", "buyers"
   add_foreign_key "refund_modes", "line_items"

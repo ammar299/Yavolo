@@ -1,6 +1,6 @@
 class Refund < ApplicationRecord
 
-  validates :total_refund, numericality: { greater_than: 0.00 }
+  validates :total_refund, numericality: { greater_than: 0.0 }
 
   enum refund_reason: {
     "item_never_arrived_with_the_customer": 0,
@@ -22,9 +22,8 @@ class Refund < ApplicationRecord
   }
 
   belongs_to :order
-
   has_many :refund_details, dependent: :destroy
-  accepts_nested_attributes_for :refund_details
+  accepts_nested_attributes_for :refund_details, reject_if: proc { |attribute| attribute['amount_refund'].blank? }
   has_many :refund_modes, dependent: :destroy
   has_many :reversal_modes, dependent: :destroy
 

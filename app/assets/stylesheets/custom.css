@@ -1327,6 +1327,9 @@ width: 75%;
 .refund-detail-body td:first-child {
     width: 40%;
 }
+.refund-detail-body-row td:first-child {
+    width: 60%;
+}
 .refund-subtotal-table td:first-child {
     width: 60% !important;
 }

@@ -68,13 +68,15 @@
         </div>
       </div>
     </div>
-    <div class="refund-detail-body mt-3">
+    <div class="refund-detail-body mt-3 <%= "refund-detail-body-row" if current_seller.present? %>">
       <div class="px-2">
         <table class="table refund-table mb-0">
           <thead>
           <tr>
             <td><strong> Item(s)</strong></td>
-            <td class="text-right"><strong>Seller(s)</strong></td>
+            <% if current_admin.present? %>
+              <td class="text-right"><strong>Seller(s)</strong></td>
+            <% end %>
             <td class="text-right"><strong>Amount paid</strong></td>
             <td class="text-right"><strong>Amount to refund</strong></td>
           </tr>
@@ -112,6 +114,9 @@
           <tr>
             <td scope="row">Tax</td>
             <td class="text-right" width="20%">£0.00</td>
+            <td class="text-right" width="20%">
+              <input type="number" class="refund-input" placeholder="0.00">
+            </td>
           </tr>
           </tbody>
         </table>

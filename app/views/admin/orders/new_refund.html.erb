@@ -3,7 +3,7 @@
     <h3 class="mt-4 mb-3">Issue a Refund</h3>
     <div class="col-lg-12">
       <div class="mt-4 mb-4">
-        <%= link_to send("#{current_user_namespace}_order_path"), class: "red-text decoration-none btn-light-hvr px-3 py-2 btn-radius align-items-center" do %>
+        <%= link_to "#{current_seller.present? ? sellers_orders_path : admin_order_path(@order)}", class: "red-text decoration-none btn-light-hvr px-3 py-2 btn-radius align-items-center" do %>
           <span class="icon-chevron-left-solid pr-2 mm-text"></span>
           Back
         <% end %>

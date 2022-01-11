@@ -53,7 +53,9 @@
           <th>
             <%= @order_line_items.count %> item(s)
           </th>
-          <th>Seller</th>
+          <% if current_admin.present? %>
+            <th>Seller</th>
+          <% end %>
           <th>Quantity</th>
           <th>Price</th>
           <th>Postage</th>
@@ -67,9 +69,11 @@
             <td>
               <span><u><%= order_line_item&.product&.title %></u></span>
             </td>
-            <td>
-              <span><u><%= "#{order_line_item&.product&.owner&.first_name} #{order_line_item&.product&.owner&.last_name}" %></u></span>
-            </td>
+            <% if current_admin.present? %>
+              <td>
+                <span><u><%= "#{order_line_item&.product&.owner&.first_name} #{order_line_item&.product&.owner&.last_name}" %></u></span>
+              </td>
+            <% end %>
             <td>
               <%= order_line_item.quantity %>
             </td>
@@ -88,7 +92,7 @@
           </tr>
         <% end %>
         <tr>
-          <td colspan="3">
+          <td colspan="<%= current_admin.present? ? '3' : '2' %>">
             <p class="font-14px mb-0"><strong>Total</strong></p>
           </td>
           <td>

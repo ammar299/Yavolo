@@ -11,6 +11,7 @@
     <p class="mb-0"><%= seller_order.created_at.strftime("#{seller_order.created_at.day.ordinalize} %B %Y") %></p>
     <p class="mb-0"><%= seller_order.created_at.strftime('%H:%M:%S GMT') %></p><br>
     <p class="mb-0">Sale Fee: £121.80</p>
+    <p class="mb-0">Sub Total: <%= get_seller_order_line_items_total(seller_order) %></p>
   </td>
   <td>
     <p class="mb-0">Order number: <%= seller_order.order_number %></p>
