@@ -19,7 +19,7 @@ $(document).ready(function () {
     $('body').on('click', '.click-product-quantity', function(){
         $(".update-product-quantity").trigger('change');
         changeQtyofInput();
-    });
+    });     
 
     function changeQtyofInput(){
 			let stock = $('#product_quantity').data('quantity');

@@ -9,6 +9,11 @@ module OrdersHelper
     vat_number_collection.compact.uniq.join(", ")
   end
 
+  def order_number_format(code)
+    code.slice! "YAVO"
+    "##{code}"
+  end
+
   def get_full_name(object)
     "#{object&.first_name}"+" "+"#{object&.last_name}"
   end

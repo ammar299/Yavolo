@@ -86,7 +86,7 @@
                       <span class="order-name-width"><strong><%= product.title %></strong></span>
 
                       <div class="d-flex">
-                        <span class="pr-2">£<%= product.price %></span>
+                        <span class="pr-2"><%= get_price_in_pounds(product.price) %></span>
                         <%= link_to remove_product_from_summary_path(remove_product: {product_id: product.id}, product_count: value[:quantity], total_product: @total_num_of_products), method: :delete, remote: true, class: 'decoration-none' do %>
                           <span class="order-summary-basket-cross">x</span>
                         <% end %>

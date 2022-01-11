@@ -112,7 +112,7 @@ setYavoloSearchMenuAndQueryName()
     } else {
       $('#product-new-value').parents('.form-group').find('small').remove();
       $('#product-new-value').parents('.form-group').addClass('error-field');
-      $('#product-new-value').parents('.form-group').append('<small>Please enter a valid value.</small>')
+      $('#product-new-value').parents('.form-group').append('<small class="clr">Please enter a valid value.</small>')
     }
   });
 

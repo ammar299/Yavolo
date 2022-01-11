@@ -11,7 +11,7 @@
       </div>
     </td>
     <td>
-      <%= link_to order.order_number.present? ? order.order_number : "", admin_order_path(order) %>
+      <%= link_to order.order_number.present? ? order_number_format(order.order_number) : "", admin_order_path(order) %>
     </td>
     <td>
       <%= get_full_name(order_detail) if order_detail %>
@@ -29,7 +29,7 @@
       <a href="" class="icon-manage-Yavolo red-text font-20px decoration-none"></a>
     </td>
     <td>Royal Mail</td>
-    <td><a href=""><u>#75757757</u></a></td>
+    <td><a href=""><u>75757757</u></a></td>
     <td><%= order.order_type&.titleize %></td>
     <td class="text-center">
       <div class="">

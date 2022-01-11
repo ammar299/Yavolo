@@ -1212,7 +1212,7 @@ width: 75%;
     right: 8px;
 }
 .productreview-slider .review-card {
-    margin: 6px 10px 20px 10px !important;
+    margin: 6px 0 !important;
 }
 .Product-Review-text {
     padding-left: 11px;
@@ -1608,7 +1608,7 @@ width: 75%;
 	line-height: 15px;
 }
 .dollar-img {
-  width: 66px;
+  width: 52px;
 }
 .splide__slide img {
   vertical-align: bottom;
@@ -1790,6 +1790,24 @@ width: 75%;
 }
 .font-19 {
     font-size: 19px;
+}
+
+.splide__track {
+  position: static !important;
+}
+#main-slider .text-right.pr-3.pt-3 {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+.center-placing .pdp-card .pdp-img {
+  min-height: 180px;
+}
+.clr {
+  color: var(--red);
+}
+.th-lowercase {
+  text-transform: lowercase;
 }
 
 /* ==cleared notifications=== */

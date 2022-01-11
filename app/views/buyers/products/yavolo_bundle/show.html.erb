@@ -6,7 +6,7 @@
     <div class="container-fluid pdp-pad">
       <div class="px-xl-5 mt-5 ">
         <a href="#" class="red-text decoration-none btn-light-hvr btn-radius py-2 px-3 mr-5"><span
-          class="icon-chevron-left-solid pr-2 mm-text"></span>Back to result</a>
+          class="icon-chevron-left-solid pr-2 mm-text"></span><strong>Back to results</strong></a>
         <span><a href="" class="decoration-none">Home</a>/<a href="" class="decoration-none">Page</a>/<a
           href="" class="decoration-none">Page</a>/<a href="" class="decoration-none">Page</a></span>
       </div>
@@ -59,7 +59,13 @@
         </div>
         <div class="col-xl-6">
           <div class="single-product single-pdp-pad">
-            <a href="" class="decoration-none red-text"><span class="icon-Icon-awesome-heart heart-icomoon"></span></a>
+            <a href="" class="decoration-none red-text">
+              <span class="icon-heart-Y">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20.808" viewBox="0 0 22 20.808">
+                  <path id="Path_27" data-name="Path 27" d="M12.791,22.576l-1.45-1.308c-5.15-4.728-8.55-7.8-8.55-11.62a5.438,5.438,0,0,1,5.5-5.533,5.916,5.916,0,0,1,4.5,2.113,5.915,5.915,0,0,1,4.5-2.113,5.438,5.438,0,0,1,5.5,5.533c0,3.823-3.4,6.892-8.55,11.62Z" transform="translate(-1.791 -3.115)" fill="none" stroke="#ff3e55" stroke-width="2"/>
+                </svg>
+              </span>
+            </a>
             <h4 class="black-text my-0"><%= @yavolo_bundle["title"] %></h4>
             <span class="mm-text"><strong>Sold by <%= get_sellers_of_yavolo_bundle(@yavolo_bundle) %> </strong></span>
             <ul class="rating d-flex mt-1">
@@ -85,16 +91,13 @@
                   </span>
                 </div>
               </div>
-
-
             </div>
-
             <%= form_tag(add_to_cart_path, id: "buyer-products-quantity", method: :post, remote: true) do %>
-              <div class="d-flex align-items-start">
-                <span class="pr-3 pt-2">Quantity:</span>
-                <div class="dropdown quantity-dropdown text-center mb-2">
+              <div class="d-flex align-items-center mb-2">
+                <span class="pr-3">Quantity:</span>
+                <div class="dropdown quantity-dropdown text-center" id="qty-dropdown">
                   <button class="btn dropdown-toggle btn-lg" type="button" name="product[quantities]"id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                    <%= number_field_tag 'product[quantity]', 1, class: "update-product-quantity", data: { quantity: @yavolo_bundle.stock_limit} %>
+                    <%= number_field_tag 'product[quantity]', 1, class: "update-product-quantity", id: "quantity-dropdown-addition", data: { quantity: @yavolo_bundle.stock_limit} %>
                   </button>
                   <div class="dropdown-menu p-1 mt-0" aria-labelledby="dropdownMenuButton">
                     <% quantity_list = @yavolo_bundle.stock_limit < 10 ? (1..@yavolo_bundle.stock_limit) : (1..10) %>
@@ -3367,10 +3370,10 @@
   $(document).ready(function() {
     setTimeout(() => {
       let images = $('#main-slider-list').find('li').length;
-      if (images <= 2 ) {
+      if (images <= 1 ) {
         $('.splide__arrows').addClass('d-none');
       }
-      if (images == 1) {
+      if (images == 0) {
         $('#main-slider-list').find('li').addClass('d-none');
         $('.product-default-preview').removeClass('d-none');
       }

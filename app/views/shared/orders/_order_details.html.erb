@@ -1,13 +1,13 @@
 <div class="row">
   <div class="col-lg-6 d-flex">
     <div class="yo-white-card box-border flex1">
-      <p><strong>Order Number:</strong> <%= @order.order_number %></p>
+      <p><strong>Order Number:</strong> <%= order_number_format(@order.order_number) %></p>
       <p><strong>Ordered:</strong> <%= formatted_order_date(@order.created_at) %></p>
       <p><strong>Estimated Delivery:</strong> 15-17 June 2021</p>
       <p><strong>Tracking:</strong> No Tracking</p>
       <p><strong>Courier:</strong> Royal Mail</p>
       <p><strong>Mail Class:</strong> 2nd Class</p>
-      <p><strong>VAT Number(s):</strong> <%= get_vat_numbers(@order_line_items) %></p>
+      <p><strong>VAT Number:</strong> <%= get_vat_numbers(@order_line_items) %></p>
       <p><strong>Paid Via:</strong> <%= @order&.buyer_payment_method&.payment_method_type&.titleize %></p>
     </div>
   </div>
@@ -15,7 +15,7 @@
     <div class="yo-white-card box-border search-field-flex">
       <div class="row">
         <div class="col-lg-6 mb-2">
-          <h6 class="mb-3">Shipping Address</h6>
+          <h6 class="mb-3">Shipping Address:</h6>
           <ul>
             <li><%= get_full_name(@order_shipping_address) %></li>
             <li><%= @order_shipping_address&.company_name %></li>
@@ -28,7 +28,7 @@
           </ul>
         </div>
         <div class="col-lg-6">
-          <h6 class="mb-3">Billing Address</h6>
+          <h6 class="mb-3">Billing Address:</h6>
           <ul>
             <li><%= get_full_name(@order_billing_address) %></li>
             <li><%= @order_billing_address&.company_name %></li>
@@ -51,7 +51,7 @@
         <thead class="">
         <tr>
           <th>
-            <%= @order_line_items.count %> item(s)
+            <%= @order_line_items.count %> item<span class="th-lowercase">(s)</span>
           </th>
           <% if current_admin.present? %>
             <th>Seller</th>
