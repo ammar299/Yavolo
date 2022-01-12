@@ -1,7 +1,11 @@
-<% [:all, :active,:inactive,:pending,:draft,:yavolo_enabled,:manage_yavolos].each do |tab| %>
+<% [:all, :active,:inactive,:pending,:draft,:yavolo_enabled,:manage_yavolos].each do |tab| %> 
   <li class="nav-item">
     <%= link_to sellers_products_path(tab: tab), class: "nav-link d-flex justify-content-between align-items-center #{set_active_tab(tab.to_s, params[:tab] || 'all')}" do %>
-      <%="#{tab} Listings".titleize%>
+      <% if tab == :manage_yavolos %>
+        <%="#{tab}".titleize%>
+      <% else %>
+        <%="#{tab} listings".humanize%>
+      <% end %>
     <span>
       <%=
         @listing_by_status_with_count.merge!({:manage_yavolos => @yavolo_bundles.count})

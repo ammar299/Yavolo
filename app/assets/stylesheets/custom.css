@@ -410,6 +410,7 @@ scrollbar-width: none;  /* Firefox */
 .Yavolo-table .checkbox-blk {
   margin-bottom: 0 !important;
   min-height: 20px;
+  padding-left: 20px !important;
 }
 .Yavolo-table table td .checkmark {
   top: 0 !important;
@@ -816,9 +817,6 @@ label {
   width: 235px !important;
   max-width: 235px !important;
 }
-.dropdown-filter-custom .search-field svg {
-  top: 8px !important;
-}
 .dropdown-filter-custom .dropdown-menu {
   padding-bottom: 6px !important;
 }
@@ -848,7 +846,7 @@ label {
   top: 0 !important;
 }
 .btn-sm {
-  min-height: 35px;
+  height: 32px;
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -1531,13 +1529,6 @@ width: 75%;
 .remove_bottom_margin{
   margin-bottom: 0px;
 }
-
-.cross_link_icon {
-    position: absolute;
-    top: 0;
-    width: 20px !important;
-    right: 0;
-}
 .order-summary-basket-cross {
     color: white;
     background-color: var(--dark-red);
@@ -1865,345 +1856,68 @@ a.buyer-card-link:hover {
 }
 
 /* ==cleared notifications=== */
-/* =====your-orders===== */
-.orders-drop.dark-bg-dropdown .btn {
-	min-width: 156px;
-	min-height: 40px;
-	top: 0;
-}
-.orders-drop .dropdown-filter.show .dropdown-menu a {
-	padding: 6px 16px !important;
-}
-.orders-drop.dropdown-filter-field-small .dropdown-filter.show .dropdown-menu {
-	top: 36px !important;
-}
-.orders-search {
-	position: absolute;
-	top: 14px !important;
-}
-.orders-card-header {
-	background-color: var(--dark-red);
-	border-radius: 12px 12px 0px 0px;
-	color: #FEFCF9;
-	width: 100%;
-	display: block;
-	padding: 13px 20px;
-}
-.orders-card-body {
-	background-color: #fff;
-	border-radius: 0 0 12px 12px;
-	box-shadow: 1px 1px 5px #0000000A;
-	padding: 20px;
-}
-.orders-card-body .btn {
-	font-size: 14px !important;
-}
-.light-dark-red {
-	background-color: #731D3D;
-	color:  #F9EDE1;
-	letter-spacing: 1.4px;
-	text-decoration: none !important;
-}
-.light-dark-red:hover {
-	background: #F9EDE1;
-	color: #640529;
-}
-.orders-img {
-	width: 100%;
-	height: 190px;
-	object-fit: contain;
-}
-.orders-health-icon {
-	color: var(--red);
-	font-size: 20px;
-	min-width: 50px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding-right: 10px;
-}
-.orders-smile {
-	color: var(--red);
-	font-size: 34px;
-	position: relative;
-	top: 5px;
-}
-.icon-chevron-left-solid:before {
-	position: relative !important;
-	top: -0.4px !important;
-}
-.chev-position::before {
-	position: relative !important;
-	top: -0.4px !important;
-}
-.delivery-note span.icon-delivery {
-    font-size: 26px;
-    margin-right: 20px;
-	color: var(--red);
-}
-.orders-slider.pdp-slick-bg .slick-next {
-    right: -20px;
-}
-.orders-slider.pdp-slick-bg .slick-prev {
-    left: -20px;
-}
-/* .orders-slider.pdp-slick-bg .slick-prev,
-.orders-slider.pdp-slick-bg .slick-next {
-	top: 44%; */
-/* } */
-.orders-bg {
-	margin-left: 75px;
+
+.get-child-for-removal li:nth-child(6) {
+  display: none;
 }
 
-.dropdown-filter .btn-link {
-    font-size: 14px !important;
-    min-width: 130px;
-    justify-content: space-between;
+.dropdown-filter-custom.alter-light-texture .btn {
+   background-color: transparent !important;
+    color: var(--dark-red) !important;
 }
-
-.dropdown-filter.show .dropdown-menu.bottom-radius {
-    border-radius: 0 0 12px 12px !important;
+.dropdown-filter-custom.alter-light-texture .show .btn,
+.dropdown-filter-custom.alter-light-texture .btn:hover {
+  background-color: var(--off-white) !important;
+  color: var(--dark-red) !important;
 }
-.off-white-drop.dropdown-filter.show .dropdown-menu a{
-  padding: 6px 18px !important;
+.dropdown-filter-custom.alter-light-texture .dropdown-menu .dropdown-item, 
+.dropdown-filter-custom.alter-light-texture .dropdown-menu {
+  background-color: var(--off-white) !important;
+  border: 0 !important;
+  overflow: inherit !important;
 }
-@media screen and (max-width: 1100px) {
-	.orders-bg {
-		margin-left: 0px;
-	}
+.dropdown-filter-custom.alter-light-texture .dropdown-menu {
+  padding: 0 !important;
 }
-/* =====your-orders===== */
-
-/* =========================wallet ========================*/
-
-
-.wallet-page .add-card {
-	font-size: 16px;
-	color: var(--white);
-	border: 2px solid #640529;
-	border-radius: 15px;
-	background-color: var(--dark-red);
-	width: 300px;
-	padding: 4px 0;
-}.wallet-page .wallet-collapse .card {
-	border-radius: 0px 0px 12px 12px;
-	border: 0;
+.dropdown-filter-custom.alter-light-texture .dropdown-menu a {
+  border-radius: 0 !important;
+  border: 0 !important;
+  color: var(--dark-red) !important;
 }
-.wallet-page .wallet-collapse .card-header {
-	background-color: var(--dark-red);
-	border-radius: 12px !important;
+.dropdown-filter-custom.alter-light-texture .dropdown-menu a.disabled-texture {
+  background-color: #fff !important;
+  pointer-events: none;
 }
-.wallet-page .wallet-collapse .card-header.active {
-	border-radius: 12px 12px 0px 0px !important;
+.dropdown-filter-custom.alter-light-texture .dropdown-menu a:last-child {
+  border-radius: 0 0 10px 10px !important;
 }
-.wallet-page .wallet-collapse .card-header .btn:hover {
-	background-color: var(--dark-red);
+.dropdown-filter-custom.alter-light-texture .dropdown.show .btn {
+  position: relative;
+  z-index: 1222;
 }
-.wallet-page .wallet-collapse .card-info label {
-	font-size: 14px;
-	color: var(--white);
+.dropdown-filter-custom.alter-light-texture .dropdown.show .dropdown-menu:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -34px;
+  right: 0;
+  bottom: 0px;
+  z-index: -1;
+  border-radius: 10px;
+  box-shadow: 3px 3px 5px #0000001c;
 }
-.wallet-page .wallet-collapse .card-info .default-card {
-width: 30%;
+.search-field svg, .subscribe-field a, .search-field i {
+  top: 9px !important;
+  right: 10px !important;
+  width: 13px !important;
+  height: auto !important;
+  opacity: 0.6;
 }
-.wallet-page .wallet-collapse .card-info .date {
-width: 20%;
-}
-.wallet-page .wallet-collapse .card-info .visa-card {
-width: 50%;
-}
-.wallet-page .wallet-collapse .card-detail .visa-card {
-  width: 40%;
-}
-.wallet-page .wallet-collapse .card-detail .date {
- width: 30%;
-}
-.wallet-page .wallet-collapse .card-detail .testing {
- width: 30%;
-}
-.wallet-page .wallet-collapse .visa-card span {
-	width: 90px;
-    height: 30px;
-    background-color: var(--white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-}
-.wallet-page .wallet-collapse .card-body .visa-card span {
-	background-color: #FDF8F3;
-}
-.wallet-page .wallet-collapse .default-card span {
- 	width: 35px;
-    height: 35px;
-    background-color: #731D3D;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
- }
-.wallet-page .wallet-collapse .default-card span:before {
-	font-size: 12px;
-	color: var(--white);
-position: absolute;
-top:26px;
-}
-.wallet-page .wallet-collapse .btns-payment .btn-danger {
-	border-radius: 15px;
-	width: 315px;
-	padding: 4px 0;
-}
-.wallet-page .wallet-collapse .btns-payment .edit-btn .btn {
-	border-radius: 15px;
-	width: 200px;
-	font-weight: 600;
-}
-.wallet-page .wallet-collapse .wallet-body .hdngs strong:first-child {
-   width: 40%;
-}
-.wallet-page .wallet-collapse .wallet-body .hdngs strong:nth-child(2) {
-  width: 20%;
-}
-.wallet-page .wallet-collapse .wallet-body .hdngs strong:last-child {
-  width: 40%;
-text-align: right;
-}
-
-
-@media only screen and (max-width: 480px) {
-  .wallet-page .wallet-collapse .card-info {
-    display: block !important;
-  }
-  .wallet-page .wallet-collapse .card-info .visa-card {
-    width: 100%;
-  }
-  .wallet-page .wallet-collapse .card-info .date {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
-  .wallet-page .wallet-collapse .card-info .default-card {
-    width: 100%;
-    justify-content: center !important;
-  }
-  .wallet-page .wallet-collapse .default-card span {
-    position: absolute;
-    top: 40px;
-    right: 8px;
-  }
-  .wallet-page .wallet-collapse .default-card span:before {
-    top: 13px;
-  }
-  .wallet-page .wallet-collapse .btns-payment {
-   display: block !important;
-  }
-
-  .wallet-page .wallet-collapse .btns-payment .btn-danger {
-   width: 100%;
-  }
-  .wallet-page .wallet-collapse .btns-payment .edit-btn {
-   margin-top: 10px;
-  } 
-  .wallet-page .wallet-collapse .card-detail .date {
-  text-align: center;
-  }
-  .wallet-page .add-card {
-   width: 100%;
-  }
-  .wallet-page .wallet-collapse .card-detail label,
-  .wallet-page .wallet-collapse .btns-payment a,
-  .wallet-page .wallet-collapse .wallet-body .hdngs strong {
-   font-size:12px;
-  }
-  .wallet-page .wallet-collapse .wallet-body .hdngs strong:nth-child(2) {
-   width: 30%; 
-  }
-}
-/* =================wallet==================== */
-.listing-slider .slick-prev, .listing-slider .slick-next {
-  top: 0;
-  overflow: hidden;
-    bottom: 28px;
-    margin: auto;
-}
-
-.favourites-love-icon::before{
-  font-weight: 600;
-}
-
-/* =========================message-center ========================*/
-
-.message-center-page .table tbody .reply-btn .btn {
-	color: #fff;
-	font-size: 12px;
-	font-weight: 500;
-	background-color: var(--danger-color);
-	border-radius: 12px;
-	width: 150px;
-  padding: 4px 0;
-	text-transform: uppercase;
-  border: 0;
-}
-.message-center-page .table tbody .open-btn .btn {
-	background-color: var(--light-red);
-	color: var(--red);
-}
-.message-center-page .pdp-pad .back-link {
-	font-size: 12px;
-}
-.message-center-page .pdp-pad .back-link span:before {
-	font-size: 10px;
-}
-.message-center-page .Yavolo-table table tbody tr td {
-	vertical-align: top;
-  font-size: 14px;
-}
-.message-center-page .Yavolo-table table tbody tr td:last-child {
-	vertical-align: middle;
-}
-.message-center-page .Yavolo-table table .resloved tr td p,
-.message-center-page .Yavolo-table table .resloved tr td {
-	background-color: #ffffffab;
-	color: #64052973 !important;
-}
-
-.message-center-page .Yavolo-table table thead tr th{
-  font-size: 16px;
-}
-
-/* ============news-letter */
-.back-account-link,
-.back-account-link .icon-chevron-left-solid {
-	font-weight: 600;
-}
-.news-join-text {
-	font-size: 28px;
-}
-.yo-white-card .newsletter-subscribe-button:hover {
-  background-color: var(--light-red);
-color: var(--red);
-border-color: var(--light-red);
-}
-/* =======news-letter */
-.reset-password-btn {
-  width: 53% !important;
-  height: 40px !important;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: auto !important;
-}
-
-.reset-password-email {
-  width: 95% !important;
-  margin: auto !important;
-}
-
- .resest-new-password-input {
-   width: 90% !important;
- }
-
- .reset-new-password-btn {
-  width: auto !important;
-  height: 40px !important;
+.cross_link_icon {
+  position: absolute;
+  top: 3px;
+  width: 20px !important;
+  right: 0;
+  font-size: 9px !important;
+  padding: 0 !important;
 }

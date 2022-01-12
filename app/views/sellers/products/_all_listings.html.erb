@@ -2,7 +2,7 @@
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="all-listings" role="tabpanel"
             aria-labelledby="home-tab">
-            <div class="d-flex align-items-center justify-content-between flex-wrap mb-2">
+            <div class="d-flex align-items-center justify-content-between flex-wrap mb-1">
             <div class="d-flex flex-wrap">
                 <div class="dropdown-filter-field active search-border my-1 dropdown-filter-custom dropdown-filter-position"> 
                     <div class="dropdown">
@@ -44,7 +44,7 @@
                         <% end %>
                     </div>
                 </div>
-                <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border">
+                <div class="dropdown-filter-field alter-light-texture dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border">
                     <div class="dropdown">
                         <a href="#" class="btn btn-radius btn-sm px-3 btn-primary btn-link-dropdown-1 align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">Actions <i class="fas fa-ellipsis-h ml-3"
@@ -52,7 +52,7 @@
                         <div class="dropdown-menu bulk-actions" aria-labelledby="dropdownMenuLink">
                             <a data-bulkaction="yavolo_enabled" class="dropdown-item" href="#">Yavolo Enabled<i
                                         aria-hidden="true"></i></a>
-                            <a data-bulkaction="yavolo_disabled" class="dropdown-item" href="#">Yavolo Disabled<i  aria-hidden="true"></i></a>
+                            <a data-bulkaction="yavolo_disabled" class="dropdown-item disabled-texture" href="#">Yavolo Disabled<i  aria-hidden="true"></i></a>
                             <a data-bulkaction="delete" class="dropdown-item" href="#">Delete<i 
                                 aria-hidden="true"></i></a>
                             <a data-bulkaction="update_price" class="dropdown-item" href="#">Update Price<i
@@ -63,9 +63,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border">
+                <div class="dropdown-filter-field alter-light-texture dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border">
                     <div class="dropdown">
-                        <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center filter-by-dropdown" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%=set_product_sort_by_in_dropdown(params)%> <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+                        <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center alter-light-texture filter-by-dropdown" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%=set_product_sort_by_in_dropdown(params)%> <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <%= render 'shared/products/sort_by_title_price_dropdown_item', filter: 'title asc', title: 'Product Title A-Z' %>
                             <%= render 'shared/products/sort_by_title_price_dropdown_item', filter: 'title desc', title: 'Product Title Z-A' %>
@@ -77,9 +77,9 @@
                 </div>
                 </div>
                 <div class="d-flex flex-wrap">
-                    <%= link_to 'Export CSV', export_csv_sellers_products_path(format: "csv", product: "") ,class: 'btn btn-radius px-2 btn-primary btn-sm mr-1 my-1 seller-export-csv-selected-products' %>
+                    <%= link_to 'Export CSV', export_csv_sellers_products_path(format: "csv", product: "") ,class: 'btn btn-radius px-2 btn-outline-primary btn-sm mr-1 my-1 seller-export-csv-selected-products' %>
                     <a href="#"
-                        class="btn btn-sm btn-radius px-2 btn-primary mr-1 my-1 upload-csv-btn">Upload Product CSV</a>
+                        class="btn btn-sm btn-radius px-2 btn-outline-primary mr-1 my-1 upload-csv-btn">Upload Product CSV</a>
                     <%=link_to 'Add Listing', new_sellers_product_path, class: 'btn my-1 btn-radius px-2 btn-primary btn-sm' %>
                 </div>
             </div>
@@ -89,7 +89,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="Yavolo-table mt-4">
+                    <div class="Yavolo-table mt-2">
                         <table class="table">
                             <thead>
                                 <tr>

@@ -372,7 +372,7 @@ textarea.form-control {
     right: 5px;
 }
 .dropdown-filter-field {
-    background-color: var(--white);
+    /* background-color: var(--white); */
     border-radius: 30px;
     display: flex;
     margin-bottom: 15px;
