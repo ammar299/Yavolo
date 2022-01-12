@@ -1,6 +1,6 @@
-<%= link_to '#', class: "dropdown-item admin-filter-by #{ params['yavolo_enabled']=='1' ? 'active' : '' }", data: {status: 'manage_yavolos' } do %>
+<%= link_to '#', class: "dropdown-item admin-filter-by #{ params['yavolo_enabled']=='1' ? 'active' : '' }", data: {status: 'yavolo_enabled' } do %>
   Yavolo Enabled
-  <% if params['yavolo_enabled'] == '1' %>
+  <% if params["statuses"]=="yavolo_enabled" %>
     <span class="fa fa-check" aria-hidden="true"></span>
   <% end %>
 <% end %>

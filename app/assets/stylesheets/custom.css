@@ -1301,10 +1301,11 @@ width: 75%;
     border: 0;
     padding: 3px;
     vertical-align: middle;
+    color: var(--dark-red);
 }
 .refund-input {
     border: 1px solid var(--dark-red);
-    border-radius: 12px;
+    border-radius: 8px;
     background-color: transparent;
     padding: 3px 10px;
     color: var(--dark-red);

@@ -66,7 +66,6 @@
                 <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border">
                     <div class="dropdown">
                         <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center filter-by-dropdown" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%=set_product_sort_by_in_dropdown(params)%> <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
-
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <%= render 'shared/products/sort_by_title_price_dropdown_item', filter: 'title asc', title: 'Product Title A-Z' %>
                             <%= render 'shared/products/sort_by_title_price_dropdown_item', filter: 'title desc', title: 'Product Title Z-A' %>
@@ -157,7 +156,7 @@
                                                 <%=text_field_tag 'product[price]',(number_with_precision(product.price, :precision => 2) || 0), class: 'form-control px-2 w-20 price-field editable product-listing-input-fields listing-price', data: {pid: product.id, action: 'update_price'} %>
                                             </div>
                                         </td>
-
+                                        
                                         <td class="text-center">
                                             <% if product.yavolo_enabled && index == 0 %>
                                                 <div class="relative">
@@ -192,7 +191,7 @@
                                                     </div>
                                                 </div>
                                             <% else %>
-                                                <span class="icon-manage-Yavolo font-20px light-red yo-opacity p-yavolo-disabled"></span>
+                                                <span class="icon-manage-Yavolo font-20px light-red p-yavolo-disabled"></span>
                                             <% end %>
                                         </td>
                                         <td>

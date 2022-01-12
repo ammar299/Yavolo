@@ -16,7 +16,7 @@
                 <% end %>
 
                 <div class="search-field mb-0 mr-1">
-                  <%= f.search_field 'title_or_yan_cont', {class: 'seller-product-search-field', placeholder: 'Search Products', value: params.dig(:q, :title_or_yan_cont).to_s, autocomplete: 'off'} %>
+                  <%= f.search_field 'title_or_yan_cont', {class: 'seller-product-search-field', placeholder: 'Search products', value: params.dig(:q, :title_or_yan_cont).to_s, autocomplete: 'off'} %>
                   <%= link_to add_yavolos_admin_yavolos_manual_bundles_path, remote: true, class: 'cross-icon d-none' do %>
                     <i class="icon-cross" aria-hidden="true"></i>
                   <% end %>

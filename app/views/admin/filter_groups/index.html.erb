@@ -5,7 +5,7 @@
         <div class="all-products-header-left d-flex flex-wrap ">
           <div class="search-field mb-0">
             <%= form_tag(admin_filter_groups_path, method: :get) do %>
-              <%= text_field_tag(:search, params[:search], placeholder: "Search Filter By Name") %>
+              <%= text_field_tag(:search, params[:search], placeholder: "Search filter groups") %>
               <% if params[:search].present? %>
                 <%= link_to do %>
                   <i class="icon-cross" aria-hidden="true" style="top: 14px;font-size: 12px;"></i>
@@ -78,9 +78,11 @@
                 <%= form_tag(admin_filter_groups_path, method: :get) do %>
                 <%= link_to admin_filter_groups_path(filter_type: 0),class: 'dropdown-item active' do %>
                 Global
+                <span class="<%= 'fa fa-check' if params["filter_type"] == '0' %>" aria-hidden="true"></span>
                 <% end %>      
                 <%= link_to admin_filter_groups_path(filter_type: 1),class: 'dropdown-item' do %>
                 Local
+                <span class="<%= 'fa fa-check' if params["filter_type"] == '1' %>" aria-hidden="true"></span>
                 <% end %>
                 <% end%>
               </div>
@@ -118,7 +120,7 @@
       <div class="mt-3">
         <%= render partial: 'shared/result_of_pages', locals: {total_count: @filter_group_count, count: @filter_groups.count } %>
       </div>
-      <h3 class="mt-4 mb-3 font-weight-bold">Filter Groups</h3>
+      <h3 class="mt-4 mb-3 font-weight-bold">All Filter Groups</h3>
       <div class="Yavolo-table yavolo-center">
         <table class="table">
           <thead>
@@ -133,9 +135,9 @@
               </th>
               <th>Type</th>
               <th>Name</th>
-              <th>Number Of Filter Groups</th>
+              <th>Number Of Filter in Group</th>
               <th>Categories Assigned</th>
-              <th>Assinged Categories</th>
+              <th>Assigned Categories</th>
               <th>Actions</th>
             </tr>
           </thead>
