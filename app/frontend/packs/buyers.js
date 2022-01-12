@@ -6,6 +6,7 @@ $(document).ready(function () {
     activeCheckoutPath();
     validateBuyerSignInSignUp();
     buyerAccountPageSlider()
+    buyerYaFavouritesSlider()
     $('.click-product-quantity').click(function (e) {
         e.preventDefault();
         const quantity = $(this).data("quantity");
@@ -186,6 +187,39 @@ function buyerAccountPageSlider(){
       },
       {
         breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  });
+}
+
+function buyerYaFavouritesSlider(){
+  $('.pdp-slick-slider-ya-faourites').slick({
+    infinite: true,
+    speed: 300,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: false,
+    padding: 10,
+    responsive: [{
+        breakpoint: 1025,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 800,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1

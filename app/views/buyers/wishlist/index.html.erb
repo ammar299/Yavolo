@@ -1,0 +1,79 @@
+<div class="main-content">
+  <div class="container-fluid pdp-pad">
+    <div class="px-xl-5 mt-4">
+      <%= link_to buyers_profile_path(current_buyer), class:"buyer-card-link red-text decoration-none btn-light-hvr btn-radius py-2 px-3 mr-5" do %>
+        <span class="icon-chevron-left-solid pr-2 mm-text chev-position relative"></span>Continue shopping <%end%>
+      <h2 class="mt-2">YaFavourites</h2>
+      <p class="mt-3">We predict at least one of ya favourites will get out soon. Order now for guaranteed free delivery.</p>
+      <div class="row">
+        <div class="col-lg-5">
+          <div class="dropdown-filter-field">
+            <div class="dark-bg-dropdown dropdown-filter-field-small orders-drop">
+              <div class="dropdown dropdown-filter d-inline-flex">
+                <a href="#" class="btn btn-radius px-3 btn-link-dropdown d-inline-flex align-items-center top-0 justify-content-between font-14px" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Search All <i class="fa fa-angle-down ml-3" aria-hidden="true"></i>
+                </a>
+                <div class="dropdown-menu pt-0" aria-labelledby="dropdownMenuLink" x-placement="bottom-start" style="position: absolute; transform: translate3d(-2px, 33px, 0px); top: 0px; left: 0px; will-change: transform;">
+                  <a class="dropdown-item active" href="#">Search All <i class="fa fa-check" aria-hidden="true"></i>
+                  </a>
+                  <a class="dropdown-item" href="#">Product Title A-Z <i class="fa fa-check" aria-hidden="true"></i>
+                  </a>
+                  <a class="dropdown-item" href="#">Product Title Z-A <i class="fa fa-check" aria-hidden="true"></i>
+                  </a>
+                  <a class="dropdown-item" href="#">Price Low-High <i class="fa fa-check" aria-hidden="true"></i>
+                  </a>
+                  <a class="dropdown-item" href="#">Price High-Low <i class="fa fa-check" aria-hidden="true"></i>
+                  </a>
+                  <a class="dropdown-item" href="#">Seller Name <i class="fa fa-check" aria-hidden="true"></i>
+                  </a>
+                  <a class="dropdown-item" href="#">SKU <i class="fa fa-check" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="search-field mb-0">
+              <input type="text" placeholder="Search ya favourites">
+              <i class="fa fa-search orders-search" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7 d-flex  flex-wrap">
+          <div class="dropdown dropdown-filter mb-3 d-inline-flex off-white-drop">
+            <a href="#" class="btn btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Results per page: 15 <i class="fa fa-angle-down ml-4 p" aria-hidden="true"></i>
+            </a>
+            <div class="dropdown-menu bottom-radius" aria-labelledby="dropdownMenuLink" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 41px, 0px); top: 0px; left: 0px; will-change: transform;">
+              <a class="dropdown-item active" href="#">Results per page: 15 <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+              <a class="dropdown-item" href="#">Results per page: 30 <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+              <a class="dropdown-item" href="#">Results per page: 60 <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+              <a class="dropdown-item" href="#">Results per page: 90 <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+              <a class="dropdown-item" href="#">Results per page: 180 <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+          <div class="dropdown dropdown-filter mb-3 d-inline-flex off-white-drop">
+            <a href="#" class="btn btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort by: Relevancy <i class="fa fa-angle-down ml-4" aria-hidden="true"></i>
+            </a>
+            <div class="dropdown-menu bottom-radius" aria-labelledby="dropdownMenuLink" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 41px, 0px); top: 0px; left: 0px; will-change: transform;">
+              <a class="dropdown-item active" href="#">Relevancy <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+              <a class="dropdown-item" href="#">Top Customer Reviews<i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+              <a class="dropdown-item" href="#">Highest Price <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+              <a class="dropdown-item" href="#">Lowest Price <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+              <a class="dropdown-item" href="#">Most Recent <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%= render 'buyers/wishlist/favourite_products' %>
+      <%= render 'buyers/wishlist/favourites' %>
+    </div>
+  </div>
+</div>
+<%= render 'shared/bottom_subscribe_news_letter' %>

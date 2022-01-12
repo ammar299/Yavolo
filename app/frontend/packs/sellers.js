@@ -1617,16 +1617,16 @@ function unsubscribeSeller(url,reason){
 
 function reasonSelection(){
   // $(".select-reason:first-child").find(".fa-check").removeClass("invisible") will be used later
-  $(".select-reason:nth-child(2)").addClass("active")
+  $(".select-reason:nth-child(2)").addClass("active-sub")
   hideShow("hide")
   $(document).on("click", ".select-reason", function (e) {
     e.preventDefault();
     $(".select-reason").each(function() {
-      $(this).removeClass("active")
+      $(this).removeClass("active-sub")
     });
     
     $(".append-reason").html($(this).text())
-    $(this).addClass("active")
+    $(this).addClass("active-sub")
     hideShow("hide")
     if ($(this).text() == "Other"){
       hideShow("show")

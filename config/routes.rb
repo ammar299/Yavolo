@@ -289,6 +289,10 @@ Rails.application.routes.draw do
     authenticated :buyer do
       namespace :buyers do
         root 'dashboard#index', as: :buyer_authenticated_root
+        resources :orders
+        resources :wishlist
+        resources :wallet
+        resources :chat_room
         resources :profiles do
           member do
             get :login_and_security

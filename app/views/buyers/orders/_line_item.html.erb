@@ -1,0 +1,36 @@
+<% order.line_items.each.with_index(1) do |line_item,index| %>
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="yo-white-card p-2">
+        <span class="">
+          <%= image_tag "#{order_thumbnail_image(line_item)}",class:"orders-img" %>
+        </span>
+      </div>
+    </div>
+    <div class="col-lg-6 d-flex">
+      <div class="d-flex flex-column justify-content-between">
+        <h6><%= line_item.product.title %></h6>
+        <ul class="pb-2">
+          <li class="font-14px">SKU: <%= line_item.product.sku %></li>
+          <li class="font-14px">Sold by <%= product_owner(line_item) %></li>
+          <li class="font-14px"><%= get_price_in_pounds(line_item.product.price)%></li>
+        </ul>
+        <div class="align-items-center d-flex mb-1">
+          <span class="icon-delivery-health  orders-health-icon"></span>
+          <span class="font-14px">Item being prepared</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="d-flex flex-column justify-content-between">
+        <a href="#" class="btn btn-radius px-2 w-100 mb-3 btn-primary">TRACK ITEM</a>
+        <a href="#" class="btn btn-radius px-2 w-100 mb-3 btn-outline-primary">VIEW INVOICE</a>
+        <a href="#" class="btn btn-radius px-2 w-100 mb-3 btn-outline-primary">CONTACT SELLER</a>
+        <a href="#" class="btn btn-radius px-2 w-100 btn-outline-primary">REQUEST RETURN</a>
+      </div>
+    </div>
+  </div>
+  <% if order.line_items.count > 1 && order.line_items.count != index%>
+    <hr> 
+  <%end%>
+<%end%>

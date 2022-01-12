@@ -3,6 +3,7 @@ $(document).ready(function () {
     bindWithSortByEvent();
     bindResultPerPageOption();
     selectOptionForRefundReason();
+    buyerOrderSliderEvent()
 
     $('.order-mark-bulk-update').change(function () {
         $('.order-table-row').find('input:checkbox').prop('checked', $(this).is(':checked'));
@@ -108,4 +109,38 @@ function selectOptionForRefundReason() {
         $('.refund-reason-display-val').html(currVal +' <i class="fa fa-angle-down ml-3" aria-hidden="true" />');
         $("#refund-reason-value").val(currVal.toLowerCase().replace(/ /g,"_"));
     });
+}
+
+function buyerOrderSliderEvent(){
+    $('.orders-slider').slick({
+    infinite: true,
+    speed: 300,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    padding: 10,
+    responsive: [{
+        breakpoint: 1025,
+        settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+        }
+        },
+        {
+        breakpoint: 600,
+        settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+        }
+        },
+        {
+        breakpoint: 480,
+        settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+        }
+        }
+    ]
+    });
+
 }

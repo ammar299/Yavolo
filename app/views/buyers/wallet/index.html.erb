@@ -1,0 +1,124 @@
+<div class="main-content wallet-page">
+  <div class="container-fluid pdp-pad">
+    <div class="px-xl-5 mt-4">
+      <%= link_to buyers_profile_path(current_buyer), class:"buyer-card-link red-text decoration-none btn-light-hvr btn-radius py-2 px-3 mr-5" do %>
+        <span class="icon-chevron-left-solid pr-2 mm-text"></span>Back to account <%end%>
+      <h1 class="mt-3">YaWallet</h1>
+      <h3 class="mt-3">Your credit / debit cards</h3>
+      <button class="add-card btn my-3">ADD CARD</button>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="wallet-collapse mb-5">
+            <div class="accordion" id="accordionExample">
+              <div class="card">
+                <div class="card-header p-1 active" id="headingOne">
+                  <h2 class="mb-0 mt-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      <div class="card-info d-flex align-items-center justify-content-between">
+                        <div class="visa-card d-flex align-items-center">
+                          <span>
+                            <%= image_tag "visa-card.svg" %>
+                          </span>
+                          <label class="mb-0 ml-3">Visa debit card - Ending in 9012</label>
+                        </div>
+                        <div class="date">
+                          <label class="mb-0">07/2021</label>
+                        </div>
+                        <div class="default-card d-flex align-items-center">
+                          <label class="mb-0">DEFAULT CARD</label>
+                          <span class="icon-chevron-down-solid ml-5"></span>
+                        </div>
+                      </div>
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseOne" class="collapse show wallet-body" aria-labelledby="headingOne" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <strong>Card type & number</strong>
+                      <strong>Expiration Date</strong>
+                      <strong>Account Holder Name</strong>
+                    </div>
+                    <div class="card-detail d-flex align-items-center justify-content-between">
+                      <div class="visa-card d-flex align-items-center my-3">
+                        <span>
+                          <%= image_tag "visa-card.svg" %>
+                        </span>
+                        <label class="mb-0 ml-3">**** **** **** 9012</label>
+                      </div>
+                      <div class="date">
+                        <label class="mb-0">02/2021</label>
+                      </div>
+                      <div class="testing">
+                        <label class="mb-0">Mr Testing Tests</label>
+                      </div>
+                    </div>
+                    <div class="btns-payment d-flex align-items-center justify-content-between mt-3">
+                      <a href="#" class="btn btn-radius px-4 btn-danger">DEFAULT PAYMENT METHOD</a>
+                      <div class="edit-btn d-flex align-items-center">
+                        <a href="#" class="btn btn-sm btn-radius px-4 btn-outline-primary">EDIT</a>
+                        <a href="#" class="btn btn-sm btn-radius px-4 btn-outline-primary ml-3">REMOVE</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card my-3">
+                <div class="card-header p-1" id="headingTwo">
+                  <h2 class="mb-0 mt-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      <div class="card-info d-flex align-items-center justify-content-between">
+                        <div class="visa-card d-flex align-items-center">
+                          <span>
+                            <%= image_tag "visa-card.svg" %>
+                          </span>
+                          <label class="mb-0 ml-3">Visa debit card - Ending in 9012</label>
+                        </div>
+                        <div class="date">
+                          <label class="mb-0">07/2021</label>
+                        </div>
+                        <div class="default-card d-flex align-items-center">
+                          <label class="mb-0">DEFAULT CARD</label>
+                          <span class="icon-chevron-down-solid ml-5"></span>
+                        </div>
+                      </div>
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                  <div class="card-body"> Some placeholder content for the second accordion panel. This panel is hidden by default. </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header p-1" id="headingThree">
+                  <h2 class="mb-0 mt-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      <div class="card-info d-flex align-items-center justify-content-between">
+                        <div class="visa-card d-flex align-items-center">
+                          <span>
+                            <%= image_tag "visa-card.svg" %>
+                          </span>
+                          <label class="mb-0 ml-3">Visa debit card - Ending in 9012</label>
+                        </div>
+                        <div class="date">
+                          <label class="mb-0">07/2021</label>
+                        </div>
+                        <div class="default-card d-flex align-items-center">
+                          <label class="mb-0">DEFAULT CARD</label>
+                          <span class="icon-chevron-down-solid ml-5"></span>
+                        </div>
+                      </div>
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                  <div class="card-body"> And lastly, the placeholder content for the third and final accordion panel. This panel is hidden by default. </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

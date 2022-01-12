@@ -1428,13 +1428,14 @@ width: 75%;
   overflow-y: auto;
   max-height: 158px;
   width: 100%;
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 15px;
+  padding-top: 3px;
 }
 
-.dropdown-filter.show .dropdown-menu .active{
+.dropdown-filter.show .dropdown-menu .active-sub{
   background-color: var(--light-red) !important; 
-  color: var(--dark-red);
+  color: var(--dark-red) !important;
   border-radius: 10px;
   user-select: none;
 }
@@ -1863,3 +1864,229 @@ a.buyer-card-link:hover {
 }
 
 /* ==cleared notifications=== */
+/* =====your-orders===== */
+.orders-drop.dark-bg-dropdown .btn {
+	min-width: 156px;
+	min-height: 40px;
+	top: 0;
+}
+.orders-drop .dropdown-filter.show .dropdown-menu a {
+	padding: 6px 16px !important;
+}
+.orders-drop.dropdown-filter-field-small .dropdown-filter.show .dropdown-menu {
+	top: 36px !important;
+}
+.orders-search {
+	position: absolute;
+	top: 14px !important;
+}
+.orders-card-header {
+	background-color: var(--dark-red);
+	border-radius: 12px 12px 0px 0px;
+	color: #FEFCF9;
+	width: 100%;
+	display: block;
+	padding: 13px 20px;
+}
+.orders-card-body {
+	background-color: #fff;
+	border-radius: 0 0 12px 12px;
+	box-shadow: 1px 1px 5px #0000000A;
+	padding: 20px;
+}
+.orders-card-body .btn {
+	font-size: 14px !important;
+}
+.light-dark-red {
+	background-color: #731D3D;
+	color:  #F9EDE1;
+	letter-spacing: 1.4px;
+	text-decoration: none !important;
+}
+.light-dark-red:hover {
+	background: #F9EDE1;
+	color: #640529;
+}
+.orders-img {
+	width: 100%;
+	height: 190px;
+	object-fit: contain;
+}
+.orders-health-icon {
+	color: var(--red);
+	font-size: 20px;
+	min-width: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-right: 10px;
+}
+.orders-smile {
+	color: var(--red);
+	font-size: 34px;
+	position: relative;
+	top: 5px;
+}
+.icon-chevron-left-solid:before {
+	position: relative !important;
+	top: -0.4px !important;
+}
+.chev-position::before {
+	position: relative !important;
+	top: -0.4px !important;
+}
+.delivery-note span.icon-delivery {
+    font-size: 26px;
+    margin-right: 20px;
+	color: var(--red);
+}
+.orders-slider.pdp-slick-bg .slick-next {
+    right: -20px;
+}
+.orders-slider.pdp-slick-bg .slick-prev {
+    left: -20px;
+}
+/* .orders-slider.pdp-slick-bg .slick-prev,
+.orders-slider.pdp-slick-bg .slick-next {
+	top: 44%; */
+/* } */
+.orders-bg {
+	margin-left: 75px;
+}
+
+.dropdown-filter .btn-link {
+    font-size: 14px !important;
+    min-width: 130px;
+    justify-content: space-between;
+}
+
+.dropdown-filter.show .dropdown-menu.bottom-radius {
+    border-radius: 0 0 12px 12px !important;
+}
+.off-white-drop.dropdown-filter.show .dropdown-menu a{
+  padding: 6px 18px !important;
+}
+@media screen and (max-width: 1100px) {
+	.orders-bg {
+		margin-left: 0px;
+	}
+}
+/* =====your-orders===== */
+
+/* =========================wallet ========================*/
+
+
+.wallet-page .add-card {
+	font-size: 16px;
+	color: var(--white);
+	border: 2px solid #640529;
+	border-radius: 15px;
+	background-color: var(--dark-red);
+	width: 300px;
+	padding: 4px 0;
+}.wallet-page .wallet-collapse .card {
+	border-radius: 0px 0px 12px 12px;
+	border: 0;
+}
+.wallet-page .wallet-collapse .card-header {
+	background-color: var(--dark-red);
+	border-radius: 12px !important;
+}
+.wallet-page .wallet-collapse .card-header.active {
+	border-radius: 12px 12px 0px 0px !important;
+}
+.wallet-page .wallet-collapse .card-header .btn:hover {
+	background-color: var(--dark-red);
+}
+.wallet-page .wallet-collapse .card-info label {
+	font-size: 14px;
+	color: var(--white);
+}
+.wallet-page .wallet-collapse .visa-card span {
+	width: 90px;
+    height: 30px;
+    background-color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+.wallet-page .wallet-collapse .card-body .visa-card span {
+	background-color: #FDF8F3;
+}
+.wallet-page .wallet-collapse .default-card span {
+ 	width: 35px;
+    height: 35px;
+    background-color: #731D3D;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+.wallet-page .wallet-collapse .default-card span:before {
+	font-size: 12px;
+	color: var(--white);
+position: absolute;
+top:26px;
+}
+.wallet-page .wallet-collapse .btns-payment .btn-danger {
+	border-radius: 15px;
+	width: 315px;
+	padding: 4px 0;
+}
+.wallet-page .wallet-collapse .btns-payment .edit-btn .btn {
+	border-radius: 15px;
+	width: 200px;
+	font-weight: 600;
+}
+/* =================wallet==================== */
+.listing-slider .slick-prev, .listing-slider .slick-next {
+  top: 0;
+  overflow: hidden;
+    bottom: 28px;
+    margin: auto;
+}
+
+.favourites-love-icon::before{
+  font-weight: 600;
+}
+
+/* =========================message-center ========================*/
+
+.message-center-page .table tbody .reply-btn .btn {
+	color: #fff;
+	font-size: 12px;
+	font-weight: 500;
+	background-color: var(--danger-color);
+	border-radius: 12px;
+	width: 150px;
+  padding: 4px 0;
+	text-transform: uppercase;
+  border: 0;
+}
+.message-center-page .table tbody .open-btn .btn {
+	background-color: var(--light-red);
+	color: var(--red);
+}
+.message-center-page .pdp-pad .back-link {
+	font-size: 12px;
+}
+.message-center-page .pdp-pad .back-link span:before {
+	font-size: 10px;
+}
+.message-center-page .Yavolo-table table tbody tr td {
+	vertical-align: top;
+  font-size: 14px;
+}
+.message-center-page .Yavolo-table table tbody tr td:last-child {
+	vertical-align: middle;
+}
+.message-center-page .Yavolo-table table .resloved tr td p,
+.message-center-page .Yavolo-table table .resloved tr td {
+	background-color: #ffffffab;
+	color: #64052973 !important;
+}
+
+.message-center-page .Yavolo-table table thead tr th{
+  font-size: 16px;
+}

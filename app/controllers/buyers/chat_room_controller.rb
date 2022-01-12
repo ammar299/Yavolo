@@ -1,4 +1,4 @@
-class Buyers::ProfilesController < Buyers::BaseController
+class Buyers::ChatRoomController < Buyers::BaseController
 
   def login_and_security
   end

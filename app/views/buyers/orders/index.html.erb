@@ -1,0 +1,485 @@
+<div class="main-content">
+  <div class="container-fluid pdp-pad">
+    <div class="px-xl-5 mt-4">
+      <%= link_to buyers_profile_path(current_buyer), class:"buyer-card-link red-text decoration-none btn-light-hvr btn-radius py-2 px-3 mr-5" do %>
+        <span class="icon-chevron-left-solid pr-2 mm-text chev-position relative"></span>Back to your account <%end%>
+      <h2 class="mt-2">Your Orders</h2>
+      <div class="row">
+        <div class="col-lg-5">
+          <div class="dropdown-filter-field">
+            <div class="dark-bg-dropdown dropdown-filter-field-small orders-drop">
+              <div class="dropdown dropdown-filter d-inline-flex">
+                <a href="#" class="btn btn-radius px-3 btn-link-dropdown d-inline-flex align-items-center top-0 justify-content-between font-14px" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Search All <i class="fa fa-angle-down ml-3" aria-hidden="true"></i>
+                </a>
+                <div class="dropdown-menu pt-0" aria-labelledby="dropdownMenuLink" x-placement="bottom-start" style="position: absolute; transform: translate3d(-2px, 33px, 0px); top: 0px; left: 0px; will-change: transform;">
+                  <a class="dropdown-item active" href="#">Search All <i class="fa fa-check" aria-hidden="true"></i>
+                  </a>
+                  <a class="dropdown-item" href="#">Product Title A-Z <i class="fa fa-check" aria-hidden="true"></i>
+                  </a>
+                  <a class="dropdown-item" href="#">Product Title Z-A <i class="fa fa-check" aria-hidden="true"></i>
+                  </a>
+                  <a class="dropdown-item" href="#">Order Number <i class="fa fa-check" aria-hidden="true"></i>
+                  </a>
+                  <a class="dropdown-item" href="#">Tracking Number <i class="fa fa-check" aria-hidden="true"></i>
+                  </a>
+                  <a class="dropdown-item" href="#">Seller Name <i class="fa fa-check" aria-hidden="true"></i>
+                  </a>
+                  <a class="dropdown-item" href="#">SKU <i class="fa fa-check" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="search-field mb-0">
+              <input type="text" placeholder="Search your orders">
+              <i class="fa fa-search orders-search" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7 d-flex justify-content-between flex-wrap">
+          <div class="dropdown dropdown-filter mb-3 d-inline-flex off-white-drop">
+            <a href="#" class="btn btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Results per page: 15 <i class="fa fa-angle-down ml-4 p" aria-hidden="true"></i>
+            </a>
+            <div class="dropdown-menu bottom-radius" aria-labelledby="dropdownMenuLink" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 41px, 0px); top: 0px; left: 0px; will-change: transform;">
+              <a class="dropdown-item active" href="#">Results per page: 15 <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+              <a class="dropdown-item" href="#">Results per page: 30 <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+              <a class="dropdown-item" href="#">Results per page: 60 <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+              <a class="dropdown-item" href="#">Results per page: 90 <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+              <a class="dropdown-item" href="#">Results per page: 180 <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+          <div class="dropdown dropdown-filter mb-3 d-inline-flex off-white-drop">
+            <a href="#" class="btn btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by: All orders <i class="fa fa-angle-down ml-4" aria-hidden="true"></i>
+            </a>
+            <div class="dropdown-menu bottom-radius" aria-labelledby="dropdownMenuLink" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 41px, 0px); top: 0px; left: 0px; will-change: transform;">
+              <a class="dropdown-item active" href="#">All orders <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+              <a class="dropdown-item" href="#">Open orders <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+              <a class="dropdown-item" href="#">Closed orders <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+          <div class="dropdown dropdown-filter mb-3 d-inline-flex off-white-drop">
+            <a href="#" class="btn btn-radius px-3 btn-link btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Date range: Last 7 days <i class="fa fa-angle-down ml-4" aria-hidden="true"></i>
+            </a>
+            <div class="dropdown-menu bottom-radius" aria-labelledby="dropdownMenuLink" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 41px, 0px); top: 0px; left: 0px; will-change: transform;">
+              <a class="dropdown-item active" href="#">Date range: Last 7 days <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+              <a class="dropdown-item" href="#">Date range: Last 14 days <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+              <a class="dropdown-item" href="#">Date range: Last 30 days <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+              <a class="dropdown-item" href="#">Date range: Last 90 days <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+              <a class="dropdown-item" href="#">Date range: Last 180 days <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+              <a class="dropdown-item" href="#">Date range: Last 365 days <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+              <a class="dropdown-item" href="#">Date range: Custom <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-8">
+          <%= render 'buyers/orders/order', orders: @orders %>
+          <!--<div class="orders-card mb-4">
+            <div class="orders-card-header">
+              <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <div class="d-flex flex-wrap">
+                  <div class="pr-5 my-1">
+                    <h6 class="my-0">Order date</h6>
+                    <span class="mm-text">19th July 2021</span>
+                  </div>
+                  <div class="pr-5 my-1">
+                    <h6 class="my-0">Total</h6>
+                    <span class="mm-text">£35.99</span>
+                  </div>
+                  <div class="pr-5 my-1">
+                    <h6 class="my-0">Order number</h6>
+                    <span class="mm-text">YAV011</span>
+                  </div>
+                  <div class="my-1">
+                    <span class="icon-manage-Yavolo orders-smile"></span>
+                  </div>
+                </div>
+                <div>
+                  <a href="" class="px-4 btn-radius btn-sm light-dark-red my-1">BUY AGAIN</a>
+                </div>
+              </div>
+            </div>
+            <div class="orders-card-body">
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="yo-white-card p-2">
+                    <span class="">
+                      <%= image_tag "profile.jpg",class:"orders-img"%>
+                    </span>
+                  </div>
+                </div>
+                <div class="col-lg-6 d-flex">
+                  <div class="d-flex flex-column justify-content-between">
+                    <h6>Nintendo Switch Lite - Yellow</h6>
+                    <ul class="pb-2">
+                      <li class="font-14px">SKU: 6786</li>
+                      <li class="font-14px">Sold by GameProvider</li>
+                      <li class="font-14px">£35.99</li>
+                    </ul>
+                    <div class="align-items-center d-flex mb-1">
+                      <span class="icon-delivery  orders-health-icon"></span>
+                      <span class="font-14px">In transit (expected to arrive Mon 24th March)</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="d-flex flex-column justify-content-between">
+                    <a href="#" class="btn btn-radius px-4 w-100 mb-3 btn-primary">TRACK ITEM</a>
+                    <a href="#" class="btn btn-radius px-4 w-100 mb-3 btn-outline-primary">VIEW INVOICE</a>
+                    <a href="#" class="btn btn-radius px-4 w-100 mb-3 btn-outline-primary">CONTACT SELLER</a>
+                    <a href="#" class="btn btn-radius px-4 w-100 btn-outline-primary">REQUEST RETURN</a>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="yo-white-card p-2">
+                    <span class="">
+                      <%= image_tag "profile.jpg",class:"orders-img"%>
+                    </span>
+                  </div>
+                </div>
+                <div class="col-lg-6 d-flex">
+                  <div class="d-flex flex-column justify-content-between">
+                    <h6>Nintendo Switch The World Ends With You Final Mix</h6>
+                    <ul class="pb-2">
+                      <li class="font-14px">SKU: 6786</li>
+                      <li class="font-14px">Sold by GameProvider</li>
+                      <li class="font-14px">£35.99</li>
+                    </ul>
+                    <div class="align-items-center d-flex mb-1">
+                      <span class="icon-delivery  orders-health-icon"></span>
+                      <span class="font-14px">Item being prepared</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="d-flex flex-column justify-content-between">
+                    <a href="#" class="btn btn-radius px-4 w-100 mb-3 btn-primary">TRACK ITEM</a>
+                    <a href="#" class="btn btn-radius px-4 w-100 mb-3 btn-outline-primary">VIEW INVOICE</a>
+                    <a href="#" class="btn btn-radius px-4 w-100 mb-3 btn-outline-primary">CONTACT SELLER</a>
+                    <a href="#" class="btn btn-radius px-4 w-100 btn-outline-primary">REQUEST RETURN</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="orders-card mb-4">
+            <div class="orders-card-header">
+              <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <div class="d-flex flex-wrap">
+                  <div class="pr-5 my-1">
+                    <h6 class="my-0">Order date</h6>
+                    <span class="mm-text">19th July 2021</span>
+                  </div>
+                  <div class="pr-5 my-1 ">
+                    <h6 class="my-0">Total</h6>
+                    <span class="mm-text">£35.99</span>
+                  </div>
+                  <div class="pr-5 my-1">
+                    <h6 class="my-0">Order number</h6>
+                    <span class="mm-text">YAV011</span>
+                  </div>
+                </div>
+                <div>
+                  <a href="" class="px-4 btn-radius btn-sm light-dark-red my-1">BUY AGAIN</a>
+                </div>
+              </div>
+            </div>
+            <div class="orders-card-body">
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="yo-white-card p-2">
+                    <span class="">
+                      <%= image_tag "profile.jpg",class:"orders-img"%>
+                    </span>
+                  </div>
+                </div>
+                <div class="col-lg-6 d-flex">
+                  <div class="d-flex flex-column justify-content-between">
+                    <h6>Nintendo Switch The World Ends With You Final Mix</h6>
+                    <ul class="pb-2">
+                      <li class="font-14px">SKU: 6786</li>
+                      <li class="font-14px">Sold by GameProvider</li>
+                      <li class="font-14px">£35.99</li>
+                    </ul>
+                    <div class="align-items-center d-flex mb-1">
+                      <span class="icon-circle-alt-done  orders-health-icon"></span>
+                      <span class="font-14px">Deliverd (Signed by J.Davis on 29thMay 2021)</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="d-flex flex-column justify-content-between">
+                    <a href="#" class="btn btn-radius px-2 w-100 mb-3 btn-primary">TRACK ITEM</a>
+                    <a href="#" class="btn btn-radius px-2 w-100 mb-3 btn-outline-primary">VIEW INVOICE</a>
+                    <a href="#" class="btn btn-radius px-2 w-100 mb-3 btn-outline-primary">CONTACT SELLER</a>
+                    <a href="#" class="btn btn-radius px-2 w-100 btn-outline-primary">REQUEST RETURN</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="orders-card mb-4">
+            <div class="orders-card-header">
+              <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <div class="d-flex flex-wrap">
+                  <div class="pr-5 my-1">
+                    <h6 class="my-0">Order date</h6>
+                    <span class="mm-text">19th July 2021</span>
+                  </div>
+                  <div class="pr-5 my-1">
+                    <h6 class="my-0">Total</h6>
+                    <span class="mm-text">£35.99</span>
+                  </div>
+                  <div class="pr-5 my-1">
+                    <h6 class="my-0">Order number</h6>
+                    <span class="mm-text">YAV011</span>
+                  </div>
+                  <div class="my-1">
+                    <span class="icon-manage-Yavolo orders-smile"></span>
+                  </div>
+                </div>
+                <div>
+                  <a href="" class="px-4 btn-radius btn-sm light-dark-red my-1">BUY AGAIN</a>
+                </div>
+              </div>
+            </div>
+            <div class="orders-card-body">
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="yo-white-card p-2">
+                    <span class="">
+                      <%= image_tag "profile.jpg",class:"orders-img"%>
+                    </span>
+                  </div>
+                </div>
+                <div class="col-lg-6 d-flex">
+                  <div class="d-flex flex-column justify-content-between">
+                    <h6>Nintendo Switch Lite - Yellow</h6>
+                    <ul class="pb-2">
+                      <li class="font-14px">SKU: 6786</li>
+                      <li class="font-14px">Sold by GameProvider</li>
+                      <li class="font-14px">£35.99</li>
+                    </ul>
+                    <div class="align-items-center d-flex mb-1">
+                      <span class="icon-circle-alt-done  orders-health-icon"></span>
+                      <span class="font-14px">Deliverd (Signed by J.Davis on 29thMay 2021)</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="d-flex flex-column justify-content-between">
+                    <a href="#" class="btn btn-radius px-2 w-100 mb-3 btn-primary">TRACK ITEM</a>
+                    <a href="#" class="btn btn-radius px-2 w-100 mb-3 btn-outline-primary">VIEW INVOICE</a>
+                    <a href="#" class="btn btn-radius px-2 w-100 mb-3 btn-outline-primary">CONTACT SELLER</a>
+                    <a href="#" class="btn btn-radius px-2 w-100 btn-outline-primary">REQUEST RETURN</a>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="yo-white-card p-2">
+                    <span class="">
+                      <%= image_tag "profile.jpg",class:"orders-img"%>
+                    </span>
+                  </div>
+                </div>
+                <div class="col-lg-6 d-flex">
+                  <div class="d-flex flex-column justify-content-between">
+                    <h6>Nintendo Switch The World Ends With You Final Mix</h6>
+                    <ul class="pb-2">
+                      <li class="font-14px">SKU: 6786</li>
+                      <li class="font-14px">Sold by GameProvider</li>
+                      <li class="font-14px">£35.99</li>
+                    </ul>
+                    <div class="align-items-center d-flex mb-1">
+                      <span class="icon-circle-alt-done  orders-health-icon"></span>
+                      <span class="font-14px">Deliverd (Signed by J.Davis on 29thMay 2021)</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="d-flex flex-column justify-content-between">
+                    <a href="#" class="btn btn-radius px-2 w-100 mb-3 btn-primary">TRACK ITEM</a>
+                    <a href="#" class="btn btn-radius px-2 w-100 mb-3 btn-outline-primary">VIEW INVOICE</a>
+                    <a href="#" class="btn btn-radius px-2 w-100 mb-3 btn-outline-primary">CONTACT SELLER</a>
+                    <a href="#" class="btn btn-radius px-2 w-100 btn-outline-primary">REQUEST RETURN</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>-->
+           <div class="row">
+            <div class="col-md-6 mx-auto">
+              <div class="pager-middle text-center d-flex justify-content-center mb-4">
+                <%= paginate @orders %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-md-6 mx-auto">
+          <div>
+            <div class="row justify-content-center">
+              <div class="col-lg-12">
+                <div class="yo-white-card orders-bg mt-5 pt-2 mb-3">
+                  <div class="text-center">
+                    <h5>We think you’ll love this</h5>
+                  </div>
+                  <div class="pdp-nbg-slick-slide pdp-slick-bg px-4 orders-slider">
+                    <div class="pdp-card mb-0">
+                      <div class="pdp-img">
+                        <%= image_tag "profile.jpg"%>
+                      </div>
+                      <div class="pdp-body">
+                        <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72 Mugs Bundle </p>
+                        <ul class="rating d-flex">
+                          <li class="mr-1 active">
+                            <span class="icon-star"></span>
+                          </li>
+                          <li class="mr-1 active">
+                            <span class="icon-star"></span>
+                          </li>
+                          <li class="mr-1 active">
+                            <span class="icon-star"></span>
+                          </li>
+                          <li class="mr-1 active">
+                            <span class="icon-star"></span>
+                          </li>
+                          <li class="mr-1">
+                            <span class="icon-star"></span>
+                          </li>
+                          <li class="mr-1">
+                            <span class="px-3 rateNo">(144)</span>
+                          </li>
+                        </ul>
+                        <p class="pdp-price black-text">£229.99</p>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="pdp-card mb-0">
+                        <div class="pdp-img">
+                          <img src="images/orders.svg">
+                        </div>
+                        <div class="pdp-body">
+                          <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72 Mugs Bundle</p>
+                          <ul class="rating d-flex">
+                            <li class="mr-1 active">
+                              <span class="icon-star"></span>
+                            </li>
+                            <li class="mr-1 active">
+                              <span class="icon-star"></span>
+                            </li>
+                            <li class="mr-1 active">
+                              <span class="icon-star"></span>
+                            </li>
+                            <li class="mr-1 active">
+                              <span class="icon-star"></span>
+                            </li>
+                            <li class="mr-1">
+                              <span class="icon-star"></span>
+                            </li>
+                            <li class="mr-1">
+                              <span class="px-3 rateNo">(144)</span>
+                            </li>
+                          </ul>
+                          <p class="pdp-price black-text">£229.99</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="pdp-card mb-0">
+                        <div class="pdp-img">
+                          <img src="images/blog.svg">
+                        </div>
+                        <div class="pdp-body">
+                          <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72 Mugs Bundle</p>
+                          <ul class="rating d-flex">
+                            <li class="mr-1 active">
+                              <span class="icon-star"></span>
+                            </li>
+                            <li class="mr-1 active">
+                              <span class="icon-star"></span>
+                            </li>
+                            <li class="mr-1 active">
+                              <span class="icon-star"></span>
+                            </li>
+                            <li class="mr-1 active">
+                              <span class="icon-star"></span>
+                            </li>
+                            <li class="mr-1">
+                              <span class="icon-star"></span>
+                            </li>
+                            <li class="mr-1">
+                              <span class="px-3 rateNo">(144)</span>
+                            </li>
+                          </ul>
+                          <p class="pdp-price black-text">£229.99</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="pdp-card mb-0">
+                        <div class="pdp-img">
+                          <img src="images/PayPal-Logo.svg">
+                        </div>
+                        <div class="pdp-body">
+                          <p class="black-text pdp-min-p">PixMax Sublimation Mug Press plus 72 Mugs Bundle</p>
+                          <ul class="rating d-flex">
+                            <li class="mr-1 active">
+                              <span class="icon-star"></span>
+                            </li>
+                            <li class="mr-1 active">
+                              <span class="icon-star"></span>
+                            </li>
+                            <li class="mr-1 active">
+                              <span class="icon-star"></span>
+                            </li>
+                            <li class="mr-1 active">
+                              <span class="icon-star"></span>
+                            </li>
+                            <li class="mr-1">
+                              <span class="icon-star"></span>
+                            </li>
+                            <li class="mr-1">
+                              <span class="px-3 rateNo">(144)</span>
+                            </li>
+                          </ul>
+                          <p class="pdp-price black-text">£229.99</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="px-5 card-">
+                    <a href="#" class="btn btn-radius px-4 btn-primary w-100">ADD TO BASKET</a>
+                    <div class="d-flex delivery-note align-items-center py-3 font-14px">
+                      <span class=" icon-delivery"></span>
+                      <span class="in-text">FREE 1-Day Delivery <br />Get it tomorrow </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
