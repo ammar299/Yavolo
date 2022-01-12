@@ -2003,6 +2003,24 @@ a.buyer-card-link:hover {
 	font-size: 14px;
 	color: var(--white);
 }
+.wallet-page .wallet-collapse .card-info .default-card {
+width: 30%;
+}
+.wallet-page .wallet-collapse .card-info .date {
+width: 20%;
+}
+.wallet-page .wallet-collapse .card-info .visa-card {
+width: 50%;
+}
+.wallet-page .wallet-collapse .card-detail .visa-card {
+  width: 40%;
+}
+.wallet-page .wallet-collapse .card-detail .date {
+ width: 30%;
+}
+.wallet-page .wallet-collapse .card-detail .testing {
+ width: 30%;
+}
 .wallet-page .wallet-collapse .visa-card span {
 	width: 90px;
     height: 30px;
@@ -2039,6 +2057,66 @@ top:26px;
 	border-radius: 15px;
 	width: 200px;
 	font-weight: 600;
+}
+.wallet-page .wallet-collapse .wallet-body .hdngs strong:first-child {
+   width: 40%;
+}
+.wallet-page .wallet-collapse .wallet-body .hdngs strong:nth-child(2) {
+  width: 20%;
+}
+.wallet-page .wallet-collapse .wallet-body .hdngs strong:last-child {
+  width: 40%;
+text-align: right;
+}
+
+
+@media only screen and (max-width: 480px) {
+  .wallet-page .wallet-collapse .card-info {
+    display: block !important;
+  }
+  .wallet-page .wallet-collapse .card-info .visa-card {
+    width: 100%;
+  }
+  .wallet-page .wallet-collapse .card-info .date {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  .wallet-page .wallet-collapse .card-info .default-card {
+    width: 100%;
+    justify-content: center !important;
+  }
+  .wallet-page .wallet-collapse .default-card span {
+    position: absolute;
+    top: 40px;
+    right: 8px;
+  }
+  .wallet-page .wallet-collapse .default-card span:before {
+    top: 13px;
+  }
+  .wallet-page .wallet-collapse .btns-payment {
+   display: block !Important;
+  }
+  .wallet-page .wallet-collapse .btns-payment .btn-danger {
+   width: 100%;
+  }
+  .wallet-page .wallet-collapse .btns-payment .edit-btn {
+   margin-top: 10px;
+  } 
+  .wallet-page .wallet-collapse .card-detail .date {
+  text-align: center;
+  }
+  .wallet-page .add-card {
+   width: 100%;
+  }
+  .wallet-page .wallet-collapse .card-detail label,
+  .wallet-page .wallet-collapse .btns-payment a,
+  .wallet-page .wallet-collapse .wallet-body .hdngs strong {
+   font-size:12px;
+  }
+  .wallet-page .wallet-collapse .wallet-body .hdngs strong:nth-child(2) {
+   width: 30%; 
+  }
 }
 /* =================wallet==================== */
 .listing-slider .slick-prev, .listing-slider .slick-next {
@@ -2092,6 +2170,20 @@ top:26px;
   font-size: 16px;
 }
 
+/* ============news-letter */
+.back-account-link,
+.back-account-link .icon-chevron-left-solid {
+	font-weight: 600;
+}
+.news-join-text {
+	font-size: 28px;
+}
+.yo-white-card .newsletter-subscribe-button:hover {
+  background-color: var(--light-red);
+color: var(--red);
+border-color: var(--light-red);
+}
+/* =======news-letter */
 .reset-password-btn {
   width: 53% !important;
   height: 40px !important;

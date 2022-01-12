@@ -298,6 +298,7 @@ Rails.application.routes.draw do
           member do
             get :login_and_security
             get :addresses
+            get :news_letter
           end 
         end
       end

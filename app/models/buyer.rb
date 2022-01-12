@@ -13,6 +13,7 @@ class Buyer < ApplicationRecord
   has_one :stripe_customer, as: :stripe_customerable, dependent: :destroy
   has_many :buyer_payment_methods, dependent: :destroy
   has_many :refund_modes, dependent: :destroy
+  has_one :wishlist , dependent: :destroy
 
   def self.create_from_provider_data(provider_data)
     where(email: provider_data.info.email).first_or_create do |user|

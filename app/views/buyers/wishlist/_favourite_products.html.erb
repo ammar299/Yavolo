@@ -1,121 +1,46 @@
 <div class="row">
-  <div class="col-lg-3 col-md-4">
-    <div class="pdp-card">
-      <div class="pdp-img">
-        <%= image_tag "Image496.png" %>
-      </div>
-      <div class="pdp-body">
-        <p class="black-text">PixMax Sublimation Mug Press plus 72 Mugs Bundle</p>
-        <ul class="rating d-flex">
-          <li class="mr-1 active">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1 active">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1 active">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1 active">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1">
-            <span class="px-3 rateNo">(144)</span>
-          </li>
-        </ul>
-        <p class="pdp-price black-text">£229.99</p>
-        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to basket</a>
-        <div class="d-flex delivery-note align-items-center py-3">
-          <span class="icon-orders--delivery"></span>
-          <span class="in-text">FREE 1-Day Delivery <br />Get it tomorrow </span>
+  <% fav_products.each do |product| %>
+    <div class="col-lg-3 col-md-4">
+      <div class="pdp-card">
+        <div class="pdp-img">
+          <%= image_tag product_thumbnail_image(product,version = :thumb) %>
         </div>
-        <a href="#" class="remove-btn mt-2 d-block">
-          <span class="icon-remove mr-2"></span> Remove from favourites </a>
+        <div class="pdp-body">
+          <p class="black-text"><%= product.title %></p>
+          <ul class="rating d-flex">
+            <li class="mr-1 active">
+              <span class="icon-star"></span>
+            </li>
+            <li class="mr-1 active">
+              <span class="icon-star"></span>
+            </li>
+            <li class="mr-1 active">
+              <span class="icon-star"></span>
+            </li>
+            <li class="mr-1 active">
+              <span class="icon-star"></span>
+            </li>
+            <li class="mr-1">
+              <span class="icon-star"></span>
+            </li>
+            <li class="mr-1">
+              <span class="px-3 rateNo">(144)</span>
+            </li>
+          </ul>
+          <p class="pdp-price black-text"><%= get_price_in_pounds(product.price) %></p>
+          <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to basket</a>
+          <div class="d-flex delivery-note align-items-center py-3">
+            <span class="icon-orders--delivery"></span>
+            <span class="in-text">FREE 1-Day Delivery <br />Get it tomorrow </span>
+          </div>
+          <a href="#" class="remove-btn mt-2 d-block">
+            <span class="icon-remove mr-2"></span> Remove from favourites </a>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="col-lg-3 col-md-4">
-    <div class="pdp-card">
-      <div class="pdp-img">
-        <%= image_tag "Image496.png" %>
-        <label class="lable-tag btn btn-sm btn-radius-6 px-4 btn-danger py-0">Low in Stock</label>
-        <label class="lable-tag btn btn-sm btn-radius-6 px-4 btn-danger py-0">
-          <span class="icon-Yavolo-top-seller-icon mr-2"></span> Top Seller </label>
-      </div>
-      <div class="pdp-body">
-        <p class="black-text">PixMax Sublimation Mug Press plus 72 Mugs Bundle</p>
-        <ul class="rating d-flex">
-          <li class="mr-1 active">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1 active">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1 active">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1 active">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1">
-            <span class="px-3 rateNo">(144)</span>
-          </li>
-        </ul>
-        <p class="pdp-price black-text">£229.99</p>
-        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to basket</a>
-        <div class="d-flex delivery-note align-items-center py-3">
-          <span class="icon-orders--delivery"></span>
-          <span class="in-text">FREE 1-Day Delivery <br />Get it tomorrow </span>
-        </div>
-        <a href="#" class="remove-btn mt-2 d-block">
-          <span class="icon-remove mr-2"></span> Remove from favourites </a>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-3 col-md-4">
-    <div class="pdp-card">
-      <div class="pdp-img">
-        <%= image_tag "Image496.png" %>
-      </div>
-      <div class="pdp-body">
-        <p class="black-text">PixMax Sublimation Mug Press plus 72 Mugs Bundle</p>
-        <ul class="rating d-flex">
-          <li class="mr-1 active">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1 active">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1 active">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1 active">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1">
-            <span class="px-3 rateNo">(144)</span>
-          </li>
-        </ul>
-        <p class="pdp-price black-text">£229.99</p>
-        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to basket</a>
-        <div class="d-flex delivery-note align-items-center py-3">
-          <span class="icon-orders--delivery"></span>
-          <span class="in-text">FREE 1-Day Delivery <br />Get it tomorrow </span>
-        </div>
-        <a href="#" class="remove-btn mt-2 d-block">
-          <span class="icon-remove mr-2"></span> Remove from favourites </a>
-      </div>
-    </div>
-  </div>
+  <% end %>
+    
+  <!--- For Later Use
   <div class="col-lg-3 col-md-4">
     <div class="pdp-card">
       <div class="pdp-img">
@@ -156,125 +81,5 @@
           <span class="icon-remove mr-2"></span> Remove from favourites </a>
       </div>
     </div>
-  </div>
-  <div class="col-lg-3 col-md-4">
-    <div class="pdp-card">
-      <div class="pdp-img">
-        <%= image_tag "Image496.png" %>
-        <label class="lable-tag btn btn-sm btn-radius-6 px-4 btn-danger py-0">Low in Stock</label>
-        <label class="lable-tag btn btn-sm btn-radius-6 px-4 btn-danger py-0">
-          <span class="icon-Yavolo-top-seller-icon mr-2"></span> Top Seller </label>
-      </div>
-      <div class="pdp-body">
-        <p class="black-text">PixMax Sublimation Mug Press plus 72 Mugs Bundle</p>
-        <ul class="rating d-flex">
-          <li class="mr-1 active">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1 active">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1 active">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1 active">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1">
-            <span class="px-3 rateNo">(144)</span>
-          </li>
-        </ul>
-        <p class="pdp-price black-text">£229.99</p>
-        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to basket</a>
-        <div class="d-flex delivery-note align-items-center py-3">
-          <span class="icon-orders--delivery"></span>
-          <span class="in-text">FREE 1-Day Delivery <br />Get it tomorrow </span>
-        </div>
-        <a href="#" class="remove-btn mt-2 d-block">
-          <span class="icon-remove mr-2"></span> Remove from favourites </a>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-3 col-md-4">
-    <div class="pdp-card">
-      <div class="pdp-img">
-        <%= image_tag "Image496.png" %>
-      </div>
-      <div class="pdp-body">
-        <p class="black-text">PixMax Sublimation Mug Press plus 72 Mugs Bundle</p>
-        <ul class="rating d-flex">
-          <li class="mr-1 active">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1 active">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1 active">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1 active">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1">
-            <span class="px-3 rateNo">(144)</span>
-          </li>
-        </ul>
-        <p class="pdp-price black-text">£229.99</p>
-        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to basket</a>
-        <div class="d-flex delivery-note align-items-center py-3">
-          <span class="icon-orders--delivery"></span>
-          <span class="in-text">FREE 1-Day Delivery <br />Get it tomorrow </span>
-        </div>
-        <a href="#" class="remove-btn mt-2 d-block">
-          <span class="icon-remove mr-2"></span> Remove from favourites </a>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-3 col-md-4">
-    <div class="pdp-card">
-      <div class="pdp-img">
-        <%= image_tag "Image496.png" %>
-        <label class="lable-tag btn btn-sm btn-radius-6 px-4 btn-danger py-0">Low in Stock</label>
-        <label class="lable-tag btn btn-sm btn-radius-6 px-4 btn-danger py-0">
-          <span class="icon-Yavolo-top-seller-icon mr-2"></span> Top Seller </label>
-      </div>
-      <div class="pdp-body">
-        <p class="black-text">PixMax Sublimation Mug Press plus 72 Mugs Bundle</p>
-        <ul class="rating d-flex">
-          <li class="mr-1 active">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1 active">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1 active">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1 active">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1">
-            <span class="icon-star"></span>
-          </li>
-          <li class="mr-1">
-            <span class="px-3 rateNo">(144)</span>
-          </li>
-        </ul>
-        <p class="pdp-price black-text">£229.99</p>
-        <a href="#" class="btn btn-radius px-4 btn-primary w-100">Add to basket</a>
-        <div class="d-flex delivery-note align-items-center py-3">
-          <span class="icon-orders--delivery"></span>
-          <span class="in-text">FREE 1-Day Delivery <br />Get it tomorrow </span>
-        </div>
-        <a href="#" class="remove-btn mt-2 d-block">
-          <span class="icon-remove mr-2"></span> Remove from favourites </a>
-      </div>
-    </div>
-  </div>
+  </div>-->
 </div>

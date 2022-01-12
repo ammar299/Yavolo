@@ -1,4 +1,4 @@
 <div class="flex1">
   <h1>Buyer</h1>
-  <%= link_to 'Account', buyers_profile_path(current_buyer) %>
+  <%= link_to 'Account', buyers_profile_path(current_buyer)  if current_buyer.present?%>
 </div>

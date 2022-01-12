@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_09_233618) do
+ActiveRecord::Schema.define(version: 2022_01_12_115135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -290,6 +290,15 @@ ActiveRecord::Schema.define(version: 2022_01_09_233618) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["product_id"], name: "index_ebay_details_on_product_id"
+  end
+
+  create_table "fav_products", force: :cascade do |t|
+    t.bigint "wishlist_id"
+    t.bigint "product_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_fav_products_on_product_id"
+    t.index ["wishlist_id"], name: "index_fav_products_on_wishlist_id"
   end
 
   create_table "filter_categories", force: :cascade do |t|
@@ -774,6 +783,13 @@ ActiveRecord::Schema.define(version: 2022_01_09_233618) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "wishlists", force: :cascade do |t|
+    t.bigint "buyer_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["buyer_id"], name: "index_wishlists_on_buyer_id"
+  end
+
   create_table "yavolo_bundle_products", force: :cascade do |t|
     t.decimal "price", precision: 9, scale: 2
     t.bigint "product_id", null: false
@@ -811,6 +827,8 @@ ActiveRecord::Schema.define(version: 2022_01_09_233618) do
   add_foreign_key "billing_listing_stripes", "sellers"
   add_foreign_key "delivery_option_ships", "delivery_options"
   add_foreign_key "delivery_option_ships", "ships"
+  add_foreign_key "fav_products", "products"
+  add_foreign_key "fav_products", "wishlists"
   add_foreign_key "paypal_details", "sellers"
   add_foreign_key "refund_details", "orders"
   add_foreign_key "refund_details", "refunds"
@@ -827,6 +845,7 @@ ActiveRecord::Schema.define(version: 2022_01_09_233618) do
   add_foreign_key "seller_apis", "sellers"
   add_foreign_key "seller_payment_methods", "sellers"
   add_foreign_key "seller_stripe_subscriptions", "sellers"
+  add_foreign_key "wishlists", "buyers"
   add_foreign_key "yavolo_bundle_products", "products"
   add_foreign_key "yavolo_bundle_products", "yavolo_bundles"
 end

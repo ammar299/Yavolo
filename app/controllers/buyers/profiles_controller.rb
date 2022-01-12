@@ -9,4 +9,7 @@ class Buyers::ProfilesController < Buyers::BaseController
   def show
   end
 
+  def news_letter
+  end
+
 end

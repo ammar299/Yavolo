@@ -104,15 +104,17 @@
                   </div>
                 </div>
               <% end %>
-              <div class="yo-white-card d-flex box-border align-items-center">
-                <div>
-                  <span class="icon-newsletter notify-icons"></span>
+              <%= link_to news_letter_buyers_profile_path(current_buyer), class:"buyer-card-link" do %>
+                <div class="yo-white-card d-flex box-border align-items-center">
+                  <div>
+                    <span class="icon-newsletter notify-icons"></span>
+                  </div>
+                  <div>
+                    <h6 class="my-0">Newsletter</h6>
+                    <span class="mm-text">Manage your newsletter subscriptions.</span>
+                  </div>
                 </div>
-                <div>
-                  <h6 class="my-0">Newsletter</h6>
-                  <span class="mm-text">Manage your newsletter subscriptions.</span>
-                </div>
-              </div>
+              <%end%>
             </div>
           </div>
         </div>
