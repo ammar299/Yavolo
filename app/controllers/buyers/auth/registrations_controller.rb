@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Buyers::Auth::RegistrationsController < Devise::RegistrationsController
+  layout 'buyers/buyer'
+
   before_action :configure_sign_up_params, only: [:create]
 
 

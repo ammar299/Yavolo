@@ -1,5 +1,4 @@
 class Buyers::Auth::OmniauthController < Devise::OmniauthCallbacksController
-
   # google callback
   def google_oauth2
     @buyer = Buyer.create_from_provider_data(request.env['omniauth.auth'])

@@ -1,28 +1,21 @@
 <div class="container">
   <div class="row">
-    <div class="col col-12 col-lg-6 col-md-8 mx-auto">
+    <div class="col col-12 col-lg-8 col-md-8 mx-auto">
       <div class="sign-in">
-        <h3 class="text-center mb-4" style="color: #640529; font-size: 48px">
-          Forgot your password
-        </h3>
+        <h1 class="text-center mb-4" style="color: #640529; font-size: 48px">
+          Forgotten your password?
+        </h1>
+        <div class="text-center">
+          <p>Enter your email address and we'll send you a password reset link</p>
+        </div>
           <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
             <%= render "sellers/auth/shared/error_messages", resource: resource %>
               <div class="form-group general-mrgn">
-                <label for="exampleInputEmail1">Email Address *</label>
-                <%= f.email_field :email, autofocus: true, class: "form-control" ,id:
+                <%= f.email_field :email, autofocus: true, class: "form-control reset-password-email" ,id:
                 "exampleInputEmail1",placeholder: "Email Address" %>
               </div>
-              <div class="d-flex justify-content-between flex-wrap mb-0">
-                <div class="form-check mb-0 pl-0">
-                  <%= link_to "Log in", new_session_path(resource_name) %>
-                </div>
-                <div>
-                  <%= link_to "Sign up", new_registration_path(resource_name), class: "forgt-text" %>
-                </div>
-              </div>
             <div class="actions">
-              <%= f.submit "Send me reset password instructions", class: "btn btn-primary btn-lg btn-block
-        general-mrgn"  %>
+              <%= f.submit 'SUBMIT', class: 'btn btn-sm btn-radius px-4 btn-primary reset-password-btn'  %>
             </div>
           <% end %>
           <%#= render "buyers/auth/shared/links" %>

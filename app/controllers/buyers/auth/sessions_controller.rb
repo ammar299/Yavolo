@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Buyers::Auth::SessionsController < Devise::SessionsController
+  layout 'buyers/buyer'
 
   def after_sign_in_path_for(resource)
     super(resource)

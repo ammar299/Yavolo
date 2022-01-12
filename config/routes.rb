@@ -286,6 +286,7 @@ Rails.application.routes.draw do
   end
 
   devise_scope :buyer do
+    get 'forgot_password', to: 'buyers/auth/passwords#forgot_password'
     authenticated :buyer do
       namespace :buyers do
         root 'dashboard#index', as: :buyer_authenticated_root
