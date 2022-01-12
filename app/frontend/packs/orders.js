@@ -26,7 +26,7 @@ window.displayCustomMessage = (message) => {
     $("#flash-msg").html(message);
     setTimeout(function () {
         $("#flash-msg").find("p").remove();
-    }, 12000);
+    }, 10000);
     return message;
 };
 

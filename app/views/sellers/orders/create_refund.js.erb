@@ -1,1 +1,1 @@
-<%= render partial: "shared/refunds/create_refund", locals: {errors: @errors || @create_refund[:errors]} %>
+<%= render partial: "shared/refunds/create_refund", locals: {messages: @errors + @create_refund[:errors] + @create_refund[:notices]} %>

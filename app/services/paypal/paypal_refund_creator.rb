@@ -6,12 +6,13 @@ module Paypal
   class PaypalRefundCreator < ApplicationService
     include RefundingValidationMethods
 
-    attr_reader :status, :errors, :params, :client, :paypal_response
+    attr_reader :status, :errors, :notices, :params, :client, :paypal_response
 
     def initialize(params)
       @params = params
       @status = true
       @errors = []
+      @notices = []
       @paypal_response = nil
       @refund_hash = []
     end
@@ -51,11 +52,11 @@ module Paypal
     def api_processing_and_validations(parsed_params, parsed_order)
       line_item = get_line_item(parsed_params[:line_item_id])
       if refund_greater_than_paid?(parsed_params[:amount_refund], line_item[:total_paid])
-        @errors << "Item: #{line_item[:product_name]}: £#{parsed_params[:amount_refund].to_f} should be less than actual total paid amount"
+        @errors << "Item: #{line_item[:product_name]}: £#{parsed_params[:amount_refund].to_f} should be less than actual total paid amount.<br />"
       elsif net_refund_greater_than_paid?(parsed_params[:amount_refund], parsed_params[:line_item_id])
-        @errors << "Item: #{line_item[:product_name]}: £#{parsed_params[:amount_refund].to_f} should be less than so far generated refund against paid amount"
+        @errors << "Item: #{line_item[:product_name]}: £#{parsed_params[:amount_refund].to_f} should be less than so far generated refund against paid amount.<br />"
       else
-        refund_capture(parsed_params, parsed_order)
+        refund_capture(parsed_params, parsed_order, line_item)
       end
     end
 
@@ -73,7 +74,7 @@ module Paypal
       end
     end
 
-    def refund_capture(parsed_params, parsed_order)
+    def refund_capture(parsed_params, parsed_order, line_item)
       request = CapturesRefundRequest::new(parsed_order[:capture_id])
       request.prefer("return=representation")
       request.request_body({ amount: { value: parsed_params[:amount_refund].to_f, currency_code: 'GBP' } })
@@ -82,22 +83,23 @@ module Paypal
         parsed_response = Paypal::PaypalResponse.parsed_response(response.result)
         create_refund_hash(parsed_response, parsed_order, parsed_params)
       rescue PayPalHttp::HttpError => ioe
-        @errors << "#{ioe.result.details[0]["description"]}"
+        @errors << "Item: #{line_item[:product_name]}: #{ioe.result.details[0]["description"]}.<br />"
       end
     end
 
     def create_refund_hash(refund_response, parsed_order, parsed_params)
       line_item = get_line_item(parsed_params[:line_item_id])
       @refund_hash << {
-        order_id: line_item[:order_id],
-        buyer_id: line_item[:buyer_id],
-        line_item_id: line_item[:line_item_id],
-        response_refund_id: refund_response["id"],
-        charge_id: parsed_order[:capture_id],
-        amount_refund: refund_response["amount"]["value"],
-        refund_through: :paypal,
-        status: refund_response["status"],
+        "order_id" => line_item[:order_id],
+        "buyer_id" => line_item[:buyer_id],
+        "line_item_id" => line_item[:line_item_id],
+        "response_refund_id" => refund_response["id"],
+        "charge_id" => parsed_order[:capture_id],
+        "amount_refund" => refund_response["amount"]["value"],
+        "refund_through" => :paypal,
+        "status" => refund_response["status"],
       }
+      @notices << "Item: #{line_item[:product_name]}: Refund operation performed successfully.<br />"
     end
 
     def parsing_line_item_param(params)

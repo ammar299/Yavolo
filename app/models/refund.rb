@@ -1,7 +1,5 @@
 class Refund < ApplicationRecord
 
-  validates :total_refund, numericality: { greater_than: 0.0 }
-
   enum refund_reason: {
     "item_never_arrived_with_the_customer": 0,
     "item_was_damaged": 1,

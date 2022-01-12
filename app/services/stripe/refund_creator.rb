@@ -1,16 +1,16 @@
 require 'stripe'
 module Stripe
-  # This service is to create a stripe customer refund
   class RefundCreator < ApplicationService
     include RefundingValidationMethods
 
-    attr_reader :status, :errors, :params, :response, :reversal_hash, :refund_hash
+    attr_reader :status, :errors, :notices, :params, :response, :reversal_hash, :refund_hash
 
     def initialize(params)
       super()
       @params = params
       @status = true
       @errors = []
+      @notices = []
       @response = nil
       @reversal_hash = []
       @refund_hash = []
@@ -40,27 +40,12 @@ module Stripe
       end
     end
 
-    def get_line_item(line_item_id)
-      line_item_obj = ::LineItem.find_by(id: line_item_id) rescue nil
-      {
-        line_item_id: line_item_obj.id,
-        order_id: line_item_obj.order_id,
-        price: line_item_obj.price,
-        quantity: line_item_obj.quantity,
-        product_name: line_item_obj.product&.title,
-        transfer_id: line_item_obj.transfer_id,
-        total_paid: (line_item_obj.price * line_item_obj.quantity).to_f,
-        seller_id: line_item_obj.product&.owner_id,
-        buyer_id: line_item_obj.order&.buyer_id
-      }
-    end
-
     def api_processing_and_validations(parsed_params)
       line_item = get_line_item(parsed_params[:line_item_id])
       if refund_greater_than_paid?(parsed_params[:amount_refund], line_item[:total_paid])
-        @errors << "Item: #{line_item[:product_name]}: £#{parsed_params[:amount_refund].to_f} should be less than actual total paid amount"
+        @errors << "Item: #{line_item[:product_name]}: £#{parsed_params[:amount_refund].to_f} should be less than actual total paid amount.<br />"
       elsif net_refund_greater_than_paid?(parsed_params[:amount_refund], line_item[:line_item_id])
-        @errors << "Item: #{line_item[:product_name]}: £#{parsed_params[:amount_refund].to_f} should be less than so far generated refund against paid amount"
+        @errors << "Item: #{line_item[:product_name]}: £#{parsed_params[:amount_refund].to_f} should be less than so far generated refund against paid amount.<br />"
       else
         transfer_object = retrieve_a_transfer(line_item[:transfer_id])
         create_new_reversal(transfer_object, parsed_params)
@@ -95,21 +80,22 @@ module Stripe
         create_reversal_hash(create_reversal_request, refund_param)
         create_new_refund(transfer_object.source_transaction, refund_param)
       rescue Stripe::StripeError => e
-        @errors << "Item: #{line_item[:product_name]}:" "#{e.message}"
+        @errors << "Item: #{line_item[:product_name]}:" "#{e.message}<br />"
       end
     end
 
     def create_reversal_hash(reversal_object, refund_param)
       line_item = get_line_item(refund_param[:line_item_id])
       @reversal_hash << {
-        order_id: line_item[:order_id],
-        seller_id: line_item[:seller_id],
-        line_item_id: line_item[:line_item_id],
-        transfer_id: reversal_object["transfer"],
-        transfer_reversal_id: reversal_object["id"],
-        reversal_through: :stripe,
-        amount_reversed: refund_param[:amount_refund],
+        "order_id" => line_item[:order_id],
+        "seller_id" => line_item[:seller_id],
+        "line_item_id" => line_item[:line_item_id],
+        "transfer_id" => reversal_object["transfer"],
+        "transfer_reversal_id" => reversal_object["id"],
+        "reversal_through" => :stripe,
+        "amount_reversed" => refund_param[:amount_refund],
       }
+      @notices << "Item: #{line_item[:product_name]}: Reversal operation performed successfully.<br />"
     end
 
     def create_new_refund(charge_id, refund_param)
@@ -130,15 +116,16 @@ module Stripe
     def create_refund_hash(refund_object, refund_param)
       line_item = get_line_item(refund_param[:line_item_id])
       @refund_hash << {
-        order_id: line_item[:order_id],
-        buyer_id: line_item[:buyer_id],
-        line_item_id: line_item[:line_item_id],
-        response_refund_id: refund_object["id"],
-        charge_id: refund_object["charge"],
-        amount_refund: refund_param[:amount_refund],
-        refund_through: :stripe,
-        status: refund_object["status"],
+        "order_id" => line_item[:order_id],
+        "buyer_id" => line_item[:buyer_id],
+        "line_item_id" => line_item[:line_item_id],
+        "response_refund_id" => refund_object["id"],
+        "charge_id" => refund_object["charge"],
+        "amount_refund" => refund_param[:amount_refund],
+        "refund_through" => :stripe,
+        "status" => refund_object["status"],
       }
+      @notices << "Item: #{line_item[:product_name]}: Refund operation performed successfully.<br />"
     end
 
     # we can add more custom error messages here based on stripe response
@@ -152,6 +139,21 @@ module Stripe
 
     def get_amount_in_cents(amount)
       (amount * 100).to_i
+    end
+
+    def get_line_item(line_item_id)
+      line_item_obj = ::LineItem.find_by(id: line_item_id) rescue nil
+      {
+        line_item_id: line_item_obj.id,
+        order_id: line_item_obj.order_id,
+        price: line_item_obj.price,
+        quantity: line_item_obj.quantity,
+        product_name: line_item_obj.product&.title,
+        transfer_id: line_item_obj.transfer_id,
+        total_paid: (line_item_obj.price * line_item_obj.quantity).to_f,
+        seller_id: line_item_obj.product&.owner_id,
+        buyer_id: line_item_obj.order&.buyer_id
+      }
     end
   end
 end

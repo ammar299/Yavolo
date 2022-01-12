@@ -1,5 +1,10 @@
-<% if errors.present? %>
-    displayCustomMessage("<%= errors %>");
+<% if messages.present? %>
+    displayCustomMessage("<%= messages %>");
+<% elsif notices.present? %>
+setTimeout(function () {
+    displayNoticeMessage("<%= notices %>");
+    window.location.href = "<%= send("#{current_user_namespace}_orders_path") %>";
+}, 5000);
 <% else %>
 setTimeout(function () {
     displayNoticeMessage("Refund successfully created.");
