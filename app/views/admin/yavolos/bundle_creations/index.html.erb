@@ -1,69 +1,465 @@
 <div class="container-fluid">
   <div class="row ac-setting-tabs mt-3">
     <h3 class="mt-4 mb-3">Manage Yavolos</h3>
-    <%= render "admin/yavolos/product_assignments/sidebar_tabs" %>
+    <%= render "admin/yavolos/product_assignments/sidebar_tabs" do %>
+      <%= render 'admin/yavolos/product_assignments/category_tree' %>
+    <% end %>
     <div class="col-md-9">
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="bundle-creation" role="tabpanel"
              aria-labelledby="Delivery-Settings-tab">
-          <h5>Subscripion</h5>
-          <div class="yo-white-card box-border row seller-edit-card">
-            <div class="col-md-6">
-              <table class="table">
-                <!-- <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
-                    </tr>
-                </thead> -->
+          <div class="text-right mb-3">
+            <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mb-1">Settings</a>
+            <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mb-1">Refresh
+              Bundles</a>
+          </div>
+          <div
+            class="product-Category-inner yo-white-card box-border bundling-categories-section">
+            <h5 class="mb-4">Bundling</h5>
+            <div class="filter-type d-flex align-items-center flex-wrap">
+              <div
+                class="form-group form-group-vertical form-group-vertical-responsive">
+                <label for="exampleInputPassword1" class="text-left pr-3">Bundle
+                  Label:</label>
+              </div>
+              <div class="d-flex flex-wrap">
+                <div class="pr-3">
+                  <label class="checkbox-blk">Ya
+                    <input type="radio" name="1">
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+                <div class="pr-3">
+                  <label class="checkbox-blk">Volo
+                    <input type="radio" name="1">
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+                <div>
+                  <label class="checkbox-blk">Ya/Volo
+                    <input type="radio" name="1">
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="Yavolo-table Yavolo-table-min-height">
+              <table class="table mb-0">
+                <thead>
+                <tr>
+                  <th>
+                    <label class="checkbox-blk">
+                      <input type="checkbox">
+                      <span class="checkmark checkmark-white"></span>
+                    </label>
+                  </th>
+                  <th>Bundling Categories</th>
+                  <th class="text-center">High Priority Yas</th>
+                  <th class="text-center">Active Bundles</th>
+                  <th class="text-center">Bundle Revenue</th>
+                  <th class="text-center">Last Bundle Date</th>
+                  <th class="text-right" width="15%">Image Type</th>
+                </tr>
+                </thead>
                 <tbody>
                 <tr>
-                  <td class="nowrap">User Email</td>
-                  <td>ahsanzafar@gmail.com</td>
-                </tr>
-                <tr>
-                  <td class="nowrap">User Email</td>
-                  <td>ahsanzafar@gmail.com</td>
-                </tr>
-                <tr>
-                  <td class="nowrap">User Email</td>
-                  <td>ahsanzafar@gmail.com</td>
-                </tr>
-                <tr>
-                  <td class="nowrap">User Email</td>
-                  <td>ahsanzafar@gmail.com</td>
-                </tr>
-                <tr>
-                  <td class="nowrap">User Email</td>
-                  <td>ahsanzafar@gmail.com</td>
-                </tr>
-                <tr>
-                  <td class="nowrap">User Email</td>
-                  <td>ahsanzafar@gmail.com</td>
-                </tr>
-                <tr>
-                  <td class="nowrap">User Email</td>
-                  <td>ahsanzafar@gmail.com</td>
-                </tr>
-                <tr>
-                  <td class="nowrap">User Email</td>
-                  <td>ahsanzafar@gmail.com</td>
-                </tr>
-                <tr>
-                  <td class="nowrap">User Email</td>
-                  <td>ahsanzafar@gmail.com</td>
-                </tr>
-                <tr>
-                  <td class="nowrap">User Email</td>
-                  <td>ahsanzafar@gmail.com</td>
+                  <td>
+                    <label class="checkbox-blk checkbox-blk-box">
+                      <input type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                  </td>
+                  <td>6</td>
+                  <td class="text-center">40</td>
+                  <td class="text-center">75</td>
+                  <td class="text-center">£23,000</td>
+                  <td class="text-center">6/9/21</td>
+                  <td class="text-right">
+                    <select class="form-control form-control-height">
+                      <option>Default</option>
+                    </select>
+                  </td>
                 </tr>
                 </tbody>
               </table>
-              <a href="#" class="btn btn-sm btn-radius px-4 btn-primary">Primary</a>
             </div>
+          </div>
+          <div
+            class="product-Category-inner yo-white-card box-border bundling-categories-section">
+            <h5 class="mb-4">Bundle Categories</h5>
+            <div class="d-flex justify-content-between">
+              <div
+                class="dropdown-filter-field dropdown-filter-field-small dropdown-fillter-border active flex1 mr-4">
 
+                <div class="search-field mb-0">
+                  <input type="text"
+                         placeholder="Search"
+                         class="">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div class="dark-bg-dropdown dropdown-filter-field-small mb-3">
+                <div class="dropdown dropdown-filter d-inline-flex">
+                  <a href="#"
+                     class="btn btn-radius px-3 btn-link-dropdown d-inline-flex align-items-center top-0"
+                     id="dropdownMenuLink" data-toggle="dropdown"
+                     aria-haspopup="true" aria-expanded="false">Actions <i
+                    class="fa fa-angle-down ml-3"
+                    aria-hidden="true"></i></a>
+                  <div class="dropdown-menu pt-0"
+                       aria-labelledby="dropdownMenuLink"
+                       x-placement="bottom-start"
+                       style="position: absolute; transform: translate3d(-2px, 33px, 0px); top: 0px; left: 0px; will-change: transform;">
+                    <a class="dropdown-item active" href="#">Action <i
+                      class="fa fa-check" aria-hidden="true"></i></a>
+                    <a class="dropdown-item" href="#">Another action <i
+                      class="fa fa-check" aria-hidden="true"></i></a>
+                    <a class="dropdown-item" href="#">Something else here <i
+                      class="fa fa-check" aria-hidden="true"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="Yavolo-table Yavolo-table-min-height">
+              <table class="table mb-0">
+                <thead>
+                <tr>
+                  <th>
+                    <label class="checkbox-blk">
+                      <input type="checkbox">
+                      <span class="checkmark checkmark-white"></span>
+                    </label>
+                  </th>
+                  <th>bundle label</th>
+                  <th>Category Name</th>
+                  <th>Category ID</th>
+                  <th class="text-right" width="">Product available</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>
+                    <label class="checkbox-blk checkbox-blk-box">
+                      <input type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                  </td>
+                  <td>Volo</td>
+                  <td>Rbbit hutch</td>
+                  <td>PS-10-11-12</td>
+                  <td class="text-right">120</td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="checkbox-blk checkbox-blk-box">
+                      <input type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                  </td>
+                  <td>Volo</td>
+                  <td>Rbbit hutch</td>
+                  <td>PS-10-11-12</td>
+                  <td class="text-right">120</td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="checkbox-blk checkbox-blk-box">
+                      <input type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                  </td>
+                  <td>Volo</td>
+                  <td>Rbbit hutch</td>
+                  <td>PS-10-11-12</td>
+                  <td class="text-right">120</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div
+            class="product-Category-inner yo-white-card box-border bundling-categories-section">
+            <h5 class="mb-4">Active Bundles</h5>
+            <div class="d-flex justify-content-between">
+              <div
+                class="dropdown-filter-field dropdown-filter-field-small dropdown-fillter-border active flex1 mr-4">
+
+                <div class="search-field mb-0">
+                  <input type="text"
+                         placeholder="Search"
+                         class="">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div class="dark-bg-dropdown dropdown-filter-field-small mb-3">
+                <div class="dropdown dropdown-filter d-inline-flex">
+                  <a href="#"
+                     class="btn btn-radius px-3 btn-link-dropdown d-inline-flex align-items-center top-0"
+                     id="dropdownMenuLink" data-toggle="dropdown"
+                     aria-haspopup="true" aria-expanded="false">Actions <i
+                    class="fa fa-angle-down ml-3"
+                    aria-hidden="true"></i></a>
+                  <div class="dropdown-menu pt-0"
+                       aria-labelledby="dropdownMenuLink"
+                       x-placement="bottom-start"
+                       style="position: absolute; transform: translate3d(-2px, 33px, 0px); top: 0px; left: 0px; will-change: transform;">
+                    <a class="dropdown-item active" href="#">Action <i
+                      class="fa fa-check" aria-hidden="true"></i></a>
+                    <a class="dropdown-item" href="#">Another action <i
+                      class="fa fa-check" aria-hidden="true"></i></a>
+                    <a class="dropdown-item" href="#">Something else here <i
+                      class="fa fa-check" aria-hidden="true"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="Yavolo-table Yavolo-table-min-height">
+              <table class="table mb-0">
+                <thead>
+                <tr>
+                  <th>
+                    <label class="checkbox-blk">
+                      <input type="checkbox">
+                      <span class="checkmark checkmark-white"></span>
+                    </label>
+                  </th>
+                  <th>Date Created</th>
+                  <th>Products</th>
+                  <th>Sellers</th>
+                  <th>Categories</th>
+                  <th class="text-center">30 day sales</th>
+                  <th class="text-right" width="">30 day revenue</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>
+                    <label class="checkbox-blk checkbox-blk-box">
+                      <input type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                  </td>
+                  <td>6/6/21</td>
+                  <td>
+                    <ul>
+                      <li>HOMCOM Degu Cage </li>
+                      <li>Top quality hay for pets</li>
+                      <li>Chicken run feed</li>
+                      <li></li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul>
+                      <li>HOMCOM </li>
+                      <li>HOMCOM</li>
+                      <li></li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul>
+                      <li>3-Tier Degu Cage </li>
+                      <li>Pet water bottles</li>
+
+                    </ul>
+                  </td>
+                  <td class="text-center">56</td>
+                  <td class="text-right">£120</td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="checkbox-blk checkbox-blk-box">
+                      <input type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                  </td>
+                  <td>6/6/21</td>
+                  <td>
+                    <ul>
+                      <li>HOMCOM Degu Cage </li>
+                      <li>Top quality hay for pets</li>
+                      <li>Chicken run feed</li>
+                      <li></li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul>
+                      <li>HOMCOM </li>
+                      <li>HOMCOM</li>
+                      <li></li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul>
+                      <li>3-Tier Degu Cage </li>
+                      <li>Pet water bottles</li>
+
+                    </ul>
+                  </td>
+                  <td class="text-center">56</td>
+                  <td class="text-right">£120</td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="checkbox-blk checkbox-blk-box">
+                      <input type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                  </td>
+                  <td>6/6/21</td>
+                  <td>
+                    <ul>
+                      <li>HOMCOM Degu Cage </li>
+                      <li>Top quality hay for pets</li>
+                      <li>Chicken run feed</li>
+                      <li></li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul>
+                      <li>HOMCOM </li>
+                      <li>HOMCOM</li>
+                      <li></li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul>
+                      <li>3-Tier Degu Cage </li>
+                      <li>Pet water bottles</li>
+
+                    </ul>
+                  </td>
+                  <td class="text-center">56</td>
+                  <td class="text-right">£120</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div
+            class="product-Category-inner yo-white-card box-border bundling-categories-section">
+            <h5 class="mb-4">Bundling</h5>
+            <div class="row align-items-center mb-4">
+              <div class="col-lg-4">
+                <span ><strong>Image Template</strong> </span >
+              </div>
+              <div class="col-lg-8">
+                <select class="form-control">
+                  <option>Default</option>
+                </select>
+              </div>
+            </div>
+            <div class="Yavolo-table Yavolo-table-min-height">
+              <table class="table mb-0">
+                <thead>
+                <tr>
+                  <th>
+                    <label class="checkbox-blk">
+                      <input type="checkbox">
+                      <span class="checkmark checkmark-white"></span>
+                    </label>
+                  </th>
+                  <th>Bundling Categories</th>
+                  <th class="text-center">Category Name</th>
+                  <th class="text-center">High Priority Yas</th>
+                  <th class="text-center">Active Bundles</th>
+                  <th class="text-center">Bundle Revenue</th>
+                  <th class="text-right" width="15%">Image Type</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>
+                    <label class="checkbox-blk checkbox-blk-box">
+                      <input type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                  </td>
+                  <td>6</td>
+                  <td class="text-center">1-Tier Degu Cage</td>
+                  <td class="text-center">75</td>
+                  <td class="text-center">75</td>
+                  <td class="text-center">£23,000</td>
+                  <td class="text-right">
+                    <select class="form-control form-control-height">
+                      <option>Default</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="checkbox-blk checkbox-blk-box">
+                      <input type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                  </td>
+                  <td>6</td>
+                  <td class="text-center">1-Tier Degu Cage</td>
+                  <td class="text-center">75</td>
+                  <td class="text-center">75</td>
+                  <td class="text-center">£23,000</td>
+                  <td class="text-right">
+                    <select class="form-control form-control-height">
+                      <option>Default</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="checkbox-blk checkbox-blk-box">
+                      <input type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                  </td>
+                  <td>6</td>
+                  <td class="text-center">1-Tier Degu Cage</td>
+                  <td class="text-center">75</td>
+                  <td class="text-center">75</td>
+                  <td class="text-center">£23,000</td>
+                  <td class="text-right">
+                    <select class="form-control form-control-height">
+                      <option>Default</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="checkbox-blk checkbox-blk-box">
+                      <input type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                  </td>
+                  <td>6</td>
+                  <td class="text-center">1-Tier Degu Cage</td>
+                  <td class="text-center">75</td>
+                  <td class="text-center">75</td>
+                  <td class="text-center">£23,000</td>
+                  <td class="text-right">
+                    <select class="form-control form-control-height">
+                      <option>Default</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="checkbox-blk checkbox-blk-box">
+                      <input type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                  </td>
+                  <td>6</td>
+                  <td class="text-center">1-Tier Degu Cage</td>
+                  <td class="text-center">75</td>
+                  <td class="text-center">75</td>
+                  <td class="text-center">£23,000</td>
+                  <td class="text-right">
+                    <select class="form-control form-control-height">
+                      <option>Default</option>
+                    </select>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

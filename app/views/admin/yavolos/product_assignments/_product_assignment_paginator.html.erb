@@ -1,0 +1,9 @@
+<% if @product_assignments.present? %>
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <div class="pager-middle text-center d-flex justify-content-center mb-4 mt-5" id="product_assignment_paginator">
+        <%= paginate @product_assignments, remote: true, params: {controller: "/admin/yavolos/product_assignments", action: 'products_with_pagination'} %>
+      </div>
+    </div>
+  </div>
+<% end %>

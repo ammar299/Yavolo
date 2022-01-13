@@ -183,6 +183,10 @@ module ApplicationHelper
     time.strftime('%I:%M%p')
   end
 
+  def get_time_from_date_time(datetime)
+    datetime.strftime('%I:%M:%S %p') # Returns in this format "03:17:31 PM"
+  end
+
   def countries_list
     COUNTRIES_HASH_LIST.map { |obj| [obj[:name]] }
   end
@@ -223,6 +227,11 @@ module ApplicationHelper
 
   def admin_route?(from_controller)
     from_controller.include?("admin")
+  end
+
+  # converts numbers to human readable form e.g 98765432.98 to 98,765,432.98
+  def human_readable_count(value)
+    number_with_delimiter(value, delimiter: ",", separator: ".")
   end
 
 end

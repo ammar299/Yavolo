@@ -1,0 +1,2 @@
+class AutomaticBundlingLastRun < ApplicationRecord
+end

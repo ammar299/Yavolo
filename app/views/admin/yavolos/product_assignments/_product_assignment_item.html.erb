@@ -1,0 +1,15 @@
+<tr>
+  <td>
+    <label class="checkbox-blk">
+      <input type="checkbox" name="product_ids[]"
+             class="product_ids" value="">
+      <span class="checkmark"></span>
+    </label>
+  </td>
+  <td><%= product_assignment.product.title %></td>
+  <td><%= product_assignment.product.category.category_name %></td>
+  <td class="text-center"><%= product_assignment.product.yan %></td>
+  <td class="text-center"><%= get_price_in_pounds(product_assignment.product.price) %></td>
+  <td class="text-center"><%= product_assignment.total_sales %></td>
+  <td class="text-center"><%= get_price_in_pounds(product_assignment.total_revenue) %></td>
+</tr>

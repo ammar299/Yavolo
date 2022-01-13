@@ -9,6 +9,7 @@
     </li>
     <li class="nav-item">
       <%= link_to "Bundle Creation", admin_yavolos_bundle_creations_path, class: "nav-link" %>
+      <%= yield if block_given? %>
     </li>
   </ul>
 </div>

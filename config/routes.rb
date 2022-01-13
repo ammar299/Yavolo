@@ -1,4 +1,8 @@
+require 'sidekiq/web'
+require 'sidekiq-scheduler/web'
+
 Rails.application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq' if ENV['ENABLE_SIDEKIQ_WEB_UI'] == 'true'
   devise_for :admins, controllers: { sessions: 'admin/sessions', passwords: 'admin/passwords' }
   devise_for :sellers, controllers: { registrations: 'sellers/auth/registrations', sessions: 'sellers/auth/sessions',
                                       passwords: 'sellers/auth/passwords', unlocks: 'sellers/auth/unlocks'}
@@ -163,6 +167,7 @@ Rails.application.routes.draw do
           resources :product_assignments, only: %i[index] do
             collection do
               post :create_or_update
+              get :products_with_pagination
             end
           end
           resources :waiting_rooms, only: %i[index]

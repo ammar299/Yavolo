@@ -15,6 +15,11 @@ staging:
   :concurrency: 15
 
 :schedule:
+  all_products_automatic_bundling_worker:
+    cron: '0 0 0 1 * *'   # Runs at 12:00 am 1st day of every month
+    class: AllProductsAutomaticBundlingWorker
+    queue: low
+    description: "This job is run for automating bundling of all products"
   calculate_seller_monthly_commission:
-    cron: '0 0 1 1 * *'   # Runs at 1:00 am 1st day of every month 
+    cron: '0 0 1 1 * *'   # Runs at 1:00 am 1st day of every month
     class: CalculateSellerMonthlyCommissionWorker

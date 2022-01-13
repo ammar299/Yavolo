@@ -1,0 +1,2 @@
+$(".product_assignment_tbody").html("<%= j render( partial: "admin/yavolos/product_assignments/product_assignment_item", collection: @product_assignments, as: :product_assignment) || render("shared/no_result_found_table_row",colspan:7) %>")
+$(".product_assignment_paginator_container").html("<%= j render(partial: 'admin/yavolos/product_assignments/product_assignment_paginator')  %>");
