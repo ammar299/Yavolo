@@ -2409,7 +2409,7 @@ select.new-select {
   display: flex;
   width: 100%;
   position: relative;
-  max-width: 920px;
+  max-width: 924px;
   margin: 0 auto;
 }
 .main-header .form-inline input:focus,
@@ -2450,7 +2450,7 @@ select.new-select {
 }
 .main-header .inner-menu {
   margin-top: 5px;
-  margin: 5px -10px 0 -10px;
+  margin: 10px 0 0 -10px;
 }
 .main-header .inner-menu a {
   font-size: 14px;
@@ -3757,8 +3757,3 @@ input::-webkit-inner-spin-button {
   min-width: 50px;
 }
 /* automatic manage yavolo */
-
-/* ================== sprint-7 ================== */
-.buyer-layout .container-fluid {
-  max-width: 1500px;
-}
