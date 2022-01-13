@@ -2095,8 +2095,9 @@ text-align: right;
     top: 13px;
   }
   .wallet-page .wallet-collapse .btns-payment {
-   display: block !Important;
+   display: block !important;
   }
+
   .wallet-page .wallet-collapse .btns-payment .btn-danger {
    width: 100%;
   }
