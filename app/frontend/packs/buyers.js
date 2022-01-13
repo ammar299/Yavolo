@@ -113,6 +113,7 @@ function validateBuyerSignInSignUp() {
       },
       "buyer[password]": {
         required: true,
+        buyer_password_validation: true,
       },
       "buyer[password_confirmation]": {
         required: true,
