@@ -6,8 +6,8 @@ module Buyers::OrderStepsHelper
     date
   end
 
-  def product_owner(product)
-    product.owner.company_detail.name
+  def product_owner(line_item)
+    line_item.product.owner.company_detail.name
   end
 
   def order_thumbnail_image(item,version = :thumb)
