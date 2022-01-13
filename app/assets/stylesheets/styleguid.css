@@ -4,6 +4,7 @@
   --dark-red: #640529;
   --off-white: #F9EDE1;
   --light-red: #FFD8DD;
+  --light-red-hover: #fdccd2;
   --red: #FF3E55;
   --danger-color: #FF3E55;
   --bgWhite: #FDF8F3;
@@ -66,7 +67,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .btn-sm {
     font-size: 12px;
-    line-height: 14px;
+    line-height: 13px;
     padding: 8px 12px 7px 12px;
 }
 .btn.focus, 
@@ -129,18 +130,22 @@ h4 {
 }
 .btn-primary:not([disabled]):not(.disabled).active, .btn-primary:not([disabled]):not(.disabled):active, .show>.btn-primary.dropdown-toggle,
 .btn-primary:hover {
-    background-color: transparent;
-    color: var(--dark-red);
-    border-color: var(--dark-red);
+    background-color: transparent !important;
+    color: var(--dark-red) !important;
+    border-color: var(--dark-red) !important;
 }
-.btn-secondary:not([disabled]):not(.disabled).active, .btn-secondary:not([disabled]):not(.disabled):active, .show>.btn-secondary.dropdown-toggle,
-.btn-secondary:hover,
+
 .btn-secondary {
     background-color: var(--light-red);
     border-color: var(--light-red);
     color: var(--red);
 }
-
+.btn-secondary:not([disabled]):not(.disabled).active, .btn-secondary:not([disabled]):not(.disabled):active, .show>.btn-secondary.dropdown-toggle,
+.btn-secondary:hover {
+    background-color: var(--light-red-hover);
+    border-color: var(--light-red-hover);
+    color: var(--red);
+}
 .btn-outline-primary {
     color: var(--dark-red);
     background-color: transparent;
@@ -174,6 +179,11 @@ h4 {
     color: #fff;
     background-color: var(--danger-color);
     border-color: var(--danger-color);
+}
+.btn-danger:hover {
+    color: var(--red);
+    background-color: var(--light-red-hover);
+    border-color: var(--light-red-hover);
 }
 .btn-bg-white:hover {
     color: var(--white);
@@ -340,8 +350,8 @@ textarea.form-control {
 .search-field input {
     width: 100%;
     border: 2px solid var(--dark-red) !important;
-    height: 40px;
-    padding: 12px 35px 10px 20px;
+    height: 35px;
+    padding: 8px 35px 8px 18px;
     border-radius: 30px;
     outline: none;
     font-size: 14px;

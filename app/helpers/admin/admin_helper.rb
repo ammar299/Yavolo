@@ -49,5 +49,5 @@ module Admin::AdminHelper
   def admin_heading(params)
     params[:controller] == 'admin/dashboard' && params[:action] == 'index'
   end
-
+  
 end
