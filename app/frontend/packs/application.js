@@ -165,3 +165,14 @@ jQuery.validator.addMethod('productDiscount', function(value) {
   return value >= 2.5 && value <= 100;
 }, 'Discount value should be between 2.5 and 100');
 import "controllers"
+
+jQuery.validator.addMethod(
+  "buyer_password_validation",
+  function (value, element) {
+      return (
+          this.optional(element) ||
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@!?*=+])[A-Za-z\d@!?*=+]{6,}$/.test(value)
+      );
+  },
+  'Password is invalid, please include uppercase and lowercase letters, numbers, & symbols ( @!?*=+ )'
+);

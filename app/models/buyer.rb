@@ -6,6 +6,7 @@ class Buyer < ApplicationRecord
          omniauth_providers: [:google_oauth2 , :facebook]
   attr_accessor :skip_password_validation  # virtual attribute to skip password validation while saving
   validates :email, confirmation: true, presence: true
+  validates_format_of :password, with: /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@!?*=+])[A-Za-z\d@!?*=+]{6,}\Z/i, message: 'is invalid, please include uppercase and lowercase letters, numbers, & symbols ( @!?*=+ )'
   validates_acceptance_of :terms_and_conditions
   validates_acceptance_of :receive_deals_via_email
 

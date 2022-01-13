@@ -1921,3 +1921,26 @@ a.buyer-card-link:hover {
   font-size: 9px !important;
   padding: 0 !important;
 }
+
+.reset-password-btn {
+  width: 53% !important;
+  height: 40px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto !important;
+}
+
+.reset-password-email {
+  width: 95% !important;
+  margin: auto !important;
+}
+
+ .resest-new-password-input {
+   width: 90% !important;
+ }
+
+ .reset-new-password-btn {
+  width: auto !important;
+  height: 40px !important;
+}
