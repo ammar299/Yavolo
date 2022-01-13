@@ -5,7 +5,7 @@ $(document).ready(function () {
     restrictQuantityValue();
     activeCheckoutPath();
     validateBuyerSignInSignUp();
-    buyerAccountPageSlider()
+    // buyerAccountPageSlider() TODO: arhum -> resolve slick issue if you need this function.
     buyerYaFavouritesSlider()
     $('.click-product-quantity').click(function (e) {
         e.preventDefault();
