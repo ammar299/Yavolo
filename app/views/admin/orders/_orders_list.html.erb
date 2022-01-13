@@ -26,7 +26,9 @@
       <%= order_line_items.count %>
     </td>
     <td class="text-center">
-      <a href="" class="icon-manage-Yavolo red-text font-20px decoration-none"></a>
+      <% if order_yavolo_bundle_exist?(order) %>
+        <a href="" class="icon-manage-Yavolo red-text font-20px decoration-none"></a>
+      <% end %>
     </td>
     <td>Royal Mail</td>
     <td><a href=""><u>75757757</u></a></td>

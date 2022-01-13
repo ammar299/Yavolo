@@ -52,4 +52,8 @@ module Admin::OrdersHelper
       return nil
     end
   end
+
+  def order_yavolo_bundle_exist?(order)
+    order.line_items.joins('inner join yavolo_bundle_products on line_items.product_id = yavolo_bundle_products.product_id').distinct.count > 0
+  end
 end
