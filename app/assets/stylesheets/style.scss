@@ -1464,7 +1464,7 @@ h6 {
   background-color: var(--dark-red);
   color: #fff;
   padding: 10px;
-  border-radius: 6px;
+  //border-radius: 6px;
 }
 .panel .panel-body {
   background-color: var(--white);
@@ -1478,6 +1478,7 @@ h6 {
 .panel .panel-body .checkbox-blk {
   font-size: 12px !important;
   white-space: normal;
+  align-items: flex-start !important;
   word-break: break-word;
 }
 .panel .panel-body ul li ul {
@@ -2064,7 +2065,6 @@ select.new-select {
 }
 .dashboard-page .leftside .sideheader {
   padding: 32px 32px 15px 36px;
-  border-bottom: 1px solid #ffffff2e;
   white-space: nowrap;
 }
 .dashboard-page .leftside .sideheader p {

@@ -1,71 +1,73 @@
 <div class="product-Category-inner yo-white-card box-border bundling-categories-section <%= @category.baby_category ? nil : "d-none" %>">
   <h5 class="mb-4">Bundling Categories</h5>
-  <form class="mb-4" action="">
-    <div class="d-flex align-items-center flex-wrap">
-      <div class="search-field active mb-3 mr-2 search-field-flex">
-        <input type="text" placeholder="Search" name="q[title_or_brand_or_sku_or_yan_or_ean_cont]" class="category-products-search-term input-btn-sm">
-        <i class="fa fa-search" aria-hidden="true"></i>
+  <div class="ml-md-4">
+    <form class="mb-4" action="">
+      <div class="d-flex align-items-center flex-wrap">
+        <div class="search-field active mb-3 mr-2 search-field-flex">
+          <input type="text" placeholder="Search" name="q[title_or_brand_or_sku_or_yan_or_ean_cont]" class="category-products-search-term input-btn-sm">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </div>
+        <div class="">
+          <a href="#"
+             class="btn btn-radius px-3 btn-sm btn-primary mb-3">Remove Bundle Pairing</a>
+        </div>
       </div>
-      <div class="">
-        <a href="#"
-           class="btn btn-radius px-3 btn-sm btn-primary mb-3">Remove Bundle Pairing</a>
-      </div>
+    </form>
+    <div class="Yavolo-table Yavolo-table-min-height">
+      <table class="table mb-0">
+        <thead>
+        <tr>
+          <th>
+            <label class="checkbox-blk">
+              <input type="checkbox">
+              <span class="checkmark checkmark-white"></span>
+            </label>
+          </th>
+          <th>bundle label</th>
+          <th>Category Name</th>
+          <th>Category ID</th>
+          <th class="text-right" width="">Product available</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+            <label class="checkbox-blk checkbox-blk-box">
+              <input type="checkbox">
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+          <td class="text-right">@mdo</td>
+        </tr>
+        <tr>
+          <td>
+            <label class="checkbox-blk checkbox-blk-box">
+              <input type="checkbox">
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+          <td class="text-right">@mdo</td>
+        </tr>
+        <tr>
+          <td>
+            <label class="checkbox-blk checkbox-blk-box">
+              <input type="checkbox">
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+          <td class="text-right">@mdo</td>
+        </tr>
+        </tbody>
+      </table>
     </div>
-  </form>
-  <div class="Yavolo-table Yavolo-table-min-height">
-    <table class="table mb-0">
-      <thead>
-      <tr>
-        <th>
-          <label class="checkbox-blk">
-            <input type="checkbox">
-            <span class="checkmark checkmark-white"></span>
-          </label>
-        </th>
-        <th>bundle label</th>
-        <th>Category Name</th>
-        <th>Category ID</th>
-        <th class="text-right" width="">Product available</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>
-          <label class="checkbox-blk checkbox-blk-box">
-            <input type="checkbox">
-            <span class="checkmark"></span>
-          </label>
-        </td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td class="text-right">@mdo</td>
-      </tr>
-      <tr>
-        <td>
-          <label class="checkbox-blk checkbox-blk-box">
-            <input type="checkbox">
-            <span class="checkmark"></span>
-          </label>
-        </td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td class="text-right">@mdo</td>
-      </tr>
-      <tr>
-        <td>
-          <label class="checkbox-blk checkbox-blk-box">
-            <input type="checkbox">
-            <span class="checkmark"></span>
-          </label>
-        </td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td class="text-right">@mdo</td>
-      </tr>
-      </tbody>
-    </table>
   </div>
 </div>

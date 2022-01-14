@@ -1,6 +1,6 @@
 <div class="product-catagory-inner yo-white-card box-border">
   <h5>Meta Content</h5>
-  <%= form_with(model: [:admin, @category], local: false, html: {id: 'category-meta-form', class: 'category-meta-form'}) do |f| %>
+  <%= form_with(model: [:admin, @category], local: false, html: {id: 'category-meta-form', class: 'category-meta-form ml-md-4'}) do |f| %>
     <%= f.fields_for :meta_content, @category.meta_content || @category.build_meta_content do |g| %>
       <div class="form-group form-group-vertical form-group-vertical-responsive">
         <%= g.label :title, "Meta Title" %>

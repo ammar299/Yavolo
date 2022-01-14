@@ -588,6 +588,9 @@ textarea.form-control {
 .Yavolo-table table tr td {
     border: 0;
 }
+.product-catagory-inner .Yavolo-table table thead tr th {
+    border-radius:0 !Important;
+}
 .Yavolo-table table tbody tr td {
     background-color: #ffff;
     line-height: 16px;

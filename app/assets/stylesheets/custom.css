@@ -443,13 +443,14 @@ scrollbar-width: none;  /* Firefox */
   content: "Upload";
 }
 .uploader-btn-1:before {
-  content: "Select From Gallery";
+  content: "Select from Gallery";
 }
 .uploader-btn input {
   position: absolute;
   left: 0;
   opacity: 0;
   top: 0;
+    cursor: pointer;
 }
 
 /* hide number field spin buttons */
