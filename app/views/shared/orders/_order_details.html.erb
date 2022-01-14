@@ -50,17 +50,17 @@
       <table class="table m-0">
         <thead class="">
         <tr>
-          <th>
+          <th width="30%">
             <%= @order_line_items.count %> item<span class="th-lowercase">(s)</span>
           </th>
           <% if current_admin.present? %>
-            <th>Seller</th>
+            <th width="25%">Seller</th>
           <% end %>
           <th>Quantity</th>
           <th>Price</th>
           <th>Postage</th>
           <th>Tax</th>
-          <th>Total</th>
+          <th class="text-right">Total</th>
         </tr>
         </thead>
         <tbody>
@@ -86,7 +86,7 @@
             <td>
               £0.00
             </td>
-            <td>
+            <td class="text-right">
               <%= get_price_in_pounds(order_line_item.product&.price * order_line_item.quantity) %>
             </td>
           </tr>
@@ -104,7 +104,7 @@
           <td>
             <p class="font-14px mb-0"><strong>£0.00</strong></p>
           </td>
-          <td>
+          <td class="text-right">
             <p class="font-14px mb-0"><strong><%= get_price_in_pounds(@order_line_items.map {|oli| oli.quantity * oli.product&.price}.sum) %></strong></p>
           </td>
         </tr>

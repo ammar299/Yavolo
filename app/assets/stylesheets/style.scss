@@ -752,7 +752,7 @@ h6 {
 }
 .seller-product-table .seler-table-header tr {
   width: 100%;
-  height: 60px;
+  // height: 60px;
   align-items: center;
   border-radius: 10px;
 }
@@ -980,6 +980,7 @@ h6 {
   background-color: var(--white);
   border-radius: 10px;
   box-shadow: 1px 1px 5px #0000000a;
+  font-size: 14px;
 }
 .ebay-forms input {
   width: 170px;
@@ -1150,7 +1151,7 @@ h6 {
 /* =======All Seller-36 ========*/
 
 .all-seller-btn .btn {
-  width: 155px;
+  width: 120px;
 }
 /* =======All Seller-36 ========*/
 
@@ -1571,8 +1572,8 @@ h6 {
   background-color: #ffffff;
   border-radius: 12px;
   width: 100%;
-  height: 100px;
-  padding: 37px 0;
+  height: 80px;
+  padding: 10px 0;
   margin: 6px 0;
   display: flex;
   justify-content: center;
