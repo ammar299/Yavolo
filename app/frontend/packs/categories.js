@@ -115,8 +115,16 @@ function addCustomImg() {
   //   event.preventDefault();
   // }
 
+  $('.custom-content-img').removeClass('d-none');
 	$('.product-content-img').removeClass('d-none');
   $('.temp-preview-button').removeClass('d-none');
+  if ($('.category-image-container').hasClass('d-none')) {
+    $('.category-image-container').removeClass('d-none');
+    $('.category-image-container').addClass('d-flex');
+  } else {
+    $('.category-image-container').addClass('d-none');
+    $('.category-image-container').removeClass('d-flex');
+  }
 }
 
 function tempRemoveBtn(){
@@ -128,12 +136,17 @@ function tempRemoveBtn(){
         $('#remove-picture').show();
     } else {
         $('#remove-picture').hide();
+        $('.custom-content-img').addClass('d-none');
         $('.product-content-img').addClass('d-none');
     }
 
     $('.temp-preview-button').addClass('d-none');
     $('#category_picture_attributes_name').val("");
     $('#picture-id-saved').val("");
+    if ($('.category-image-container').hasClass('d-flex')) {
+      $('.category-image-container').addClass('d-none');
+      $('.category-image-container').removeClass('d-flex');
+    }
   });
 }
 

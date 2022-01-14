@@ -2,3 +2,7 @@ $('.product-content-img').attr('data-src',"").attr('src',"")
 $("#category-description-form .product-content-img").addClass('d-none')
 $('#category-description-form .temp-preview-button').addClass('d-none');
 $('#category-description-form .remove_category_image').addClass('d-none');
+let image_div = $('#remove-picture').closest('.category-image-container');
+image_div.removeClass('d-flex');
+image_div.addClass('d-none');
+
