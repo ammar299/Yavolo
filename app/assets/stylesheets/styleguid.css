@@ -589,7 +589,7 @@ textarea.form-control {
     border: 0;
 }
 .product-catagory-inner .Yavolo-table table thead tr th {
-    border-radius:0 !Important;
+    border-radius:0 !important;
 }
 .Yavolo-table table tbody tr td {
     background-color: #ffff;
