@@ -16,6 +16,7 @@ class Admin::OrdersController < Admin::BaseController
       @orders = @q.result(distinct: true)
     end
     @orders = @orders.order(sub_total: :desc) if params.dig(:q, :s) == "price"
+    @orders = @orders.joins(:line_items).joins('inner join yavolo_bundle_products on line_items.product_id = yavolo_bundle_products.product_id') if params.dig(:q, :s) == 'yavolo'
     @total_count = @orders.size
     @orders = @orders.page(params[:page]).per(params[:per_page].presence || 15)
   end

@@ -42,10 +42,10 @@
       </div>
       <div class="dropdown-filter-field dropdown-filter-custom active my-1 ml-2 dropdown-filter-border">
         <div class="dropdown">
-          <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Results per page: <%= "#{params[:per_page]}" if params[:per_page].present? %><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+          <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Results per page: <%= params[:per_page].present? ? "#{params[:per_page]}" : '15' %><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <%= link_to "javascript:void(0);", data: { per_page: 15 }, class: 'perpage-option' do %>
-            <span class="<%= 'fa fa-check' if params[:per_page] == '15' %>" aria-hidden="true"></span>
+            <span class="<%= 'fa fa-check' if !params[:per_page].present? || params[:per_page] == '15' %>" aria-hidden="true"></span>
             Results per page: 15
             <% end %>
             <%= link_to "javascript:void(0);", data: { per_page: 30 }, class: 'perpage-option' do %>
@@ -64,7 +64,6 @@
               <span class="<%= 'fa fa-check' if params[:per_page] == '180' %>" aria-hidden="true"></span>
               Results per page: 180
             <% end %>
-            
           </div>
         </div>
       </div>
@@ -77,11 +76,12 @@
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <%= link_to '#', class: 'dropdown-item sortby-orders', data: { sortby: 'price' } do %>
               Price
-              <% if params.dig(:q, :s).present? && params[:q][:s] == 'price' %>
-                <i class="fa fa-check" aria-hidden="true"></i>
-              <% end %>
+                <span class="<%= 'fa fa-check' if params.dig(:q, :s).present? && params[:q][:s] == 'price' %>" aria-hidden="true"></span>
             <% end %>
-            <a class="dropdown-item" href="#">Yavolo </a>
+            <%= link_to '#', class: 'dropdown-item sortby-orders', data: { sortby: 'yavolo' } do %>
+              Yavolo
+                <span class="<%= 'fa fa-check' if params.dig(:q, :s).present? && params[:q][:s] == 'yavolo' %>" aria-hidden="true"></span>
+            <% end %>
             <a class="dropdown-item" href="#">Carrier </a>
           </div>
         </div>
@@ -90,6 +90,9 @@
     <div class="d-flex">
       <a href="" class="btn btn-sm btn-radius px-4 btn-primary admin-orders-export">Export CSV</a>
     </div>
+  </div>
+  <div class="filter-by-tags d-flex justify-content-start mt-2">
+    <%= print_orders_filter_by_sort_tags.to_s.html_safe %>
   </div>
   <div class="row">
     <div class="col-lg-12">

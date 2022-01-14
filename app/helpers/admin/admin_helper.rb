@@ -49,5 +49,18 @@ module Admin::AdminHelper
   def admin_heading(params)
     params[:controller] == 'admin/dashboard' && params[:action] == 'index'
   end
-  
+
+  def print_orders_filter_by_sort_tags
+    return unless params[:q].present? && params[:q][:s].present?
+    "<div class='mr-2 filter-tag'>#{sort_orders_filter_tags_titles(params[:q][:s])}<span data-yfilter=\"#{params[:q][:s]}\"  class=\"rm-filterby icon-cross\"></span></div>"
+  end
+
+  def sort_orders_filter_tags_titles(status)
+    case status
+    when 'price'
+      'Price'
+    when 'yavolo'
+      'Yavolo'
+    end
+  end
 end

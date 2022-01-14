@@ -5,6 +5,8 @@ module Admin::OrdersHelper
     case params.dig(:q, :s)
     when 'price'
       'Price'
+    when 'yavolo'
+      'Yavolo'
     else
       'Filter by'
     end
