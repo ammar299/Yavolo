@@ -39,7 +39,7 @@
         </div>
 
       <div class="">
-        <%= link_to 'Remove from Category', category_products_delete_multiple_admin_categories_path(@category), class: 'btn btn-radius btn-sm px-4 btn-primary my-1 remove-category-products-btn', style:"width: 160px" %>
+        <%= link_to 'Remove from Category', '#' ,class: 'btn btn-radius btn-sm px-4 btn-primary my-1 remove-category-products-btn', style:"width: 160px", data: { category: @category.id } %>
 
       </div>
       <%= submit_tag "+", class: "pl-3 pluse-btn submit-category-products-form-btn d-none" %>

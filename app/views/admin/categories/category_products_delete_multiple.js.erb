@@ -2,3 +2,6 @@ $(".category-products-container").html("<%= j render :partial => "product_in_cat
 $("#category_paginator").html("<%= j (paginate @category_products, remote: true, params: {controller: "/admin/categories", action: 'category_products_with_pagination'})  %>");
 
 $(".filter-groups-select-all-container #filter-group-select-all").prop('checked', false)
+<% if notice.present? %>
+  $('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
+<% end %>

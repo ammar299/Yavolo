@@ -1,6 +1,6 @@
 class Admin::CategoriesController < Admin::BaseController
   include CategoryMethods
-  before_action :set_category, only: %i[edit update destroy category_details remove_filter_group_association remove_image add_filter_group_association category_products_delete_multiple category_products_with_pagination]
+  before_action :set_category, only: %i[edit update destroy category_details remove_filter_group_association remove_image add_filter_group_association category_products_with_pagination]
 
   def index
     @categories = Category.all
@@ -97,7 +97,9 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def category_products_delete_multiple
+    @category = Category.find(params[:category_id])
     @category.assigned_categories.where(product_id: params['product_ids'].split(',')).destroy_all
+    flash.now[:notice] =  "#{'Product'.pluralize(params['product_ids'].split(',').count)} removed successfully!"
     @category_products = category_products
   end
 

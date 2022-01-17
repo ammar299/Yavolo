@@ -53,11 +53,17 @@ $(document).ready(function () {
             selected_options.push($(this).val())
         });
 
-        if (!selected_options.length > 0) return;
+        if (!selected_options.length > 0) {
+          $('#flash-msg').html("<p class='flash-toast notice notice-msg'>You does not select any product to remove!<span  class='notice-cross-icon' aria-hidden='true'>&times;</span></p>");
+          setTimeout(function () {
+            $('#flash-msg').find('p').remove();
+          }, 5000);
+          return;
+        }
         const per_page = $(".category-products-per-page").val()
         const current_page = $("#category_paginator .page-item.active .page-link").text()
         const query_term = $(".category-products-search-term").val()
-        const newUrl = `${$(this).attr('href')}?product_ids=${selected_options}&per_page=${per_page}&page=${current_page}&q=${query_term}`
+        const newUrl = '/admin/categories/category_products_delete_multiple?category_id=' + $(this).data('category') + '&product_ids=' + selected_options + '&per_page=' + per_page  + '&page=' + current_page + '&q=' + query_term
         $("#delete-confirmation-modal .confirm-delete-btn").attr("href", newUrl).attr('data-remote', true)
         $('#delete-confirmation-modal').modal('show');
     });
