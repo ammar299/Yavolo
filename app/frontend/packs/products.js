@@ -14,8 +14,10 @@ $(document).ready(function() {
   stockUpdateOnListing();
   discountUpdateOnListing();
   inputMaskCurrencyField();
-setYavoloSearchMenuAndQueryName()
-
+  setYavoloSearchMenuAndQueryName()
+  setTimeout(function() { 
+      $('.select2-selection.select2-selection--single').addClass('select2-custom-height');
+  }, 500);
   $("#verify").click(function() {
     $('#information-modal').modal('show');
   });

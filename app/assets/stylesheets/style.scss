@@ -3748,3 +3748,16 @@ input::-webkit-inner-spin-button {
   min-width: 50px;
 }
 /* automatic manage yavolo */
+
+
+#select2-search_seller_select-container, #select2-product_category-container {
+  color: var(--dark-red);
+  padding-top: 2px;
+  padding-left: 15px;
+}
+.select2-custom-height{
+  min-height: 38px !important;
+}
+
+
+

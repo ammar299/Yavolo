@@ -119,6 +119,7 @@
   position: absolute;
   right: -15px;
   top: 7px;
+  text-decoration: none;
 }
 .filter_in_categories.remove_fields span {
   display: none;
