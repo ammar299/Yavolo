@@ -141,6 +141,7 @@ class Buyers::CheckoutController < Buyers::BaseController
             return_url: charge.charge[:refunds][:url],
             receipt_url: charge.charge[:receipt_url]
           )
+          update_line_items_quantity_after_order(@order)
           reduce_cart_products_stock(session[:_current_user_cart])
           clear_session
           flash[:notice] = I18n.t('flash_messages.order_placed_successfully')
@@ -235,6 +236,7 @@ class Buyers::CheckoutController < Buyers::BaseController
           create_gpay_billing_address(@order, buyer_billing_address_payload)
         end
         @order = update_order_to_paid(@order, @order_amount[:total], @order_amount[:sub_total])
+        update_line_items_quantity_after_order(@order)
         create_gpay_payment_mode(@order, response, @order_amount)
         reduce_cart_products_stock(session[:_current_user_cart])
         clear_session
@@ -312,6 +314,7 @@ class Buyers::CheckoutController < Buyers::BaseController
             @order.buyer_payment_method.update(buyer_id: @buyer.id)
           end
           @order = update_order_to_paid(@order, @order_amount[:total], @order_amount[:sub_total])
+          update_line_items_quantity_after_order(@order)
           create_payment_mode_paypal(@order, paypal_order_capturor.paypal_response, @order_amount)
           reduce_cart_products_stock(session[:_current_user_cart])
           clear_session
@@ -485,6 +488,16 @@ class Buyers::CheckoutController < Buyers::BaseController
     if order.present?
       order.shipping_address.update(first_name: order.order_detail&.first_name, last_name: order.order_detail&.last_name)
       order.billing_address.update(first_name: order.order_detail&.first_name, last_name: order.order_detail&.last_name)
+    end
+  end
+
+  def update_line_items_quantity_after_order(order)
+    # session[:_current_user_cart] = [{:product_id=>"4", :quantity=>1, :added_on=>Mon, 17 Jan 2022 13:57:36 +0500}]
+    order.line_items.each do |line_item|
+      session_item = session[:_current_user_cart].select { |ar| ar[:product_id].to_i == line_item[:product_id].to_i }.first
+      if line_item[:product_id].to_i == session_item[:product_id].to_i
+        line_item.update(quantity: session_item[:quantity].to_i, transfer_status: :paid)
+      end
     end
   end
 

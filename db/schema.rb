@@ -231,6 +231,19 @@ ActiveRecord::Schema.define(version: 2022_01_12_115135) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "chat_rooms", force: :cascade do |t|
+    t.string "title"
+    t.boolean "is_admin_joined"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "seller_id"
+    t.bigint "buyer_id"
+    t.bigint "admin_id"
+    t.index ["admin_id"], name: "index_chat_rooms_on_admin_id"
+    t.index ["buyer_id"], name: "index_chat_rooms_on_buyer_id"
+    t.index ["seller_id"], name: "index_chat_rooms_on_seller_id"
+  end
+
   create_table "company_details", force: :cascade do |t|
     t.string "name"
     t.string "vat_number"
@@ -380,6 +393,17 @@ ActiveRecord::Schema.define(version: 2022_01_12_115135) do
     t.integer "category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text "body"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "chat_room_id"
+    t.string "sender_type"
+    t.bigint "sender_id"
+    t.index ["chat_room_id"], name: "index_messages_on_chat_room_id"
+    t.index ["sender_type", "sender_id"], name: "index_messages_on_sender"
   end
 
   create_table "meta_contents", force: :cascade do |t|
