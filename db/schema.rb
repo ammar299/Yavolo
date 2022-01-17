@@ -196,9 +196,9 @@ ActiveRecord::Schema.define(version: 2022_01_12_115135) do
     t.string "contact_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "receive_deals_via_email", default: false
     t.string "provider"
     t.string "uid"
-    t.boolean "receive_deals_via_email", default: false
     t.index ["email"], name: "index_buyers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_buyers_on_reset_password_token", unique: true
   end
@@ -229,15 +229,6 @@ ActiveRecord::Schema.define(version: 2022_01_12_115135) do
     t.integer "category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "category_linking_filters", force: :cascade do |t|
-    t.bigint "category_id"
-    t.bigint "filter_in_category_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["category_id"], name: "index_category_linking_filters_on_category_id"
-    t.index ["filter_in_category_id"], name: "index_category_linking_filters_on_filter_in_category_id"
   end
 
   create_table "company_details", force: :cascade do |t|
@@ -273,7 +264,7 @@ ActiveRecord::Schema.define(version: 2022_01_12_115135) do
   end
 
   create_table "delivery_option_ships", force: :cascade do |t|
-    t.float "price"
+    t.decimal "price", precision: 8, scale: 2
     t.bigint "delivery_option_id"
     t.bigint "ship_id"
     t.datetime "created_at", precision: 6, null: false
@@ -350,22 +341,6 @@ ActiveRecord::Schema.define(version: 2022_01_12_115135) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
-  end
-
-  create_table "google_pay_classes", force: :cascade do |t|
-    t.string "company"
-    t.string "event_name"
-    t.datetime "date"
-    t.string "venue"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "google_pay_event_builders", force: :cascade do |t|
-    t.string "class_id"
-    t.string "company"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "google_shoppings", force: :cascade do |t|
@@ -713,14 +688,9 @@ ActiveRecord::Schema.define(version: 2022_01_12_115135) do
     t.boolean "two_factor_auth", default: false
     t.datetime "last_seen_at"
     t.string "recovery_email"
+    t.boolean "skip_success_hub_steps", default: false
     t.string "otp_secret"
     t.integer "last_otp_at"
-    t.string "encrypted_otp_secret"
-    t.string "encrypted_otp_secret_iv"
-    t.string "encrypted_otp_secret_salt"
-    t.integer "consumed_timestep"
-    t.boolean "otp_required_for_login"
-    t.boolean "skip_success_hub_steps", default: false
     t.integer "failed_attempts", default: 0
     t.string "unlock_token"
     t.datetime "locked_at"

@@ -103,7 +103,6 @@
   position: relative;
 }
 #filter_in_categories .nested-fields {
-  padding-right: 15px;
   position: relative;
 }
 #filter_in_categories .links a {
@@ -118,7 +117,7 @@
 .filter_in_categories.remove_fields,
 #filter_in_categories .links {
   position: absolute;
-  right: -10px;
+  right: -15px;
   top: 7px;
 }
 .filter_in_categories.remove_fields span {
@@ -143,18 +142,13 @@
 .dashboard-page.toggle-close .sidebody {
   overflow-y: hidden;
 }
-
-/* Hide scrollbar for Chrome, Safari and Opera */
 *::-webkit-scrollbar {
   display: none;
 }
-
-/* Hide scrollbar for IE, Edge and Firefox */
 * {
 -ms-overflow-style: none;  /* IE and Edge */
 scrollbar-width: none;  /* Firefox */
 }
-
 .nowrap .dropdown-menu a {
   word-break: break-word;
   white-space: normal;
@@ -163,13 +157,9 @@ scrollbar-width: none;  /* Firefox */
 .sign-in {
   min-height: 400px !important;
 }
-/* .dropdown-filter.show .dropdown-menu a {
-    word-break: break-word;
-    white-space: normal;
-} */
-
 .sidebody {
-  max-height: calc(100vh - 115px) !important;
+  /* max-height: calc(100vh - 92px) !important; */
+  max-height: 100vh !important;
   overflow-y: auto !important;
 }
 .menuBtn {
@@ -247,7 +237,7 @@ scrollbar-width: none;  /* Firefox */
   position: fixed;
   top: 0;
   right: 0;
-  left: 280px;
+  left: 260px;
   z-index: 55555;
   transition: 0.3s linear;
   background-color: #fdf8f3;
@@ -349,7 +339,7 @@ scrollbar-width: none;  /* Firefox */
 }
 
 .logo img {
-  width: 145px;
+  width: 130px;
 }
 
 .seller-products-filters .fa-check,
@@ -469,9 +459,9 @@ input::-webkit-inner-spin-button {
   padding-bottom: 5px !important;
 }
 
-.simple_form.new_filter_group .checkbox-blk {
+/* .simple_form.new_filter_group .checkbox-blk {
   padding-top: 3px;
-}
+} */
 .admin-header-left .dropdown-filter.show .dropdown-menu {
   min-width: 250px !important;
 }
@@ -1043,10 +1033,11 @@ label {
   align-items: center;
   justify-content: center;
   margin: 20px 0;
+  height: 230px;
 }
 .barometer .container {
   transform: scale(0.7);
-  transform-origin: 40% 0;
+  /* transform-origin: 40% 0; */
   display: inline-block;
   width: 355px;
 }
@@ -1295,15 +1286,28 @@ width: 75%;
   font-size: 12px;
   min-height: 80px;
 }
+.add-new-seller-form label {
+  font-size: 14px;
+}
+.form-control:focus {
+  border-color: var(--dark-red) !important;
+}
+.add-new-seller-form input::placeholder,
+.ck.ck-placeholder:before, .ck .ck-placeholder:before,
+.editform-form input::placeholder,
 .refund-input::placeholder,
 .refund-detail-body textarea.form-control::placeholder {
-  color: var(--dark-red);
+  color: var(--dark-red) !important;
   opacity: 1;
 }
+.add-new-seller-form input:-ms-input-placeholder,
+.editform-form input:-ms-input-placeholder,
 .refund-input:-ms-input-placeholder,
 .refund-detail-body textarea.form-control:-ms-input-placeholder {
  color: var(--dark-red);
 }
+.add-new-seller-form input::-ms-input-placeholder,
+.editform-form input::-ms-input-placeholder,
 .refund-input::-ms-input-placeholder,
 .refund-detail-body textarea.form-control::-ms-input-placeholder {
  color: var(--dark-red);
@@ -1944,8 +1948,8 @@ a.buyer-card-link:hover {
   border-radius: 10px;
   box-shadow: 3px 3px 5px #0000001c;
 }
-.search-field svg, .subscribe-field a, .search-field i {
-  top: 11px !important;
+.search-field svg, .search-field i {
+  top: 10px !important;
   right: 12px !important;
   width: 13px !important;
   height: auto !important;
@@ -1959,7 +1963,7 @@ a.buyer-card-link:hover {
   font-size: 9px !important;
   padding: 0 !important;
 }
-stronge {
+strong {
   font-weight: 600 !important;
 }
 
@@ -1978,14 +1982,6 @@ stronge {
   right: 0;
   font-size: 9px !important;
   padding: 0 !important;
-}
-
-.search-field svg, .subscribe-field a, .search-field i {
-  top: 9px !important;
-  right: 10px !important;
-  width: 13px !important;
-  height: auto !important;
-  opacity: 0.6;
 }
 .cross_link_icon {
   position: absolute;
@@ -2012,4 +2008,54 @@ stronge {
 }
 .order-table-row a:not(.btn) {
   text-decoration: underline;
+}
+.category-products-form .Yavolo-table table tbody tr:last-child {
+  border-bottom: 0 !important;
+}
+.upload-text {
+  margin-top: 15px;
+}
+#category-filter-section {
+  display: none;
+}
+.modal-xxl .modal-dialog {
+  max-width: 1024px !important;
+}
+@media screen and (min-width: 1100px) {
+  .tabme-top {
+    margin-top: -30px;
+  }
+  .modal {
+    padding-left: 260px !important;
+  }
+}
+.scroll-over {
+  max-height: 285px;
+  overflow-y: auto;
+  padding-right: 15px;
+  margin: 0 -24px;
+  padding: 0 30px;
+}
+
+.scroll-over::-webkit-scrollbar {
+  display: block;
+}
+.scroll-over::-webkit-scrollbar {
+	width: 4px;
+	background-color: transparent;
+}
+.scroll-over::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: var(--dark-red);
+}
+
+
+
+/* ==================================================== */
+/* ==================== Sellers ======================= */
+/* ==================================================== */
+
+
+.seller-layout .sideheader {
+  border-bottom: 1px solid #ffffff47;
 }

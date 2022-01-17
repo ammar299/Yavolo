@@ -47,14 +47,16 @@
   </div>
 
   <h6 class="pl-lg-5"><strong>Add Filters within the Group</strong></h6>
-  <div id='filter_in_categories'>
-    <%= f.fields_for :filter_in_categories do |filter_in_category| %>
-    <%= render 'filter_in_category_fields', :f => filter_in_category %>
-    <% end %>
-    <div class="state-content links">
-      <%= link_to_add_association f, :filter_in_categories do  %>
-      <span> <i class="pl-3 pluse-btn">+</i></span>
+  <div class="scroll-over">
+    <div id='filter_in_categories'>
+      <%= f.fields_for :filter_in_categories do |filter_in_category| %>
+      <%= render 'filter_in_category_fields', :f => filter_in_category %>
       <% end %>
+      <div class="state-content links">
+        <%= link_to_add_association f, :filter_in_categories do  %>
+        <span> <i class="pl-3 pluse-btn">+</i></span>
+        <% end %>
+      </div>
     </div>
   </div>
 

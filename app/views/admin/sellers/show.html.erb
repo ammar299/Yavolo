@@ -1,9 +1,9 @@
 <div class="container-fluid">
 
   <h3 class="mt-4 mb-3">Seller Account Edit</h3>
-  <div class="d-flex flex-wrap justify-content-between mb-4 mt-4 align-items-start">
+  <div class="d-flex flex-wrap justify-content-between mb-3 mt-4 align-items-start">
     <h4 class="m-0">Seller Account
-      &amp; Settings</h4>
+      <br> Settings</h4>
     <div id="about-top-portion">
       <div class="d-flex align-items-center" >
         <% display_class = @seller.is_locked == true ? 'd-block' : 'd-none' %>
@@ -27,7 +27,7 @@
       <%= render 'shared/admin/sellers/left_sidebar' %>
     </div>
     <div class="col-md-10">
-      <div class="tab-content" id="myTabContent">
+      <div class="tab-content tabme-top" id="myTabContent">
         <%= render 'shared/sellers/about_seller_section' %>
         <%= render 'shared/sellers/connection_manager_section' %>
         <%= render 'admin_manage_subscription_of_seller' %>

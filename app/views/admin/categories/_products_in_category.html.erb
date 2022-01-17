@@ -4,12 +4,11 @@
     <%= form_tag("/admin/categories/#{@category.id}/category_products_with_pagination",id: "product-in-category-form",method: :get, local: false, remote: true, class: "category-products-form my-4")  do |f|%>
       <input type="hidden" name="page" class="page-number">
       <div class="d-flex align-items-center flex-wrap mb-2">
-        <div class="search-field active my-1 search-field-flex">
-
+        <div class="search-field active my-1 search-field-flex" style="max-width: 300px;">
           <input type="text" placeholder="Search" name="q[title_or_brand_or_sku_or_yan_or_ean_cont]" class="category-products-search-term input-btn-sm">
 
             <%= link_to "/admin/categories/#{@category.id}/category_products_with_pagination", class: 'icon-cross-container d-none', remote: true do %>
-              <i class="icon-cross" aria-hidden="true" style="top: 14px;font-size: 12px;"></i>
+              <i class="icon-cross" aria-hidden="true"></i>
             <% end %>
 
             <i class="fa fa-search icon-search-container" aria-hidden="true"></i>
@@ -46,7 +45,7 @@
       <%= submit_tag "+", class: "pl-3 pluse-btn submit-category-products-form-btn d-none" %>
     <% end %>
 
-    <div class="Yavolo-table">
+    <div class="Yavolo-table w-100 mt-3">
       <table class="table">
         <thead>
         <tr>

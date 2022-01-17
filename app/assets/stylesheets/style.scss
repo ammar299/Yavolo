@@ -535,17 +535,19 @@ h6 {
 .icon-right-pd {
   width: 30px;
   height: 30px;
+  min-width: 30px;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   margin-right: 10px;
+  font-size: 20px;
 }
 
 .icon-right-pd::before {
   color: #ff3e55;
 }
 .dashboard-page .leftside {
-  max-width: 280px;
+  max-width: 260px;
   background-color: #640529;
   flex: 1;
   display: flex;
@@ -563,6 +565,8 @@ h6 {
 
 .dashboard-page .leftside .sideheader p {
   color: #f9ede1;
+  font-size: 15px;
+  margin-top: 12px !important;
 }
 .dashboard-page .rightside {
   flex: 1;
@@ -570,10 +574,10 @@ h6 {
   flex-direction: column;
   justify-content: space-between;
   min-height: 100vh;
-  padding-left: 280px;
+  padding-left: 260px;
 }
 .sidebody {
-  padding: 32px 12px 12px 12px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -800,8 +804,8 @@ h6 {
 
 @media only screen and (max-width: 1024px) {
   .dashboard-page .leftside {
-    width: 280px;
-    max-width: 280px;
+    width: 260px;
+    max-width: 260px;
     background-color: #640529;
     flex: 1;
     display: flex;
@@ -809,7 +813,7 @@ h6 {
     overflow-y: auto;
     position: fixed;
     z-index: 5;
-    left: -280px;
+    left: -260px;
   }
   .dashboard-page .rightside {
     padding-left: 0;
@@ -981,9 +985,6 @@ h6 {
   border-radius: 10px;
   box-shadow: 1px 1px 5px #0000000a;
   font-size: 14px;
-}
-.ebay-forms input {
-  width: 170px;
 }
 .yavolo-box-detail {
   display: flex;
@@ -1168,7 +1169,7 @@ h6 {
 .seller-edit-card table th {
   border: none;
   font-size: 12px;
-  padding: 6px 4px;
+  padding: 4px;
   min-width: 90px;
 }
 .seller-edit-card {
@@ -1178,7 +1179,8 @@ h6 {
   width: 100%;
 }
 .seller-edit-card h5 {
-  height: 50px;
+  // height: 50px;
+  font-size: 18px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -1206,6 +1208,7 @@ h6 {
   display: flex;
   flex-direction: column;
   border: 0;
+  margin-left: -10px;
 }
 .ac-setting-tabs .nav-tabs .nav-link {
   border: 0;
@@ -1219,6 +1222,7 @@ h6 {
 .ac-setting-tabs .nav-tabs .nav-link:hover {
   background-color: var(--off-white);
   color: var(--dark-red);
+  font-weight: 600;
 }
 .min-pad {
   margin-right: -5px !important;
@@ -1305,8 +1309,13 @@ h6 {
   /* box-shadow: 1px 1px 5px #0000000A; */
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
+.ebay-forms {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 20px;
+}
 .ebay-forms input {
-  width: 170px;
+  width: 100%;
 }
 .checkbox-right-text span {
   font-size: 13px;
@@ -1524,7 +1533,7 @@ h6 {
 .product-content-img {
   background-color: #ff3e55;
   width: 100%;
-  min-width: 280px;
+  min-width: 260px;
   height: 140px;
   display: flex;
   object-fit: cover;
@@ -1555,13 +1564,12 @@ h6 {
   color: #640529;
   font-size: 16px;
   text-align: center;
-  padding-top: 0;
   margin-bottom: 0 !important;
-  min-height: 48px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: 600;
+  margin-top: 14px;
 }
 
 .seller-order-board .detail {
@@ -1614,18 +1622,6 @@ h6 {
   max-width: 480px;
   margin: auto;
   margin-bottom: 60px;
-}
-
-.seller-order-board p {
-  color: #640529;
-  font-size: 16px;
-  text-align: center;
-  padding-top: 0;
-  margin-bottom: 0 !important;
-  min-height: 48px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .seller-news .news-title {
@@ -1867,7 +1863,7 @@ select {
 select.new-select {
   background-image: asset-url("downarrow.png") !important;
   background-position: right 6px bottom 11px !important;
-  background-size: 13px;
+  background-size: 11px;
 }
 .opacity-50 {
   opacity: 0.5;
@@ -2053,7 +2049,7 @@ select.new-select {
   min-height: 100vh;
 }
 .dashboard-page .leftside {
-  max-width: 280px;
+  max-width: 260px;
   background-color: #640529;
   flex: 1;
   display: flex;
@@ -2065,11 +2061,8 @@ select.new-select {
   z-index: 55556;
 }
 .dashboard-page .leftside .sideheader {
-  padding: 32px 32px 15px 36px;
+  padding: 15px 36px;
   white-space: nowrap;
-}
-.dashboard-page .leftside .sideheader p {
-  color: #f9ede1;
 }
 .dashboard-page .rightside {
   flex: 1;
@@ -2078,18 +2071,12 @@ select.new-select {
   justify-content: space-between;
   min-height: 100vh;
 }
-.sidebody {
-  padding: 32px 12px 12px 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex: 1;
-}
 .sidebody ul li a {
   display: flex;
   align-items: center;
   padding: 5px 20px 3px 20px;
-  min-height: 54px;
+  min-height: 48px;
+  font-size: 15px;
   line-height: 16px;
   letter-spacing: 0px;
   color: #f9ede1;
@@ -2230,8 +2217,8 @@ select.new-select {
 
 @media only screen and (max-width: 1024px) {
   .dashboard-page .leftside {
-    width: 280px;
-    max-width: 280px;
+    width: 260px;
+    max-width: 260px;
     background-color: #640529;
     flex: 1;
     display: flex;
@@ -2239,7 +2226,7 @@ select.new-select {
     overflow-y: auto;
     position: fixed;
     z-index: 5;
-    left: -280px;
+    left: -260px;
   }
 }
 @media only screen and (max-width: 768px) {
@@ -2529,22 +2516,21 @@ select.new-select {
 }
 /* step-header */
 .single-pdp-pad {
-  padding-left: 30px;
+  padding-left: 60px;
 }
 .icon-heart-Y,
 .heart-icomoon {
   position: absolute;
-  left: 0px;
-  height: 32px;
-  width: 32px;
+  left: 20px;
+  height: 40px;
+  width: 40px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background-color: #fff;
   border-radius: 50%;
   margin-bottom: 10px;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  // box-shadow: 0px 0px 0px 2px #fff;
+  box-shadow: 0px 0px 7px #0000001A;
 }
 .icon-heart-Y svg {
   width: 18px;
