@@ -798,7 +798,7 @@ function sumOfTotalRefund() {
 function sumOfTotalPaid() {
   let total_paid = 0.0;
   $('.amount_paid').each(function () {
-    let amount_paid_handler = $(this).text().split('£').join('');
+    let amount_paid_handler = $(this).text().split('£').join('').replace(/,/g, '');
     if (!isNaN(amount_paid_handler) && amount_paid_handler.length !== 0) {
       total_paid += parseFloat(amount_paid_handler);
     }

@@ -1,1 +1,3 @@
-<%= render partial: "shared/refunds/create_refund", locals: {messages: @errors + @create_refund[:errors] + @create_refund[:notices]} %>
+<% @errors ||= "" %>
+<% @api_notices = @create_refund && @create_refund.has_key?(:notices) ? @create_refund[:notices] : "" %>
+<%= render partial: "shared/refunds/create_refund", locals: {messages: [[@errors].flatten + [@api_notices].flatten].flatten.join("").html_safe, is_valid: @errors.empty? } %>

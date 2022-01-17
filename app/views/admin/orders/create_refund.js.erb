@@ -1,6 +1,3 @@
-<% @api_errors    = @errors.present? ? @errors : "" %>
-<% @api_notices   = @create_refund && @create_refund.has_key?(:notices) ? @create_refund[:notices] : "" %>
-<% @refund_errors = @create_refund && @create_refund.has_key?(:errors) ? @create_refund[:errors] : "" %>
-<% @only_notices  = @api_notices && @api_errors.empty? && @refund_errors.empty? ? @api_notices : "" %>
-<% @dynamic_locals = @only_notices.present? ? {messages: "", notices: @only_notices} : {messages: @api_errors + @refund_errors + @api_notices, notices: ""} %>
-<%= render partial: "shared/refunds/create_refund", locals: @dynamic_locals %>
+<% @errors ||= "" %>
+<% @api_notices = @create_refund && @create_refund.has_key?(:notices) ? @create_refund[:notices] : "" %>
+<%= render partial: "shared/refunds/create_refund", locals: {messages: [[@errors].flatten + [@api_notices].flatten].flatten.join("").html_safe, is_valid: @errors.empty? } %>

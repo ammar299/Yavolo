@@ -89,7 +89,7 @@ $(document).ready(() => {
   });
 });
 
-window.displayNoticeMessage = (message) => {
+window.displayNoticeMessage = (message, timeout = 3000) => {
   message = `<div id="flash-msg">
     <p class="flash-toast notice notice-msg">
       ${message}
@@ -99,7 +99,7 @@ window.displayNoticeMessage = (message) => {
   $("#flash-msg").html(message);
   setTimeout(function () {
     $("#flash-msg").find("p").remove();
-  }, 3000);
+  }, timeout);
   return message;
 };
 

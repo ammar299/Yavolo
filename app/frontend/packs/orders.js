@@ -16,20 +16,6 @@ $(document).ready(function () {
     });
 });
 
-window.displayCustomMessage = (message) => {
-    message = `<div id="flash-msg">
-    <p class="flash-toast notice notice-msg">
-      ${message}
-      <span  class="notice-cross-icon" aria-hidden="true">&times;</span>
-    </p>
-  </div>`;
-    $("#flash-msg").html(message);
-    setTimeout(function () {
-        $("#flash-msg").find("p").remove();
-    }, 10000);
-    return message;
-};
-
 function setOrderSearchMenuAndQueryName() {
     $('.cls-admin-orders-filters a').click(function (e) {
         e.preventDefault();

@@ -1,13 +1,6 @@
-<% if messages.present? %>
-    displayCustomMessage("<%= messages %>");
-<% elsif notices.present? %>
-setTimeout(function () {
-    displayNoticeMessage("<%= notices %>");
-    window.location.href = "<%= send("#{current_user_namespace}_orders_path") %>";
-}, 5000);
+<% if messages.present? && !is_valid %>
+  displayNoticeMessage("<%= messages %>", 10000);
 <% else %>
-setTimeout(function () {
-    displayNoticeMessage("Refund successfully created.");
-    window.location.href = "<%= send("#{current_user_namespace}_orders_path") %>";
-}, 2000);
+  <% flash[:notice] = "Your order refunded successfully" %>
+  window.location.href = "<%= send("#{current_user_namespace}_orders_path") %>";
 <% end %>

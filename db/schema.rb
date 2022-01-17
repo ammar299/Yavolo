@@ -16,6 +16,20 @@ ActiveRecord::Schema.define(version: 2022_01_12_115135) do
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string "namespace"
+    t.text "body"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.string "author_type"
+    t.bigint "author_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author"
+    t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
+    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
+  end
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -60,6 +74,27 @@ ActiveRecord::Schema.define(version: 2022_01_12_115135) do
     t.string "addressable_type"
     t.index ["addressable_id"], name: "index_addresses_on_addressable_id"
     t.index ["addressable_type"], name: "index_addresses_on_addressable_type"
+  end
+
+  create_table "admin_users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_admin_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
   create_table "admins", force: :cascade do |t|
@@ -231,19 +266,6 @@ ActiveRecord::Schema.define(version: 2022_01_12_115135) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "chat_rooms", force: :cascade do |t|
-    t.string "title"
-    t.boolean "is_admin_joined"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.bigint "seller_id"
-    t.bigint "buyer_id"
-    t.bigint "admin_id"
-    t.index ["admin_id"], name: "index_chat_rooms_on_admin_id"
-    t.index ["buyer_id"], name: "index_chat_rooms_on_buyer_id"
-    t.index ["seller_id"], name: "index_chat_rooms_on_seller_id"
-  end
-
   create_table "company_details", force: :cascade do |t|
     t.string "name"
     t.string "vat_number"
@@ -393,17 +415,6 @@ ActiveRecord::Schema.define(version: 2022_01_12_115135) do
     t.integer "category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "messages", force: :cascade do |t|
-    t.text "body"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.bigint "chat_room_id"
-    t.string "sender_type"
-    t.bigint "sender_id"
-    t.index ["chat_room_id"], name: "index_messages_on_chat_room_id"
-    t.index ["sender_type", "sender_id"], name: "index_messages_on_sender"
   end
 
   create_table "meta_contents", force: :cascade do |t|
@@ -712,9 +723,9 @@ ActiveRecord::Schema.define(version: 2022_01_12_115135) do
     t.boolean "two_factor_auth", default: false
     t.datetime "last_seen_at"
     t.string "recovery_email"
-    t.boolean "skip_success_hub_steps", default: false
     t.string "otp_secret"
     t.integer "last_otp_at"
+    t.boolean "skip_success_hub_steps", default: false
     t.integer "failed_attempts", default: 0
     t.string "unlock_token"
     t.datetime "locked_at"

@@ -4,5 +4,5 @@
     <td class="text-right"><%= "#{line_items.product&.owner&.first_name} #{line_items.product&.owner&.last_name}" %></td>
   <% end %>
   <td class="text-right amount_paid"><%= get_price_in_pounds(line_items.quantity * line_items.product&.price) %></td>
-  <td class="text-right"><%= number_field_tag "refund[refund_details_attributes][#{line_items.id}][amount_refund]", nil, placeholder: "£0.00", min: 1, max: 5000, step: 0.01, class: "refund-input amount_refund" %></td>
+  <td class="text-right"><%= number_field_tag "refund[refund_details_attributes][#{line_items.id}][amount_refund]", nil, placeholder: "£0.00", min: 1, step: 0.01, class: "refund-input amount_refund" %></td>
 </tr>

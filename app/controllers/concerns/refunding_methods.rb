@@ -42,9 +42,7 @@ module RefundingMethods
         create_refund_modes(refunding_attributes[:refund_hash])
         SendRefundingEmailsWorker.perform_async(refunding_attributes[:refund_messages])
         @notices = refunding_attributes[:notices].join("").html_safe if refunding_attributes[:notices].present?
-        { success: true, errors: "", notices: @notices }
-      else
-        { success: false, errors: @refund.errors.full_messages.join(''), notices: "" }
+        return { success: true, errors: "", notices: @notices }
       end
     end
   end

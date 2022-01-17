@@ -1375,7 +1375,7 @@ width: 75%;
 	border-radius: 5px;
 } */
 .btn-text-hvr {
-    width: 230px;
+    min-width: 230px;
     text-decoration: none;
     vertical-align: middle;
 }

@@ -6,4 +6,5 @@ $('#refund-review-modal').on('hidden.bs.modal', function () {
 });
 $(".confirm_refund").on("click", function () {
     $('form.new_refund .review_button').click();
+    showButtonLoader(this);
 });
