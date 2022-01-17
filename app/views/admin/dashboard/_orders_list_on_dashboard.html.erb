@@ -1,0 +1,24 @@
+<% orders.each do |order| %>
+  <% order_detail = order.order_detail %>
+  <% order_line_items = order.line_items %>
+  <tr class="order-table-row" id="order-id-<%= order.id %>">
+    <td class="text-left pl-3">
+      <%= order_number_format(order.order_number) if order.order_number %>
+    </td class="text-left pl-3">
+    <td>
+      <%= get_full_name(order_detail) if order_detail %>
+    </td>
+    <td class="text-center">
+      <%= order_detail.email if order_detail.email %>
+    </td>
+    <td class="text-center">
+      <%= order.order_type&.titleize %>
+    </td>
+    <td class="text-center">
+      <%= get_price_in_pounds(order.sub_total? ? order.sub_total : 0) %>
+    </td>
+    <td class="text-center">
+      <%= link_to image_tag('eye-dark.png'), admin_order_path(order), class: "eye-img" %>
+    </td>
+  </tr>
+<% end %>

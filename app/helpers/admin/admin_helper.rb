@@ -63,4 +63,11 @@ module Admin::AdminHelper
       'Yavolo'
     end
   end
+
+  def display_orders
+      @q = Order.paid_orders_listing.ransack(params[:q])
+      @orders = @q.result(distinct: true)
+      render partial: "orders_list_on_dashboard", locals: { orders: @orders }
+  end
+
 end
