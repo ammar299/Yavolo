@@ -104,6 +104,8 @@ $(document).ready(function(){
       else{
         $(this).attr('href','/admin/products/export_csv.csv?products='+selected_products);
       }
+      if (selected_products.length <= 50)
+        displayNoticeMessage("Products are being downloaded.")
     })
 
     $(".admin-orders-export").click(function(event){

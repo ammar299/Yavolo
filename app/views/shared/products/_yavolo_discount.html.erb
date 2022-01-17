@@ -6,7 +6,7 @@
           <div class="d-flex justify-content-between">
               <div class="yavolo-box-top-detail">
                   <h6 class="font-weight-bold">Yavolo discount  <span class="icon-help"></span></h6>
-                  <p class="">To qualify for a Yavolo product, a minimum of 2.5% discount is applied. Increasing the discount level usaully increases the conversion and results in more sales.</p>
+                  <p class="">To qualify for a Yavolo product, a minimum of 2.5% discount is applied. Increasing the discount level usually increases the conversion and results in more sales.</p>
               </div>
               <% has_error, msg = get_errors(form, :discount) %>
               <div class="form-group <%= has_error ? 'error-field' : '' %>">
@@ -36,9 +36,11 @@
           <label class="checkbox-blk ">Bundle with Yavolo </a>
               <%= form.check_box :yavolo_enabled %>
               <span class="checkmark"></span>
+              <%# <a href="javascript:void(0);" style="text-decoration: none;"> %>
+                <span class="icon-manage-Yavolo red-text pl-3">
+                </span>
+              <%# </a> %>
           </label>
-          <a href="javascript:void(0);" style="text-decoration: none;"><span class="icon-manage-Yavolo red-text pl-3">
-          </span></a>
       </div>
   </div>
 </div>

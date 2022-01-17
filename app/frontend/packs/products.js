@@ -1351,7 +1351,7 @@ function eanErrorRemoveBackend() {
 
 function updateBulkActions(res, classNameOfAction, val) {
   res.update_ids.forEach(function(item) {
-    $("#prod-id-" + item).find(classNameOfAction).text(val);
+    $("#prod-id-" + item).find(classNameOfAction).text(val+"%");
     $("#prod-id-" + item).find(classNameOfAction).val(val);
   });
 }
