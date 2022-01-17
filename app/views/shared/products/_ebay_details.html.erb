@@ -7,7 +7,7 @@
             <div class="ebay-forms mb-3">
                 <% has_error, msg = get_errors(form, "ebay_detail.lifetime_sales") %>
                 <div class="form-group general-mrgn mb-0 <%= has_error ? 'error-field' : '' %>">
-                    <%= ebay_data.label 'Lifetime Sales' %>
+                    <%= ebay_data.label :lifetime_sales, 'Lifetime Sales' %>
                     <%= ebay_data.number_field :lifetime_sales, class: 'form-control', min: 0 %>
                     <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
                 </div>

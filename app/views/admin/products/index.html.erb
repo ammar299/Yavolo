@@ -201,14 +201,14 @@
                         </td>
                         <td class="stock-box text-center"><%=product.stock.to_i %></td>
                         <td class="text-center price-box"><%=number_to_currency((number_with_precision(product.price, :precision => 2) || 0), unit: '£') %></td>
-                        <td class="text-center"><%=number_to_currency((number_with_precision(300, :precision => 2) || 0), unit: '£') %></td>
+                        <td class="text-center">12342</td>
                         <td class="text-center"><%=number_to_currency((number_with_precision(300, :precision => 2) || 0), unit: '£') %></td>
                         <td class="text-center">
                           <div class="relative">
                             <span class="icon-manage-Yavolo font-20px light-red <%= product.yavolo_enabled? ? "p-yavolo-enabled" : "yo-opacity p-yavolo-disabled" %>"></span>
                           </div>
                         </td>
-                        <td class="discount-box text-center"><%= "#{sprintf('%g', product.discount) rescue ""}" %></td>
+                        <td class="discount-box text-center"><%= "#{sprintf('%g', product.discount) rescue ""}" %>%</td>
                         <td class="text-center">
                             <div class="d-flex">
                                 <span class="icon-star pr-1 font-20px red-text pr-2"></span>
