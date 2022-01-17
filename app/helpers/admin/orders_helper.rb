@@ -58,4 +58,9 @@ module Admin::OrdersHelper
   def order_yavolo_bundle_exist?(order)
     order.line_items.joins('inner join yavolo_bundle_products on line_items.product_id = yavolo_bundle_products.product_id').distinct.count > 0
   end
+
+  def product_sale_month(product)
+    count = product.line_items.where("line_items.created_at > ? AND line_items.created_at < ?", Time.now.beginning_of_month, Time.now.end_of_month).pluck(:quantity).inject(:+)
+    product.price.to_s.to_d * count.to_s.to_d
+  end
 end

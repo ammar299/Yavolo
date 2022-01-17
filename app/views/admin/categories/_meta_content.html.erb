@@ -3,20 +3,20 @@
   <%= form_with(model: [:admin, @category], local: false, html: {id: 'category-meta-form', class: 'category-meta-form ml-md-4'}) do |f| %>
     <%= f.fields_for :meta_content, @category.meta_content || @category.build_meta_content do |g| %>
       <div class="form-group form-group-vertical form-group-vertical-responsive">
-        <%= g.label :title, "Meta Title" %>
+        <%= g.label :title, "Meta Title", class: 'font-weight-bold' %>
         <div class="d-flex flex-column flex1">
           <%= g.text_field :title, class: "form-control" %>
         </div>
       </div>
       <div class="form-group form-group-vertical form-group-vertical-responsive">
-        <%= g.label :keywords, "Meta Keywords" %>
+        <%= g.label :keywords, "Meta Keywords", class: 'font-weight-bold' %>
         <div class="d-flex flex-column flex1">
           <%= g.text_field :keywords, class: "form-control category-meta-tags", placeholder: "Enter Keywords", data: {role: "tagsinput"} %>
         </div>
       </div>
 
       <div class="form-group form-group-vertical form-group-vertical-responsive">
-        <%= g.label :description, "Meta Description" %>
+        <%= g.label :description, "Meta Description",class: 'font-weight-bold' %>
         <%= g.text_area :description, class: "form-control meta-description" %>
       </div>
     <% end %>

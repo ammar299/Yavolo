@@ -772,9 +772,9 @@ select.form-control {
 .ElementsApp .CardField {
   padding-top: 4px;
 }
-label {
-    text-transform: inherit;
-}
+/*label {*/
+/*    text-transform: inherit;*/
+/*}*/
 .dropdown-filter-custom {
   border: 2px solid var(--dark-red);
   height: 35px;
@@ -2061,6 +2061,11 @@ strong {
 .seller-layout .sideheader {
   border-bottom: 1px solid #ffffff47;
 }
+
+.form-group .link-filter{
+    min-width: 130px;
+    font-weight: 600;
+}
 .eye-img img {
   width: 20px;
 }
@@ -2089,6 +2094,7 @@ strong {
   background: url("star-filled.png") no-repeat;
   background-size: 18px;
 }
+
 
 
 

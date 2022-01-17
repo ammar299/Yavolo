@@ -124,7 +124,7 @@
 
                 <%#= link_to "Export CSV", export_csv_admin_products_path(:format => :csv), class: 'btn btn-sm btn-radius px-2 btn-primary mr-1' %>
 
-                <%=link_to 'Create New Product', new_admin_product_path, class: 'btn btn-sm my-1 btn-radius px-2 btn-primary' %>
+                <%=link_to 'Create New Listing', new_admin_product_path, class: 'btn btn-sm my-1 btn-radius px-2 btn-primary' %>
             </div>
         </div>
         <div class="filter-by-tags d-flex justify-content-start mt-2">
@@ -134,7 +134,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-      <div class="pageresut-text" id="total-sellers-per-page">
+      <div class="pageresut-text mt-2" id="total-sellers-per-page">
         <%= render partial: 'shared/result_of_pages', locals: {total_count: @total_count, count: @products.count } %>
       </div>
       <h3 class="mt-4 mb-3">All Products</h3>
@@ -201,7 +201,7 @@
                         </td>
                         <td class="stock-box text-center"><%=product.stock.to_i %></td>
                         <td class="text-center price-box"><%=number_to_currency((number_with_precision(product.price, :precision => 2) || 0), unit: '£') %></td>
-                        <td class="text-center">12342</td>
+                        <td class="text-center"><%=number_to_currency((number_with_precision(product_sale_month(product), :precision => 2) || 0), unit: '£') %></td>
                         <td class="text-center"><%=number_to_currency((number_with_precision(300, :precision => 2) || 0), unit: '£') %></td>
                         <td class="text-center">
                           <div class="relative">
