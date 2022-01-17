@@ -2067,3 +2067,32 @@ strong {
 .remove-text-heading {
   font-size: 17px;
 }
+
+.grid-single-img .img-del-icon svg,
+.grid-single-img .icon-star-empty svg {
+  display: none;
+}
+.grid-single-img .img-del-icon,
+.grid-single-img .icon-star-empty {
+  background: url("star-unfilled.png") no-repeat;
+  height: 20px;
+  width: 20px;
+  display: inline-block !important;
+  background-size: 18px;
+  text-indent: -9999px;
+}
+.grid-single-img .img-del-icon {
+  background: url("trash.png") no-repeat;
+  background-size: 18px;
+}
+.img-star-icon.featured .icon-star-empty {
+  background: url("star-filled.png") no-repeat;
+  background-size: 18px;
+}
+
+
+
+
+
+
+
