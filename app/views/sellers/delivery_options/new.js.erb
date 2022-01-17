@@ -4,9 +4,6 @@ $('#deliveryTemplateForm').find('h5').text('Add New Template');
   $('#deliveryTemplateForm').modal('show');
   // TODO: removed jquery plugin right now using custom validation for this form
   // setFormValidation();
-  <% if notice.present? %>
-    $('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
-  <% end %>
 <% end %>
 <% if params[:add_new].present? %>
 $('#delivery-template-form #delivery-option-form').append("<input type='hidden' name='from' value='create_product'>")
@@ -14,7 +11,10 @@ $('#delivery-template-form').show();
 $('html, body').animate({
     scrollTop: $('#delivery-template-form').offset().top - 100
 }, 1000);
-<% elsif params[:from].present? %>
+<% elsif params[:from].present? && @delivery_option&.errors.nil? %>
 $('#delivery-template-form').hide();
 $('#delivery-template-form').html("");
+<% end %>
+<% if notice.present? %>
+  $('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
 <% end %>

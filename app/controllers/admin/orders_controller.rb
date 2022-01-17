@@ -38,7 +38,7 @@ class Admin::OrdersController < Admin::BaseController
   def export_orders
     order_ids = get_orders
     ExportOrdersCsvWorker.perform_async(current_admin.id, current_admin.class.name, order_ids)
-    redirect_to admin_orders_path, notice: 'Orders export started, You will receive a file when its completed.'
+    redirect_to admin_orders_path, flash: { notice: 'Orders export started, You will receive a file when its completed.' }
   end
 
   def get_orders

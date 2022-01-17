@@ -2060,3 +2060,7 @@ strong {
 .seller-layout .sideheader {
   border-bottom: 1px solid #ffffff47;
 }
+
+.remove-text-heading {
+  font-size: 17px;
+}
