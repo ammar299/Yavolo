@@ -2,6 +2,12 @@ $(document).ready(function(){
 	AssingCategoriesFormValidation();
 	$('#assign-filter-group-category').attr('title', 'Please select just one filter group');
 	assignFilterGroupCategory();
+
+	$('.filter-groups-checkbox-container input').change(function() {
+    if (!$(this).is(':checked')) {
+      $('#filter-group-select-all').prop('checked', false);
+		}
+  });
 	$('body').on('change', '.filter-group-radio', function(){
 		var filterType = $(this).parent().text().trim();
 		var $globalCheck = $('#global-check');

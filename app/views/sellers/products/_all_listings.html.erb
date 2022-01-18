@@ -54,16 +54,16 @@
                             aria-expanded="false">Actions <i class="fas fa-ellipsis-h ml-3"
                                 aria-hidden="true"></i></a>
                         <div class="dropdown-menu bulk-actions" aria-labelledby="dropdownMenuLink">
-                            <a data-bulkaction="yavolo_enabled" class="dropdown-item" href="#">Yavolo Enabled<i
+                            <a data-bulkaction="yavolo_enabled" class="dropdown-item disabled-texture" href="#">Yavolo Enabled<i
                                         aria-hidden="true"></i></a>
                             <a data-bulkaction="yavolo_disabled" class="dropdown-item disabled-texture" href="#">Yavolo Disabled<i  aria-hidden="true"></i></a>
-                            <a data-bulkaction="delete" class="dropdown-item" href="#">Delete<i 
+                            <a data-bulkaction="delete" class="dropdown-item disabled-texture" href="#">Delete<i 
                                 aria-hidden="true"></i></a>
-                            <a data-bulkaction="update_price" class="dropdown-item" href="#">Update Price<i
+                            <a data-bulkaction="update_price" class="dropdown-item disabled-texture" href="#">Update Price<i
                                         aria-hidden="true"></i></a>
-                            <a data-bulkaction="update_stock" class="dropdown-item" href="#">Update Stock<i
+                            <a data-bulkaction="update_stock" class="dropdown-item disabled-texture" href="#">Update Stock<i
                                         aria-hidden="true"></i></a>
-                            <a data-bulkaction="update_discount" class="dropdown-item" href="#">Update discount<i aria-hidden="true"></i></a>
+                            <a data-bulkaction="update_discount" class="dropdown-item disabled-texture" href="#">Update discount<i aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </div>
@@ -160,7 +160,6 @@
                                                 <%=text_field_tag 'product[price]',(number_with_precision(product.price, :precision => 2) || 0), class: 'form-control px-2 w-20 price-field editable product-listing-input-fields listing-price', data: {pid: product.id, action: 'update_price'} %>
                                             </div>
                                         </td>
-                                        
                                         <td class="text-center">
                                             <% if product.yavolo_enabled && index == 0 %>
                                                 <div class="relative">
@@ -194,8 +193,10 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                            <% elsif product.yavolo_enabled %>
+                                                <span class="icon-manage-Yavolo font-20px light-red p-yavolo-enabled"></span>
                                             <% else %>
-                                                <span class="icon-manage-Yavolo font-20px light-red p-yavolo-disabled"></span>
+                                                <span class="icon-manage-Yavolo font-20px light-red yo-opacity p-yavolo-disabled"></span>
                                             <% end %>
                                         </td>
                                         <td>

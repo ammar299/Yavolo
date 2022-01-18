@@ -1919,9 +1919,8 @@ a.buyer-card-link:hover {
   padding: 0 !important;
 }
 
-.dropdown-filter-custom.alter-light-texture .dropdown-menu a.disabled-texture {
+.dropdown-filter-custom.alter-light-texture .dropdown-menu a.disabled-texture:hover {
   background-color: #fff !important;
-  pointer-events: none;
 }
 
 .dropdown-filter-custom.alter-light-texture .dropdown.show .btn {
