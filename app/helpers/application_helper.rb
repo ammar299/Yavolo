@@ -198,6 +198,8 @@ module ApplicationHelper
   def return_to_returns_address(address_type)
     if address_type == 'return_address'
       return 'returns_address'
+    elsif address_type == 'business_representative_address'
+      return 'representative_address'
     else
       return address_type
     end

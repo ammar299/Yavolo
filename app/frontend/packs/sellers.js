@@ -64,6 +64,15 @@ $(document).ready(function () {
           required: true,
           VAT_number_validation: true,
         },
+        "seller[company_detail_attributes][website_url]": {
+          url_without_scheme: true,
+        },
+        "seller[company_detail_attributes][amazon_url]": {
+          url_without_scheme: true,
+        },
+        "seller[company_detail_attributes][ebay_url]": {
+          url_without_scheme: true,
+        },
         "seller[addresses_attributes][0][address_line_1]": {
           required: true,
         },

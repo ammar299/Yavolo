@@ -16,6 +16,9 @@
 label {
   text-transform: capitalize;
 }
+label.error{
+  text-transform: none;
+}
 .capitalize-text {
   text-transform: capitalize;
 }

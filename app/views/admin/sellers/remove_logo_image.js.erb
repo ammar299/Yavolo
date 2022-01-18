@@ -8,6 +8,7 @@ $("#error-message").text('');
   $('.image-name').text('');
   $('.remove-image').text('');
   $(':input[type="submit"]').prop('disabled', true);
+  $('.remove-seller-logo').addClass('disabled')
   <% if @picture_present %>
     $('#flash-msg').html('<%= j render partial: "shared/notice_banner"%>');
   <% end %>

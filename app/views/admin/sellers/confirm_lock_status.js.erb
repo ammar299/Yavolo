@@ -1,2 +1,3 @@
+$("#seller-api-modal-title").html("Lock Seller");
 $("#seller-api-actions").html("<%= j render(partial: 'admin/sellers/change_lock_status', locals: { id: @seller, param_to_update: params[:param_to_update] }) %>");
 $('#seller-api-modal').modal('show');

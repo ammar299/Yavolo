@@ -5,6 +5,7 @@ $("#error-message").text('');
   $("#seller-logo").html("<%= j render 'shared/sellers/seller_logo', logo: @seller.picture %>");
   $('#edit-seller-form').modal('hide');
   $('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
+  $('.remove-seller-logo').removeClass('disabled')
   <% else %>
     $('#error-message').html("Image dimensions less than 500 * 500 px")
   <% end %>

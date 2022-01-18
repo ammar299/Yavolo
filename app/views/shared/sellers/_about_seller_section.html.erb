@@ -28,7 +28,7 @@
         </div>
         <div class="text-center">
           <%= link_to "#{seller_logo_text(@seller)}", create_url(params[:controller], "seller_logo", @seller.id), class: 'btn btn-sm btn-radius px-3 btn-primary mt-1', id: 'add-or-update-logo-btn', remote: true %>
-          <%= link_to "Remove Image", create_url(params[:controller], "remove_seller_logo", @seller.id), class: 'btn btn-sm btn-radius px-3 btn-primary mt-1', remote: true, method: :delete %>
+          <%= link_to "Remove Image", create_url(params[:controller], "remove_seller_logo", @seller.id), class: "btn btn-sm btn-radius px-3 btn-primary mt-1 remove-seller-logo #{'disabled' unless @seller.picture.present?}", remote: true, method: :delete, data:{ confirm: "Are you sure you want to remove this image?"} %>
         </div>
       </div>
     </div>

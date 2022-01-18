@@ -94,6 +94,7 @@
               </label>
             </th>
             <th>Email</th>
+            <th>Company Name</th>
             <th>Seller Since</th>
             <th class="text-center">Last sale</th>
             <th class="text-center">Active Listings</th>
@@ -117,6 +118,7 @@
                 </div>
               </td>
               <td><span class="email-in-table"><%=seller.email %></span></td>
+              <td><span class="email-in-table"><%= seller.company_detail&.name %></span></td>
               <td><%= date_format_UK(seller.created_at) %></td>
               <td>Show the last sale date</td>
               <td class="text-center">Show the number of active listings</td>
