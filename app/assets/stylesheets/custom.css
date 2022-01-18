@@ -2095,10 +2095,22 @@ strong {
   background-size: 18px;
 }
 
+.order-complete-summary-image {
+  width: 100%;
+  height: 80px;
+  object-fit: contain;
+}
 
+.review-order-image {
+  width: 100%;
+  height: 250px;
+  object-fit: contain;
+}
 
-
-
-
+.order-complete-delivery-icon {
+  font-size: 20px;
+  color: var(--red);
+  padding-right: 10px;
+}
 
 
