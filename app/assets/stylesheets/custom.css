@@ -382,8 +382,9 @@ scrollbar-width: none;  /* Firefox */
   line-height: 13px;
   width: 100%;
   display: flex;
+  padding-right: 14px !important;
 }
-/* .dropdown-filter-custom .dropdown-menu a svg */
+.dropdown-filter-custom .dropdown-menu a svg,
 .dropdown-filter .dropdown-menu a svg {
   position: absolute;
   right: 10px;
@@ -1994,10 +1995,10 @@ strong {
 }
 
 .buyer-layout .container-fluid {
-  max-width: 1400px;
+  max-width: 1430px;
 }
 .main-header .navbar-nav.navbar-nav-icons.ml-auto{
-  width: 160px;
+  min-width: 160px;
   margin-left: 0 !important;
 }
 .pageresut-text p {
@@ -2031,7 +2032,7 @@ strong {
   }
 }
 .scroll-over {
-  max-height: 285px;
+  max-height: 200px;
   overflow-y: auto;
   padding-right: 15px;
   margin: 0 -24px;
