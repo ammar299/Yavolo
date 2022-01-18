@@ -92,7 +92,7 @@ class Admin::SettingsController < Admin::BaseController
   end
 
   def subscriptions_for_view
-    @subscriptions = SubscriptionPlan.all.order(updated_at: :desc)
+    @subscriptions = SubscriptionPlan.all.order(created_at: :desc)
   end
 
   def notify_associated_sellers(plan)

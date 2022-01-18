@@ -690,11 +690,13 @@ function validatePlanForm(){
         required: true,
         min: 0,
         max: 999999,
+        check_special_character: true
       },
       "commission_excluding_vat": {
         required: true,
         min: 0,
         max: 100,
+        check_special_character: true
       },"rolling_subscription": {
         subscription_months_and_rolling: true,
       }
@@ -742,6 +744,14 @@ function validatePlanForm(){
     },
     "Please set another plan as default first"
   );
+
+  jQuery.validator.addMethod(
+      "check_special_character",
+      function(value, element) {
+      return this.optional(element) || !value.includes('-')
+    },
+      "Invalid format"
+    );
 
 }
 
