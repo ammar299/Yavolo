@@ -24,7 +24,7 @@
               <input type="hidden" name="csfname" id="csfn" value="<%= current_search_field_name %>"><% if params[:q].present? && params[:q].keys.include?('s') %><%= hidden_field_tag 'q[s]', params[:q][:s].to_json %><% end %><%= f.search_field current_search_field_name.to_sym, { class: 'input-btn-sm seller-product-search-field', placeholder: 'Search your listings', value: "#{search_field_query_param_val(params)}" } %><% if params[:q].present? %><%= link_to sellers_products_path(filter_type: params[:filter_type], tab: (params[:tab].present? ? params[:tab] : 'all')), class: 'btn-sm cross_link_icon' do %> <i class="icon-cross" aria-hidden="true"></i><% end %><% else %> <i class="fa fa-search" aria-hidden="true"></i><% end %><% end %>
             </div>
           </div>
-          <div class="dropdown-filter-field dropdown-filter-custom active my-1 ml-2 dropdown-filter-border">
+          <div class="dropdown-filter-field alter-light-texture dropdown-filter-custom active mb-8 my-1 ml-2 dropdown-filter-border">
             <div class="dropdown">
               <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center filter-by-dropdown" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%=set_product_sort_by_in_dropdown(params)%> <i class="fa fa-angle-down ml-3" aria-hidden="true"></i>
               </a>
@@ -64,7 +64,7 @@
                   <th>Yavolo Sellers</th>
                   <th class="text-center">YAN</th>
                   <th class="text-center">Yavolo Total</th>
-                  <th class="text-center" width="5%">Actions</th>
+                  <th class="text-center" width="5%">Action</th>
                 </tr>
                 </thead>
                 <tbody>
