@@ -711,7 +711,7 @@ textarea.form-control {
     opacity: 1;
 }
 .pdp-card {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     margin-top: 10px;
 }
 .pdp-card .pdp-img {
@@ -719,7 +719,7 @@ textarea.form-control {
     padding: 15px;
     background-color: #fff;
     min-height: 250px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -740,6 +740,7 @@ textarea.form-control {
     height: 30px;
     align-items: center;
     line-height: 14px;
+    font-size: 14px;
     padding-top: 2px !important;
     pointer-events: none;
 }

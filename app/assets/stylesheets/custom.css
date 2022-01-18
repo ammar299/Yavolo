@@ -1772,17 +1772,22 @@ width: 75%;
 }
 .pdp-card .pdp-img.pdp-imges-small {
 	width: 100%;
-	min-height: 138px !important;
+	min-height: 158px !important;
 }
 .pdp-imges-small img {
 	width: 100%;
 	height: 85px !important;
 	object-fit: contain;
 }
+.pdp-min-p {
+  height: 48px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  min-height: 10px;
+  margin-bottom: 26px;
+}
 .pdp-min-p.pdp-min-single {
-	height: 68px;
-    text-overflow: ellipsis;
-    overflow: hidden;
+  margin-bottom: 10px;
 }
 @media screen and (max-width: 1100px) {
 	.rating-wrap {

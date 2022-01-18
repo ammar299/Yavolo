@@ -2797,17 +2797,11 @@ select.new-select {
 .product-slider-list-img img:hover {
   border: 2px solid var(--dark-red);
 }
-.slick-slide {
-  margin: 0 8px;
-}
 .yo-offwhite-card {
   background-color: var(--off-white);
   border-radius: 10px;
   box-shadow: 1px 1px 5px #0000000a;
   margin-bottom: 20px;
-}
-.pdp-min-p {
-  min-height: 60px;
 }
 /* slick-slider */
 .pdp-slick-bg {
@@ -3272,9 +3266,6 @@ select.new-select {
   }
   .heart-icomoon {
     position: inherit;
-  }
-  .slick-slide {
-    margin: 0 8px;
   }
 }
 @media screen and (max-width: 600px) {
