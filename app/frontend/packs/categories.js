@@ -2,6 +2,7 @@ $(document).ready(function () {
     $('#categories-tree ul:not(:first-child)').addClass('ml-4')
     $('#categories-tree li').children('ul').toggle();
 
+    enableDisableAddFilterGroupBtn();
     createCategoryLinkingFilter();
     selectImagesfromS3();
 	   selectImagesFromLocalStorage();
@@ -242,6 +243,18 @@ window.validateCategoryForm = function() {
       "category[category_name]": {
         required: "Name can't be blank."
       }
+    }
+  });
+}
+
+function enableDisableAddFilterGroupBtn(){
+  $('body').on('change', '#add-filter-group', function() {
+    if ($('#add-filter-group option:selected').val() == '') {
+      $('.filter-association-gap').removeClass('d-none');
+      $('.add-filter-association-btn').addClass('d-none');
+    } else {
+      $('.filter-association-gap').addClass('d-none');
+      $('.add-filter-association-btn').removeClass('d-none');
     }
   });
 }

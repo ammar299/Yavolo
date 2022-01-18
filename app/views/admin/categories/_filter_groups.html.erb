@@ -4,14 +4,15 @@
     <%= form_tag("/admin/categories/#{@category.id}/add_filter_group_association", method: :put, local: false, remote: true) do |f| %>
       <div class="form-group form-group-vertical align-items-center form-group-vertical-responsive">
         <label for="exampleInputPassword1" class="text-left pr-3 font-weight-bold" style="min-width: 370px;">Filter Groups and Variations Assigned to Category</label>
-        <select class="form-control" name="filter_group_id">
+        <select class="form-control" name="filter_group_id" id="add-filter-group">
           <option value="">Select filter group</option>
           <% @category.filter_groups_and_variation_tab_filters_groups_for_select_tag.each do |fg| %>
             <option value="<%= fg.id %>"><%= fg.name %></option>
           <% end %>
 
         </select>
-        <%= submit_tag "+", class: "pl-3 pluse-btn add-filter-association-btn" %>
+        <%= submit_tag "+", class: "pl-3 pluse-btn add-filter-association-btn d-none" %>
+        <span class="pl-3 mr-3 pluse-btn filter-association-gap"></span>
       </div>
     <% end %>
     <div class="Yavolo-table">
