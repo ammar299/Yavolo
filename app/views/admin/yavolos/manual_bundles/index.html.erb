@@ -3,7 +3,7 @@
     <h3 class="mt-4 mb-3">Manage Yavolos</h3>
     <div class="col-lg-12">
       <div class="all-products-header d-flex justify-content-between flex-wrap mt-3">
-        <div class="all-products-header-left d-flex flex-wrap">
+        <div class="all-products-header-left d-flex flex-wrap align-items-center">
           <%= search_form_for @q, url: admin_yavolos_manual_bundles_path do |f| %>
             <% if params[:per_page].present? %>
               <%= hidden_field_tag :per_page, params[:per_page] %>

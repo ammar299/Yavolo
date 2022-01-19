@@ -451,7 +451,7 @@ textarea.form-control {
 }
 .checkbox-blk .checkmark:after {
     left: 5px;
-    top: 1px;
+    top: 0;
     width: 6px;
     height: 12px;
     border: solid white;

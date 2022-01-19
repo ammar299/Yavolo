@@ -70,8 +70,8 @@
             <div class="form-group form-group-vertical form-group-vertical-responsive">
               <%= f.label :picture, "Category Banner Image", class: "text-left pr-3 font-weight-bold" %>
             </div>
-            <div class="row search-field-flex">
-              <div class="col-lg-8 mb-1">
+            <div class="search-field-flex">
+              <div class="mb-1">
                 <small class="category-banner-image-error"></small>
                 <div class="d-flex">
                   <%= f.fields_for :picture, Picture.new do |picture| %>

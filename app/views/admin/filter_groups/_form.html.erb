@@ -3,7 +3,7 @@
 
   <% has_error, msg = get_errors(f, :name) %>
   <div class="form-group form-group-vertical align-items-center form-group-vertical-responsive <%= has_error ? 'error-field' : '' %>">
-    <label for="exampleInputPassword1" class="text-right pr-3"><strong>Filter Group Name :</strong></label>
+    <label for="exampleInputPassword1" class="px-lg-3 pr-3"><strong>Filter Group Name :</strong></label>
     <div style="flex: 1">
       <%= f.text_field :name, class: "form-control required" %>
     </div>
@@ -33,7 +33,7 @@
     </div>
   </div>
     <div class="plus-btn-category-name" id="global-check" style="display:<%= f.object.local? ? "block" : "none"  %>">
-      <h6><strong>Add Categories which show Filter Group</strong></h6>
+      <h6 class="px-lg-3"><strong>Add Categories which show Filter Group</strong></h6>
       <div class="scroll-over">
         <div class="d-flex flex-column position-relative pluse-aa">
           <%= f.fields_for :filter_categories do |filter_category| %>
@@ -48,7 +48,7 @@
       </div>
     </div>
 
-  <h6 class="pl-lg-5"><strong>Add Filters within the Group</strong></h6>
+  <h6 class="pl-lg-3"><strong>Add Filters within the Group</strong></h6>
   <div class="scroll-over">
     <div id='filter_in_categories'>
       <%= f.fields_for :filter_in_categories do |filter_in_category| %>
@@ -62,7 +62,7 @@
     </div>
   </div>
 
-  <div class="text-center">
+  <div class="text-right filter-group-btn">
     <%= f.submit 'Create Filter Group', id: "submitbutton", class: "btn btn-radius px-4 btn-primary"%>
   </div>
 <% end %>

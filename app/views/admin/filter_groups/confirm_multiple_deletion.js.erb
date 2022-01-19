@@ -9,6 +9,6 @@ if (selected_options.length > 0) {
   $('.delete-filter-groups').attr('href', newUrl);
   $('#delete-confirmation-modal').modal('show');
 } else {
-  $('#flash-msg').html("<%= j render partial: 'shared/notice_banner', locals: {notice: 'You have not selected any filter groups'}%>");
+  $('#flash-msg').html("<%= j render partial: 'shared/notice_banner', locals: {notice: 'You have not selected any filter groups.'}%>");
 }
 
