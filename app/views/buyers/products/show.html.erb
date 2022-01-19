@@ -74,12 +74,12 @@
               <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
             </ul>
             <div class="d-flex align-items-start flex-wrap mt-3 row">
-              <div class="col-lg-4 mb-3">
+              <div class="col-lg-4 mb-4">
                 <h3 class="black-text mb-0 mt-0"><%= get_price_in_pounds(@product["price"]) %></h3>
-                <span class="text-14 black-text" style="opacity: 50%;">VAT included</span>
+                <span class="text-14 black-text" style="opacity: 50%;">VAT Included</span>
               </div>
               <div class="col-lg-7">
-                    <div class="d-flex delivery-note align-items-center pt-1">
+                    <div class="d-flex delivery-note align-items-center pt-1 sold-text">
                 <span class="icon-manage-Yavolo red-text font-20px"><%= image_tag "", class: "award-badge" %></span>
                 <span class="in-text">6 sold in the last 24 hours</span>
                 </div>
@@ -127,7 +127,7 @@
                                       Friday 16th July 2021</span>
                 </div>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-6 pl-lg-0">
                 <div class="d-flex delivery-note align-items-center py-2">
                 <span class=""><%= image_tag "icon-dollar-note.svg", class: "dollar-img" %></span>
                 <span class="in-text mm-text"><strong>Money Back Guarantee.</strong> 30 days <br> return for full peace of mind.</span>
@@ -391,37 +391,67 @@
                 </div>
                 <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
                      data-parent="#accordion">
-                  <div class="card-body px-0 pb-0">
+                  <div class="card-body px-0 pb-0 pdp-review-tab">
                         
-                    <div class="review-card mx-0 px-4 mt-0">
-                    <div class="review-header d-flex justify-content-between">
-                        <span>John Smith</span>
-                        <span>22/04/2021</span>
+                    <div class="review-card mx-0 px-4 py-3 mt-0">
+                      <div class="review-header d-flex justify-content-between">
+                          <span>John Smith</span>
+                          <span>22/04/2021</span>
+                      </div>
+                      <ul class="rating d-flex my-2">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                      </ul>
+                      <div class="d-flex">
+                          <div>
+                              <p class="black-text font-14px pr-3 mb-0">Lorem ipsum dolor sit
+                                  amet, consectetur adipiscing elit. Nulla id aliquet erat, eu
+                                  congue arcu. Quisque quis mi turpis. Curabitur eu mauris
+                                  malesuada, posuere dui eget, placerat nisi. Donec lacus
+                                  magna,
+                                  imperdiet nec molestie et.</p>
+                          </div>
+                          <div class="yo-white-card p-2">
+                              <span class="">
+                              <%= image_tag "profile.jpg", class:"col-img-profile" %>
+                              </span>
+                          </div>
+                        
+                      </div>
                     </div>
-                    <ul class="rating d-flex mb-2">
-                        <li class="mr-1 active"><span class="icon-star"></span></li>
-                        <li class="mr-1 active"><span class="icon-star"></span></li>
-                        <li class="mr-1 active"><span class="icon-star"></span></li>
-                        <li class="mr-1 active"><span class="icon-star"></span></li>
-                        <li class="mr-1"><span class="icon-star"></span></li>
-                        <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
-                    </ul>
-                    <div class="d-flex">
-                        <div>
-                            <p class="black-text font-14px pr-3 mb-0">Lorem ipsum dolor sit
-                                amet, consectetur adipiscing elit. Nulla id aliquet erat, eu
-                                congue arcu. Quisque quis mi turpis. Curabitur eu mauris
-                                malesuada, posuere dui eget, placerat nisi. Donec lacus
-                                magna,
-                                imperdiet nec molestie et.</p>
-                        </div>
-                        <div class="yo-white-card p-2">
-                            <span class="">
-                            <%= image_tag "profile.jpg", class:"col-img-profile" %>
-                            </span>
-                        </div>
-                      
-                    </div>
+                    <div class="review-card mx-0 px-4 py-3 mt-0">
+                      <div class="review-header d-flex justify-content-between">
+                          <span>John Smith</span>
+                          <span>22/04/2021</span>
+                      </div>
+                      <ul class="rating d-flex my-2">
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1 active"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="icon-star"></span></li>
+                          <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+                      </ul>
+                      <div class="d-flex">
+                          <div>
+                              <p class="black-text font-14px pr-3 mb-0">Lorem ipsum dolor sit
+                                  amet, consectetur adipiscing elit. Nulla id aliquet erat, eu
+                                  congue arcu. Quisque quis mi turpis. Curabitur eu mauris
+                                  malesuada, posuere dui eget, placerat nisi. Donec lacus
+                                  magna,
+                                  imperdiet nec molestie et.</p>
+                          </div>
+                          <div class="yo-white-card p-2">
+                              <span class="">
+                              <%= image_tag "profile.jpg", class:"col-img-profile" %>
+                              </span>
+                          </div>
+                        
+                      </div>
                     </div>
                     <%# if params[:preview_listing] %>
                       <%#= @product["terms_and_returns"].present? ? @product["terms_and_returns"].try(:html_safe) : "" %>
@@ -429,44 +459,7 @@
                       <%#= @product.owner_type == "Seller" ? @product.owner&.return_and_term&.instructions&.html_safe : "" %>
                     <%# end %>
                   </div>
-                  <div class="card-body px-0 pb-0">
-                        
-                    <div class="review-card mx-0 px-4 mt-0">
-                    <div class="review-header d-flex justify-content-between">
-                        <span>John Smith</span>
-                        <span>22/04/2021</span>
-                    </div>
-                    <ul class="rating d-flex mb-2">
-                        <li class="mr-1 active"><span class="icon-star"></span></li>
-                        <li class="mr-1 active"><span class="icon-star"></span></li>
-                        <li class="mr-1 active"><span class="icon-star"></span></li>
-                        <li class="mr-1 active"><span class="icon-star"></span></li>
-                        <li class="mr-1"><span class="icon-star"></span></li>
-                        <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
-                    </ul>
-                    <div class="d-flex">
-                        <div>
-                            <p class="black-text font-14px pr-3 mb-0">Lorem ipsum dolor sit
-                                amet, consectetur adipiscing elit. Nulla id aliquet erat, eu
-                                congue arcu. Quisque quis mi turpis. Curabitur eu mauris
-                                malesuada, posuere dui eget, placerat nisi. Donec lacus
-                                magna,
-                                imperdiet nec molestie et.</p>
-                        </div>
-                        <div class="yo-white-card p-2">
-                            <span class="">
-                            <%= image_tag "profile.jpg", class:"col-img-profile" %>
-                            </span>
-                        </div>
-                      
-                    </div>
-                    </div>
-                    <%# if params[:preview_listing] %>
-                      <%#= @product["terms_and_returns"].present? ? @product["terms_and_returns"].try(:html_safe) : "" %>
-                    <%# else %>
-                      <%#= @product.owner_type == "Seller" ? @product.owner&.return_and_term&.instructions&.html_safe : "" %>
-                    <%# end %>
-                  </div>
+
                   <div class="pager-middle text-center d-flex justify-content-center mb-4">
                     <nav class="footer-pagination">
                       <ul class="pagination">
@@ -476,11 +469,19 @@
                         <li class="page-item">
                           <a rel="next" class="page-link" href="#">2</a>
                         </li>
-                        <li class="page-item">
-                          <a rel="next" class="page-link" href="#">Next ›</a>
+                        <li class="page-item active">
+                          <a data-remote="false" class="page-link">3</a>
                         </li>
                         <li class="page-item">
-                          <a class="page-link" href="#">Last »</a>
+                          <a rel="next" class="page-link" href="#">4</a>
+                        </li>
+                        <li class="page-item active">
+                          <a data-remote="false" class="page-link">5</a>
+                        </li>
+                        <li class="page-item">
+                          <a rel="next" class="page-link" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="18" height="18"><path d="m15.5 0.932-4.3 4.38 14.5 14.6-14.5 14.5 4.3 4.4 14.6-14.6 4.4-4.3-4.4-4.4-14.6-14.6z"></path></svg>
+                          </a>
                         </li>
                       </ul>
                     </nav>
@@ -494,12 +495,12 @@
       </div>
       <div class="row justify-content-center">
         <div class="col-lg-12">
-          <div class="yo-offwhite-card pdp-slick-bg mb-5 mt-4 shadow listing-slider">
+          <div class="yo-offwhite-card pdp-slick-bg mb-5 mt-5 shadow listing-slider">
             <div class="text-center">
               <label class="lable-tag btn btn-radius px-4 btn-danger no-hover py-2 pdp-label-tag">
                 BUNDLE POWERED DEALS</label>
             </div>
-            <div class="pdp-slick-slider my-3">
+            <div class="pdp-slick-slider py-3">
               <div>
                 <div class="pdp-card mt-4">
                   <div class="pdp-img p-0">
@@ -1162,7 +1163,7 @@
       </div>
       <div class="row justify-content-center">
         <div class="col-lg-12">
-          <div class="yo-offwhite-card pdp-slick-bg mb-5 mt-4 shadow">
+          <div class="yo-offwhite-card pdp-slick-bg mb-5 mt-5 shadow">
             <div class="text-center">
               <label class="lable-tag btn btn-radius px-4 btn-danger py-2 pdp-label-tag">
                 POPULAR IN VIDEO GAMES</label>
@@ -1666,7 +1667,7 @@
       </div>
       <div class="row justify-content-center">
         <div class="col-lg-12">
-          <div class="yo-offwhite-card pdp-slick-bg mb-5 mt-4 shadow">
+          <div class="yo-offwhite-card pdp-slick-bg mb-5 mt-5 shadow">
             <div class="text-center">
               <label class="lable-tag btn btn-radius px-4 btn-danger py-2 pdp-label-tag">LAST CHANCE BUNDLES</label>
             </div>
@@ -3842,6 +3843,40 @@
 </div>
 
 <script>
+  $('.pdp-slick-slider-1').slick({
+    infinite: true,
+    speed: 300,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    padding: 10,
+    responsive: [
+      {
+        breakpoint: 1025,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 800,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  });
+</script>
+
+<script>
 
   $(document).ready(function(){
     $(".pdp-slick-slider-tabs").each(function(index){
@@ -3864,6 +3899,13 @@
         autoplay: true,
         padding: 10,
         responsive: [
+            {
+                breakpoint: 1440,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                }
+            },
             {
                 breakpoint: 1025,
                 settings: {
@@ -3897,6 +3939,13 @@
         autoplay: true,
         padding: 10,
         responsive: [
+            {
+                breakpoint: 1440,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                }
+            },
             {
                 breakpoint: 1025,
                 settings: {
@@ -3963,6 +4012,13 @@
         autoplay: true,
         padding: 10,
         responsive: [
+            {
+                breakpoint: 1440,
+                settings: {
+                    slidesToShow: 5,
+                    slidesToScroll: 1,
+                }
+            },
             {
                 breakpoint: 1025,
                 settings: {
