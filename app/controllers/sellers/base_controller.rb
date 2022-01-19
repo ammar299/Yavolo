@@ -27,10 +27,8 @@ class Sellers::BaseController < ApplicationController
   def validate_seller_dashboard!
     return_address = current_seller.addresses.select do |address| address.address_type == 'return_address' end
     invoice_address = current_seller.addresses.select do |address| address.address_type == 'invoice_address' end
-    if current_seller.products.count == 0
-      return if request.original_fullpath == '/sellers/products/new'|| params['action'] == 'create'
-    end
-    return if return_address.present? && invoice_address.present? && current_seller.bank_detail.present? && current_seller&.paypal_detail&.integration_status? && current_seller.products.count > 0
+
+    return if return_address.present? && invoice_address.present? && current_seller.bank_detail.present? && current_seller&.paypal_detail&.integration_status?
     redirect_to sellers_seller_authenticated_root_path, flash: { notice: 'Please complete your dashboard required steps!' }
   end
 end

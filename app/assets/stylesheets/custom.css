@@ -2118,3 +2118,7 @@ strong {
 .order-yavolo-bundle-icon:hover {
   cursor: default;
 }
+
+.listing-record-btn {
+  width: 200px;
+}

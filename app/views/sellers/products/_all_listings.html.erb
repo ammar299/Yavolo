@@ -222,7 +222,23 @@
                             </tbody>
                         </table>
                         <% if @products.count == 0 %>
-                            <p class="text-center my-5">No Record Found</p>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col col-12 col-lg-8 col-md-8 mx-auto">
+                                        <div class="sign-in">
+                                            <p class="text-center">You have no <%= params[:tab] == 'all'? '' : params[:tab] %> listings</p>
+                                            <div class="text-center">
+                                                <% if params[:tab] == 'active' %>
+                                                    <%= link_to 'VIEW INACTIVE LISTING', sellers_products_path(tab: 'inactive'), class: 'mr-3 btn my-1 btn-radius px-2 btn-primary btn-sm listing-record-btn' %>
+                                                    <%= link_to 'ADD LISTING', new_sellers_product_path, class: 'btn my-1 btn-radius px-2 btn-primary btn-sm listing-record-btn' %>
+                                                  <% else %>
+                                                    <%= link_to 'ADD LISTING', new_sellers_product_path, class: 'btn my-1 btn-radius px-2 btn-primary btn-sm listing-record-btn' %>
+                                                <% end %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         <% end %>
                     </div>
                 </div>
