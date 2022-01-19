@@ -4,16 +4,12 @@
       <div class="all-products-header-left d-flex flex-wrap">
         <div class="dropdown-filter-field dropdown-filter-custom active mb-0 my-1">
           <%
-            if params[:q].present?
-              field_name = params[:q].keys.first
-            else
-              field_name = "email_cont"
-            end
+            field_name = "email_or_company_detail_name_cont"
           %>
           <div class="search-field mb-0">
             <%= search_form_for @q, url: admin_sellers_path do |f| %>
               <input type="hidden" name="filter_type" id="seller-filter-type" value="<%= params[:filter_type] %>">
-              <%= f.search_field field_name.to_sym, { class: 'input-btn-sm seller-search-field', placeholder: 'Search Sellers', value: "#{search_field_params(params)}" } %>
+              <%= f.search_field field_name.to_sym, { class: 'input-btn-sm seller-search-field', placeholder: 'Search sellers', value: "#{params[:q][field_name.to_sym] if params[:q].present?}" } %>
 
               <% if params[:q].present? %>
                 <%= link_to admin_sellers_path, class: 'btn-sm' do %>
@@ -41,7 +37,7 @@
         </div>
           <div class="dropdown-filter-field dropdown-filter-custom active my-1 ml-2 dropdown-filter-border" id="pages-id">
             <div class="dropdown">
-              <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Results per page: <%= "#{params[:per_page]}" if params[:per_page].present? %><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+              <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Results per page: <%= "#{params[:per_page] || 15}" %><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 
                 <%= link_to (admin_sellers_path(per_page: '15'))  do %>
@@ -93,13 +89,13 @@
                 <span class="checkmark checkmark-white"></span>
               </label>
             </th>
-            <th>Email</th>
-            <th>Company Name</th>
-            <th>Seller Since</th>
+            <th width="10%">Company Name</th>
+            <th width="12%">Email</th>
+            <th width="8%">Seller Since</th>
             <th class="text-center">Last sale</th>
             <th class="text-center">Active Listings</th>
             <th class="text-center">Lifetime Sales</th>
-            <th class="text-center">Account Status</th>
+            <th width="10%" class="text-center">Account Status</th>
             <th class="text-center">Account health</th>
             <th class="text-center" width="130px">Action</th>
           </tr>
@@ -117,8 +113,8 @@
                   </label>
                 </div>
               </td>
-              <td><span class="email-in-table"><%=seller.email %></span></td>
               <td><span class="email-in-table"><%= seller.company_detail&.name %></span></td>
+              <td><span class="email-in-table"><%=seller.email %></span></td>
               <td><%= date_format_UK(seller.created_at) %></td>
               <td>Show the last sale date</td>
               <td class="text-center">Show the number of active listings</td>

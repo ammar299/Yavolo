@@ -792,7 +792,7 @@ select.form-control {
   min-height: 35px;
   display: flex;
   align-items: center;
-  min-width: 130px;
+  min-width: 114px;
   text-overflow: ellipsis;
   justify-content: space-between;
   position: relative;
