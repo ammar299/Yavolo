@@ -101,10 +101,11 @@
                                     <div class="card-content search-field-flex">
                                         <div class="product-title d-flex justify-content-between">
                                             <div class="title black-text">
-                                                <h5 class="font-14px"><%= line_item.product.title %> </h5>
+                                                <span class="font-14px"><%= line_item.product.title %> </span>
                                             </div>
                                             <div class="price black-text">
-                                                <h6>£<%= line_item.product.price ? line_item.product.price.to_f : 0  %></h6>
+                                              <% total_price_of_line_item = line_item.price * line_item.quantity %>
+                                                <h6><%= get_price_in_pounds(total_price_of_line_item) %></h6>
                                             </div>
                                         </div>
                                         <ul class="rating d-flex mb-1">
@@ -124,7 +125,7 @@
                       <% end %>
                     <div class="d-flex justify-content-between mb-2">
                         <span><strong>Sub Total</strong></span>
-                        <span>£<%= @order.sub_total.to_f %></span>
+                        <span><%= get_price_in_pounds(@order.sub_total.present? ? @order.sub_total : 0) %></span>
                     </div>
                     <div class="d-flex justify-content-between">
                         <span><strong>Delivery</strong></span>
@@ -133,7 +134,7 @@
                     <hr>
                     <div class="d-flex justify-content-between">
                         <span><strong>Order Total</strong></span>
-                        <span>£<%= @order.total.to_f %></span>
+                        <span><%= get_price_in_pounds(@order.sub_total.present? ? @order.total : 0) %></span>
                     </div>
                 </div>
                 <div class="yo-white-card box-border">

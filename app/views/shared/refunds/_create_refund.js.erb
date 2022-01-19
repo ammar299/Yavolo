@@ -1,5 +1,6 @@
 <% if messages.present? && !is_valid %>
   displayNoticeMessage("<%= messages %>", 10000);
+  $('#refund-review-modal').modal('hide');
 <% else %>
   <% flash[:notice] = "Your order refunded successfully" %>
   window.location.href = "<%= send("#{current_user_namespace}_orders_path") %>";

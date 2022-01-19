@@ -1,0 +1,37 @@
+<div>
+  <h5 class="mb-3">Order Summary</h5>
+  <div class="item-basket">
+    <input type="checkbox" id="sometoggler" class="toggler">
+    <label for="sometoggler" id="count-label"><span class="mm-text pointer total-product-count" id="total-cnt"><%= item_or_items(total_num_of_products) %><i class="dropdown-toggle pl-2"></i> </span></label>
+    <div>
+      <% cart.each_with_index do |value, index| %>
+        <div class="d-flex justify-content-between flex-wrap mm-text mb-2" id="summary-basket-<%=value[:product_id] %>">
+          <% product = Product.find value[:product_id] %>
+          <span class="order-name-width"><strong><%= product.title %></strong></span>
+
+          <div class="d-flex">
+            <% line_item_price = get_price_in_pounds(value[:quantity].to_i * product.price) %>
+            <span class="pr-2"> <%= value[:quantity].to_i %> * <%= get_price_in_pounds(product.price) %> = <%= line_item_price %></span>
+            <%#= link_to remove_product_from_summary_path(remove_product: {product_id: product.id}, product_count: value[:quantity], total_product: total_num_of_products), method: :delete, remote: true, class: 'decoration-none' do %>
+<!--              <span class="order-summary-basket-cross">x</span>-->
+            <%# end %>
+          </div>
+        </div>
+      <% end %>
+      <hr>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between mb-2">
+    <span><strong>Sub Total</strong></span>
+    <span id="order-sub-total-price"><%= get_price_in_pounds(order_amount.present? ? order_amount[:sub_total] : 0) %></span>
+  </div>
+  <div class="d-flex justify-content-between">
+    <span><strong>Delivery</strong></span>
+    <span>Free</span>
+  </div>
+  <hr>
+  <div class="d-flex justify-content-between">
+    <span><strong>Order Total</strong></span>
+    <span id= "order-total-price"><%= get_price_in_pounds(order_amount.present? ? order_amount[:total] : 0) %></span>
+  </div>
+</div>

@@ -10,12 +10,14 @@ class Buyers::CheckoutController < Buyers::BaseController
 
   def new
     @cart = get_cart
+    @total_num_of_products = 0
     unless @cart.present?
       flash[:notice] = I18n.t('flash_messages.no_products_are_added_to_card')
       redirect_to store_front_path
       return
     end
     @order_amount = order_amount
+    @total_num_of_products = @cart.inject(0) { |sum, p| sum + p[:quantity].to_i }
     if @order_id.present?
       unless @order.present?
         session.delete(:_current_user_order_id)

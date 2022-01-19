@@ -4,8 +4,8 @@
   <tr class="order-table-row" id="order-id-<%= order.id %>">
     <td class="text-left pl-3">
       <%= order_number_format(order.order_number) if order.order_number %>
-    </td class="text-left pl-3">
-    <td>
+    </td>
+    <td class="text-left pl-3">
       <%= get_full_name(order_detail) if order_detail %>
     </td>
     <td class="text-center">
