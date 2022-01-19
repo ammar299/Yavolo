@@ -361,11 +361,17 @@
   top: 50%;
   overflow: hidden;
 }
-.pdp-slick-bg .slick-prev {
-  left: -55px;
+.pdp-slick-bg.yo-offwhite-card .slick-prev,
+.pdp-slick-bg.yo-offwhite-card .slick-next {
+  top: 0;
+  bottom: 0;
+  margin: auto;
 }
-.pdp-slick-bg .slick-next {
-  right: -55px;
+.pdp-slick-bg.yo-offwhite-card .slick-prev {
+  left: 20px;
+}
+.pdp-slick-bg.yo-offwhite-card .slick-next {
+  right: 20px;
 }
 .slick-next:before,
 .slick-prev:before {
@@ -420,11 +426,11 @@
 }
 .pdp-review-vertical-slider .slick-next,
 .pdp-nbg-slick-slider .slick-next {
-  right: 22px !important;
+  right: 12px !important;
 }
 .pdp-review-vertical-slider .slick-prev,
 .pdp-nbg-slick-slider .slick-prev {
-  right: 75px !important;
+  right: 61px !important;
   left: inherit !important;
   margin-left: 20px;
 }
@@ -613,8 +619,9 @@
 }
 .quantity-dropdown .btn input,
 .quantity-dropdown .dropdown-menu .dropdown-item {
-  font-size: 16px;
+  font-size: 16px !important;
   color: #A2697E;
+  font-weight: 600;
 }
 .quantity-dropdown .dropdown-menu .dropdown-item:active {
   background-color: #fff;
@@ -894,7 +901,7 @@
 }
 .heading-pdp-rd .similar-page-pd {
   position: absolute;
-  right: 160px;
+  right: 161px;
   margin: 0 !important;
   opacity: 0.6;
 }
@@ -906,6 +913,10 @@
 }
 .pdp-slick-bg {
   padding: 0 80px;
+  position: relative;
+}
+.pdp-slick-bg .slick-slider {
+  position: static;
 }
 .center-placing .pdp-slick-bg,
 .review-slider .pdp-slick-bg {
@@ -926,7 +937,19 @@
   flex: 0 0 53.7%;
   max-width: 53.7%;
 }
+.show-2xlarge-screen {
+  display: none;
+}
+.show-large-screen {
+  display: block;
+}
 @media screen and (min-width: 1441px) {
+  .show-large-screen {
+    display: none;
+  }
+  .show-2xlarge-screen {
+    display: block;
+  }
   .buyer-layout .container-fluid {
     max-width: 1430px;
   }
@@ -944,11 +967,30 @@
     max-width: 924px;
   }
   .pdp-slick-bg {
-    margin: 0 -114px;
-    padding: 0 100px;
+    margin: 0 -140px;
+    padding: 0 126px;
   }
   #main-slider {
     min-height: 752px;
+  }
+  .pdp-review-vertical-slider .slick-prev,
+  .pdp-nbg-slick-slider .slick-prev {
+    right: -28px !important;
+    left: inherit !important;
+    margin-left: 20px;
+  }
+  .pdp-review-vertical-slider .slick-next,
+  .pdp-nbg-slick-slider .slick-next {
+    right: -78px !important;
+  }
+  .pdp-slick-bg.yo-offwhite-card .slick-prev {
+    left: 50px;
+  }
+  .pdp-slick-bg.yo-offwhite-card .slick-next {
+    right: 50px;
+  }
+  .heading-pdp-rd .similar-page-pd {
+    right: 61px;
   }
 }
 @media screen and (max-width: 767px) {
