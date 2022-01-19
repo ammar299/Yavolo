@@ -239,14 +239,14 @@ function addNewSellerFormValidation() {
         required: "Country is required",
       },
       "seller[bank_detail_attributes][sort_code]": {
-        required: "Sort Code is required",
+        required: "Sort code is required",
       },
       "seller[bank_detail_attributes][account_number]": {
-        required: "Account Number is required",
+        required: "Account number is required",
 
       },
       "seller[bank_detail_attributes][account_number_confirmation]": {
-        required: "Confirm Account Number is required",
+        required: "Confirm account number is required",
         equalTo: "Confirm Account number should match Account number"
       },
       "seller[terms_and_conditions]": {

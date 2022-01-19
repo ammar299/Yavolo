@@ -38,7 +38,7 @@
               <%= br.text_field :date_of_birth, autofocus: true, autocomplete: "date_of_birth", class: "form-control datepicker", id: "", placeholder: "dd/mm/yyyy", required: true %>
               <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
-            <%= br.submit "Continue", class: 'btn btn-primary btn-lg btn-block mb-4' %>
+            <%= br.submit "Save & Continue", class: 'btn btn-primary btn-lg btn-block mb-4' %>
           <% end %>
         <% end %>
       </div>

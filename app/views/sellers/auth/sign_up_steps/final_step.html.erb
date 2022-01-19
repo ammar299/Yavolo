@@ -2,7 +2,6 @@
 <div class="container">
   <div class="row">
     <div class="col col-12 col-lg-6 col-md-8 mx-auto">
-      <div class="">
         <h3 class="text-center mb-5" style="color: #640529;">Register Your Business With Yavolo
         </h3>
         <h5 class="text-center mb-5" style="color: #640529;font-size: 18px; margin-top: -36px;">Add Company Details</h5>
@@ -17,7 +16,7 @@
             </div>
           <% end %>
           <% if @seller.company_detail.present? %>
-            <h5>Business Detail</h5>
+            <h5>Business Details</h5>
             <% company_detail = @seller.company_detail %>
             <div class="yo-red-card mb-3">
               <div class="d-flex justify-content-between">
@@ -104,7 +103,7 @@
             </div>
           <% end %>
           <% if @seller.bank_detail.present? %>
-            <h5>Bank Detail</h5>
+            <h5>Payout details</h5>
             <% bank_detail = @seller.bank_detail %>
             <div class="yo-red-card mb-3">
               <div class="d-flex justify-content-between">

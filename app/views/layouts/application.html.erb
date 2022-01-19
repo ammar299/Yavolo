@@ -19,6 +19,9 @@
       <div class="main-content">
         <%= yield %>
       </div>
+      <% if params[:controller]== "sellers/auth/registrations" || params[:controller]== "sellers/auth/sessions" %>
+        <%= render 'layouts/sellers/unsigned_seller' %>
+      <% end %>
     </div>
   </body>
 </html>
