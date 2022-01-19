@@ -179,7 +179,6 @@ Rails.application.routes.draw do
   end
 
   namespace :webhook do
-    post :check_onboarding_status_webhook, :to => 'paypal_integrations#check_onboarding_status_webhook'
     post :subscription_start_webhook, :to => 'stripe_webhooks#subscription_start_webhook'
   end
 
