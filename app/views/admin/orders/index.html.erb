@@ -31,7 +31,7 @@
             <% end %>
             <%= f.search_field admin_order_current_search_field_name.to_sym, { class: 'input-btn-sm admin-order-search-field', placeholder: 'Search order', value: "#{admin_order_search_field_query_param_val(params)}" } %>
             <% if params.dig(:q, admin_order_current_search_field_name.to_sym).present? %>
-              <%= link_to admin_orders_path, class: 'btn-sm' do %>
+              <%= link_to '#', class: 'btn-sm rm-orders-search' do %>
                 <i class="icon-cross" aria-hidden="true"></i>
               <% end %>
             <% else %>

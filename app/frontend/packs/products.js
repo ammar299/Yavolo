@@ -15,6 +15,7 @@ $(document).ready(function() {
   discountUpdateOnListing();
   inputMaskCurrencyField();
   setYavoloSearchMenuAndQueryName()
+  removeOrdersSearch();
   setTimeout(function() { 
       $('.select2-selection.select2-selection--single').addClass('select2-custom-height');
   }, 500);
@@ -1420,4 +1421,12 @@ function yavoloDiscountValidation(){
       $('#product_discount-error').text('Discount value should be between 2.5 and 100');
     }
   }
+}
+
+function removeOrdersSearch() {
+  $('body').on('click', '.rm-products-search', function(e) {
+    e.preventDefault();
+    $('.seller-product-search-field').val('');
+    $('form#product_search').submit();
+  });
 }

@@ -51,7 +51,9 @@ module Admin::AdminHelper
   end
 
   def print_orders_filter_by_sort_tags
+    valid_filters = %w[price yavolo]
     return unless params[:q].present? && params[:q][:s].present?
+    return if !valid_filters.include?(params[:q][:s])
     "<div class='mr-2 filter-tag'>#{sort_orders_filter_tags_titles(params[:q][:s])}<span data-yfilter=\"#{params[:q][:s]}\"  class=\"rm-filterby icon-cross\"></span></div>"
   end
 

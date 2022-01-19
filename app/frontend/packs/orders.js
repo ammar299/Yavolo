@@ -4,6 +4,8 @@ $(document).ready(function () {
     bindResultPerPageOption();
     selectOptionForRefundReason();
     buyerOrderSliderEvent()
+    removeOrdersFilter();
+    removeOrdersSearch();
 
     $('.order-mark-bulk-update').change(function () {
         $('.order-table-row').find('input:checkbox').prop('checked', $(this).is(':checked'));
@@ -129,4 +131,19 @@ function buyerOrderSliderEvent(){
     ]
     });
 
+}
+
+function removeOrdersFilter() {
+    $('body').on('click', '.rm-filterby', function() {
+        $('#q_s').val('');
+        $('form#order_search').submit();
+    });
+}
+
+function removeOrdersSearch() {
+    $('body').on('click', '.rm-orders-search', function(e) {
+        e.preventDefault();
+        $('.admin-order-search-field').val('');
+        $('form#order_search').submit();
+    });
 }
