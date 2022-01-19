@@ -39,7 +39,7 @@ module Admin::OrdersHelper
   def order_seller_name(order_line_items)
     seller_names = []
     order_line_items.each do |oli|
-      seller_name = oli&.product&.owner&.full_name rescue nil
+      seller_name = oli&.product&.owner&.company_detail&.legal_business_name rescue nil
       seller_names.push(seller_name)
     end
     seller_names.uniq.compact_blank.join(", ")

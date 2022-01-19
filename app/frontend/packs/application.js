@@ -48,6 +48,7 @@ require("packs/google-pay");
 require("packs/data-confirm-modal");
 require("packs/import-csv.js");
 require("packs/product-assignments")
+require("packs/refund")
 
 $(document).ready(() => {
   $("body").on("focus", ".datepicker", function () {

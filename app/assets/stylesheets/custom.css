@@ -792,7 +792,7 @@ select.form-control {
   min-height: 35px;
   display: flex;
   align-items: center;
-  min-width: 130px;
+  min-width: 114px;
   text-overflow: ellipsis;
   justify-content: space-between;
   position: relative;
@@ -2136,6 +2136,31 @@ strong {
 .order-yavolo-bundle-icon:hover {
   cursor: default;
 }
+_form.html.erb
+.edit_seller .yo-red-card .btn-primary:hover,
+.edit_seller .btn-primary.btn-block:hover,
+.new_seller .btn-primary.btn-block:hover {
+    background-color: #640529 !important;
+    color: #fff !important;
+}
+
+/*============= unsigned seller footer  ============*/
+.yo-icon-footer {
+    font-size: 40px;
+    color: var(--red);
+}
+.sign-in-yo-footer {
+    background-color: var(--off-white);
+}
+.seller-hub-footer-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    padding-top: 15px;
+}
+
+/*============= unsigned seller footer  ============*/
 
 
 .listing-record-btn {

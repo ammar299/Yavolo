@@ -4,7 +4,7 @@
             <div class="signin-logo d-flex align-items-center my-4">
             <div class="logo-inner">
                 <%= image_tag "Yavolo_Logo_WarmRed.png", class: 'admin_filter_header'%>
-                <p class="my-2" style="color: #640529; font-size: 20px;">A good deal better.</p>
+              <p class="my-2" style="color: #640529; font-size: 20px; font-weight: 600">A good deal better</p>
             </div>
             <div class="back-yavolo">
                 <a href="<%= root_path %>"><i class="fas fa-angle-left"></i> Back to Yavolo</a>
@@ -12,8 +12,9 @@
         </div>
             <div class="right">
                 <a href="<%= new_seller_registration_path(multistep: true) %>" class="account-link">Seller multi step sign up?</a>
-                <a href="<%= new_seller_registration_path(multistep: false) %>" class="account-link">Seller single step sign up?</a>
+<!--                <a href="<%#= new_seller_registration_path(multistep: false) %>" class="account-link">Seller single step sign up?</a>-->
                 <a href="<%= new_buyer_registration_path %>" class="register-now-bt">Register Now</a>
+              <a href="<%= new_buyer_session_path %>" class="register-now-bt">Customer Sign in</a>
             </div>
         </div>
     </div>

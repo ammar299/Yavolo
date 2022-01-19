@@ -39,7 +39,7 @@
         <%= hidden_field_tag "refund_messages[0][order_id]", order.id %>
         <%= hidden_field_tag "refund_messages[0][buyer_id]", order&.buyer_id %>
       </div>
-      <% if current_admin.present? %>
+      <% if current_admin.present? && admin_route?(params[:controller]) %>
         <% order.line_items.product_owners_collection.each.with_index(1) do |product_owner, index| %>
           <%= render "shared/refunds/line_items_refund_messages_form", product_owner: product_owner, index: index, order: order %>
         <% end %>
@@ -74,10 +74,10 @@
           <thead>
           <tr>
             <td><strong> Item(s)</strong></td>
-            <% if current_admin.present? %>
+            <% if current_admin.present? && admin_route?(params[:controller]) %>
               <td class="text-right"><strong>Seller(s)</strong></td>
             <% end %>
-            <td class="text-right"><strong>Amount paid</strong></td>
+            <td class="text-right"><strong>Amount Paid</strong></td>
             <td class="text-right"><strong>Amount to refund</strong></td>
           </tr>
           </thead>

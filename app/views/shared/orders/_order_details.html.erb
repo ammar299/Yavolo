@@ -53,7 +53,7 @@
           <th width="30%">
             <%= @order_line_items.count %> item<span class="th-lowercase">(s)</span>
           </th>
-          <% if current_admin.present? %>
+          <% if current_admin.present? && admin_route?(params[:controller]) %>
             <th width="25%">Seller</th>
           <% end %>
           <th>Quantity</th>
@@ -69,9 +69,9 @@
             <td>
               <span><u><%= order_line_item&.product&.title %></u></span>
             </td>
-            <% if current_admin.present? %>
+            <% if current_admin.present? && admin_route?(params[:controller]) %>
               <td>
-                <span><u><%= "#{order_line_item&.product&.owner&.first_name} #{order_line_item&.product&.owner&.last_name}" %></u></span>
+                <span><u><%= "#{order_line_item&.product&.owner&.company_detail&.legal_business_name}" %></u></span>
               </td>
             <% end %>
             <td>

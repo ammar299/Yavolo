@@ -9,7 +9,7 @@ class Buyers::ProductsController < ApplicationController
       render 'buyers/products/yavolo_bundle/show'
     else
       @product = Product.find_by_handle(params[:id])
-      @product_status = @product.status
+      @product_status = @product.try(:status)
       if params[:preview_listing]
         terms_and_returns = @product.owner_type == "Seller" ? @product.owner&.return_and_term&.instructions : ""
         @product = session[:preview_listing][:product].merge("terms_and_returns" => terms_and_returns, stock: @product.stock)

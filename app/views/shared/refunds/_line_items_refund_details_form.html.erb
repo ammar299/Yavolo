@@ -1,8 +1,10 @@
 <tr class="line_items">
   <td scope="row"><%= line_items.product&.title %></td>
-  <% if current_admin.present? %>
-    <td class="text-right"><%= "#{line_items.product&.owner&.first_name} #{line_items.product&.owner&.last_name}" %></td>
+  <% if current_admin.present? && admin_route?(params[:controller]) %>
+    <td class="text-right"><%= "#{line_items.product&.owner&.company_detail&.legal_business_name}" %></td>
   <% end %>
-  <td class="text-right amount_paid"><%= get_price_in_pounds(line_items.quantity * line_items.product&.price) %></td>
-  <td class="text-right"><%= number_field_tag "refund[refund_details_attributes][#{line_items.id}][amount_refund]", nil, placeholder: "£0.00", min: 1, step: 0.01, class: "refund-input amount_refund" %></td>
+  <% line_item_total_price = line_items.quantity * line_items.product&.price %>
+  <td class="text-right amount_paid"><%= get_price_in_pounds(line_item_total_price) %></td>
+  <%= hidden_field_tag "1refund[refund_details_attributes][#{line_items.id}][amount_refund]1", line_item_total_price %>
+  <td class="text-right"><%= number_field_tag "refund[refund_details_attributes][#{line_items.id}][amount_refund]", nil, placeholder: "£0.00", min: 1, max: line_item_total_price, step: 0.01, class: "refund-input amount_refund", style: "flex: 1" %></td>
 </tr>
