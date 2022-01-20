@@ -5,16 +5,15 @@ class Admin::OrdersController < Admin::BaseController
   before_action :current_order, only: :show
 
   def index
-    if params.dig(:q, :search_product_a_to_z).present?
-      @q = Order.paid_orders_listing.ransack({ search_product_a_to_z: params[:q][:search_product_a_to_z] })
-      @orders = @q.result
-    elsif params.dig(:q, :search_product_z_to_a).present?
-      @q = Order.paid_orders_listing.ransack({ search_product_z_to_a: params[:q][:search_product_z_to_a] })
-      @orders = @q.result
-    else
-      @q = Order.paid_orders_listing.ransack(params[:q])
-      @orders = @q.result(distinct: true)
-    end
+    @q = if params[:q].present? && params[:q].key?('search_product_a_to_z')
+           Order.paid_orders_listing.ransack({ search_product_a_to_z: params[:q][:search_product_a_to_z] })
+         elsif params[:q].present? && params[:q].key?('search_product_z_to_a')
+           Order.paid_orders_listing.ransack({ search_product_z_to_a: params[:q][:search_product_z_to_a] })
+         else
+           Order.paid_orders_listing.ransack(params[:q])
+         end
+    @orders = @q.result(distinct: true)
+    @orders = Order.paid_orders_listing if !params[:q].present? && !params[:filter_type].present? && !params[:csfname].present?
     @orders = @orders.order(sub_total: :desc) if params.dig(:q, :s) == "price"
     @orders = @orders.joins(:line_items).joins('inner join yavolo_bundle_products on line_items.product_id = yavolo_bundle_products.product_id') if params.dig(:q, :s) == 'yavolo'
     @total_count = @orders.size
