@@ -205,6 +205,17 @@ module ApplicationHelper
     end
   end
 
+  def seller_basic_info_modal_titles(address_type)
+    case address_type
+    when 'business_representative'
+      return 'representative_details'
+    when 'company_detail'
+      return 'company_details'
+    else
+      return address_type
+    end
+  end
+
   def multisteps_signup?
     params[:multistep] == "true"
   end
