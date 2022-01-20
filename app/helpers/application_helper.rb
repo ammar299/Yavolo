@@ -247,4 +247,8 @@ module ApplicationHelper
     number_with_delimiter(value, delimiter: ",", separator: ".")
   end
 
+  def form_headings(admin_heading,seller_heading)
+    admin_route?(params[:controller]) ? admin_heading : seller_heading
+  end
+
 end

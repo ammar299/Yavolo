@@ -1,5 +1,5 @@
 <div class="tab-pane fade <%= 'show active' if !(params[:tab] == 'delivery-settings') %>" id="Seller-About-Page" role="tabpanel" aria-labelledby="home-tab">
-  <h5 class="">Basic Info</h5>
+  <h5 class=''><%= admin_route?(params[:controller]) ? 'Basic Info' : 'About You' %></h5>
   <div class="row min-pad">
     <div class="col-lg-4 d-flex">
       <div class="yo-white-card  box-border seller-edit-card">
@@ -7,7 +7,7 @@
           <%= render 'shared/sellers/business_representative', business_representative: @seller.business_representative %>
         </div>
         <div class="text-center">
-          <%= link_to "Update details", create_url(params[:controller], "business_representative", @seller.id), class: 'btn btn-sm btn-radius px-4 btn-primary', remote: true %>
+          <%= link_to "Update details", create_url(params[:controller], "business_representative", @seller.id), class: 'btn btn-sm btn-radius px-4 btn-primary w-100', remote: true %>
         </div>
       </div>
     </div>
@@ -17,7 +17,7 @@
           <%= render 'shared/sellers/company_detail', company_detail: @seller.company_detail %>
         </div>
         <div class="text-center">
-          <%= link_to "Update details", create_url(params[:controller], "company_detail", @seller.id), class: 'btn btn-sm btn-radius px-4 btn-primary', remote: true %>
+          <%= link_to "Update details", create_url(params[:controller], "company_detail", @seller.id), class: 'btn btn-sm btn-radius px-4 btn-primary w-100', remote: true %>
         </div>
       </div>
     </div>
@@ -27,8 +27,8 @@
           <%= render 'shared/sellers/seller_logo', logo: @seller.picture %>
         </div>
         <div class="text-center">
-          <%= link_to "#{seller_logo_text(@seller)}", create_url(params[:controller], "seller_logo", @seller.id), class: 'btn btn-sm btn-radius px-3 btn-primary mt-1', id: 'add-or-update-logo-btn', remote: true %>
-          <%= link_to "Remove Image", create_url(params[:controller], "remove_seller_logo", @seller.id), class: "btn btn-sm btn-radius px-3 btn-primary mt-1 remove-seller-logo #{'disabled' unless @seller.picture.present?}", remote: true, method: :delete, data:{ confirm: "Are you sure you want to remove this image?"} %>
+          <%= link_to "#{seller_logo_text(@seller)}", create_url(params[:controller], "seller_logo", @seller.id), class: 'btn btn-sm btn-radius px-3 btn-primary mt-1 w-100', id: 'add-or-update-logo-btn', remote: true %>
+          <%= link_to "Remove Image", create_url(params[:controller], "remove_seller_logo", @seller.id), class: " w-100 btn btn-sm btn-radius px-3 btn-primary mt-1 remove-seller-logo #{'disabled' unless @seller.picture.present?}", remote: true, method: :delete, data:{ confirm: "Are you sure you want to remove this image?"} %>
         </div>
       </div>
     </div>
@@ -58,7 +58,7 @@
           <%= render 'shared/sellers/addresses', address: business_representative_address %>
         </div>
         <div class="text-center">
-          <%= link_to "Update address", create_url(params[:controller], "#{business_representative_address.address_type}",  @seller.id, business_representative_address.id), class: "btn btn-sm btn-radius px-4 btn-primary", remote: true %>
+          <%= link_to "Update address", create_url(params[:controller], "#{business_representative_address.address_type}",  @seller.id, business_representative_address.id), class: "btn btn-sm btn-radius px-4 btn-primary w-100", remote: true %>
         </div>
       </div>
     </div>
@@ -68,7 +68,7 @@
           <%= render 'shared/sellers/addresses', address: business_address %>
         </div>
         <div class="text-center">
-          <%= link_to "Update address", create_url(params[:controller], "#{business_address.address_type}",  @seller.id, business_address.id), class: "btn btn-sm btn-radius px-4 btn-primary", remote: true %>
+          <%= link_to "Update address", create_url(params[:controller], "#{business_address.address_type}",  @seller.id, business_address.id), class: "btn btn-sm btn-radius px-4 btn-primary w-100", remote: true %>
         </div>
       </div>
     </div>
@@ -78,7 +78,7 @@
           <%= render 'shared/sellers/addresses', address: return_address %>
         </div>
         <div class="text-center">
-          <%= link_to "Update address", create_url(params[:controller], "#{return_address.address_type}",  @seller.id, return_address.id), class: "btn btn-sm btn-radius px-4 btn-primary", remote: true %>
+          <%= link_to "Update address", create_url(params[:controller], "#{return_address.address_type}",  @seller.id, return_address.id), class: "btn btn-sm btn-radius px-4 btn-primary w-100", remote: true %>
         </div>
       </div>
     </div>
@@ -88,7 +88,7 @@
           <%= render 'shared/sellers/addresses', address: invoice_address %>
         </div>
         <div class="text-center">
-          <%= link_to "Update address", create_url(params[:controller], "#{invoice_address.address_type}",  @seller.id, invoice_address.id), class: "btn btn-sm btn-radius px-4 btn-primary", remote: true %>
+          <%= link_to "Update address", create_url(params[:controller], "#{invoice_address.address_type}",  @seller.id, invoice_address.id), class: "btn btn-sm btn-radius px-4 btn-primary w-100", remote: true %>
         </div>
       </div>
     </div>
