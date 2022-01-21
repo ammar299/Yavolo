@@ -251,4 +251,20 @@ module ApplicationHelper
     admin_route?(params[:controller]) ? admin_heading : seller_heading
   end
 
+  def seller_modal_heading(heading_text)
+    case heading_text
+    when "business_representative"
+      value = 'Representative Details'
+    when "company_detail"
+      value = 'Company Details'
+    when "business_representative_address"
+      value = 'Representative Address'
+    when "return_address"
+      value = 'Returns Address'
+    else
+      value = heading_text.humanize
+    end
+    value
+  end
+
 end

@@ -1,7 +1,7 @@
 $("#update-seller-form").parents('.modal-body').removeClass('reset-password-token-modal')
 <% if params[:form_to_update] == 'company_detail' || params[:form_to_update] == 'business_representative' || params[:form_to_update] == 'seller_logo' %>
 <% heading_text = params[:form_to_update] == 'seller_logo' ? 'Your Logo' : params[:form_to_update] %>
-  $("#edit-seller-form").find(".modal-title").text("<%= heading_text.humanize %>")
+  $("#edit-seller-form").find(".modal-title").text("<%= seller_modal_heading(heading_text) %>")
   $("#update-seller-form").html("<%= j render(partial: 'shared/sellers/forms/update_fields_form', locals: { url: sellers_profile_path(@seller) }) %>");
 
   $('#edit-seller-form').modal('show');
@@ -9,7 +9,7 @@ $("#update-seller-form").parents('.modal-body').removeClass('reset-password-toke
   $sellerForm.attr('action', "/sellers/profiles/<%= @seller.id %>/update_<%= params[:form_to_update] %>")
   $sellerForm.attr('data-remote', true);
 <% else %>
-  $("#edit-seller-form").find(".modal-title").text("<%= params[:form_to_update].humanize %>")
+  $("#edit-seller-form").find(".modal-title").text("<%= seller_modal_heading(params[:form_to_update]) %>")
   $("#update-seller-form").html("<%= j render(partial: 'shared/sellers/forms/update_fields_form', locals: { url: sellers_profile_path(@seller) }) %>");
   $('#edit-seller-form').modal('show');
   var $sellerForm = $("#update-seller-form form");
