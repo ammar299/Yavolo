@@ -1,9 +1,8 @@
 <%= render 'shared/progress_bar', locals: { progress: "30" } %>
-<div class="container-fluid pdp-pad">
-  <div class="px-lg-5">
+<div class="container-fluid pdp-pad pdp-checkout">
   <!--<form action="<%#= create_checkout_path %>" method="post">-->
     <%= form_with model: @order, url: create_checkout_path, method: :post, html: { id: 'checkout_details_form' } do |form| %>
-    <div class="row mt-4">
+    <div class="row mt-5">
       <div class="col-lg-8 d-flex flex-column">
         <div class="your-detail-left yo-white-card box-border flex1">
           <h5>Your Details</h5>
@@ -47,8 +46,8 @@
                 <%= ship_addr.label :postal_code, "Postcode" %>
                 <%= ship_addr.text_field :postal_code, class: 'form-control', placeholder: 'Postcode' %>
               </div>
-              <div class="mt-lg-2 col-md-6">
-                <div class="dropdown d-inline-flex mb-3">
+              <div class="form-group col-md-6">
+                <div class="dropdown d-inline-flex mb-0">
                   <a href="#"
                      class="btn btn-radius px-3 btn-radius-12 btn-secondary d-inline-flex align-items-center"
                      id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
@@ -169,15 +168,16 @@
         <div class="your-detail-right yo-white-card box-border">
           <!-- Order Summary Partial -->
           <%= render 'order_summary', cart: @cart, total_num_of_products: @total_num_of_products, order_amount: @order_amount %>
-          <hr>
+          
+          <hr class="m-0">
           <div class="d-flex delivery-note align-items-center py-3">
             <span class="icon-Secure-checkout icons-ico"></span>
-            <span class="in-text mm-text"><b>Secure Checkout</b> <br>
+            <span class="in-text mm-text text-12"><strong>Secure Checkout</strong> <br>
 											Shopping with Yavolo is always safe and secure </span>
           </div>
-          <div class="d-flex delivery-note align-items-center py-3">
+          <div class="d-flex delivery-note align-items-center pb-3">
             <span class="icon-day-guarantee icons-ico"></span>
-            <span class="in-text mm-text"><b>30 Day Guarantee</b> <br>
+            <span class="in-text mm-text text-12"><strong>30 Day Guarantee</strong> <br>
 											Returns are accepted up to 30 days as standard</span>
           </div>
           <input type="submit" value="CONTINUE TO PAYMENT" , class="btn btn-lg btn-radius px-4 btn-primary w-100">
@@ -227,7 +227,6 @@
       </div>
     </div>
   <% end %>
-  </div>
 </div>
 
 <script>
