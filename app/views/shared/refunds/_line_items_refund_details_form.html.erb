@@ -6,5 +6,5 @@
   <% line_item_total_price = line_items.quantity * line_items.product&.price %>
   <td class="text-right amount_paid"><%= get_price_in_pounds(line_item_total_price) %></td>
   <%= hidden_field_tag "1refund[refund_details_attributes][#{line_items.id}][amount_refund]1", line_item_total_price %>
-  <td class="text-right"><%= number_field_tag "refund[refund_details_attributes][#{line_items.id}][amount_refund]", nil, placeholder: "£0.00", min: 1, max: line_item_total_price, step: 0.01, class: "refund-input amount_refund", style: "flex: 1" %></td>
+  <td class="text-right"><%= text_field_tag "refund[refund_details_attributes][#{line_items.id}][amount_refund]", nil, placeholder: "£0.00", class: "refund-input amount_refund", style: "flex: 1" %></td>
 </tr>

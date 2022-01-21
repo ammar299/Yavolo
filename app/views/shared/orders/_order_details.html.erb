@@ -1,14 +1,14 @@
 <div class="row">
   <div class="col-lg-6 d-flex">
     <div class="yo-white-card box-border flex1">
-      <p><strong>Order Number:</strong> <%= order_number_format(@order.order_number) %></p>
-      <p><strong>Ordered:</strong> <%= formatted_order_date(@order.created_at) %></p>
-      <p><strong>Estimated Delivery:</strong> 15-17 June 2021</p>
-      <p><strong>Tracking:</strong> No Tracking</p>
-      <p><strong>Courier:</strong> Royal Mail</p>
-      <p><strong>Mail Class:</strong> 2nd Class</p>
-      <p><strong>VAT Number:</strong> <%= get_vat_numbers(@order_line_items) %></p>
-      <p><strong>Paid Via:</strong> <%= @order&.buyer_payment_method&.payment_method_type&.titleize %></p>
+      <div class="d-flex"><h6>Order Number:</h6>&nbsp;<p><%= order_number_format(@order.order_number) %></p></div>
+      <div class="d-flex"><h6>Ordered:</h6>&nbsp;<p><%= formatted_order_date(@order.created_at) %></p></div>
+      <div class="d-flex"><h6>Estimated Delivery:</h6>&nbsp;<p> 15-17 June 2021</p></div>
+      <div class="d-flex"><h6>Tracking:</h6>&nbsp;<p> No Tracking</p></div>
+      <div class="d-flex"><h6>Courier:</h6>&nbsp;<p>Royal Mail</p></div>
+      <div class="d-flex"><h6>Mail Class:</h6>&nbsp;<p>2nd Class</p></div>
+      <div class="d-flex"><h6>VAT Number:</h6>&nbsp;<p><%= get_vat_numbers(@order_line_items) %></p></div>
+      <div class="d-flex"><h6>Paid Via:</h6>&nbsp;<p><%= @order&.buyer_payment_method&.payment_method_type&.titleize %></p></div>
     </div>
   </div>
   <div class="col-lg-6 d-flex">
@@ -16,7 +16,7 @@
       <div class="row">
         <div class="col-lg-6 mb-2">
           <h6 class="mb-3">Shipping Address:</h6>
-          <ul>
+          <ul class="mb-3">
             <li><%= get_full_name(@order_shipping_address) %></li>
             <li><%= @order_shipping_address&.company_name %></li>
             <li><%= @order_shipping_address&.appartment %></li>

@@ -786,17 +786,15 @@ function rollingCheck(){
 }
 
 function calculateRefund() {
-  $(".amount_refund").each(function () {
-    $(this).keyup(function () {
+  $('body').on('change', '.amount_refund', function () {
       sumOfTotalRefund();
-    });
-  });
+  })
 }
 
 function sumOfTotalRefund() {
   let total_refund = 0.0;
   $('.amount_refund').each(function () {
-    let amount_refund_handler = this.value;
+    let amount_refund_handler = $(this).val();
     if (!isNaN(amount_refund_handler) && amount_refund_handler.length !== 0) {
       total_refund += parseFloat(amount_refund_handler);
     }
