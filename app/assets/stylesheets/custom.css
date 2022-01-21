@@ -2220,3 +2220,39 @@ _form.html.erb
   right: 0;
   width: 20px !important;
 }
+
+.seller-header {
+  flex-wrap: wrap;
+}
+.seller-header .register-now-bt {
+  min-width: 210px;
+  width: auto !important;
+  padding: 10px !important;
+  display: inline-flex;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: 600;
+  justify-content: center;
+  border-radius: 50px !important;
+  margin-left: 15px !important;
+}
+@media screen and (max-width: 1200px) {
+  .seller-header .signin-logo {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .seller-header .register-now-bt {
+    margin: 5px 10px !important;
+  }
+  .seller-header.signin-header .right a.account-link {
+    margin: 0;
+    flex: 1;
+  }
+  .seller-header.signin-header .right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: -10px;
+    flex: 1;
+  }
+}
