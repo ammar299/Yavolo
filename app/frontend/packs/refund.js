@@ -1,16 +1,25 @@
 $(document).ready(function () {
   console.log("Refund js is loaded");
   validateRefundAmountForm();
+  maskCurrencyWithInput();
 });
+
+function maskCurrencyWithInput() {
+    $('[name^="refund[refund_details_attributes]"]').each(function (childNodeValue, element) {
+      addCurrencyFieldInInput(element.id)
+    });
+}
 
 jQuery.validator.addMethod(
   "validate_refund_price_with_actual_price",
   function (value, element) {
     let paidValue = $(`input[name='1${element.name}1'`).val();
-    var count = 0
+    let count = 0
     $('[name^="refund[refund_details_attributes]"]').each(function (childNodeValue, element) {
-      var elementValue = $(`#${element.id}`).val();
-      $(`#${element.id}-error`).remove()
+      let elementId = element.id;
+      let elementValue = $(`#${elementId}`).val();
+      $(`#${elementId}-error`).remove()
+      $(`#${elementId}`).removeClass('error')
       if (isNaN(elementValue) === false && parseFloat(elementValue) > 0) {
         count++
       }

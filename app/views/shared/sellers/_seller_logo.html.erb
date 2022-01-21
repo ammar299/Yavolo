@@ -1,5 +1,5 @@
 <div>
-  <h5 class="text-center">Logo</h5>
+  <h5 class='text-center'><%= form_headings('Logo' , 'Your Logo').html_safe %></h5>
   <p class="mt-3 mm-text">
     <span class="mb-3">
       <% if logo.present? && logo.name.url.present? %>
@@ -9,6 +9,6 @@
       <% end %>
     </span>
   </p>
-  <p class="text-left">Image must be a .jpg, .gif or .png file smaller
+  <p class="text-center">Image must be a .jpg, .gif or .png file smaller
             than 10MB and at least 500px by 500px.</p>
 </div>

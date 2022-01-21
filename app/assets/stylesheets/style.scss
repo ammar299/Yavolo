@@ -1189,7 +1189,7 @@ h6 {
   -webkit-box-orient: vertical;
   overflow: hidden;
   font-weight: 700;
-  text-transform: uppercase;
+  text-transform: capitalize;
 }
 
 .icon-manage-Yavolo.seller-default-logo {
@@ -1197,6 +1197,9 @@ h6 {
   display: block;
   text-align: center;
   opacity: 0.5;
+  height: 150px;
+  width: 150px;
+  margin: auto;
 }
 
 .yo-card-list li {
@@ -1225,7 +1228,7 @@ h6 {
 .ac-setting-tabs .nav-tabs .nav-link:hover {
   background-color: var(--off-white);
   color: var(--dark-red);
-  font-weight: 600;
+  // font-weight: 600;
 }
 .min-pad {
   margin-right: -5px !important;
@@ -3692,6 +3695,8 @@ input::-webkit-inner-spin-button {
 .select2-custom-height{
   min-height: 38px !important;
 }
-
-
-
+.address-phone-bold,
+#company-detail-content td:first-child,
+#business-representative-content td:first-child {
+  font-weight: 600;
+}

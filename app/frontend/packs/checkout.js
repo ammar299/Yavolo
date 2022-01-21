@@ -151,8 +151,8 @@ function checkoutDetailsFormValidation() {
     function (value, element) {
       return (
         this.optional(element) ||
-        (value.length > 9 &&
-          value.match(/^(\(?(\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/))
+        ((value.length > 9 && value.length < 15) &&
+          value.match(/^(\(?(\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{1,2})$/))
       );
     },
     "Please specify a valid uk phone number (e.g +447911123456)"

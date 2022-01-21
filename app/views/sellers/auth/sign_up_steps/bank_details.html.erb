@@ -17,7 +17,7 @@
             <% has_error, msg = get_errors(form, "bank_detail.currency") %>
             <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= cd.label :currency, 'Currency*' %>
-              <%= cd.select :currency, options_for_select(['€','£']), { prompt: 'Select Currency' }, class: 'form-control' %>
+              <%= cd.select :currency, options_for_select(['€','£']), { prompt: 'Select Currency' }, class: 'form-control seller-signup-currency' %>
               <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
             <% has_error, msg = get_errors(form, "bank_detail.country") %>

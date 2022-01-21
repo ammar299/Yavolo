@@ -5,7 +5,7 @@ class Admin::DeliveryOptionsController < Admin::BaseController
   before_action :set_seller_id, only: %i[edit new]
 
   def index
-    @delivery_options = DeliveryOption.order(created_at: :desc)
+    @delivery_options = DeliveryOption.admin_delivery_option('Admin')
     @carriers = Carrier.all
   end
 

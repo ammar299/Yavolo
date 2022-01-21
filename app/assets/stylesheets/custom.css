@@ -1385,7 +1385,7 @@ width: 75%;
     width: 30%;
 }
 .refund-subtotal-table td:first-child {
-    width: 50% !important;
+    width: 60% !important;
 }
 /* .refund-table tbody tr td {
 	border: 1px solid;
@@ -2021,7 +2021,7 @@ strong {
 }
 .pageresut-text p {
   font-size: 14px;
-  margin-bottom: 12px;
+  margin-bottom: 18px;
 }
 .text-inherit {
   text-transform: inherit !important;
@@ -2184,7 +2184,39 @@ _form.html.erb
 .listing-record-btn {
   width: 200px;
 }
+
 .cart-scroll {
   max-height: 400px;
   overflow-y: auto;
+}
+
+#admin-sellers-update-form {
+    padding: 0 35px 0 10px;
+}
+#admin-sellers-update-form .form-group-vertical label {
+    text-align: right;
+    margin: 0 15px 0 0;
+    max-width: inherit;
+    font-weight: 600;
+}
+.reset-password-token-modal {
+    padding-top: 0;
+}
+.reset-password-token-modal #error-message {
+    display: none;
+}
+
+.min-width-140 {
+  min-width: 140px !important;
+}
+
+.min-width-200 {
+  min-width: 200px;
+}
+
+.cross-btn-position {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px !important;
 }

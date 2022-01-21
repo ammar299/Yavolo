@@ -205,6 +205,17 @@ module ApplicationHelper
     end
   end
 
+  def seller_basic_info_modal_titles(address_type)
+    case address_type
+    when 'business_representative'
+      return 'representative_details'
+    when 'company_detail'
+      return 'company_details'
+    else
+      return address_type
+    end
+  end
+
   def multisteps_signup?
     params[:multistep] == "true"
   end
@@ -234,6 +245,26 @@ module ApplicationHelper
   # converts numbers to human readable form e.g 98765432.98 to 98,765,432.98
   def human_readable_count(value)
     number_with_delimiter(value, delimiter: ",", separator: ".")
+  end
+
+  def form_headings(admin_heading,seller_heading)
+    admin_route?(params[:controller]) ? admin_heading : seller_heading
+  end
+
+  def seller_modal_heading(heading_text)
+    case heading_text
+    when "business_representative"
+      value = 'Representative Details'
+    when "company_detail"
+      value = 'Company Details'
+    when "business_representative_address"
+      value = 'Representative Address'
+    when "return_address"
+      value = 'Returns Address'
+    else
+      value = heading_text.humanize
+    end
+    value
   end
 
 end

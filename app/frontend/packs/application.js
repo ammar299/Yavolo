@@ -178,3 +178,13 @@ jQuery.validator.addMethod(
   },
   'Password is invalid, please include uppercase and lowercase letters, numbers, & symbols ( @!?*=+ )'
 );
+
+window.addCurrencyFieldInInput = (inputId) => {
+  $(`#${inputId}`).inputmask('currency', {
+    prefix: '£',
+    rightAlign: false,
+    clearMaskOnLostFocus: true,
+    autoUnmask: true,
+    removeMaskOnSubmit: true,
+  });
+}

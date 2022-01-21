@@ -1,11 +1,18 @@
 $(document).ready(function(){
 	AssingCategoriesFormValidation();
+	assignInputFilterGroupCategory();
 	$('#assign-filter-group-category').attr('title', 'Please select just one filter group');
 	assignFilterGroupCategory();
 
 	$('.filter-groups-checkbox-container input').change(function() {
     if (!$(this).is(':checked')) {
       $('#filter-group-select-all').prop('checked', false);
+		}
+  });
+
+	$('body').on('click', '#category-product-checkbox', function(){
+    if (!$(this).is(':checked')) {
+      $(this).closest('.Yavolo-table').find('#filter-group-select-all').prop('checked', false);
 		}
   });
 	$('body').on('change', '.filter-group-radio', function(){
@@ -81,7 +88,7 @@ function validFilterGroupForm(){
 }
 
 	// validations
-window.FilterGroupFormValidation = function(){	
+window.FilterGroupFormValidation = function(){
 	$('form#filter_group_new_form').validate({
 		ignore: "",
 	  rules: {

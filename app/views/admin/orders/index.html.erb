@@ -1,9 +1,9 @@
 <div class="container-fluid">
   <div class="d-flex align-items-center mb-2 justify-content-between mt-3 flex-wrap">
-    <div class="d-flex align-items-center">
-      <div class="dropdown-filter-field active my-1 dropdown-filter-custom dropdown-filter-position">
+    <div class="d-flex align-items-center flex-wrap">
+      <div class="dropdown-filter-field active my-1 dropdown-filter-custom dropdown-filter-position mr-2">
         <div class="dropdown">
-          <a class="btn btn-radius btn-sm px-2 btn-primary current-search-filter" href="#" role="button"
+          <a class="btn btn-radius btn-sm px-2 btn-primary current-search-filter min-width-140" href="#" role="button"
              id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <%= set_filter_type_in_dropdown(params) %><i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
           </a>
@@ -29,9 +29,9 @@
             <% if params[:per_page].present? %>
               <%= hidden_field_tag :per_page, params[:per_page] %>
             <% end %>
-            <%= f.search_field admin_order_current_search_field_name.to_sym, { class: 'input-btn-sm admin-order-search-field', placeholder: 'Search order', value: "#{admin_order_search_field_query_param_val(params)}" } %>
+            <%= f.search_field admin_order_current_search_field_name.to_sym, { class: 'input-btn-sm admin-order-search-field min-width-200', placeholder: 'Search order', value: "#{admin_order_search_field_query_param_val(params)}" } %>
             <% if params.dig(:q, admin_order_current_search_field_name.to_sym).present? %>
-              <%= link_to '#', class: 'btn-sm rm-orders-search' do %>
+              <%= link_to '#', class: 'btn-sm rm-orders-search cross-btn-position' do %>
                 <i class="icon-cross" aria-hidden="true"></i>
               <% end %>
             <% else %>
@@ -40,7 +40,7 @@
           <% end %>
         </div>
       </div>
-      <div class="dropdown-filter-field dropdown-filter-custom active my-1 ml-2 dropdown-filter-border">
+      <div class="dropdown-filter-field dropdown-filter-custom active mr-2 my-1 dropdown-filter-border">
         <div class="dropdown">
           <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Results per page: <%= params[:per_page].present? ? "#{params[:per_page]}" : '15' %><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -67,7 +67,7 @@
           </div>
         </div>
       </div>
-      <div class="dropdown-filter-field dropdown-filter-custom active my-1 ml-2 dropdown-filter-border ">
+      <div class="dropdown-filter-field dropdown-filter-custom active my-1 dropdown-filter-border ">
         <div class="dropdown">
           <a href="#" class="btn btn-radius btn-sm px-3 btn-primary btn-link-dropdown-1 align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <%= set_order_sort_by_in_dropdown(params) %>
