@@ -2016,10 +2016,12 @@ select.new-select {
   background-color: #640529;
   color: #f9ede1;
   font-size: 14px;
-  padding: 13px 60px;
-  width: 222px;
+  padding: 10px 0px;
+  width: 220px;
   border-radius: 20px;
-  margin: auto;
+  margin: 5px auto;
+  display: inline-block;
+  text-align: center;
 }
 .check-container {
   display: block;
