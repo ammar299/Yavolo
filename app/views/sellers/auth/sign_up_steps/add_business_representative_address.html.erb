@@ -48,7 +48,7 @@
             <% has_error, msg = get_errors(form, "addresses.country") %>
             <div class="form-group general-mrgn <%= has_error ? 'error-field' : '' %>">
               <%= br_addr.label :country, 'Country*' %>
-              <%= br_addr.select :country, options_for_select(countries_list, br_addr.object.country || default_country), { include_blank: false }, class: 'form-control' %>
+              <%= br_addr.select :country, options_for_select(countries_list, br_addr.object.country), { prompt: 'Select Country' }, class: 'form-control business-represntive-country' %>
               <%="<small class='form-text'>#{msg}</small>".html_safe if has_error %>
             </div>
             <% has_error, msg = get_errors(form, "addresses.postal_code") %>

@@ -2,7 +2,16 @@ $(document).ready(function () {
   console.log("sign-up-steps js is loaded");
   addNewSellerFormValidation();
   newSellerFormDropdownValidation();
+  disabledPromptOption('.company-detail-country option');
+  disabledPromptOption('.business-represntive-country option');
+  disabledPromptOption('.seller-signup-currency option');
 });
+
+function disabledPromptOption($this) {
+  if ($($($this)[0]).text() == 'Select Country' || $($($this)[0]).text() == 'Select Currency') {
+    $($($this)[0]).attr('disabled', 'disabled');
+  }
+}
 
 function addNewSellerFormValidation() {
   $("form#add_seller_steps").validate({
@@ -260,7 +269,7 @@ function addNewSellerFormValidation() {
   }, "Enter valid UK postal code");
 
   jQuery.validator.addMethod('phone_number_uk', function(value, element) {
-        return this.optional(element) || value.length > 9 && value.match(/^(\(?(\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
+        return this.optional(element) || (value.length > 9 && value.length < 15) && value.match(/^(\(?(\+44)[1-9]{1}\d{1,4}?\)?\s?\d{1,2}\s?\d{1,2})$/);
       }, 'Enter valid UK phone number(e.g +447911123456)'
   );
 jQuery.validator.addMethod("exactlength", function(value, element, param) {

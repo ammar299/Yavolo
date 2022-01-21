@@ -9,6 +9,12 @@ $(document).ready(function(){
       $('#filter-group-select-all').prop('checked', false);
 		}
   });
+
+	$('body').on('click', '#category-product-checkbox', function(){
+    if (!$(this).is(':checked')) {
+      $(this).closest('.Yavolo-table').find('#filter-group-select-all').prop('checked', false);
+		}
+  });
 	$('body').on('change', '.filter-group-radio', function(){
 		var filterType = $(this).parent().text().trim();
 		var $globalCheck = $('#global-check');

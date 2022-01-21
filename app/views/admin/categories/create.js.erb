@@ -8,6 +8,9 @@
     $('#category_category_name').parent().find('small').remove();
     $('#category_category_name').parent().append("<%="<small class='form-text'>#{column.full_message}</small>".html_safe %>")
   <% end %>
+  $('html, body').animate({
+    scrollTop: $('#category_category_name').offset().top - 140
+  }, 2000);
 <% else %>
 window.location.reload();
 <% end %>
