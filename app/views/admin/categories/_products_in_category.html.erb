@@ -16,7 +16,7 @@
 
         <div class="dropdown-filter-field dropdown-filter-custom active mb-8 my-1 mx-1 dropdown-filter-border" id="pages-id">
           <div class="dropdown">
-            <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" style="min-width: 140px" id="params-per-page" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Results per page: <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+            <a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" style="min-width: 140px" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span id="params-per-page">Results per page: 15</span><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <%= link_to (category_products_with_pagination_admin_category_path(per_page: '15')), remote: true  do %>
               <span class="option-dropdown-mark" aria-hidden="true"></span>

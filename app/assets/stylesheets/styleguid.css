@@ -661,6 +661,7 @@ textarea.form-control {
     outline: none;
     position: absolute;
     right: 20px;
+    z-index: 1;
 }
 .csv-file-uploader {
     border-radius: 8px;
