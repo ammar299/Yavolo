@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	AssingCategoriesFormValidation();
+	assignInputFilterGroupCategory();
 	$('#assign-filter-group-category').attr('title', 'Please select just one filter group');
 	assignFilterGroupCategory();
 
@@ -81,7 +82,7 @@ function validFilterGroupForm(){
 }
 
 	// validations
-window.FilterGroupFormValidation = function(){	
+window.FilterGroupFormValidation = function(){
 	$('form#filter_group_new_form').validate({
 		ignore: "",
 	  rules: {

@@ -8,6 +8,7 @@ $(document).ready(function () {
   validateEligibility();
   loginSettingsForm();
   validateSellerSignInSignUp();
+  validateSellerSignIn();
   TwoFactorAuthEmail();
   TwoFactorAuthForCode();
   sellerTimeOutSlector();
@@ -21,7 +22,7 @@ $(document).ready(function () {
     $("#upload-sellers-csv-popup").modal("show");
   });
   bindReasonUpdateOnInput();
-  bindSellerCsvPopup()
+  bindSellerCsvPopup();
   
 
   uploadCsvDragDrop();
@@ -1288,6 +1289,42 @@ function validateSellerSignInSignUp() {
     },
     "Please enter a valid email address."
   );
+}
+
+function validateSellerSignIn() {
+  $("form#seller-sign-in").validate({
+    rules: {
+      "seller[email]": {
+        required: true,
+        remote: function(){
+          var checkit = {
+            type: "get",
+            url:  "/check_valid_email"
+            // data : 'email=' + email,
+          };
+          return checkit;
+        }
+      },
+      "seller[password]": {
+        required: true,
+      },
+    },
+    highlight: function (element) {
+      $(element).parents("div.form-group").addClass("error-field");
+    },
+    unhighlight: function (element) {
+      $(element).parents("div.form-group").removeClass("error-field");
+    },
+    messages: {
+      "seller[email]": {
+        required: "Email is required",
+        remote: "Email does not exist"
+      },
+      "seller[password]": {
+        required: "Password is required",
+      },
+    },
+  });
 }
 
 function sellerTimeOutSlector() {

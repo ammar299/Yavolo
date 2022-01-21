@@ -187,6 +187,7 @@ Rails.application.routes.draw do
     unauthenticated :seller do
       get '/two_auth_new', :to => 'sellers/auth/sessions#two_auth_new'
       post '/two_auth_create', :to => 'sellers/auth/sessions#two_auth_create'
+      get '/check_valid_email', to: 'sellers/auth/sessions#check_valid_email'
     end
 
     authenticated :seller do

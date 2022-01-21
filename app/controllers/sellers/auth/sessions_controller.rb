@@ -81,5 +81,15 @@ class Sellers::Auth::SessionsController < Devise::SessionsController
     new_seller_session_path
   end
 
+  def check_valid_email
+    @seller = Seller.find_by_email  params[:seller][:email]
+    if @seller.present?
+      is_valid = "true"
+    else
+      is_valid = "false"
+    end
+    render json: is_valid
+  end
+
 
 end
