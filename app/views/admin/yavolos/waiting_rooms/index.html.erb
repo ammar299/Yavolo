@@ -1,6 +1,10 @@
-<div class="container-fluid">
+<div>
+  <div class="row">
+    <div class="col-lg-12">
+      <h3 class="mt-4 mb-3">Manage Yavolos</h3>
+    </div>
+  </div>
   <div class="row ac-setting-tabs mt-3">
-    <h3 class="mt-4 mb-3">Manage Yavolos</h3>
     <%= render "admin/yavolos/product_assignments/sidebar_tabs" %>
     <div class="col-md-9">
       <div class="tab-content" id="myTabContent">
@@ -8,33 +12,27 @@
              aria-labelledby="bundle-creation-tab">
           <div class="d-flex justify-content-between align-items-center mb-2">
             <div class="d-flex">
-              <div class="dropdown-filter-field dropdown-filter-field-small dropdown-fillter-border active mb-0 mr-1">
-                <div class="dark-bg-dropdown">
-                  <div class="dropdown dropdown-filter d-inline-flex">
-                    <a href="#" class="btn btn-radius px-3 btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Search All <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
-                    <div class="dropdown-menu pt-0" aria-labelledby="dropdownMenuLink" x-placement="bottom-start" style="position: absolute; transform: translate3d(-2px, 33px, 0px); top: 0px; left: 0px; will-change: transform;">
-                      <a class="dropdown-item active" href="#">Username <i class="fa fa-check" aria-hidden="true"></i></a>
-                      <a class="dropdown-item" href="#">Email <i class="fa fa-check" aria-hidden="true"></i></a>
-                    </div>
+              <div class="dropdown-filter-field active my-1 dropdown-filter-custom dropdown-filter-position mr-2">
+                <div class="dropdown">
+                  <a class="btn btn-radius btn-sm px-2 btn-primary current-search-filter min-width-140" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Search All<svg class="svg-inline--fa fa-angle-down fa-w-10 ml-2" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="angle-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg><!-- <i class="fa fa-angle-down ml-2" aria-hidden="true"></i> Font Awesome fontawesome.com -->
+                  </a>
+                  <div class="dropdown-menu seller-products-filters cls-admin-orders-filters" aria-labelledby="dropdownMenuLink" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);">
+                    <a class="dropdown-item active" href="#">Search All<i class="fa fa-check" aria-hidden="true"></i></a>
+                    <a class="dropdown-item" href="#">Username<i class="fa fa-check" aria-hidden="true"></i></a>
+                    <a class="dropdown-item" href="#">Email<i class="fa fa-check" aria-hidden="true"></i></a>
                   </div>
                 </div>
-                <div class="search-field mb-0">
-                  <input type="text" placeholder="Search seller" class="">
-                  <i class="fa fa-search" aria-hidden="true"></i>
-                </div>
+
+                <div class="search-field mb-0 ">
+                  <form class="order_search" id="order_search" action="/admin/orders" accept-charset="UTF-8" method="get">
+                    <input type="hidden" name="filter_type" id="order-filter-type" value="">
+                    <input type="hidden" name="csfname" id="csfn" value="line_items_product_title_or_order_number_or_line_items_product_owner_of_Seller_type_full_name_or_order_detail_full_name_or_line_items_product_sku_cont">
+                    <input class="input-btn-sm admin-order-search-field min-width-200" placeholder="Search order" value="" type="search" name="q[line_items_product_title_or_order_number_or_line_items_product_owner_of_Seller_type_full_name_or_order_detail_full_name_or_line_items_product_sku_cont]" id="q_line_items_product_title_or_order_number_or_line_items_product_owner_of_Seller_type_full_name_or_order_detail_full_name_or_line_items_product_sku_cont">
+                    <svg class="svg-inline--fa fa-search fa-w-16" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path></svg><!-- <i class="fa fa-search" aria-hidden="true"></i> Font Awesome fontawesome.com -->
+                  </form>        </div>
               </div>
-              <div class="dark-bg-dropdown dropdown-filter-field-small">
-                <div class="dropdown dropdown-filter d-inline-flex">
-                  <a href="#" class="btn btn-radius px-3 btn-link-dropdown d-inline-flex align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Results per page: 15 <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
-                  <div class="dropdown-menu pt-0" aria-labelledby="dropdownMenuLink" x-placement="bottom-start" style="position: absolute; transform: translate3d(-2px, 33px, 0px); top: 0px; left: 0px; will-change: transform;">
-                    <a class="dropdown-item active" href="#">Results per page: 15 <i class="fa fa-check" aria-hidden="true"></i></a>
-                    <a class="dropdown-item" href="#">Results per page: 30 <i class="fa fa-check" aria-hidden="true"></i></a>
-                    <a class="dropdown-item" href="#">Results per page: 60<i class="fa fa-check" aria-hidden="true"></i></a>
-                    <a class="dropdown-item" href="#">Results per page: 90<i class="fa fa-check" aria-hidden="true"></i></a>
-                    <a class="dropdown-item" href="#">Results per page: 180<i class="fa fa-check" aria-hidden="true"></i></a>
-                  </div>
-                </div>
-              </div>
+              <%= render 'shared/result_per_page_dropdown', url_path:'acd' %>
             </div>
             <div>
               <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mb-1">Export
