@@ -20,7 +20,7 @@
               <a href="#" style="min-width: 100px" class="btn btn-radius btn-sm px-3 btn-primary btn-link-dropdown-1 align-items-center" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions <i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <%= link_to 'Delete', confirm_multiple_deletion_admin_filter_groups_path, class: 'dropdown-item active', data: { remote: true } %>
-                <%= link_to 'Assign to Category', '#', class: 'dropdown-item disabled', id: 'assign-filter-group-category', data: { remote: true }%>
+                <%= link_to 'Assign to Category', '#', class: 'dropdown-item', id: 'assign-filter-group-category', data: { remote: true }%>
                 <div class="modal fade modal-xxl filter-group-modal pl-0 align-items-start" id="assignFilterGroupForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">

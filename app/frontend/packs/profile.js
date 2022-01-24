@@ -3,6 +3,7 @@ $(document).ready(function () {
   addNewSellerFormValidation();
   newSellerFormDropdownValidation();
   changeReturnItemsDispatchDropdown();
+  changeProfileSettingHeading();
 });
 function addNewSellerFormValidation() {
   $("form#add_new_seller_profile_form").validate({
@@ -312,5 +313,17 @@ function changeReturnItemsDispatchDropdown() {
     let text_field = ($(this).attr('id') == 'login-timeout')? '#login-timeout' : '#return-items-dispatch'
     $(hidden_field).val($(this).data('value'));
     $(text_field + '-text').text($(this).text());
+  });
+}
+
+function changeProfileSettingHeading() {
+  $('ul.seller-edit-nav li a').click(function(e) {
+    if ($(this).data('status')) {
+      if ($(this).text() == 'About You') {
+        $('#profile-heading-text').text('Account & Settings');
+      } else {
+        $('#profile-heading-text').text($(this).text());
+      }
+    }
   });
 }

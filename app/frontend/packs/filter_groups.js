@@ -1,7 +1,5 @@
 $(document).ready(function(){
 	AssingCategoriesFormValidation();
-	assignInputFilterGroupCategory();
-	$('#assign-filter-group-category').attr('title', 'Please select just one filter group');
 	assignFilterGroupCategory();
 
 	$('.filter-groups-checkbox-container input').change(function() {
@@ -26,14 +24,6 @@ $(document).ready(function(){
 			$globalCheck.css({'display': 'none'});
 		}
 	});
-
-  $('body').on('change', 'input[type=checkbox]', function(){
-    if($('input[type=checkbox]:checked').length == 0){
-      $('#assign-filter-group-category').addClass("disabled");
-    }else{
-      $('#assign-filter-group-category').removeClass("disabled");
-    }
-  });
 
 	// filter group form errors validation
 	$('body').on('submit','form#filter_group_new_form','form#assigned-category-form-filter-group',function(e){
@@ -68,7 +58,9 @@ function assignFilterGroupCategory(){
 	      url: url,
 	      type: 'GET'
 	    });
-	  }
+	  } else {
+			displayNoticeMessage('You have not selected any filter groups.')
+		}
 	});
 }
 
