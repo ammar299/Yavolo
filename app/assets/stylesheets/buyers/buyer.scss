@@ -1080,6 +1080,14 @@
   padding: 5px 0;
   display: flex;
   align-items: center;
+  font-weight: 600;
+}
+.save-later .red-text {
+  display: flex;
+  align-items: center;
+}
+.pdp-cart .text-with-icon .icon-remove {
+  font-size: 18px;
 }
 .pdp-cart .text-with-icon svg,.text-with-icon span {
   margin-right: 10px !important;
