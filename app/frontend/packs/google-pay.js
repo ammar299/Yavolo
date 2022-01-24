@@ -1,9 +1,15 @@
 $(document).ready(function () {
   console.log('google pay is ready');
   if (window.location.pathname.includes("cart")) {
-    googlePayPayment();
+    ifCartIsNotEmpty();
   }
 });
+
+function ifCartIsNotEmpty() {
+  if ($('#display-cart').length > 0 && $('#display-cart')[0].childNodes.length > 0) {
+    googlePayPayment();
+  }
+}
 
 function googlePayPayment() {
   // 1. Initialize Stripe

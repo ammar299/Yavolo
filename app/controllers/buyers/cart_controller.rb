@@ -115,6 +115,8 @@ class Buyers::CartController < Buyers::BaseController
     if params[:product_count].present?
       @total_num_of_products = @cart.inject(0) { |sum, p| sum + p[:quantity].to_i }
     end
+    clear_session if (@cart.length == 0)
+    # redirect_to cart_path if (@total_num_of_products = 0)
   end
 
   def update_selected_payment_method
@@ -170,6 +172,12 @@ class Buyers::CartController < Buyers::BaseController
 
   def remove_product_from_cart_params
     params.require(:remove_product).permit(:product_id)
+  end
+
+  def clear_session
+    session.delete(:_current_user_cart)
+    session.delete(:_current_user_order_id)
+    session.delete(:_selected_payment_method)
   end
 
 end

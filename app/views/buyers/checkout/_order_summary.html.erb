@@ -12,9 +12,9 @@
           <div class="d-flex">
             <% line_item_price = get_price_in_pounds(value[:quantity].to_i * product.price) %>
             <span class="pr-2"> <%= value[:quantity].to_i %> * <%= get_price_in_pounds(product.price) %> = <%= line_item_price %></span>
-            <%#= link_to remove_product_from_summary_path(remove_product: {product_id: product.id}, product_count: value[:quantity], total_product: total_num_of_products), method: :delete, remote: true, class: 'decoration-none' do %>
-<!--              <span class="order-summary-basket-cross">x</span>-->
-            <%# end %>
+            <%= link_to remove_product_from_summary_path(remove_product: {product_id: product.id}, product_count: value[:quantity], total_product: total_num_of_products), method: :delete, remote: true, class: 'decoration-none' do %>
+              <span class="order-summary-basket-cross">x</span>
+            <% end %>
           </div>
         </div>
       <% end %>
