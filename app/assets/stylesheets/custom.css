@@ -409,6 +409,7 @@ scrollbar-width: none;  /* Firefox */
   margin-bottom: 0 !important;
   min-height: 20px;
   padding-left: 20px !important;
+  display: inline-flex;
 }
 .Yavolo-table table td .checkmark {
   top: 0 !important;
@@ -1380,9 +1381,6 @@ width: 75%;
 }
 .refund-detail-body td:first-child {
     width: 40%;
-}
-.refund-detail-body-row td:first-child {
-    width: 30%;
 }
 .refund-subtotal-table td:first-child {
     width: 60% !important;

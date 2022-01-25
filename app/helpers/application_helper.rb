@@ -205,6 +205,20 @@ module ApplicationHelper
     end
   end
 
+  # def address_type_change_case(address_type)
+  #   if address_type == 'return_address'
+  #     return 'RETURNS ADDRESS'
+  #   elsif address_type == 'business_representative_address'
+  #     return 'REPRESENTATIVE ADDRESS'
+  #   elsif address_type == 'business_address'
+  #     return 'BUSINESS ADDRESS'
+  #   elsif address_type == 'invoice_address'
+  #     return 'INVOICE ADDRESS'
+  #   else
+  #     return address_type
+  #   end
+  # end
+
   def seller_basic_info_modal_titles(address_type)
     case address_type
     when 'business_representative'

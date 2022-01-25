@@ -560,7 +560,7 @@
   transition: .4s;
 }
 .pdp-collapse .chev-colps {
-  font-size: 6px;
+  font-size: 8px;
 }
 /* quantity-dropdn */
 .quantity-dropdown {
@@ -1048,10 +1048,11 @@
 .delivery-note .in-text {
   font-size: 14px !important;
   opacity: 1 !important;
+  font-weight: 600;
 }
 .sold-text .in-text {
   position: relative;
-  top: 5px;
+  top: 3px;
   left: -5px;
 }
 .dollar-img {

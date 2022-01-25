@@ -36,7 +36,7 @@
           <td><%= date_format_UK(@seller.created_at) if @seller.created_at.present? %></td>
         </tr>
         <tr>
-          <td class="">Last Login On:</td>
+          <td class="">Last Logged in:</td>
           <td><%= @seller.last_sign_in_at.present? ? date_format_UK(@seller.last_sign_in_at) : "haven't logged in yet" %></td>
         </tr>
         <tr>

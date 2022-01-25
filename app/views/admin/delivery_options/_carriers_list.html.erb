@@ -1,6 +1,6 @@
 <% carriers.each do |carrier| %>
   <tr>
-    <td>
+    <td class="text-left">
       <label class="checkbox-blk">
         <div class="carrier-checkbox-container carriers-checkbox-container">
           <input type="checkbox" id="<%= "select-#{carrier.id}" %>" value="<%= carrier.id %>">
@@ -8,9 +8,9 @@
         </div>
       </label>
     </td>
-    <td><%= carrier.name %></td>
-    <td><%= carrier.api_key %></td>
-    <td><%= carrier.secret_key %></td>
+    <td class="text-left" ><%= carrier.name %></td>
+    <td class="text-left" ><%= carrier.api_key %></td>
+    <td class="text-left" ><%= carrier.secret_key %></td>
     <td>
       <div class="text-center">
         <%= link_to 'Edit', edit_admin_carrier_path(carrier), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100' %>
