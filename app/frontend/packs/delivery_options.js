@@ -5,7 +5,6 @@ $(document).ready(function(){
   addNewDeliveryOptionForm();
   submitDeliveryForm(); // check fields are valid or not and then submit form
   enableDeliveryOptionName(); // enable/disable name validation after form submit
-  deliveryOptionDropdownValidation(); // enable/disable select filed validation after form submit
   enableDeliveryShipAttributes(); // enable and disable ship attributes on checked
   setSellerDeliveryOptionSearchMenuAndQueryName();
   $('.delivery-options-select-all-container #delivery-option-select-all').change(() => selectedDeliveryOptionsCarriers('.delivery-options-checkbox-container'));
@@ -163,17 +162,16 @@ function enableDeliveryOptionName() {
 }
 
 // enable/disable select filed validation after form submit
-function deliveryOptionDropdownValidation() {
-	$('body').on('change', '#select-ship-processing-time, #select-ship-delivery-time', function () {
-    klass = $(this).attr('class').split(' ')[1]
-    if (($(this).val() != '') && ($(this).parent().find('#' + klass + '-error-label').length > 0)) {
-      $(this).parents("div.form-group").removeClass('error-field');
-      $('#' + klass + '-error-text').text('');
-    } else if (($(this).val() == '') && ($(this).parent().find('#' + klass + '-error-label').length > 0)) {
-      $(this).parents("div.form-group").addClass('error-field');
-      $('#' + klass + '-error-text').text('Required');
-    }
-	});
+window.deliveryOptionDropdownValidation = function($this) {
+  klass = $this.attr('class').split(' ')[1].replace('select2','');
+  if ($this.parent().find('#' + klass + '-error-label').children().length == 0) return;
+  if ($this.val() != '') {
+    $this.parents("div.form-group").removeClass('error-field');
+    $('#' + klass + '-error-text').text('');
+  } else if ($this.val() == '') {
+    $this.parents("div.form-group").addClass('error-field');
+    $('#' + klass + '-error-text').text('Required');
+  }
 }
 
 // This function is use for enable and disable ship attributes on checked

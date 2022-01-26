@@ -16,7 +16,7 @@
       <%= f.hidden_field :delivery_optionable_type, value: "Admin"%>
       <%= f.hidden_field :delivery_optionable_id, value: current_admin.id %>
     <% end %>
-
+    <span id="ship-ids" data-ships="<%= Ship.ids %>"></span>
     <div class="row">
       <div class="col-md-12">
         <div class="form-group form-group-vertical flex-wrap">
@@ -33,26 +33,26 @@
                   <%= b.label %>
                 </label>
               </div>
-              <div class="col-md-8" id="delivery-ship-filed-<%= b.value %>">
+              <div class="col-md-8 delivery-option-form-container" id="delivery-ship-filed-<%= b.value %>">
                 <div class="row">
                   <div class="col-md-4 pl-md-0">
                     <div class="form-group form-group-vertical flex-wrap">
                       <b><label for="ship_price" class="text-left pr-3 w-100">Price</label></b>
-                      <%= text_field_tag 'ship_price[]', @ship_prices.present? ? @ship_prices[index] : (b.value == 1? "#{0.00}" : "#{delivery_ship_price(@delivery_option.id, b.value)}"), readonly: (b.value == 1), class: "form-control W-100 delivery-option-price ship-price-filed-#{b.value}" %>
+                      <%= text_field_tag 'ship_price[]', @ship_prices.present? ? @ship_prices[index] : (b.value == 1? "#{0.00}" : "#{delivery_ship_price(@delivery_option.id, b.value)}"), readonly: (b.value == 1), class: "form-control ship-price-field W-100 delivery-option-price ship-price-filed-#{b.value}" %>
                       <div id="ship-price-error-label"></div>
                     </div>
                   </div>
                   <div class="col-md-4 pl-md-0">
                     <div class="form-group form-group-vertical flex-wrap">
                       <b><label for="ship_processing_time" class="text-left pr-3 w-100">Processing time*</label></b>
-                      <%= select_tag 'ship_processing_time[]', options_for_select(select_processing_time, selected: @ship_processing_times.present? ? @ship_processing_times[index] : ship_processing_time(@delivery_option.id, b.value)), { disabled: @ship_ids.present? ? @ship_ids[index].nil? : disable_ships_attribute?(@delivery_option.id, b.value), prompt: 'Select Processing Time', class: "form-control select-processing-ship-filed-#{b.value}", id: 'select-ship-processing-time' } %>
+                      <%= select_tag 'ship_processing_time[]', options_for_select(select_processing_time, selected: @ship_processing_times.present? ? @ship_processing_times[index] : ship_processing_time(@delivery_option.id, b.value)), { disabled: @ship_ids.present? ? @ship_ids[index].nil? : disable_ships_attribute?(@delivery_option.id, b.value), prompt: 'Select Processing Time', class: "form-control select-processing-ship-filed-#{b.value}select2 select-processing-ship-filed-#{b.value}", id: "select-ship-processing-time-#{b.value}" } %>
                       <div id="select-processing-ship-filed-<%= b.value %>-error-label"></div>
                     </div>
                   </div>
                   <div class="col-md-4 pl-md-0">
                     <div class="form-group form-group-vertical flex-wrap">
                       <b><label for="ship_delivery_time" class="text-left pr-3 w-100">Delivery time*</label></b>
-                      <%= select_tag 'ship_delivery_time[]', options_for_select(select_delivery_time, selected: @ship_delivery_times.present? ? @ship_delivery_times[(b.value - 1)] : ship_delivery_time(@delivery_option.id, b.value)), { disabled: @ship_ids.present? ? @ship_ids[index].nil? : disable_ships_attribute?(@delivery_option.id, b.value), prompt: 'Select Delivery Time', class: "form-control select-delivery-ship-filed-#{b.value}", id: 'select-ship-delivery-time' } %>
+                      <%= select_tag 'ship_delivery_time[]', options_for_select(select_delivery_time, selected: @ship_delivery_times.present? ? @ship_delivery_times[(b.value - 1)] : ship_delivery_time(@delivery_option.id, b.value)), { disabled: @ship_ids.present? ? @ship_ids[index].nil? : disable_ships_attribute?(@delivery_option.id, b.value), prompt: 'Select Delivery Time', class: "form-control select-delivery-ship-filed-#{b.value}select2 select-delivery-ship-filed-#{b.value}", id: "select-ship-delivery-time-#{b.value}" } %>
                       <div id="select-delivery-ship-filed-<%= b.value %>-error-label"></div>
                     </div>
                   </div>
@@ -74,11 +74,28 @@
 </div>
 
 <script>
-    $(document).ready(function () {
-        $(".delivery-option-price").inputmask('currency', {
-            prefix: '£',
-            rightAlign: false
-        });
-    })
+  $(document).ready(function () {
+    $(".delivery-option-price").inputmask('currency', {
+      prefix: '£',
+      rightAlign: false
+    });
 
+    let options = {
+      minimumResultsForSearch: -1
+    }
+    <% if params[:from] != 'create_product' %>
+      options['dropdownParent'] =  '#deliveryTemplateForm .modal-content'
+    <% end %>
+
+    $('#ship-ids').data('ships').forEach(function (id) {
+      dropdownDeliveryOption('.select-processing-ship-filed-'+ id + 'select2', options);
+      dropdownDeliveryOption('.select-delivery-ship-filed-'+ id + 'select2', options);
+    });
+
+    function dropdownDeliveryOption(klass,options) {
+      $(klass).select2(options).on("change", function (e) {
+        deliveryOptionDropdownValidation($(this));
+      });
+    }
+  });
 </script>

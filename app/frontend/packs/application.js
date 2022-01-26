@@ -60,8 +60,16 @@ $(document).ready(() => {
         endDate: "-18y",
       })
       .on("changeDate", function (e) {
-        // `e` here contains the extra attributes
       });
+  });
+
+  $("body").on("change", ".datepicker", function () {
+    var date = $(".datepicker").val().replace(/\-/g, '/').split('/');
+    var latter = /^[a-zA-Z]+$/;
+    if (! latter.test(date[1])) return;
+    var dateHash = {Jan : 1, Feb: 2, Mar: 3, Apr: 4, May: 5, Jun: 6, Jul: 7, Aug: 8, Sep: 9, Oct: 10, Nov: 11, Dec: 12};
+    var newDate = date[0]+ "/" + dateHash[date[1]] + "/" + date[2];
+    $(this).val(newDate)
   });
 
   $("body").on("focus", ".datepicker-dashboard", function () {
