@@ -41,12 +41,13 @@
                 <%= ship_addr.text_field :appartment, class: 'form-control', placeholder: 'Apartment' %>
               </div>
             </div>
-            <div class="row d-flex align-items-end">
+            <div class="row d-flex">
               <div class="form-group col-md-6">
                 <%= ship_addr.label :postal_code, "Postcode" %>
                 <%= ship_addr.text_field :postal_code, class: 'form-control', placeholder: 'Postcode' %>
               </div>
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-6 d-flex flex-column">
+              <label class="invisible">invisible-text</label>
                 <div class="dropdown d-inline-flex mb-0">
                   <a href="#"
                      class="btn btn-radius px-3 btn-radius-12 btn-secondary d-inline-flex align-items-center"
@@ -120,12 +121,13 @@
                 <%= bil_addr.text_field :appartment, class: 'form-control', placeholder: 'Apartment' %>
               </div>
             </div>
-            <div class="row d-flex align-items-end">
+            <div class="row d-flex">
               <div class="form-group col-md-6">
                 <%= bil_addr.label :postal_code, "Postcode" %>
                 <%= bil_addr.text_field :postal_code, class: 'form-control', placeholder: 'Postcode' %>
               </div>
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-6 d-flex flex-column">
+              <label class="invisible">invisible-text</label>
                 <div class="dropdown d-inline-flex">
                   <a href="#"
                      class="btn btn-radius px-3 btn-radius-12 btn-secondary d-inline-flex align-items-center"
@@ -168,6 +170,15 @@
         <div class="your-detail-right yo-white-card box-border">
           <!-- Order Summary Partial -->
           <%= render 'order_summary', cart: @cart, total_num_of_products: @total_num_of_products, order_amount: @order_amount %>
+          <div class="sub-main-total">
+              <div class="d-flex justify-content-between sb-total">
+                <span>
+                  <strong>Order Total</strong>
+                </span>
+                <span id="cart-total"><%= get_price_in_pounds(@order_amount.present? ? @order_amount[:total] : 0) %></span>
+                <input type="hidden" value="<%= @order_amount.present? ? @order_amount[:total] : 0 %>" id='cart-total-hidden'>
+              </div>
+            </div>
           
           <hr class="m-0">
           <div class="d-flex delivery-note align-items-center py-3">

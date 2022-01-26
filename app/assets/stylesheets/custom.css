@@ -1590,11 +1590,11 @@ width: 75%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 10px;
+    font-size: 8px;
     width: 12px;
     height: 12px;
     padding-bottom: 2px;
-    padding-left: 1px;
+    /* padding-left: 1px; */
     cursor: pointer;
     margin-top: 2px;
 }
@@ -2231,6 +2231,9 @@ _form.html.erb
   justify-content: center;
   border-radius: 50px !important;
   margin-left: 15px !important;
+}
+.bold {
+  font-weight: 600;
 }
 @media screen and (max-width: 1200px) {
   .seller-header .signin-logo {

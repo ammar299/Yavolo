@@ -1,5 +1,5 @@
 <div class="container-fluid pdp-pad">
-  <div class="px-lg-5">
+  <div>
     <% if @order.present? %>
       <div class="row mt-4">
         <div class="col-lg-8">
@@ -77,6 +77,16 @@
           <div class="your-detail-right yo-white-card box-border">
             <!-- Order Summary Partial -->
             <%= render 'order_summary', cart: @cart, total_num_of_products: @total_num_of_products, order_amount: @order_amount %>
+              <hr>
+                <div class="sub-main-total">
+                  <div class="d-flex justify-content-between sb-total">
+                    <span>
+                      <strong>Order Total</strong>
+                    </span>
+                    <span id="cart-total"><%= get_price_in_pounds(@order_amount.present? ? @order_amount[:total] : 0) %></span>
+                    <input type="hidden" value="<%= @order_amount.present? ? @order_amount[:total] : 0 %>" id='cart-total-hidden'>
+                  </div>
+                </div>
               <hr>
               <div class="d-flex delivery-note align-items-center py-3">
                   <span class="icon-Secure-checkout icons-ico"></span>
