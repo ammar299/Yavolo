@@ -329,6 +329,7 @@ function removeImage(ele) {
   const filename = ele.parents('.col-md-4').attr('data-file-name')
   let total_remove = $('.product-photos-grid > .remove').length;
   let current_stack = $('.product-photos-grid > .p-1').length;
+  let total_images = $(".grid-single-img").length
   if (ele.hasClass('new-obj')) {
     ele.parents('.col-md-4').remove();
     total_remove = total_remove + count;
@@ -337,6 +338,14 @@ function removeImage(ele) {
     ele.parents('.p-img-container').addClass('remove');
     ele.find("[type='checkbox']").prop('checked', true)
     total_remove = total_remove + count;
+    if (total_images == total_remove){
+        $('.icon-help-style').hide();
+    }
+    if(total_images - total_remove < 9){
+      $('.photo-btn').text('Add Photos');
+      $('.photo-btn').parent('.add-photo-inner').attr('title', '');
+      $('.photo-btn').removeClass('pointer-events-none')
+    }
   }
   const featuredImageInput = $("#featured_image_input")
   if (featuredImageInput.val()) {
@@ -681,7 +690,7 @@ function previewProductImages(files) {
   let current_files = $('.product-photos-grid > .p-1').length;
   let new_files = files.length;
   let total_images = current_files + new_files;
-  if (total_images >= 9) {
+  if (total_images >= 9 || current_files >= 9 ) {
     $('.photo-btn').text('Edit Photos');
     $('.photo-btn').parent('.add-photo-inner').attr('title', 'You can add only 9 photos');
     $('.photo-btn').addClass('pointer-events-none')
@@ -704,17 +713,25 @@ function FileListItems(files, oldFiles) {
   var b = new DataTransfer()
   var unique_names = []
   for (var i = 0, len = files.length; i < len; i++) {
-    if (!unique_names.includes(files[i].name)) {
-      unique_names.push(files[i].name)
-      b.items.add(files[i])
-      oldFiles.push(files[i])
+    if (i < 9) {
+      if (!unique_names.includes(files[i].name)) {
+        unique_names.push(files[i].name)
+        b.items.add(files[i])
+        oldFiles.push(files[i])
+      }
+    } else {
+      break;
     }
   }
 
   for (var i = 0, len = (files.length + oldFiles.length); i < oldFiles.length; i++) {
-    if (!unique_names.includes(oldFiles[i].name)) {
-      unique_names.push(oldFiles[i].name)
-      b.items.add(oldFiles[i])
+    if (i < 9) {
+      if (!unique_names.includes(oldFiles[i].name)) {
+        unique_names.push(oldFiles[i].name)
+        b.items.add(oldFiles[i])
+      }
+    } else {
+      break;
     }
   }
   return b.files

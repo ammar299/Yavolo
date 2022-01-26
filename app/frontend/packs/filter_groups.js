@@ -8,6 +8,14 @@ $(document).ready(function(){
 		}
   });
 
+	$('#filter-group-form').on('keyup keypress', function(e) {
+		var keyCode = e.keyCode || e.which;
+		if (keyCode === 13) {
+			e.preventDefault();
+			return false;
+		}
+	});
+
 	$('body').on('click', '#category-product-checkbox', function(){
     if (!$(this).is(':checked')) {
       $(this).closest('.Yavolo-table').find('#filter-group-select-all').prop('checked', false);
