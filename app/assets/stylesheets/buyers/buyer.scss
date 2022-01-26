@@ -165,14 +165,7 @@
   text-decoration: none !important;
   text-transform: uppercase;
 }
-
-/* product card==*/
-/* .card-img img {
-	width: 100%;
-	object-fit: cover;
-} */
-.card-img {
-  box-shadow: 1px 1px 5px #0000000a !important;
+.pdp-detail-card  {
   padding: 10px !important;
   margin-bottom: 16px;
   max-width: 264px;
@@ -828,15 +821,6 @@
     padding-right: 0 !important;
   }
 }
-
-// adding a missing styling for footer links starts
-.pdp-footer .pdp-footer-list li a {
-  color: var(--off-white);
-  font-size: 16px;
-  // margin-bottom: 29px;
-}
-// adding a missing styling for footer links ends
-
 /* single-product-slider */
 .pdp-drag-slider {
   margin-bottom: 20px;
@@ -1050,7 +1034,7 @@
 }
 
 .pdp-review-tab .review-card {
-  margin: 0 24px 15px 24px !important;
+  margin: 0 0 15px 0 !important;
 }
 
 .delivery-note .in-text {
@@ -1191,7 +1175,7 @@
   font-size: 18px;
 }
 
-@media screen and (min-width: 1536px) {
+@media screen and (min-width: 1537px) {
   .modal-xxl .modal-dialog {
     max-width: 1024px !important;
   }

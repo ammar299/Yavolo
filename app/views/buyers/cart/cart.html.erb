@@ -47,7 +47,7 @@
                   <label class="checkbox-blk radiobox-blk">
                       <%= radio_button_tag :pay_with, "#{payment_type[:name]}", payment_method(@selected_payment_method, payment_type[:name]), class: '', data: {url: update_selected_payment_method_path, method: 'POST', remote: true } %>
                       <span class="checkmark"></span>
-                      <span class="mr-3 pay-cards">
+                      <span class="mr-3 pay-cards p-0">
                         <%= image_tag "#{payment_type[:name]}.svg" %>
                       </span>
                     </label>

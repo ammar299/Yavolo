@@ -980,11 +980,13 @@ select.form-control {
 
 /*pdp-register-drpdwn  */
 .pdp-register-drpdwn .register-drp .dropdown-menu {
-    margin-top: 20px;
-    left: inherit !important;
-    right: 0 !important;
-    min-width: 320px !important;
-    padding: 16px;
+  margin-top: 20px;
+  left: inherit !important;
+  right: -10px !important;
+  min-width: 320px !important;
+  padding: 16px;
+  border: 0;
+  border-radius: 8px !important;
 }
 
 .pdp-register-drp-img span img {
@@ -996,7 +998,7 @@ select.form-control {
 
 .pdp-register-drpdwn .register-drp .dropdown-menu:after {
     left: inherit;
-    right: 10px;
+    right: 20px;
 }
 
 .pdp-register-drpdwn .pdp-cart-brdr {
