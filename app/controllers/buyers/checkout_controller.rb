@@ -497,7 +497,7 @@ class Buyers::CheckoutController < Buyers::BaseController
     # session[:_current_user_cart] = [{:product_id=>"4", :quantity=>1, :added_on=>Mon, 17 Jan 2022 13:57:36 +0500}]
     order.line_items.each do |line_item|
       session_item = session[:_current_user_cart].select { |ar| ar[:product_id].to_i == line_item[:product_id].to_i }.first
-      if line_item[:product_id].to_i == session_item[:product_id].to_i
+      if session_item.present? && line_item[:product_id].to_i == session_item[:product_id].to_i
         line_item.update(quantity: session_item[:quantity].to_i, transfer_status: :paid)
       end
     end

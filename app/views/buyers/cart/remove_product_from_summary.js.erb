@@ -9,7 +9,9 @@ $('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
 <% if @cart.length < 1 %>
 $("#cart").html('<div class="text-center">Ya Basket is empty</div>')
 <% end %>
-
+<% if params[:action] == 'review_order' &&  @total_num_of_products > 0 %>
+//$('#display-cart').find("#review-item-id-").remove()
+<% end %>
 <% if @total_num_of_products == 0 %>
 window.location = `/cart`;
 <% end %>

@@ -1,44 +1,46 @@
-<div class="yo-white-card box-border">
-  <div class="pdp-vertical-card">
-    <div class="row align-items-start">
-      <div class="col-lg-4 d-flex">
-        <div class="card-img p-3 yo-white-card">
-          <span>
-            <%= image_tag(product_cart_images(product), width: 200, class: 'review-order-image') %>
-          </span>
-        </div>
-      </div>
-      <div class="col-lg-8 d-flex">
-        <div class="card-content search-field-flex">
-          <div class="product-title d-flex justify-content-between">
-            <div class="title black-text">
-              <%= product.title %>
-            </div>
-            <div class="price black-text">
-              <h5><%= number_to_currency(total_price(product, cart_item[:quantity].to_i), unit: "£" ) %></h5>
-            </div>
+<div id="review-item-id-<%= product.id %>">
+  <div class="yo-white-card box-border">
+    <div class="pdp-vertical-card">
+      <div class="row align-items-start">
+        <div class="col-lg-4 d-flex">
+          <div class="card-img p-3 yo-white-card">
+            <span>
+              <%= image_tag(product_cart_images(product), width: 200, class: 'review-order-image') %>
+            </span>
           </div>
-          <ul class="rating d-flex mb-2">
-            <li class="mr-1 active"><span class="icon-star"></span></li>
-            <li class="mr-1 active"><span class="icon-star"></span></li>
-            <li class="mr-1 active"><span class="icon-star"></span></li>
-            <li class="mr-1 active"><span class="icon-star"></span></li>
-            <li class="mr-1"><span class="icon-star"></span></li>
-            <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
-          </ul>
-          <p class="font-14px mb-2">Sold by <%= product_seller_name(product.id) %></p>
-          <p class="font-14px">Qty: <%= cart_item[:quantity] %></p>
-          <% unless params[:action] == "order_completed" %>
-            <hr>
-            <h5 class="mb-2">Delivery Information</h5>
-            <p class="font-14px mb-2">FREE Standard Delivery</p>
-            <p class="font-14px">Your item will arrive on 31st October 2021</p>
-            <div class="d-flex delivery-note">
-              <span class="icon-stopwatch icons-ico"></span>
-              <span class="in-text mm-text"><strong>Order in the next 4 hours to have your
-                  item <br> dispatched today</strong></span>
+        </div>
+        <div class="col-lg-8 d-flex">
+          <div class="card-content search-field-flex">
+            <div class="product-title d-flex justify-content-between">
+              <div class="title black-text">
+                <%= product.title %>
+              </div>
+              <div class="price black-text">
+                <h5><%= number_to_currency(total_price(product, cart_item[:quantity].to_i), unit: "£" ) %></h5>
+              </div>
             </div>
-          <% end %>
+            <ul class="rating d-flex mb-2">
+              <li class="mr-1 active"><span class="icon-star"></span></li>
+              <li class="mr-1 active"><span class="icon-star"></span></li>
+              <li class="mr-1 active"><span class="icon-star"></span></li>
+              <li class="mr-1 active"><span class="icon-star"></span></li>
+              <li class="mr-1"><span class="icon-star"></span></li>
+              <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
+            </ul>
+            <p class="font-14px mb-2">Sold by <%= product_seller_name(product.id) %></p>
+            <p class="font-14px">Qty: <%= cart_item[:quantity] %></p>
+            <% unless params[:action] == "order_completed" %>
+              <hr>
+              <h5 class="mb-2">Delivery Information</h5>
+              <p class="font-14px mb-2">FREE Standard Delivery</p>
+              <p class="font-14px">Your item will arrive on 31st October 2021</p>
+              <div class="d-flex delivery-note">
+                <span class="icon-stopwatch icons-ico"></span>
+                <span class="in-text mm-text"><strong>Order in the next 4 hours to have your
+                    item <br> dispatched today</strong></span>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>

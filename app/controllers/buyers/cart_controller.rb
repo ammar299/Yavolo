@@ -110,6 +110,10 @@ class Buyers::CartController < Buyers::BaseController
       @cart = get_cart
       @cart.delete_if { |h| h[:product_id].to_i == @product.id }
       @order_amount = order_amount
+      if session_order_id.present?
+        @order = Order.find_by(id: session_order_id)
+        @order.line_items.find_by(product_id: remove_product_params[:product_id]).destroy if @order.present?
+      end
       flash.now[:notice] = I18n.t('flash_messages.product_removed_successfully')
     end
     if params[:product_count].present?
@@ -156,6 +160,10 @@ class Buyers::CartController < Buyers::BaseController
 
   def get_selected_payment_method
     @selected_payment_method = session[:_selected_payment_method] ||= nil
+  end
+
+  def session_order_id
+    session[:_current_user_order_id] rescue nil
   end
 
   def add_to_cart_params
