@@ -9,5 +9,4 @@
   <% text = "Renew the following developer: #{get_seller_api_developer_name(params[:seller_api_id])} ?" %>
 <% end %>
 $("#connection-manager-actions").html("<%= j render(partial: 'sellers/connection_managers/confirmation_buttons', locals: { text: text, seller_api: params[:seller_api_id] } ) %>");
-$('#connection-manager-modal-container').addClass("modal-sm");
 $('#connection-manager-modal').modal('show');

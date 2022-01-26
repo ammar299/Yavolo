@@ -1,6 +1,6 @@
 <div class="main-content">
   <div class="container-fluid pdp-pad">
-    <div class="px-lg-5">
+    <div>
       <% if @order.present? %>
         <h3 class="mt-5 text-center">Thank You For Your Order</h3>
 
@@ -75,13 +75,13 @@
                   </div>
               </div>
             </div>
-            <div class="yo-white-card box-border">
-                <h5>Register for Yavolo</h5>
-                <hr>
-                <p>Create an account with Yavolo or login below</p>
-                <a href="#" class="btn btn-radius px-5 btn-primary mr-2 mb-1">REGISTER NOW</a>
-                <a href="#" class="btn btn-radius px-5 btn-outline-primary mb-1">LOGIN</a>
-            </div>
+              <div class="yo-white-card box-border">
+                  <h5>Register for Yavolo</h5>
+                  <hr>
+                  <p>Create an account with Yavolo or login below</p>
+                  <a href="#" class="btn btn-radius px-5 btn-primary mr-2 mb-1">REGISTER NOW</a>
+                  <a href="#" class="btn btn-radius px-5 btn-outline-primary mb-1">LOGIN</a>
+              </div>
             </div>
             <div class="col-lg-4">
                 <div class="your-detail-right yo-white-card box-border">
@@ -90,8 +90,8 @@
                     <% @line_items.each do |line_item| %>
                         <div class="pdp-vertical-card mb-3">
                             <div class="row align-items-start">
-                                <div class="col-lg-4 d-flex">
-                                    <div class="card-img p-3 yo-white-card">
+                                <div class="col-lg-4 d-flex pr-lg-0">
+                                    <div class="p-2 yo-white-card">
                                         <span>
                                             <%= image_tag(product_cart_images(line_item.product), width: 100, class: 'order-complete-summary-image') %>
                                         </span>
@@ -108,7 +108,7 @@
                                                 <h6><%= get_price_in_pounds(total_price_of_line_item) %></h6>
                                             </div>
                                         </div>
-                                        <ul class="rating d-flex mb-1">
+                                        <ul class="rating d-flex mb-2">
                                             <li class="mr-1 active"><span class="icon-star"></span></li>
                                             <li class="mr-1 active"><span class="icon-star"></span></li>
                                             <li class="mr-1 active"><span class="icon-star"></span></li>
@@ -116,7 +116,7 @@
                                             <li class="mr-1"><span class="icon-star"></span></li>
                                             <li class="mr-1"><span class="px-3 rateNo">(144)</span></li>
                                         </ul>
-                                          <p class="font-14px mb-1">Sold by <%= product_seller_name(line_item.product_id) %></p>
+                                          <p class="font-14px mb-2">Sold by <%= product_seller_name(line_item.product_id) %></p>
                                           <p class="font-14px mb-1">Qty: <%= line_item.quantity %></p>
                                     </div>
                                 </div>
