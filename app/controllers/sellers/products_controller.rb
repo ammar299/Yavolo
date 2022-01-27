@@ -58,8 +58,7 @@ class Sellers::ProductsController < Sellers::BaseController
     if @product.save
       save_product_images_from_remote_urls(@product) if params[:dup_product_id].present?
       @product.update_featured_image(params[:featured_image])
-      url_path = current_seller.products.count == 1? sellers_seller_authenticated_root_path : sellers_products_path
-      redirect_to url_path, notice: 'Product was successfully created.'
+      redirect_to sellers_products_path, notice: 'Product was successfully created.'
     else
       if params[:dup_product_id].present?
         ref_product = Product.where(id: params[:dup_product_id]).first
@@ -206,6 +205,7 @@ class Sellers::ProductsController < Sellers::BaseController
       ex_product.google_shopping.present? ? product.google_shopping = ex_product.google_shopping.dup : product.build_google_shopping
       ex_product.assigned_category.present? ? product.assigned_category = ex_product.assigned_category.dup : product.build_assigned_category
       product.pictures = ex_product.pictures.dup
+      product.ean = nil
       product
     end
 

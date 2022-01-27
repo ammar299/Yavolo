@@ -16,6 +16,8 @@ $(document).ready(function() {
   inputMaskCurrencyField();
   setYavoloSearchMenuAndQueryName()
   removeOrdersSearch();
+  validateEAN();
+  validateEANBeforeSubmission();
   setTimeout(function() { 
       $('.select2-selection.select2-selection--single').addClass('select2-custom-height');
   }, 500);
@@ -1445,5 +1447,43 @@ function removeOrdersSearch() {
     e.preventDefault();
     $('.seller-product-search-field').val('');
     $('form#product_search').submit();
+  });
+}
+
+function validateEAN() {
+  $('body').on('change', '#product_ean', function() {
+    let ean_val = $('#product_ean').val();
+    if (ean_val.length == 13) {
+      $.ajax({
+        url: '/admin/products/verify_ean',
+        type: 'get',
+        data: {ean: ean_val},
+        success: function(status){
+          if (status) {
+            $('#product_ean').parent().addClass('error-field');
+            $('#product_ean').after("<small class='form-text product-ean-matched'>Ean has already been taken</small>");
+          }
+        }
+      });
+    }
+  });
+}
+
+function validateEANBeforeSubmission() {
+  $('body').on('click', '.product-form-submission', function(e) {
+    e.preventDefault();
+    let error_label = $('#product_ean').next();
+    if ($("[class*=error-field]").length > 0) {
+      $('html, body').animate({
+        scrollTop: $("[class*=error-field]").first().offset().top - 100
+      }, 2000);
+    }
+    else if ((error_label.length > 0) && error_label.hasClass('product-ean-matched')) {
+      $('html, body').animate({
+        scrollTop: $('#product_ean').offset().top - 120
+      }, 2000);
+    } else {
+      $('form#product_form').submit();
+    }
   });
 }

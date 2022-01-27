@@ -135,6 +135,11 @@ class Admin::ProductsController < Admin::BaseController
     render json: { product_handle: params[:product_handle] }, status: :ok
   end
 
+  def verify_ean
+    is_valid = Product.find_by_ean(params[:ean]).present?
+    render json: is_valid
+  end
+
   private
     def current_user
       current_admin
@@ -167,6 +172,7 @@ class Admin::ProductsController < Admin::BaseController
       ex_product.google_shopping.present? ? product.google_shopping = ex_product.google_shopping.dup : product.build_google_shopping
       ex_product.assigned_category.present? ? product.assigned_category = ex_product.assigned_category.dup : product.build_assigned_category
       product.pictures = ex_product.pictures.dup
+      product.ean = nil
       product
     end
 

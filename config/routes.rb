@@ -115,6 +115,7 @@ Rails.application.routes.draw do
         resources :products do
           collection do
             get :duplicate
+            get :verify_ean
             post :upload_csv
             get :export_csv
             post :bulk_products_update
