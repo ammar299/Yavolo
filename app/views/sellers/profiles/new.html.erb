@@ -197,7 +197,9 @@
               </label>
             </div>
           </div>
-          <%= form.submit "Register", class: 'btn btn-primary btn-radius btn-lg btn-block mb-4' %>
+          <%= recaptcha_tags %>
+          <br/>
+          <%= form.submit "Register", class: 'btn btn-primary btn-radius btn-lg btn-block mb-4',id: 'seller-complete-address' %>
         <% end %>
       </div>
     </div>

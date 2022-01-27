@@ -5,6 +5,7 @@ $(document).ready(function () {
   disabledPromptOption('.company-detail-country option');
   disabledPromptOption('.business-represntive-country option');
   disabledPromptOption('.seller-signup-currency option');
+  checkRecaptcha()
 });
 
 function disabledPromptOption($this) {
@@ -145,6 +146,7 @@ function addNewSellerFormValidation() {
       "seller[terms_and_conditions]": {
         required: true,
       }
+
     },
     highlight: function (element) {
       $(element).parents("div.form-group").addClass("error-field");
@@ -311,4 +313,16 @@ function newSellerFormDropdownValidation() {
       $(labelId).css('display', 'block');
     }
 	});
+}
+
+function checkRecaptcha() {
+  $("form#add_new_seller_profile_form").on('submit', function (e) {
+    if (grecaptcha.getResponse() == "") {
+      e.preventDefault()
+      $(this).find('#seller-complete-address').removeAttr('data-disable-with')
+      displayNoticeMessage('please fill recaptcha')
+    } else {
+      return true;
+    }
+  });
 }

@@ -105,7 +105,8 @@ window.FilterGroupFormValidation = function(){
 			},
 			"filter_group[filter_in_categories_attributes][0][sort_order]": {
 				required: true,
-				max: 2147483646
+				max: 2147483646,
+				digits: true
 			}
     },
     errorPlacement: function (error, element) {
@@ -126,7 +127,8 @@ window.FilterGroupFormValidation = function(){
 				maxlength: "Name is too long"
 			},
 			"filter_group[filter_in_categories_attributes][0][sort_order]": {
-				max: "Value should be less than 2147483646"
+				max: "Value should be less than 2147483646",
+				digits: "Number should be greater than to 0"
 			}
      }
 	});

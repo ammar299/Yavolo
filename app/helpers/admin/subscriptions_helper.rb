@@ -38,7 +38,7 @@ module Admin::SubscriptionsHelper
   end
 
   def expiry_date
-    if seller_selected_plan.rolling_subscription.nil?
+    if seller_selected_plan&.rolling_subscription.nil?
       seller_subscription&.cancel_at
     else
       seller_subscription&.current_period_end
@@ -145,7 +145,7 @@ module Admin::SubscriptionsHelper
   end
 
   def plan_percentage_rephrase(subscription)
-    subscription.commission_excluding_vat.tap{|x| break x.to_i == x ? x.to_i : x}
+    subscription&.commission_excluding_vat&.tap{|x| break x.to_i == x ? x.to_i : x}
   end
 
 end

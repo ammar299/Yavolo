@@ -41,7 +41,7 @@
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 
                 <%= link_to (admin_sellers_path(per_page: '15'))  do %>
-                <span class="<%= 'fa fa-check' if params[:per_page] == '15' %>" aria-hidden="true"></span>
+                <span class="<%= 'fa fa-check' if params[:per_page] == '15' || params[:per_page].nil? %>" aria-hidden="true"></span>
                 Results per page: 15
                 <% end %>    
                 <%= link_to (admin_sellers_path(per_page: '30'))  do %>

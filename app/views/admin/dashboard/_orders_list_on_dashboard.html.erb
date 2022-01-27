@@ -9,7 +9,7 @@
       <%= get_full_name(order_detail) if order_detail %>
     </td>
     <td class="text-center">
-      <%= order_detail.email if order_detail.email %>
+      <%= order_detail.email if order_detail&.email.present? %>
     </td>
     <td class="text-center">
       <%= order.order_type&.titleize %>
