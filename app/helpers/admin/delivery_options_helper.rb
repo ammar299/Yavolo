@@ -45,4 +45,9 @@ module Admin::DeliveryOptionsHelper
     delivery_option = DeliveryOptionShip.find_by(ship_id: ship_id, delivery_option_id: delivery_option_id)
     return delivery_option.present? ? false : (ship_id != 1)
   end
+
+  def parse_delivery_option_name(delivery_option)
+    return unless delivery_option.present?
+    delivery_option.split('_').map(&:capitalize).join(' ')
+  end
 end

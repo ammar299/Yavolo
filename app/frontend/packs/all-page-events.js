@@ -14,7 +14,7 @@ $(document).ready(function () {
   });
 
   $(".api-token").hover(function () {
-    $(".help-popup-text").text("Click to Copy");
+    $(".help-popup-text").text("Click to copy");
   });
 
   $('body').on('click', '.menu-icon', function(){

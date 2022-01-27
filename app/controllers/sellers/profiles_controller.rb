@@ -16,9 +16,9 @@ class Sellers::ProfilesController < Sellers::BaseController
     assign_subscription_type
     @q = current_seller.delivery_options.ransack(params[:q])
     if params[:q].present? && params[:q][:name_or_ships_name_cont].present?
-      @delivery_options = @q.result.includes(:ships)
+      @delivery_options = @q.result(distinct: true).includes(:ships)
     else
-      @delivery_options = @q.result
+      @delivery_options = @q.result(distinct: true)
     end
     @remaining_addresses = Address.address_types.keys - @seller.addresses.collect(&:address_type)
     @remaining_addresses.each do |address_type| @seller.addresses.build address_type: address_type end if @remaining_addresses.present?
@@ -146,7 +146,7 @@ class Sellers::ProfilesController < Sellers::BaseController
   end
 
   def holiday_mode_params
-    params.require(:seller).permit(:holiday_mode)
+    params.require(:seller).permit(:holiday_mode, :holiday_reason)
   end
 
   def returns_and_terms_params

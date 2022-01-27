@@ -1,24 +1,28 @@
 <div class="tab-pane fade" id="holiday-mode" role="tabpanel" aria-labelledby="holiday-mode-tab">
-  <section class="holiday-mode yo-white-card box-border pb-0">
-    <h6>Holiday Mode</h6>
-    
-      <%= simple_form_for @seller, url: url, html: {class: 'pl-3 mt-2'}, remote: true do |form| %>
-        <div class="d-flex my-3">
-          <div class="pr-5">
-            <label class="checkbox-blk mt-2">Enabled
-              <%= form.radio_button :holiday_mode, '1', checked: @seller.holiday_mode, class: '' %>
-              <span class="checkmark"></span>
-            </label>
-          </div>
-          <div>
-            <label class="checkbox-blk mt-2">Disabled
-              <%= form.radio_button :holiday_mode, '0', checked: !@seller.holiday_mode, class: '' %>
-              <span class="checkmark"></span>
-            </label>
-          </div>
+  <h5 class="mb-3">Holiday Mode</h5>
+  <%= simple_form_for @seller, url: url, html: { class: 'mt-2' }, remote: true do |form| %>
+    <section class="holiday-mode yo-white-card box-border p-1">
+      <div class="d-flex my-3 ml-lg-4">
+        <div class="pr-5 d-flex align-items-center">
+          <label class="checkbox-blk mt-2 pl-0">Holiday Mode: </label>
+          <label class="checkbox-blk mt-2 ml-3">Enabled
+            <%= form.radio_button :holiday_mode, '1', checked: @seller.holiday_mode, class: '' %>
+            <span class="checkmark"></span>
+          </label>
         </div>
-        <%= form.submit 'Save', class: "btn btn-radius px-3 btn-sm btn-primary mb-3" %>
-      <% end %>
-    
-  </section>
+        <div>
+          <label class="checkbox-blk mt-2">Disabled
+            <%= form.radio_button :holiday_mode, '0', checked: !@seller.holiday_mode, class: '' %>
+            <span class="checkmark"></span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <h5 class="mb-3">Holiday Mode Notice</h5>
+    <section class="holiday-mode holy-mode-notice yo-white-card box-border p-0 pt-2">
+      <%= form.text_area :holiday_reason, class: "form-control",  rows: "5" %>
+    </section>
+    <%= form.submit 'Edit Notice', class: "btn btn-radius px-3 btn-sm btn-primary mb-3" %>
+  <% end %>
 </div>

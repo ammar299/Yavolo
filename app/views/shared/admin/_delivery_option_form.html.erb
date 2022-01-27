@@ -74,28 +74,28 @@
 </div>
 
 <script>
-  $(document).ready(function () {
-    $(".delivery-option-price").inputmask('currency', {
-      prefix: '£',
-      rightAlign: false
+    $(document).ready(function () {
+        $(".delivery-option-price").inputmask('currency', {
+            prefix: '£',
+            rightAlign: false
+        });
+
+        let options = {
+            minimumResultsForSearch: -1
+        }
+        <% if params[:from] != 'create_product' %>
+        options['dropdownParent'] =  '#deliveryTemplateForm .modal-content'
+        <% end %>
+
+        $('#ship-ids').data('ships').forEach(function (id) {
+            dropdownDeliveryOption('.select-processing-ship-filed-'+ id + 'select2', options);
+            dropdownDeliveryOption('.select-delivery-ship-filed-'+ id + 'select2', options);
+        });
+
+        function dropdownDeliveryOption(klass,options) {
+            $(klass).select2(options).on("change", function (e) {
+                deliveryOptionDropdownValidation($(this));
+            });
+        }
     });
-
-    let options = {
-      minimumResultsForSearch: -1
-    }
-    <% if params[:from] != 'create_product' %>
-      options['dropdownParent'] =  '#deliveryTemplateForm .modal-content'
-    <% end %>
-
-    $('#ship-ids').data('ships').forEach(function (id) {
-      dropdownDeliveryOption('.select-processing-ship-filed-'+ id + 'select2', options);
-      dropdownDeliveryOption('.select-delivery-ship-filed-'+ id + 'select2', options);
-    });
-
-    function dropdownDeliveryOption(klass,options) {
-      $(klass).select2(options).on("change", function (e) {
-        deliveryOptionDropdownValidation($(this));
-      });
-    }
-  });
 </script>

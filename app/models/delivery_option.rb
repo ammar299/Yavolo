@@ -12,7 +12,7 @@ class DeliveryOption < ApplicationRecord
   scope :admin_delivery_option, lambda { |class_name| where("delivery_optionable_type = ?", class_name) }
 
   def manage_unique_template
-    delivery_option = DeliveryOption.find_by(handle: self.handle)
+    delivery_option = DeliveryOption.where("lower(name) = ?", self.name.downcase).first
     return if self.id.present? && delivery_option.present? && self.id == delivery_option.id
     if delivery_option.present?
       delivery_type = delivery_option.delivery_optionable_type

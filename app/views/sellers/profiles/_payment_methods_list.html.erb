@@ -30,9 +30,9 @@
         <%= render 'shared/simple_confirm_modal', confirm_statement: 'Are you sure you want to remove this card?', id: 'membership-card-remove',path: '#', data: "", modal_id: 'membership-card-remove-confirm' %>
         
         <%if payment_method.default_status == true %>
-          <a href="#default" name="" class="btn btn-sm btn-radius px-4 btn-primary mb-3 disabled">Prefered payment method</a>
+          <a href="#default" name="" class="btn btn-sm btn-radius px-4 btn-primary mb-3 disabled">Preferred payment method</a>
         <%else%>
-          <a href="#default" name="<%= sellers_set_default_card_path(payment_method) %>" class="btn btn-sm btn-radius px-4 btn-primary mb-3 set-default">Set as prefered payment method</a>
+          <a href="#default" name="<%= sellers_set_default_card_path(payment_method) %>" class="btn btn-sm btn-radius px-4 btn-primary mb-3 set-default">Set as preferred payment method</a>
         <%end%>
         <%= render 'shared/simple_confirm_modal', confirm_statement: 'Are you sure you want set this card as default? All future subscriptions will be charge from this card', id: 'membership-card-set-default',path: '#default', data: "", modal_id: 'membership-card-set-default-confirm' %>
       <%end%>

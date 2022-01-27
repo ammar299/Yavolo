@@ -2109,8 +2109,19 @@ strong {
   background: url("star-filled.png") no-repeat;
   background-size: 18px;
 }
-
-
+/* resizing the modal width for admin & seller delivery template */
+.add-new-template-modal.modal-dialog {
+    max-width: 980px !important;
+}
+.delivery-template-input.form-control {
+    border: 1px solid var(--dark-red) !important;
+}
+.transparent-bg.form-control {
+    background-color: transparent;
+}
+.delivery-template-disabled .btn-link:disabled, .btn-link.disabled {
+    color: var(--dark-red) !important;
+}
 .bundle-text-downcase {
     text-transform: inherit;
 }
@@ -2124,8 +2135,6 @@ strong {
 .state-content.links a:hover {
     text-decoration: none;
 }
-
-
 
 .order-complete-summary-image {
   width: 100%;

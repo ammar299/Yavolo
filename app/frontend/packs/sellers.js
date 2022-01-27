@@ -530,12 +530,10 @@ $(document).ready(function () {
       ignore: "",
       rules: {
         "seller[recovery_email]": {
-          required: true,
           email: true,
           regex: /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i,
         },
         "seller[contact_number]": {
-          required: true,
           phone_number_uk: true,
           noSpace: true,
         },
@@ -559,14 +557,8 @@ $(document).ready(function () {
         $(element).parents("div.form-group").removeClass("error-field");
       },
       messages: {
-        "seller[recovery_email]": {
-          required: "Recovery email required",
-        },
-        "seller[contact_number]": {
-          required: "Recovery phone number required",
-        },
         "seller[password]": {
-          required: "New passowrd required",
+          required: "New password required",
         },
         "seller[password_confirmation]":
         {

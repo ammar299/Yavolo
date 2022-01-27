@@ -326,7 +326,7 @@ class Admin::SellersController < Admin::BaseController
   end
 
   def holiday_mode_params
-    params.require(:seller).permit(:holiday_mode)
+    params.require(:seller).permit(:holiday_mode, :holiday_reason)
   end
 
   def set_seller

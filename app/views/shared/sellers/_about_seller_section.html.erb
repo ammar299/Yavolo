@@ -1,5 +1,8 @@
 <div class="tab-pane fade <%= 'show active' if !(params[:tab] == 'delivery-settings') %>" id="Seller-About-Page" role="tabpanel" aria-labelledby="home-tab">
-  <h5 class=''><%= admin_route?(params[:controller]) ? 'Basic Info' : 'About You' %></h5>
+  <div id="about-top-portion" class="d-flex align-items-center justify-content-between mb-3">
+    <h5 class=''><%= admin_route?(params[:controller]) ? 'Basic Info' : 'About You' %></h5>
+    <%= link_to "Reset Password", confirm_reset_password_token_sellers_profile_path(@seller), class: "btn btn-sm btn-radius px-4 btn-primary mr-1", remote: true %>
+  </div>
   <div class="row min-pad">
     <div class="col-lg-4 d-flex">
       <div class="yo-white-card  box-border seller-edit-card">

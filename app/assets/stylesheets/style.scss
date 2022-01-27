@@ -1785,11 +1785,6 @@ h6 {
 .light-red {
   color: var(--danger-color);
 }
-.help-popup {
-  position: absolute;
-  top: 5px;
-  right: -4px;
-}
 .help-popup:hover {
   color: var(--danger-color);
   cursor: pointer;
@@ -1803,9 +1798,7 @@ h6 {
   display: none;
   border-radius: 10px;
   position: absolute;
-  right: -100px;
   width: 200px;
-  margin-top: 15px;
   z-index: 4;
 }
 .yo-opacity {
@@ -3672,7 +3665,9 @@ input::-webkit-inner-spin-button {
   font-weight: 600;
 }
 
-
+.holy-mode-notice textarea {
+  border: 0 !important;
+}
 @media screen and (min-width: 1537px) {
   .pdp-footer-2 .pdp-footer-2-list li {
     margin-left: 40px;

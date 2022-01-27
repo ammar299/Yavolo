@@ -15,11 +15,11 @@
               <p class="mb-0"><%= delivery.products.count > 0  ? pluralize(delivery.products.count, 'Listing') : '0 Listing'  %><%=%></p>
             </div>
             <div>
-              <%= link_to 'Edit Template', edit_admin_delivery_option_path(delivery,seller_id: @seller_id), class: 'btn btn-radius px-4 btn-primary btn-sm', data: { remote: true } %>
+              <%= link_to 'Edit Template', edit_admin_delivery_option_path(delivery,seller_id: @seller_id), class: 'btn btn-radius px-4 btn-primary btn-sm my-1', data: { remote: true } %>
               <% if delivery.products.count < 1 %>
-                <%= link_to 'Remove Template', confirm_delete_admin_delivery_option_path(delivery, seller_id: @seller_id, path: 'seller', delete: true), remote: true, class: 'btn btn-radius px-4 btn-primary btn-sm' %>
+                <%= link_to 'Remove Template', confirm_delete_admin_delivery_option_path(delivery, seller_id: @seller_id, path: 'seller', delete: true), remote: true, class: 'btn btn-radius px-4 btn-primary btn-sm my-1' %>
               <% else %>
-                <%= link_to 'Remove Template', confirm_delete_admin_delivery_option_path(delivery, seller_id: @seller_id, path: 'seller',delete: false), remote: true, class: 'btn btn-radius px-4 btn-primary btn-sm' %>
+                <%= link_to 'Remove Template', confirm_delete_admin_delivery_option_path(delivery, seller_id: @seller_id, path: 'seller',delete: false), remote: true, class: 'btn btn-radius px-4 btn-primary btn-sm my-1' %>
               <% end %>
             </div>
           </div>
