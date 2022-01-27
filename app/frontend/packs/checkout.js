@@ -151,7 +151,7 @@ function checkoutDetailsFormValidation() {
     function (value, element) {
       return (
         this.optional(element) ||
-        ((value.length > 9 && value.length < 15) &&
+        ((value.length > 9 && value.length < 14) &&
           value.match(/^(\(?(\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{1,2})$/))
       );
     },

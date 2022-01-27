@@ -1229,6 +1229,9 @@ h6 {
   color: var(--dark-red);
   // font-weight: 600;
 }
+.ac-setting-tabs .nav-tabs .nav-link.active {
+  font-weight: 600;
+}
 .min-pad {
   margin-right: -5px !important;
   margin-left: -5px !important;

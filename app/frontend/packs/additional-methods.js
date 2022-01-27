@@ -1208,7 +1208,7 @@ $.validator.addMethod( "phonePL", function( phone_number, element ) {
 // Matches UK landline + mobile, accepting only 01-3 for landline or 07 for mobile to exclude many premium numbers
 $.validator.addMethod( "phonesUK", function( phone_number, element ) {
 	phone_number = phone_number.replace( /\(|\)|\s+|-/g, "" );
-	return this.optional( element ) || (phone_number.length > 9 && phone_number.length < 15) &&
+	return this.optional( element ) || (phone_number.length > 9 && phone_number.length < 14) &&
 		phone_number.match( /^(\(?(\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{1,2})$/);
 }, "Please specify a valid uk phone number (e.g +447911123456)" );
 

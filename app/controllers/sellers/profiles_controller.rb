@@ -91,7 +91,7 @@ class Sellers::ProfilesController < Sellers::BaseController
       @seller.products.where(status: :active).update(status: :inactive)
     end
     @seller.update(holiday_mode_params)
-    text = @seller.holiday_mode == true ? "Enabled holiday mode successfully" : "Disabled holiday mode successfully"
+    text = @seller.holiday_mode == true ? "Enabled holiday mode successfully!" : "Disabled holiday mode successfully!"
     flash.now[:notice] = "#{text}"
     SellerMailer.with(to: @seller.email.downcase).send_holiday_mode_email(@seller).deliver_now
   end

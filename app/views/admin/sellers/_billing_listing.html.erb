@@ -6,7 +6,7 @@
         <table class="table">
           <thead>
             <tr>
-              <th>invoice#</th>
+              <th>invoice #</th>
               <th>total</th>
               <th>description</th>
               <th>Date Generated</th>
@@ -22,7 +22,7 @@
                 <td><%= invoice&.description  %></td>
                 <td><%= invoice&.date_generated&.strftime('%d/%m/%Y') %></td>
                 <td><%= invoice&.due_date&.strftime('%d/%m/%Y') %></td>
-                <td><%= invoice&.status %></td>
+                <td><%= invoice&.status.capitalize %></td>
               </tr>
             <%end%>
           </tbody>

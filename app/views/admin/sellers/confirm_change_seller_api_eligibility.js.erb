@@ -1,6 +1,8 @@
 <% if params[:came_from] == 'connection_manager' %>
-$("#seller-api-modal-title").html("Disable API Creation");
+<% text = @seller.eligible_to_create_api ? 'Disable' : 'Enable' %>
+$("#seller-api-modal-title").html("<%= text %> API Creation");
 $("#seller-api-actions").html("<%= j render(partial: 'admin/sellers/change_seller_api_eligibility', locals: { id: @seller, param_to_update: "true" }) %>");
+$('.api-creation-btn').html("<%= text.upcase %>")
 $('#seller-api-modal').modal('show');
 <% else %>
 $("#seller-actions").html("<%= j render(partial: 'admin/sellers/change_seller_api_eligibility', locals: { id: @seller, param_to_update: "true" }) %>");
