@@ -1607,7 +1607,11 @@ width: 75%;
 
 .visa-pix.pay-cards {
   height: 42px !important;
-  width: 80px !important;
+  width: 91px !important;
+}
+
+.billing-add-method a.red-text.mm-text {
+  text-decoration: underline;
 }
 
 .no-hover.btn-danger :hover  {

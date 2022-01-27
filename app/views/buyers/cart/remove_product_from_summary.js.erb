@@ -6,6 +6,7 @@ $('#order-sub-total-price').html("<%= get_price_in_pounds(@order_amount[:total])
 $('#order-total-price').html("<%= get_price_in_pounds(@order_amount[:total]) %>")
 $("#header_cart").html("<%= j render('buyers/cart/header_cart' ) %>");
 $('#flash-msg').html('<%= j render partial: "shared/notice_banner" %>');
+$('#review-item-id-<%= @product.id %>').remove()
 <% if @cart.length < 1 %>
 $("#cart").html('<div class="text-center">Ya Basket is empty</div>')
 <% end %>

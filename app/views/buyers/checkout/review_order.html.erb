@@ -1,14 +1,14 @@
-<div class="container-fluid pdp-pad">
+<div class="container-fluid pdp-pad pdp-checkout">
   <div>
     <% if @order.present? %>
-      <div class="row mt-4">
+      <div class="row mt-5">
         <div class="col-lg-8">
           <div class="your-detail-left yo-white-card box-border">
-            <div class="row">
+            <div class="row billing-add-method">
               <% if @order.shipping_address.present? %>
                 <div class="col-lg-4 d-flex flex-column justify-content-between">
                   <div>
-                    <h6>Delivery Address</h6>
+                    <h5 class="mb-3">Delivery Address</h5>
                     <ul class="font-14px mb-3">
                       <li class="black-text "><%= get_full_name(@order.shipping_address) %></li>
                       <li class="black-text "><%= @order.shipping_address.company_name %></li>
@@ -26,7 +26,7 @@
                 <% if @order.billing_address.present? %>
                 <div class="col-lg-4 d-flex flex-column justify-content-between">
                   <div>
-                    <h6>Billing Address</h6>
+                    <h5 class="mb-3">Billing Address</h5>
                     <ul class="font-14px mb-3">
                       <li class="black-text "><%= get_full_name(@order.billing_address) %></li>
                       <li class="black-text "><%= @order.shipping_address.company_name %></li>
@@ -43,10 +43,10 @@
                 <% end %>
                 <div class="col-lg-4 d-flex flex-column justify-content-between">
                   <div>
-                    <h6>Payment Method</h6>
+                    <h5 class="mb-3">Payment Method</h5>
                     <div class="d-flex">
                       <div>
-                        <span class="pay-cards mr-2 pointer">
+                        <span class="pay-cards mr-2 pointer visa-pix">
                           <% if @order.buyer_payment_method.present? %>
                             <% name = @order.buyer_payment_method.brand == 'Visa' ? 'visa-card' : 'master-card' %>
                             <%= image_tag "#{name}.svg" %>
@@ -77,7 +77,6 @@
           <div class="your-detail-right yo-white-card box-border">
             <!-- Order Summary Partial -->
             <%= render 'order_summary', cart: @cart, total_num_of_products: @total_num_of_products, order_amount: @order_amount %>
-              <hr>
                 <div class="sub-main-total">
                   <div class="d-flex justify-content-between sb-total">
                     <span>
@@ -87,17 +86,17 @@
                     <input type="hidden" value="<%= @order_amount.present? ? @order_amount[:total] : 0 %>" id='cart-total-hidden'>
                   </div>
                 </div>
-              <hr>
+              <hr class="m-0">
               <div class="d-flex delivery-note align-items-center py-3">
-                  <span class="icon-Secure-checkout icons-ico"></span>
-                  <span class="in-text mm-text"><b>Secure Checkout</b> <br>
-                      Shopping with Yavolo is always safe and secure </span>
-              </div>
-              <div class="d-flex delivery-note align-items-center py-3">
-                  <span class="icon-day-guarantee icons-ico"></span>
-                  <span class="in-text mm-text"><b>30 Day Guarantee</b> <br>
-                      Returns are accepted up to 30 days as standard</span>
-              </div>
+            <span class="icon-Secure-checkout icons-ico"></span>
+            <span class="in-text mm-text text-12"><strong>Secure Checkout</strong> <br>
+											Shopping with Yavolo is always safe and secure </span>
+          </div>
+          <div class="d-flex delivery-note align-items-center pb-3">
+          <span class="icon-day-guarantee icons-ico"></span>
+          <span class="in-text mm-text text-12"><strong>30 Day Guarantee</strong> <br>
+                    Returns are accepted up to 30 days as standard</span>
+        </div>
               <!-- <a href="#" class="btn btn-lg btn-radius px-4 btn-primary w-100 "><span
                       class="icon-Secure-checkout pr-2"></span> COMPLETE YOUR ORDER</a> -->
                       <%= link_to create_payment_path, method: :post, class: 'btn btn-lg btn-radius px-4 btn-primary w-100' do %>

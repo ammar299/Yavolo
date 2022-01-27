@@ -758,9 +758,6 @@ textarea.form-control {
 .delivery-note span.icon-orders--delivery:before {
     color: var(--red);
 }
-.delivery-note .in-text {
-    opacity: 0.8;
-}
 .pdp-card .pdp-body a {
     text-decoration: none !important;
 }
