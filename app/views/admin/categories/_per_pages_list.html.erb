@@ -1,0 +1,23 @@
+<a href="#" class="btn btn-radius btn-sm px-3 btn-primary my-0 btn-link-dropdown-1 d-inline-flex align-items-center" style="min-width: 140px" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span id="params-per-page">Results per page: <%= per_page %></span><i class="fa fa-angle-down ml-3" aria-hidden="true"></i></a>
+<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+  <%= link_to (category_products_with_pagination_admin_category_path(per_page: '15')), remote: true  do %>
+  <span class="<%= 'fa fa-check' if per_page == '15' %>" aria-hidden="true"></span>
+  Results per page: 15
+  <% end %>
+  <%= link_to (category_products_with_pagination_admin_category_path(per_page: '30')), remote: true  do %>
+  <span class="<%= 'fa fa-check' if per_page == '30' %>" aria-hidden="true"></span>
+  Results per page: 30
+  <% end %>
+  <%= link_to (category_products_with_pagination_admin_category_path(per_page: '60')), remote: true  do %>
+  <span class="<%= 'fa fa-check' if per_page == '60' %>" aria-hidden="true"></span>
+  Results per page: 60
+  <% end %>
+  <%= link_to (category_products_with_pagination_admin_category_path(per_page: '90')), remote: true  do %>
+  <span class="<%= 'fa fa-check' if per_page == '90' %>" aria-hidden="true"></span>
+  Results per page: 90
+  <% end %>
+  <%= link_to (category_products_with_pagination_admin_category_path(per_page: '180')), remote: true  do %>
+  <span class="<%= 'fa fa-check' if per_page == '180`' %>" aria-hidden="true"></span>
+  Results per page: 180
+  <% end %>
+</div>

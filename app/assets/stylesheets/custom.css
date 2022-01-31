@@ -2383,3 +2383,6 @@ _form.html.erb
   color: var(--dark-red) !important;
 }
 
+.product-delivery-option {
+  text-transform: none;
+}
