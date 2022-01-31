@@ -88,7 +88,6 @@
               </div>
             </div>
           </div>
-
           </div>
           <%= link_to 'Add New Filter Group', new_admin_filter_group_path, class: 'btn btn-sm btn-radius px-4 btn-primary my-2', data: { remote: true } %>
           <div class="modal fade modal-xxl filter-group-modal pl-0" id="filterGroupForm" tabindex="-1" role="dialog"
@@ -115,6 +114,17 @@
       </div>
     </div>
   </div>
+    <div>
+      <% if params[:filter_type].present? %>
+        <div class="filter-by-tags d-flex justify-content-start mt-2">
+          <div class="filter-tag">
+            <%= params[:filter_type] == "0"? 'Global' : 'Local' %>
+            <span class="close-filter-to-category icon-cross">                  
+            </span>
+          </div>
+        </div>
+      <% end %>
+    </div>
   <div class="row">
     <div class="col-lg-12">
       <div class="pageresut-text mt-2">

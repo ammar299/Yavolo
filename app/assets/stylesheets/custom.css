@@ -761,6 +761,11 @@ select.form-control {
   font-size: 6px;
   cursor: pointer;
 }
+.close-filter-to-category {
+  padding-left: 15px;
+  font-size: 6px;
+  cursor: pointer;
+}
 
 .check-container .error {
   position: absolute;
@@ -2377,3 +2382,4 @@ _form.html.erb
   background: none !important;
   color: var(--dark-red) !important;
 }
+

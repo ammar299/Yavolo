@@ -5,7 +5,7 @@
     </div>
     <div class="sidebody">
       <ul>
-        <li class="parent">
+        <li class="parent <%= active_class_when_exact(admin_dashboard_path) %>">
           <%= link_to admin_dashboard_path do %>
             <span class="icon-dashboard icon-right-pd"></span>
             <span><span>Dashboard</span></span>
@@ -23,7 +23,7 @@
             <span>Templates</span>
           <% end %>
         </li>
-        <li class="parent">
+        <li class="parent <%= active_class_sidebar(admin_orders_path) %>">
           <%= link_to admin_orders_path do %>
             <span class="icon-orders icon-right-pd"></span>
             <span>Orders</span>
@@ -44,8 +44,8 @@
             <span class="icon-sellers icon-right-pd"></span>
             <span>Sellers</span>
           <% end %>
-          <ul class="d-none">
-            <li><%= link_to "All Sellers", admin_sellers_path %></li>
+          <ul class="<%= d_none_class_sidebar([admin_sellers_path]) %>">
+            <li class="<%= active_class_sidebar(admin_sellers_path) %>"><%= link_to "All Sellers", admin_sellers_path %></li>
             <li><%= link_to "Suspension", ""%></li>
           </ul>
         </li>
@@ -54,10 +54,10 @@
             <span class="icon-products icon-right-pd"></span>
             <span>Products</span>
           <% end %>
-          <ul class="d-none">
-            <li><%= link_to "All Products", admin_products_path %></li>
-            <li><%= link_to "Categories", admin_categories_path %></li>
-            <li><%= link_to "Filter Groups", admin_filter_groups_path %></li>
+          <ul class="<%= d_none_class_sidebar([admin_products_path,admin_categories_path,admin_filter_groups_path]) %>">
+            <li class="<%= active_class_sidebar(admin_products_path) %>" ><%= link_to "All Products", admin_products_path %></li>
+            <li class="<%= active_class_sidebar(admin_categories_path) %>"><%= link_to "Categories", admin_categories_path %></li>
+            <li class="<%= active_class_sidebar(admin_filter_groups_path) %>"><%= link_to "Filter Groups", admin_filter_groups_path %></li>
           </ul>
         </li>
         <li class="parent">
@@ -94,9 +94,9 @@
             <span class="icon-manage-Yavolo icon-right-pd"></span>
             <span>Manage Yavolos</span>
           <% end %>
-          <ul class="d-none">
-            <li><%= link_to "Manual", admin_yavolos_manual_bundles_path%></li>
-            <li><%= link_to "Automatic", admin_yavolos_product_assignments_path%></li>
+          <ul class="<%= d_none_class_sidebar([admin_yavolos_manual_bundles_path,admin_yavolos_product_assignments_path,admin_yavolos_waiting_rooms_path,admin_yavolos_bundle_creations_path]) %>">
+            <li class="<%= active_class_sidebar(admin_yavolos_manual_bundles_path) %>"><%= link_to "Manual", admin_yavolos_manual_bundles_path%></li>
+            <li class="<%= active_class_sidebar([admin_yavolos_product_assignments_path,admin_yavolos_waiting_rooms_path,admin_yavolos_bundle_creations_path]) %>"><%= link_to "Automatic", admin_yavolos_product_assignments_path%></li>
           </ul>
         </li>
         <li class="parent">
@@ -116,8 +116,8 @@
             <span class="icon-technical icon-right-pd"></span>
             <span>Technical</span>
           <% end %>
-          <ul class="d-none">
-            <li><%= link_to "Delivery Options", admin_delivery_options_path %></li>
+          <ul class="<%= d_none_class_sidebar([admin_delivery_options_path]) %>">
+            <li class="<%= active_class_sidebar(admin_delivery_options_path) %>"><%= link_to "Delivery Options", admin_delivery_options_path %></li>
             <li><%= link_to "Limit Login Attempts", ""%></li>
             <li><%= link_to "Maintenance Mode", ""%></li>
             <li><%= link_to "Tracking", ""%></li>
@@ -159,11 +159,11 @@
             <span class="icon-settings icon-right-pd"></span>
             <span>Settings</span>
           <% end %>
-          <ul class="d-none">
+          <ul class="<%= d_none_class_sidebar([subscription_listing_admin_settings_path]) %>">
             <li><%= link_to "General Settings", ""%></li>
             <li><%= link_to "Users", ""%></li>
             <li><%= link_to "User Roles", ""%></li>
-            <li><%= link_to "Subscriptions", subscription_listing_admin_settings_path%></li>
+            <li class="<%= active_class_sidebar(subscription_listing_admin_settings_path) %>"><%= link_to "Subscriptions", subscription_listing_admin_settings_path%></li>
           </ul>
         </li>
           <%= link_to destroy_admin_session_path, method: :delete do %>

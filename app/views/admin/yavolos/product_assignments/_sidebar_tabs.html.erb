@@ -1,14 +1,14 @@
 <div class="col-md-3">
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
-      <%= link_to "Product Assignment", admin_yavolos_product_assignments_path, class: "nav-link active" %>
+      <%= link_to "Product Assignment", admin_yavolos_product_assignments_path, class: "nav-link #{active_class_automatic_bundling_tabs(admin_yavolos_product_assignments_path)}" %>
     </li>
     <li class="nav-item">
-      <%= link_to "Waiting Room", admin_yavolos_waiting_rooms_path, class: "nav-link" %>
+      <%= link_to "Waiting Room", admin_yavolos_waiting_rooms_path, class: "nav-link #{active_class_automatic_bundling_tabs(admin_yavolos_waiting_rooms_path)}" %>
 
     </li>
     <li class="nav-item">
-      <%= link_to "Bundle Creation", admin_yavolos_bundle_creations_path, class: "nav-link" %>
+      <%= link_to "Bundle Creation", admin_yavolos_bundle_creations_path, class: "nav-link #{active_class_automatic_bundling_tabs(admin_yavolos_bundle_creations_path)}" %>
       <%= yield if block_given? %>
     </li>
   </ul>

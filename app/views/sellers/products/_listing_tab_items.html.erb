@@ -8,7 +8,7 @@
       <% end %>
     <span>
       <%=
-        @listing_by_status_with_count.merge!({:manage_yavolos => @yavolo_bundles&.count})
+        @listing_by_status_with_count.merge!({:manage_yavolos => @yavolo_bundles&.length})
         @listing_by_status_with_count[tab].to_i
       %>
     </span>

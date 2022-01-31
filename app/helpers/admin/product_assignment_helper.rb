@@ -14,4 +14,8 @@ module Admin::ProductAssignmentHelper
     "#{date_format_UK(next_run)} at #{get_time_from_date_time(next_run)}"
   end
 
+  def active_class_automatic_bundling_tabs(expected_route)
+    request.path.include?(expected_route) ? 'active' : nil
+  end
+
 end
