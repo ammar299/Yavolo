@@ -157,8 +157,8 @@
                                         </td>
                                         <td>
                                         <div class="form-group mb-0 relative">
-                                                <%=text_field_tag 'product[price]',(number_with_precision(product.price, :precision => 2) || 0),id: 'pr-price', class: 'form-control px-2 w-20 price-field editable product-listing-input-fields listing-price', data: {pid: product.id, action: 'update_price'} %>
-                                            </div>
+                                            <%=text_field_tag 'product[price]',(number_with_precision(product.price, :precision => 2) || 0),id: 'pr-price', class: 'form-control px-2 w-20 price-field editable product-listing-input-fields listing-price', data: {pid: product.id, action: 'update_price'} %>
+                                        </div>
                                         </td>
                                         <td class="text-center">
                                             <% if product.yavolo_enabled && index == 0 %>

@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	AssingCategoriesFormValidation();
 	assignFilterGroupCategory();
+	setLocationOnFilterClose();
 
 	$('.filter-groups-checkbox-container input').change(function() {
     if (!$(this).is(':checked')) {
@@ -168,3 +169,8 @@ $(document).on('cocoon:after-insert', "#filter_in_categories",function(e, insert
 	})
 })
 
+function setLocationOnFilterClose() {
+	$('body').on('click', '.close-filter-to-category', function() {
+		window.location = location.origin + '/admin/filter_groups'
+	});
+}
