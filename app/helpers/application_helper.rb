@@ -281,4 +281,24 @@ module ApplicationHelper
     value
   end
 
+  def active_class_when_exact(expected_route)
+    request.path == expected_route ? 'active' : nil
+  end
+
+  def active_class_sidebar(expected_routes)
+    is_route_active_left_side_bar(expected_routes) ? 'active' : nil
+  end
+
+  def d_none_class_sidebar(expected_routes)
+    is_route_active_left_side_bar(expected_routes) ? nil : 'd-none'
+  end
+
+  def is_route_active_left_side_bar(expected_routes)
+    if expected_routes.is_a?(Array)
+      expected_routes.any? {|r| request.path.include?(r) }
+    else
+      request.path.include?(expected_routes)
+    end
+  end
+
 end

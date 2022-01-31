@@ -6,12 +6,12 @@
   <div class="sidebody">
   <% class_name = is_eligible?(current_seller) ? "" : "not-eligible-toast" %>
     <ul>
-      <li class="active "><%= link_to seller_registration_path do %>
+      <li class="<%= active_class_when_exact(seller_registration_path) %>"><%= link_to seller_registration_path do %>
         <span class="icon-dashboard icon-right-pd"></span>
         Success Hub
         <% end %>
       </li>
-      <li class="<%= class_name %>"><%= link_to sellers_products_path do %>
+      <li class="<%= class_name %> <%= active_class_sidebar(sellers_products_path) %>"><%= link_to sellers_products_path do %>
         <span class="icon-listing icon-right-pd"></span>
         Listing
         <% end %>
@@ -21,7 +21,7 @@
         Messages
         <% end %>
       </li>
-      <li class="<%= class_name %>"><%= link_to is_eligible?(current_seller) ? sellers_orders_path : '#' do %>
+      <li class="<%= class_name %> <%= active_class_sidebar(sellers_orders_path) %>"><%= link_to is_eligible?(current_seller) ? sellers_orders_path : '#' do %>
         <span class="icon-orders--delivery icon-right-pd"></span>
         Orders & Delivery
         <% end %>
@@ -41,7 +41,7 @@
         Help & Resource Centre
         <% end %>
       </li>
-      <li><%= link_to sellers_profile_path(current_seller) do %>
+      <li class="<%= active_class_sidebar(sellers_profile_path(current_seller)) %>"><%= link_to sellers_profile_path(current_seller) do %>
         <span class="icon-accounts--settings icon-right-pd"></span>
         Account & Settings
         <% end %>
