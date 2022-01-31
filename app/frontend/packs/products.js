@@ -26,6 +26,7 @@ $(document).ready(function() {
   });
 
   if ($(".grid-single-img").length >= 9) {
+    $('.photo-btn').text('Edit Photos');
     $('.photo-btn').parent('.add-photo-inner').attr('title', 'You can add only 9 photos');
     $(".show-upload-images-popup").addClass('pointer-events-none');
   }
