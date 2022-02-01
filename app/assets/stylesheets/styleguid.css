@@ -34,6 +34,9 @@ ul li{
 img{
     max-width: 100%;
 }
+.btn {
+    font-weight: 600;
+}
 h1, h2, h3, h4, h5, h6 {
     font-family: 'BuenosAires';
     font-weight: 600;
@@ -331,6 +334,9 @@ textarea.form-control {
     max-width: 200px;
     margin: 0;
     padding: 10px 0;
+}
+.form-group-vertical label.error {
+    max-width: 300px;
 }
 
 

@@ -13,6 +13,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.account-link {
+  font-weight: 600;
+}
 label {
   text-transform: capitalize;
 }
@@ -541,7 +544,7 @@ h6 {
   min-width: 30px;
   display: inline-flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   margin-right: 10px;
   font-size: 20px;
 }
@@ -740,6 +743,7 @@ h6 {
   position: sticky;
   top: 0;
   border-top: 0 !important;
+  padding: 16px 14px;
 }
 .seller-product-table tr {
   background-color: transparent !important;
@@ -768,7 +772,8 @@ h6 {
   vertical-align: revert;
 }
 .seller-product-table table td {
-  padding: 10px 14px;
+  padding: 20px 14px;
+  vertical-align: middle;
 }
 .seller-product-table tbody tr {
   background-color: #ffffff;
@@ -861,7 +866,7 @@ h6 {
 }
 .sign-in {
   width: 100%;
-  min-height: 800px;
+  // min-height: 800px;
   margin-top: 70px;
   margin-bottom: 50px;
 }
@@ -873,17 +878,11 @@ h6 {
   font-size: 20px;
   text-align: center;
 }
-.signin-logo .logo-inner {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  text-align: center;
-}
 .sign-in form {
   color: #640529;
   font-size: 16px;
   width: 100%;
-  max-width: 476px;
+  max-width: 520px;
   margin: auto;
 }
 .sign-in form input {
@@ -1894,7 +1893,7 @@ select.new-select {
 }
 .sign-in {
   width: 100%;
-  min-height: 800px;
+  // min-height: 800px;
   margin-top: 70px;
   margin-bottom: 50px;
 }
@@ -1921,15 +1920,8 @@ select.new-select {
 .signin-logo .logo-inner {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  text-align: start;
-}
-.sign-in form {
-  color: #640529;
-  font-size: 16px;
-  width: 100%;
-  max-width: 476px;
-  margin: auto;
+  justify-content: center;
+  align-items: center;
 }
 .sign-in form input {
   border-radius: 12px;

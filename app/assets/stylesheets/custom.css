@@ -159,9 +159,9 @@ scrollbar-width: none;  /* Firefox */
   white-space: normal;
 }
 
-.sign-in {
+/* .sign-in {
   min-height: 400px !important;
-}
+} */
 .sidebody {
   /* max-height: calc(100vh - 92px) !important; */
   max-height: 100vh !important;
@@ -382,7 +382,7 @@ scrollbar-width: none;  /* Firefox */
   word-break: break-word;
   white-space: normal;
   font-size: 12px !important;
-  padding: 8px 12px !important;
+  padding: 6px 12px !important;
   justify-content: flex-start;
   line-height: 13px;
   width: 100%;
@@ -410,6 +410,7 @@ scrollbar-width: none;  /* Firefox */
   min-height: 20px;
   padding-left: 20px !important;
   display: inline-flex;
+  margin-top: 5px;
 }
 .Yavolo-table table td .checkmark {
   top: 0 !important;
@@ -681,9 +682,6 @@ select.form-control {
     width: 100%;
     justify-content: center;
   }
-  .signin-logo .logo-inner {
-    align-items: center !important;
-  }
   .dropdown-filter.show .dropdown-menu {
     top: 25px !important;
   }
@@ -714,6 +712,10 @@ select.form-control {
   }
   .remove_bottom_margin{
     margin-bottom: 3rem !important;
+  }
+  .alert,
+  .notice {
+    font-size: 12px !important;
   }
 }
 
@@ -828,6 +830,7 @@ select.form-control {
 }
 .dropdown-filter-custom .dropdown-menu {
   padding-bottom: 6px !important;
+  padding-top: 0;
 }
 .dropdown-filter-custom .dropdown-menu .dropdown-item,
 .dropdown-filter-custom .dropdown-menu {
@@ -845,7 +848,9 @@ select.form-control {
 .dropdown-filter-custom .dropdown-menu a {
   font-size: 11px;
   color: #fff !important;
+  text-decoration: none !important;
 }
+
 .dropdown-filter-border {
   border: 0 !important;
 }
@@ -1924,6 +1929,15 @@ a.buyer-card-link:hover {
 	.pdp-cleared-notify-slider {
 		margin-right: 0px;
 	}
+  .form-group-vertical {
+    flex-direction: column;
+  }
+  .admin-header-right .dropdown-profile {
+    min-width: 294px;
+  }
+  .dropdown-filter.show .dropdown-menu {
+    top: 50px !important;
+  }
 }
 
 /* ==cleared notifications=== */
@@ -2385,4 +2399,8 @@ _form.html.erb
 
 .product-delivery-option {
   text-transform: none;
+}
+
+.top-search h4 {
+  margin-bottom: 20px;
 }
