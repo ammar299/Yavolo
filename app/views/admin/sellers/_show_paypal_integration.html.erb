@@ -1,27 +1,25 @@
 <% if @seller&.paypal_detail&.integration_status?%>
-    <div class="payment-method-card yo-white-card box-border p-0">
-      <table class="table m-0 subscription-table text-left">
+    <div class="Yavolo-table">
+    <table class="table">
+      <thead>
         <tr>
-          <td>
-            <p class="mb-1"><strong>PayPal ID</strong> </p>
-            <p class="m-0"><%= @seller&.paypal_detail&.seller_merchant_id_in_paypal || "seller@gmail.com" %></p>
-          </td>
-          <td>
-            <p class="mb-1"><strong></strong> </p>
-            <p class="m-0"></p>
-          </td>
-          <td>
-            <p class="mb-1"><strong></strong> </p>
-            <p class="m-0"></p>
-          </td>
-          <td>
-            <p class="mb-1"><strong>System</strong> </p>
-            <p class="m-0">PayPal</p>
-          </td>
+          <th width="25%">Account email</th>
+          <th width="25%"></th>
+          <th width="25%"></th>
+          <th width="25%">System</th>
         </tr>
-      </table>
-    </div>
-    <!-- <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mb-3">Remove</a> -->
+      </thead>	
+      <tbody>
+        <tr>
+          <td><%= @seller&.paypal_detail&.seller_merchant_id_in_paypal || "seller@gmail.com" %></td>
+          <td></td>
+          <td></td>
+          <td>PayPal</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>  
+    <a href="#" class="btn btn-sm btn-radius px-4 btn-primary mb-3">Remove</a>
 <%else%>
   <div class="payment-method-card yo-white-card box-border p-0">
     <p class="mm-text py-3 pl-3">Paypal account not connected yet</p>

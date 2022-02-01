@@ -1,34 +1,28 @@
 <div id="stripe-bank-accounts-div">
   <div class="d-flex align-items-center mb-3">
-    <h6 class="mb-0">Bank account for payout</h6>
+    <h6 class="mb-0">Bank accounts for payout</h6>
   </div>
   <%if @seller&.bank_detail&.customer_stripe_account_id&.present?%> 
-    <div class="payment-method-card yo-white-card box-border p-0">
-        <table class="table m-0 subscription-table text-left">
-          <tr>
-            <td>
-              <p class="mb-1"><strong>Bank account number</strong>
-                <!--<%if @seller.bank_detail.requirements.present?%>
-                  <a href="" id="verify-requirments-admin-for-seller" name="<%=@seller.id%>"><span class="badge badge-secondary ml-2">Please Verify</span></a>
-                <%end%>-->
-              </p>
-              <p class="m-0"> Ending in <%= @seller&.bank_detail&.last4 || ""%></p>
-            </td>
-            <td>
-              <p class="mb-1"><strong>Account holder name</strong> </p>
-              <p class="m-0"><%= @seller.bank_detail.account_holder_name || ""%></p>
-            </td>
-            <td>
-              <p class="mb-1"><strong>Payout Method</strong> </p>
-              <p class="m-0"><%= @seller&.bank_detail&.available_payout_methods || ""%></p>
-            </td>
-            <td>
-              <p class="mb-1"><strong>System</strong> </p>
-              <p class="m-0"><%= @seller&.bank_detail&.bank_name || ""%></p>
-            </td>
-          </tr>
-        </table>
-    </div>
+    <div class="Yavolo-table">
+			<table class="table">
+				<thead>
+					<tr>
+						<th width="25%">Bank account number</th>
+						<th width="25%">Account holder name</th>
+						<th width="25%">Payout Method</th>
+						<th width="25%">System</th>
+					</tr>
+				</thead>	
+				<tbody>
+					<tr>
+						<td>Ending in <%= @seller&.bank_detail&.last4 || ""%></td>
+						<td><%= @seller&.bank_detail&.account_holder_name || ""%></td>
+						<td><%= @seller&.bank_detail&.available_payout_methods || ""%></td>
+						<td><%= @seller&.bank_detail&.bank_name || ""%></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>  
     <a href="#" name="<%=@seller&.id%>" class="btn btn-sm btn-radius px-4 btn-primary mb-3 payout-bank-account-remove-admin">Remove</a>
     <%= render 'shared/stripe_payout_remove', confirm_statement: "Are you sure you want to remove bank account ending  *****#{@seller&.bank_detail&.last4 || ""}?", id: 'stripe-payout-bank-account-admin-end',path: '#', data: "", modal_id: 'stripe-payout-bank-account-admin-confirm' %>
   <%else%>

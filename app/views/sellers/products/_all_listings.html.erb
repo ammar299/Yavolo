@@ -226,7 +226,7 @@
                                 <div class="row">
                                     <div class="col col-12 col-lg-8 col-md-8 mx-auto">
                                         <div class="sign-in">
-                                            <p class="text-center">You have no <%= params[:tab] == 'all'? '' : params[:tab] %> listings</p>
+                                            <p class="text-center"><strong>You have no <%= params[:tab] == 'all'? '' : params[:tab] %> listings</strong></p>
                                             <div class="text-center">
                                                 <% if params[:tab] == 'active' %>
                                                     <%= link_to 'VIEW INACTIVE LISTING', sellers_products_path(tab: 'inactive'), class: 'mr-3 btn my-1 btn-radius px-2 btn-primary btn-sm listing-record-btn' %>
