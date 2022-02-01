@@ -1508,7 +1508,6 @@ function validateEANBeforeSubmission() {
         scrollTop: $('#product_ean').offset().top - 120
       }, 2000);
     } else {
-      debugger;
       if ($('#add-commit-state').val() == '') {
         $('#add-commit-state').val($(this).val());
       }
