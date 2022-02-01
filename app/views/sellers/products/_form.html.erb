@@ -11,9 +11,11 @@
           <%= render "shared/products/listing_details", form: form, hide_seller_field: true %>
           <%= render "shared/products/pricing_and_quantity", form: form %>
           <%= render "shared/products/delivery_details", form: form, new_delivery_option_url: new_sellers_delivery_option_path %>
+          <%= hidden_field_tag :commit, '', { id: 'add-commit-state' } %>
           <%= render "shared/products/product_actions_bar", form: form  do %>
             <% unless current_seller.suspend? %>
               <% if form.object.new_record? || form.object.draft? %>
+
               <%= form.submit "APPROVE & PUBLISH", value: "APPROVE & PUBLISH", class: 'btn btn-sm btn-radius px-4 btn-outline-white mb-2 mt-2 product-form-submission' %>
               <% else %>
               <%= form.submit "UPDATE", value: "UPDATE", class: "btn btn-sm btn-radius px-4 btn-bg-white mb-2 mt-2 product-form-submission" %>
