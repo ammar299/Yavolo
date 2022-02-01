@@ -717,6 +717,9 @@ select.form-control {
   .notice {
     font-size: 12px !important;
   }
+  #admin-sellers-update-form .form-group-vertical label {
+    text-align: left !important;
+  }
 }
 
 /* naseer */
@@ -2219,14 +2222,16 @@ _form.html.erb
   max-height: 400px;
   overflow-y: auto;
 }
-
-#admin-sellers-update-form {
-    padding: 0 35px 0 10px;
+#admin-sellers-update-form .form-group-vertical input {
+  border-radius: 8px !important;
+}
+#admin-sellers-update-form .form-group-vertical label ~ input,
+#admin-sellers-update-form .form-group-vertical label ~ div {
+    max-width: 400px;
 }
 #admin-sellers-update-form .form-group-vertical label {
     text-align: right;
     margin: 0 15px 0 0;
-    max-width: inherit;
     font-weight: 600;
 }
 .reset-password-token-modal {
@@ -2403,4 +2408,14 @@ _form.html.erb
 
 .top-search h4 {
   margin-bottom: 20px;
+}
+
+.upload-rm-logo .btn {
+  flex: 1;
+  white-space: nowrap !important;
+  margin: 0 5px;
+}
+.mob-btns .btn {
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
 }

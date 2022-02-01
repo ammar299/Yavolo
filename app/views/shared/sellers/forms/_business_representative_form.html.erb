@@ -1,5 +1,5 @@
 <div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
-  <%= form.label :seller_email, 'Email:' %>
+  <%= form.label :seller_email, 'User Email:' %>
   <%= form.email_field :seller_email, value: @seller.email, disabled: true, class: 'form-control' %>
 </div>
 <!-- Business Representative -->
@@ -32,37 +32,39 @@
     </div>
   </div>
 <% end %>
-<div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
+<div class="form-group form-group-vertical form-group-vertical-responsive mb-1 align-items-center">
   <% if admin_seller_route?(params[:controller]) %>
   <%= form.label :account_status, 'Account Status:' %>
   <div style="flex: 1;">
-    <%= form.select :account_status, options_for_select(seller_account_statuses_for_dropdown(@seller), form.object.account_status), { include_blank: false }, class: 'form-control' %>
+    <%#= form.select :account_status, options_for_select(seller_account_statuses_for_dropdown(@seller), form.object.account_status), { include_blank: false }, class: 'form-control' %>
+    <span class="pl-3"><%= form.object.account_status&.capitalize %></span>
   </div>
   <% else %>
     <label>Account Status:</label>
     <div class="mt-2"><%= @seller.account_status.humanize %></div>
   <% end %>
 </div>
-<div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
+<div class="form-group form-group-vertical form-group-vertical-responsive mb-1 align-items-center">
 <% if admin_seller_route?(params[:controller]) %>
   <%= form.label :listing_status, 'Listing Status:' %>
   <div style="flex: 1;">
-    <%= form.select :listing_status, options_for_select(Seller.listing_statuses.map {|k, v| [k.humanize.capitalize, k]}, form.object.listing_status || "active"), { prompt: 'Listing Status' }, class: 'form-control' %>
+    <%#= form.select :listing_status, options_for_select(Seller.listing_statuses.map {|k, v| [k.humanize.capitalize, k]}, form.object.listing_status || "active"), { prompt: 'Listing Status' }, class: 'form-control' %>
+    <span class="pl-3"><%= form.object.listing_status&.capitalize || 'Active' %></span>
   </div>
   <% else %>
     <label>Listing Status:</label>
   <div class="mt-2"><%= @seller.listing_status.humanize %></div>
   <% end %>
 </div>
-<div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
+<div class="form-group form-group-vertical form-group-vertical-responsive mb-1 align-items-center" >
   <label>Account Created On:</label>
-  <div class="mt-2"><%= date_format_UK(@seller.created_at) if @seller.created_at.present?  %></div>
+  <div class="pl-3"><%= date_format_UK(@seller.created_at) if @seller.created_at.present?  %></div>
 </div>
-<div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
+<div class="form-group form-group-vertical form-group-vertical-responsive mb-1 align-items-center">
   <label>Last Login On:</label>
-  <div class="mt-2"><%= date_format_UK(@seller.last_sign_in_at) if @seller.last_sign_in_at.present? %></div>
+  <div class="pl-3"><%= date_format_UK(@seller.last_sign_in_at) if @seller.last_sign_in_at.present? %></div>
 </div>
-<div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
+<div class="form-group form-group-vertical form-group-vertical-responsive mb-1 align-items-center">
   <label>Subscription Type:</label>
-  <div class="mt-2"><%= @seller.subscription_type %></div>
+  <div class="pl-3"><%= @seller.subscription_type %></div>
 </div>

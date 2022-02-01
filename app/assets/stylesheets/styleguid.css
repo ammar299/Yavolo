@@ -330,8 +330,8 @@ textarea.form-control {
     display: flex;
 }
 .form-group-vertical label {
-    min-width: 200px;
-    max-width: 200px;
+    min-width: 210px;
+    max-width: 210px;
     margin: 0;
     padding: 10px 0;
 }
