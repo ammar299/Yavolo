@@ -60,7 +60,6 @@ module Admin::OrdersHelper
   end
 
   def product_sale_month(product)
-    count = product.line_items.where("line_items.created_at > ? AND line_items.created_at < ?", Time.now.beginning_of_month, Time.now.end_of_month).pluck(:quantity).inject(:+)
-    product.price.to_s.to_d * count.to_s.to_d
+    count = product.line_items.where("line_items.created_at < ? AND line_items.created_at > ?", Time.now, (Time.now - 30.days)).count
   end
 end

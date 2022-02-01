@@ -201,7 +201,7 @@
                         </td>
                         <td class="stock-box text-center"><%=product.stock.to_i %></td>
                         <td class="text-center price-box"><%=number_to_currency((number_with_precision(product.price, :precision => 2) || 0), unit: '£') %></td>
-                        <td class="text-center"><%=number_to_currency((number_with_precision(product_sale_month(product), :precision => 2) || 0), unit: '£') %></td>
+                        <td class="text-center"><%=product_sale_month(product)%></td>
                         <td class="text-center"><%=number_to_currency((number_with_precision(300, :precision => 2) || 0), unit: '£') %></td>
                         <td class="text-center">
                           <div class="relative">
