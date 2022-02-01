@@ -1201,6 +1201,18 @@ window.validateProductForm = function(custom_rules = {}, custom_messages = {}) {
     },
     "product[delivery_option_id]": {
       required: true
+    },
+    "product[ebay_detail_attributes][lifetime_sales]": {
+      digits: true
+    },
+    "product[ebay_detail_attributes][thirty_day_sales]": {
+      digits: true
+    },
+    "product[ebay_detail_attributes][price]":{
+      maxlength: 11,
+    },
+    "product[ebay_detail_attributes][thirty_day_revenue]":{
+      maxlength: 11,
     }
   };
 
@@ -1224,6 +1236,18 @@ window.validateProductForm = function(custom_rules = {}, custom_messages = {}) {
     },
     "product[delivery_option_id]": {
       required: "Please select a delivery option"
+    },
+    "product[ebay_detail_attributes][lifetime_sales]": {
+      digits: 'Please enter value without decimal'
+    },
+    "product[ebay_detail_attributes][thirty_day_sales]": {
+      digits: 'Please enter value without decimal'
+    },
+    "product[ebay_detail_attributes][price]":{
+      maxlength: "Please enter no more than 999,999",
+    },
+    "product[ebay_detail_attributes][thirty_day_revenue]":{
+      maxlength: "Please enter no more than 999,999",
     }
   };
 
@@ -1484,6 +1508,10 @@ function validateEANBeforeSubmission() {
         scrollTop: $('#product_ean').offset().top - 120
       }, 2000);
     } else {
+      debugger;
+      if ($('#add-commit-state').val() == '') {
+        $('#add-commit-state').val($(this).val());
+      }
       $('form#product_form').submit();
     }
   });
