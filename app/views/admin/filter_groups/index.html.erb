@@ -147,7 +147,7 @@
               <th class="text-left">Name</th>
               <th class="text-inherit">Number of Filters in Group</th>
               <th>Categories Assigned</th>
-              <th>Assigned Category</th>
+              <!-- <th>Assigned Category</th> -->
               <th width="130px">Actions</th>
             </tr>
           </thead>
@@ -164,9 +164,9 @@
               </td>
               <td class="text-left"><%= filter_group.filter_group_type.titleize if filter_group.filter_group_type.present? %></td>
               <td class="text-left"><%= filter_group.name %></td>
-              <td>5</td>
-              <td><%= filter_group.filter_categories.count %></td>
               <td><%= filter_group.filter_in_categories.count %></td>
+              <!-- <td>5</td> -->
+              <td><%= filter_group.filter_categories.count %></td>
               <td><%= link_to 'Edit', edit_admin_filter_group_path(filter_group), class: 'btn btn-sm btn-radius px-4 btn-secondary mb-2 w-100', data: { remote: true } %>
                 <%= link_to 'Delete', confirm_delete_admin_filter_group_path(filter_group), remote: true, class: "btn btn-sm btn-radius px-4 btn-secondary w-100 delete-filter-group" %></td>
             </tr>
