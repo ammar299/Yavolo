@@ -387,7 +387,9 @@ function bindAndSortByEvent() {
     if ($('#q_s').length === 0) {
       $('#product_search').append('<input type="hidden" name="q[s]" id="q_s">')
     }
-    assignValueToProductSortFilterInput($(this).data('sortby'))
+    $('#q_s').val(JSON.stringify([$(this).data('sortby')]));
+    // TODO: product filter_by event is not working yet.
+    // assignValueToProductSortFilterInput($(this).data('sortby'))
     $('form#product_search').submit();
   });
 }
