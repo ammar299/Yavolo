@@ -1188,17 +1188,18 @@ h6 {
   -webkit-box-orient: vertical;
   overflow: hidden;
   font-weight: 700;
-  text-transform: capitalize;
+  text-transform: uppercase;
 }
 
 .icon-manage-Yavolo.seller-default-logo {
   font-size: 80px;
-  display: block;
-  text-align: center;
+  display: flex;
+  align-items: center;
   opacity: 0.5;
   height: 150px;
   width: 150px;
   margin: auto;
+  justify-content: center;
 }
 
 .yo-card-list li {

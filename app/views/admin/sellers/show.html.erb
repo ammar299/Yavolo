@@ -1,11 +1,11 @@
-<div class="container-fluid">
+<div>
 
   <h3 class="mt-4 mb-3">Seller Account Edit</h3>
   <div class="d-flex flex-wrap justify-content-between mb-3 mt-4 align-items-start">
     <h4 class="m-0">Seller Account
       <br> & Settings</h4>
-    <div id="about-top-portion">
-      <div class="d-flex align-items-center" >
+    <div id="about-top-portion" class="mob-btns">
+      <div class="d-flex flex-wrap align-items-center" >
         <% display_class = @seller.is_locked == true ? 'd-block' : 'd-none' %>
         <p class="uppercase-text m-0 pr-3 <%= display_class %>" id="seller-locked-text">
           <%= render 'shared/sellers/seller_locked' %>
@@ -56,9 +56,10 @@
           <span aria-hidden="true">×</span>
         </button>
       </div>
-      <div class="modal-body px-lg-3">
+      <div class="modal-body <%= admin_seller_route?(params[:controller]) ? 'px-lg-5' : 'px-lg-3' %>">
 
-        <div id="error-message" class="text-danger mb-3"></div>
+        <%# TODO: Commented by dawood while updating new ui fixes. %>
+        <%# <div id="error-message" class="text-danger mb-3"></div> %>
         <div id="update-seller-form"></div>
       </div>
     </div>
