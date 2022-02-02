@@ -33,7 +33,7 @@
     </div>
   </div>
     <div class="plus-btn-category-name" id="global-check" style="display:<%= f.object.local? ? "block" : "none"  %>">
-      <h6 class="px-lg-3"><strong>Add Categories which show Filter Group</strong></h6>
+      <h6 class="px-lg-3"><strong class="categories-to-filter-groups">Add Categories which show Filter Group</strong></h6>
       <div class="scroll-over">
         <div class="d-flex flex-column position-relative pluse-aa">
           <%= f.fields_for :filter_categories do |filter_category| %>
@@ -48,7 +48,7 @@
       </div>
     </div>
 
-  <h6 class="pl-lg-3"><strong>Add Filters within the Group</strong></h6>
+  <h6 class="pl-lg-3"><strong class="filter-in-groups">Add Filters within the Group</strong></h6>
   <div class="scroll-over">
     <div id='filter_in_categories'>
       <%= f.fields_for :filter_in_categories do |filter_in_category| %>
