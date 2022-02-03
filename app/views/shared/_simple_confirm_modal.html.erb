@@ -1,8 +1,8 @@
 <div class="modal fade" id="<%=modal_id%>" tabindex="-1" role="dialog" aria-labelledby="deliveryOptionFormLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title"></h5>
+        <h5 class="modal-title">Remove card</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
@@ -10,10 +10,12 @@
       <div class="modal-body">
         <div id="seller-actions">
           <p class="pb-4 confirmation-text"><%=confirm_statement%></p>
-          <div class="carrier-btn text-right">
-            <%= link_to "No", "javascript:void(0)",'data-dismiss': "modal", class: 'btn btn-sm btn-radius px-4 btn-primary mt-2' %>
-            <%= link_to "Yes",path||"#", data: data||{}, id: id, class: 'btn btn-sm btn-radius px-4 btn-primary mt-2 ml-2'  %>
+
+          <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+            <u><%= link_to "Back to Payment Method", "javascript:void(0)",'data-dismiss': "modal", class: '' %></u>
+            <%= link_to "REMOVE CARD",path||"#", data: data||{}, id: id, class: 'btn btn-sm btn-radius px-4 btn-primary spacing'  %>
           </div>
+
         </div>
       </div>
     </div>

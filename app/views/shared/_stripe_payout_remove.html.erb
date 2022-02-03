@@ -10,9 +10,9 @@
       <div class="modal-body px-lg-5  py-0">
         <div id="seller-actions mb-3">
           <p class="confirmation-text"><%=confirm_statement%></p>
-          <div class="d-flex justify-content-between align-items-center mb-3">
+          <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
             <u><%= link_to "Back to Payment Method", "javascript:void(0)",'data-dismiss': "modal", class: '' %></u>
-            <%= link_to "REMOVE BANK ACCOUNT",path||"#", data: data||{}, id: id, class: 'btn btn-sm btn-radius px-4 btn-primary'  %>
+            <%= link_to "REMOVE BANK ACCOUNT",path||"#", data: data||{}, id: id, class: 'btn btn-sm btn-radius px-4 btn-primary spacing'  %>
           </div>
         </div>
       </div>

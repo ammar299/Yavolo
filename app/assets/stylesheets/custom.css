@@ -690,12 +690,14 @@ select.form-control {
   .dashboard-page .leftside {
     top: 80px;
   }
-
   .dashboard-page.toggle-close .rightside {
     padding-left: 0 !important;
   }
   .menu-icon {
     display: inline-block;
+  }
+  .menuBtn.side-bar-nav-toggle {
+    display: none;
   }
 }
 @media only screen and (max-width: 480px) {
@@ -720,6 +722,11 @@ select.form-control {
   #admin-sellers-update-form .form-group-vertical label {
     text-align: left !important;
   }
+  .all-products-header .all-products-header-right,
+  .all-products-header {
+    justify-content: flex-start !important;
+  }
+
 }
 
 /* naseer */
@@ -2456,6 +2463,19 @@ _form.html.erb
 .text-change-btn:hover span:first-child {
   display: none;
 }
+.ship-data {
+  white-space: nowrap;
+}
+.ship-data input {
+  width: 86px;
+  background-color: transparent !important;
+}
+@media screen and (min-width: 768px) {
+  .custom-width-change {
+    flex: 0 0 46%;
+    max-width: 46%;
+  }
+}
 @media screen and (max-width: 360px) {
   .dropdown-filter-custom .input-btn-sm {
     width: 100% !important;
@@ -2466,4 +2486,7 @@ _form.html.erb
   .subscription-table.subscription-table-changes tr td  select.form-control {
     max-width: 165px;
   }
+}
+.spacing {
+  letter-spacing: 1.4px;
 }

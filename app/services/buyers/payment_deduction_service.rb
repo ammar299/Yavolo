@@ -8,7 +8,7 @@ module Buyers
     end
 
     def call(*args)
-      create_referal
+      # create_referal
     end
 
     def create_referal
