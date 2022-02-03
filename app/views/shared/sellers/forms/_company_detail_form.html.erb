@@ -3,7 +3,7 @@
   <% @seller.build_company_detail %>
 <% end %>
 <%= form.simple_fields_for :company_detail do |cd| %>
-  <div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
+  <!--<div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
     <%= cd.label :first_name, 'First Name:' %>
     <div style="flex: 1;">
       <%= cd.text_field :first_name, placeholder: 'Jhon', class: 'form-control' %>
@@ -14,7 +14,7 @@
     <div style="flex: 1;">
       <%= cd.text_field :last_name, placeholder: 'Stons', class: 'form-control' %>
     </div>
-  </div>
+  </div>-->
   <div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
     <%= cd.label :name, 'Company Name:' %>
     <div style="flex: 1;">
@@ -28,7 +28,7 @@
     </div>
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
-    <%= cd.label :doing_business_as, 'Doing Business As:' %>
+    <%= cd.label :doing_business_as, 'Doing Business as:', class: 'text-inherit' %>
     <div style="flex: 1;">
       <%= cd.text_field :doing_business_as, placeholder: 'Homcom', class: 'form-control' %>
     </div>
@@ -52,9 +52,13 @@
     </div>
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
-    <%= cd.label :vat_number, 'VAT Number:' %>
-    <div style="flex: 1;">
-      <%= cd.text_field :vat_number, placeholder: 'GADA1313443', class: 'form-control' %>
+    <%= cd.label :vat_number, 'VAT Registered:' %>
+    <div style="flex: 1;display: flex;">
+      <%= cd.text_field :vat_number, placeholder: 'GADA1313443', class: 'form-control w-25' %>
+      <div style="flex: 1;display: flex;align-items: center;">
+        <span style="min-width: 100px;text-align: center;">Number:</span>
+        <input type="text" class= 'form-control'>
+      </div>
     </div>
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
@@ -64,7 +68,7 @@
     </div>
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive mb-1">
-    <%= cd.label :ebay_url, 'eBay URL:' %>
+    <%= cd.label :ebay_url, 'eBay URL:', class: 'text-inherit' %>
     <div style="flex: 1;">
       <%= cd.text_field :ebay_url, placeholder: 'ebaystore.com/mystore', class: 'form-control' %>
     </div>

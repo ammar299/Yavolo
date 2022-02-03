@@ -1,8 +1,8 @@
 <!-- Upload Logo Section -->
 <div>
-  <div class="modal-body px-lg-4 pt-0">
+  <div class="modal-body p-0">
     <div class="text-center">
-      <span>
+      <span class="seller-logo-upload">
         <% url = '' %>
         <% if picture.present? && picture.name.url.present? %>
           <% url = picture.name.url %>
@@ -11,28 +11,23 @@
         <% end %>
         <%= image_tag url, class: 'preview-img mt-1 opacity-50' %>
         <%= image_tag 'yavolo-smily.png', class: 'yavolo-smily-img' %>
+        <%= form.fields_for :picture, Picture.new do |picture| %>
+          <% if picture.object.new_record? %>
+            <%= picture.file_field :name, accept: "image/*" %>
+          <% end %>
+        <% end %>
       </span>
       <input type="hidden" name="" id="preview-img-url" value="">
     </div>
-    <div class="csv-file-uploader border-none pt-2">
-      <p class="text-center">Image must be a .jpg,.gif or .png file smaller <br>
+    <div class="csv-file-uploader border-none pt-0">
+      <p class="text-center font-14px mb-2">Image must be a .jpg,.gif or .png file smaller <br>
         than 10MB and at least 500px by 500px.</p>
-      <p class="text-center">
-        <a href="#" class="btn btn-sm btn-radius px-4 btn-primary text-uppercase position-relative overflow-hidden">Browse files 
-          <%= form.fields_for :picture, Picture.new do |picture| %>
-            <% if picture.object.new_record? %>
-              <%= picture.file_field :name, accept: "image/*" %>
-            <% end %>
-          <% end %>
-        </a>
-      </p>
-      <br>
-      <p class="text-center">
+      <p class="text-center font-14px mb-0">
         <% if picture.present? %>
-          <span class="image-name pr-5"><%= picture[:name] %></span>
+          <span class="image-name pr-4"><%= picture[:name] %></span>
           <u><%= link_to "remove image", create_url(params[:controller], "remove_seller_logo", @seller.id), class: 'remove-image', remote: true, method: :delete %></u>
         <% else %>
-          <span class="image-name pr-5"></span>
+          <span class="image-name pr-4"></span>
           <u><a href="javascript:void(0);" class="remove-image"></a></u>
         <% end %>
       </p>

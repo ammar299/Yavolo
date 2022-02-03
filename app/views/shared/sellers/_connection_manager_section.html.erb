@@ -5,7 +5,7 @@
         <h5 class="mb-0">
         Manage Your Connections
         <% if current_admin.present? && admin_seller_route?(params[:controller]) %>
-          <% text = @seller.eligible_to_create_api == true ? "Disable API creation" : "Enable API creation" %>
+          <% text = @seller.eligible_to_create_api == true ? "Disable API Creation" : "Enable API Creation" %>
           <% class_to_include = @seller.eligible_to_create_api == true ? "btn-danger" : "btn-primary" %>
           <%= link_to "#{text}", confirm_change_seller_api_eligibility_admin_seller_path(@seller, param_to_update: "eligibility", came_from: 'connection_manager'), class: "btn btn-sm btn-radius px-4 #{class_to_include} mb-1 current-action", remote: true, id: "#{@seller.id}-eligibility" %>
         <% end %>

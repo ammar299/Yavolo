@@ -2099,7 +2099,7 @@ strong {
 /* ==================================================== */
 
 
-.seller-layout .sideheader {
+.sideheader {
   border-bottom: 1px solid #ffffff47;
 }
 
@@ -2225,6 +2225,7 @@ _form.html.erb
 #admin-sellers-update-form .form-group-vertical input {
   border-radius: 8px !important;
 }
+.simple_form.new_seller_api input,
 #admin-sellers-update-form .form-group-vertical label ~ input,
 #admin-sellers-update-form .form-group-vertical label ~ div {
     max-width: 400px;
@@ -2418,4 +2419,51 @@ _form.html.erb
 .mob-btns .btn {
   margin-top: 5px !important;
   margin-bottom: 5px !important;
+}
+.simple_form.edit_seller input.btn {
+  margin-top: 15px !important;
+  margin-bottom: 10px !important;
+  letter-spacing: 1.4px;
+}
+.text-change-btn,
+.reset-password-token-modal .btn {
+  letter-spacing: 1.4px;
+}
+.seller-logo-upload {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+.seller-logo-upload input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.text-change-btn {
+  min-width: 160px;
+  text-align: center;
+}
+.text-change-btn span:last-child {
+  display: none;
+}
+.text-change-btn:hover span:last-child {
+  display: inline-block;
+}
+.text-change-btn:hover span:first-child {
+  display: none;
+}
+@media screen and (max-width: 360px) {
+  .dropdown-filter-custom .input-btn-sm {
+    width: 100% !important;
+  }
+  .min-width-200 {
+    min-width: 100px;
+  }
+  .subscription-table.subscription-table-changes tr td  select.form-control {
+    max-width: 165px;
+  }
 }

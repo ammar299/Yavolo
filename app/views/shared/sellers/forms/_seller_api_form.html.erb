@@ -1,10 +1,10 @@
 <%= simple_form_for @seller_api, url: url, remote: true do |form| %>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
-    <%= form.label :developer_name, 'Developer Name:' %>
+    <%= form.label :developer_name, 'Developer Name:',class: 'text-right pr-3' %>
     <%= form.text_field :developer_name, class: 'form-control', required: true %>
   </div>
   <div class="form-group form-group-vertical form-group-vertical-responsive">
-    <%= form.label :app_name, 'App Name:' %>
+    <%= form.label :app_name, 'App Name:',class: 'text-right pr-3' %>
     <%= form.text_field :app_name, class: 'form-control', required: true %>
   </div>
   <div class="text-center">

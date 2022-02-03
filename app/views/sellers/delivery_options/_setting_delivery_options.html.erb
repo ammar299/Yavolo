@@ -6,11 +6,11 @@
           <div class="delivery-option d-flex justify-content-between align-items-center box-border yo-white-card flex-wrap">
             <div class="deliver-option-left d-flex align-items-center">
                 <div class="checkbox-right-text">
-                  <p class="mb-0 delivery-detail-bt-title"><%= delivery.name %></p>
+                  <p class="mb-0 delivery-detail-bt-title bold"><%= delivery.name %></p>
                   <%= render 'shared/delivery_ship_locations_list', delivery: delivery %>
                 </div>
             </div>
-            <div class="deliver-option-left">
+            <div class="deliver-option-left bold">
               <p class="mb-0"><%= delivery.products.count > 0  ? pluralize(delivery.products.count, 'Listing') : '0 Listing'  %><%=%></p>
             </div>
             <div>

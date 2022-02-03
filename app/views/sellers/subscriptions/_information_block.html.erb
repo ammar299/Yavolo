@@ -1,25 +1,26 @@
-<table class="table mt-2 subscription-table">
-  <tbody>
-    <tr>
-      <td class="seller-subscription-td-width">Current Subscription:</td>
-      <td id="subscription-name"><%= plan_name %></td>
-    </tr>
-    <tr>
-      <td id="subscription-expiry-date">Expires:</td>
-      <td><%= expiry_date&.strftime('%d/%m/%Y') %></td>
-    </tr>
-    <tr>
-      <td id="subscription-renewal-cost">Renewal Cost:</td>
-      <td><%= renewal_cost %></td>
-    </tr>
-    <tr>
-      <td id="subscription-renewal-cost">Renewal Date:</td>
-      <td><%= renewal_date %></td>
-    </tr>
-  
-    <tr>
-      <td id="subscription-commission">Commission:</td>
-      <td><%= plan_percentage_rephrase(seller_selected_plan) %>%</td>
-    </tr>
-  </tbody>
-</table>
+<div class="p-3">
+  <table class="table mt-2 subscription-table subscription-table-changes">
+    <tbody>
+      <tr>
+        <td class="seller-subscription-td-width">Current Subscription:</td>
+        <td id="subscription-name"><%= plan_name %></td>
+      </tr>
+      <tr>
+        <td id="subscription-expiry-date">Expires:</td>
+        <td><%= expiry_date&.strftime('%d/%m/%Y') %></td>
+      </tr>
+      <tr>
+        <td id="subscription-renewal-cost">Renewal Cost:</td>
+        <td><%= renewal_cost %></td>
+      </tr>
+      <tr>
+        <td id="subscription-renewal-cost">Renewal Date:</td>
+        <td><%= renewal_date %></td>
+      </tr>
+      <tr>
+        <td id="subscription-commission">Commission:</td>
+        <td><%= plan_percentage_rephrase(seller_selected_plan) %>%</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
