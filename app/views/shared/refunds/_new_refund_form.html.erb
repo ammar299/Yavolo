@@ -3,7 +3,7 @@
     <div class="refund-detail-header">
       <span>Refund Details</span>
     </div>
-    <div class="refund-detail-body mt-3">
+    <div class="refund-detail-body">
       <div class="row">
         <div class="col-lg-6">
               <span>
@@ -46,21 +46,21 @@
       <% end %>
     </div>
   </div>
-  <div class="refund-detail-block">
+  <div class="refund-detail-block refund-responsive">
     <div class="refund-detail-header d-flex justify-content-between align-items-center mt-3">
       <div>
         <span>Order #<%= order.order_number %></span>
       </div>
-      <div class="d-flex align-items-center flex-wrap">
+      <div class="d-flex align-items-center flex-wrap justify-content-end" style="width: 50%">
         <% if current_admin.present? %>
-          <div class="white-mark mr-5">
+          <div class="white-mark" style="width: 43%">
             <label class="checkbox-blk mb-0 refund_option_checkboxes"> Keep Sales Commission
               <input type="checkbox" name="keep_sales_commission">
               <span class="checkmark check-mark-white"></span>
             </label>
           </div>
         <% end %>
-        <div class="white-mark ml-5">
+        <div class="white-mark" style="width: 40%, text-right">
           <label class="checkbox-blk mb-0 refund_option_checkboxes"> Issue Full Refund
             <input type="checkbox" name="issue_full_refund">
             <span class="checkmark check-mark-white"></span>
