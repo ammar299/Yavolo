@@ -118,7 +118,7 @@
               <td><%= date_format_UK(seller.created_at) %></td>
               <td>Show the last sale date</td>
               <td class="text-center">Show the number of active listings</td>
-              <td class="text-center">Show the total sales</td>
+              <td class="text-center"><%= number_to_currency((number_with_precision(total_sale_price_seller(seller), :precision => 2) || 0), unit: '£')%></td>
               <td class="account-status text-center">
                 <% account_status = account_status_to_show(seller) %>
                 <%= account_status.humanize %>

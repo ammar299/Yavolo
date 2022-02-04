@@ -1188,7 +1188,8 @@ window.validateProductForm = function(custom_rules = {}, custom_messages = {}) {
     },
     "product[ean]": {
       required: true,
-      maxlength: 13
+      maxlength: 13,
+      digits: '/^(0|[1-9]\d*)$/'
     },
     "product[price]": {
       required: true,
@@ -1223,7 +1224,8 @@ window.validateProductForm = function(custom_rules = {}, custom_messages = {}) {
       required: "Title can\'t be blank"
     },
     "product[ean]": {
-      required: "EAN can\'t be blank"
+      required: "EAN can\'t be blank",
+      digits: 'Please enter value without decimal'
     },
     "product[price]": {
       required: "Price can\'t be blank",

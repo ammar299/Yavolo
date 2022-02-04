@@ -89,6 +89,14 @@ module Admin::SellersHelper
     SellerApi.find_by(id: id)&.developer_name
   end
 
+  def total_sale_price_seller(seller)
+    price = 0
+    LineItem.user_own_order_line_items(seller).where("transfer_status = ? AND commission_status = ?", 1,0).each do |line_item|
+      price += line_item.quantity * line_item.price
+    end
+    price
+  end
+
   def invoice_total(invoice)
     amount = invoice.total * 0.01
     if invoice.description == "Sales commission"
