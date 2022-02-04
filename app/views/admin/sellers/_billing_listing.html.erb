@@ -9,9 +9,10 @@
               <th>invoice #</th>
               <th>total</th>
               <th>description</th>
-              <th>Date Generated</th>
-              <th>due date</th>
-              <th>status</th>
+              <th class="text-center">Date Generated</th>
+              <th class="text-center">due date</th>
+              <th class="text-center">status</th>
+              <th class="text-center">Change status</th>
             </tr>
           </thead>
           <tbody>
@@ -20,9 +21,10 @@
                 <td>YAV<%= 100 + index  %></td>
                 <td><%= invoice_total(invoice) %></td>
                 <td><%= invoice&.description  %></td>
-                <td><%= invoice&.date_generated&.strftime('%d/%m/%Y') %></td>
-                <td><%= invoice&.due_date&.strftime('%d/%m/%Y') %></td>
-                <td><%= invoice&.status.capitalize %></td>
+                <td class="text-center"><%= invoice&.date_generated&.strftime('%d/%m/%Y') %></td>
+                <td class="text-center"><%= invoice&.due_date&.strftime('%d/%m/%Y') %></td>
+                <td class="text-center"><%= invoice&.status.capitalize %></td>
+                <td class="text-right"><select class="form-control w-100"><option></option><option></option></select></td>
               </tr>
             <%end%>
           </tbody>

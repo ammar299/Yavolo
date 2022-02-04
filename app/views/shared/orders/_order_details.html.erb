@@ -46,70 +46,72 @@
 </div>
 <div class="row">
   <div class="col-lg-12">
-    <div class="Yavolo-table">
-      <table class="table m-0">
-        <thead class="">
-        <tr>
-          <th width="30%">
-            <%= @order_line_items.count %> item<span class="th-lowercase">(s)</span>
-          </th>
-          <% if current_admin.present? && admin_route?(params[:controller]) %>
-            <th width="25%">Seller</th>
-          <% end %>
-          <th>Quantity</th>
-          <th>Price</th>
-          <th>Postage</th>
-          <th>Tax</th>
-          <th class="text-right">Total</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% @order_line_items.each do |order_line_item| %>
+    <div class="yo-white-card box-border order-view-tbl">
+      <div class="Yavolo-table">
+        <table class="table m-0">
+          <thead class="">
           <tr>
-            <td>
-              <span><u><%= order_line_item&.product&.title %></u></span>
-            </td>
+            <th width="30%">
+              <%= @order_line_items.count %> item<span class="th-lowercase">(s)</span>
+            </th>
             <% if current_admin.present? && admin_route?(params[:controller]) %>
-              <td>
-                <span><u><%= "#{order_line_item&.product&.owner&.company_detail&.legal_business_name}" %></u></span>
-              </td>
+              <th width="25%">Seller</th>
             <% end %>
-            <td>
-              <%= order_line_item.quantity %>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Postage</th>
+            <th>Tax</th>
+            <th class="text-right">Total</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @order_line_items.each do |order_line_item| %>
+            <tr>
+              <td>
+                <span><u><%= order_line_item&.product&.title %></u></span>
+              </td>
+              <% if current_admin.present? && admin_route?(params[:controller]) %>
+                <td>
+                  <span><u><%= "#{order_line_item&.product&.owner&.company_detail&.legal_business_name}" %></u></span>
+                </td>
+              <% end %>
+              <td>
+                <%= order_line_item.quantity %>
+              </td>
+              <td>
+                £<%= order_line_item.product&.price %>
+              </td>
+              <td>
+                £0.00
+              </td>
+              <td>
+                £0.00
+              </td>
+              <td class="text-right">
+                <%= get_price_in_pounds(order_line_item.product&.price * order_line_item.quantity) %>
+              </td>
+            </tr>
+          <% end %>
+          <tr>
+            <td colspan="<%= current_admin.present? ? '3' : '2' %>">
+              <p class="font-14px mb-0"><strong>Total</strong></p>
             </td>
             <td>
-              £<%= order_line_item.product&.price %>
+              <p class="font-14px mb-0"><strong><%= get_price_in_pounds(@order_line_items.map {|oli| oli&.product&.price}.sum) %></strong></p>
             </td>
             <td>
-              £0.00
+              <p class="font-14px mb-0"><strong>£0.00</strong></p>
             </td>
             <td>
-              £0.00
+              <p class="font-14px mb-0"><strong>£0.00</strong></p>
             </td>
             <td class="text-right">
-              <%= get_price_in_pounds(order_line_item.product&.price * order_line_item.quantity) %>
+              <p class="font-14px mb-0"><strong><%= get_price_in_pounds(@order_line_items.map {|oli| oli.quantity * oli.product&.price}.sum) %></strong></p>
             </td>
           </tr>
-        <% end %>
-        <tr>
-          <td colspan="<%= current_admin.present? ? '3' : '2' %>">
-            <p class="font-14px mb-0"><strong>Total</strong></p>
-          </td>
-          <td>
-            <p class="font-14px mb-0"><strong><%= get_price_in_pounds(@order_line_items.map {|oli| oli&.product&.price}.sum) %></strong></p>
-          </td>
-          <td>
-            <p class="font-14px mb-0"><strong>£0.00</strong></p>
-          </td>
-          <td>
-            <p class="font-14px mb-0"><strong>£0.00</strong></p>
-          </td>
-          <td class="text-right">
-            <p class="font-14px mb-0"><strong><%= get_price_in_pounds(@order_line_items.map {|oli| oli.quantity * oli.product&.price}.sum) %></strong></p>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

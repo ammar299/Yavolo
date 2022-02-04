@@ -2,9 +2,9 @@
   <h5 class="mb-3">Holiday Mode</h5>
   <%= simple_form_for @seller, url: url, html: { class: 'mt-2' }, remote: true do |form| %>
     <section class="holiday-mode yo-white-card box-border p-1">
-      <div class="d-flex my-3 ml-lg-4">
+      <div class="d-flex my-3 ml-4 flex-wrap">
         <div class="pr-5 d-flex align-items-center">
-          <label class="checkbox-blk mt-2 pl-0">Holiday Mode: </label>
+          <label class="checkbox-blk mt-2 pl-0 text-nowrap">Holiday Mode: </label>
           <label class="checkbox-blk mt-2 ml-3">Enabled
             <%= form.radio_button :holiday_mode, '1', checked: @seller.holiday_mode, class: '' %>
             <span class="checkmark"></span>
@@ -23,6 +23,6 @@
     <section class="holiday-mode holy-mode-notice yo-white-card box-border p-0 pt-2">
       <%= form.text_area :holiday_reason, class: "form-control",  rows: "5" %>
     </section>
-    <%= form.submit 'Edit Notice', class: "btn btn-radius px-3 btn-sm btn-primary mb-3" %>
+    <%= form.submit 'EDIT NOTICE', class: "btn btn-radius px-3 btn-sm btn-primary mb-3 spacing" %>
   <% end %>
 </div>

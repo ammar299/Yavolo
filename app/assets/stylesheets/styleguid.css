@@ -660,14 +660,17 @@ textarea.form-control {
     color: var(--dark-red);
     cursor: pointer;
     font-size: 33px;
-    padding: 7px 12px !important;
+    padding: 0 !important;
     display: flex;
     align-items: center;
     opacity: 1;
     outline: none;
     position: absolute;
-    right: 20px;
+    right: 29px;
     z-index: 1;
+    height: 20px;
+    width: 20px;
+    top: 30px;
 }
 .csv-file-uploader {
     border-radius: 8px;

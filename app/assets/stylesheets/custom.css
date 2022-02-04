@@ -690,12 +690,14 @@ select.form-control {
   .dashboard-page .leftside {
     top: 80px;
   }
-
   .dashboard-page.toggle-close .rightside {
     padding-left: 0 !important;
   }
   .menu-icon {
     display: inline-block;
+  }
+  .menuBtn.side-bar-nav-toggle {
+    display: none;
   }
 }
 @media only screen and (max-width: 480px) {
@@ -720,6 +722,11 @@ select.form-control {
   #admin-sellers-update-form .form-group-vertical label {
     text-align: left !important;
   }
+  .all-products-header .all-products-header-right,
+  .all-products-header {
+    justify-content: flex-start !important;
+  }
+
 }
 
 /* naseer */
@@ -1289,7 +1296,17 @@ width: 75%;
   padding: 5px 2px 5px 5px !important;
   width: 75px;
 }
-
+@media screen and (max-width: 768px) {
+	.refund-detail-block.refund-responsive {
+    overflow-x: auto;
+  }
+  .refund-detail-block.refund-responsive .refund-detail-header {
+    min-width: 900px;
+  }
+  .refund-detail-block.refund-responsive .refund-detail-body-row {
+    min-width: 900px;
+  }
+}
 @media screen and (max-width: 767px) {
 	.seller-account-delivery-setting {
 		width: 100%;
@@ -1314,12 +1331,17 @@ width: 75%;
     background-color: #fff;
     border-radius: 12px;
     font-size: 12px;
+    padding-top: 10px;
 }
 .refund-detail-body textarea.form-control {
   border-color: var(--dark-red) !important;
   border-radius: 6px !important;
   font-size: 12px;
   min-height: 80px;
+}
+.refund-table thead tr th,
+.refund-table thead tr td {
+  padding-bottom: 10px;
 }
 .add-new-seller-form label {
   font-size: 14px;
@@ -1392,13 +1414,13 @@ width: 75%;
     margin: 0;
 }
 .refund-detail-body td {
-    width: 20%;
+    width: 25%;
 }
 .refund-detail-body td:first-child {
-    width: 40%;
+    width: 25%;
 }
 .refund-subtotal-table td:first-child {
-    width: 60% !important;
+    width: 50% !important;
 }
 /* .refund-table tbody tr td {
 	border: 1px solid;
@@ -1454,6 +1476,7 @@ width: 75%;
 	font-size: 12px;
 	height: 38px;
   text-decoration: none;
+  font-weight: 400;
   }
   .bg-hvr-dropdown .dropdown-filter.show .btn-link-dropdown,
   .bg-hvr-dropdown .btn-link:hover {
@@ -2099,7 +2122,7 @@ strong {
 /* ==================================================== */
 
 
-.seller-layout .sideheader {
+.sideheader {
   border-bottom: 1px solid #ffffff47;
 }
 
@@ -2210,6 +2233,17 @@ _form.html.erb
     height: 80px;
     padding-top: 15px;
 }
+.order-view-tbl .Yavolo-table table thead tr th {
+  background-color: transparent;
+  color: var(--dark-red);
+  font-weight: 600;
+  border-bottom: 1px solid (--dark-red) !important;
+  line-height: 16px;
+}
+.order-view-tbl .Yavolo-table table tbody tr {
+  border-top: 1px solid var(--dark-red);
+  border-bottom: 0;
+}
 
 /*============= unsigned seller footer  ============*/
 
@@ -2225,6 +2259,7 @@ _form.html.erb
 #admin-sellers-update-form .form-group-vertical input {
   border-radius: 8px !important;
 }
+.simple_form.new_seller_api input,
 #admin-sellers-update-form .form-group-vertical label ~ input,
 #admin-sellers-update-form .form-group-vertical label ~ div {
     max-width: 400px;
@@ -2418,4 +2453,67 @@ _form.html.erb
 .mob-btns .btn {
   margin-top: 5px !important;
   margin-bottom: 5px !important;
+}
+.simple_form.edit_seller input.btn {
+  margin-top: 15px !important;
+  margin-bottom: 10px !important;
+  letter-spacing: 1.4px;
+}
+.text-change-btn,
+.reset-password-token-modal .btn {
+  letter-spacing: 1.4px;
+}
+.seller-logo-upload {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+.seller-logo-upload input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.text-change-btn {
+  min-width: 160px;
+  text-align: center;
+}
+.text-change-btn span:last-child {
+  display: none;
+}
+.text-change-btn:hover span:last-child {
+  display: inline-block;
+}
+.text-change-btn:hover span:first-child {
+  display: none;
+}
+.ship-data {
+  white-space: nowrap;
+}
+.ship-data input {
+  width: 86px;
+  background-color: transparent !important;
+}
+@media screen and (min-width: 768px) {
+  .custom-width-change {
+    flex: 0 0 46%;
+    max-width: 46%;
+  }
+}
+@media screen and (max-width: 360px) {
+  .dropdown-filter-custom .input-btn-sm {
+    width: 100% !important;
+  }
+  .min-width-200 {
+    min-width: 100px;
+  }
+  .subscription-table.subscription-table-changes tr td  select.form-control {
+    max-width: 165px;
+  }
+}
+.spacing {
+  letter-spacing: 1.4px;
 }

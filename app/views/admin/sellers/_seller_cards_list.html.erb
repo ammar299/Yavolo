@@ -26,7 +26,7 @@
             </table>
           </div>
           <a href="#" name="/admin/sellers/<%=payment_method.id%>/remove_seller_card?id=<%=payment_method.id%>" class="btn btn-sm btn-radius px-4 btn-primary mb-3 card-delete-by-admin">Remove</a>
-          <%= render 'shared/simple_confirm_modal', confirm_statement: 'Are you sure you want to remove this card?', id: 'membership-card-remove-admin',path: '#', data: "", modal_id: 'membership-card-remove-confirm-admin' %>
+          <%= render 'shared/simple_confirm_modal', confirm_statement: "Are you sure you want to remove the card ending in *#{payment_method.last_digits || ""}?", id: 'membership-card-remove-admin',path: '#', data: "", modal_id: 'membership-card-remove-confirm-admin' %>
           
           <%if payment_method.default_status == true %>
             <a href="#default" name="" class="btn btn-sm btn-radius px-4 btn-primary mb-3 disabled">Prefered payment method</a>
@@ -53,7 +53,7 @@
             </table>
           </div>
           <a href="#" name="/admin/sellers/<%=payment_method.id%>/remove_seller_card?id=<%=payment_method.id%>" class="btn btn-sm btn-radius px-4 btn-primary mb-3 card-delete-by-admin">Remove</a>
-          <%= render 'shared/simple_confirm_modal', confirm_statement: 'Are you sure you want to remove this card?', id: 'membership-card-remove-admin',path: '#', data: "", modal_id: 'membership-card-remove-confirm-admin' %>
+          <%= render 'shared/simple_confirm_modal', confirm_statement: "Are you sure you want to remove the card ending in *#{payment_method.last_digits || ""}?", id: 'membership-card-remove-admin',path: '#', data: "", modal_id: 'membership-card-remove-confirm-admin' %>
           
           <%if payment_method.default_status == true %>
             <a href="#default" name="" class="btn btn-sm btn-radius px-4 btn-primary mb-3 disabled">Set as prefered payment method</a>

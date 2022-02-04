@@ -1708,6 +1708,7 @@ function emailErrorRemovedBaackend(){
  })
 }
 
+// TODO: bindSellerCsvPopup function is using two times here
 function bindSellerCsvPopup(){
   $(".upload-sellers-csv-btn").click(function () {
     $("#upload-sellers-csv-popup").modal("show");

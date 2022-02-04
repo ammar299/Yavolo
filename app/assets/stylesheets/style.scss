@@ -15,6 +15,8 @@
 }
 .account-link {
   font-weight: 600;
+  text-decoration: none !important;
+  margin-top: 20px;
 }
 label {
   text-transform: capitalize;
@@ -1254,6 +1256,18 @@ h6 {
   // vertical-align: middle;
   color: var(--dark-red);
 }
+.enforce-subscription-dropdown label,
+.subscription-table.subscription-table-changes tr td:first-child {
+  font-weight: 600;
+}
+.subscription-table.subscription-table-changes tr td {
+  padding: 5px !important;
+  vertical-align: middle;
+}
+.subscription-table.subscription-table-changes .enforce-subscription-dropdown {
+  align-items: center !important;
+  white-space: nowrap;
+}
 .select-width {
   width: 150px;
 }
@@ -1597,10 +1611,10 @@ h6 {
 }
 
 #update-seller-form {
-  .preview-img {
-    height: 100px;
-    width: 100px;
-    object-fit: contain;
+  img {
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
   }
 }
 
@@ -1922,7 +1936,7 @@ select.new-select {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
 }
 .sign-in form input {
   border-radius: 12px;
@@ -2057,7 +2071,7 @@ select.new-select {
   z-index: 55556;
 }
 .dashboard-page .leftside .sideheader {
-  padding: 15px 36px;
+  padding: 11px 36px 10px 36px;
   white-space: nowrap;
 }
 .dashboard-page .rightside {
@@ -3555,9 +3569,23 @@ input::-webkit-inner-spin-button {
 }
 .modal-header .close {
   padding: 6px 9px !important;
+  background: image_url('cross.svg') no-repeat;
+  text-indent: -9999px;
+  background-size: 16px;
+  background-position: center;
 }
 @media screen and (max-width: 767px) {
   .seller-account-delivery-setting {
+    width: 100%;
+  }
+  .subscription-table.subscription-table-changes tr td.d-flex,
+  .subscription-table.subscription-table-changes tr td div {
+    flex-wrap: wrap !important;
+  }
+  .subscription-table.subscription-table-changes tr td {
+    vertical-align: top;
+  }
+  .subscription-table.subscription-table-changes tr td  select.form-control {
     width: 100%;
   }
 }
@@ -3652,7 +3680,9 @@ input::-webkit-inner-spin-button {
 .holy-mode-notice textarea {
   border: 0 !important;
 }
-
+.notifications .seller-product-table tr td{
+  border-radius: 8px !important;
+}
 @media screen and (min-width: 1537px) {
   .pdp-footer-2 .pdp-footer-2-list li {
     margin-left: 40px;
